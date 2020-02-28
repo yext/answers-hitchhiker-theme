@@ -1,10 +1,14 @@
-<script>
-	{{#> script_core }}
-	{{> universal_script_searchbar }}
-	{/script_core }}
-</script>
-<div id="answers-container" class="section">
-	<div class="row">
-		{{> universal_markup_searchbar }}
-	</div>
+<div>
+  {{#> script_core }}
+    {{> templates_universal_script_searchbar }}
+    {{> templates_universal_script_spellcheck }}
+    {{> templates_universal_script_universalresults }}
+    {{> templates_universal_script_qasubmission }}
+  {{/script_core}}
+  <div class="answers-container">
+    {{> templates_universal_markup_searchbar }}
+    {{> templates_universal_markup_spellcheck }}
+    {{> templates_universal_markup_universalresults }}
+    {{> templates_universal_markup_qasubmission }}
+  </div>
 </div>

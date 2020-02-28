@@ -1,3 +1,7 @@
-ANSWERS.init(Object.assign({{ global_config }}, onReady: {
-    {{> @partial-block }}
-}));
+<link rel="stylesheet" type="text/css" href="https://assets.sitescdn.net/answers/v0.12.0/answers.css">
+<script src="https://assets.sitescdn.net/answers/v0.12.0/answers.min.js"></script>
+<script>
+  ANSWERS.init(Object.assign({{{ json global_config }}}, { onReady: () => {
+      {{> @partial-block }}
+  }}));
+</script>
