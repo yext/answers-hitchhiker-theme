@@ -1,0 +1,14 @@
+{
+  "currentVertical": "<REPLACE ME>",
+  "componentSettings": {
+    "QASubmission": {
+      "entityId": "<REPLACE ME>"
+    },
+    "SearchBar": {
+      "verticalKey": "<REPLACE ME>"
+    },
+    "VerticalResults": {
+      "verticalKey": "<REPLACE ME>"
+    }
+  }
+}
