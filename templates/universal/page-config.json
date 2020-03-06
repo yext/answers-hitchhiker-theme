@@ -1,0 +1,10 @@
+{
+  "componentSettings": {
+    "SearchBar": {},
+    "UniversalResults": {},
+    "SpellCheck": {},
+    "QASubmission": {
+      "entityId": "<REPLACE ME>"
+    }
+  }
+}
