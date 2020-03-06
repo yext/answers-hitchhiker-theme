@@ -6,7 +6,7 @@ ANSWERS.addComponent('Navigation', Object.assign({{{ json componentSettings.navi
       {{#ifeq ../currentVertical @key }}isActive: true,{{/ifeq}}
       {{#ifeq isFirst 'true'}}isFirst: true,{{/ifeq}}
       {{#ifeq hideInNavigation 'true'}}hideInNavigation: true,{{/ifeq}}
-      {{#if verticalKey}}verticalKey: '{{verticalKey}}',{{/if}}
+      verticalKey: '{{@key}}',
       url: '{{url}}',
       icon: '{{icon}}',
       label: '{{label}}'
