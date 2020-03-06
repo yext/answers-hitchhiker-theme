@@ -1,7 +1,11 @@
-<link rel="stylesheet" type="text/css" href="https://assets.sitescdn.net/answers/v0.12.0/answers.css">
-<script src="https://assets.sitescdn.net/answers/v0.12.0/answers.min.js"></script>
+<link rel="stylesheet" type="text/css" href="./answers.css">
+<script src="./answerstemplates.compiled.min.js"></script>
 <script>
-  ANSWERS.init(Object.assign({{{ json global_config }}}, { onReady: () => {
+  function initAnswers() {
+    ANSWERS.init(Object.assign({"templateBundle": TemplateBundle.default}, {{{ json global_config }}}, { onReady: () => {
       {{> @partial-block }}
-  }}));
+    }}));
+  };
 </script>
+<script src="./answers.js" onload="initAnswers()" async></script>
+
