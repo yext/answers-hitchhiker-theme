@@ -1,3 +1,17 @@
 ANSWERS.addComponent('VerticalResults', Object.assign({{{ json componentSettings.VerticalResults }}}, {
   container: '#standard-searchresults-container',
+  {{#each global_config.verticalSettings}}
+    {{#ifeq @key ../currentVertical}}
+      {{#with card}}
+        card: {
+          cardType: '{{cardType}}',
+          cardMappings: {
+          {{#each cardMappings}}
+            {{@key}}: {{{this}}}{{#unless @last}},{{/unless}}
+          {{/each}}
+          }
+        }
+      {{/with}}
+    {{/ifeq}}
+  {{/each}}
 }));

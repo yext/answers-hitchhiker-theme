@@ -10,7 +10,13 @@
       "label": "<REPLACE ME>",
       "url": "<REPLACE ME>",
       "isFirst": "<REPLACE ME>",
-      "card": "<REPLACE ME>"
+      "card": {
+        "cardType": "<REPLACE ME>",
+        "cardMappings": {
+          "title": "<REPLACE ME>",
+          "details": "<REPLACE ME>"
+        }
+      }
     }
   }
 }
