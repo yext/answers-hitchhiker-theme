@@ -1,0 +1,14 @@
+{
+  "name": "answers-hitchhiker-theme",
+  "version": "1.0.0",
+  "description": "Toolchain for use with the HH Theme",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "tmeyer@yext.com",
+  "license": "BSD-3-Clause",
+  "devDependencies": {
+    "grunt": "^1.0.4"
+  }
+}
