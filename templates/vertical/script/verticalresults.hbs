@@ -3,13 +3,10 @@ ANSWERS.addComponent('VerticalResults', Object.assign({{{ json componentSettings
   {{#each global_config.verticalSettings}}
     {{#ifeq @key ../currentVertical}}
       {{#with card}}
+        {{#with cardMappings}}{{> (lookup . 'mappingTemplate')}}{{/with}}
         card: {
           cardType: '{{cardType}}',
-          cardMappings: {
-          {{#each cardMappings}}
-            {{@key}}: {{{this}}}{{#unless @last}},{{/unless}}
-          {{/each}}
-          }
+          cardMappings: {{#with cardMappings}}{{> (lookup . 'mappingTemplate')}}{{/with}}
         }
       {{/with}}
     {{/ifeq}}

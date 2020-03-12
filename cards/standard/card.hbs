@@ -1,0 +1,29 @@
+<div class="yxt-StandardCard">
+  <div class="yxt-StandardCard-wrapper">
+    <div class="yxt-StandardCard-contentWrapper">
+      {{#if _config.title}}
+      <div class="yxt-StandardCard-title">
+        <a {{#if _config.url}} href="{{_config.url}}" target={{#if _config.newWindow}}"_blank"
+          rel="noopener noreferrer nofollow" {{else}}"_self"{{/if}} {{/if}}>
+          {{_config.title}}
+        </a>
+      </div>
+      {{/if}}
+      {{#if _config.subtitle}}
+      <div class="yxt-StandardCard-subtitle">
+        {{_config.subtitle}}
+      </div>
+      {{/if}}
+      <div class="yxt-StandardCard-content">
+        {{#if details}}
+        <div class="yxt-StandardCard-details">
+          <div class="yxt-StandardCard-detailsText">
+            {{details}}
+          </div>
+        </div>
+        {{/if}}
+        <div class="yxt-StandardCard-ctas" data-component="CTACollection" data-prop="result"></div>
+      </div>
+    </div>
+  </div>
+</div>

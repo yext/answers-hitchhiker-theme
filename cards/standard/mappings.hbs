@@ -1,0 +1,14 @@
+{
+{{#each global_config.verticalSettings}}
+  {{#ifeq @key ../currentVertical}}
+    {{#with cardMappings}}
+      title: (item) => {
+        {{#if title.value}}{{title.value}}{{else}}{{#if title.field}}item.{{title.field}}{{else}}item.title{{/if}}{{/if}}
+      },
+      details: (item) => {
+        {{#if details.value}}{{details.value}}{{else}}{{#if details.field}}item.{{details.field}}{{else}}item.details{{/if}}{{/if}}
+      }
+    {{/with}}
+  {{/ifeq}}
+{{/each}}
+}
