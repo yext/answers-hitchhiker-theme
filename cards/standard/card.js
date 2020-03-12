@@ -63,7 +63,7 @@ export default class HitchhikerStandardCardComponent extends ANSWERS.Component {
   }
 
   static get type() {
-    return 'HitchhikerHitchhikerStandardCard';
+    return 'HitchhikerStandardCard';
   }
 
   static areDuplicateNamesAllowed() {
