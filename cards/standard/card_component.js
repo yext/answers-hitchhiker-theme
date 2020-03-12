@@ -1,4 +1,4 @@
-const template = `{{> standard_card }}`;
+const template = `{{> standard_card_template }}`;
 
 class HitchhikerStandardCardConfig {
   constructor(config = {}) {
@@ -23,10 +23,32 @@ class HitchhikerStandardCardConfig {
 
     this.callsToActionFields = this.callsToActionFields || [];
   }
+
+  /**
+   * Used to apply given card mappings from config.
+   * @param {Result} result
+   * @param {Object|Function} cardMappings
+   */
+  applyCardMappings(result, cardMappings) {
+    const config = {};
+    if (typeof cardMappings === 'function') {
+      cardMappings = cardMappings(result);
+    }
+    if (typeof cardMappings === 'object') {
+      Object.entries(cardMappings).forEach(([attribute, value]) => {
+        if (typeof value === 'function') {
+          config[attribute] = value(result);
+        } else {
+          config[attribute] = value;
+        }
+      });
+    }
+    return config;
+  }
 }
 
 
-export default class HitchhikerStandardCardComponent extends ANSWERS.Component {
+class HitchhikerStandardCardComponent extends ANSWERS.Component {
   constructor(config = {}, systemConfig = {}) {
     super(new HitchhikerStandardCardConfig(config), systemConfig);
 
