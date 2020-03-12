@@ -2,13 +2,10 @@ ANSWERS.addComponent('VerticalResults', Object.assign({{{ json componentSettings
   container: '#standard-searchresults-container',
   {{#each verticalsToConfig}}
     {{#ifeq @key ../currentVertical}}
-      {{#with card}}
-        {{#with cardMappings}}{{> (lookup . 'mappingTemplate')}}{{/with}}
-        card: {
-          cardType: '{{cardType}}',
-          cardMappings: {{#with cardMappings}}{{> (lookup . 'mappingTemplate')}}{{/with}}
-        }
-      {{/with}}
+      card: {
+        {{#if cardType}}cardType: '{{cardType}}',{{/if}}
+        {{#if cardMappings}}cardMappings: {{#with cardMappings}}{{> (lookup . 'mappingTemplate')}}{{/with}}{{/if}}
+      }
     {{/ifeq}}
   {{/each}}
 }));
