@@ -1,6 +1,6 @@
 ANSWERS.addComponent('VerticalResults', Object.assign({{{ json componentSettings.VerticalResults }}}, {
   container: '#standard-searchresults-container',
-  {{#each global_config.verticalSettings}}
+  {{#each verticalsToConfig}}
     {{#ifeq @key ../currentVertical}}
       {{#with card}}
         {{#with cardMappings}}{{> (lookup . 'mappingTemplate')}}{{/with}}
