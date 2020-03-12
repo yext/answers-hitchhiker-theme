@@ -1,6 +1,6 @@
-const template = `{{> standard_card_template }}`;
+const template = `{{{read 'cards_standard_card_template' }}}`;
 
-class HitchhikerStandardCardConfig {
+class StandardCardConfig {
   constructor(config = {}) {
     Object.assign(this, config);
 
@@ -48,9 +48,9 @@ class HitchhikerStandardCardConfig {
 }
 
 
-class HitchhikerStandardCardComponent extends ANSWERS.Component {
+class StandardCardComponent extends ANSWERS.Component {
   constructor(config = {}, systemConfig = {}) {
-    super(new HitchhikerStandardCardConfig(config), systemConfig);
+    super(new StandardCardConfig(config), systemConfig);
 
     const data = config.data || {};
 
@@ -79,13 +79,13 @@ class HitchhikerStandardCardComponent extends ANSWERS.Component {
       callsToAction: this._config.callsToAction,
       callsToActionFields: this._config.callsToActionFields,
       isUniversal: this._config.isUniversal,
-      _ctaModifiers: ['HitchhikerStandardCard'],
+      _ctaModifiers: ['StandardCard'],
       ...opts
     });
   }
 
   static get type() {
-    return 'HitchhikerStandardCard';
+    return 'StandardCard';
   }
 
   static areDuplicateNamesAllowed() {
@@ -93,4 +93,4 @@ class HitchhikerStandardCardComponent extends ANSWERS.Component {
   }
 }
 
-ANSWERS.registerComponentType(HitchhikerStandardCardComponent);
+ANSWERS.registerComponentType(StandardCardComponent);
