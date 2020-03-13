@@ -22,8 +22,25 @@
           </div>
         </div>
         {{/if}}
-        <div class="yxt-StandardCard-ctas" data-component="CTACollection" data-prop="result"></div>
+        {{#each card.callsToAction}}
+          {{> CTA cta=this}}
+        {{/each}}
       </div>
     </div>
   </div>
 </div>
+
+{{#*inline 'CTA'}}
+<a class='yxt-CTA js-yxt-CTA{{#each modifiers}} yxt-CTA--{{this}}{{/each}}' {{#if url}} href="{{url}}"
+  target={{#if newWindow}}"_blank" rel="noopener noreferrer nofollow" {{else}}"_self"{{/if}} {{/if}}>
+  {{#if iconName}}
+    <div class="yxt-CTA-icon"
+         data-component="IconComponent"
+         data-opts='{ "iconName": "{{iconName}}" }'>
+    </div>
+  {{/if}}
+  <div class='yxt-CTA-iconLabel'>
+    {{label}}
+  </div>
+</a>
+{{/inline}}

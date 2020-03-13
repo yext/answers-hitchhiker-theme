@@ -12,14 +12,22 @@ class StandardCardComponent extends ANSWERS.Component {
     let details = profile.description;
     let titleUrl = profile.websites;
     let urlShouldOpenInNewWindow = true;
+    let callsToAction = [
+      {
+        url: profile.c_primaryCTA,
+        iconName: 'chevron',
+        label: 'View Details'
+      }
+    ];
 
     return {
       title: title,
       titleUrl: titleUrl,
       newWindow: urlShouldOpenInNewWindow,
       subtitle: subtitle,
-      details: details
-    }
+      details: details,
+      callsToAction: callsToAction
+    };
   }
 
   /***********************************************
