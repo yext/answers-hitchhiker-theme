@@ -1,24 +1,24 @@
 <div class="yxt-StandardCard">
   <div class="yxt-StandardCard-wrapper">
     <div class="yxt-StandardCard-contentWrapper">
-      {{#if _config.title}}
+      {{#if card.title}}
       <div class="yxt-StandardCard-title">
-        <a {{#if _config.url}} href="{{_config.url}}" target={{#if _config.newWindow}}"_blank"
+        <a {{#if card.titleUrl}} href="{{card.titleUrl}}" target={{#if card.newWindow}}"_blank"
           rel="noopener noreferrer nofollow" {{else}}"_self"{{/if}} {{/if}}>
-          {{_config.title}}
+          {{card.title}}
         </a>
       </div>
       {{/if}}
-      {{#if _config.subtitle}}
+      {{#if card.subtitle}}
       <div class="yxt-StandardCard-subtitle">
-        {{_config.subtitle}}
+        {{card.subtitle}}
       </div>
       {{/if}}
       <div class="yxt-StandardCard-content">
-        {{#if details}}
-        <div class="yxt-StandardCard-details">
+        {{#if card.details}}
+        <div class="yxt-StandardCard-card.details">
           <div class="yxt-StandardCard-detailsText">
-            {{details}}
+            {{card.details}}
           </div>
         </div>
         {{/if}}
