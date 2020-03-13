@@ -11,7 +11,6 @@ ANSWERS.addComponent('VerticalResults', Object.assign({{{ json componentSettings
     {{#ifeq @key ../currentVertical}}
       card: {
         {{#if cardType}}cardType: '{{cardType}}',{{/if}}
-        {{#if cardMappings}}cardMappings: {{#with cardMappings}}{{> (lookup . 'mappingTemplate')}}{{/with}}{{/if}}
       }
     {{/ifeq}}
   {{/each}}

@@ -19,19 +19,7 @@
   ],
   "verticalsToConfig": {
     "<REPLACE ME>": {
-      "cardType": "<REPLACE ME>",
-      "cardMappings": {
-        "mappingTemplate": "<REPLACE ME>",
-        "title": {
-          "value": "<REPLACE ME>"
-        },
-        "details": {
-          "field": "<REPLACE ME>"
-        },
-        "subtitle": {
-          "field": "<REPLACE ME>"
-        }
-      }
+      "cardType": "<REPLACE ME>"
     }
   }
 }
