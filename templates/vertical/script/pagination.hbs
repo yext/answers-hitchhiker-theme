@@ -1,3 +1,10 @@
 ANSWERS.addComponent('Pagination', Object.assign({{{ json componentSettings.Pagination }}}, {
-  container: '#standard-pagination-container'
+  container: '#standard-pagination-container',
+  {{#if componentSettings.Pagination.verticalKey}}
+    verticalKey: '{{componentSettings.Pagination.verticalKey}}',
+  {{else}}
+    {{#if currentVertical}}
+      verticalKey: '{{currentVertical}}',
+    {{/if}}
+  {{/if}}
 }));

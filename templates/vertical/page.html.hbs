@@ -1,8 +1,8 @@
 <div>
   {{#> script_core }}
+    {{> (registerCardComponent this currentVertical) }}
     {{> templates_vertical_script_searchbar}}
     {{> templates_vertical_script_spellcheck}}
-    {{> templates_vertical_script_navigation}}
     {{> templates_vertical_script_verticalresults}}
     {{> templates_vertical_script_pagination}}
     {{> templates_vertical_script_locationbias}}
@@ -11,7 +11,6 @@
   <div class="answers-container">
     {{> templates_vertical_markup_searchbar }}
     {{> templates_vertical_markup_spellcheck }}
-    {{> templates_vertical_markup_navigation }}
     {{> templates_vertical_markup_verticalresults }}
     {{> templates_vertical_markup_pagination }}
     {{> templates_vertical_markup_locationbias }}
