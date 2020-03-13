@@ -3,15 +3,6 @@
   "componentSettings": {
     "QASubmission": {
       "entityId": "<REPLACE ME>"
-    },
-    "SearchBar": {
-      "verticalKey": "<REPLACE ME>"
-    },
-    "VerticalResults": {
-      "verticalKey": "<REPLACE ME>"
-    },
-    "Pagination": {
-      "verticalKey": "<REPLACE ME>"
     }
   },
   "includedVerticals": [
