@@ -1,7 +1,7 @@
 ANSWERS.addComponent('VerticalResults', Object.assign({{{ json componentSettings.VerticalResults }}}, {
   container: '#standard-searchresults-container',
   {{#if componentSettings.VerticalResults.verticalKey}}
-    verticalKey: '{{verticalKey}}',
+    verticalKey: '{{componentSettings.VerticalResults.verticalKey}}',
   {{else}}
     {{#if currentVertical}}
       verticalKey: '{{currentVertical}}',
