@@ -9,6 +9,9 @@
     },
     "VerticalResults": {
       "verticalKey": "<REPLACE ME>"
+    },
+    "Pagination": {
+      "verticalKey": "<REPLACE ME>"
     }
   },
   "includedVerticals": [
