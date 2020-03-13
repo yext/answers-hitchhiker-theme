@@ -5,7 +5,7 @@
       "entityId": "<REPLACE ME>"
     }
   },
-  "includedVerticals": [
+  "excludedVerticals": [
     "<REPLACE ME>"
   ],
   "verticalsToConfig": {
