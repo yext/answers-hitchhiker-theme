@@ -1,11 +1,9 @@
 {{> cards_card_component componentName='StandardCardComponent'}}
 
-const template = `{{{read 'cards_standard_template' }}}`;
-
-class StandardCardComponent extends CardComponent {
+class StandardCardComponent extends BaseCard.StandardCardComponent {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
-    this.setTemplate(template);
+    this.setTemplate(`{{{read 'cards_standard_template' }}}`);
   }
 
   /**
