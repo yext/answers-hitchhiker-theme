@@ -1,9 +1,6 @@
 {
   "apiKey": "<REPLACE ME>",
   "experienceKey": "<REPLACE ME>",
-  "search": {
-    "verticalKey": "<REPLACE ME>"
-  },
   "verticalSettings": {
     "<VERTICAL KEY PLACEHOLDER>": {
       "icon": "<REPLACE ME>",

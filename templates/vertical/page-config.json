@@ -1,6 +1,10 @@
 {
   "currentVertical": "<REPLACE ME>",
   "componentSettings": {
+    "Map": {
+      "mapProvider": "<REPLACE ME>",
+      "apiKey": "<REPLACE ME>"
+    },
     "QASubmission": {
       "entityId": "<REPLACE ME>"
     }

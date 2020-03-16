@@ -1,32 +1,38 @@
 <div class="yxt-StandardCard">
   <div class="yxt-StandardCard-wrapper">
     <div class="yxt-StandardCard-contentWrapper">
-      {{#if card.title}}
-      <div class="yxt-StandardCard-title">
-        <a {{#if card.titleUrl}} href="{{card.titleUrl}}" target={{#if card.newWindow}}"_blank"
-          rel="noopener noreferrer nofollow" {{else}}"_self"{{/if}} {{/if}}>
-          {{card.title}}
-        </a>
-      </div>
-      {{/if}}
-      {{#if card.subtitle}}
-      <div class="yxt-StandardCard-subtitle">
-        {{card.subtitle}}
-      </div>
-      {{/if}}
-      <div class="yxt-StandardCard-content">
-        {{#if card.details}}
-        <div class="yxt-StandardCard-card.details">
-          <div class="yxt-StandardCard-detailsText">
-            {{card.details}}
-          </div>
+      <div class="yxt-StandardCard-info">
+        {{#if card.title}}
+        <div class="yxt-StandardCard-title">
+          <a {{#if card.titleUrl}} href="{{card.titleUrl}}" target={{#if card.newWindow}}"_blank"
+            rel="noopener noreferrer nofollow" {{else}}"_self"{{/if}} {{/if}}>
+            {{card.title}}
+          </a>
         </div>
         {{/if}}
+        {{#if card.subtitle}}
+        <div class="yxt-StandardCard-subtitle">
+          {{card.subtitle}}
+        </div>
+        {{/if}}
+        <div class="yxt-StandardCard-content">
+          {{#if card.details}}
+          <div class="yxt-StandardCard-card.details">
+            <div class="yxt-StandardCard-detailsText">
+              {{card.details}}
+            </div>
+          </div>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+    {{#if card.callsToAction}}
+      <div class="yxt-StandardCard-ctasWrapper">
         {{#each card.callsToAction}}
           {{> CTA }}
         {{/each}}
       </div>
-    </div>
+    {{/if}}
   </div>
 </div>
 
