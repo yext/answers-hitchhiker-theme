@@ -1,21 +1,23 @@
-<div>
-  {{#> script_core }}
-    {{> cards_standard_component }}
-    {{> templates_vertical_script_searchbar}}
-    {{> templates_vertical_script_spellcheck}}
-    {{> templates_vertical_script_navigation}}
-    {{> templates_vertical_script_verticalresults}}
-    {{> templates_vertical_script_pagination}}
-    {{> templates_vertical_script_locationbias}}
-    {{> templates_vertical_script_qasubmission}}
-  {{/script_core}}
-  <div class="answers-container">
-    {{> templates_vertical_markup_searchbar }}
-    {{> templates_vertical_markup_spellcheck }}
-    {{> templates_vertical_markup_navigation}}
-    {{> templates_vertical_markup_verticalresults }}
-    {{> templates_vertical_markup_pagination }}
-    {{> templates_vertical_markup_locationbias }}
-    {{> templates_vertical_markup_qasubmission }}
+{{#> layouts_html }}
+  <div>
+    {{#> script_core }}
+      {{> cards_standard_component }}
+      {{> templates_vertical_script_searchbar}}
+      {{> templates_vertical_script_spellcheck}}
+      {{> templates_vertical_script_navigation}}
+      {{> templates_vertical_script_verticalresults}}
+      {{> templates_vertical_script_pagination}}
+      {{> templates_vertical_script_locationbias}}
+      {{> templates_vertical_script_qasubmission}}
+    {{/script_core}}
+    <div class="answers-container">
+      {{> templates_vertical_markup_searchbar }}
+      {{> templates_vertical_markup_spellcheck }}
+      {{> templates_vertical_markup_navigation}}
+      {{> templates_vertical_markup_verticalresults }}
+      {{> templates_vertical_markup_pagination }}
+      {{> templates_vertical_markup_locationbias }}
+      {{> templates_vertical_markup_qasubmission }}
+    </div>
   </div>
-</div>
+{{/layouts_html}}
