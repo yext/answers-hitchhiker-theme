@@ -9,7 +9,7 @@ ANSWERS.addComponent('UniversalResults', Object.assign({{{ json componentSetting
                             cardType: '{{cardType}}'
                         },
                     {{/if}}
-                    sectionTitle: {{#if sectionTitle}}'{{sectionTitle}}'{{else}}'{{../currentVertical}}'{{/if}},
+                    sectionTitle: {{#if sectionTitle}}'{{sectionTitle}}'{{else}}{{#if label}}'{{label}}'{{else}}'{{../currentVertical}}'{{/if}}{{/if}},
                     {{#if icon}}
                         sectionTitleIconName: '{{icon}}',
                     {{/if}}
