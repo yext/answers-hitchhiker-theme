@@ -1,3 +1,20 @@
 ANSWERS.addComponent('UniversalResults', Object.assign({{{ json componentSettings.UniversalResults }}}, {
     container: '#standard-searchresults-container',
+    config: {
+        {{#each verticalConfigs}}
+            {{currentVertical}}: {
+                {{#with (lookup verticalsToConfig currentVertical)}}
+                    {{#if cardType}}
+                        card: {
+                            cardType: '{{cardType}}'
+                        },
+                    {{/if}}
+                    sectionTitle: {{#if sectionTitle}}'{{sectionTitle}}'{{else}}'{{../currentVertical}}'{{/if}},
+                    {{#if icon}}
+                        sectionTitleIconName: '{{icon}}',
+                    {{/if}}
+                {{/with}}
+            },
+        {{/each}}
+    }
 }));

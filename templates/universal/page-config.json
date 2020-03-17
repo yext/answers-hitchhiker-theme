@@ -1,10 +1,16 @@
 {
+  "currentVertical": "All",
   "componentSettings": {
-    "SearchBar": {},
-    "UniversalResults": {},
-    "SpellCheck": {},
     "QASubmission": {
       "entityId": "<REPLACE ME>"
+    }
+  },
+  "excludedVerticals": [
+    "<REPLACE ME>"
+  ],
+  "verticalsToConfig": {
+    "All": {
+      "isFirst": "true"
     }
   }
 }
