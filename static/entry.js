@@ -1,7 +1,6 @@
 // Import all SCSS
-const scss = require('./scss/placeholder.scss')
+import Scss from './sass/answers/_default.scss';
 
-// Import all JS
-const { helloWorld } = require('./js/helloworld');
-
-helloWorld();
+// Import all JS assets
+import Formatters from './js/formatters';
+export { Formatters };
