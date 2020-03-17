@@ -13,26 +13,19 @@ class StandardCardComponent extends BaseCard.StandardCardComponent {
    * @param profile profile of the entity in the card
    */
   dataForRender(profile) {
-    let title = profile.name.toUpperCase();
-    let subtitle = '';
-    let details = profile.description;
-    let titleUrl = profile.websites;
-    let urlShouldOpenInNewWindow = true;
-    let callsToAction = [
-      {
-        url: profile.c_primaryCTA,
-        iconName: 'chevron',
-        label: 'View Details'
-      }
-    ];
-
     return {
-      title: title,
-      titleUrl: titleUrl,
-      newWindow: urlShouldOpenInNewWindow,
-      subtitle: subtitle,
-      details: details,
-      callsToAction: callsToAction
+      title: profile.name.toUpperCase(),
+      titleUrl: profile.websites,
+      newWindow: true,
+      subtitle: '',
+      details: profile.description,
+      callsToAction: [
+        {
+          url: profile.c_primaryCTA,
+          iconName: 'chevron',
+          label: 'View Details'
+        }
+      ]
     };
   }
 }
