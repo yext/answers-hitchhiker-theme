@@ -1,17 +1,10 @@
 {
-  "currentVertical": "<REPLACE ME>",
+  "verticalKey": "<REPLACE ME>",
   "componentSettings": {
-    "Map": {
-      "mapProvider": "<REPLACE ME>",
-      "apiKey": "<REPLACE ME>"
-    },
     "QASubmission": {
       "entityId": "<REPLACE ME>"
     }
   },
-  "excludedVerticals": [
-    "<REPLACE ME>"
-  ],
   "verticalsToConfig": {
     "<REPLACE ME>": {
       "cardType": "<REPLACE ME>"
