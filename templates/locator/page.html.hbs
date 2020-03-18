@@ -1,21 +1,19 @@
 {{#> html_layout }}
-<div>
   {{#> script_core }}
-    {{> branches_card_component }}
+    {{> cards_locator_component }}
     {{> templates_vertical_script_searchbar}}
     {{> templates_vertical_script_spellcheck}}
     {{> templates_vertical_script_verticalresults}}
     {{> templates_vertical_script_pagination}}
     {{> templates_vertical_script_map}}
   {{/script_core}}
-  <div class="Answers-results--withMap">
-    {{> templates_vertical_markup_searchbar }}
-    {{> templates_vertical_markup_spellcheck }}
-    <div class="Answers-verticalResults Answers-verticalResults--withMap">
+  <div style="display:flex;">
+    <div style="width:50%;">
+      {{> templates_vertical_markup_searchbar }}
+      {{> templates_vertical_markup_spellcheck }}
       {{> templates_vertical_markup_verticalresults }}
       {{> templates_vertical_markup_pagination }}
     </div>
     {{> templates_vertical_markup_map }}
   </div>
-</div>
 {{/html_layout }}
