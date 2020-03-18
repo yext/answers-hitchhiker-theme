@@ -3,13 +3,13 @@ container: '#standard-navigation-container',
 verticalPages: [
 {{#each verticalConfigs}}
   {
-    verticalKey: '{{currentVertical}}',
-    {{#each ../excludedVerticals}}{{#ifeq this ../currentVertical}}hideInNavigation: true,{{/ifeq}}{{/each}}
-    {{#ifeq ../currentVertical currentVertical}}isActive: true,{{/ifeq}}
-    {{#with (lookup verticalsToConfig currentVertical)}}
+    verticalKey: '{{verticalKey}}',
+    {{#each ../excludedVerticals}}{{#ifeq this ../verticalKey}}hideInNavigation: true,{{/ifeq}}{{/each}}
+    {{#ifeq ../verticalKey verticalKey}}isActive: true,{{/ifeq}}
+    {{#with (lookup verticalsToConfig verticalKey)}}
       {{#ifeq isFirst 'true'}}isFirst: true,{{/ifeq}}
       {{#if icon}}icon: '{{icon}}',{{/if}}
-      label: {{#if label}}'{{label}}'{{else}}{{#if ../currentVertical}}'{{../currentVertical}}'{{else}}'{{@key}}'{{/if}}{{/if}},
+      label: {{#if label}}'{{label}}'{{else}}{{#if ../verticalKey}}'{{../verticalKey}}'{{else}}'{{@key}}'{{/if}}{{/if}},
       url: {{#if url}}'{{url}}'{{else}}'{{@key}}.html'{{/if}},
     {{/with}}
   }{{#unless @last}},{{/unless}}

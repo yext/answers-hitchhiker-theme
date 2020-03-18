@@ -1,13 +1,10 @@
 {
-  "currentVertical": "All",
+  "verticalKey": "All",
   "componentSettings": {
     "QASubmission": {
       "entityId": "<REPLACE ME>"
     }
   },
-  "excludedVerticals": [
-    "<REPLACE ME>"
-  ],
   "verticalsToConfig": {
     "All": {
       "isFirst": "true"
