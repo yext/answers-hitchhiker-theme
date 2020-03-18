@@ -8,7 +8,7 @@
   },
   "verticalsToConfig": {
     "<REPLACE ME>": {
-      "cardType": "<REPLACE ME>"
+      "cardType": "LocatorCard"
     }
   }
 }
