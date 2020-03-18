@@ -1,0 +1,51 @@
+//
+// Bios Component SCSS Stylesheet
+//
+
+.c-bios
+{
+  &-title
+  {
+  
+  }
+
+  &-item
+  {
+    &-image
+    {
+      width:100%;
+      height:auto;
+    }
+
+    &-name
+    {
+
+    }
+
+    &-title
+    {
+
+    }
+
+    &-description
+    {
+
+    }
+  }
+
+  @media (max-width: $screen-sm-min)
+  {
+  }
+
+  @media (max-width: $screen-md-min)
+  {
+  }
+
+  @media (max-width: $screen-lg-min)
+  {
+  }
+
+  @media (min-width: $screen-lg-min)
+  {
+  }
+}

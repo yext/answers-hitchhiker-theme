@@ -1,0 +1,15 @@
+/** @define About */
+
+// About Ace
+.About
+{
+  &-title
+  {
+    @include Heading--h1;
+  }
+
+  &-button
+  {
+    @include Button--primary;
+  }
+}

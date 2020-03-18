@@ -1,0 +1,28 @@
+/** @define Footer */
+
+$footer-break-point-max: xs !default;
+$footer-break-point-min: sm !default;
+
+.Footer
+{
+  flex-shrink: 0;
+
+  &-link
+  {
+    @include font-sizes(14px, 44px);
+
+    display: flex;
+    text-decoration: underline;
+
+    /* postcss-bem-linter: ignore */
+    &:hover
+    {
+      text-decoration: none;
+    }
+  }
+
+  &-text
+  {
+    @include font-sizes(12px, 16px);
+  }
+}

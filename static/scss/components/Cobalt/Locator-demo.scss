@@ -1,0 +1,14 @@
+/** @define Locator */
+
+.Locator
+{
+  a
+  {
+    @include Link;
+  }
+
+  &-title
+  {
+    @include Heading--h1;
+  }
+}

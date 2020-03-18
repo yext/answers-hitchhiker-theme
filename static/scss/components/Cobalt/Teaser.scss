@@ -1,0 +1,141 @@
+/** @define Teaser */
+
+$desktop-break-point-min: md !default;
+
+.Teaser--ace
+{
+  .Teaser
+  {
+    &-linksRow,
+    &-links
+    {
+      display: flex;
+      align-items: center;
+    }
+
+    &-linksRow
+    {
+      flex-wrap: nowrap;
+
+      @include bplte(xs)
+      {
+        flex-direction: column;
+      }
+    }
+
+    &-links
+    {
+      @include bplte(xs)
+      {
+        flex-direction: column;
+      }
+    }
+
+    &-link
+    {
+      display: flex;
+    }
+
+    &-services
+    {
+      display: flex;
+    }
+  }
+}
+
+.Teaser--ace.Teaser--short
+{
+  .Teaser
+  {
+    &-services,
+    &-cta
+    {
+      display: none;
+    }
+  }
+
+  /* postcss-bem-linter: ignore */
+  .c-AddressRow:not(:first-child)
+  {
+    display: none;
+  }
+}
+
+.Teaser--chaz
+{
+  .Teaser
+  {
+    &-titleWrapper
+    {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &-content
+    {
+      @include bpgte($desktop-break-point-min)
+      {
+        display: flex;
+      }
+    }
+
+    &-column
+    {
+      @include bpgte($desktop-break-point-min)
+      {
+        flex-basis: 50%;
+      }
+    }
+
+    &-services
+    {
+      display: flex;
+    }
+  }
+}
+
+.Teaser--dillShort
+{
+  .Teaser
+  {
+    &-locationRow
+    {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    &-miles
+    {
+      flex-shrink: 0;
+    }
+  }
+
+  /* postcss-bem-linter: ignore */
+  .c-AddressRow:not(:first-child)
+  {
+    display: none;
+  }
+}
+
+.Teaser--dillDetail
+{
+  .Teaser
+  {
+    &-locationRow
+    {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    &-cta
+    {
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      text-align: center;
+    }
+  }
+}

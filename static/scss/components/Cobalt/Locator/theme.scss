@@ -1,0 +1,209 @@
+$header-height-mobile: 50px !default;
+$header-height-tablet: $header-height-mobile !default;
+$header-height-desktop: 100px !default;
+$footer-break-point-max: min;
+$footer-break-point-min: max;
+
+html.cobalt
+{
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  body
+  {
+    height: 100%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+
+    &.is-overflowHidden
+    {
+      overflow-y: hidden;
+
+      @include bplte($mobile-break-point-max)
+      {
+        position: fixed;
+      }
+    }
+  }
+
+  .Main-content
+  {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+  }
+
+  .Main
+  {
+    flex-grow: 1;
+    flex-wrap: wrap;
+    flex-direction: column;
+
+    display: -webkit-box; // Hack for iOS safari
+
+    @include bpgte($desktop-break-point-min)
+    {
+      display: flex;
+    }
+  }
+
+  .Footer
+  {
+    flex-shrink: 0;
+  }
+
+  .Header
+  {
+    display: block;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: $header-height-mobile;
+    z-index: 2;
+
+    @include bp(sm,sm)
+    {
+      height: $header-height-tablet;
+    }
+
+    @include bpgte(md)
+    {
+      height: $header-height-desktop;
+    }
+
+    &.is-background
+    {
+      z-index: 1;
+    }
+  }
+
+  .SpinnerModal
+  {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    @include bp(sm,sm)
+    {
+      top: $header-height-tablet;
+    }
+
+    @include bpgte(md)
+    {
+      top: $header-height-desktop;
+      width: $results-width;
+      right: auto;
+    }
+  }
+
+  .custom-icon-button
+  {
+    transition: transform 0.5s;
+    transform-origin: 50% 100%;
+
+    &:hover,
+    &.is-selected
+    {
+      outline: none;
+    }
+
+    &.is-selected
+    {
+      transform: scale(1.1);
+    }
+  }
+
+  .pac-container
+  {
+    top: 40px !important;
+    left: 0 !important;
+  }
+}
+
+html.ace
+{
+  .Header
+  {
+    @include bpgte(md)
+    {
+      position: fixed;
+    }
+  }
+
+  .Main
+  {
+    height: 100%;
+  }
+}
+
+html.chaz
+{
+  .SpinnerModal
+  {
+    @include bpgte(md)
+    {
+      top: 0;
+      max-width: $results-width-large;
+      width: 66%;
+      right: auto;
+    }
+  }
+
+  .Header,
+  .Footer
+  {
+    z-index: 11;
+  }
+
+  body
+  {
+    .Header,
+    .Locator-map,
+    .Footer
+    {
+      transition: filter 0.3s linear;
+    }
+
+    &.is-overflowHidden
+    {
+      .Header,
+      .Locator-map,
+      .Footer
+      {
+        filter: blur(7px);
+        transition: filter 0.3s linear;
+      }
+    }
+  }
+}
+
+html.dill
+{
+  .SpinnerModal
+  {
+    @include bpgte($desktop-break-point-min)
+    {
+      width: $results-width-small;
+      max-width: $results-width-small;
+    }
+  }
+
+  .Header
+  {
+    position: fixed;
+  }
+
+  .Main
+  {
+    @include bpgte($desktop-break-point-min)
+    {
+      height: 100%;
+    }
+  }
+}

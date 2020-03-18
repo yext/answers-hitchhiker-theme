@@ -1,0 +1,33 @@
+/** @define Teaser */
+
+.Teaser
+{
+  &-title,
+  &-open,
+  &-address,
+  &-hours
+  {
+    margin-bottom: 0.5rem;
+  }
+
+  &-links
+  {
+    display: flex;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  &-phone
+  {
+    /* postcss-bem-linter: ignore */
+    .c-phone-label
+    {
+      display: none;
+    }
+  }
+
+  &-directions
+  {
+    margin-right: 2rem;
+  }
+}

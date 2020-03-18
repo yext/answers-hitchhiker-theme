@@ -1,0 +1,74 @@
+/** @define Footer */
+
+$icon-height: 44px !default;
+
+@mixin Footer($bp)
+{
+  &-linksWrapper
+  {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+
+    @include bpgte($bp)
+    {
+      flex-direction: row;
+      align-items: flex-start;
+      text-align: left;
+    }
+  }
+
+  &-social
+  {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  &-links
+  {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    @include bpgte($bp)
+    {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
+  &-text
+  {
+    text-align: center;
+
+    @include bpgte($bp)
+    {
+      text-align: left;
+    }
+  }
+}
+
+.Footer--ace
+{
+  .icon
+  {
+    height: $icon-height;
+    width: $icon-height;
+  }
+
+  .Footer
+  {
+    @include Footer(md);
+  }
+}
+
+.Footer--mobile
+{
+  .Footer
+  {
+    @include Footer(max);
+  }
+}

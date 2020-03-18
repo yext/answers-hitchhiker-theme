@@ -1,0 +1,14 @@
+/** @define Promo */
+
+.Promo
+{
+  &-title
+  {
+    @include Heading--h2;
+  }
+
+  &-link
+  {
+      @include Button--primary;
+  }
+}

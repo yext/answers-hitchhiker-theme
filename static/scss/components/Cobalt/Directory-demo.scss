@@ -1,0 +1,15 @@
+/** @define Directory */
+
+// Directory Ace
+.Directory
+{
+  &-title
+  {
+    @include Heading--h1;
+  }
+
+  a
+  {
+    @include Link;
+  }
+}

@@ -1,5 +1,5 @@
 // Import all SCSS
-import Scss from './sass/answers/_default.scss';
+import Scss from './scss/answers/_default.scss';
 
 // Import all JS assets
 import Formatters from './js/formatters';

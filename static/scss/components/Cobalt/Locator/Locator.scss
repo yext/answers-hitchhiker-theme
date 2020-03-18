@@ -1,0 +1,730 @@
+/** @define Locator */
+
+$header-height-mobile: 50px !default;
+$header-height-tablet: 50px !default;
+$header-height-desktop: 100px !default;
+$footer-height-desktop: 100px !default;
+$results-width-small: 372px !default;
+$results-width: 584px !default;
+$results-width-large: 944px !default;
+$detail-cta-height: 48px !default;
+$input-height: 44px !default;
+$desktop-break-point-min: md !default;
+$mobile-break-point-max: sm !default;
+
+.Locator
+{
+  position: relative;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+
+  @include bpgte($desktop-break-point-min)
+  {
+    display: flex;
+  }
+
+  &-title
+  {
+    padding: 16px;
+  }
+
+  &-buttons
+  {
+    display: flex;
+  }
+
+  &-button
+  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: $input-height;
+    height: $input-height;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 8px;
+    padding-right: 8px;
+
+    &[disabled]
+    {
+      background-color: #e7e7e7;
+      cursor: default;
+    }
+
+    &:not(:last-child)
+    {
+      margin-right: 1px;
+    }
+
+    &:not(:first-child)
+    {
+      margin-left: 1px;
+    }
+
+    /* postcss-bem-linter: ignore */
+    .icon
+    {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  &-searchBar
+  {
+    display: flex;
+    flex-grow: 1;
+  }
+
+  &-input
+  {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 16px;
+    padding-right: 16px;
+    border: $border-default;
+    height: $input-height;
+    width: 100%;
+  }
+
+  &-searchTitle
+  {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  &-resultsContainer,
+  &-results
+  {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 0;
+  }
+
+  &-searchWrapper
+  {
+    position: sticky;
+    z-index: 1;
+    padding: 16px;
+    display: flex;
+    flex-shrink: 0;
+    width: 100%;
+    top: 0;
+    background-color: white;
+
+    &::after
+    {
+      content: "";
+      z-index: -1;
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 3px;
+      bottom: -3px;
+      left: 0;
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0.4),
+          rgba(0, 0, 0, 0)
+        );
+    }
+  }
+
+  &-overlay
+  {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.3s linear, opacity 0.3s linear;
+    z-index: 2;
+
+    &.is-active
+    {
+      visibility: visible;
+      opacity: 1;
+      transition: visibility 0s linear, opacity 0.3s linear;
+    }
+  }
+
+  &-resultsWrapper
+  {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  &-resultsSummary
+  {
+    padding: 16px;
+  }
+
+  &-content
+  {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-color: white;
+
+    @include bpgte($desktop-break-point-min)
+    {
+      position: relative;
+      bottom: 0;
+      height: auto;
+      width: $results-width;
+    }
+  }
+
+  &-initial,
+  &-noResults
+  {
+    padding-top: 16px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-bottom: 80%;
+  }
+
+  /* postcss-bem-linter: ignore */
+  &-filterFieldsWrapper
+  {
+    position: fixed;
+    display: flex;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.3s, opacity 0.3s linear;
+    z-index: 12;
+  }
+
+  /* postcss-bem-linter: ignore */
+  &-filters.is-active
+  {
+    /* postcss-bem-linter: ignore */
+    .Locator-filterFieldsWrapper
+    {
+      visibility: visible;
+      opacity: 1;
+      transition: visibility 0s, opacity 0.3s linear;
+    }
+  }
+
+  &-filterFields
+  {
+    width: 100%;
+  }
+
+  &-filtersCount
+  {
+    margin-left: 3px;
+  }
+
+  &-form
+  {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+  }
+
+  /* postcss-bem-linter: ignore */
+  .c-map-with-pins-wrapper,
+  .c-map-with-pins
+  {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.Locator--ace
+{
+  @include bpgte(md)
+  {
+    position: fixed;
+    padding-top: $header-height-desktop;
+  }
+
+  .Locator
+  {
+    &-content
+    {
+      @include bpgte($desktop-break-point-min)
+      {
+        overflow-y: auto;
+      }
+    }
+
+    &-map
+    {
+      display: none;
+
+      @include bpgte(md)
+      {
+        display: block;
+        position: fixed;
+        width: calc(100% - #{$results-width});
+        height: calc(100vh - #{$header-height-desktop});
+        right: 0;
+      }
+    }
+
+    /* postcss-bem-linter: ignore */
+    &-filterFieldsWrapper
+    {
+      @include bpgte(md)
+      {
+        left: 50%;
+        top: 50%;
+        bottom: auto;
+        right: auto;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    &-filterFields
+    {
+      @include bpgte(md)
+      {
+        width: 400px;
+        min-height: 252px;
+        max-height: 460px;
+      }
+    }
+
+    &-overlay
+    {
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+  }
+}
+
+.Locator--chaz
+{
+  @include bpgte($desktop-break-point-min)
+  {
+    flex-direction: row;
+  }
+
+  .Locator
+  {
+    &-searchBar
+    {
+      display: flex;
+      position: relative;
+      flex-grow: 1;
+
+      /* postcss-bem-linter: ignore */
+      .search-button
+      {
+        position: absolute;
+        right: 0;
+        border-left: none;
+        z-index: 10;
+      }
+    }
+
+    &-input
+    {
+      padding-left: $cobalt-base-padding/2;
+    }
+
+    &-map
+    {
+      display: none;
+
+      @include bpgte($desktop-break-point-min)
+      {
+        display: block;
+        position: sticky;
+        width: 34%;
+        height: 100vh;
+        top: 0;
+      }
+
+      @include bpgte(lg)
+      {
+        width: 34%;
+        flex-grow: 1;
+      }
+    }
+
+    /* postcss-bem-linter: ignore */
+    &-map.js-is-stuck,
+    &-map.js-is-sticky
+    {
+      height: calc(100vh - #{$footer-height-desktop});
+      width: 100%;
+    }
+
+    // width adjustment for sticky polyfill behavior in IE
+    &-searchWrapper.js-is-stuck,
+    &-searchWrapper.js-is-sticky,
+    &-content
+    {
+      @include bpgte($desktop-break-point-min)
+      {
+        width: 66%;
+        max-width: $results-width-large;
+      }
+    }
+
+    /* postcss-bem-linter: ignore */
+    &-filterFieldsWrapper
+    {
+      @include bpgte(md)
+      {
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: auto;
+        width: 66%;
+        max-width: $results-width-large;
+      }
+    }
+
+    &-filterFields
+    {
+      @include bpgte($desktop-break-point-min)
+      {
+        height: 100%;
+      }
+    }
+
+    &-overlay
+    {
+      opacity: 0.05;
+      background-color: #808080;
+
+      /* IE11 fallback for blur */
+      @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none)
+      {
+        background-color: black;
+        opacity: 0.4;
+      }
+    }
+  }
+}
+
+.Locator--dill
+{
+  position: fixed;
+  padding-top: $header-height-mobile;
+  z-index: 1;
+
+  @include bpgte($desktop-break-point-min)
+  {
+    padding-top: $header-height-desktop;
+  }
+
+  &.Locator--listShown .Locator
+  {
+    &-resultsWrapper
+    {
+      @include bplte($mobile-break-point-max)
+      {
+        top: 0;
+        padding-top: $input-height + $padded-padding;
+      }
+    }
+
+    &-viewMapText
+    {
+      display: inline;
+    }
+
+    &-viewListText
+    {
+      display: none;
+    }
+  }
+
+  &.Locator--detailShown .Locator
+  {
+    &-map
+    {
+      @include bplte($mobile-break-point-max)
+      {
+        position: absolute;
+        top: 0;
+        height: percentage(1 / 3);
+      }
+    }
+
+    &-resultsWrapper
+    {
+      @include bplte($mobile-break-point-max)
+      {
+        z-index: 2;
+        top: percentage(1 / 3);
+      }
+    }
+  }
+
+  .Locator
+  {
+    &-content
+    {
+      @include bpgte($desktop-break-point-min)
+      {
+        width: 100%;
+        position: relative;
+      }
+
+      @include bplte($mobile-break-point-max)
+      {
+        flex-direction: column-reverse;
+      }
+    }
+
+    &-contentWrap
+    {
+      background-color: transparent;
+      max-height: 100%;
+      width: 100%;
+      position: absolute;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+
+      @include bpgte($desktop-break-point-min)
+      {
+        width: $results-width-small;
+        padding: $padded-padding;
+      }
+
+      @include bplte($mobile-break-point-max)
+      {
+        pointer-events: none;
+        position: static;
+        height: 100%;
+      }
+    }
+
+    &-searchWrapper
+    {
+      background-color: transparent;
+      padding: 0;
+
+      @include bpgte($desktop-break-point-min)
+      {
+        background-color: transparent;
+      }
+
+      @include bplte($mobile-break-point-max)
+      {
+        position: absolute;
+        pointer-events: all;
+        padding: $padded-padding 0;
+      }
+
+      &::after
+      {
+        content: none;
+      }
+    }
+
+    &-searchBar
+    {
+      position: relative;
+    }
+
+    &-button
+    {
+      &--filtersOpen
+      {
+        .icon-altfilters
+        {
+          min-width: 18px;
+        }
+
+        @include bplte($mobile-break-point-max)
+        {
+          display: none;
+        }
+      }
+    }
+
+    &-buttons
+    {
+      @include bpgte($desktop-break-point-min)
+      {
+        position: absolute;
+        left: $results-width-small - $grid-gutter-width;
+      }
+    }
+
+    &-resultsWrapper
+    {
+      background-color: white;
+      flex-grow: 1;
+      padding: 0;
+      overflow-y: auto;
+
+      @include bpgte($desktop-break-point-min)
+      {
+        margin-top: $spaced-margin;
+      }
+
+      @include bplte($mobile-break-point-max)
+      {
+        transition: top 0.3s ease-out;
+        position: relative;
+        top: 100%;
+        pointer-events: all;
+
+        &--moving
+        {
+          transition: none;
+        }
+      }
+    }
+
+    &-resultsContainer
+    {
+      transition: opacity 0.15s linear;
+      opacity: 1;
+
+      &--invisible
+      {
+        opacity: 0;
+      }
+    }
+
+    &-resultsListContent
+    {
+      &--gone
+      {
+        display: none;
+      }
+    }
+
+    &-detailItems
+    {
+      &--gone
+      {
+        display: none;
+      }
+    }
+
+    &-detail
+    {
+      position: relative;
+      padding: $padded-padding $padded-padding $detail-cta-height;
+
+      &--gone
+      {
+        display: none;
+      }
+    }
+
+    &-detailClose
+    {
+      position: absolute;
+      width: $padded-padding;
+      top: $spaced-margin;
+      right: $spaced-margin;
+    }
+
+    &-map
+    {
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      right: 0;
+
+      @include bpgte($desktop-break-point-min)
+      {
+        position: fixed;
+        height: calc(100vh - #{$header-height-desktop});
+      }
+
+      @include bplte($mobile-break-point-max)
+      {
+        transition: height 0.3s ease-out;
+      }
+    }
+
+    /* postcss-bem-linter: ignore */
+    &-filterFieldsWrapper
+    {
+      @include bpgte($desktop-break-point-min)
+      {
+        left: 50%;
+        top: 50%;
+        bottom: auto;
+        right: auto;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    &-filterFields
+    {
+      @include bpgte($desktop-break-point-min)
+      {
+        width: 400px;
+        min-height: 252px;
+        max-height: 460px;
+      }
+    }
+
+    &-mobileToggles
+    {
+      display: none;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      z-index: 2;
+
+      &--shown
+      {
+        @include bplte($mobile-break-point-max)
+        {
+          display: flex;
+        }
+      }
+    }
+
+    &-mobileToggle
+    {
+      flex: 1;
+      background-color: white;
+      padding: $padded-padding;
+    }
+
+    &-viewMapText
+    {
+      display: none;
+    }
+
+    &-overlay
+    {
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+  }
+
+  .search-button
+  {
+    position: absolute;
+    right: 0;
+  }
+
+  .gmnoprint
+  {
+    @include bplte($mobile-break-point-max)
+    {
+      display: none;
+    }
+  }
+}

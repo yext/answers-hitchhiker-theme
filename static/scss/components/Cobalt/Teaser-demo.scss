@@ -1,0 +1,132 @@
+/** @define Teaser */
+
+.Teaser
+{
+  &-title,
+  &-open,
+  &-address,
+  &-hours
+  {
+    margin-bottom: 10px;
+  }
+
+  &-titleLink
+  {
+    @include Link;
+    @include font-sizes(16px, 20px);
+  }
+
+  &-open
+  {
+    @include font-sizes(16px, 18px);
+  }
+
+  &-links
+  {
+    display: flex;
+  }
+
+  &-linksRow
+  {
+    margin-top: 20px;
+
+    @include bpgte(sm)
+    {
+      margin-top: 10px;
+    }
+  }
+
+  &-link
+  {
+    @include Link;
+  }
+
+  /* postcss-bem-linter: ignore */
+  .c-phone-label
+  {
+    display: none;
+  }
+
+  /* postcss-bem-linter: ignore */
+  .c-phone-number-link
+  {
+    @include bplte(xs)
+    {
+      @include Link;
+    }
+  }
+
+  &-directions
+  {
+    margin-right: 2rem;
+  }
+}
+
+.Teaser--ace.Teaser
+{
+  /* postcss-bem-linter: ignore */
+  .c-address-street-1,
+  .c-address-street-2
+  {
+    display: none;
+  }
+
+  /* postcss-bem-linter: ignore */
+  .c-address-country-name
+  {
+    display: block;
+  }
+
+  .Teaser
+  {
+    /* postcss-bem-linter: ignore */
+    &-title
+    {
+      @include Heading--h3;
+    }
+
+    /* postcss-bem-linter: ignore */
+    &-linksRow
+    {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+      align-items: flex-start;
+    }
+
+    /* postcss-bem-linter: ignore */
+    &-links
+    {
+      flex-direction: row;
+    }
+
+    /* postcss-bem-linter: ignore */
+    &-services
+    {
+      margin-top: 10px;
+    }
+
+    /* postcss-bem-linter: ignore */
+    &-phone
+    {
+      @include bplte(xs)
+      {
+        font-weight: $font-weight-bold;
+      }
+    }
+
+    /* postcss-bem-linter: ignore */
+    &-phone,
+    &-directions
+    {
+      display: flex;
+    }
+
+    /* postcss-bem-linter: ignore */
+    &-link::before
+    {
+      content: '';
+      padding: 0;
+    }
+  }
+}

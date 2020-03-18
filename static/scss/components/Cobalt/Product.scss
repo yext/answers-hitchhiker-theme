@@ -1,0 +1,17 @@
+/** @define Product */
+
+// Product Ace
+.Product
+{
+  &--ace &-row
+  {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &--ace &-imgWrapper,
+  &--ace &-info,
+  {
+    width: 100%;
+  }
+}

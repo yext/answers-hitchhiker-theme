@@ -1,0 +1,242 @@
+/** @define Core */
+
+.Core
+{
+  &-row
+  {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &-uber
+  {
+    @include bpgte(sm)
+    {
+      display: none;
+    }
+  }
+
+  &-directions
+  {
+    flex-shrink: 0;
+  }
+
+  &-subCol
+  {
+    width: 100%;
+  }
+
+  /* postcss-bem-linter: ignore */
+  .c-map-with-pins,
+  .location-map-wrapper
+  {
+    min-height: 150px;
+    width: 100%;
+
+    @include bp(sm,sm)
+    {
+      height: 150px;
+    }
+
+    @include bpgte(md)
+    {
+      height: 100%;
+    }
+  }
+
+  &-reviews
+  {
+    display: flex;
+    justify-content: center;
+  }
+
+  &-col--full
+  {
+    @include l-col($grid-columns, $grid-columns);
+  }
+
+  &-col--secondary
+  {
+    @include l-col($grid-columns, $grid-columns);
+
+    @include bp(sm,sm)
+    {
+      @include l-col($grid-columns/2, $grid-columns);
+    }
+
+    @include bpgte(md)
+    {
+      @include l-col($grid-columns/3, $grid-columns);
+    }
+
+    &:last-child
+    {
+      display: none;
+
+      @include bp(sm,sm)
+      {
+        @include l-col($grid-columns, $grid-columns);
+
+        display: flex;
+      }
+
+      @include bpgte(md)
+      {
+        @include l-col($grid-columns/3, $grid-columns);
+
+        display: flex;
+      }
+    }
+  }
+
+  &-title,
+  &-hoursToday
+  {
+    text-align: center;
+  }
+
+  &--bev
+  {
+    .location-map-wrapper
+    {
+      min-height: 250px;
+    }
+  }
+}
+
+.Core--ace .Core
+{
+  &-buttons,
+  {
+    display: flex;
+    flex-direction: column;
+
+    @include bp(sm,sm)
+    {
+      flex-direction: row;
+    }
+
+    @include bpgte(lg)
+    {
+      flex-direction: row;
+    }
+  }
+}
+
+.Core--bev
+{
+  /* postcss-bem-linter: ignore */
+  .location-map-wrapper
+  {
+    display: none;
+
+    @include bpgte(md)
+    {
+      display: block;
+      min-height: 250px;
+    }
+  }
+}
+
+.Core--bev .Core
+{
+  &-buttons
+  {
+    display: none;
+
+    @include bpgte(sm)
+    {
+      display: flex;
+      flex-direction: column;
+    }
+
+    @include bp(sm,sm)
+    {
+      flex-direction: row;
+    }
+
+    @include bpgte(lg)
+    {
+      flex-direction: row;
+    }
+  }
+}
+
+.Core--chaz .Core
+{
+  &-row
+  {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &-col1
+  {
+    @include l-col($grid-columns, $grid-columns);
+
+    @include bpgte(md)
+    {
+      @include l-col($grid-columns/3, $grid-columns/2);
+    }
+  }
+
+  &-col2
+  {
+    @include l-col($grid-columns, $grid-columns);
+
+    display: flex;
+    flex-direction: column;
+
+    @include bp(sm)
+    {
+      flex-direction: row;
+    }
+
+    @include bpgte(md)
+    {
+      @include l-col($grid-columns/3, $grid-columns);
+    }
+  }
+
+  &-colRow
+  {
+    display: flex;
+    flex-wrap: wrap;
+
+    @include bpgte(sm)
+    {
+      flex-wrap: nowrap;
+    }
+  }
+
+  &-photoWrapper
+  {
+    max-width: 100%;
+
+    @include bpgte(sm)
+    {
+      max-width: 50%;
+    }
+  }
+
+  &-photo
+  {
+    max-height: 200px;
+
+    @include bpgte(sm)
+    {
+      max-height: 400px;
+    }
+  }
+
+  &-buttons,
+  {
+    display: flex;
+    flex-direction: column;
+
+    @include bpgte(sm)
+    {
+      flex-direction: row;
+    }
+  }
+}

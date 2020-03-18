@@ -1,0 +1,55 @@
+/** @define About */
+
+// About Ace
+.About
+{
+  &--ace &-row
+  {
+    display: flex;
+
+    @include bplte(sm)
+    {
+      flex-direction: column;
+    }
+  }
+
+  &--ace &-col
+  {
+    flex: 0 1 auto;
+    width: 100%;
+  }
+
+  &--ace &-content
+  {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  &--ace &-title,
+  &--ace &-content,
+  &--ace &-buttonWrapper
+  {
+    width: 100%;
+  }
+
+  &--ace &-title,
+  &--ace &-buttonWrapper
+  {
+    text-align: center;
+  }
+
+  &--ace &-description
+  {
+    @include bp(sm)
+    {
+      width: percentage(2 / 3);
+    }
+
+    @include bpgte(sm)
+    {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}

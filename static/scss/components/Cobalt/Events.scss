@@ -1,0 +1,42 @@
+/** @define Events */
+
+$events-bottom-border: solid 1px #a6b0b9 !default;
+$events-font-color: #12131e !default;
+
+.Events
+{
+  &--ace .Event
+  {
+    display: flex;
+    flex-direction: column;
+    color: $events-font-color;
+
+    @include bpgte(sm)
+    {
+      flex-direction: row;
+    }
+
+    &-details,
+    &-imageWrapper
+    {
+      @include bpgte(sm)
+      {
+        flex-basis: 50%;
+      }
+    }
+
+    &-imageWrapper
+    {
+      text-align: left;
+      object-fit: cover;
+    }
+  }
+
+  &--ace .EventList
+  {
+    &-title
+    {
+      text-align: center;
+    }
+  }
+}

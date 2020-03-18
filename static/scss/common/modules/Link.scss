@@ -1,0 +1,30 @@
+/** @define Link */
+
+.Link
+{
+  text-decoration: none;
+
+  &:hover
+  {
+    text-decoration: underline;
+  }
+
+  &--plain
+  {
+    color: inherit;
+
+    &:link,
+    &:hover,
+    &:visited,
+    &:active,
+    &:focus
+    {
+      color: inherit;
+    }
+  }
+
+  &--underlined
+  {
+    text-decoration: underline;
+  }
+}

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="23px" height="36px" viewBox="0 0 23 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.3 (12072) - http://www.bohemiancoding.com/sketch -->
+    <title>icon-pin-cluster</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <radialGradient cx="50%" cy="22.7519355%" fx="50%" fy="22.7519355%" r="64.0056419%" id="radialGradient-1">
+            <stop stop-color="#FB7064" offset="0%"></stop>
+            <stop stop-color="#D34033" offset="100%"></stop>
+        </radialGradient>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="1" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.35 0" in="shadowBlurOuter1" type="matrix" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <radialGradient cx="50%" cy="50%" fx="50%" fy="50%" r="54.913051%" id="radialGradient-3">
+            <stop stop-color="#5C130F" offset="0%"></stop>
+            <stop stop-color="#3B0907" offset="100%"></stop>
+        </radialGradient>
+    </defs>
+    <g id="Maps" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="icon-pin-cluster" sketch:type="MSLayerGroup" transform="translate(3.000000, 2.000000)">
+            <ellipse id="Oval-8" stroke="#C24439" stroke-width="0.6" fill="#E75444" sketch:type="MSShapeGroup" cx="8.5" cy="32" rx="2.5" ry="2"></ellipse>
+            <path d="M8.5,31 C10.7158824,19.3260087 17,13.0101706 17,8.38130414 C17,3.75243768 13.1944204,0 8.5,0 C3.80557963,0 0,3.75243768 0,8.38130414 C0,13.0101706 6.50179304,19.3260087 8.5,31 Z" id="Oval-6" stroke="#B83B33" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round" fill="url(#radialGradient-1)" filter="url(#filter-2)" sketch:type="MSShapeGroup"></path>
+            <circle id="Oval-7" fill="url(#radialGradient-3)" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="7.5"></circle>
+        </g>
+    </g>
+</svg>

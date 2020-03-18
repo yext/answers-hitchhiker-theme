@@ -1,0 +1,29 @@
+/** @define Products */
+
+.Products
+{
+  &-title
+  {
+    @include Heading--h2;
+  }
+
+  &-link
+  {
+      @include Button--primary;
+  }
+}
+
+/** @define Product */
+
+.Product
+{
+  &-title
+  {
+    @include Heading--h3;
+  }
+
+  &-link
+  {
+      @include Link;
+  }
+}

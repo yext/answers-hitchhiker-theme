@@ -1,0 +1,56 @@
+/** @define Promo */
+
+// Promo Ace
+.Promo
+{
+  &--ace &-row
+  {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &--ace &-imgWrapper,
+  &--ace &-info
+  {
+    width: 100%;
+
+    @include bpgte(sm)
+    {
+      width: 50%;
+    }
+  }
+
+  &--ace &-imgWrapper
+  {
+    @include bpgte(sm)
+    {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  &--ace &-img
+  {
+    flex-basis: 100%;
+  }
+
+  &--ace &-info
+  {
+    @include bpgte(sm)
+    {
+      display: inline-block;
+    }
+  }
+
+  &--ace &--rtl
+  {
+    .Promo-row
+    {
+      @include bpgte(sm)
+      {
+        flex-direction: row-reverse;
+      }
+    }
+  }
+}

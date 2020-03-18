@@ -1,0 +1,9 @@
+/** @define Nearby */
+
+.Nearby
+{
+  &-title
+  {
+    @include Heading--h1;
+  }
+}

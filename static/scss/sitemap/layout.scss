@@ -1,0 +1,29 @@
+//
+// Layout.scss
+//
+// This file is intended to hold the styles for dividing up the page
+// into various sections. You would put things like constrained width
+// sections, splits (2 or 3 column layouts). These end up being containers
+// for modules.
+//
+// These rules should be prefixed with a lowercase 'L', e.g. .l-split-column, .l-grid-3
+//
+//
+// Example:
+// .l-constrained
+// {
+//   max-width:960px;
+// }
+//
+// .l-split-column
+// {
+//   & > :first-child
+//   {
+//     width:66%;
+//   }
+//
+//   & > :last-child
+//   {
+//     width:34%;
+//   }
+// }

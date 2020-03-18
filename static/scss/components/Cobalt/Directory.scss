@@ -1,0 +1,69 @@
+/** @define Directory */
+
+// Directory Ace
+.Directory
+{
+  &--ace
+  {
+    @include l-container;
+  }
+
+  &--ace &-row
+  {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &--ace &-title
+  {
+    width: 100%;
+  }
+
+
+  &--ace &-listTeaser
+  {
+    @include bplte(xs)
+    {
+      width: 100%;
+    }
+
+    @include bpgte(sm)
+    {
+      width: 50%;
+    }
+
+    @include bpgte(md)
+    {
+      width: 25%;
+    }
+  }
+
+  &--ace &-listLinks
+  {
+    @include bp(sm)
+    {
+      column-count: 2;
+    }
+
+    @include bp(md)
+    {
+      column-count: 3;
+    }
+
+    @include bpgte(lg)
+    {
+      column-count: 4;
+    }
+  }
+
+  &--ace &-listLink
+  {
+    display: inline-block;
+
+    &::after
+    {
+      content: attr(data-count);
+      margin-left: 1ch;
+    }
+  }
+}
