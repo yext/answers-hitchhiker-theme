@@ -16,6 +16,7 @@ BaseCard.{{componentName}} = class extends ANSWERS.Component {
     return super.setState({
       ...data,
       card: this.dataForRender(this.result._raw),
+      cardName: `{{componentName}}`,
       result: this.result,
       details
     });
@@ -30,7 +31,6 @@ BaseCard.{{componentName}} = class extends ANSWERS.Component {
       callsToAction: this._config.callsToAction,
       callsToActionFields: this._config.callsToActionFields,
       isUniversal: this._config.isUniversal,
-      _ctaModifiers: [`{{componentName}}`],
       ...opts
     });
   }

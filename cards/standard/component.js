@@ -1,4 +1,4 @@
-{{> cards_card_component componentName='StandardCardComponent'}}
+{{> cards_card_component componentName='StandardCard'}}
 
 class StandardCardComponent extends BaseCard.StandardCardComponent {
   constructor(config = {}, systemConfig = {}) {
@@ -14,9 +14,8 @@ class StandardCardComponent extends BaseCard.StandardCardComponent {
    */
   dataForRender(profile) {
     return {
-      title: profile.name.toUpperCase(),
+      title: profile.name,
       titleUrl: profile.websites,
-      newWindow: true,
       subtitle: '',
       details: profile.description,
       callsToAction: [
