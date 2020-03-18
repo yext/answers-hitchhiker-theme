@@ -1,5 +1,5 @@
 {
-  "currentVertical": "<REPLACE ME>",
+  "verticalKey": "<REPLACE ME>",
   "componentSettings": {
     "Map": {
       "mapProvider": "<REPLACE ME>",

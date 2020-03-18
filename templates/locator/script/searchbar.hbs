@@ -3,8 +3,8 @@ ANSWERS.addComponent('SearchBar', Object.assign({{{ json componentSettings.Searc
   {{#if componentSettings.SearchBar.verticalKey}}
     verticalKey: '{{componentSettings.SearchBar.verticalKey}}',
   {{else}}
-    {{#if currentVertical}}
-      verticalKey: '{{currentVertical}}',
+    {{#if verticalKey}}
+      verticalKey: '{{verticalKey}}',
     {{/if}}
   {{/if}}
 }));
