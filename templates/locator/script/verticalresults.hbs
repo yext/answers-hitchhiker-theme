@@ -1,0 +1,33 @@
+ANSWERS.addComponent('VerticalResults', Object.assign({{{ json componentSettings.VerticalResults }}}, {
+  container: '#standard-searchresults-container',
+  {{#if componentSettings.VerticalResults.verticalKey}}
+    verticalKey: '{{componentSettings.VerticalResults.verticalKey}}',
+  {{else}}
+    {{#if currentVertical}}
+      verticalKey: '{{currentVertical}}',
+    {{/if}}
+  {{/if}}
+  verticalPages: [
+    {{#each verticalConfigs}}
+      {
+        verticalKey: '{{currentVertical}}',
+        {{#each ../excludedVerticals}}{{#ifeq this ../currentVertical}}hideInNavigation: true,{{/ifeq}}{{/each}}
+        {{#ifeq ../currentVertical currentVertical}}isActive: true,{{/ifeq}}
+        {{#with (lookup verticalsToConfig currentVertical)}}
+        {{#ifeq isFirst 'true'}}isFirst: true,{{/ifeq}}
+        {{#if icon}}icon: '{{icon}}',{{/if}}
+        label:
+        {{#if label}}'{{label}}'{{else}}{{#if ../currentVertical}}'{{../currentVertical}}'{{else}}'{{@key}}'{{/if}}{{/if}},
+        url: {{#if url}}'{{url}}'{{else}}'{{@key}}.html'{{/if}},
+        {{/with}}
+      }{{#unless @last}},{{/unless}}
+    {{/each}}
+  ],
+  {{#each verticalsToConfig}}
+    {{#ifeq @key ../currentVertical}}
+      card: {
+        {{#if cardType}}cardType: '{{cardType}}',{{/if}}
+      }
+    {{/ifeq}}
+  {{/each}}
+}));

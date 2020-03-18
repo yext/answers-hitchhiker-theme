@@ -1,0 +1,14 @@
+{
+  "currentVertical": "<REPLACE ME>",
+  "componentSettings": {
+    "Map": {
+      "mapProvider": "<REPLACE ME>",
+      "apiKey": "<REPLACE ME>"
+    }
+  },
+  "verticalsToConfig": {
+    "<REPLACE ME>": {
+      "cardType": "<REPLACE ME>"
+    }
+  }
+}
