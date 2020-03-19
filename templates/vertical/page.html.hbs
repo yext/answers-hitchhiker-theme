@@ -1,31 +1,33 @@
-<div>
-  {{#> script_core }}
-    {{> cards_standard_component }}
-    {{> templates_vertical_script_searchbar}}
-    {{> templates_vertical_script_spellcheck}}
-    {{> templates_vertical_script_navigation}}
-    {{> templates_vertical_script_verticalresults}}
-    {{> templates_vertical_script_pagination}}
-    {{> templates_vertical_script_locationbias}}
-    {{> templates_vertical_script_qasubmission}}
-  {{/script_core}}
-  <div class="Answers">
-    <div class="Answers-navWrapper">
-      <div class="Answers-container">
-        {{> templates_vertical_markup_searchbar }}
-        {{> templates_vertical_markup_navigation}}
+{{#> layouts_html }}
+  <div>
+    {{#> script_core }}
+      {{> cards_standard_component }}
+      {{> templates_vertical_script_searchbar}}
+      {{> templates_vertical_script_spellcheck}}
+      {{> templates_vertical_script_navigation}}
+      {{> templates_vertical_script_verticalresults}}
+      {{> templates_vertical_script_pagination}}
+      {{> templates_vertical_script_locationbias}}
+      {{> templates_vertical_script_qasubmission}}
+    {{/script_core}}
+    <div class="Answers">
+      <div class="Answers-navWrapper">
+        <div class="Answers-container">
+          {{> templates_vertical_markup_searchbar }}
+          {{> templates_vertical_markup_navigation}}
+        </div>
+      </div>
+      <div class="Answers-container Answers-resultsWrapper">
+        {{> templates_vertical_markup_spellcheck }}
+        <div class="Answers-filtersAndResults">
+          {{> templates_vertical_markup_verticalresults }}
+        </div>
+        {{> templates_vertical_markup_pagination }}
+        {{> templates_vertical_markup_qasubmission }}
       </div>
     </div>
-    <div class="Answers-container Answers-resultsWrapper">
-      {{> templates_vertical_markup_spellcheck }}
-      <div class="Answers-filtersAndResults">
-        {{> templates_vertical_markup_verticalresults }}
-      </div>
-      {{> templates_vertical_markup_pagination }}
-      {{> templates_vertical_markup_qasubmission }}
-    </div>
+    <footer class="Answers-footer">
+      {{> templates_vertical_markup_locationbias }}
+    </footer>
   </div>
-  <footer class="Answers-footer">
-    {{> templates_vertical_markup_locationbias }}
-  </footer>
-</div>
+{{/layouts_html }}
