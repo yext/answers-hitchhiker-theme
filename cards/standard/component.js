@@ -1,6 +1,6 @@
-{{> cards_card_component componentName='StandardCardComponent'}}
+{{> cards_card_component componentName='StandardCard'}}
 
-class StandardCardComponent extends BaseCard.StandardCardComponent {
+class StandardCardComponent extends BaseCard.StandardCard {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
     this.setTemplate(`{{{read 'cards_standard_template' }}}`);
@@ -13,26 +13,18 @@ class StandardCardComponent extends BaseCard.StandardCardComponent {
    * @param profile profile of the entity in the card
    */
   dataForRender(profile) {
-    let title = profile.name.toUpperCase();
-    let subtitle = '';
-    let details = profile.description;
-    let titleUrl = profile.websites;
-    let urlShouldOpenInNewWindow = true;
-    let callsToAction = [
-      {
-        url: profile.c_primaryCTA,
-        iconName: 'chevron',
-        label: 'View Details'
-      }
-    ];
-
     return {
-      title: title,
-      titleUrl: titleUrl,
-      newWindow: urlShouldOpenInNewWindow,
-      subtitle: subtitle,
-      details: details,
-      callsToAction: callsToAction
+      title: profile.name,
+      titleUrl: profile.websites,
+      subtitle: '',
+      details: profile.description,
+      callsToAction: [
+        {
+          url: profile.c_primaryCTA,
+          iconName: 'chevron',
+          label: 'View Details'
+        }
+      ]
     };
   }
 }

@@ -1,0 +1,87 @@
+$generate-classes: true;
+$font-family-main: 'Open Sans',Helvetica,Arial,sans-serif !default;
+
+$font-weight-bold: 700;
+$font-weight-semibold: 600;
+$font-weight-normal: 400;
+$font-weight-light: 300;
+
+$brand-primary: #000 !default;
+$brand-secondary: #444 !default;
+$brand-tertiary: #0f70f0 !default;
+
+$brand-darkblue: #0c5ecb !default;
+
+$white: #fff !default;
+
+$gray-1: #212121 !default;
+$gray-2: #757575 !default;
+$gray-3: #dcdcdc !default;
+$gray-4: #e9e9e9 !default;
+$gray-5: #fafafa !default;
+$gray-6: rgba(189, 189, 189, 0.2) !default;
+$gray-7: #f3f3f3 !default;
+$gray-8: #eeeff0 !default;
+
+$answers-background-color: $gray-8 !default;
+
+$link-color-primary: $brand-primary !default;
+$link-color-hover: $brand-secondary !default;
+$link-color-active: $brand-primary !default;
+$link-color-visited: $brand-primary !default;
+
+$link-color-secondary: $brand-primary !default;
+$link-color-secondary-hover: $brand-secondary !default;
+$link-color-secondary-active: $brand-primary !default;
+$link-color-secondary-visited: $brand-primary !default;
+
+$text-primary: black !default;
+$text-secondary: black !default;
+
+$border-1: 1px solid $gray-4 !default;
+$border-2: 1px solid $gray-3 !default;
+$border-nav: 2px solid $brand-tertiary !default;
+$border-nav-hover: 2px solid $brand-secondary !default;
+$border-default: $border-1 !default;
+
+// Locator Variables
+$header-height-mobile: 50px;
+$header-height-desktop: 100px;
+
+// Bootstrap Overrides
+$grid-gutter-width: 32px !default;
+$grid-gutter-width-xs: $grid-gutter-width !default;
+$grid-gutter-width-sm: $grid-gutter-width !default;
+$grid-gutter-width-md: $grid-gutter-width !default;
+$grid-gutter-width-lg: $grid-gutter-width !default;
+
+$grid-columns: 12 !default;
+
+$padded-padding: $grid-gutter-width/2 !default;
+$spaced-margin: $grid-gutter-width/2 !default;
+
+$vertical-margin-top: $grid-gutter-width !default;
+$vertical-margin-bottom: $grid-gutter-width !default;
+
+$screen-xs-min: 480px;
+$screen-xs-max: 767px;
+$screen-sm-min: 768px;
+$screen-sm-max: 991px;
+$screen-md-min: 992px;
+$screen-md-max: 1199px;
+$screen-lg-min: 1200px;
+
+$container-tablet-base: 768px;
+$container-desktop-base: 992px;
+$container-large-desktop-base: 1170px;
+
+$container-tablet: ($container-tablet-base + $grid-gutter-width);
+$container-desktop: ($container-desktop-base + $grid-gutter-width);
+$container-large-desktop: ($container-large-desktop-base + $grid-gutter-width);
+
+$cobalt-base-padding: 2rem;
+
+$z-index-autocomplete: 2;
+
+$bpmax: xs;
+$bpmin: sm;

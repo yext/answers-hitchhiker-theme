@@ -1,0 +1,54 @@
+//
+// Brands Component SCSS Stylesheet
+//
+
+.c-brands
+{
+  margin:10px 0px;
+
+  &-title
+  {
+    margin-bottom:10px;
+  }
+
+  &-table
+  {
+    width:100%;
+    &-row
+    {
+    }
+
+    &-cell
+    {
+      vertical-align:top;
+      &:last-child
+      {
+        .c-brands-entry
+        {
+          margin-right:0px;
+        }
+      }
+    }
+  }
+
+  &-entry
+  {
+    margin-right:15px;
+  }
+
+  @media (max-width: $screen-sm-min)
+  {
+  }
+
+  @media (max-width: $screen-md-min)
+  {
+  }
+
+  @media (max-width: $screen-lg-min)
+  {
+  }
+
+  @media (min-width: $screen-lg-min)
+  {
+  }
+}

@@ -1,27 +1,27 @@
 ANSWERS.addComponent('UniversalResults', Object.assign({{{ json componentSettings.UniversalResults }}}, {
-    container: '#standard-searchresults-container',
-    config: {
+    container: '.js-answersUniversalResults',
+    verticals: {
         {{#each verticalConfigs}}
-            {{currentVertical}}: {
-                {{#with (lookup verticalsToConfig currentVertical)}}
+            {{verticalKey}}: {
+                {{#with (lookup verticalsToConfig verticalKey)}}
                     {{#if cardType}}
                         card: {
                             cardType: '{{cardType}}'
                         },
                     {{/if}}
-                    sectionTitle: {{#if sectionTitle}}'{{sectionTitle}}'{{else}}{{#if label}}'{{label}}'{{else}}'{{../currentVertical}}'{{/if}}{{/if}},
+                    title: {{#if sectionTitle}}'{{sectionTitle}}'{{else}}{{#if label}}'{{label}}'{{else}}'{{../verticalKey}}'{{/if}}{{/if}},
                     {{#if icon}}
-                        sectionTitleIconName: '{{icon}}',
+                        icon: '{{icon}}',
                     {{/if}}
-                    viewAllText: {{#if viewAllText}}{{viewAllText}}{{else}}'View All'{{/if}},
+                    viewMoreLabel: {{#if viewAllText}}{{viewAllText}}{{else}}'View All'{{/if}},
                     verticalPages: [
                     {{#with ../../verticalConfigs}}
                       {{#each this}}
                         {
-                          verticalKey: '{{currentVertical}}',
-                          {{#with (lookup verticalsToConfig currentVertical)}}
+                          verticalKey: '{{verticalKey}}',
+                          {{#with (lookup verticalsToConfig verticalKey)}}
                             {{#if icon}}icon: '{{icon}}',{{/if}}
-                            label: {{#if label}}'{{label}}'{{else}}{{#if ../currentVertical}}'{{../currentVertical}}'{{else}}'{{@key}}'{{/if}}{{/if}},
+                            label: {{#if label}}'{{label}}'{{else}}{{#if ../verticalKey}}'{{../verticalKey}}'{{else}}'{{@key}}'{{/if}}{{/if}},
                             url: {{#if url}}'{{url}}'{{else}}'{{@key}}.html'{{/if}},
                           {{/with}}
                         }{{#unless @last}},{{/unless}}

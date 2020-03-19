@@ -1,0 +1,46 @@
+/** @define Text */
+
+.Text
+{
+  font-size: 14px;
+
+  @include bpgte(sm)
+  {
+    font-size: 16px;
+  }
+
+  &--small
+  {
+    font-size: 12px;
+
+    @include bpgte(sm)
+    {
+      font-size: 14px;
+    }
+  }
+
+  &--large
+  {
+    font-size: 16px;
+
+    @include bpgte(sm)
+    {
+      font-size: 18px;
+    }
+  }
+
+  &--bold
+  {
+    font-weight: $font-weight-bold;
+  }
+
+  &--light
+  {
+    font-weight: $font-weight-light;
+  }
+
+  &--semibold
+  {
+    font-weight: $font-weight-semibold;
+  }
+}

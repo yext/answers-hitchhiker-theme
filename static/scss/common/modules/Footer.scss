@@ -1,0 +1,9 @@
+/** @define Footer */
+
+$footer-break-point-max: xs !default;
+$footer-break-point-min: sm !default;
+
+.Footer
+{
+  flex-shrink: 0;
+}
