@@ -1,24 +1,26 @@
-<div>
-  {{#> script_core }}
-    {{> templates_universal_script_searchbar }}
-    {{> templates_universal_script_spellcheck }}
-    {{> templates_universal_script_navigation }}
-    {{> templates_universal_script_universalresults }}
-    {{> templates_universal_script_qasubmission }}
-  {{/script_core}}
-  <div class="Answers">
-    <div class="Answers-navWrapper">
-      <div class="Answers-container">
-        {{> templates_universal_markup_searchbar }}
-        {{> templates_universal_markup_navigation}}
+{{#> layouts_html }}
+  <div>
+    {{#> script_core }}
+      {{> templates_universal_script_searchbar }}
+      {{> templates_universal_script_spellcheck }}
+      {{> templates_universal_script_navigation }}
+      {{> templates_universal_script_universalresults }}
+      {{> templates_universal_script_qasubmission }}
+    {{/script_core}}
+    <div class="Answers">
+      <div class="Answers-navWrapper">
+        <div class="Answers-container">
+          {{> templates_universal_markup_searchbar }}
+          {{> templates_universal_markup_navigation}}
+        </div>
       </div>
-    </div>
-    <div class="Answers-container Answers-resultsWrapper">
-      {{> templates_universal_markup_spellcheck }}
-      <div class="Answers-filtersAndResults">
-        {{> templates_universal_markup_universalresults }}
+      <div class="Answers-container Answers-resultsWrapper">
+        {{> templates_universal_markup_spellcheck }}
+        <div class="Answers-filtersAndResults">
+          {{> templates_universal_markup_universalresults }}
+        </div>
+        {{> templates_universal_markup_qasubmission }}
       </div>
-      {{> templates_universal_markup_qasubmission }}
     </div>
   </div>
-</div>
+{{/layouts_html}}
