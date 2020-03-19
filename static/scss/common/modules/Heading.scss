@@ -1,0 +1,44 @@
+/** @define Heading */
+
+.Heading
+{
+  &--lead
+  {
+    font-size: 36px;
+
+    @include bpgte(sm)
+    {
+      font-size: 64px;
+    }
+  }
+
+  &--major
+  {
+    font-size: 24px;
+
+    @include bpgte(sm)
+    {
+      font-size: 48px;
+    }
+  }
+
+  &--minor
+  {
+    font-size: 24px;
+
+    @include bpgte(sm)
+    {
+      font-size: 36px;
+    }
+  }
+
+  &--sub
+  {
+    font-size: 18px;
+
+    @include bpgte(sm)
+    {
+      font-size: 24px;
+    }
+  }
+}

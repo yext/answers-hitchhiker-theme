@@ -1,0 +1,49 @@
+/** @define ResultList */
+
+.ResultList
+{
+  &-item
+  {
+    border-bottom: $border-default;
+    padding: 16px;
+
+    &:first-child
+    {
+      border-top: $border-default;
+    }
+
+    &:hover,
+    &.is-hovered
+    {
+      @include bpgte(md)
+      {
+        background-color: #f7f7f7;
+      }
+    }
+
+    &.is-selected
+    {
+      @include bpgte(md)
+      {
+        background-color: #b7b7b7;
+      }
+    }
+
+    &--ordered
+    {
+      @include bpgte(md)
+      {
+        counter-increment: resultCount;
+        position: relative;
+        padding-left: 64px;
+
+        &::before
+        {
+          content: counter(resultCount, decimal);
+          position: absolute;
+          left: 32px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+@import "vendor";
+@import "~font-awesome/scss/variables";
+
+// Core variables and mixins
+@import "../common/fonts";
+@import "../common/mixins";
+@import "../common/base";
+@import "../common/module";
+
+// components
+@import "components";
+
+// Common -- theme
+@import "../common/theme";
+
+// local
+@import "layout";
+@import "module";
+@import "theme";
+
+// Add imported css here (such as that for a pulled header/footer)
+
+// lanswers styling
+@import "~answers/src/ui/sass/answers";
+
+// default answers theme styling
+@import "~answers-experience-builder/src/sass/main";
+
+// answers overrides
+@import "../answers";
+

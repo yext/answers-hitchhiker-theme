@@ -1,0 +1,39 @@
+// Add any font families here
+
+// Example:
+// @font-face {
+//   font-family: 'Helvetica Neue Bold Condensed';
+//   src: url('helveticaneue-boldcond-webfont.eot');
+//   src:
+//     url('helveticaneue-boldcond-webfont.eot?#iefix') format("embedded-opentype"),
+//     url('helveticaneue-boldcond-webfont.woff') format("woff"),
+//     url('helveticaneue-boldcond-webfont.ttf') format("truetype"),
+//     url('helveticaneue-boldcond-webfont.svg#helvetica_neueboldcondensed') format("svg");
+//   font-weight: $font-weight-normal;
+//   font-style: normal;
+// }
+
+@font-face
+{
+  font-family: "Open Sans";
+  src: url('../../assets/fonts/opensans-regular-webfont.woff') format("woff");
+  font-weight: $font-weight-normal;
+  font-style: normal;
+}
+
+@font-face
+{
+  font-family: "Open Sans";
+  src: url('../../assets/fonts/opensans-bold-webfont.woff') format("woff");
+  font-weight: $font-weight-bold;
+  font-style: normal;
+}
+
+@font-face
+{
+  font-family: "Open Sans";
+  src: url('../../assets/fonts/opensans-semibold-webfont.woff') format("woff");
+  font-weight: $font-weight-semibold;
+  font-style: normal;
+}
+

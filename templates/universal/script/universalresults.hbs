@@ -1,6 +1,6 @@
 ANSWERS.addComponent('UniversalResults', Object.assign({{{ json componentSettings.UniversalResults }}}, {
-    container: '#standard-searchresults-container',
-    config: {
+    container: '.js-answersUniversalResults',
+    verticals: {
         {{#each verticalConfigs}}
             {{verticalKey}}: {
                 {{#with (lookup verticalsToConfig verticalKey)}}
@@ -9,11 +9,11 @@ ANSWERS.addComponent('UniversalResults', Object.assign({{{ json componentSetting
                             cardType: '{{cardType}}'
                         },
                     {{/if}}
-                    sectionTitle: {{#if sectionTitle}}'{{sectionTitle}}'{{else}}{{#if label}}'{{label}}'{{else}}'{{../verticalKey}}'{{/if}}{{/if}},
+                    title: {{#if sectionTitle}}'{{sectionTitle}}'{{else}}{{#if label}}'{{label}}'{{else}}'{{../verticalKey}}'{{/if}}{{/if}},
                     {{#if icon}}
-                        sectionTitleIconName: '{{icon}}',
+                        icon: '{{icon}}',
                     {{/if}}
-                    viewAllText: {{#if viewAllText}}{{viewAllText}}{{else}}'View All'{{/if}},
+                    viewMoreLabel: {{#if viewAllText}}{{viewAllText}}{{else}}'View All'{{/if}},
                     verticalPages: [
                     {{#with ../../verticalConfigs}}
                       {{#each this}}
