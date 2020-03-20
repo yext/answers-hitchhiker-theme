@@ -9,6 +9,7 @@ ANSWERS.addComponent('VerticalResults', Object.assign({{{ json componentSettings
   {{/if}}
   verticalPages: [
     {{#each verticalConfigs}}
+      {{#if verticalKey}}
       {
         verticalKey: '{{verticalKey}}',
         {{#each ../excludedVerticals}}{{#ifeq this ../verticalKey}}hideInNavigation: true,{{/ifeq}}{{/each}}
@@ -21,6 +22,7 @@ ANSWERS.addComponent('VerticalResults', Object.assign({{{ json componentSettings
         url: {{#if url}}'{{url}}'{{else}}'{{@key}}.html'{{/if}},
         {{/with}}
       }{{#unless @last}},{{/unless}}
+      {{/if}}
     {{/each}}
   ],
   {{#each verticalsToConfig}}

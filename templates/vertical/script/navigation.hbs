@@ -6,12 +6,21 @@ verticalPages: [
     verticalKey: '{{verticalKey}}',
     {{#each ../excludedVerticals}}{{#ifeq this ../verticalKey}}hideInNavigation: true,{{/ifeq}}{{/each}}
     {{#ifeq ../verticalKey verticalKey}}isActive: true,{{/ifeq}}
-    {{#with (lookup verticalsToConfig verticalKey)}}
-      {{#ifeq isFirst 'true'}}isFirst: true,{{/ifeq}}
-      {{#if icon}}icon: '{{icon}}',{{/if}}
-      label: {{#if label}}'{{label}}'{{else}}{{#if ../verticalKey}}'{{../verticalKey}}'{{else}}'{{@key}}'{{/if}}{{/if}},
-      url: {{#if url}}'{{url}}'{{else}}'{{@key}}.html'{{/if}},
-    {{/with}}
+    {{#if verticalKey}}
+      {{#with (lookup verticalsToConfig verticalKey)}}
+        {{#ifeq isFirst 'true'}}isFirst: true,{{/ifeq}}
+        {{#if icon}}icon: '{{icon}}',{{/if}}
+        label: {{#if label}}'{{label}}'{{else}}{{#if ../verticalKey}}'{{../verticalKey}}'{{else}}'{{@key}}'{{/if}}{{/if}},
+        url: {{#if url}}'{{url}}'{{else}}'{{@key}}.html'{{/if}},
+      {{/with}}
+    {{else}}
+      {{#with (lookup verticalsToConfig 'Universal')}}
+        {{#ifeq isFirst 'true'}}isFirst: true,{{/ifeq}}
+        {{#if icon}}icon: '{{icon}}',{{/if}}
+        label: {{#if label}}'{{label}}'{{else}}'{{@key}}'{{/if}},
+        url: {{#if url}}'{{url}}'{{else}}'{{@key}}.html'{{/if}},
+      {{/with}}
+    {{/if}}
   }{{#unless @last}},{{/unless}}
 {{/each}}
 ]

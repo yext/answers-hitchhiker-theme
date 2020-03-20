@@ -1,5 +1,4 @@
 {
-  "verticalKey": "All",
   "pageTitle": "<REPLACE ME>",
   "componentSettings": {
     "QASubmission": {
@@ -7,7 +6,7 @@
     }
   },
   "verticalsToConfig": {
-    "All": {
+    "Universal": {
       "isFirst": "true"
     }
   }
