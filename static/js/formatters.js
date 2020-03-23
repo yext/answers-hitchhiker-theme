@@ -175,6 +175,132 @@ export default class Formatters {
     return list.join(separator);
   }
 
+  /*
+  * Given object with url and alternateText, changes url to use https
+  */
+  static image(img, size = '200x', atLeastAsLarge = true) {
+    if (!img) {
+      return null;
+    }
+    if (!img.url) {
+      return img;
+    }
+
+    function imageBySizeEntity(image, desiredSize, atLeastAsLarge = true) {
+      if ((image == null) || !(Object.prototype.toString.call(image).indexOf('Object') > 0)) {
+        throw new Error("Expected parameter of type Map");
+      }
+      if ((typeof desiredSize !== 'string') || (desiredSize == null)) {
+        throw new Error(`Object of type string expected. Got ${typeof desiredSize}.`);
+      }
+      if (desiredSize.indexOf('x') === -1) {
+        throw new Error("Invalid desired size");
+      }
+      if ((typeof atLeastAsLarge !== 'boolean') || (atLeastAsLarge == null)) {
+        throw new Error(`Object of type boolean expected. Got ${typeof atLeastAsLarge}.`);
+      }
+
+      if (!image.thumbnails) {
+        image.thumbnails = [];
+      }
+
+      if (!Array.isArray(image.thumbnails)) {
+        throw new Error(`Object of type array expected. Got ${typeof image.thumbnails}.`);
+      }
+
+      if (image.width != undefined && image.height != undefined && image.url != undefined) {
+        image.thumbnails.push({
+          'width': image.width,
+          'height': image.height,
+          'url': image.url
+        });
+      }
+
+      let height, index;
+      let width = (height = -1);
+      let desiredDims = desiredSize.split('x');
+
+      if (desiredDims[0] !== '') {
+        width = Number.parseInt(desiredDims[0]);
+        if (Number.isNaN(width)) {
+          throw new Error("Invalid width specified");
+        }
+      }
+
+      if (desiredDims[1] !== '') {
+        height = Number.parseInt(desiredDims[1]);
+        if (Number.isNaN(height)) {
+          throw new Error("Invalid height specified");
+        }
+      }
+
+      let widthOk = width === -1;
+      let heightOk = height === -1;
+
+      if (atLeastAsLarge) {
+        index = image.thumbnails.length - 1;
+
+        while (index >= 0) {
+          if (!(image.thumbnails[index].width && image.thumbnails[index].height)) {
+            return image.thumbnails[index].url;
+          }
+
+          widthOk = width > 0 ? (image.thumbnails[index].width >= width) : widthOk;
+          heightOk = height > 0 ? (image.thumbnails[index].height >= height) : heightOk;
+
+          if (heightOk && widthOk) {
+            break;
+          }
+
+          index--;
+        }
+
+        // if we exhausted the list
+        if (index <= 0) {
+          index = 0;
+        }
+      } else {
+        index = 0;
+
+        while (index < image.thumbnails.length) {
+          if (!(image.thumbnails[index].width && image.thumbnails[index].height)) {
+            return image.thumbnails[index].url;
+          }
+
+          if (width > 0) {
+            widthOk = image.thumbnails[index].width <= width;
+          }
+
+          if (height > 0) {
+            heightOk = image.thumbnails[index].height <= height;
+          }
+
+          if (heightOk && widthOk) { break; }
+
+          index++;
+        }
+
+        // if we exhausted the list
+        if (index >= image.thumbnails.length) {
+          index = image.thumbnails.length - 1;
+        }
+      }
+
+      return image.thumbnails[index].url;
+    }
+
+    const result = imageBySizeEntity(img, size, atLeastAsLarge);
+
+    return Object.assign(
+      {},
+      img,
+      {
+        url: result.replace('http://', 'https://')
+      }
+    );
+  }
+
+
   /**
   * Truncates strings to 250 characters, attempting to preserve whole words
   * @param str {string} the string to truncate
