@@ -32,4 +32,195 @@ export default class Formatters {
         const query = encodeURIComponent(rawQuery);
         return `https://www.google.com/maps/search/?api=1&query=${query}&output=classic`
     }
+
+  static isTodayHoliday(holidayItem, todayDate) {
+    if (!holidayItem.date) {
+      return false;
+    }
+
+    const holidayDate = holidayItem.date.split('-');
+
+    return parseInt(holidayDate[0]) === todayDate.getFullYear() &&
+      parseInt(holidayDate[1]) === todayDate.getMonth() + 1 &&
+      parseInt(holidayDate[2]) === todayDate.getDate()
+  }
+
+  static bigDate(profile, keyPath = 'time.start') {
+    const paths = keyPath.split('.');
+    if (!paths.length) {
+      console.error('invalid key path', keypath);
+      return null;
+    }
+
+    const dateString = paths.reduce((haystack, needleKey) => {
+      if (!haystack) {
+        console.log('haystack was null or undefined', haystack, needleKey, idx);
+        return null;
+      }
+      const needle = haystack[needleKey];
+      if (!needle) {
+        console.log('could not find ' + needleKey, haystack);
+        return null;
+      }
+
+      return needle;
+    }, profile);
+    if (!dateString) {
+      return null;
+    }
+
+    const date = this.betterTime(dateString);
+    const locale = document.documentElement.lang.replace('_', '-');
+    const time = date.toLocaleString(locale, {
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true,
+    });
+
+    return {
+      day: date.getDate(),
+      month: date.toLocaleString(locale, { month: 'long' }),
+      time: time,
+    };
+  }
+
+  static betterTime(stamp) {
+    const offset = new Date(stamp).getTimezoneOffset() / 60;
+    const offsetStr = (offset < 0 ? '+0' : '-0') + Math.abs(offset) + ':00';
+    return new Date(stamp + offsetStr);
+  }
+
+  static dateRange(
+    profile,
+    key = 'time',
+    dateFormatOptions = {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true,
+    },
+    separator = '-') {
+
+    const dateField = profile[key];
+    if (!dateField) {
+      console.error('could not find ', key, profile);
+      return null;
+    }
+
+    if (!(dateField.start || dateField.end)) {
+      console.error(key, 'is empty', profile);
+      return null;
+    }
+
+    const locale = document.documentElement.lang.replace('_', '-');
+    const start = this.betterTime(dateField.start);
+    const end = this.betterTime(dateField.end);
+    const startString = start.toLocaleString(locale, dateFormatOptions);
+    let endString = end.toLocaleString(locale, dateFormatOptions);
+
+    if (startString && endString) {
+      if (start.toLocaleDateString() === end.toLocaleDateString()) {
+        endString = end.toLocaleString(locale, {
+          hour: 'numeric',
+          minute: 'numeric',
+          hour12: true,
+        });
+      }
+
+      return `${startString} ${separator} ${endString}`;
+    }
+
+    if (startString) {
+      return startString;
+    }
+
+    return endString;
+  }
+
+  static snakeToTitle(snake) {
+    return snake.split('_')
+      .map(frag => `${frag.charAt(0).toUpperCase()}${frag.slice(1)}`)
+      .join(' ');
+  }
+
+  static prettyPrintObject(obj) {
+    switch (typeof obj) {
+      case 'string':
+      case 'number':
+      case 'bigint':
+        return obj.toLocaleString();
+      case 'boolean':
+        return obj ? 'Yes' : 'No';
+      case 'object':
+        // check for null
+        if (!obj) {
+          return '';
+        }
+        if (Array.isArray(obj)) {
+          return obj.map(sub => this.prettyPrintObject(sub)).join('<br>');
+        }
+        return Object.entries(obj)
+          .map(([_, val]) => this.prettyPrintObject(val)).join(', ');
+      default:
+        return '';
+    }
+  }
+
+  static joinList(list, separator) {
+    if (!list) {
+      return '';
+    }
+    return list.join(separator);
+  }
+
+  /**
+  * Truncates strings to 250 characters, attempting to preserve whole words
+  * @param str {string} the string to truncate
+  * @param limit {Number} the maximum character length to return
+  * @param trailing {string} a trailing string to denote truncation, e.g. '...'
+  * @param sep {string} the word separator
+  * @returns {string}
+  */
+  static truncate(str, limit = 250, trailing = '...', sep = ' ') {
+    if (!str || str.length <= limit) {
+      return str;
+    }
+
+    // TODO (bmcginnis): split punctuation too so we don't end up with "foo,..."
+    const words = str.split(sep);
+    const max = limit - trailing.length;
+    let truncated = '';
+
+    for (let i = 0; i < words.length; i++) {
+      const word = words[i];
+      if (truncated.length + word.length > max ||
+        (i !== 0 && truncated.length + word.length + sep.length > max)) {
+        truncated += trailing;
+        break;
+      }
+
+      truncated += i === 0 ? word : sep + word;
+    }
+
+    return truncated;
+  }
+
+  static buildCardFeatures(fieldName) {
+    return (profile) => {
+      const featureData = profile[fieldName];
+      if (!featureData) {
+        return null;
+      }
+      const features =
+        featureData
+          .map(feat => `<li class="yxt-Result-feature">${Formatters.snakeToTitle(feat.toLowerCase())}</li>`)
+          .join('');
+
+      return `<ul class="yxt-Result-features">
+                  ${features}
+                </ul>`;
+    };
+  }
 }
