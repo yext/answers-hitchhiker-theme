@@ -45,14 +45,15 @@ export default class Formatters {
       parseInt(holidayDate[2]) === todayDate.getDate()
   }
 
-  static bigDate(profile, keyPath = 'time.start') {
-    const paths = keyPath.split('.');
+  static _getProfileFieldAtKeyPath(profile, keypath) {
+    const paths = keypath.split('.');
+
     if (!paths.length) {
       console.error('invalid key path', keypath);
       return null;
     }
 
-    const dateString = paths.reduce((haystack, needleKey) => {
+    return paths.reduce((haystack, needleKey) => {
       if (!haystack) {
         console.log('haystack was null or undefined', haystack, needleKey, idx);
         return null;
@@ -65,6 +66,10 @@ export default class Formatters {
 
       return needle;
     }, profile);
+  }
+
+  static bigDate(profile, keyPath = 'time.start') {
+    const dateString = this._getProfileFieldAtKeyPath(profile, keyPath);
     if (!dateString) {
       return null;
     }
@@ -331,22 +336,5 @@ export default class Formatters {
     }
 
     return truncated;
-  }
-
-  static buildCardFeatures(fieldName) {
-    return (profile) => {
-      const featureData = profile[fieldName];
-      if (!featureData) {
-        return null;
-      }
-      const features =
-        featureData
-          .map(feat => `<li class="yxt-Result-feature">${Formatters.snakeToTitle(feat.toLowerCase())}</li>`)
-          .join('');
-
-      return `<ul class="yxt-Result-features">
-                  ${features}
-                </ul>`;
-    };
   }
 }
