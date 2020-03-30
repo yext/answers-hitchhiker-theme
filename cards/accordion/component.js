@@ -10,7 +10,7 @@ class AccordionCardComponent extends BaseCard.AccordionCard {
    * This returns an object that will be called `card`
    * in the template. Put all mapping logic here.
    *
-   * @param profile profile of the entity in the card
+   * @param {Object} profile of the entity in the card
    */
   dataForRender(profile) {
     return {
