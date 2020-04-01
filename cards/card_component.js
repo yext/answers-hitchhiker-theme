@@ -13,9 +13,14 @@ BaseCard.{{componentName}} = class extends ANSWERS.Component {
 
   setState(data) {
     const details = this._config.details;
+    const { _raw, ...derivedFields } = this.result;
+    const profile = { ..._raw };
+    for (const field of Object.keys(derivedFields)) {
+      profile[`d_${field}`] = derivedFields[field];
+    }
     return super.setState({
       ...data,
-      card: this.dataForRender(this.result._raw),
+      card: this.dataForRender(profile),
       cardName: `{{componentName}}`,
       result: this.result,
       details
