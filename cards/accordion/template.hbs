@@ -1,0 +1,54 @@
+<div class="yxt-AccordionCard yxt-{{cardName}} js-yxt-AccordionCard{{#if isExpanded}} yxt-AccordionCard--expanded{{/if}}"
+     id="{{id}}">
+  <button class="yxt-AccordionCard-toggle js-yxt-AccordionCard-toggle"
+    aria-expanded="{{#if isExpanded}}true{{else}}false{{/if}}"
+    aria-controls="{{id}}"
+    tabindex="0">
+    <h3 class="yxt-AccordionCard-title">
+      {{{card.title}}}
+    </h3>
+    <div class="yxt-AccordionCard-icon js-yxt-AccordionCard-icon{{#if isExpanded}} yxt-AccordionCard-icon--expanded{{/if}}"
+      data-component="IconComponent"
+      data-opts='{"iconName": "chevron"}'
+      data-prop="icon">
+    </div>
+  </button>
+  <div class="yxt-AccordionCard-content js-yxt-AccordionCard-content"
+       aria-hidden="{{#if isExpanded}}false{{else}}true{{/if}}">
+    {{#if card.subtitle}}
+      <div class="yxt-AccordionCard-subtitle">
+        {{{card.subtitle}}}
+      </div>
+    {{/if}}
+    {{#if card.details}}
+      <div class="yxt-AccordionCard-details">
+        {{{card.details}}}
+      </div>
+    {{/if}}
+    {{#if card.callsToAction}}
+      <div class="yxt-AccordionCard-ctasWrapper">
+        {{#each card.callsToAction}}
+          {{> CTA }}
+        {{/each}}
+      </div>
+    {{/if}}
+  </div>
+</div>
+
+{{#*inline 'CTA'}}
+<a class="yxt-CTA js-yxt-CTA{{#if modifiers}} {{modifiers}}{{/if}}"
+   href="{{url}}"
+   target={{#if target}}"{{target}}"{{else}}"_self"{{/if}}>
+  {{#if iconName}}
+  <div class="yxt-CTA-iconWrapper">
+    <div class="yxt-CTA-icon"
+         data-component="IconComponent"
+         data-opts='{ "iconName": "{{iconName}}" }'>
+    </div>
+  </div>
+  {{/if}}
+  <div class='yxt-CTA-iconLabel'>
+    {{label}}
+  </div>
+</a>
+{{/inline}}
