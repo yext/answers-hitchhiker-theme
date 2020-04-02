@@ -26,11 +26,6 @@ class StandardCardComponent extends BaseCard.StandardCard {
           target: '_parent',
           modifiers: 'yxt-CTA--solo',
           eventType: 'CTA_CLICK',
-          eventOptions: {
-            verticalKey: verticalKey,
-            searcher: isUniversal ? 'UNIVERSAL' : 'VERTICAL',
-            entityId: profile.id
-          }
         }
       ]
     };

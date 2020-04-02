@@ -61,6 +61,7 @@ BaseCard.{{componentName}} = class extends ANSWERS.Component {
     });
     parsedCTAs = parsedCTAs.filter(cta => cta);
 
+    let self = this;
     parsedCTAs.forEach(cta => {
       if (!cta.label && !cta.url) {
         console.warn('Call to Action:', cta, 'is missing both a label and url attribute and is being automatically hidden');
@@ -68,6 +69,14 @@ BaseCard.{{componentName}} = class extends ANSWERS.Component {
         console.warn('Call to Action:', cta, 'is missing a label attribute and is being automatically hidden');
       } else if (!cta.url) {
         console.warn('Call to Action:', cta, 'is missing a url attribute and is being automatically hidden');
+      }
+
+      if (!cta.eventOptions) {
+        cta.eventOptions =  {
+          verticalKey: self.verticalKey,
+          searcher: self._config.isUniversal ? "UNIVERSAL" : "VERTICAL",
+          entityId: self.result.id
+        }
       }
     });
 

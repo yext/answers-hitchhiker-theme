@@ -30,12 +30,7 @@ class AccordionCardComponent extends BaseCard.AccordionCard {
           iconName: cta.icon,
           target: "_parent",
           modifiers: "yxt-CTA--solo",
-          eventType: "CTA_CLICK",
-          eventOptions: {
-            verticalKey: verticalKey,
-            searcher: isUniversal ? "UNIVERSAL" : "VERTICAL",
-            entityId: profile.id
-          }
+          eventType: "CTA_CLICK"
         };
       }) : [],
     };
