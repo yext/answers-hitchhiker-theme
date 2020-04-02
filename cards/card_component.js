@@ -12,7 +12,7 @@ BaseCard.{{componentName}} = class extends ANSWERS.Component {
   }
 
   setState(data) {
-    let cardData = this.dataForRender(this.result._raw);
+    let cardData = this.dataForRender(this.result._raw) || [];
     this.validateDataForRender(cardData);
     cardData.callsToAction = this.resolveCTAMapping(this.result._raw, ...cardData.callsToAction);
 
