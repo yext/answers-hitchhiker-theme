@@ -19,17 +19,20 @@
 
     <meta property="og:title" content="{{metaTitle}}">
     <meta property="og:description" content="{{metaDescription}}">
-    <meta property="og:image" content="https://{{global_config.siteDomain}}/assets/images/{{logo}}">
+    <meta property="og:image" content="{{global_config.logo}}">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://{{global_config.siteDomain}}/{{#if verticalKey}}{{verticalKey}}.html/{{/if}}">
+    {{#if canonicalUrl}}
+      <meta property="og:url" content="{{canonicalUrl}}">
+    {{/if}}
     <meta name="twitter:card" content="summary">
 
-    <link rel="canonical" href="https://{{global_config.siteDomain}}/{{#if verticalKey}}{{verticalKey}}.html/{{/if}}" />
-
+    {{#if canonicalUrl}}
+      <link rel="canonical" href="{{canonicalUrl}}" />
+    {{/if}}
     <title>{{metaTitle}}</title>
 
-    {{#if favicon}}
-      <link rel="shortcut icon" href="{{relativePath}}/assets/images/{{favicon}}">
+    {{#if global_config.favicon}}
+      <link rel="shortcut icon" href="{{global_config.favicon}}">
     {{/if}}
 
 		<link rel="stylesheet" type="text/css" href="bundle.css">
@@ -53,5 +56,5 @@
       <!-- End Google Tag Manager (noscript) -->
     {{/if}}
     {{> @partial-block }}
-	</body>
+  </body>
 </html>
