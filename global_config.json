@@ -17,5 +17,7 @@
     }
   },
   "logo": "<REPLACE ME>",
-  "favicon": "<REPLACE ME"
+  "favicon": "<REPLACE ME>",
+  "googleTagManagerName": "<REPLACE ME>",
+  "googleTagManagerID": "<REPLACE ME>"
 }
