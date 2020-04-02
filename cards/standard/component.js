@@ -22,7 +22,15 @@ class StandardCardComponent extends BaseCard.StandardCard {
         {
           url: profile.c_primaryCTA,
           iconName: 'chevron',
-          label: 'View Details'
+          label: 'View Details',
+          target: '_parent',
+          modifiers: 'yxt-CTA--solo',
+          eventType: 'CTA_CLICK',
+          eventOptions: {
+            verticalKey: verticalKey,
+            searcher: isUniversal ? 'UNIVERSAL' : 'VERTICAL',
+            entityId: profile.id
+          }
         }
       ]
     };

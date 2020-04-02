@@ -14,10 +14,17 @@
       <div class="yxt-StandardCard-info">
         {{#if card.title}}
         <div class="yxt-StandardCard-title">
-          <a href="{{card.titleUrl}}" target={{#if card.newWindow}}"_blank" rel="noopener noreferrer nofollow"
-            {{else}}"_self"{{/if}}>
+          {{#if card.titleUrl}}
+            <a href="{{card.titleUrl}}"
+              {{else}}"_self"{{/if}}
+              data-eventtype="TITLE_CLICK"
+              data-eventoptions='{{titleEventOptions}}'
+              target={{#if target}}"{{target}}"{{else}}"_blank" rel="noopener noreferrer nofollow"{{/if}}>
+              {{card.title}}
+            </a>
+          {{else}}
             {{card.title}}
-          </a>
+          {{/if}}
         </div>
         {{/if}}
         {{#if card.subtitle}}
@@ -49,12 +56,14 @@
 {{#*inline 'CTA'}}
 <a class="yxt-CTA js-yxt-CTA{{#if modifiers}} {{modifiers}}{{/if}}"
    href="{{url}}"
+   data-eventtype="{{eventType}}"
+   data-eventoptions='{{eventOptions}}'
    target={{#if target}}"{{target}}"{{else}}"_self"{{/if}}>
   {{#if iconName}}
   <div class="yxt-CTA-iconWrapper">
     <div class="yxt-CTA-icon"
          data-component="IconComponent"
-         data-opts='{ "iconName": "{{iconName}}" }'>
+         data-opts='{ "iconName": "{{iconName}}"{{#if iconUrl}}, "iconUrl": "{{iconUrl}}"{{/if}} }'>
     </div>
   </div>
   {{/if}}
