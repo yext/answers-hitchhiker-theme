@@ -1,19 +1,5 @@
 {
   "apiKey": "<REPLACE ME>",
   "experienceKey": "<REPLACE ME>",
-  "verticalSettings": {
-    "<VERTICAL KEY PLACEHOLDER>": {
-      "icon": "<REPLACE ME>",
-      "label": "<REPLACE ME>",
-      "url": "<REPLACE ME>",
-      "isFirst": "<REPLACE ME>",
-      "card": {
-        "cardType": "<REPLACE ME>",
-        "cardMappings": {
-          "title": "<REPLACE ME>",
-          "details": "<REPLACE ME>"
-        }
-      }
-    }
-  }
+  "businessId": "<REPLACE ME>"
 }
