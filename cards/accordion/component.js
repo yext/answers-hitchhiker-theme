@@ -13,16 +13,9 @@ class AccordionCardComponent extends BaseCard.AccordionCard {
    * @param {Object} profile of the entity in the card
    */
   dataForRender(profile) {
-    const verticalKey = this.verticalKey;
-    const isUniversal = this._config.isUniversal;
     return {
       title: profile.name,
       details: profile.answer,
-      toggleAccordionEventOptions: {
-        verticalKey: verticalKey,
-        searcher: isUniversal ? "UNIVERSAL" : "VERTICAL",
-        entityId: profile.id
-      },
       callsToAction: profile.c_ctas ? profile.c_ctas.map((cta) => {
         return {
           label: cta.text,

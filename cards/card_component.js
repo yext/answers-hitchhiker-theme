@@ -12,9 +12,11 @@ BaseCard.{{componentName}} = class extends ANSWERS.Component {
   }
 
   setState(data) {
-    let cardData = this.dataForRender(this.result._raw) || [];
+    let cardData = this.dataForRender(this.result._raw);
     this.validateDataForRender(cardData);
-    cardData.callsToAction = this.resolveCTAMapping(this.result._raw, ...cardData.callsToAction);
+    if (cardData.callsToAction) {
+      cardData.callsToAction = this.resolveCTAMapping(this.result._raw, ...cardData.callsToAction);
+    }
 
     return super.setState({
       ...data,
@@ -44,7 +46,7 @@ BaseCard.{{componentName}} = class extends ANSWERS.Component {
    * @param {Function|...(Object|string)} ctas
    * @returns {Array<Object>}
    */
-  resolveCTAMapping (result, ...ctas) {
+  _resolveCTAMapping (result, ...ctas) {
     let parsedCTAs = [];
     ctas.map(ctaMapping => {
       if (typeof ctaMapping === 'function') {
@@ -59,10 +61,20 @@ BaseCard.{{componentName}} = class extends ANSWERS.Component {
         parsedCTAs.push(ctaObject);
       }
     });
-    parsedCTAs = parsedCTAs.filter(cta => cta);
+    parsedCTAs = this._stripInvalidCTAs(parsedCTAs);
+
+    parsedCTAs.forEach(cta => {
+      cta.eventOptions = this.addDefaultEventOptions(cta.eventOptions);
+    });
+
+    return parsedCTAs;
+  }
+
+  _stripInvalidCTAs(rawCtas) {
+    let ctas = rawCtas.filter(cta => cta);
 
     let self = this;
-    parsedCTAs.forEach(cta => {
+    ctas.forEach(cta => {
       if (!cta.label && !cta.url) {
         console.warn('Call to Action:', cta, 'is missing both a label and url attribute and is being automatically hidden');
       } else if (!cta.label) {
@@ -70,17 +82,19 @@ BaseCard.{{componentName}} = class extends ANSWERS.Component {
       } else if (!cta.url) {
         console.warn('Call to Action:', cta, 'is missing a url attribute and is being automatically hidden');
       }
-
-      if (!cta.eventOptions) {
-        cta.eventOptions =  {
-          verticalKey: self.verticalKey,
-          searcher: self._config.isUniversal ? "UNIVERSAL" : "VERTICAL",
-          entityId: self.result.id
-        }
-      }
     });
 
-    return parsedCTAs.filter(cta => cta.url && cta.url.trim() && cta.label && cta.label.trim());
+    return ctas.filter(cta => cta.url && cta.url.trim() && cta.label && cta.label.trim());
+  }
+
+  addDefaultEventOptions(eventOptions) {
+    return Object.assign({}, {
+        verticalKey: self.verticalKey,
+        searcher: self._config.isUniversal ? "UNIVERSAL" : "VERTICAL",
+        entityId: self.result.id
+      },
+      eventOptions
+    );
   }
 
   static get type() {

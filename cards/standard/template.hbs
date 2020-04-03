@@ -18,7 +18,7 @@
             <a href="{{card.titleUrl}}"
               {{else}}"_self"{{/if}}
               data-eventtype="TITLE_CLICK"
-              data-eventoptions='{{titleEventOptions}}'
+              data-eventoptions='{{json titleEventOptions}}'
               target={{#if target}}"{{target}}"{{else}}"_blank" rel="noopener noreferrer nofollow"{{/if}}>
               {{card.title}}
             </a>

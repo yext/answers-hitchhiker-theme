@@ -16,6 +16,7 @@ class StandardCardComponent extends BaseCard.StandardCard {
     return {
       title: profile.name,
       titleUrl: profile.websites,
+      titleEventOptions: this.addDefaultEventOptions(),
       subtitle: '',
       details: profile.description,
       callsToAction: [
