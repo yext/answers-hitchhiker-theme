@@ -73,7 +73,6 @@ BaseCard.{{componentName}} = class extends ANSWERS.Component {
   _stripInvalidCTAs(rawCtas) {
     let ctas = rawCtas.filter(cta => cta);
 
-    let self = this;
     ctas.forEach(cta => {
       if (!cta.label && !cta.url) {
         console.warn('Call to Action:', cta, 'is missing both a label and url attribute and is being automatically hidden');
@@ -89,9 +88,9 @@ BaseCard.{{componentName}} = class extends ANSWERS.Component {
 
   addDefaultEventOptions(eventOptions) {
     return Object.assign({}, {
-        verticalKey: self.verticalKey,
-        searcher: self._config.isUniversal ? "UNIVERSAL" : "VERTICAL",
-        entityId: self.result.id
+        verticalKey: this.verticalKey,
+        searcher: this._config.isUniversal ? "UNIVERSAL" : "VERTICAL",
+        entityId: this.result.id
       },
       eventOptions
     );
