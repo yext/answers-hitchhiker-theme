@@ -86,7 +86,7 @@ BaseCard.{{componentName}} = class extends ANSWERS.Component {
     return ctas.filter(cta => cta.url && cta.url.trim() && cta.label && cta.label.trim());
   }
 
-  addDefaultEventOptions(eventOptions) {
+  addDefaultEventOptions(eventOptions = {}) {
     return Object.assign({}, {
         verticalKey: this.verticalKey,
         searcher: this._config.isUniversal ? "UNIVERSAL" : "VERTICAL",
