@@ -9,5 +9,9 @@
     "Universal": {
       "isFirst": "true"
     }
-  }
+  },
+  "metaTitle": "<REPLACE ME>",
+  "metaDescription": "<REPLACE ME>",
+  "canonicalUrl": "<REPLACE ME>",
+  "keywords": "<REPLACE ME>"
 }

@@ -1,11 +1,62 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>{{pageTitle}}</title>
-        <link rel="stylesheet" type="text/css" href="bundle.css">
-        <script src="bundle.js"></script>
-    </head>
-    <body>
-        {{> @partial-block }}
-    </body>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    <meta name="format-detection" content="telephone=no">
+
+    <!-- dns prefetch -->
+    <link rel="dns-prefetch" href="//www.yext-pixel.com">
+    <link rel="dns-prefetch" href="//a.cdnmktg.com">
+    <link rel="dns-prefetch" href="//a.mktgcdn.com">
+    <link rel="dns-prefetch" href="//dynl.mktgcdn.com">
+    <link rel="dns-prefetch" href="//dynm.mktgcdn.com">
+    <link rel="dns-prefetch" href="//www.google-analytics.com">
+
+    <meta name="description" content="{{metaDescription}}">
+    <meta name="keywords" content="{{keywords}}">
+
+    <meta property="og:title" content="{{metaTitle}}">
+    <meta property="og:description" content="{{metaDescription}}">
+    <meta property="og:type" content="website">
+    {{#if global_config.logo}}
+      <meta property="og:image" content="{{global_config.logo}}">
+    {{/if}}
+    {{#if canonicalUrl}}
+      <meta property="og:url" content="{{canonicalUrl}}">
+    {{/if}}
+    <meta name="twitter:card" content="summary">
+
+    {{#if canonicalUrl}}
+      <link rel="canonical" href="{{canonicalUrl}}" />
+    {{/if}}
+    <title>{{metaTitle}}</title>
+
+    {{#if global_config.favicon}}
+      <link rel="shortcut icon" href="{{global_config.favicon}}">
+    {{/if}}
+
+		<link rel="stylesheet" type="text/css" href="bundle.css">
+    <script src="bundle.js"></script>
+
+    {{#if global_config.googleTagManagerID}}
+      <!-- Google Tag Manager -->
+      <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','{{#if global_config.googleTagManagerName}}{{global_config.googleTagManagerName}}{{else}}dataLayer{{/if}}','{{global_config.googleTagManagerID}}');</script>
+      <!-- End Google Tag Manager -->
+    {{/if}}
+	</head>
+  <body>
+    {{#if global_config.googleTagManagerID}}
+      <!-- Google Tag Manager (noscript) -->
+      <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{global_config.googleTagManagerID}}{{#ifeq googleTagManagerID 'dataLayer'}}{{else}}&l={{global_config.googleTagManagerName}}{{/ifeq}}"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+      <!-- End Google Tag Manager (noscript) -->
+    {{/if}}
+    {{> @partial-block }}
+  </body>
 </html>
