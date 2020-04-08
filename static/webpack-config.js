@@ -3,7 +3,7 @@ const fs = require('fs');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ClosurePlugin = require('closure-webpack-plugin');
 
-const jamboConfig = JSON.parse(fs.readFileSync('config.json'))
+const jamboConfig = JSON.parse(fs.readFileSync('jambo.json'))
 
 module.exports = {
   mode: 'production',
