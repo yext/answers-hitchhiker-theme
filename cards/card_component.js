@@ -15,7 +15,7 @@ BaseCard.{{componentName}} = class extends ANSWERS.Component {
     let cardData = this.dataForRender(this.result._raw);
     this.validateDataForRender(cardData);
     if (cardData.callsToAction) {
-      cardData.callsToAction = this.resolveCTAMapping(this.result._raw, ...cardData.callsToAction);
+      cardData.callsToAction = this._resolveCTAMapping(this.result._raw, ...cardData.callsToAction);
     }
 
     return super.setState({
