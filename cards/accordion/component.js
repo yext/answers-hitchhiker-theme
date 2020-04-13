@@ -1,4 +1,4 @@
-{{> cards_card_component componentName='AccordionCard'}}
+{{> cards/card_component componentName='AccordionCard'}}
 
 class AccordionCardComponent extends BaseCard.AccordionCard {
   constructor(config = {}, systemConfig = {}) {

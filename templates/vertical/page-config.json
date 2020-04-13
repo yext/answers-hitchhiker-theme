@@ -10,5 +10,9 @@
     "<REPLACE ME>": {
       "cardType": "<REPLACE ME>"
     }
-  }
+  },
+  "metaTitle": "<REPLACE ME>",
+  "metaDescription": "<REPLACE ME>",
+  "canonicalUrl": "<REPLACE ME>",
+  "keywords": "<REPLACE ME>"
 }

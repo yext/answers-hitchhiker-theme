@@ -12,12 +12,16 @@ BaseCard.{{componentName}} = class extends ANSWERS.Component {
   }
 
   setState(data) {
+    const { _raw, ...derivedFields } = this.result;
+    const profile = { ..._raw };
+    for (const field of Object.keys(derivedFields)) {
+      profile[`d_${field}`] = derivedFields[field];
+    }
     let cardData = this.dataForRender(this.result._raw);
     this.validateDataForRender(cardData);
     if (cardData.callsToAction) {
       cardData.callsToAction = this._resolveCTAMapping(this.result._raw, ...cardData.callsToAction);
     }
-
     return super.setState({
       ...data,
       card: cardData,
