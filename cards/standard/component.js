@@ -3,7 +3,7 @@
 class StandardCardComponent extends BaseCard.StandardCard {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
-    this.setTemplate(`{{{read 'cards_standard_template' }}}`);
+    this.setTemplate(`{{{read 'cards/standard/template' }}}`);
   }
 
   /**
@@ -16,12 +16,17 @@ class StandardCardComponent extends BaseCard.StandardCard {
     return {
       title: profile.name,
       titleUrl: profile.websites,
+      // image: '',
+      // tagLabel: '',
       subtitle: '',
       details: profile.description,
+      // newWindow: true,
       callsToAction: [
         {
           url: profile.c_primaryCTA,
           iconName: 'chevron',
+          // target: '',
+          // modifiers: '',
           label: 'View Details'
         }
       ]

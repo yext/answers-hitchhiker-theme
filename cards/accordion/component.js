@@ -3,7 +3,7 @@
 class AccordionCardComponent extends BaseCard.AccordionCard {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
-    this.setTemplate(`{{{read 'cards_accordion_template' }}}`);
+    this.setTemplate(`{{{read 'cards/accordion/template' }}}`);
   }
 
   /**
@@ -15,12 +15,14 @@ class AccordionCardComponent extends BaseCard.AccordionCard {
   dataForRender(profile) {
     return {
       title: profile.name,
+      // subtitle: '',
       details: profile.answer,
       callsToAction: profile.c_ctas ? profile.c_ctas.map((cta) => {
         return {
           "label": cta.text,
           "url": cta.url,
           "iconName": cta.icon,
+          // "modifiers": "",
           "target": "_parent",
         };
       }) : null,
