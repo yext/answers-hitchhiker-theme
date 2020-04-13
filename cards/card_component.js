@@ -17,10 +17,13 @@ BaseCard.{{componentName}} = class extends ANSWERS.Component {
     for (const field of Object.keys(derivedFields)) {
       profile[`d_${field}`] = derivedFields[field];
     }
-    let cardData = this.dataForRender(this.result._raw);
+    let cardData = this.dataForRender(profile);
     this.validateDataForRender(cardData);
     if (cardData.callsToAction) {
-      cardData.callsToAction = this._resolveCTAMapping(this.result._raw, ...cardData.callsToAction);
+      cardData.callsToAction = this._resolveCTAMapping(profile, ...cardData.callsToAction)
+        .forEach(cta => {
+          cta.eventOptions = this.addDefaultEventOptions(cta.eventOptions);
+        });
     }
     return super.setState({
       ...data,
@@ -66,11 +69,6 @@ BaseCard.{{componentName}} = class extends ANSWERS.Component {
       }
     });
     parsedCTAs = this._stripInvalidCTAs(parsedCTAs);
-
-    parsedCTAs.forEach(cta => {
-      cta.eventOptions = this.addDefaultEventOptions(cta.eventOptions);
-    });
-
     return parsedCTAs;
   }
 
