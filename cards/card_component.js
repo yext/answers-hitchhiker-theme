@@ -20,10 +20,10 @@ BaseCard.{{componentName}} = class extends ANSWERS.Component {
     let cardData = this.dataForRender(profile);
     this.validateDataForRender(cardData);
     if (cardData.callsToAction) {
-      cardData.callsToAction = this._resolveCTAMapping(profile, ...cardData.callsToAction)
-        .forEach(cta => {
-          cta.eventOptions = this.addDefaultEventOptions(cta.eventOptions);
-        });
+      cardData.callsToAction = this._resolveCTAMapping(profile, ...cardData.callsToAction);
+      cardData.callsToAction.forEach(cta => {
+        cta.eventOptions = this.addDefaultEventOptions(cta.eventOptions);
+      });
     }
     return super.setState({
       ...data,
