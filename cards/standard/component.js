@@ -1,4 +1,4 @@
-{{> cards_card_component componentName='StandardCard'}}
+{{> cards/card_component componentName='StandardCard'}}
 
 class StandardCardComponent extends BaseCard.StandardCard {
   constructor(config = {}, systemConfig = {}) {

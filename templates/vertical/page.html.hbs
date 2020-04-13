@@ -1,33 +1,33 @@
-{{#> layouts_html }}
+{{#> layouts/html }}
   <div>
-    {{#> script_core }}
-      {{> cards_standard_component }}
-      {{> templates_vertical_script_searchbar}}
-      {{> templates_vertical_script_spellcheck}}
-      {{> templates_vertical_script_navigation}}
-      {{> templates_vertical_script_verticalresults}}
-      {{> templates_vertical_script_pagination}}
-      {{> templates_vertical_script_locationbias}}
-      {{!-- {{> templates_vertical_script_qasubmission}} --}}
-    {{/script_core}}
+    {{#> script/core }}
+      {{> cards/standard/component }}
+      {{> templates/vertical/script/searchbar}}
+      {{> templates/vertical/script/spellcheck}}
+      {{> templates/vertical/script/navigation}}
+      {{> templates/vertical/script/verticalresults}}
+      {{> templates/vertical/script/pagination}}
+      {{> templates/vertical/script/locationbias}}
+      {{!-- {{> templates/vertical/script/qasubmission}} --}}
+    {{/script/core}}
     <div class="Answers">
       <div class="Answers-navWrapper">
         <div class="Answers-container">
-          {{> templates_vertical_markup_searchbar }}
-          {{> templates_vertical_markup_navigation}}
+          {{> templates/vertical/markup/searchbar }}
+          {{> templates/vertical/markup/navigation}}
         </div>
       </div>
       <div class="Answers-container Answers-resultsWrapper">
-        {{> templates_vertical_markup_spellcheck }}
+        {{> templates/vertical/markup/spellcheck }}
         <div class="Answers-filtersAndResults">
-          {{> templates_vertical_markup_verticalresults }}
+          {{> templates/vertical/markup/verticalresults }}
         </div>
-        {{> templates_vertical_markup_pagination }}
-        {{!-- {{> templates_vertical_markup_qasubmission }} --}}
+        {{> templates/vertical/markup/pagination }}
+        {{!-- {{> templates/vertical/markup/qasubmission }} --}}
       </div>
     </div>
     <footer class="Answers-footer">
-      {{> templates_vertical_markup_locationbias }}
+      {{> templates/vertical/markup/locationbias }}
     </footer>
   </div>
-{{/layouts_html }}
+{{/layouts/html }}
