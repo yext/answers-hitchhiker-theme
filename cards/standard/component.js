@@ -16,13 +16,17 @@ class StandardCardComponent extends BaseCard.StandardCard {
     return {
       title: profile.name,
       titleUrl: profile.websites,
+      titleEventOptions: this.addDefaultEventOptions(),
       subtitle: '',
       details: profile.description,
       callsToAction: [
         {
           url: profile.c_primaryCTA,
           iconName: 'chevron',
-          label: 'View Details'
+          label: 'View Details',
+          target: '_parent',
+          modifiers: 'yxt-CTA--solo',
+          eventType: 'CTA_CLICK',
         }
       ]
     };

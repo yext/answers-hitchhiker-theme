@@ -18,12 +18,14 @@ class AccordionCardComponent extends BaseCard.AccordionCard {
       details: profile.answer,
       callsToAction: profile.c_ctas ? profile.c_ctas.map((cta) => {
         return {
-          "label": cta.text,
-          "url": cta.url,
-          "iconName": cta.icon,
-          "target": "_parent",
+          label: cta.text,
+          url: cta.url,
+          iconName: cta.icon,
+          target: "_parent",
+          modifiers: "yxt-CTA--solo",
+          eventType: "CTA_CLICK"
         };
-      }) : null,
+      }) : [],
     };
   }
 
@@ -48,12 +50,13 @@ class AccordionCardComponent extends BaseCard.AccordionCard {
       contentEl.setAttribute('aria-hidden', isExpanded ? 'false' : 'true');
 
       if (self.analyticsReporter) {
-        self.analyticsReporter.report({
-          eventType: isExpanded ? 'ROW_EXPAND' : 'ROW_COLLAPSE',
+        const event = new ANSWERS.AnalyticsEvent(self.isExpanded ? 'ROW_EXPAND' : 'ROW_COLLAPSE')
+        .addOptions({
           verticalKey: self.verticalKey,
           entityId: self.result._raw.id,
           searcher: self._config.isUniversal ? 'UNIVERSAL' : 'VERTICAL'
         });
+        self.analyticsReporter.report(event);
       }
     });
 

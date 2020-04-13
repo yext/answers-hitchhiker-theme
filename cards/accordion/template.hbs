@@ -38,12 +38,14 @@
 {{#*inline 'CTA'}}
 <a class="yxt-CTA js-yxt-CTA{{#if modifiers}} {{modifiers}}{{/if}}"
    href="{{url}}"
+   data-eventtype="{{eventType}}"
+   data-eventoptions='{{json eventOptions}}'
    target={{#if target}}"{{target}}"{{else}}"_self"{{/if}}>
   {{#if iconName}}
   <div class="yxt-CTA-iconWrapper">
     <div class="yxt-CTA-icon"
          data-component="IconComponent"
-         data-opts='{ "iconName": "{{iconName}}" }'>
+         data-opts='{ "iconName": "{{iconName}}"{{#if iconUrl}}, "iconUrl": "{{iconUrl}}"{{/if}} }'>
     </div>
   </div>
   {{/if}}
