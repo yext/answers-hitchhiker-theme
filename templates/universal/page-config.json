@@ -1,5 +1,5 @@
 {
-  "pageTitle": "<REPLACE ME>",
+  "metaTitle": "<REPLACE ME>",
   "componentSettings": {
     "QASubmission": {
       "entityId": "<REPLACE ME>"
@@ -10,7 +10,6 @@
       "isFirst": "true"
     }
   },
-  "metaTitle": "<REPLACE ME>",
   "metaDescription": "<REPLACE ME>",
   "canonicalUrl": "<REPLACE ME>",
   "keywords": "<REPLACE ME>"
