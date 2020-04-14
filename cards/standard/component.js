@@ -18,6 +18,7 @@ class StandardCardComponent extends BaseCard.StandardCard {
       titleUrl: profile.websites,
       // image: '',
       // tagLabel: '',
+      titleEventOptions: this.addDefaultEventOptions(),
       subtitle: '',
       details: profile.description,
       // newWindow: true,
@@ -25,9 +26,10 @@ class StandardCardComponent extends BaseCard.StandardCard {
         {
           url: profile.c_primaryCTA,
           iconName: 'chevron',
-          // target: '',
-          // modifiers: '',
-          label: 'View Details'
+          label: 'View Details',
+          target: '_parent',
+          modifiers: 'yxt-CTA--solo',
+          eventType: 'CTA_CLICK',
         }
       ]
     };
