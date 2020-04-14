@@ -14,7 +14,6 @@ class LocatorCardComponent extends BaseCard.LocatorCard {
    */
   dataForRender(profile) {
     return {
-      image: profile.headshot ? profile.headshot.url : '',
       title: profile.name, // The header text of the card
       titleUrl: profile.websites, // If the card title is a clickable link, set URL here
       // target: '', // If the title's URL should open in a new tab, etc.
