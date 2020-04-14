@@ -47,6 +47,12 @@
     overflow-y: scroll;
   }
 
+  &-map
+  {
+    width: 50%;
+    min-height: 950px;
+  }
+
   &-locator
   {
     &--mapWrapper
