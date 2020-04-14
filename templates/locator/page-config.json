@@ -1,5 +1,6 @@
 {
   "verticalKey": "<REPLACE ME>",
+  "pageTitle": "<REPLACE ME>",
   "componentSettings": {
     "Map": {
       "mapProvider": "<REPLACE ME>",
@@ -10,5 +11,9 @@
     "<REPLACE ME>": {
       "cardType": "LocatorCard"
     }
-  }
+  },
+  "metaTitle": "<REPLACE ME>",
+  "metaDescription": "<REPLACE ME>",
+  "canonicalUrl": "<REPLACE ME>",
+  "keywords": "<REPLACE ME>"
 }

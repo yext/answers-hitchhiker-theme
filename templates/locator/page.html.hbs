@@ -1,19 +1,32 @@
-{{#> html_layout }}
-  {{#> script_core }}
-    {{> cards_locator_component }}
-    {{> templates_vertical_script_searchbar}}
-    {{> templates_vertical_script_spellcheck}}
-    {{> templates_vertical_script_verticalresults}}
-    {{> templates_vertical_script_pagination}}
-    {{> templates_vertical_script_map}}
-  {{/script_core}}
-  <div style="display:flex;">
-    <div style="width:50%;">
-      {{> templates_vertical_markup_searchbar }}
-      {{> templates_vertical_markup_spellcheck }}
-      {{> templates_vertical_markup_verticalresults }}
-      {{> templates_vertical_markup_pagination }}
+
+{{#> layouts/html }}
+  <div>
+    {{#> script/core }}
+      {{> cards/locator/component }}
+      {{> templates/locator/script/searchbar }}
+      {{> templates/locator/script/spellcheck }}
+      {{> templates/locator/script/navigation }}
+      {{> templates/locator/script/verticalresults }}
+      {{> templates/locator/script/pagination}}
+      {{> templates/locator/script/map}}
+      {{!-- {{> templates/locator/script/qasubmission }} --}}
+    {{/script/core}}
+    <div class="Answers">
+      <div class="Answers-navWrapper">
+        <div class="Answers-container">
+          {{> templates/locator/markup/searchbar }}
+          {{!-- {{> templates/locator/markup/navigation}} --}}
+        </div>
+      </div>
+      <div class="Answers-container Answers-resultsWrapper">
+        <div style="width:50%;">
+          {{> templates/locator/markup/spellcheck }}
+          {{> templates/locator/markup/verticalresults }}
+          {{> templates/locator/markup/pagination }}
+          {{!-- {{> templates/locator/markup/qasubmission }} --}}
+        </div>
+        {{> templates/locator/markup/map }}
+      </div>
     </div>
-    {{> templates_vertical_markup_map }}
   </div>
-{{/html_layout }}
+{{/layouts/html}}
