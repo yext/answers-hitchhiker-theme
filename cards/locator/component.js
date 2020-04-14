@@ -28,7 +28,7 @@ class LocatorCardComponent extends BaseCard.LocatorCard {
       // The calls to action on the card
       callsToAction: [
         {
-          url: HitchHikerJS.Formatters.phoneLink(profile), // The URL a user will be directed to when clicking
+          url: HitchhikerJS.Formatters.phoneLink(profile), // The URL a user will be directed to when clicking
           iconName: 'phone', // The icon to use for the CTA
           label: 'Call', // The label of the CTA
           target: '_parent', // If the URL will be opened in a new tab, etc.
@@ -36,7 +36,7 @@ class LocatorCardComponent extends BaseCard.LocatorCard {
           eventType: 'TAP_TO_CALL', // Type of Analytics event fired when clicking the CTA
         },
         {
-          url: HitchHikerJS.Formatters.getDirectionsUrl(profile), // The URL a user will be directed to when clicking
+          url: HitchhikerJS.Formatters.getDirectionsUrl(profile), // The URL a user will be directed to when clicking
           label: 'Get Directions', // The label of the CTA
           iconName: 'directions', // The icon to use for the CTA
           // modifiers: '', // Additional CSS classes for the CTA
