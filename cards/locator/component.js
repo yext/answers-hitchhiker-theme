@@ -22,9 +22,9 @@ class LocatorCardComponent extends BaseCard.LocatorCard {
       // tagLabel: '', // The label of the displayed image
       titleEventOptions: this.addDefaultEventOptions(),
       subtitle: '', // The sub-header text of the card
-      address: profile.address, // The text in the body of the card
-      phone: profile.mainPhone,
-      description: profile.description,
+      address: profile.address, // The address for the card
+      phone: profile.mainPhone, // The phone number for the card
+      details: profile.description, // The description for the card, displays below the address and phone
       // The calls to action on the card
       callsToAction: [
         {

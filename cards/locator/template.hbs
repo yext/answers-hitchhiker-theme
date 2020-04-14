@@ -16,7 +16,6 @@
         <div class="yxt-StandardCard-title">
           {{#if card.titleUrl}}
             <a href="{{card.titleUrl}}"
-              {{else}}"_self"{{/if}}
               data-eventtype="TITLE_CLICK"
               data-eventoptions='{{json card.titleEventOptions}}'
               target={{#if card.target}}"{{card.target}}"{{else}}"_blank" rel="noopener noreferrer nofollow"{{/if}}>
@@ -32,7 +31,6 @@
           {{card.subtitle}}
         </div>
         {{/if}}
-        {{#if card.details}}
         <div class="yxt-StandardCard-content">
           <div class="yxt-StandardCard-cardDetails">
             <div class="yxt-StandardCard-detailsText">
@@ -50,20 +48,20 @@
                     {{card.address.city}}, {{card.address.region}} {{card.address.postalCode}}
                   </div>
                 </div>
-                {{/if}}
-                {{#if card.phone}}
-                  <div class="yxt-StandardCard-phone">
-                    {{card.phone}}
-                  </div>
-                {{/if}}
-                {{#if card.details}}
-                  <div class="yxt-StandardCard-bio">
-                    {{card.details}}
-                  </div>
-                {{/if}}
-             </div>
-           </div>
-         </div>
+              {{/if}}
+              {{#if card.phone}}
+                <div class="yxt-StandardCard-phone">
+                  {{card.phone}}
+                </div>
+              {{/if}}
+              {{#if card.details}}
+                <div class="yxt-StandardCard-bio">
+                  {{card.details}}
+                </div>
+              {{/if}}
+            </div>
+          </div>
+        </div>
       </div>
       {{#if card.callsToAction}}
       <div class="yxt-StandardCard-ctasWrapper">
