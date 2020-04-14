@@ -10,7 +10,7 @@ class LocatorCardComponent extends BaseCard.LocatorCard {
    * This returns an object that will be called `card`
    * in the template. Put all mapping logic here.
    *
-   * @param profile profile of the entity in the card
+   * @param {Object} profile of the entity in the card
    */
   dataForRender(profile) {
     return {
@@ -19,7 +19,7 @@ class LocatorCardComponent extends BaseCard.LocatorCard {
       // target: '', // If the title's URL should open in a new tab, etc.
       // image: '', // The URL of the image to display on the card
       // tagLabel: '', // The label of the displayed image
-      titleEventOptions: this.addDefaultEventOptions(),
+      titleEventOptions: this.addDefaultEventOptions(), // The event options for title click analytics
       subtitle: '', // The sub-header text of the card
       address: profile.address, // The address for the card
       phone: profile.mainPhone, // The phone number for the card
@@ -35,11 +35,10 @@ class LocatorCardComponent extends BaseCard.LocatorCard {
           eventType: 'TAP_TO_CALL', // Type of Analytics event fired when clicking the CTA
         },
         {
-          url: HitchhikerJS.Formatters.getDirectionsUrl(profile), // The URL a user will be directed to when clicking
-          label: 'Get Directions', // The label of the CTA
-          iconName: 'directions', // The icon to use for the CTA
-          // modifiers: '', // Additional CSS classes for the CTA
-          eventType: 'DRIVING_DIRECTIONS', // Type of Analytics event fired when clicking the CTA
+          url: HitchHikerJS.Formatters.getDirectionsUrl(profile),
+          label: 'Get Directions',
+          iconName: 'directions',
+          eventType: 'DRIVING_DIRECTIONS',
         }
       ]
     };
