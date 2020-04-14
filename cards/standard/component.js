@@ -21,7 +21,7 @@ class StandardCardComponent extends BaseCard.StandardCard {
       titleEventOptions: this.addDefaultEventOptions(),
       subtitle: '',
       details: profile.description,
-      // newWindow: true,
+      // target: '',
       callsToAction: [
         {
           url: profile.c_primaryCTA,
