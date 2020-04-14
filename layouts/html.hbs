@@ -21,11 +21,11 @@
       <meta name="keywords" content="{{keywords}}">
     {{/if}}
 
-    {{#if metaTitle}}
-      <meta property="og:title" content="{{metaTitle}}">
+    {{#if pageTitle}}
+      <meta property="og:title" content="{{pageTitle}}">
     {{/if}}
     {{#if metaDescription}}
-    <meta property="og:description" content="{{metaDescription}}">
+      <meta property="og:description" content="{{metaDescription}}">
     {{/if}}
     <meta property="og:type" content="website">
     {{#if global_config.logo}}
@@ -39,8 +39,8 @@
     {{#if canonicalUrl}}
       <link rel="canonical" href="{{canonicalUrl}}" />
     {{/if}}
-    {{#if metaTitle}}
-      <title>{{metaTitle}}</title>
+    {{#if pageTitle}}
+      <title>{{pageTitle}}</title>
     {{/if}}
 
     {{#if global_config.favicon}}
