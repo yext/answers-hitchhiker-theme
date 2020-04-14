@@ -27,3 +27,31 @@
 //     width:34%;
 //   }
 // }
+
+.Answers {
+  &-columnsWrapper
+  {
+    display: flex;
+  }
+
+  &-columns
+  {
+    &--2
+    {
+      width: 50%;
+    }
+  }
+
+  &-resultsColumn
+  {
+    overflow-y: scroll;
+  }
+
+  &-locator
+  {
+    &--mapWrapper
+    {
+      height: 100%;
+    }
+  }
+}
