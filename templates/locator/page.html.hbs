@@ -1,0 +1,30 @@
+
+{{#> layouts/html }}
+  <div>
+    {{#> script/core }}
+      {{> cards/locator/component }}
+      {{> templates/locator/script/searchbar }}
+      {{> templates/locator/script/spellcheck }}
+      {{> templates/locator/script/navigation }}
+      {{> templates/locator/script/verticalresults }}
+      {{> templates/locator/script/pagination}}
+      {{> templates/locator/script/map}}
+    {{/script/core}}
+    <div class="Answers">
+      <div class="Answers-navWrapper">
+        <div class="Answers-container">
+          {{> templates/locator/markup/searchbar }}
+          {{> templates/locator/markup/navigation}}
+        </div>
+      </div>
+      <div class="Answers-locator--mapWrapper Answers-columnsWrapper">
+        <div class="Answers-columns--2 Answers-resultsColumn">
+          {{> templates/locator/markup/spellcheck }}
+          {{> templates/locator/markup/verticalresults }}
+          {{> templates/locator/markup/pagination }}
+        </div>
+        {{> templates/locator/markup/map }}
+      </div>
+    </div>
+  </div>
+{{/layouts/html}}

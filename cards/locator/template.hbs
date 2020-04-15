@@ -1,0 +1,95 @@
+<div class="yxt-StandardCard yxt-{{cardName}}">
+  <div class="yxt-StandardCard-wrapper">
+    {{#if card.image}}
+    <div class="yxt-StandardCard-imgWrapper">
+      <img src="{{card.image}}" />
+      {{#if card.tagLabel}}
+      <div class="yxt-StandardCard-imgTagWrapper">
+        <div class="yxt-StandardCard-imgTag">{{card.tagLabel}}</div>
+      </div>
+      {{/if}}
+    </div>
+    {{/if}}
+    <div class="yxt-StandardCard-contentWrapper">
+      <div class="yxt-StandardCard-info">
+        {{#if card.title}}
+        <div class="yxt-StandardCard-title">
+          {{#if card.titleUrl}}
+            <a href="{{card.titleUrl}}"
+              data-eventtype="TITLE_CLICK"
+              data-eventoptions='{{json card.titleEventOptions}}'
+              target={{#if card.target}}"{{card.target}}"{{else}}"_blank" rel="noopener noreferrer nofollow"{{/if}}>
+              {{card.title}}
+            </a>
+          {{else}}
+            {{card.title}}
+          {{/if}}
+        </div>
+        {{/if}}
+        {{#if card.subtitle}}
+        <div class="yxt-StandardCard-subtitle">
+          {{card.subtitle}}
+        </div>
+        {{/if}}
+        <div class="yxt-StandardCard-content">
+          <div class="yxt-StandardCard-cardDetails">
+            <div class="yxt-StandardCard-detailsText">
+              {{#if card.address}}
+                <div class="yxt-StandardCard-address">
+                  <div class="yxt-StandardCard-addressRow">
+                    {{card.address.line1}}
+                  </div>
+                  {{#if card.address.line2}}
+                    <div class="yxt-StandardCard-addressRow">
+                      {{card.address.line2}}
+                    </div>
+                  {{/if}}
+                  <div class="yxt-StandardCard-addressRow">
+                    {{card.address.city}}, {{card.address.region}} {{card.address.postalCode}}
+                  </div>
+                </div>
+              {{/if}}
+              {{#if card.phone}}
+                <div class="yxt-StandardCard-phone">
+                  {{card.phone}}
+                </div>
+              {{/if}}
+              {{#if card.details}}
+                <div class="yxt-StandardCard-bio">
+                  {{card.details}}
+                </div>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+      </div>
+      {{#if card.callsToAction}}
+      <div class="yxt-StandardCard-ctasWrapper">
+        {{#each card.callsToAction}}
+          {{> CTA }}
+        {{/each}}
+      </div>
+      {{/if}}
+    </div>
+  </div>
+</div>
+
+{{#*inline 'CTA'}}
+<a class="yxt-CTA js-yxt-CTA{{#if modifiers}} {{modifiers}}{{/if}}"
+   href="{{url}}"
+   data-eventtype="{{eventType}}"
+   data-eventoptions='{{json eventOptions}}'
+   target={{#if target}}"{{target}}"{{else}}"_self"{{/if}}>
+  {{#if iconName}}
+  <div class="yxt-CTA-iconWrapper">
+    <div class="yxt-CTA-icon"
+         data-component="IconComponent"
+         data-opts='{ "iconName": "{{iconName}}"{{#if iconUrl}}, "iconUrl": "{{iconUrl}}"{{/if}} }'>
+    </div>
+  </div>
+  {{/if}}
+  <div class='yxt-CTA-iconLabel'>
+    {{label}}
+  </div>
+</a>
+{{/inline}}

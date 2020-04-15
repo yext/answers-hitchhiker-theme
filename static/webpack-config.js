@@ -11,7 +11,7 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, jamboConfig.dirs.output),
-    library: 'HitchHikerJS',
+    library: 'HitchhikerJS',
     libraryTarget: 'window'
   },
   plugins: [new MiniCssExtractPlugin({ filename: 'bundle.css' })],
