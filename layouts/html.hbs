@@ -14,11 +14,19 @@
     <link rel="dns-prefetch" href="//dynm.mktgcdn.com">
     <link rel="dns-prefetch" href="//www.google-analytics.com">
 
-    <meta name="description" content="{{metaDescription}}">
-    <meta name="keywords" content="{{keywords}}">
+    {{#if metaDescription}}
+      <meta name="description" content="{{metaDescription}}">
+    {{/if}}
+    {{#if keywords}}
+      <meta name="keywords" content="{{keywords}}">
+    {{/if}}
 
-    <meta property="og:title" content="{{metaTitle}}">
-    <meta property="og:description" content="{{metaDescription}}">
+    {{#if pageTitle}}
+      <meta property="og:title" content="{{pageTitle}}">
+    {{/if}}
+    {{#if metaDescription}}
+      <meta property="og:description" content="{{metaDescription}}">
+    {{/if}}
     <meta property="og:type" content="website">
     {{#if global_config.logo}}
       <meta property="og:image" content="{{global_config.logo}}">
@@ -31,7 +39,9 @@
     {{#if canonicalUrl}}
       <link rel="canonical" href="{{canonicalUrl}}" />
     {{/if}}
-    <title>{{metaTitle}}</title>
+    {{#if pageTitle}}
+      <title>{{pageTitle}}</title>
+    {{/if}}
 
     {{#if global_config.favicon}}
       <link rel="shortcut icon" href="{{global_config.favicon}}">
