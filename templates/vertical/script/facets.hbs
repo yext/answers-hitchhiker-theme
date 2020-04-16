@@ -1,0 +1,10 @@
+ANSWERS.addComponent('Facets', Object.assign({{{ json componentSettings.Facets }}}, {
+  container: '#js-answersFacets',
+  {{#if componentSettings.Facets.verticalKey}}
+    verticalKey: '{{componentSettings.Facets.verticalKey}}',
+  {{else}}
+    {{#if verticalKey}}
+      verticalKey: '{{verticalKey}}',
+    {{/if}}
+  {{/if}}
+}));
