@@ -8,7 +8,9 @@
       {{> templates/locator/script/navigation }}
       {{> templates/locator/script/verticalresults }}
       {{> templates/locator/script/pagination}}
+      {{!-- {{> templates/locator/script/qasubmission}} --}}
       {{> templates/locator/script/map}}
+      {{> templates/locator/script/locationbias }}
     {{/script/core}}
     <div class="Answers">
       <div class="Answers-navWrapper">
@@ -22,9 +24,13 @@
           {{> templates/locator/markup/spellcheck }}
           {{> templates/locator/markup/verticalresults }}
           {{> templates/locator/markup/pagination }}
+          {{!-- {{> templates/locator/markup/qasubmission }} --}}
         </div>
         {{> templates/locator/markup/map }}
       </div>
     </div>
+    <footer class="Answers-footer">
+      {{> templates/vertical/markup/locationbias }}
+    </footer>
   </div>
 {{/layouts/html}}

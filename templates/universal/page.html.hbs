@@ -5,6 +5,7 @@
       {{> templates/universal/script/spellcheck }}
       {{> templates/universal/script/navigation }}
       {{> templates/universal/script/universalresults }}
+      {{> templates/universal/script/locationbias}}
       {{!-- {{> templates/universal/script/qasubmission }} --}}
     {{/script/core}}
     <div class="Answers">
@@ -22,5 +23,8 @@
         {{!-- {{> templates/universal/markup/qasubmission }} --}}
       </div>
     </div>
+    <footer class="Answers-footer">
+      {{> templates/universal/markup/locationbias }}
+    </footer>
   </div>
 {{/layouts/html}}
