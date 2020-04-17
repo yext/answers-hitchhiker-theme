@@ -35,7 +35,7 @@ class LocatorCardComponent extends BaseCard.LocatorCard {
           eventType: 'TAP_TO_CALL', // Type of Analytics event fired when clicking the CTA
         },
         {
-          url: HitchHikerJS.Formatters.getDirectionsUrl(profile),
+          url: HitchhikerJS.Formatters.getDirectionsUrl(profile),
           label: 'Get Directions',
           iconName: 'directions',
           eventType: 'DRIVING_DIRECTIONS',
