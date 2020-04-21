@@ -16,7 +16,6 @@
         <div class="yxt-StandardCard-title">
           {{#if card.titleUrl}}
             <a href="{{card.titleUrl}}"
-              {{else}}"_self"{{/if}}
               data-eventtype="TITLE_CLICK"
               data-eventoptions='{{json card.titleEventOptions}}'
               target={{#if card.target}}"{{card.target}}"{{else}}"_blank" rel="noopener noreferrer nofollow"{{/if}}>
