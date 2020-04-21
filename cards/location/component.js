@@ -1,9 +1,9 @@
-{{> cards/card_component componentName='LocatorCard'}}
+{{> cards/card_component componentName='LocationCard'}}
 
-class LocatorCardComponent extends BaseCard.LocatorCard {
+class LocationCardComponent extends BaseCard.LocationCard {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
-    this.setTemplate(`{{{read 'cards/locator/template' }}}`);
+    this.setTemplate(`{{{read 'cards/location/template' }}}`);
   }
 
   /**
@@ -45,4 +45,4 @@ class LocatorCardComponent extends BaseCard.LocatorCard {
   }
 }
 
-ANSWERS.registerComponentType(LocatorCardComponent);
+ANSWERS.registerComponentType(LocationCardComponent);
