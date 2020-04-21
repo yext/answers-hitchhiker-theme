@@ -14,15 +14,15 @@
       {{> templates/locator/script/map}}
       {{> templates/locator/script/locationbias }}
     {{/script/core}}
-    <div class="Answers">
+    <div class="Answers AnswersLocatorTemplate">
       <div class="Answers-navWrapper">
         <div class="Answers-container">
           {{> templates/locator/markup/searchbar }}
           {{> templates/locator/markup/navigation}}
         </div>
       </div>
-      <div class="Answers-locator--mapWrapper Answers-columnsWrapper">
-        <div class="Answers-columns--2 Answers-resultsColumn">
+      <div class="Answers-resultsWrapper">
+        <div class="Answers-resultsColumn">
           {{> templates/locator/markup/spellcheck }}
           {{!-- {{> templates/locator/markup/facets}} --}}
           {{!-- {{> templates/locator/markup/filterbox}} --}}
