@@ -24,8 +24,6 @@
     "webpack": "^4.42.0"
   },
   "dependencies": {
-    "answers": "yext/answers#v0.14.0",
-    "answers-experience-builder": "yext/answers-experience-builder#1.9.2",
     "bootstrap-sass": "^3.4.1",
     "font-awesome": "^4.7.0"
   }
