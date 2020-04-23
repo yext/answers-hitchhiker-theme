@@ -6,9 +6,13 @@
       {{> templates/locator/script/searchbar }}
       {{> templates/locator/script/spellcheck }}
       {{> templates/locator/script/navigation }}
+      {{!-- {{> templates/locator/script/facets}} --}}
+      {{!-- {{> templates/locator/script/filterbox}} --}}
       {{> templates/locator/script/verticalresults }}
       {{> templates/locator/script/pagination}}
+      {{!-- {{> templates/locator/script/qasubmission}} --}}
       {{> templates/locator/script/map}}
+      {{> templates/locator/script/locationbias }}
     {{/script/core}}
     <div class="Answers">
       <div class="Answers-navWrapper">
@@ -20,11 +24,17 @@
       <div class="Answers-locator--mapWrapper Answers-columnsWrapper">
         <div class="Answers-columns--2 Answers-resultsColumn">
           {{> templates/locator/markup/spellcheck }}
+          {{!-- {{> templates/locator/markup/facets}} --}}
+          {{!-- {{> templates/locator/markup/filterbox}} --}}
           {{> templates/locator/markup/verticalresults }}
           {{> templates/locator/markup/pagination }}
+          {{!-- {{> templates/locator/markup/qasubmission }} --}}
         </div>
         {{> templates/locator/markup/map }}
       </div>
     </div>
+    <footer class="Answers-footer">
+      {{> templates/locator/markup/locationbias }}
+    </footer>
   </div>
 {{/layouts/html}}
