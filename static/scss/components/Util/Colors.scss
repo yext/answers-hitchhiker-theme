@@ -3,7 +3,7 @@
  * to colors, e.g. color: color(gray, one) or color(brand, red).  This provides
  * a bit more safety and context than using a raw variable.
 */
-@import "../common/variables";
+@import "../../common/variables";
 $colors: () !default;
 
 /** example
