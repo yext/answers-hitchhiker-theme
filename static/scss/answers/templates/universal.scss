@@ -1,0 +1,23 @@
+.AnswersUniversalTemplate .Answers
+{
+  &-resultsWrapper
+  {
+    flex-grow: 1;
+    padding-top: $base-spacing;
+  }
+
+  &-filtersAndResults
+  {
+    display: flex;
+
+    @include bplte(xs)
+    {
+      flex-direction: column;
+    }
+  }
+
+  &-universalResults
+  {
+    width: 100%;
+  }
+}

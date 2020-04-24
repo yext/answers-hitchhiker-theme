@@ -44,10 +44,6 @@ $border-nav: 2px solid $brand-tertiary !default;
 $border-nav-hover: 2px solid $brand-secondary !default;
 $border-default: $border-1 !default;
 
-// Locator Variables
-$header-height-mobile: 50px;
-$header-height-desktop: 100px;
-
 // Bootstrap Overrides
 $grid-gutter-width: 32px !default;
 $grid-gutter-width-xs: $grid-gutter-width !default;
@@ -78,8 +74,6 @@ $container-large-desktop-base: 1170px;
 $container-tablet: ($container-tablet-base + $grid-gutter-width);
 $container-desktop: ($container-desktop-base + $grid-gutter-width);
 $container-large-desktop: ($container-large-desktop-base + $grid-gutter-width);
-
-$cobalt-base-padding: 2rem;
 
 $z-index-autocomplete: 2;
 

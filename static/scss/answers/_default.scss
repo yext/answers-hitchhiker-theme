@@ -6,26 +6,22 @@
 @import "../common/mixins";
 @import "../common/base";
 @import "../common/module";
-
-// components
-@import "components";
-
-// Common -- theme
-@import "../common/theme";
-
-// local
-@import "layout";
 @import "module";
+
+// Utility styling
+@import "utils";
+
+// Legacy AEB styling
+@import "../legacy-aeb/main";
+
+// Theme styling for all Pages
 @import "theme";
 
-// Add imported css here (such as that for a pulled header/footer)
+// Template styling
+@import "templates/locator";
+@import "templates/universal";
+@import "templates/vertical";
 
-// lanswers styling
-@import "~answers/src/ui/sass/answers";
-
-// default answers theme styling
-@import "~answers-experience-builder/src/sass/main";
-
-// answers overrides
+// HH files
 @import "../answers";
 

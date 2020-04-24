@@ -1,0 +1,15 @@
+$answers-background-color: #eeeff0 !default;
+$autocomplete-text-font-size: 16px !default;
+$base-spacing: 16px !default;
+$border-2: 1px solid #dcdcdc !default;
+$font-weight-semibold: 600 !default;
+
+$answers-container-width: 700px !default;
+$answers-container-width-filters: 950px !default;
+
+body
+{
+  background-color: $answers-background-color;
+}
+
+@import 'lanswers-overrides';

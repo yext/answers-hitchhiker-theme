@@ -1,0 +1,42 @@
+.AnswersVerticalTemplate .Answers
+{
+  &-resultsWrapper
+  {
+    flex-grow: 1;
+    padding-top: $base-spacing;
+
+    &--withFilters
+    {
+      @include bpgte(sm)
+      {
+        max-width: 100%;
+        width: $answers-container-width-filters;
+      }
+
+      .Answers-verticalResults
+      {
+        flex-grow: 1;
+      }
+    }
+  }
+
+  &-filtersAndResults
+  {
+    display: flex;
+
+    @include bplte(xs)
+    {
+      flex-direction: column;
+    }
+  }
+
+  &-verticalResults
+  {
+    width: 100%;
+  }
+
+  &-verticalResultsWrapper
+  {
+    display: flex;
+  }
+}

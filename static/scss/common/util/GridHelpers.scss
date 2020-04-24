@@ -1,4 +1,4 @@
-@import "../../common/variables";
+@import "../variables";
 
 // uses IE11 compatabile CSS Grid explicit placement
 @mixin grid-place($type, $start, $spans)
