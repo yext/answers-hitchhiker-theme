@@ -7,6 +7,7 @@
 @import "../common/base";
 @import "../common/module";
 @import "module";
+@import "variables";
 
 // Utility styling
 @import "utils";
@@ -23,6 +24,7 @@
 @import "templates/vertical";
 
 // Cards styling
+@import "cards/mixins";
 @import "cards/location";
 @import "cards/standard";
 @import "cards/accordion";
