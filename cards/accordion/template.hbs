@@ -27,9 +27,11 @@
     {{/if}}
     {{#if card.callsToAction}}
       <div class="HitchhikerAccordionCard-ctasWrapper">
-        {{#each card.callsToAction}}
-          {{> CTA }}
-        {{/each}}
+        <div class="HitchhikerAccordionCard-ctas">
+          {{#each card.callsToAction}}
+            {{> CTA }}
+          {{/each}}
+        </div>
       </div>
     {{/if}}
   </div>

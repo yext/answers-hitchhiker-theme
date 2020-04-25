@@ -81,16 +81,45 @@
 
   &-details
   {
-    padding: 8px 16px;
+    margin: 8px 16px;
     font-size: 14px;
     color:$text-primary;
     font-weight: $font-weight-normal;
     line-height: 14px * 10/7;
   }
 
-  &-ctas .yxt-CTACollection-item
+  &-ctasWrapper
   {
-    padding-bottom: 8px;
+    display: flex;
+    margin: 8px 16px;
+  }
+
+  &-ctas
+  {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .Hitchhiker-cta
+  {
+    flex-direction: row;
+    padding: 0;
+
+    &:not(:last-child)
+    {
+      padding-bottom: 4px;
+    }
+
+    &-iconWrapper
+    {
+      padding: 0;
+    }
+
+    &-iconLabel
+    {
+      margin-top: 0;
+      padding-left: 8px;
+    }
   }
 }
 
