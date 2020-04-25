@@ -1,0 +1,19 @@
+@mixin CTA {
+  text-decoration: none;
+  color: $color-brand-primary;
+  display: flex;
+  align-items: center;
+  word-break: break-word;
+  font-weight: $font-weight-semibold;
+  color: $color-brand-primary;
+  font-size: $font-size-md;
+
+  &:hover, &:focus, &:active {
+    text-decoration: underline;
+  }
+
+  .Icon svg {
+    height: $base-spacing * 1.125;
+    width: $base-spacing * 1.125;
+  }
+}

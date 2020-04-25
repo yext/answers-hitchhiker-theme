@@ -22,6 +22,11 @@
 @import "templates/universal";
 @import "templates/vertical";
 
+// Cards styling
+@import "cards/location";
+@import "cards/standard";
+@import "cards/accordion";
+
 // HH files
 @import "../answers";
 
