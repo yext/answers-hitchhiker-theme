@@ -59,14 +59,14 @@
    data-eventoptions='{{json eventOptions}}'
    target={{#if target}}"{{target}}"{{else}}"_self"{{/if}}>
   {{#if iconName}}
-  <div class="HitchHiker-ctaIconWrapper">
-    <div class="HitchHiker-ctaIcon"
+  <div class="HitchHiker-cta-iconWrapper">
+    <div class="HitchHiker-cta-icon"
          data-component="IconComponent"
          data-opts='{ "iconName": "{{iconName}}"{{#if iconUrl}}, "iconUrl": "{{iconUrl}}"{{/if}} }'>
     </div>
   </div>
   {{/if}}
-  <div class='HitchHiker-ctaIconLabel'>
+  <div class='HitchHiker-cta-iconLabel'>
     {{label}}
   </div>
 </a>

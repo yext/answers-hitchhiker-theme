@@ -1,0 +1,37 @@
+.yxt-SearchBar > .yxt-SearchBar-container
+{
+  color: #212121;
+
+  &:hover
+  {
+    box-shadow: 0 0 0.625rem 0 rgba(0,0,0,.1);
+  }
+
+  .yxt-SearchBar
+  {
+    &-buttonImage svg
+    {
+      font-size: 1.5rem;
+    }
+
+    &-input
+    {
+      padding: .5rem 1rem;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+      font-size: 1rem;
+      line-height: 1.5;
+      flex-grow: 1;
+    }
+  }
+
+  @media (min-width: 48rem)
+  {
+    .Icon
+    {
+      color: #212121;
+    }
+    border-radius: 1.5rem;
+    border: .0625rem solid #464b4f;
+  }
+}
