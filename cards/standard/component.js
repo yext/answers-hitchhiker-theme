@@ -25,7 +25,7 @@ class StandardCardComponent extends BaseCard.StandardCard {
       // The calls to action on the card
       callsToAction: [
         {
-          url: ' a', // The URL a user will be directed to when clicking
+          url: profile.websites, // The URL a user will be directed to when clicking
           iconName: 'chevron', // The icon to use for the CTA
           label: 'View Details', // The label of the CTA
           target: '_parent', // If the URL will be opened in a new tab, etc.
