@@ -5,9 +5,14 @@
   display: flex;
   font-size: .875rem;
 
-  &-wrapper &-contentWrapper
+  &-wrapper,
+  &-contentWrapper
   {
     width: 100%;
+  }
+
+  &-wrapper &-contentWrapper
+  {
     display: flex;
     justify-content: space-between;
     flex-direction: row;

@@ -3,12 +3,16 @@
   padding: 16px;
   display: flex;
   font-size: .875rem;
-
   background-color: #fff;
+
+  &-wrapper,
+  &-contentWrapper
+  {
+    width: 100%;
+  }
 
   &-wrapper &-contentWrapper
   {
-    width: 100%;
     display: flex;
     justify-content: space-between;
     flex-direction: row;
