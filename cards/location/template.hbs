@@ -75,20 +75,20 @@
 </div>
 
 {{#*inline 'CTA'}}
-<a class="HitchHiker-cta js-HitchHiker-cta{{#if modifiers}} {{modifiers}}{{/if}}"
+<a class="Hitchhiker-cta js-Hitchhiker-cta{{#if modifiers}} {{modifiers}}{{/if}}"
    href="{{url}}"
    data-eventtype="{{eventType}}"
    data-eventoptions='{{json eventOptions}}'
    target={{#if target}}"{{target}}"{{else}}"_self"{{/if}}>
   {{#if iconName}}
-  <div class="HitchHiker-cta-iconWrapper">
-    <div class="HitchHiker-cta-icon"
+  <div class="Hitchhiker-cta-iconWrapper">
+    <div class="Hitchhiker-cta-icon"
          data-component="IconComponent"
          data-opts='{ "iconName": "{{iconName}}"{{#if iconUrl}}, "iconUrl": "{{iconUrl}}"{{/if}} }'>
     </div>
   </div>
   {{/if}}
-  <div class='HitchHiker-cta-iconLabel'>
+  <div class='Hitchhiker-cta-iconLabel'>
     {{label}}
   </div>
 </a>

@@ -1,6 +1,9 @@
 .HitchhikerStandardCard
 {
   background-color: #fff;
+  padding: 16px;
+  display: flex;
+  font-size: .875rem;
 
   &-wrapper &-contentWrapper
   {
@@ -48,8 +51,6 @@
 
   &-ctasWrapper
   {
-    @include CTA;
-
     display: flex;
     margin-left: 1.5rem;
     text-transform: uppercase;
