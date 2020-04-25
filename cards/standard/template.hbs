@@ -1,19 +1,19 @@
-<div class="yxt-StandardCard yxt-{{cardName}}">
-  <div class="yxt-StandardCard-wrapper">
+<div class="HitchhikerStandardCard {{cardName}}">
+  <div class="HitchhikerStandardCard-wrapper">
     {{#if card.image}}
-    <div class="yxt-StandardCard-imgWrapper">
+    <div class="HitchhikerStandardCard-imgWrapper">
       <img src="{{card.image}}" />
       {{#if card.tagLabel}}
-      <div class="yxt-StandardCard-imgTagWrapper">
-        <div class="yxt-StandardCard-imgTag">{{card.tagLabel}}</div>
+      <div class="HitchhikerStandardCard-imgTagWrapper">
+        <div class="HitchhikerStandardCard-imgTag">{{card.tagLabel}}</div>
       </div>
       {{/if}}
     </div>
     {{/if}}
-    <div class="yxt-StandardCard-contentWrapper">
-      <div class="yxt-StandardCard-info">
+    <div class="HitchhikerStandardCard-contentWrapper">
+      <div class="HitchhikerStandardCard-info">
         {{#if card.title}}
-        <div class="yxt-StandardCard-title">
+        <div class="HitchhikerStandardCard-title">
           {{#if card.titleUrl}}
             <a href="{{card.titleUrl}}"
               data-eventtype="TITLE_CLICK"
@@ -27,14 +27,14 @@
         </div>
         {{/if}}
         {{#if card.subtitle}}
-        <div class="yxt-StandardCard-subtitle">
+        <div class="HitchhikerStandardCard-subtitle">
           {{card.subtitle}}
         </div>
         {{/if}}
         {{#if card.details}}
-        <div class="yxt-StandardCard-content">
-          <div class="yxt-StandardCard-cardDetails">
-            <div class="yxt-StandardCard-detailsText">
+        <div class="HitchhikerStandardCard-content">
+          <div class="HitchhikerStandardCard-cardDetails">
+            <div class="HitchhikerStandardCard-detailsText">
               {{card.details}}
             </div>
           </div>
@@ -42,7 +42,7 @@
         {{/if}}
       </div>
       {{#if card.callsToAction}}
-      <div class="yxt-StandardCard-ctasWrapper">
+      <div class="HitchhikerStandardCard-ctasWrapper">
         {{#each card.callsToAction}}
           {{> CTA }}
         {{/each}}
@@ -53,20 +53,20 @@
 </div>
 
 {{#*inline 'CTA'}}
-<a class="yxt-CTA js-yxt-CTA{{#if modifiers}} {{modifiers}}{{/if}}"
+<a class="Hitchhiker-cta js-Hitchhiker-cta{{#if modifiers}} {{modifiers}}{{/if}}"
    href="{{url}}"
    data-eventtype="{{eventType}}"
    data-eventoptions='{{json eventOptions}}'
    target={{#if target}}"{{target}}"{{else}}"_self"{{/if}}>
   {{#if iconName}}
-  <div class="yxt-CTA-iconWrapper">
-    <div class="yxt-CTA-icon"
+  <div class="Hitchhiker-cta-iconWrapper">
+    <div class="Hitchhiker-cta-icon"
          data-component="IconComponent"
          data-opts='{ "iconName": "{{iconName}}"{{#if iconUrl}}, "iconUrl": "{{iconUrl}}"{{/if}} }'>
     </div>
   </div>
   {{/if}}
-  <div class='yxt-CTA-iconLabel'>
+  <div class='Hitchhiker-cta-iconLabel'>
     {{label}}
   </div>
 </a>

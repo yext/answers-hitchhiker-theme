@@ -1,0 +1,65 @@
+.HitchhikerLocationCard
+{
+  padding: 16px;
+  display: flex;
+  font-size: .875rem;
+
+  background-color: #fff;
+
+  &-wrapper &-contentWrapper
+  {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+
+  &-contentWrapper &-title
+  {
+    color: #427ed2;
+    text-decoration: none;
+    font-size: 1.125rem;
+    line-height: 1.5;
+    font-weight: 600;
+    margin-bottom: .5rem;
+
+    &:hover
+    {
+      color: #427ed2;
+      text-decoration: underline;
+    }
+  }
+
+  &-subtitle
+  {
+    color: #757575;
+    padding-bottom: 0;
+  }
+
+  &-content
+  {
+    line-height: 1.4;
+  }
+
+  &-imgWrapper
+  {
+    display: flex;
+    align-items: flex-start;
+    width: 6.25rem;
+    min-width: 6.25rem;
+    margin-right: 1rem;
+  }
+
+  &-ctasWrapper
+  {
+    display: flex;
+    margin-left: 1.5rem;
+    text-transform: uppercase;
+  }
+
+  .Icon {
+    height: 18px;
+    width: 18px;
+    margin-right: 8px;
+  }
+}

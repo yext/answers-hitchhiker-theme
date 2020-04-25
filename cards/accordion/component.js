@@ -33,9 +33,9 @@ class AccordionCardComponent extends BaseCard.AccordionCard {
 
   onMount() {
     const self = this;
-    const accordionToggleSelector = '.js-yxt-AccordionCard-toggle';
-    const accordionContentSelector = '.js-yxt-AccordionCard-content';
-    const accordionExpandedClass = 'yxt-AccordionCard--expanded';
+    const accordionToggleSelector = '.js-HitchhikerAccordionCard-toggle';
+    const accordionContentSelector = '.js-HitchhikerAccordionCard-content';
+    const accordionExpandedClass = 'HitchhikerAccordionCard--expanded';
 
     const accordionToggleEl = self._container.querySelector(accordionToggleSelector);
     if (!accordionToggleEl) {

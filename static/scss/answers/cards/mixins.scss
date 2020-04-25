@@ -1,0 +1,122 @@
+@mixin CTA {
+  text-decoration: none;
+  color: $color-brand-primary;
+  display: flex;
+  align-items: center;
+  word-break: break-word;
+  font-weight: $font-weight-semibold;
+  color: $color-brand-primary;
+  font-size: $font-size-md;
+
+  &:hover, &:focus, &:active {
+    text-decoration: underline;
+  }
+
+  .Icon svg {
+    height: $base-spacing * 1.125;
+    width: $base-spacing * 1.125;
+  }
+}
+
+@mixin Text(
+  $size: $font-size-md,
+  $line-height: $line-height-xs,
+  $weight: $font-weight-normal,
+  $style: normal,
+  $color: $color-text-primary
+) {
+  font-family: $font-family;
+  font-size: $size;
+  line-height: $line-height;
+  font-weight: $weight;
+  font-style: $style;
+  color: $color;
+}
+
+@mixin TextButton(
+  $padding: 5px 10px,
+  $focus-color: $color-brand-hover
+) {
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: $padding;
+
+  &:not(:disabled) {
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &:focus {
+      color: $focus-color;
+      border: 1px solid $focus-color;
+    }
+  }
+}
+
+@mixin Button(
+
+) {
+  border: 0;
+  border-radius: 3px;
+  margin-top: 16px;
+  background: $color-brand-primary;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+
+  &:not(:disabled){
+    cursor: pointer;
+
+    &:hover, &:focus {
+      background: padding-box $color-brand-hover;
+    }
+
+    &:focus {
+      border: $button-focus-border-size double #0c5ecb;
+    }
+  }
+}
+
+@mixin Link(
+  $base-color: inherit,
+  $base-decoration: none,
+  $hover-color: $base-color,
+  $hover-decoration: underline,
+  $active-color: $hover-color
+) {
+    &:link,
+    &:visited
+   {
+       color: $base-color;
+       text-decoration: $base-decoration;
+   }
+
+    &:hover,
+    &:focus
+    {
+      color: $hover-color;
+      text-decoration: $hover-decoration;
+    }
+
+    &:active
+    {
+        color: $active-color;
+        text-decoration: $hover-decoration;
+    }
+}
+
+@mixin Link-1
+{
+  @include Link($base-color: $color-brand-primary);
+}
+
+@mixin Link-2
+{
+  @include Link(
+    $base-color: $color-brand-primary,
+    $base-decoration: underline,
+    $hover-decoration: none
+  );
+}

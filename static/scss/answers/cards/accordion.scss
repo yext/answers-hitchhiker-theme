@@ -1,0 +1,123 @@
+.HitchhikerAccordionCard
+{
+  background-color: #fff;
+
+  @media (max-width: $breakpoint-mobile-max)
+  {
+    margin-bottom: 0;
+    border-top: 0;
+  }
+
+  &-toggle
+  {
+    width: 100%;
+    display: flex;
+    cursor: pointer;
+    background: none;
+    border: 0;
+    padding: 0;
+    padding-right: 16px * 0.5;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+
+    &:hover
+    {
+      background-color: $color-background-highlight;
+    }
+
+    &:focus {
+      background-color: $color-background-highlight;
+    }
+  }
+
+  &-toggle svg
+  {
+    height: 16px;
+    width:  12px;
+    color: #0f70f0;
+  }
+
+  &-title
+  {
+    margin-top: 8px;
+    margin-right: 16px;
+    margin-left: 16px;
+    margin-bottom: 16px * 5/8;
+    text-align: left;
+    @include Text(
+      $size: 16px ,
+      $color: #0f70f0,
+      $line-height: $line-height-lg,
+      $weight: $font-weight-normal,
+    );
+  }
+
+  &-icon
+  {
+    margin-left: auto;
+    margin-right: 8px;
+    margin-top: 16px * 0.75;
+    flex-shrink: 0;
+  }
+
+  &-icon svg
+  {
+    transform: rotate(90deg);
+    transition: all 400ms ease-in;
+  }
+
+  &-content
+  {
+    height: 0;
+    transition: all 400ms ease-in;
+    overflow: hidden;
+  }
+
+  &-subtitle
+  {
+    font-size: 14px;
+    color: $text-secondary;
+    padding-bottom: 8px;
+  }
+
+  &-details
+  {
+    padding: 8px 16px;
+    font-size: 14px;
+    color:$text-primary;
+    font-weight: $font-weight-normal;
+    line-height: 14px * 10/7;
+  }
+
+  &-ctas .yxt-CTACollection-item
+  {
+    padding-bottom: 8px;
+  }
+}
+
+.HitchhikerAccordionCard--expanded
+{
+  background-color: #fff;
+
+  .HitchhikerAccordionCard-icon svg
+  {
+    transform: rotate(-90deg);
+    transition: all 400ms ease-in;
+  }
+
+  .HitchhikerAccordionCard-body
+  {
+    transition: all 400ms ease-in;
+  }
+
+  .HitchhikerAccordionCard-content
+  {
+    height: auto;
+    overflow: hidden;
+  }
+
+  .HitchhikerAccordionCard-ctas
+  {
+    display: flex;
+    flex-direction: column;
+  }
+}
