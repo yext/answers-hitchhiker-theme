@@ -23,18 +23,6 @@
     margin-top: .5rem;
   }
 
-  &--email::before
-  {
-    content: "";
-    width: 1em;
-    height: 1.5em;
-    display: block;
-    background-image: url('https://answers-bankatfirst.yext-cdn.com/permanent-b0b701/assets/images/email.c45f87a3.svg');
-    background-repeat: no-repeat;
-    background-position: 50%;
-    margin-bottom: 3px;
-  }
-
   &-icon
   {
     &,
