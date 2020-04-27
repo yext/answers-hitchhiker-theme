@@ -16,6 +16,10 @@ ANSWERS.addComponent('UniversalResults', Object.assign({{{ json componentSetting
                   {{/if}}
                   {{#if iconUrl}}sectionTitleIconUrl: '{{iconUrl}}',{{/if}}
                   viewAllText: {{#if viewAllText}}{{viewAllText}}{{else}}'View All'{{/if}},
+                  {{#if mapConfig}}
+                    includeMap: true,
+                    mapConfig: {{{json mapConfig}}},
+                  {{/if}}
               {{/with}}
           },
         {{/if}}
