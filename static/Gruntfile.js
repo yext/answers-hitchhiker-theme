@@ -9,7 +9,7 @@ module.exports = function(grunt) {
 	  watch: {
 		  all: {
 		    files: ['cards/**/*.*', 'config/**/*.*', 'pages/**/*.*', 'static/**/*.*', 'partials/**/*.*'],
-		    tasks: ['jambobuild'],
+		    tasks: ['webpack', 'jambobuild'],
 		    options: {
 		      spawn: false,
 		    },
@@ -27,7 +27,7 @@ module.exports = function(grunt) {
 	  	// Run some sync stuff.
 	  	grunt.log.writeln('Processing task...');
 	  	// And some async stuff.
-	  	exec('jambo build', (error, stdout, stderr) => {
+	  	exec('npx jambo build', (error, stdout, stderr) => {
 		    if (error) {
 		        console.log(`error: ${error.message}`);
 		        done(false);
