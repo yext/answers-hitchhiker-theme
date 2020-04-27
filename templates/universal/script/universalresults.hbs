@@ -20,6 +20,7 @@ ANSWERS.addComponent('UniversalResults', Object.assign({{{ json componentSetting
                     includeMap: true,
                     mapConfig: {{{json mapConfig}}},
                   {{/if}}
+                  {{#if label}}sectionTitle: '{{label}}',{{/if}}
               {{/with}}
           },
         {{/if}}
