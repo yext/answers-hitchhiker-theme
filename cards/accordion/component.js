@@ -18,17 +18,39 @@ class AccordionCardComponent extends BaseCard.AccordionCard {
       // subtitle: '', // The sub-header text of the card
       // details: profile.answer, // The text in the body of the card
       // The calls to action on the card
-      callsToAction: profile.c_ctas ? profile.c_ctas.map((cta) => {
-        return {
-          label: cta.text, // The label of the CTA
-          url: cta.url, // The URL a user will be directed to when clicking
-          iconName: cta.icon, // The icon to use for the CTA
-          target: "_parent", // If the URL will be opened in a new tab, etc.
-          modifiers: "yxt-CTA--solo", // Additional CSS classes for the CTA
-          eventType: "CTA_CLICK" // Type of Analytics event fired when clicking the CTA
-        };
-      }) : [],
+      callsToAction: [
+        this.CTA1(profile.c_primaryCta),
+        this.CTA2(profile.c_secondaryCta)
+      ]
     };
+  }
+
+  CTA1(primaryCta = {}) {
+    const { label, url } = primaryCta;
+    if (!url) {
+      return null;
+    }
+    return {
+      label: label,
+      iconName: '',
+      url: url,
+      target: '_top',
+      eventType: 'CTA_CLICK'
+    }
+  }
+
+  CTA2(secondaryCta = {}) {
+    const { label, url } = secondaryCta;
+    if (!url) {
+      return null;
+    }
+    return {
+      label: label,
+      iconName: '',
+      url: url,
+      target: '_top',
+      eventType: 'CTA_CLICK'
+    }
   }
 
   onMount() {
