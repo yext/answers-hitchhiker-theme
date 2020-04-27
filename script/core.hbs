@@ -2,9 +2,20 @@
 <script src="https://assets.sitescdn.net/answers/v1.0.0/answerstemplates.compiled.min.js"></script>
 <script>
   function initAnswers() {
-    ANSWERS.init(Object.assign({"templateBundle": TemplateBundle.default}, {{{ json global_config }}}, { onReady: () => {
-      {{> @partial-block }}
-    }}));
+    ANSWERS.init(Object.assign(
+      {"templateBundle": TemplateBundle.default},
+      {{#with env.JAMBO_INJECTED_DATA}}
+        {
+          experienceKey: "{{../global_config.experienceKey}}",
+          {{#if businessId}}businessId: "{{businessId}}",{{/if}}
+          {{#with (lookup (lookup (lookup this 'answers') 'experiences') ../global_config.experienceKey)}}
+            {{#if apiKey}}apiKey: "{{apiKey}}"{{/if}}
+          {{/with}}
+        },
+      {{/with}}
+      {{{ json global_config }}}, 
+      { onReady: () => { {{> @partial-block }} } }
+    ));
   };
 </script>
 <script src="https://assets.sitescdn.net/answers/v1.0.0/answers.min.js" onload="initAnswers()" async></script>
