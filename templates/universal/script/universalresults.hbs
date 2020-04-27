@@ -31,6 +31,10 @@ ANSWERS.addComponent('UniversalResults', Object.assign({{{ json componentSetting
                     {{/each}}
                   {{/with}}
                   ],
+                  {{#if mapConfig}}
+                    includeMap: true,
+                    mapConfig: {{{json mapConfig}}},
+                  {{/if}}
               {{/with}}
           },
         {{/if}}
