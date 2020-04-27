@@ -16,7 +16,7 @@ class AccordionCardComponent extends BaseCard.AccordionCard {
     return {
       title: profile.name, // The header text of the card
       // subtitle: '', // The sub-header text of the card
-      details: profile.answer, // The text in the body of the card
+      // details: profile.answer, // The text in the body of the card
       // The calls to action on the card
       callsToAction: profile.c_ctas ? profile.c_ctas.map((cta) => {
         return {
