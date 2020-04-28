@@ -4,7 +4,6 @@ class AccordionCardComponent extends BaseCard.AccordionCard {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
     this.setTemplate(`{{{read 'cards/accordion/template' }}}`);
-    this.excessDetailsToggleSet = false;
   }
 
   /**
@@ -18,6 +17,10 @@ class AccordionCardComponent extends BaseCard.AccordionCard {
     // Apply a sane default if not present in the profile.
     const primaryCTA = profile.c_primaryCTA || {};
     const secondaryCTA = profile.c_secondaryCTA || {};
+
+    // Setting this to false turns on the showMore/Less details functionality
+    this.excessDetailsToggleSet = true;
+
     return {
       title: profile.name, // The header text of the card
       // subtitle: '', // The sub-header text of the card
@@ -26,7 +29,7 @@ class AccordionCardComponent extends BaseCard.AccordionCard {
       // If the card's details are longer than a certain character count, you can truncate the
       // text. A toggle will be supplied that can show or hide the truncated text.
       // showMoreDetails: {
-      //   showMoreLimit: 50, // Character count limit
+      //   showMoreLimit: null, // Character count limit
       //   showMoreText: '', // Label when toggle will show truncated text
       //   showLessText: '' // Label when toggle will hide truncated text
       // },
