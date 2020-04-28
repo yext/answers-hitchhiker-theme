@@ -13,44 +13,35 @@ class AccordionCardComponent extends BaseCard.AccordionCard {
    * @param {Object} profile of the entity in the card
    */
   dataForRender(profile) {
+    const primaryCTA = profile.c_primaryCTA || {};
+    const secondaryCTA = profile.c_secondaryCTA || {};
     return {
       title: profile.name, // The header text of the card
       // subtitle: '', // The sub-header text of the card
-      // details: profile.answer, // The text in the body of the card
-      // The calls to action on the card
-      callsToAction: [
-        this.CTA1(profile.c_primaryCta),
-        this.CTA2(profile.c_secondaryCta)
-      ]
+      details: profile.answer, // The text in the body of the card
+
+      // The first call to action button
+      CTA1: {
+        label: primaryCTA.label, // The text label for this CTA button
+        // iconName: '', // The name of a built-in SDK icon, like 'yext', 'phone', or 'briefcase'
+        url: primaryCTA.url, // The URL the button links to
+        target: '_top', // The target attribute of the link. To open in a new tab use '_blank'
+        eventType: 'CTA_CLICK', // The event type of the analytics event sent when this CTA is clicked
+        // Event options for the analytics event fired when this CTA is clicked.
+        eventOptions: this.addDefaultEventOptions({ /* Add additional options here */ })
+      },
+
+      // The second call to action button
+      CTA2: {
+        label: secondaryCTA.label, // The text label for the CTA button
+        // iconName: '', // The name of a built-in SDK icon, like 'yext', 'phone', or 'briefcase'
+        url: secondaryCTA.url, // The URL the button links to
+        target: '_top', // The target attribute of the link. To open in a new tab use '_blank'
+        eventType: 'CTA_CLICK', // The event type of the analytics event sent when the CTA is clicked
+        // Event options for the analytics event fired when this CTA is clicked.
+        eventOptions: this.addDefaultEventOptions({ /* Add additional options here */ })
+      },
     };
-  }
-
-  CTA1(primaryCta = {}) {
-    const { label, url } = primaryCta;
-    if (!url) {
-      return null;
-    }
-    return {
-      label: label,
-      iconName: '',
-      url: url,
-      target: '_top',
-      eventType: 'CTA_CLICK'
-    }
-  }
-
-  CTA2(secondaryCta = {}) {
-    const { label, url } = secondaryCta;
-    if (!url) {
-      return null;
-    }
-    return {
-      label: label,
-      iconName: '',
-      url: url,
-      target: '_top',
-      eventType: 'CTA_CLICK'
-    }
   }
 
   onMount() {
