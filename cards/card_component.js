@@ -45,8 +45,11 @@ BaseCard.{{componentName}} = class extends ANSWERS.Component {
     }
 
     let cardData = this.dataForRender(profile);
-    let { details, showMoreLimit } = cardData;
+    let { details, showMoreDetails } = cardData;
+
     const cardDetails = details || '';
+    const cardShowMoreConfig = showMoreDetails || {};
+    const { showMoreLimit } = cardShowMoreConfig;
     
     // Set the value of excessDetailsToggle. Note that this needs to be done only
     // once for a card. It is not enough to have a showMoreLimit. The card's details
@@ -64,7 +67,7 @@ BaseCard.{{componentName}} = class extends ANSWERS.Component {
         this.hideExcessDetailsSet = true;
       }  
       const details = this.hideExcessDetails
-        ? `${cardDetails.substring(0, cardData.showMoreLimit)}...`
+        ? `${cardDetails.substring(0, showMoreLimit)}...`
         : cardDetails;
       cardData.details = details;
     }
