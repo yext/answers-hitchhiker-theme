@@ -9,6 +9,32 @@ BaseCard.{{componentName}} = class extends ANSWERS.Component {
 
     this.verticalKey = data.verticalKey;
     this.result = data.result || {};
+
+    /**
+     * Indicates if the excessDetailsToggle boolean has been set. This boolean
+     * determines if the 'Show more', 'Show less' toggling behavior is enabled.
+     */
+    this.excessDetailsToggleSet = false;
+
+    /**
+     * Indicates if the hideExcessDetails boolean has been set. This boolean controls
+     * whether or not the detail text over the showMoreLimit is displayed or hidden.
+     */
+    this.hideExcessDetailsSet = false;
+  }
+
+  /**
+   * Registers a click handler to toggle between showing and hiding the excess details,
+   * only if such a toggle is enabled.
+   */
+  onMount() {
+    if (this.excessDetailsToggle) {
+      const el = this._container.querySelector('.js-HitchhikerCard-details-toggle');
+      el.addEventListener('click', () => {
+        this.hideExcessDetails = !this.hideExcessDetails;
+        this.setState();
+      });
+    }
   }
 
   setState(data) {
@@ -17,11 +43,40 @@ BaseCard.{{componentName}} = class extends ANSWERS.Component {
     for (const field of Object.keys(derivedFields)) {
       profile[`d_${field}`] = derivedFields[field];
     }
+
     let cardData = this.dataForRender(profile);
+    let { details, showMoreLimit } = cardData;
+    const cardDetails = details || '';
+    
+    // Set the value of excessDetailsToggle. Note that this needs to be done only
+    // once for a card. It is not enough to have a showMoreLimit. The card's details
+    // must extend past this limit as well for the toggling to be enabled.
+    if (!this.excessDetailsToggleSet) {
+      this.excessDetailsToggle = showMoreLimit && cardDetails.length > showMoreLimit;
+      this.excessDetailsToggleSet = true;
+    }
+
+    if (this.excessDetailsToggle) {
+      // setState will set hideExcessDetails initially. After that, the click handler in
+      // onMount will be responsible for toggling this value.
+      if (!this.hideExcessDetailsSet) {
+        this.hideExcessDetails = true;
+        this.hideExcessDetailsSet = true;
+      }  
+      const details = this.hideExcessDetails
+        ? `${cardDetails.substring(0, cardData.showMoreLimit)}...`
+        : cardDetails;
+      cardData.details = details;
+    }
     this.validateDataForRender(cardData);
+
+    const { hideExcessDetails, excessDetailsToggle } = this;
+
     return super.setState({
       ...data,
+      hideExcessDetails,
       card: cardData,
+      excessDetailsToggle,
       cardName: `{{componentName}}`,
     });
   }

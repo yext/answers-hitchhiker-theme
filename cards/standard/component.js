@@ -22,6 +22,9 @@ class StandardCardComponent extends BaseCard.StandardCard {
       titleEventOptions: this.addDefaultEventOptions(),
       subtitle: '', // The sub-header text of the card
       details: profile.description, // The text in the body of the card
+      showMoreLimit: 100, // Truncates the card details if longer than this limit. Creates a 'Show more'/'Show less' toggle
+      showMoreText: 'Show more', // Toggle's text when some of the detail text is hidden
+      showLessText: 'Show less', // Toggle's text when all of the detail text is shown
       // The calls to action on the card
       callsToAction: [
         {
