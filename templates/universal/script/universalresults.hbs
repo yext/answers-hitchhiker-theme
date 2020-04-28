@@ -10,7 +10,7 @@ ANSWERS.addComponent('UniversalResults', Object.assign({{{ json componentSetting
                           cardType: '{{cardType}}'
                       },
                   {{/if}}
-                  title: {{#if sectionTitle}}'{{sectionTitle}}'{{else}}{{#if label}}'{{label}}'{{else}}'{{../verticalKey}}'{{/if}}{{/if}},
+                  sectionTitle: {{#if sectionTitle}}'{{sectionTitle}}'{{else}}{{#if label}}'{{label}}'{{else}}'{{../verticalKey}}'{{/if}}{{/if}},
                   {{#if icon}}
                       sectionTitleIconName: '{{icon}}',
                   {{/if}}
@@ -20,7 +20,6 @@ ANSWERS.addComponent('UniversalResults', Object.assign({{{ json componentSetting
                     includeMap: true,
                     mapConfig: {{{json mapConfig}}},
                   {{/if}}
-                  {{#if label}}sectionTitle: '{{label}}',{{/if}}
               {{/with}}
           },
         {{/if}}
