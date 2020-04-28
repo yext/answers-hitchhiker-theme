@@ -81,6 +81,7 @@ BaseCard.{{componentName}} = class extends ANSWERS.Component {
       card: cardData,
       excessDetailsToggle,
       cardName: `{{componentName}}`,
+      isExpanded: this.isExpanded
     });
   }
 

@@ -88,6 +88,19 @@
     line-height: 14px * 10/7;
   }
 
+  &-detailsToggle
+  {
+    margin-left: 16px;
+    margin-right: 16px;
+    margin-bottom: 8px;
+    @include Text(
+      $size: 14px ,
+      $color: #0f70f0,
+      $line-height: $line-height-lg,
+      $weight: $font-weight-normal,
+    );
+  }
+
   &-ctasWrapper
   {
     display: flex;

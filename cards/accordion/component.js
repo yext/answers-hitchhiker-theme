@@ -4,6 +4,7 @@ class AccordionCardComponent extends BaseCard.AccordionCard {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
     this.setTemplate(`{{{read 'cards/accordion/template' }}}`);
+    this.excessDetailsToggleSet = false;
   }
 
   /**
@@ -19,6 +20,14 @@ class AccordionCardComponent extends BaseCard.AccordionCard {
       title: profile.name, // The header text of the card
       // subtitle: '', // The sub-header text of the card
       details: profile.answer, // The text in the body of the card
+
+      // If the card's details are longer than a certain character count, you can truncate the
+      // text. A toggle will be supplied that can show or hide the truncated text.
+      showMoreDetails: {
+        showMoreLimit: 50, // Character count limit
+        showMoreText: '', // Label when toggle will show truncated text
+        showLessText: '' // Label when toggle will hide truncated text
+      },
 
       // The first call to action button
       CTA1: {
@@ -55,11 +64,13 @@ class AccordionCardComponent extends BaseCard.AccordionCard {
       return;
     }
 
-    accordionToggleEl.addEventListener('click', function() {
-      this.classList.toggle(accordionExpandedClass);
-      const isExpanded = this.classList.contains(accordionExpandedClass);
-      const contentEl = this.parentNode.querySelector(accordionContentSelector);
+    const contentEl = this._container.querySelector(accordionContentSelector);
+    contentEl.style.height = `${self.isExpanded ? contentEl.scrollHeight : 0}px`;
 
+    accordionToggleEl.addEventListener('click', function() {
+      this.classList.toggle(accordionExpandedClass, !self.isExpanded);
+      self.isExpanded = !self.isExpanded;
+      const isExpanded = self.isExpanded;
       this.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
       contentEl.style.height = `${isExpanded ? contentEl.scrollHeight : 0}px`;
       contentEl.setAttribute('aria-hidden', isExpanded ? 'false' : 'true');
