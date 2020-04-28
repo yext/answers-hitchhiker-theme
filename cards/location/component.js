@@ -15,19 +15,19 @@ class LocationCardComponent extends BaseCard.LocationCard {
   dataForRender(profile) {
     return {
       title: profile.name, // The header text of the card
-      // titleUrl: profile.websites ? profile.websites : profile.landingPageUrl, // If the card title is a clickable link, set URL here
-      // target: '_top', // If the title's URL should open in a new tab, etc.
-      // titleEventOptions: this.addDefaultEventOptions(), // The event options for title click analytics
+      titleUrl: profile.websites || profile.landingPageUrl, // If the card title is a clickable link, set URL here
+      target: '_top', // If the title's URL should open in a new tab, etc.
+      titleEventOptions: this.addDefaultEventOptions(), // The event options for title click analytics
       // subtitle: '', // The sub-header text of the card
-      // hours: HitchhikerJS.Formatters.openStatus(profile),
+      hours: HitchhikerJS.Formatters.openStatus(profile),
       // services: [], // Used for a comma delimited list of services for the location
       address: profile.address, // The address for the card
-      // phone: profile.mainPhone, // The phone number for the card
-      // phoneEventType: 'TAP_TO_CALL', // The analytics event type for phone clicks
-      // phoneEventOptions: this.addDefaultEventOptions(), // The analytics event options for phone clicks
+      phone: profile.mainPhone || '', // The phone number for the card
+      phoneEventType: 'TAP_TO_CALL', // The analytics event type for phone clicks
+      phoneEventOptions: this.addDefaultEventOptions(), // The analytics event options for phone clicks
       distance: profile.d_distance, // Distance from the user’s or inputted location
       details: profile.description, // The description for the card, displays below the address and phone
-      // tagLabel: 'puppy image', // The label of the displayed image
+      // tagLabel: '', // The label of the displayed image
       // image: '', // The URL of the image to display on the card
       CTA1: { // The primary call to action for the card
         iconName: 'phone', // The icon to use for the CTA
