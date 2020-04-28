@@ -2,8 +2,8 @@
   "apiKey": "<REPLACE ME>",
   "experienceKey": "<REPLACE ME>",
   "businessId": "<REPLACE ME>",
-  "logo": "<REPLACE ME>",
-  "favicon": "<REPLACE ME>",
-  "googleTagManagerName": "<REPLACE ME>",
-  "googleTagManagerID": "<REPLACE ME>"
+  "logo": "",
+  "favicon": "",
+  "googleTagManagerName": "",
+  "googleTagManagerID": ""
 }

@@ -337,4 +337,435 @@ export default class Formatters {
 
     return truncated;
   }
+
+  static openStatus(profile) {
+    if (!profile.hours) {
+      return '';
+    }
+
+    const days = this._formatHoursForAnswers(profile.hours, profile.timeZoneUtcOffset);
+    if (days.length === 0) {
+      return '';
+    }
+
+
+    const { time, day } = this._calculateYextDayTime(new Date(), profile.timeZoneUtcOffset);
+    let hours = {
+        days: days,
+        time: time,
+        day: day,
+        dayIndex: this._dayToInt(day),
+      };
+
+    hours.yextDays = this._prepareIntervals(hours);
+    let { status, nextTime, nextDay } = this._getStatus(hours);
+    hours.nextTime =  nextTime;
+    hours.nextDay = nextDay;
+    hours.status = status;
+
+    return this._getTodaysMessage({ hoursToday: hours, isTwentyFourHourClock: false });
+  }
+
+  static _prepareIntervals({ days }) { //days is a parsed json of hours.days
+    let results = [];
+    for (const { intervals, day, dailyHolidayHours } of days) { //iterate through each day within days
+      if (dailyHolidayHours) { //prioritize holiday hours over intervals
+        results[this._dayToInt(day)] = {
+          dayName: day,
+          dayIndex: this._dayToInt(day),
+          intervals: dailyHolidayHours.isRegularHours ? intervals : dailyHolidayHours.intervals,
+        };
+      } else {
+        results[this._dayToInt(day)] = {
+          dayName: day,
+          dayIndex: this._dayToInt(day),
+          intervals: intervals,
+        };
+      }
+    }
+    results = results.sort((a, b) => {
+      return a.dayIndex - b.dayIndex || a.start - b.start; //sort by day then by time
+    });
+
+    return results;
+  }
+
+  //return the next valid interval in the week
+  static _getNextInterval(yextDays, tomorrow) {
+    for(let i = 0; i < 7; i++) {
+      let index = (tomorrow + i) % 7;
+      for (let interval of yextDays[index].intervals) {
+        return {status: "OPENSNEXT", nextTime: interval.start, nextDay: this._intToDay(index)};
+      }
+    }
+  }
+
+  //the idea is to get the YextDay objects for yesterday and today. we ask yesterday
+  //if it has an interval that overlaps into today (5pm - 3am) using this._isOpenYesterday.
+  //we then ask today if it has an interval that is open at the current time using isOpen.
+  //is isOpenYesterday(yesterday) is true, then we return CLOSESTODAY with the interval overlapping from yesterday.
+  //if today.isOpen is true, we check if it is 24 hours, if not we return CLOSESTODAY at the interval returned from isOpen.
+  //else the store is closed and either opens sometime later today or at the next open interval sometime later in the week
+  static _getStatus({ time, day, yextDays }) {
+    const negMod = (n, m) => ((n % m) + m) % m; // JavaScript doesnt support modulo on negative numbers
+    let yesterday = this._dayToInt(day) - 1;
+    yesterday = negMod(yesterday, 7);
+    let today = this._dayToInt(day);
+    let yesterdayIsOpen = this._isOpenYesterday(yextDays[yesterday].intervals, time);
+    let todayIsOpen = this._isOpen(yextDays[today].intervals, time);
+    let hasOpenIntervalToday = this._hasOpenIntervalToday(yextDays[today].intervals, time);
+
+    if (yesterdayIsOpen.isOpen) {
+      //check if any hours from yesterday are valid
+      //dayWithHours is used to render the proper day on the hours table
+      return { status: "CLOSESTODAY", nextTime: yesterdayIsOpen.interval.end, dayWithHours: yextDays[yesterday] };
+    } else if (todayIsOpen.isOpen) {
+      //check if open now
+      if (this._is24Hours(yextDays[today].intervals).is24) {
+        return { status: "OPEN24", dayWithHours: yextDays[today]};
+      }
+      //if not 24 hours, closes later today at the current intervals end time
+      return { status: "CLOSESTODAY", nextTime: todayIsOpen.interval.end, dayWithHours: yextDays[today] };
+    } else if (hasOpenIntervalToday.hasOpen) {
+      //check if closed and has an interval later today
+      return { status: "OPENSTODAY", nextTime: hasOpenIntervalToday.interval.start, dayWithHours: yextDays[today] };
+    } else {
+      //check if closed, get next available interval. if no intervals available return closed status without nextTime or nextDay
+      let nextInfo = this._getNextInterval(yextDays, today + 1);
+      if (nextInfo) {
+        nextInfo.dayWithHours = yextDays[today];
+      }
+      return nextInfo || { status: "CLOSED", dayWithHours: yextDays[today] };
+    }
+  }
+
+  //check if today has a 24 hr interval
+  is24Hours(intervals) {
+    for (let interval of intervals) {
+      if(interval.start == 0 && interval.end == 2359) {
+        return {is24: true, interval};
+      }
+    }
+    return {is24: false};
+  }
+
+  //given current time, check status with context: today
+  //return boolean with open status and current interval
+  static _isOpen(intervals, time) {
+    for (let interval of intervals) {
+      if ((interval.start <= time && time < interval.end) || (interval.start <= time && interval.end <= interval.start) || (interval.start == 0 && interval.end == 2359)) {
+        return {isOpen: true, interval};
+      }
+    }
+    return {isOpen: false};
+  }
+
+  //given time, check if there is an interval today that the location opens
+  static _hasOpenIntervalToday(intervals, time) {
+    for (let interval of intervals) {
+      if (time < interval.start) {
+        return {hasOpen: true, interval};
+      }
+    }
+    return {hasOpen: false};
+  }
+
+  //given current time, check status with context: yesterday
+  //for example: if today is Tuesday and it is 2am and Monday had an interval open from 12pm-3am, Monday.isOpenYesterday will return true
+  //return boolean with open status and current interval
+  static _isOpenYesterday(intervals, time) {
+    for (let interval of intervals) {
+      if (time < interval.end && interval.end <= interval.start) {
+        return {isOpen: true, interval};
+      }
+    }
+    return {isOpen: false};
+  }
+
+  static _dayToInt(d) {
+    switch (d) {
+      case "SUNDAY": return 0;
+      case "MONDAY": return 1;
+      case "TUESDAY": return 2;
+      case "WEDNESDAY": return 3;
+      case "THURSDAY": return 4;
+      case "FRIDAY": return 5;
+      case "SATURDAY": return 6;
+    }
+    throw "[this._dayToInt]: Invalid Day: " + d;
+  }
+
+  static _intToDay(i) {
+    switch (i % 7) {
+      case 0: return "SUNDAY";
+      case 1: return "MONDAY";
+      case 2: return "TUESDAY";
+      case 3: return "WEDNESDAY";
+      case 4: return "THURSDAY";
+      case 5: return "FRIDAY";
+      case 6: return "SATURDAY";
+    }
+  }
+
+  static _formatHoursForAnswers(days, timezone) {
+    const daysOfWeek = [
+      'SUNDAY',
+      'MONDAY',
+      'TUESDAY',
+      'WEDNESDAY',
+      'THURSDAY',
+      'FRIDAY',
+      'SATURDAY',
+    ];
+    const holidayHours = days.holidayHours || [];
+    for (let day in days) {
+      if (day === 'holidayHours' || day === 'reopenDate') {
+        delete days[day];
+      } else {
+        const currentDayName = day.toUpperCase();
+        const numberTimezone = this._convertTimezoneToNumber(timezone);
+        const userDateToEntityDate = this._getDateWithUTCOffset(numberTimezone);
+        const dayNameToDate = this._getNextDayOfWeek(userDateToEntityDate, daysOfWeek.indexOf(currentDayName));
+
+        for (let holiday of holidayHours) {
+          let holidayDate = new Date(holiday.date + 'T00:00:00.000');
+          if (dayNameToDate.toDateString() == holidayDate.toDateString()) {
+            holiday.intervals = this._formatIntervals(holiday.openIntervals);
+            if (!holiday.intervals) {
+              holiday.intervals = [];
+            }
+            days[day].dailyHolidayHours = holiday;
+          }
+        }
+
+        days[day].day = day.toUpperCase();
+
+        let intervals = days[day].openIntervals;
+        if (intervals) {
+          for (let interval of intervals) {
+            for (let period in interval) {
+              interval[period] = parseInt(interval[period].replace(':', ''));
+            }
+          }
+        } else {
+          days[day].openIntervals = [];
+        }
+        days[day].intervals = days[day].openIntervals;
+      }
+    }
+
+    return Object.values(days);
+  }
+
+  // "-05:00 -> -5
+  static _convertTimezoneToNumber(timezone) {
+    if (!timezone) {
+      return 0;
+    }
+    let num = 0;
+    let tzs = timezone.split(':');
+    if (tzs.length < 2) {
+      return 0;
+    }
+    num += parseInt(tzs[0]);
+    num += parseInt(tzs[1]) / 60;
+    return num;
+  }
+
+  static _getDateWithUTCOffset(inputTzOffset) {
+    var now = new Date(); // get the current time
+
+    var currentTzOffset = -now.getTimezoneOffset() / 60 // in hours, i.e. -4 in NY
+    var deltaTzOffset = inputTzOffset - currentTzOffset; // timezone diff
+
+    var nowTimestamp = now.getTime(); // get the number of milliseconds since unix epoch
+    var deltaTzOffsetMilli = deltaTzOffset * 1000 * 60 * 60; // convert hours to milliseconds (tzOffsetMilli*1000*60*60)
+    var outputDate = new Date(nowTimestamp + deltaTzOffsetMilli) // your new Date object with the timezone offset applied.
+
+    return outputDate;
+  }
+
+  static _getNextDayOfWeek(date, dayOfWeek) {
+    const resultDate = new Date(date.getTime());
+    resultDate.setDate(date.getDate() + (7 + dayOfWeek - date.getDay()) % 7);
+    return resultDate;
+  }
+
+  static _formatIntervals(intervals) {
+    if (!intervals) {
+      return intervals;
+    }
+    let formatted = Array.from(intervals);
+    for (let interval of formatted) {
+      for (let period in interval) {
+        interval[period] = parseInt(interval[period].replace(':', ''));
+      }
+    }
+    return formatted;
+  }
+
+  /**
+   * Calculates a yext time and date using utc offsets
+   * If no valid utc offsets are found, time and date will
+   * be based off of clients local time.
+   *
+   * Example
+   *
+   * Users local time in EDT (now): Fri Jun 21 2019 14:21:10 GMT-0400
+   * Their localUtcOffset will be +4 hours (for user offset, +/- is flipped)
+   *
+   * They are viewing a store in germany, CEST/GMT+2
+   * For this date, the utcOffset will be +2 hours (for entity offset, +/- is normal)
+   *
+   * Adding this together:
+   * now + utcOffset + localUtcOffset -> now + 2 hours + 4 hours
+   * now = Fri Jun 21 2019 20:21:10 GMT-0400
+   *
+   * This is technically incorrect, as users local time is not 8PM EDT,
+   * its 2PM EDT/8PM CEST, but because our components do not consider
+   * timezones at all, this converted date will allow the entity
+   * pages to display as if the user was in the same timezone as the entity.
+   *
+   * @param {Date} now
+   * @param {{start: number, offset: number}[]} utcOffsets
+   */
+  static _calculateYextDayTime(now, utcOffsets) {
+    // Get offset data from store page metadata
+
+    // Init UTC offset as just zero
+    let utcOffset = 0;
+
+    // Get the UTC offset of the clients timezone (minutes converted to millis)
+    const localUtcOffset = now.getTimezoneOffset() * 60 * 1000;
+
+    // If the store has UTC offset data, loop through the data
+    if (utcOffsets && utcOffsets.length) {
+      for (const offsetPeriod of utcOffsets) {
+
+        // The store offset data is provided as a list of dates with timestamps
+        // Only use offsets that are valid, which are offsets that started prior to the current time
+        if (offsetPeriod.start * 1000 < now.valueOf()) {
+          utcOffset = offsetPeriod.offset * 1000;
+        }
+      }
+    }
+
+    // If a valid offset was found, set the today value to a new date that accounts for the store & local UTC offsets
+    if (utcOffset !== 0) {
+      now = new Date(now.valueOf() + utcOffset + localUtcOffset);
+    }
+    const time = this._getYextTime(now);
+    const day = this._getYextDay(now);
+
+    return {time, day};
+  }
+
+  static _getYextTime(date) {
+    return date.getHours() * 100 + date.getMinutes();
+  }
+
+  static _getYextDay(date) {
+    switch (date.getDay() % 7) {
+      case 0: return "SUNDAY";
+      case 1: return "MONDAY";
+      case 2: return "TUESDAY";
+      case 3: return "WEDNESDAY";
+      case 4: return "THURSDAY";
+      case 5: return "FRIDAY";
+      case 6: return "SATURDAY";
+    }
+  }
+
+  static _getTodaysMessage({ hoursToday, isTwentyFourHourClock }) {
+    let time, day;
+    switch (hoursToday.status) {
+      case 'OPEN24':
+        return `<span class="Hours-statusText">Open 24 Hours</span>`;
+      case 'OPENSTODAY':
+        time = this._getTimeString(hoursToday.nextTime, isTwentyFourHourClock);
+        return `
+          <span class="Hours-statusText">
+            <span class="Hours-statusText--current">
+              Closed
+            </span> · Opens at <span class="HoursInterval-time">
+              ${time}
+            </span>
+          </span>`;
+      case 'OPENSNEXT':
+        time = this._getTimeString(hoursToday.nextTime, isTwentyFourHourClock);
+        day = this._translateDay(hoursToday.nextDay);
+        return `
+          <span class="Hours-statusText">
+            <span class="Hours-statusText--current">
+              Closed
+            </span> · Opens at
+          </span>
+          <span class="HoursInterval-time">
+            ${time}
+          </span>
+          <span class="HoursInterval-day">
+            ${day}
+          </span>`;
+      case 'CLOSESTODAY':
+        time = this._getTimeString(hoursToday.nextTime, isTwentyFourHourClock);
+        return `
+          <span class="Hours-statusText">
+            <span class="Hours-statusText--current">
+            Open Now
+            </span> · Closes at
+          </span>
+          <span class="HoursInterval-time">
+            ${time}
+          </span>`;
+      case 'CLOSESNEXT':
+        time = this._getTimeString(hoursToday.nextTime, isTwentyFourHourClock);
+        day = this._translateDay(hoursToday.nextDay);
+        return `
+          <span class="Hours-statusText">
+            <span class="Hours-statusText--current">
+              Open Now
+            </span> · Closes at
+          </span>
+          <span class="HoursInterval-time">
+            ${time}
+          </span>
+          <span class="HoursInterval-day">
+            ${day}
+          </span>`;
+      case 'CLOSED':
+        return `
+          <span class="Hours-statusText">
+            Closed
+          </span>`;
+      default:
+        return '';
+    }
+  }
+
+  static _translateDay(day) {
+    switch (day) {
+      case 'MONDAY':
+        return 'Monday';
+      case 'TUESDAY':
+        return 'Tuesday'
+      case 'WEDNESDAY':
+        return 'Wednesday'
+      case 'THURSDAY':
+        return 'Thursday'
+      case 'FRIDAY':
+        return 'Friday';
+      case 'SATURDAY':
+        return 'Saturday'
+      case 'SUNDAY':
+        return 'Sunday';
+    }
+    return -1;
+  }
+
+  static _getTimeString(yextTime, twentyFourHourClock) {
+    let time = new Date();
+    time.setHours(Math.floor(yextTime / 100));
+    time.setMinutes(yextTime % 100);
+    return time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: !twentyFourHourClock })
+  }
 }

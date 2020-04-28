@@ -136,8 +136,9 @@
     }
   }
 
-  &-bio
+  &-details
   {
+    @include rich_text_formatting;
     margin-top: $base-spacing / 2;
   }
 
