@@ -687,7 +687,7 @@ export default class Formatters {
           <span class="Hours-statusText">
             <span class="Hours-statusText--current">
               Closed
-            </span> - Opens at <span class="HoursInterval-time">
+            </span> · Opens at <span class="HoursInterval-time">
               ${time}
             </span>
           </span>`;
@@ -698,7 +698,7 @@ export default class Formatters {
           <span class="Hours-statusText">
             <span class="Hours-statusText--current">
               Closed
-            </span> - Opens at
+            </span> · Opens at
           </span>
           <span class="HoursInterval-time">
             ${time}
@@ -712,7 +712,7 @@ export default class Formatters {
           <span class="Hours-statusText">
             <span class="Hours-statusText--current">
             Open Now
-            </span> - Closes at
+            </span> · Closes at
           </span>
           <span class="HoursInterval-time">
             ${time}
@@ -724,7 +724,7 @@ export default class Formatters {
           <span class="Hours-statusText">
             <span class="Hours-statusText--current">
               Open Now
-            </span> - Closes at
+            </span> · Closes at
           </span>
           <span class="HoursInterval-time">
             ${time}
