@@ -18,9 +18,6 @@ class AccordionCardComponent extends BaseCard.AccordionCard {
     const primaryCTA = profile.c_primaryCTA || {};
     const secondaryCTA = profile.c_secondaryCTA || {};
 
-    // Setting this to false turns on the showMore/Less details functionality
-    this.excessDetailsToggleSet = true;
-
     return {
       title: profile.name, // The header text of the card
       // subtitle: '', // The sub-header text of the card
