@@ -81,6 +81,8 @@
 
   &-details
   {
+    @include rich_text_formatting;
+
     margin: 8px 16px;
     font-size: 14px;
     color:$text-primary;
