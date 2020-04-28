@@ -13,19 +13,19 @@
     <div class="HitchhikerStandardCard-contentWrapper">
       <div class="HitchhikerStandardCard-info">
         {{#if card.title}}
+        <div class="HitchhikerStandardCard-title">
           {{#if card.url}}
             <a class="HitchhikerStandardCard-titleLink"
               href="{{card.url}}"
               data-eventtype="TITLE_CLICK"
               data-eventoptions='{{json card.titleEventOptions}}'
-              target={{#if card.target}}"{{card.target}}"{{else}}"_blank" rel="noopener noreferrer nofollow"{{/if}}>
+              target={{#if card.target}}"{{card.target}}"{{else}}"_top" rel="noopener noreferrer nofollow"{{/if}}>
               {{card.title}}
             </a>
           {{else}}
-            <div class="HitchhikerStandardCard-title">
-              {{card.title}}
-            </div>
+            {{card.title}}
           {{/if}}
+        </div>
         {{/if}}
         {{#if card.subtitle}}
         <div class="HitchhikerStandardCard-subtitle">
@@ -55,7 +55,7 @@
         </div>
         {{/if}}
       </div>
-      {{#if (any card.CTA1 card.CTA2) }}
+      {{#if (any card.CTA1.url card.CTA2.url) }}
       <div class="HitchhikerStandardCard-ctasWrapper">
         {{#with card.CTA1}}
           {{> CTA }}
@@ -75,7 +75,7 @@
       href="{{url}}"
       data-eventtype="{{eventType}}"
       data-eventoptions='{{json eventOptions}}'
-      target={{#if target}}"{{target}}"{{else}}"_self"{{/if}}>
+      target={{#if target}}"{{target}}"{{else}}"_top"{{/if}}>
       {{#if iconName}}
       <div class="Hitchhiker-cta-iconWrapper">
         <div class="Hitchhiker-cta-icon"

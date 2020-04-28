@@ -19,7 +19,6 @@
     flex-wrap: nowrap;
   }
 
-  &-contentWrapper &-titleLink, 
   &-contentWrapper &-title
   {
     text-decoration: none;
@@ -29,7 +28,7 @@
     margin-bottom: .5rem;
   }
 
-  &-contentWrapper &-titleLink
+  &-title &-titleLink
   {
     color: #427ed2;
     &:hover
