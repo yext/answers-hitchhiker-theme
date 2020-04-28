@@ -19,11 +19,11 @@
           {{> @partial-block }}
 
           ANSWERS.registerHelper('all', function (...args) {
-            return args.filter(item =>item).length === args.length;
+            return args.filter(item => item).length === args.length;
           });
 
           ANSWERS.registerHelper('any', function (...args) {
-            return args.filter(item =>item).length > 1;
+            return args.filter(item => item).length > 1;
           });
         }
       }
