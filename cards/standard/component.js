@@ -22,6 +22,13 @@ class StandardCardComponent extends BaseCard.StandardCard {
       titleEventOptions: this.addDefaultEventOptions(),
       subtitle: '', // The sub-header text of the card
       details: profile.description, // The text in the body of the card
+      // If the card's details are longer than a certain character count, you can truncate the
+      // text. A toggle will be supplied that can show or hide the truncated text.
+      showMoreDetails: {
+        showMoreLimit: 750, // Character count limit
+        showMoreText: 'Show more', // Label when toggle will show truncated text
+        showLessText: 'Show less' // Label when toggle will hide truncated text
+      },
       // The calls to action on the card
       callsToAction: [
         {
