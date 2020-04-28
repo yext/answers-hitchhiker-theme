@@ -15,14 +15,13 @@ class AccordionCardComponent extends BaseCard.AccordionCard {
   dataForRender(profile) {
     // Extract the data for the primary and secondary CTAs from the profile.
     // Apply a sane default if not present in the profile.
-    const primaryCTA = profile.c_primaryCTA || {};
-    const secondaryCTA = profile.c_secondaryCTA || {};
+    const primaryCTAData = profile.c_primaryCTA || {};
+    const secondaryCTAData = profile.c_secondaryCTA || {};
 
     return {
       title: profile.name, // The header text of the card
       // subtitle: '', // The sub-header text of the card
       details: profile.answer, // The text in the body of the card
-
       // If the card's details are longer than a certain character count, you can truncate the
       // text. A toggle will be supplied that can show or hide the truncated text.
       // showMoreDetails: {
@@ -30,26 +29,23 @@ class AccordionCardComponent extends BaseCard.AccordionCard {
       //   showMoreText: '', // Label when toggle will show truncated text
       //   showLessText: '' // Label when toggle will hide truncated text
       // },
-
-      // The first call to action button
+      // The primary CTA of the card
       CTA1: {
-        label: primaryCTA.label, // The text label for this CTA button
-        // iconName: '', // The name of a built-in SDK icon, like 'yext', 'phone', or 'briefcase'
-        url: primaryCTA.url, // The URL the button links to
-        target: '_top', // The target attribute of the link. To open in a new tab use '_blank'
-        eventType: 'CTA_CLICK', // The event type of the analytics event sent when this CTA is clicked
+        label: primaryCTAData.label, // The CTA's label
+        // iconName: '', // The icon to use for the CTA
+        url: primaryCTAData.url, // The URL a user will be directed to when clicking
+        target: '_top', // Where the new URL will be opened. To open in a new tab use '_blank'
+        eventType: 'CTA_CLICK', // Type of Analytics event fired when clicking the CTA
         // Event options for the analytics event fired when this CTA is clicked.
         eventOptions: this.addDefaultEventOptions({ /* Add additional options here */ })
       },
-
-      // The second call to action button
+      // The secondary CTA of the card
       CTA2: {
-        label: secondaryCTA.label, // The text label for the CTA button
-        // iconName: '', // The name of a built-in SDK icon, like 'yext', 'phone', or 'briefcase'
-        url: secondaryCTA.url, // The URL the button links to
-        target: '_top', // The target attribute of the link. To open in a new tab use '_blank'
-        eventType: 'CTA_CLICK', // The event type of the analytics event sent when the CTA is clicked
-        // Event options for the analytics event fired when this CTA is clicked.
+        label: secondaryCTAData.label,
+        // iconName: '',
+        url: secondaryCTAData.url,
+        target: '_top',
+        eventType: 'CTA_CLICK',
         eventOptions: this.addDefaultEventOptions({ /* Add additional options here */ })
       },
     };
