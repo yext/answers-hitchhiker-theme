@@ -13,8 +13,20 @@
           {{/with}}
         },
       {{/with}}
-      {{{ json global_config }}}, 
-      { onReady: () => { {{> @partial-block }} } }
+      {{{ json global_config }}},
+      {
+        onReady: () => {
+          {{> @partial-block }}
+
+          ANSWERS.registerHelper('all', function (...args) {
+            return args.filter(item => item).length === args.length;
+          });
+
+          ANSWERS.registerHelper('any', function (...args) {
+            return args.filter(item => item).length > 1;
+          });
+        }
+      }
     ));
   };
 </script>
