@@ -14,6 +14,8 @@ class AccordionCardComponent extends BaseCard.AccordionCard {
    * @param {Object} profile of the entity in the card
    */
   dataForRender(profile) {
+    // Extract the data for the primary and secondary CTAs from the profile.
+    // Apply a sane default if not present in the profile.
     const primaryCTA = profile.c_primaryCTA || {};
     const secondaryCTA = profile.c_secondaryCTA || {};
     return {
