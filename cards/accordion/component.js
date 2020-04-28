@@ -23,11 +23,11 @@ class AccordionCardComponent extends BaseCard.AccordionCard {
 
       // If the card's details are longer than a certain character count, you can truncate the
       // text. A toggle will be supplied that can show or hide the truncated text.
-      showMoreDetails: {
-        showMoreLimit: 50, // Character count limit
-        showMoreText: '', // Label when toggle will show truncated text
-        showLessText: '' // Label when toggle will hide truncated text
-      },
+      // showMoreDetails: {
+      //   showMoreLimit: 50, // Character count limit
+      //   showMoreText: '', // Label when toggle will show truncated text
+      //   showLessText: '' // Label when toggle will hide truncated text
+      // },
 
       // The first call to action button
       CTA1: {
