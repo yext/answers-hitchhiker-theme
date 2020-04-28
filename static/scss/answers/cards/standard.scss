@@ -5,6 +5,11 @@
   display: flex;
   font-size: .875rem;
 
+  &-detailsText
+  {
+    @include rich_text_formatting;
+  }
+
   &-wrapper,
   &-contentWrapper
   {

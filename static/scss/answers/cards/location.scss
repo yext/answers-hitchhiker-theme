@@ -5,6 +5,11 @@
   font-size: .875rem;
   background-color: #fff;
 
+  &-bio
+  {
+    @include rich_text_formatting;
+  }
+
   &-wrapper,
   &-contentWrapper
   {
