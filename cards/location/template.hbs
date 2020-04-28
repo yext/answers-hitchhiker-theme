@@ -1,8 +1,7 @@
 <div class="HitchhikerLocationCard {{cardName}}">
   {{#if card.image}}
   <div class="HitchhikerLocationCard-imgWrapper">
-    <img src="{{card.image}}"
-         alt="{{card.tagLabel}}">
+    <img src="{{card.image}}" {{#if card.tagLabel}}alt="{{card.tagLabel}}"{{/if}}>
     {{#if card.tagLabel}}
     <div class="HitchhikerLocationCard-imgTagWrapper">
       <div class="HitchhikerLocationCard-imgTag">{{card.tagLabel}}</div>
@@ -44,12 +43,10 @@
       <div class="HitchhikerLocationCard-infoWrapper">
         <div class="HitchhikerLocationCard-contactInfo">
           {{#if (any card.phone card.address)}}
-            <div class="HitchhikerLocationCard-nap">
-              {{#if card.address}}
-                {{#with card.address}}
-                  {{> Address}}
-                {{/with}}
-              {{/if}}
+            <div class="HitchhikerLocationCard-core">
+              {{#with card.address}}
+                {{> Address}}
+              {{/with}}
               {{#if card.phone}}
                 <div class="HitchhikerLocationCard-phone">
                   <div class="HitchhikerLocationCard-phone--desktop">
