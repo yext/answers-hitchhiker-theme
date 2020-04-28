@@ -19,15 +19,19 @@
     flex-wrap: nowrap;
   }
 
+  &-contentWrapper &-titleLink, 
   &-contentWrapper &-title
   {
-    color: #427ed2;
     text-decoration: none;
     font-size: 1.125rem;
     line-height: 1.5;
     font-weight: 600;
     margin-bottom: .5rem;
+  }
 
+  &-contentWrapper &-titleLink
+  {
+    color: #427ed2;
     &:hover
     {
       color: #427ed2;

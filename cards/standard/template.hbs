@@ -13,18 +13,19 @@
     <div class="HitchhikerStandardCard-contentWrapper">
       <div class="HitchhikerStandardCard-info">
         {{#if card.title}}
-        <div class="HitchhikerStandardCard-title">
-          {{#if card.titleUrl}}
-            <a href="{{card.titleUrl}}"
+          {{#if card.url}}
+            <a class="HitchhikerStandardCard-titleLink"
+              href="{{card.url}}"
               data-eventtype="TITLE_CLICK"
               data-eventoptions='{{json card.titleEventOptions}}'
               target={{#if card.target}}"{{card.target}}"{{else}}"_blank" rel="noopener noreferrer nofollow"{{/if}}>
               {{card.title}}
             </a>
           {{else}}
-            {{card.title}}
+            <div class="HitchhikerStandardCard-title">
+              {{card.title}}
+            </div>
           {{/if}}
-        </div>
         {{/if}}
         {{#if card.subtitle}}
         <div class="HitchhikerStandardCard-subtitle">
@@ -54,11 +55,14 @@
         </div>
         {{/if}}
       </div>
-      {{#if card.callsToAction}}
+      {{#if (any card.CTA1 card.CTA2) }}
       <div class="HitchhikerStandardCard-ctasWrapper">
-        {{#each card.callsToAction}}
+        {{#with card.CTA1}}
           {{> CTA }}
-        {{/each}}
+        {{/with}}
+        {{#with card.CTA2}}
+          {{> CTA }}
+        {{/with}}
       </div>
       {{/if}}
     </div>
@@ -66,21 +70,23 @@
 </div>
 
 {{#*inline 'CTA'}}
-<a class="Hitchhiker-cta js-Hitchhiker-cta{{#if modifiers}} {{modifiers}}{{/if}}"
-   href="{{url}}"
-   data-eventtype="{{eventType}}"
-   data-eventoptions='{{json eventOptions}}'
-   target={{#if target}}"{{target}}"{{else}}"_self"{{/if}}>
-  {{#if iconName}}
-  <div class="Hitchhiker-cta-iconWrapper">
-    <div class="Hitchhiker-cta-icon"
-         data-component="IconComponent"
-         data-opts='{ "iconName": "{{iconName}}"{{#if iconUrl}}, "iconUrl": "{{iconUrl}}"{{/if}} }'>
-    </div>
-  </div>
+  {{#if url}}
+    <a class="Hitchhiker-cta js-Hitchhiker-cta{{#if modifiers}} {{modifiers}}{{/if}}"
+      href="{{url}}"
+      data-eventtype="{{eventType}}"
+      data-eventoptions='{{json eventOptions}}'
+      target={{#if target}}"{{target}}"{{else}}"_self"{{/if}}>
+      {{#if iconName}}
+      <div class="Hitchhiker-cta-iconWrapper">
+        <div class="Hitchhiker-cta-icon"
+            data-component="IconComponent"
+            data-opts='{ "iconName": "{{iconName}}"{{#if iconUrl}}, "iconUrl": "{{iconUrl}}"{{/if}} }'>
+        </div>
+      </div>
+      {{/if}}
+      <div class='Hitchhiker-cta-iconLabel'>
+        {{label}}
+      </div>
+    </a>
   {{/if}}
-  <div class='Hitchhiker-cta-iconLabel'>
-    {{label}}
-  </div>
-</a>
 {{/inline}}
