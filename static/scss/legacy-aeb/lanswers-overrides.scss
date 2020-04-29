@@ -37,8 +37,11 @@
 {
   margin-bottom: 0;
 
-  &:not(:last-child)
+  @media (min-width: $breakpoint-mobile-max)
   {
-    border-bottom: none;
+    &:not(:last-child)
+    {
+      border-bottom: none;
+    }
   }
 }
