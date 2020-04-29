@@ -32,7 +32,7 @@ class LocationCardComponent extends BaseCard.LocationCard {
       CTA1: { // The primary call to action for the card
         iconName: 'phone', // The icon to use for the CTA
         label: 'Call', // The label of the CTA
-        url: HitchhikerJS.Formatters.phoneLink(profile), // The URL a user will be directed to when clicking
+        url: Formatter.phoneLink(profile), // The URL a user will be directed to when clicking
         target: '_top', // If the URL will be opened in a new tab, etc.
         eventType: 'TAP_TO_CALL', // Type of Analytics event fired when clicking the CTA
         eventOptions: this.addDefaultEventOptions(), // The analytics event options for CTA clicks
@@ -40,7 +40,7 @@ class LocationCardComponent extends BaseCard.LocationCard {
       CTA2: { // The secondary call to action for the card
         label: 'Get Directions',
         iconName: 'directions',
-        url: HitchhikerJS.Formatters.getDirectionsUrl(profile),
+        url: Formatter.getDirectionsUrl(profile),
         target: '_top',
         eventType: 'DRIVING_DIRECTIONS',
         eventOptions: this.addDefaultEventOptions(),
