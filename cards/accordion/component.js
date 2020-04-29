@@ -68,6 +68,7 @@ class AccordionCardComponent extends BaseCard.AccordionCard {
     const accordionToggleSelector = '.js-HitchhikerAccordionCard-toggle';
     const accordionContentSelector = '.js-HitchhikerAccordionCard-content';
     const accordionExpandedClass = 'HitchhikerAccordionCard--expanded';
+    const accordionCardSelector = '.js-HitchhikerAccordionCard';
 
     const accordionToggleEl = self._container.querySelector(accordionToggleSelector);
     if (!accordionToggleEl) {
@@ -77,8 +78,10 @@ class AccordionCardComponent extends BaseCard.AccordionCard {
     const contentEl = this._container.querySelector(accordionContentSelector);
     contentEl.style.height = `${self.isExpanded ? contentEl.scrollHeight : 0}px`;
 
+    const cardEl = this._container.querySelector(accordionCardSelector);
+
     accordionToggleEl.addEventListener('click', function() {
-      this.classList.toggle(accordionExpandedClass, !self.isExpanded);
+      cardEl.classList.toggle(accordionExpandedClass, !self.isExpanded);
       self.isExpanded = !self.isExpanded;
       const isExpanded = self.isExpanded;
       this.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
