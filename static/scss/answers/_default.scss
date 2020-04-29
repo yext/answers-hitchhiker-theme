@@ -24,12 +24,12 @@
 @import "templates/vertical";
 
 // Cards styling
+@import "cards/event";
 @import "cards/mixins";
 @import "cards/common";
 @import "cards/location";
 @import "cards/standard";
 @import "cards/accordion";
-@import "cards/event";
 
 // HH files
 @import "../answers";

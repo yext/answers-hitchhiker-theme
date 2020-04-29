@@ -2,7 +2,7 @@
   "apiKey": "<REPLACE ME>",
   "experienceKey": "<REPLACE ME>",
   "businessId": "<REPLACE ME>",
-  "locale": "",
+  "locale": "en",
   "logo": "",
   "favicon": "",
   "googleTagManagerName": "",
