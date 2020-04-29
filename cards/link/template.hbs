@@ -1,0 +1,49 @@
+<div class="HitchhikerLinkCard {{cardName}}">
+  <div class="HitchhikerLinkCard-wrapper">
+    <div class="HitchhikerLinkCard-contentWrapper">
+      <div class="HitchhikerLinkCard-info">
+        {{#if card.title}}
+        <div class="HitchhikerLinkCard-title">
+          {{#if card.url}}
+            <a class="HitchhikerLinkCard-titleLink"
+              href="{{card.url}}"
+              data-eventtype="TITLE_CLICK"
+              data-eventoptions='{{json card.titleEventOptions}}'
+              target={{#if card.target}}"{{card.target}}"{{else}}"_top" rel="noopener noreferrer nofollow"{{/if}}>
+              {{{card.title}}}</a>
+          {{else}}
+            {{{card.title}}}
+          {{/if}}
+        </div>
+        {{/if}}
+        {{#if card.subtitle}}
+        <div class="HitchhikerLinkCard-subtitle">
+          {{card.subtitle}}
+        </div>
+        {{/if}}
+        {{#if card.details}}
+        <div class="HitchhikerLinkCard-content">
+          <div class="HitchhikerLinkCard-cardDetails">
+            <div class="HitchhikerLinkCard-detailsText">
+              {{{card.details}}}
+            </div>
+            {{#if excessDetailsToggle}}
+              <button class="HitchhikerCard-details-toggle js-HitchhikerCard-details-toggle">
+              {{#if hideExcessDetails}}
+                {{card.showMoreDetails.showMoreText}}
+                <span data-component="IconComponent"
+                  data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseDown" }'></span>
+              {{else}}
+                {{card.showMoreDetails.showLessText}}
+                <span data-component="IconComponent"
+                  data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseUp" }'></span>
+              {{/if}}
+              </button>
+            {{/if}}
+          </div>
+        </div>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</div>
