@@ -83,7 +83,7 @@
           {{/if}}
         </div>
         {{#if card.details}}
-          <div class="HitchhikerLocationCard-bio">
+          <div class="HitchhikerLocationCard-details">
             {{{card.details}}}
           </div>
         {{/if}}
@@ -122,7 +122,7 @@
     </div>
   {{/if}}
   <div class="HitchhikerLocationCard-addressRow">
-    {{city}}, {{region}} {{postalCode}}
+    {{#if city}}{{city}}, {{/if}}{{region}} {{postalCode}}
   </div>
 </div>
 {{/inline}}
