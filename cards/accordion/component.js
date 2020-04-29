@@ -51,6 +51,18 @@ class AccordionCardComponent extends BaseCard.AccordionCard {
     };
   }
 
+  /**
+   * setState allows you to insert additional variables into the template,
+   * and will also trigger a manual rerender of the component.
+   * @param {Object} data 
+   */
+  setState(data) {
+    return super.setState({
+      ...data,
+      isExpanded: this.isExpanded
+    })
+  }
+
   onMount() {
     const self = this;
     const accordionToggleSelector = '.js-HitchhikerAccordionCard-toggle';
