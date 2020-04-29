@@ -440,7 +440,7 @@ export default class Formatters {
   }
 
   //check if today has a 24 hr interval
-  is24Hours(intervals) {
+  static _is24Hours(intervals) {
     for (let interval of intervals) {
       if(interval.start == 0 && interval.end == 2359) {
         return {is24: true, interval};
