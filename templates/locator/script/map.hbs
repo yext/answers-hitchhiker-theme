@@ -1,3 +1,7 @@
-ANSWERS.addComponent('Map', Object.assign({{{ json componentSettings.Map }}}, {
-  container: '#js-answersMap',
-}));
+ANSWERS.addComponent('Map', Object.assign(
+  {
+    apiKey: HitchhikerJS.getDefaultMapApiKey('{{ componentSettings.Map.mapProvider }}')
+  },
+  {{{ json componentSettings.Map }}}, 
+  { container: '#js-answersMap' }
+));
