@@ -1,0 +1,98 @@
+<div class="HitchhikerJobCard {{cardName}}">
+  <div class="HitchhikerJobCard-wrapper">
+    {{#if card.image}}
+    <div class="HitchhikerJobCard-imgWrapper">
+      <img src="{{card.image}}" {{#if card.tagLabel}}alt="{{card.tagLabel}}"{{/if}}>
+      {{#if card.tagLabel}}
+      <div class="HitchhikerJobCard-imgTagWrapper">
+        <div class="HitchhikerJobCard-imgTag">{{card.tagLabel}}</div>
+      </div>
+      {{/if}}
+    </div>
+    {{/if}}
+    <div class="HitchhikerJobCard-contentWrapper">
+      <div class="HitchhikerJobCard-info">
+        {{#if card.title}}
+        <div class="HitchhikerJobCard-title">
+          {{#if card.url}}
+            <a class="HitchhikerJobCard-titleLink"
+              href="{{card.url}}"
+              data-eventtype="TITLE_CLICK"
+              data-eventoptions='{{json card.titleEventOptions}}'
+              target={{#if card.target}}"{{card.target}}"{{else}}"_top" rel="noopener noreferrer nofollow"{{/if}}>
+              {{card.title}}
+            </a>
+          {{else}}
+            {{card.title}}
+          {{/if}}
+        </div>
+        {{/if}}
+        {{#if card.subtitle}}
+        <div class="HitchhikerJobCard-subtitle">
+          {{card.subtitle}}
+        </div>
+        {{/if}}
+        {{#if card.details}}
+        <div class="HitchhikerJobCard-content">
+          <div class="HitchhikerJobCard-detailsText">
+            {{card.details}}
+          </div>
+          {{#if excessDetailsToggle}}
+            <button class="HitchhikerCard-details-toggle js-HitchhikerCard-details-toggle">
+            {{#if hideExcessDetails}}
+              {{card.showMoreDetails.showMoreText}}
+              <span data-component="IconComponent"
+                data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseDown" }'></span>
+            {{else}}
+              {{card.showMoreDetails.showLessText}}
+              <span data-component="IconComponent"
+                data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseUp" }'></span>
+            {{/if}}
+            </button>
+          {{/if}}
+        </div>
+        {{/if}}
+      </div>
+      {{#if (any (all card.CTA1 card.CTA1.url) (all card.CTA2 card.CTA2.url))}}
+      <div class="HitchhikerJobCard-ctasWrapper">
+          {{#if (all card.CTA1.url card.CTA1.label)}}
+          <div class="HitchhikerLocationCard-primaryCTA">
+            {{#with card.CTA1}}
+              {{> CTA}}
+            {{/with}}
+          </div>
+          {{/if}}
+          {{#if (all card.CTA2.url card.CTA2.label)}}
+          <div class="HitchhikerLocationCard-secondaryCTA">
+            {{#with card.CTA2}}
+              {{> CTA}}
+            {{/with}}
+          </div>
+          {{/if}}
+      </div>
+      {{/if}}
+    </div>
+  </div>
+</div>
+
+{{#*inline 'CTA'}}
+  {{#if url}}
+    <a class="Hitchhiker-cta js-Hitchhiker-cta{{#if modifiers}} {{modifiers}}{{/if}}"
+      href="{{url}}"
+      data-eventtype="{{eventType}}"
+      data-eventoptions='{{json eventOptions}}'
+      target={{#if target}}"{{target}}"{{else}}"_top"{{/if}}>
+      {{#if (any iconName iconUrl)}}
+      <div class="Hitchhiker-cta-iconWrapper">
+        <div class="Hitchhiker-cta-icon"
+            data-component="IconComponent"
+            data-opts='{ {{#if iconName}}"iconName": "{{iconName}}"{{/if}}{{#if iconUrl}}, "iconUrl": "{{iconUrl}}"{{/if}} }'>
+        </div>
+      </div>
+      {{/if}}
+      <div class='Hitchhiker-cta-iconLabel'>
+        {{label}}
+      </div>
+    </a>
+  {{/if}}
+{{/inline}}
