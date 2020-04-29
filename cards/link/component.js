@@ -17,8 +17,6 @@ class LinkCardComponent extends BaseCard.LinkCard {
       title: profile.htmlTitle, // The header text of the card
       url: profile.link, // If the card title is a clickable link, set URL here
       target: '_top', // If the title's URL should open in a new tab, etc.
-      // image: '', // The URL of the image to display on the card
-      // tagLabel: '', // The label of the displayed image
       titleEventOptions: this.addDefaultEventOptions(),
       // subtitle: '', // The sub-header text of the card
       details: profile.htmlSnippet, // The text in the body of the card
