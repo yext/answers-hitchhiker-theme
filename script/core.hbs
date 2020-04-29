@@ -16,6 +16,9 @@
       {{{ json global_config }}},
       {
         onReady: () => {
+          {{#partialPattern 'cards/(.*)/component'}}
+            {{> (lookup . 'key') }}
+          {{/partialPattern}} 
           {{> @partial-block }}
 
           ANSWERS.registerHelper('all', function (...args) {
