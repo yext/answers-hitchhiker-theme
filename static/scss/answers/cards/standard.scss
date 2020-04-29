@@ -1,57 +1,59 @@
 .HitchhikerStandardCard
 {
-  background-color: #fff;
-  padding: 16px;
   display: flex;
   font-size: .875rem;
+  background-color: $color-brand-white;
+  padding: $base-spacing;
 
   &-detailsText
   {
     @include rich_text_formatting;
   }
 
-  &-wrapper,
-  &-contentWrapper
+  &-wrapper
   {
+    display: flex;
     width: 100%;
   }
 
-  &-wrapper &-contentWrapper
+  &-contentWrapper
   {
     display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    flex-wrap: nowrap;
+    flex-direction: column;
+    width: 100%;
+
+    @media (min-width: $breakpoint-mobile-max)
+    {
+      justify-content: space-between;
+      flex-direction: row;
+      flex-wrap: nowrap;
+    }
   }
 
-  &-contentWrapper &-title
+  &-title
   {
     text-decoration: none;
     font-size: 1.125rem;
     line-height: 1.5;
     font-weight: 600;
-    margin-bottom: .5rem;
   }
 
-  &-title &-titleLink
+   &-titleLink
   {
-    color: #427ed2;
-    &:hover
-    {
-      color: #427ed2;
-      text-decoration: underline;
-    }
+    @include Link;
   }
 
   &-subtitle
   {
-    color: #757575;
+    color: $color-text-secondary;
     padding-bottom: 0;
+    margin-top: $base-spacing / 2;
   }
 
   &-content
   {
     line-height: 1.4;
+    margin-top: $base-spacing / 2;
   }
 
   &-imgWrapper
@@ -65,14 +67,25 @@
 
   &-ctasWrapper
   {
-    display: flex;
-    margin-left: 1.5rem;
     text-transform: uppercase;
+    margin-top: $base-spacing / 2;
+
+    @media (min-width: $breakpoint-mobile-max)
+    {
+      margin-left: $base-spacing / 2;
+      justify-content: center;
+    }
   }
 
-  .Icon {
-    height: 18px;
-    width: 18px;
-    margin-right: 8px;
+  &-primaryCTA,
+  &-secondaryCTA
+  {
+    display: flex;
+    margin-top: $base-spacing / 2;
+
+    @media (min-width: $breakpoint-mobile-max)
+    {
+      justify-content: center;
+    }
   }
 }

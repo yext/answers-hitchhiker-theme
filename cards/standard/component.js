@@ -20,7 +20,7 @@ class StandardCardComponent extends BaseCard.StandardCard {
 
     return {
       title: profile.name, // The header text of the card
-      url: profile.websites || profile.landingPageUrl, // If the card title is a clickable link, set URL here
+      url: profile.website || profile.landingPageUrl, // If the card title is a clickable link, set URL here
       target: '_top', // If the title's URL should open in a new tab, etc.
       // image: '', // The URL of the image to display on the card
       // tagLabel: '', // The label of the displayed image
