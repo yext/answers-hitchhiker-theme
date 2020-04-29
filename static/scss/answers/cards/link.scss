@@ -1,0 +1,166 @@
+.HitchhikerLinkCard
+{
+  display: flex;
+  font-size: .875rem;
+  line-height: 1.4;
+  background-color: $color-brand-white;
+  padding: $base-spacing;
+
+  &-contentWrapper
+  {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  &-topRow
+  {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &-title
+  {
+    font-size: 1.125rem;
+    line-height: 1.5;
+    font-weight: 600;
+  }
+
+  &-titleLink
+  {
+    @include Link;
+  }
+
+  &-distance
+  {
+    font-style: italic;
+  }
+
+  &-subtitle
+  {
+    color: $color-text-secondary;
+    padding-bottom: 0;
+    margin-top: $base-spacing / 2;
+  }
+
+  &-content
+  {
+    display: flex;
+    flex-direction: column;
+
+    @media (min-width: $breakpoint-mobile-max)
+    {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  &-contactInfo
+  {
+    display: flex;
+    flex-direction: column;
+
+    @media (min-width: $breakpoint-mobile-max)
+    {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+  }
+
+  &-core
+  {
+    margin-top: $base-spacing / 2;
+
+    @media (min-width: $breakpoint-mobile-max)
+    {
+      padding-right: $base-spacing * 2;
+    }
+  }
+
+  &-address
+  {
+    white-space: nowrap;
+  }
+
+  &-phone
+  {
+    display: flex;
+    font-weight: $font-weight-semibold;
+    margin-top: $base-spacing / 2;
+  }
+
+  &-phone--desktop {
+    display: none;
+
+    @media (min-width: $breakpoint-mobile-max)
+    {
+      display: flex;
+    }
+  }
+
+  &-phone--mobile {
+    @include Link;
+    display: flex;
+
+    @media (min-width: $breakpoint-mobile-max)
+    {
+      display: none;
+    }
+  }
+
+  &-details
+  {
+    @include rich_text_formatting;
+    margin-top: $base-spacing / 2;
+
+    br {
+      display: none; // TODO (agrow) figure out a less hacky way to do this
+    }
+  }
+
+  &-hoursText
+  {
+    margin-top: $base-spacing / 2;
+  }
+
+  .Hours-statusText--current
+  {
+    font-weight: $font-weight-semibold;
+  }
+
+  &-services
+  {
+    flex-basis: 100%;
+    margin-top: $base-spacing / 2;
+  }
+
+  &-servicesLabel
+  {
+    font-weight: $font-weight-semibold;
+    padding-right: 2px;
+  }
+
+  &-ctasWrapper
+  {
+    text-transform: uppercase;
+    margin-top: $base-spacing / 2;
+
+    @media (min-width: $breakpoint-mobile-max)
+    {
+      margin-left: $base-spacing / 2;
+      justify-content: center;
+    }
+  }
+
+  &-primaryCTA,
+  &-secondaryCTA
+  {
+    display: flex;
+    margin-top: $base-spacing / 2;
+
+    @media (min-width: $breakpoint-mobile-max)
+    {
+      justify-content: center;
+    }
+  }
+}
