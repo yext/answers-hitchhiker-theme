@@ -30,7 +30,7 @@
           {{card.showMoreDetails.showMoreText}}
           <span data-component="IconComponent"
             data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseDown" }'></span>
-        {{else}} 
+        {{else}}
           {{card.showMoreDetails.showLessText}}
           <span data-component="IconComponent"
             data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseUp" }'></span>
@@ -38,7 +38,7 @@
         </button>
       {{/if}}
     {{/if}}
-    {{#if (any card.CTA1.url card.CTA2.url) }}
+      {{#if (any (all card.CTA1 card.CTA1.url) (all card.CTA2 card.CTA2.url))}}
       <div class="HitchhikerAccordionCard-ctasWrapper">
         <div class="HitchhikerAccordionCard-ctas">
           {{#with card.CTA1}}
