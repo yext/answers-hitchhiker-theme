@@ -24,13 +24,29 @@
       <div class="HitchhikerAccordionCard-details">
         {{{card.details}}}
       </div>
+      {{#if excessDetailsToggle}}
+        <button class="HitchhikerCard-details-toggle HitchhikerAccordionCard-details-toggle js-HitchhikerCard-details-toggle">
+        {{#if hideExcessDetails}}
+          {{card.showMoreDetails.showMoreText}}
+          <span data-component="IconComponent"
+            data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseDown" }'></span>
+        {{else}} 
+          {{card.showMoreDetails.showLessText}}
+          <span data-component="IconComponent"
+            data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseUp" }'></span>
+        {{/if}}
+        </button>
+      {{/if}}
     {{/if}}
-    {{#if card.callsToAction}}
+    {{#if (any card.CTA1.url card.CTA2.url) }}
       <div class="HitchhikerAccordionCard-ctasWrapper">
         <div class="HitchhikerAccordionCard-ctas">
-          {{#each card.callsToAction}}
+          {{#with card.CTA1}}
             {{> CTA }}
-          {{/each}}
+          {{/with}}
+          {{#with card.CTA2}}
+            {{> CTA }}
+          {{/with}}
         </div>
       </div>
     {{/if}}
@@ -38,11 +54,12 @@
 </div>
 
 {{#*inline 'CTA'}}
+{{#if url}}
 <a class="Hitchhiker-cta js-Hitchhiker-cta{{#if modifiers}} {{modifiers}}{{/if}}"
    href="{{url}}"
    data-eventtype="{{eventType}}"
    data-eventoptions='{{json eventOptions}}'
-   target={{#if target}}"{{target}}"{{else}}"_self"{{/if}}>
+   target={{#if target}}"{{target}}"{{else}}"_top"{{/if}}>
   {{#if iconName}}
   <div class="Hitchhiker-cta-iconWrapper">
     <div class="Hitchhiker-cta-icon"
@@ -55,4 +72,5 @@
     {{label}}
   </div>
 </a>
+{{/if}}
 {{/inline}}
