@@ -2,7 +2,7 @@
 {
   display: flex;
   font-size: .875rem;
-  line-height: 1.4;
+  line-height: $line-height-md;
   background-color: $color-brand-white;
   padding: $base-spacing;
 
@@ -17,7 +17,7 @@
   {
     font-size: 1.125rem;
     line-height: 1.5;
-    font-weight: 600;
+    font-weight: $font-weight-semibold;
   }
 
   &-titleLink
