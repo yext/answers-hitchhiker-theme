@@ -20,7 +20,7 @@ class StandardCardComponent extends BaseCard.StandardCard {
 
     return {
       title: profile.name, // The header text of the card
-      url: profile.websites || profile.landingPageUrl, // If the card title is a clickable link, set URL here
+      url: profile.website || profile.landingPageUrl, // If the card title is a clickable link, set URL here
       target: '_top', // If the title's URL should open in a new tab, etc.
       // image: '', // The URL of the image to display on the card
       // tagLabel: '', // The label of the displayed image
@@ -36,18 +36,18 @@ class StandardCardComponent extends BaseCard.StandardCard {
       },
       // The primary CTA of the card
       CTA1: {
-        label: primaryCTAData.label, // The CTA's label
+        label: 'Click here',//primaryCTAData.label, // The CTA's label
         iconName: 'chevron', // The icon to use for the CTA
-        url: primaryCTAData.url, // The URL a user will be directed to when clicking
+        url: 'primaryCTAData.url', // The URL a user will be directed to when clicking
         target: '_top', // Where the new URL will be opened
         eventType: 'CTA_CLICK', // Type of Analytics event fired when clicking the CTA
         eventOptions: this.addDefaultEventOptions()
       },
       // The secondary CTA of the card
       CTA2: {
-        label: secondaryCTAData.label,
+        label: 'Learn More', //secondaryCTAData.label,
         iconName: 'chevron',
-        url: secondaryCTAData.url,
+        url: 'secondaryCTAData.url',
         target: '_top',
         eventType: 'CTA_CLICK',
         eventOptions: this.addDefaultEventOptions()
