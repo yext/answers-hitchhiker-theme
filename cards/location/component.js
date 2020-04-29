@@ -15,32 +15,36 @@ class LocationCardComponent extends BaseCard.LocationCard {
   dataForRender(profile) {
     return {
       title: profile.name, // The header text of the card
-      titleUrl: profile.websites, // If the card title is a clickable link, set URL here
-      // target: '', // If the title's URL should open in a new tab, etc.
-      // image: '', // The URL of the image to display on the card
-      // tagLabel: '', // The label of the displayed image
+      titleUrl: profile.websites || profile.landingPageUrl, // If the card title is a clickable link, set URL here
+      target: '_top', // If the title's URL should open in a new tab, etc.
       titleEventOptions: this.addDefaultEventOptions(), // The event options for title click analytics
-      subtitle: '', // The sub-header text of the card
+      // subtitle: '', // The sub-header text of the card
+      hours: HitchhikerJS.Formatters.openStatus(profile),
+      // services: [], // Used for a comma delimited list of services for the location
       address: profile.address, // The address for the card
-      phone: profile.mainPhone, // The phone number for the card
+      phone: profile.mainPhone || '', // The phone number for the card
+      phoneEventType: 'TAP_TO_CALL', // The analytics event type for phone clicks
+      phoneEventOptions: this.addDefaultEventOptions(), // The analytics event options for phone clicks
+      distance: profile.d_distance, // Distance from the user’s or inputted location
       details: profile.description, // The description for the card, displays below the address and phone
-      // The calls to action on the card
-      callsToAction: [
-        {
-          url: HitchhikerJS.Formatters.phoneLink(profile), // The URL a user will be directed to when clicking
-          iconName: 'phone', // The icon to use for the CTA
-          label: 'Call', // The label of the CTA
-          target: '_parent', // If the URL will be opened in a new tab, etc.
-          // modifiers: '', // Additional CSS classes for the CTA
-          eventType: 'TAP_TO_CALL', // Type of Analytics event fired when clicking the CTA
-        },
-        {
-          url: HitchhikerJS.Formatters.getDirectionsUrl(profile),
-          label: 'Get Directions',
-          iconName: 'directions',
-          eventType: 'DRIVING_DIRECTIONS',
-        }
-      ]
+      // tagLabel: '', // The label of the displayed image
+      // image: '', // The URL of the image to display on the card
+      CTA1: { // The primary call to action for the card
+        iconName: 'phone', // The icon to use for the CTA
+        label: 'Call', // The label of the CTA
+        url: HitchhikerJS.Formatters.phoneLink(profile), // The URL a user will be directed to when clicking
+        target: '_top', // If the URL will be opened in a new tab, etc.
+        eventType: 'TAP_TO_CALL', // Type of Analytics event fired when clicking the CTA
+        eventOptions: this.addDefaultEventOptions(), // The analytics event options for CTA clicks
+      },
+      CTA2: { // The secondary call to action for the card
+        label: 'Get Directions',
+        iconName: 'directions',
+        url: HitchhikerJS.Formatters.getDirectionsUrl(profile),
+        target: '_top',
+        eventType: 'DRIVING_DIRECTIONS',
+        eventOptions: this.addDefaultEventOptions(),
+      }
     };
   }
 }

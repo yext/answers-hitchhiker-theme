@@ -1,85 +1,138 @@
 <div class="HitchhikerLocationCard {{cardName}}">
-  <div class="HitchhikerLocationCard-wrapper">
-    {{#if card.image}}
-    <div class="HitchhikerLocationCard-imgWrapper">
-      <img src="{{card.image}}" />
-      {{#if card.tagLabel}}
-      <div class="HitchhikerLocationCard-imgTagWrapper">
-        <div class="HitchhikerLocationCard-imgTag">{{card.tagLabel}}</div>
-      </div>
-      {{/if}}
+  {{#if card.image}}
+  <div class="HitchhikerLocationCard-imgWrapper">
+    <img src="{{card.image}}" {{#if card.tagLabel}}alt="{{card.tagLabel}}"{{/if}}>
+    {{#if card.tagLabel}}
+    <div class="HitchhikerLocationCard-imgTagWrapper">
+      <div class="HitchhikerLocationCard-imgTag">{{card.tagLabel}}</div>
     </div>
     {{/if}}
-    <div class="HitchhikerLocationCard-contentWrapper">
-      <div class="HitchhikerLocationCard-info">
-        {{#if card.title}}
-        <div class="HitchhikerLocationCard-title">
-          {{#if card.titleUrl}}
-            <a href="{{card.titleUrl}}"
-              data-eventtype="TITLE_CLICK"
-              data-eventoptions='{{json card.titleEventOptions}}'
-              target={{#if card.target}}"{{card.target}}"{{else}}"_blank" rel="noopener noreferrer nofollow"{{/if}}>
-              {{card.title}}
-            </a>
-          {{else}}
-            {{card.title}}
-          {{/if}}
-        </div>
+  </div>
+  {{/if}}
+  <div class="HitchhikerLocationCard-contentWrapper">
+    {{#if (any card.title card.distance)}}
+    <div class="HitchhikerLocationCard-topRow">
+    {{#if card.title}}
+      <div class="HitchhikerLocationCard-title">
+        {{#if card.titleUrl}}
+          <a class="HitchhikerLocationCard-titleLink"
+            href="{{card.titleUrl}}"
+            data-eventtype="TITLE_CLICK"
+            data-eventoptions='{{json card.titleEventOptions}}'
+            target={{#if card.target}}"{{card.target}}"{{else}}"_top"{{/if}}>
+            {{{card.title}}}
+          </a>
+        {{else}}
+          {{{card.title}}}
         {{/if}}
-        {{#if card.subtitle}}
-        <div class="HitchhikerLocationCard-subtitle">
-          {{card.subtitle}}
-        </div>
-        {{/if}}
-        <div class="HitchhikerLocationCard-content">
-          <div class="HitchhikerLocationCard-cardDetails">
-            <div class="HitchhikerLocationCard-detailsText">
-              {{#if card.address}}
-                <div class="HitchhikerLocationCard-address">
-                  <div class="HitchhikerLocationCard-addressRow">
-                    {{card.address.line1}}
-                  </div>
-                  {{#if card.address.line2}}
-                    <div class="HitchhikerLocationCard-addressRow">
-                      {{card.address.line2}}
-                    </div>
-                  {{/if}}
-                  <div class="HitchhikerLocationCard-addressRow">
-                    {{card.address.city}}, {{card.address.region}} {{card.address.postalCode}}
-                  </div>
-                </div>
-              {{/if}}
+      </div>
+    {{/if}}
+    {{#if card.distance}}
+      <div class="HitchhikerLocationCard-distance">
+        {{card.distance}}
+      </div>
+    {{/if}}
+    </div>
+    {{/if}}
+    {{#if card.subtitle}}
+    <div class="HitchhikerLocationCard-subtitle">
+      {{card.subtitle}}
+    </div>
+    {{/if}}
+    <div class="HitchhikerLocationCard-content">
+      <div class="HitchhikerLocationCard-infoWrapper">
+        <div class="HitchhikerLocationCard-contactInfo">
+          {{#if (any card.phone card.address)}}
+            <div class="HitchhikerLocationCard-core">
+              {{#with card.address}}
+                {{> Address}}
+              {{/with}}
               {{#if card.phone}}
                 <div class="HitchhikerLocationCard-phone">
-                  {{card.phone}}
-                </div>
-              {{/if}}
-              {{#if card.details}}
-                <div class="HitchhikerLocationCard-bio">
-                  {{card.details}}
+                  <div class="HitchhikerLocationCard-phone--desktop">
+                    {{card.phone}}
+                  </div>
+                  <a class="HitchhikerLocationCard-phone--mobile"
+                      href="tel:{{card.phone}}"
+                      data-eventtype={{#if phoneEventOptions}}"{{card.phoneEventOptions}}"{{else}}"TAP_TO_CALL"{{/if}}
+                      data-eventoptions='{{json card.phoneEventOptions}}'>
+                    {{card.phone}}
+                  </a>
                 </div>
               {{/if}}
             </div>
+          {{/if}}
+          {{#if (any card.hours card.services)}}
+          <div class="HitchhikerLocationCard-infoCol">
+            {{#if card.hours}}
+            <div class="HitchhikerLocationCard-hoursText">
+              {{{card.hours}}}
+            </div>
+            {{/if}}
+            {{#if card.services}}
+            <div class="HitchhikerLocationCard-services">
+              <span class="HitchhikerLocationCard-servicesLabel">
+                Services:
+              </span>
+              <span>
+              {{#each card.services~}}{{this}}{{#unless @last}}, {{/unless}}{{~/each}}
+              </span>
+            </div>
+            {{/if}}
           </div>
+          {{/if}}
         </div>
+        {{#if card.details}}
+          <div class="HitchhikerLocationCard-bio">
+            {{{card.details}}}
+          </div>
+        {{/if}}
+        </div>
+        {{#if (any card.CTA1 card.CTA2)}}
+        <div class="HitchhikerLocationCard-ctasWrapper">
+          {{#if (all card.CTA1.url card.CTA1.label)}}
+          <div class="HitchhikerLocationCard-primaryCTA">
+            {{#with card.CTA1}}
+              {{> CTA}}
+            {{/with}}
+          </div>
+          {{/if}}
+          {{#if (all card.CTA2.url card.CTA2.label)}}
+          <div class="HitchhikerLocationCard-secondaryCTA">
+            {{#with card.CTA2}}
+              {{> CTA}}
+            {{/with}}
+          </div>
+          {{/if}}
+        </div>
+        {{/if}}
       </div>
-      {{#if card.callsToAction}}
-      <div class="HitchhikerLocationCard-ctasWrapper">
-        {{#each card.callsToAction}}
-          {{> CTA }}
-        {{/each}}
-      </div>
-      {{/if}}
     </div>
   </div>
 </div>
+
+{{#*inline 'Address'}}
+<div class="HitchhikerLocationCard-address">
+  <div class="HitchhikerLocationCard-addressRow">
+    {{line1}}
+  </div>
+  {{#if line2}}
+    <div class="HitchhikerLocationCard-addressRow">
+      {{line2}}
+    </div>
+  {{/if}}
+  <div class="HitchhikerLocationCard-addressRow">
+    {{city}}, {{region}} {{postalCode}}
+  </div>
+</div>
+{{/inline}}
 
 {{#*inline 'CTA'}}
 <a class="Hitchhiker-cta js-Hitchhiker-cta{{#if modifiers}} {{modifiers}}{{/if}}"
    href="{{url}}"
    data-eventtype="{{eventType}}"
    data-eventoptions='{{json eventOptions}}'
-   target={{#if target}}"{{target}}"{{else}}"_self"{{/if}}>
+   target={{#if target}}"{{target}}"{{else}}"_top"{{/if}}>
   {{#if iconName}}
   <div class="Hitchhiker-cta-iconWrapper">
     <div class="Hitchhiker-cta-icon"
