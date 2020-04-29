@@ -21,6 +21,7 @@
   &-iconWrapper
   {
     display: flex;
+    padding-right: $base-spacing / 2;
 
     @media (min-width: $breakpoint-mobile-max)
     {
@@ -46,10 +47,10 @@
   &-icon
   {
     &,
-    & > *
+    .Icon svg
     {
-      width: 1.5rem;
-      height: 1.5rem;
+      width: 18px;
+      height: 18px;
     }
   }
 }
