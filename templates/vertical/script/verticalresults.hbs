@@ -9,7 +9,6 @@ ANSWERS.addComponent('VerticalResults', Object.assign({{{ json componentSettings
   {{/if}}
   {{#with componentSettings.VerticalResults}}
     {{#if mapConfig}}
-      includeMap: true,
       mapConfig: Object.assign({
         apiKey: HitchhikerJS.getDefaultMapApiKey(('{{ mapConfig.mapProvider }}'))
       }, {{{ json mapConfig }}}),
