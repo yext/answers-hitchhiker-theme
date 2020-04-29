@@ -2,6 +2,8 @@
 <script src="https://assets.sitescdn.net/answers/v1.0/answerstemplates.compiled.min.js"></script>
 <script>
   function initAnswers() {
+    const JAMBO_INJECTED_DATA = {{{json env.JAMBO_INJECTED_DATA}}};
+    HitchhikerJS.EnvironmentProperties.init(JAMBO_INJECTED_DATA);
     ANSWERS.init(Object.assign(
       {"templateBundle": TemplateBundle.default},
       {{#with env.JAMBO_INJECTED_DATA}}
