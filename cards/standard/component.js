@@ -36,18 +36,18 @@ class StandardCardComponent extends BaseCard.StandardCard {
       },
       // The primary CTA of the card
       CTA1: {
-        label: 'Click here',//primaryCTAData.label, // The CTA's label
+        label: primaryCTAData.label, // The CTA's label
         iconName: 'chevron', // The icon to use for the CTA
-        url: 'primaryCTAData.url', // The URL a user will be directed to when clicking
+        url: primaryCTAData.url, // The URL a user will be directed to when clicking
         target: '_top', // Where the new URL will be opened
         eventType: 'CTA_CLICK', // Type of Analytics event fired when clicking the CTA
         eventOptions: this.addDefaultEventOptions()
       },
       // The secondary CTA of the card
       CTA2: {
-        label: 'Learn More', //secondaryCTAData.label,
+        label: secondaryCTAData.label,
         iconName: 'chevron',
-        url: 'secondaryCTAData.url',
+        url: secondaryCTAData.url,
         target: '_top',
         eventType: 'CTA_CLICK',
         eventOptions: this.addDefaultEventOptions()
