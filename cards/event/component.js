@@ -18,8 +18,8 @@ class EventCardComponent extends BaseCard.EventCard {
       url: profile.website, // If the card title is a clickable link, set URL here
       target: '_top', // If the title's URL should open in a new tab, etc.
       titleEventOptions: this.addDefaultEventOptions(),
-      date: HitchhikerJS.Formatters.bigDate(profile),
-      subtitle: HitchhikerJS.Formatters.dateRange(profile),
+      date: Formatter.bigDate(profile),
+      subtitle: Formatter.dateRange(profile),
       details: profile.description, // The text in the body of the card
       // If the card's details are longer than a certain character count, you can truncate the
       // text. A toggle will be supplied that can show or hide the truncated text.
@@ -41,7 +41,7 @@ class EventCardComponent extends BaseCard.EventCard {
       CTA2: {
         label: 'Directions',
         iconName: 'directions',
-        url: HitchhikerJS.Formatters.getDirectionsUrl(profile),
+        url: Formatter.getDirectionsUrl(profile),
         target: '_top',
         eventType: 'DRIVING_DIRECTIONS',
         eventOptions: this.addDefaultEventOptions()

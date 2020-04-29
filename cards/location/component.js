@@ -19,7 +19,7 @@ class LocationCardComponent extends BaseCard.LocationCard {
       target: '_top', // If the title's URL should open in a new tab, etc.
       titleEventOptions: this.addDefaultEventOptions(), // The event options for title click analytics
       // subtitle: '', // The sub-header text of the card
-      hours: HitchhikerJS.Formatters.openStatus(profile),
+      hours: Formatter.openStatus(profile),
       // services: [], // Used for a comma delimited list of services for the location
       address: profile.address, // The address for the card
       phone: profile.mainPhone || '', // The phone number for the card
