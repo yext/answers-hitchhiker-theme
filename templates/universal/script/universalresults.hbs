@@ -4,7 +4,7 @@ ANSWERS.addComponent('UniversalResults', Object.assign({{{ json componentSetting
       {{!-- Map each Vertical config's verticalsToConfig --}}
       {{#each verticalConfigs}}
         {{#each verticalsToConfig}}
-          {{!-- If the Universal config has info for this key, skip it --}}
+          {{!-- Unless the Universal config has info for this verticalKey, add its config --}}
           {{#unless (lookup ../../verticalsToConfig @key)}}
             {{@key}}: {
                 {{#with (lookup ../verticalsToConfig @key)}}
