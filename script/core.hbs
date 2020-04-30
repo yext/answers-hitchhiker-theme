@@ -4,7 +4,7 @@
   function initAnswers() {
     const JAMBO_INJECTED_DATA = {{{json env.JAMBO_INJECTED_DATA}}} || {};
     const pages = JAMBO_INJECTED_DATA.pages || {};
-    HitchhikerJS.IS_STAGING = HitchhikerJS.isStaging(pages.stagingDomains || []);
+    const IS_STAGING = HitchhikerJS.isStaging(pages.stagingDomains || []);
     ANSWERS.init(Object.assign(
       {"templateBundle": TemplateBundle.default},
       {{#with env.JAMBO_INJECTED_DATA}}
