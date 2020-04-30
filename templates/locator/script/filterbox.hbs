@@ -1,4 +1,4 @@
-ANSWERS.addComponent('FilterBox', Object.assign({{{ json componentSettings.FilterBox }}}, {
+ANSWERS.addComponent('FilterBox', Object.assign({}, {
   container: '#js-answersFilterBox',
   {{#if componentSettings.FilterBox.verticalKey}}
     verticalKey: '{{componentSettings.FilterBox.verticalKey}}',
@@ -7,4 +7,4 @@ ANSWERS.addComponent('FilterBox', Object.assign({{{ json componentSettings.Filte
       verticalKey: '{{verticalKey}}',
     {{/if}}
   {{/if}}
-}));
+}, {{{ json componentSettings.FilterBox }}}));

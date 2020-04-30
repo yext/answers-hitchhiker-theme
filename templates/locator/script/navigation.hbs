@@ -1,4 +1,4 @@
-ANSWERS.addComponent('Navigation', Object.assign({{{ json componentSettings.navigation }}}, {
+ANSWERS.addComponent('Navigation', Object.assign({}, {
 container: '#js-answersNavigation',
 verticalPages: [
 {{#each verticalConfigs}}
@@ -24,4 +24,4 @@ verticalPages: [
   }{{#unless @last}},{{/unless}}
 {{/each}}
 ]
-}));
+}, {{{ json componentSettings.navigation }}}));
