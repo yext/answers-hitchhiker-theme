@@ -7,4 +7,3 @@ export function isStaging(stagingDomains) {
   const currentUrl = window.location.href;
   return _stagingDomains.some(domain => currentUrl.includes(domain));
 }
-

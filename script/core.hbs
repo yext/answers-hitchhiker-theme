@@ -5,6 +5,7 @@
     const JAMBO_INJECTED_DATA = {{{json env.JAMBO_INJECTED_DATA}}} || {};
     const pages = JAMBO_INJECTED_DATA.pages || {};
     const IS_STAGING = HitchhikerJS.isStaging(pages.stagingDomains || []);
+    console.log(IS_STAGING);
     ANSWERS.init(Object.assign(
       {"templateBundle": TemplateBundle.default},
       {{#with env.JAMBO_INJECTED_DATA}}
