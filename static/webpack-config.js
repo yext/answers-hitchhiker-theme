@@ -2,6 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ClosurePlugin = require('closure-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 const jamboConfig = JSON.parse(fs.readFileSync('jambo.json'))
 
@@ -14,7 +15,10 @@ module.exports = {
     library: 'HitchhikerJS',
     libraryTarget: 'window'
   },
-  plugins: [new MiniCssExtractPlugin({ filename: 'bundle.css' })],
+  plugins: [
+    new MiniCssExtractPlugin({ filename: 'bundle.css' }),
+    new CopyPlugin([{ from: './static/assets' }]),
+  ],
   optimization: {
     minimize: true,
     minimizer: [new ClosurePlugin()]
