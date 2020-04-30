@@ -1,27 +1,43 @@
-import { isStaging, addStagingDomains } from 'static/js/is-staging.js';
+import { isStaging } from 'static/js/is-staging.js';
 
-describe('detecting whether isStaging', () => {
-  it('works correctly for default staging domains', () => {
-    expect(isStaging('localhost')).toBeTruthy();
-    expect(isStaging('http://localhost:8080/bob/joe')).toBeTruthy();
-    expect(isStaging('127.0.0.1')).toBeTruthy();
-    expect(isStaging('http://127.0.0.1:3000/joe/bob')).toBeTruthy();
-    expect(isStaging('office.yext.com')).toBeTruthy();
-    expect(isStaging('breed.office.yext.com')).toBeTruthy();
+describe('isStaging', () => {
+  // https://stackoverflow.com/questions/49975981/specify-window-location-for-each-test-file-for-jest
+  delete global.window.location;
+  global.window = Object.create(window);
+  global.window.location = {};
+
+  function setHref(href) {
+    window.location.href = href;
+  }
+
+  const testStagingDomains = [ "yextpages.net", "landingpagespreview.com" ];
+  beforeEach(() => {
+    // Reset window.location.href to the default value in a jest test
+    setHref('http://localhost/');
   });
 
-  it('works correctly with no params', () => {
-    expect(window.location.host).toEqual('localhost');
+  it('the test suite can change window.location.href', () => {
+    expect(window.location.href).toEqual('http://localhost/')
+    setHref('any string here');
+    expect(window.location.href).toEqual('any string here');
+  })
+
+  it('works correctly for default staging domains', () => {
+    expect(isStaging()).toBeTruthy();
+    setHref('http://localhost:3000/my-local/url');
+    expect(isStaging()).toBeTruthy();
+    setHref('http://127.0.0.1/my-local/url');
+    expect(isStaging()).toBeTruthy()
+    setHref('http://breed.office.yext.com/my-local/url');
     expect(isStaging()).toBeTruthy();
   });
 
-  it('can set stagingDomains correctly', () => {
-    expect(isStaging('https://yextpages.net/angelas-adventure-articles')).toBeFalsy();
-    expect(isStaging('https://boringprefix.landingpagespreview.com/angelas-adventure-articles')).toBeFalsy();
-    addStagingDomains([ "yextpages.net", "landingpagespreview.com" ]);
-    expect(isStaging('https://bob.yextpages.net/angelas-adventure-articles')).toBeTruthy();
-    expect(isStaging('https://boringprefix.landingpagespreview.com/angelas-adventure-articles')).toBeTruthy();
-    expect(isStaging('yextpages')).toBeFalsy();
-    expect(isStaging('landingpagespreview')).toBeFalsy();
+  it('can check stagingDomains correctly', () => {
+    setHref('https://yextpages.net/angelas-adventure-articles');
+    expect(isStaging()).toBeFalsy();
+    expect(isStaging(testStagingDomains)).toBeTruthy();
+    setHref('https://bob.landingpagespreview.com/angelas-adventure-articles');
+    expect(isStaging()).toBeFalsy();
+    expect(isStaging(testStagingDomains)).toBeTruthy();
   })
 });
