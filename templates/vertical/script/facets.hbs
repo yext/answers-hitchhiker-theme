@@ -1,4 +1,4 @@
-ANSWERS.addComponent('Facets', Object.assign({{{ json componentSettings.Facets }}}, {
+ANSWERS.addComponent('Facets', Object.assign({}, {
   container: '#js-answersFacets',
   {{#if componentSettings.Facets.verticalKey}}
     verticalKey: '{{componentSettings.Facets.verticalKey}}',
@@ -7,4 +7,4 @@ ANSWERS.addComponent('Facets', Object.assign({{{ json componentSettings.Facets }
       verticalKey: '{{verticalKey}}',
     {{/if}}
   {{/if}}
-}));
+}, {{{ json componentSettings.Facets }}}));
