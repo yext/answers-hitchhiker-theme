@@ -55,16 +55,16 @@
     transform: rotate(-90deg);
   }
 
-  &--expanded &-content	
-  {	
-    height: auto;
-  }
-
   &-content
   {
     height: 0;
     transition: all 400ms ease-in-out;
     overflow: hidden;
+  }
+
+  &--expanded &-content
+  {
+    height: auto;
   }
 
   &-subtitle

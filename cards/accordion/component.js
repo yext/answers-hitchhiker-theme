@@ -29,6 +29,7 @@ class AccordionCardComponent extends BaseCard.AccordionCard {
       //   showMoreText: '', // Label when toggle will show truncated text
       //   showLessText: '' // Label when toggle will hide truncated text
       // },
+      isExpanded: false, // Whether the accordion is expanded on page load
       // The primary CTA of the card
       CTA1: {
         label: primaryCTAData.label, // The CTA's label
@@ -51,18 +52,6 @@ class AccordionCardComponent extends BaseCard.AccordionCard {
     };
   }
 
-  /**
-   * setState allows you to insert additional variables into the template,
-   * and will also trigger a manual rerender of the component.
-   * @param {Object} data 
-   */
-  setState(data) {
-    return super.setState({
-      ...data,
-      isExpanded: this.isExpanded
-    })
-  }
-
   onMount() {
     const self = this;
     const accordionToggleSelector = '.js-HitchhikerAccordionCard-toggle';
@@ -76,20 +65,20 @@ class AccordionCardComponent extends BaseCard.AccordionCard {
     }
 
     const contentEl = this._container.querySelector(accordionContentSelector);
-    contentEl.style.height = `${self.isExpanded ? contentEl.scrollHeight : 0}px`;
+    let isExpanded = this._container.querySelector(`.${accordionExpandedClass}`);
+    contentEl.style.height = `${isExpanded ? contentEl.scrollHeight : 0}px`;
 
     const cardEl = this._container.querySelector(accordionCardSelector);
 
     accordionToggleEl.addEventListener('click', function() {
-      cardEl.classList.toggle(accordionExpandedClass, !self.isExpanded);
-      self.isExpanded = !self.isExpanded;
-      const isExpanded = self.isExpanded;
+      isExpanded = !isExpanded;
+      cardEl.classList.toggle(accordionExpandedClass, isExpanded);
       this.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
       contentEl.style.height = `${isExpanded ? contentEl.scrollHeight : 0}px`;
       contentEl.setAttribute('aria-hidden', isExpanded ? 'false' : 'true');
 
       if (self.analyticsReporter) {
-        const event = new ANSWERS.AnalyticsEvent(self.isExpanded ? 'ROW_EXPAND' : 'ROW_COLLAPSE')
+        const event = new ANSWERS.AnalyticsEvent(isExpanded ? 'ROW_EXPAND' : 'ROW_COLLAPSE')
         .addOptions({
           verticalKey: self.verticalKey,
           entityId: self.result._raw.id,
