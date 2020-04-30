@@ -16,12 +16,6 @@ describe('isStaging', () => {
     setHref('http://localhost/');
   });
 
-  it('the test suite can change window.location.href', () => {
-    expect(window.location.href).toEqual('http://localhost/')
-    setHref('any string here');
-    expect(window.location.href).toEqual('any string here');
-  });
-
   it('works correctly for default staging domains', () => {
     expect(isStaging()).toBeTruthy();
     setHref('http://localhost:3000/my-local/url');
