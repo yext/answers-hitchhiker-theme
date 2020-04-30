@@ -1,20 +1,20 @@
-<div class="HitchhikerAccordionCard yxt-{{cardName}} js-HitchhikerAccordionCard{{#if isExpanded}} HitchhikerAccordionCard--expanded{{/if}}"
+<div class="HitchhikerAccordionCard yxt-{{cardName}} js-HitchhikerAccordionCard{{#if card.isExpanded}} HitchhikerAccordionCard--expanded{{/if}}"
      id="{{id}}">
   <button class="HitchhikerAccordionCard-toggle js-HitchhikerAccordionCard-toggle"
-    aria-expanded="{{#if isExpanded}}true{{else}}false{{/if}}"
+    aria-expanded="{{#if card.isExpanded}}true{{else}}false{{/if}}"
     aria-controls="{{id}}"
     tabindex="0">
     <h3 class="HitchhikerAccordionCard-title">
       {{{card.title}}}
     </h3>
-    <div class="HitchhikerAccordionCard-icon js-HitchhikerAccordionCard-icon{{#if isExpanded}} HitchhikerAccordionCard-icon--expanded{{/if}}"
+    <div class="HitchhikerAccordionCard-icon js-HitchhikerAccordionCard-icon{{#if card.isExpanded}} HitchhikerAccordionCard-icon--expanded{{/if}}"
       data-component="IconComponent"
       data-opts='{"iconName": "chevron"}'
       data-prop="icon">
     </div>
   </button>
   <div class="HitchhikerAccordionCard-content js-HitchhikerAccordionCard-content"
-       aria-hidden="{{#if isExpanded}}false{{else}}true{{/if}}">
+       aria-hidden="{{#if card.isExpanded}}false{{else}}true{{/if}}">
     {{#if card.subtitle}}
       <div class="HitchhikerAccordionCard-subtitle">
         {{{card.subtitle}}}
