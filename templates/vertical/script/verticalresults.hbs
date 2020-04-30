@@ -1,4 +1,4 @@
-ANSWERS.addComponent('VerticalResults', Object.assign({}, {
+ANSWERS.addComponent('VerticalResults', Object.assign({{{ json componentSettings.VerticalResults }}}, {
   container: '.js-answersVerticalResults',
   {{#if componentSettings.VerticalResults.verticalKey}}
     verticalKey: '{{componentSettings.VerticalResults.verticalKey}}',
@@ -30,9 +30,7 @@ ANSWERS.addComponent('VerticalResults', Object.assign({}, {
     {{#ifeq @key ../verticalKey}}
       card: {
         {{#if cardType}}cardType: '{{cardType}}',{{/if}}
-      },
-      {{#if mapConfig}}mapConfig: {{{json mapConfig}}},{{/if}}
+      }
     {{/ifeq}}
   {{/each}}
-},
-{{{ json componentSettings.VerticalResults }}}));
+}));
