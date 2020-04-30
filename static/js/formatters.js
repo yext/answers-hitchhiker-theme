@@ -1,3 +1,5 @@
+import { parsePhoneNumberFromString } from 'libphonenumber-js'
+
 /**
  * Contains some of the commonly used formatters for parsing pieces
  * of profile information.
@@ -15,6 +17,14 @@ export default class Formatters {
             return '';
         }
         return `${profile[key]}`;
+    }
+
+    static nationalizedPhoneDisplay(profile, key = 'mainPhone') {
+      if (!profile[key]) {
+          return '';
+      }
+      const phoneNumber = parsePhoneNumberFromString(profile[key])
+      return phoneNumber ? phoneNumber.formatNational() : '';
     }
 
     static emailLink(profile) {
