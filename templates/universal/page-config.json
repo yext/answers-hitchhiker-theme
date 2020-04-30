@@ -1,10 +1,6 @@
 {
   "pageTitle": "<REPLACE ME>",
-  "componentSettings": {
-    "QASubmission": {
-      "entityId": "<REPLACE ME>"
-    }
-  },
+  "componentSettings": {},
   "verticalsToConfig": {
     "Universal": {
       "isFirst": "true"
