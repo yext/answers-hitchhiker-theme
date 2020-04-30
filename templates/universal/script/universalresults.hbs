@@ -3,18 +3,18 @@ ANSWERS.addComponent('UniversalResults', Object.assign({}, {
   config: Object.assign({}, {
       {{!-- Map each Vertical config's verticalsToConfig --}}
       {{#each verticalConfigs}}
-        {{#ifeq verticalKey @key}}
-          {{@key}}: {
-            {{#with (lookup ../verticalsToConfig @key)}}
-              {{> VerticalConfig verticalKey=@key}}
+        {{#if verticalKey}}
+          '{{verticalKey}}': {
+            {{#with (lookup ../verticalsToConfig verticalKey)}}
+              {{> VerticalConfig}}
             {{/with}}
           },
-        {{/ifeq}}
+        {{/if}}
       {{/each}}
     }, {
       {{!-- Map the Universal config's verticalsToConfig --}}
       {{#each verticalsToConfig}}
-        {{@key}}: {
+        '{{@key}}': {
           {{> VerticalConfig verticalKey=@key}}
         },
       {{/each}}
