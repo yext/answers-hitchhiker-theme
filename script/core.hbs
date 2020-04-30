@@ -10,6 +10,7 @@
       {{#with env.JAMBO_INJECTED_DATA}}
         {
           experienceKey: "{{../global_config.experienceKey}}",
+          experienceVersion: IS_STAGING ? 'STAGING' : 'PRODUCTION',
           {{#if businessId}}businessId: "{{businessId}}",{{/if}}
           {{#with (lookup (lookup (lookup this 'answers') 'experiences') ../global_config.experienceKey)}}
             {{#if apiKey}}apiKey: "{{apiKey}}"{{/if}}
