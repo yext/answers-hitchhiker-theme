@@ -26,7 +26,7 @@ class LocationCardComponent extends BaseCard.LocationCard {
       phoneEventType: 'TAP_TO_CALL', // The analytics event type for phone clicks
       phoneEventOptions: this.addDefaultEventOptions(), // The analytics event options for phone clicks
       distance: profile.d_distance, // Distance from the user’s or inputted location
-      details: profile.description, // The description for the card, displays below the address and phone
+      // details: profile.description, // The description for the card, displays below the address and phone
       // tagLabel: '', // The label of the displayed image
       // image: '', // The URL of the image to display on the card
       CTA1: { // The primary call to action for the card
