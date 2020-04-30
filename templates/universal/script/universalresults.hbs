@@ -1,30 +1,42 @@
 ANSWERS.addComponent('UniversalResults', Object.assign({{{ json componentSettings.UniversalResults }}}, {
     container: '.js-answersUniversalResults',
     config: {
+      {{!-- Map each Vertical config's verticalsToConfig --}}
       {{#each verticalConfigs}}
-        {{#if verticalKey}}
-          {{verticalKey}}: {
-              {{#with (lookup verticalsToConfig verticalKey)}}
-                  {{#if cardType}}
-                      card: {
-                          cardType: '{{cardType}}'
-                      },
-                  {{/if}}
-                  sectionTitle: {{#if sectionTitle}}'{{sectionTitle}}'{{else}}{{#if label}}'{{label}}'{{else}}'{{../verticalKey}}'{{/if}}{{/if}},
-                  {{#if icon}}
-                      sectionTitleIconName: '{{icon}}',
-                  {{/if}}
-                  {{#if iconUrl}}sectionTitleIconUrl: '{{iconUrl}}',{{/if}}
-                  viewAllText: {{#if viewAllText}}{{viewAllText}}{{else}}'View All'{{/if}},
-                  {{#if mapConfig}}
-                    includeMap: true,
-                    mapConfig: Object.assign({
-                      apiKey: HitchhikerJS.getDefaultMapApiKey(('{{ mapConfig.mapProvider }}'))
-                    }, {{{ json mapConfig }}}),
-                  {{/if}}
-              {{/with}}
-          },
-        {{/if}}
+        {{#each verticalsToConfig}}
+          {{!-- If the Universal config has info for this key, skip it --}}
+          {{#unless (lookup ../../verticalsToConfig @key)}}
+            {{@key}}: {
+                {{#with (lookup ../verticalsToConfig @key)}}
+                  {{> VerticalConfig verticalKey=@key}}
+                {{/with}}
+            },
+          {{/unless}}
+        {{/each}}
+      {{/each}}
+      {{!-- Map the Universal config's verticalsToConfig --}}
+      {{#each verticalsToConfig}}
+        {{> VerticalConfig verticalKey=@key}}
       {{/each}}
     }
 }));
+
+{{#*inline 'VerticalConfig'}}
+  {{#if cardType}}
+    card: {
+        cardType: '{{cardType}}'
+    },
+  {{/if}}
+  sectionTitle: {{#if sectionTitle}}'{{sectionTitle}}'{{else}}{{#if label}}'{{label}}'{{else}}'{{verticalKey}}'{{/if}}{{/if}},
+  {{#if icon}}
+      sectionTitleIconName: '{{icon}}',
+  {{/if}}
+  {{#if iconUrl}}sectionTitleIconUrl: '{{iconUrl}}',{{/if}}
+  viewAllText: {{#if viewAllText}}{{viewAllText}}{{else}}'View All'{{/if}},
+  {{#if mapConfig}}
+    includeMap: true,
+    mapConfig: Object.assign({
+      apiKey: HitchhikerJS.getDefaultMapApiKey(('{{ mapConfig.mapProvider }}'))
+    }, {{{ json mapConfig }}}),
+  {{/if}}
+{{/inline}}
