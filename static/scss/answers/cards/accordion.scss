@@ -55,6 +55,11 @@
     transform: rotate(-90deg);
   }
 
+  &--expanded &-content	
+  {	
+    height: auto;
+  }
+
   &-content
   {
     height: 0;
