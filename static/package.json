@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "bootstrap-sass": "^3.4.1",
-    "font-awesome": "^4.7.0"
+    "font-awesome": "^4.7.0",
+    "libphonenumber-js": "^1.7.51"
   }
 }
