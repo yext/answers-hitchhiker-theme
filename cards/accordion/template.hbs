@@ -40,21 +40,26 @@
     {{/if}}
     {{#if (any (all card.CTA1 card.CTA1.url) (all card.CTA2 card.CTA2.url))}}
       <div class="HitchhikerAccordionCard-ctasWrapper">
-        <div class="HitchhikerAccordionCard-ctas">
+        {{#if card.CTA1.url}}
+        <div class="HitchhikerAccordionCard-primaryCTA">
           {{#with card.CTA1}}
             {{> CTA }}
           {{/with}}
+        </div>
+        {{/if}}
+        {{#if card.CTA2.url}}
+        <div class="HitchhikerAccordionCard-secondaryCTA">
           {{#with card.CTA2}}
             {{> CTA }}
           {{/with}}
         </div>
+        {{/if}}
       </div>
     {{/if}}
   </div>
 </div>
 
 {{#*inline 'CTA'}}
-{{#if url}}
 <a class="Hitchhiker-cta js-Hitchhiker-cta{{#if modifiers}} {{modifiers}}{{/if}}"
    href="{{url}}"
    data-eventtype="{{eventType}}"
@@ -72,5 +77,4 @@
     {{label}}
   </div>
 </a>
-{{/if}}
 {{/inline}}

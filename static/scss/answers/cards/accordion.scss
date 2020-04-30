@@ -1,30 +1,22 @@
 .HitchhikerAccordionCard
 {
-  background-color: #fff;
-
-  @media (max-width: $breakpoint-mobile-max)
-  {
-    margin-bottom: 0;
-    border-top: 0;
-  }
+  background-color: $color-brand-white;
+  border-top: none;
 
   &-toggle
   {
-    width: 100%;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     cursor: pointer;
-    background: none;
-    border: 0;
-    padding: 0;
-    padding-right: 16px * 0.5;
+    width: 100%;
+    padding: $base-spacing / 2 $base-spacing;
+    padding-bottom: 10px;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
 
-    &:hover
+    &:hover,
+    &:focus
     {
-      background-color: $color-background-highlight;
-    }
-
-    &:focus {
       background-color: $color-background-highlight;
     }
   }
@@ -33,19 +25,14 @@
   {
     height: 16px;
     width:  12px;
-    color: #0f70f0;
+    color: $color-brand-primary;
   }
 
   &-title
   {
-    margin-top: 8px;
-    margin-right: 16px;
-    margin-left: 16px;
-    margin-bottom: 16px * 5/8;
-    text-align: left;
     @include Text(
-      $size: 16px ,
-      $color: #0f70f0,
+      $size: $base-spacing,
+      $color: $color-brand-primary,
       $line-height: $line-height-lg,
       $weight: $font-weight-normal,
     );
@@ -53,60 +40,64 @@
 
   &-icon
   {
-    margin-left: auto;
-    margin-right: 8px;
-    margin-top: 16px * 0.75;
+    display: flex;
     flex-shrink: 0;
   }
 
   &-icon svg
   {
     transform: rotate(90deg);
-    transition: all 400ms ease-in;
+    transition: all 400ms ease-in-out;
+  }
+
+  &--expanded &-icon svg
+  {
+    transform: rotate(-90deg);
   }
 
   &-content
   {
     height: 0;
-    transition: all 400ms ease-in;
+    transition: all 400ms ease-in-out;
     overflow: hidden;
   }
 
   &-subtitle
   {
-    font-size: 14px;
+    font-size: $font-size-md;
     color: $text-secondary;
-    padding-bottom: 8px;
+    padding-bottom: $base-spacing / 2;
   }
 
   &-details
   {
     @include rich_text_formatting;
 
-    margin: 8px 16px;
-    font-size: 14px;
-    color:$text-primary;
-    font-weight: $font-weight-normal;
-    line-height: 14px * 10/7;
+    margin: $base-spacing / 2 $base-spacing;
+    font-size: $font-size-md;
+    color: $text-primary;
+    line-height: $line-height-md;
   }
 
   &-details-toggle
   {
-    margin-left: 16px;
-    margin-right: 16px;
-    margin-bottom: 8px;
+    margin-left: $base-spacing;
+    margin-right: $base-spacing;
+    margin-bottom: $base-spacing / 2;
   }
 
   &-ctasWrapper
   {
     display: flex;
-    margin: 8px 16px;
+    flex-direction: column;
+    margin: $base-spacing / 2 $base-spacing;
   }
 
-  &-ctas
+  &-primaryCTA,
+  &-secondaryCTA
   {
     display: flex;
-    flex-direction: column;
+    margin-top: $base-spacing / 2;
   }
 
   .Hitchhiker-cta
@@ -114,48 +105,16 @@
     flex-direction: row;
     padding: 0;
 
-    &:not(:last-child)
-    {
-      padding-bottom: 4px;
-    }
-
     &-iconWrapper
     {
-      padding: 0;
+      display: flex;
+      padding-left: 0;
+      padding-right: $base-spacing / 2;
     }
 
     &-iconLabel
     {
       margin-top: 0;
-      padding-left: 8px;
     }
-  }
-}
-
-.HitchhikerAccordionCard--expanded
-{
-  background-color: #fff;
-
-  .HitchhikerAccordionCard-icon svg
-  {
-    transform: rotate(-90deg);
-    transition: all 400ms ease-in;
-  }
-
-  .HitchhikerAccordionCard-body
-  {
-    transition: all 400ms ease-in;
-  }
-
-  .HitchhikerAccordionCard-content
-  {
-    height: auto;
-    overflow: hidden;
-  }
-
-  .HitchhikerAccordionCard-ctas
-  {
-    display: flex;
-    flex-direction: column;
   }
 }
