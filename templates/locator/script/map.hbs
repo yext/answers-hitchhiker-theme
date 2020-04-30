@@ -1,7 +1,21 @@
-ANSWERS.addComponent('Map', Object.assign(
-  {
-    apiKey: HitchhikerJS.getDefaultMapApiKey('{{ componentSettings.Map.mapProvider }}')
-  },
-  {{{ json componentSettings.Map }}}, 
-  { container: '#js-answersMap' }
-));
+ANSWERS.addComponent('Map', Object.assign({},
+{
+  container: '#js-answersMap',
+  apiKey: HitchhikerJS.getDefaultMapApiKey(
+    {{#if componentSettings.Map.mapProvider}}
+      '{{componentSettings.Map.mapProvider}}'
+    {{else}}
+      {{#with (lookup verticalsToConfig verticalKey)}}
+        {{#if mapConfig}}
+          '{{mapConfig.mapProvider}}'
+        {{/if}}
+      {{/with}}
+    {{/if}}
+  ),
+},
+{{#with (lookup verticalsToConfig verticalKey)}}
+  {{#if mapConfig}}
+    {{{json mapConfig}}},
+  {{/if}}
+{{/with}}
+{{{ json componentSettings.Map }}}));
