@@ -10,7 +10,7 @@ describe('isStaging', () => {
     window.location.href = href;
   }
 
-  const testStagingDomains = [ "yextpages.net", "landingpagespreview.com" ];
+  const testStagingDomains = ["yextpages.net", "landingpagespreview.com"];
   beforeEach(() => {
     // Reset window.location.href to the default value in a jest test
     setHref('http://localhost/');
@@ -20,7 +20,7 @@ describe('isStaging', () => {
     expect(window.location.href).toEqual('http://localhost/')
     setHref('any string here');
     expect(window.location.href).toEqual('any string here');
-  })
+  });
 
   it('works correctly for default staging domains', () => {
     expect(isStaging()).toBeTruthy();
@@ -39,5 +39,5 @@ describe('isStaging', () => {
     setHref('https://bob.landingpagespreview.com/angelas-adventure-articles');
     expect(isStaging()).toBeFalsy();
     expect(isStaging(testStagingDomains)).toBeTruthy();
-  })
+  });
 });
