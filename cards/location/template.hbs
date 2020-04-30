@@ -88,7 +88,7 @@
           </div>
         {{/if}}
         </div>
-        {{#if (any card.CTA1 card.CTA2)}}
+        {{#if (any (all card.CTA1 card.CTA1.url) (all card.CTA2 card.CTA2.url))}}
         <div class="HitchhikerLocationCard-ctasWrapper">
           {{#if (all card.CTA1.url card.CTA1.label)}}
           <div class="HitchhikerLocationCard-primaryCTA">
