@@ -5,5 +5,4 @@ import Scss from './scss/answers/_default.scss';
 import Formatters from './js/formatters';
 export { Formatters };
 export { getDefaultMapApiKey } from './js/default-map-api-key';
-import EnvironmentProperties from './js/environment-properties';
-export { EnvironmentProperties };
+export { addStagingDomains, isStaging } from './js/is-staging';
