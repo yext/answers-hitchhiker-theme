@@ -1,25 +1,27 @@
-ANSWERS.addComponent('UniversalResults', Object.assign({{{ json componentSettings.UniversalResults }}}, {
-    container: '.js-answersUniversalResults',
-    config: {
+ANSWERS.addComponent('UniversalResults', Object.assign({}, {
+  container: '.js-answersUniversalResults',
+  config: Object.assign({}, {
       {{!-- Map each Vertical config's verticalsToConfig --}}
       {{#each verticalConfigs}}
-        {{#each verticalsToConfig}}
-          {{!-- Unless the Universal config has info for this verticalKey, add its config --}}
-          {{#unless (lookup ../../verticalsToConfig @key)}}
-            {{@key}}: {
-                {{#with (lookup ../verticalsToConfig @key)}}
-                  {{> VerticalConfig verticalKey=@key}}
-                {{/with}}
-            },
-          {{/unless}}
-        {{/each}}
+        {{#ifeq verticalKey @key}}
+          {{@key}}: {
+            {{#with (lookup ../verticalsToConfig @key)}}
+              {{> VerticalConfig verticalKey=@key}}
+            {{/with}}
+          },
+        {{/ifeq}}
       {{/each}}
+    }, {
       {{!-- Map the Universal config's verticalsToConfig --}}
       {{#each verticalsToConfig}}
-        {{> VerticalConfig verticalKey=@key}}
+        {{@key}}: {
+          {{> VerticalConfig verticalKey=@key}}
+        },
       {{/each}}
-    }
-}));
+    }),
+  },
+  {{{ json componentSettings.UniversalResults }}}
+));
 
 {{#*inline 'VerticalConfig'}}
   {{#if cardType}}
