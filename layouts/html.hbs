@@ -55,6 +55,18 @@
       const Formatter = HitchhikerJS.Formatters;
     </script>
 
+    {{#if global_config.googleAnalyticsID}}
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id={{global_config.googleAnalyticsID}}"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', '{{global_config.googleAnalyticsID}}');
+      </script>
+    {{/if}}
+
     {{#if global_config.googleTagManagerID}}
       <!-- Google Tag Manager -->
       <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
