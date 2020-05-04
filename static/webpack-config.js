@@ -17,7 +17,7 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({ filename: 'bundle.css' }),
-    new CopyPlugin([{ from: './static/assets' }]),
+    new CopyPlugin([{ from: './static/assets', to: './assets' }]),
   ],
   optimization: {
     minimize: true,
@@ -36,10 +36,7 @@ module.exports = {
       },
       {
         test: /\.(png|ico|gif|jpe?g|svg|webp|eot|otf|ttf|woff2?)$/,
-        loader: 'file-loader',
-        options: {
-          name: '[path][name].[ext]'
-        }
+        loader: 'file-loader'
       },
     ],
   },
