@@ -1,14 +1,11 @@
-ANSWERS.addComponent('VerticalResults', Object.assign({{{ json componentSettings.VerticalResults }}}, {
+ANSWERS.addComponent('VerticalResults', Object.assign({}, {
   container: '#js-answersVerticalResults',
-  {{#if componentSettings.VerticalResults.verticalKey}}
-    verticalKey: '{{componentSettings.VerticalResults.verticalKey}}',
-  {{else}}
-    {{#if verticalKey}}
-      verticalKey: '{{verticalKey}}',
-    {{/if}}
+  {{#if verticalKey}}
+    verticalKey: '{{verticalKey}}',
   {{/if}}
   verticalPages: [
     {{#each verticalConfigs}}
+      {{#if verticalKey}}
       {
         verticalKey: '{{verticalKey}}',
         {{#each ../excludedVerticals}}{{#ifeq this ../verticalKey}}hideInNavigation: true,{{/ifeq}}{{/each}}
@@ -22,13 +19,12 @@ ANSWERS.addComponent('VerticalResults', Object.assign({{{ json componentSettings
         url: {{#if url}}'{{url}}'{{else}}'{{@key}}.html'{{/if}},
         {{/with}}
       }{{#unless @last}},{{/unless}}
+      {{/if}}
     {{/each}}
   ],
-  {{#each verticalsToConfig}}
-    {{#ifeq @key ../verticalKey}}
-      card: {
-        {{#if cardType}}cardType: '{{cardType}}',{{/if}}
-      }
-    {{/ifeq}}
-  {{/each}}
-}));
+  {{#with (lookup verticalsToConfig verticalKey)}}
+    card: {
+      {{#if cardType}}cardType: '{{cardType}}',{{/if}}
+    }
+  {{/with}},
+}, {{{ json componentSettings.VerticalResults }}}));

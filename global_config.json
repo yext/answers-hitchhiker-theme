@@ -6,5 +6,6 @@
   "logo": "", // The link to the logo for open graph meta tag - og:image.
   "favicon": "",
   "googleTagManagerName": "",
-  "googleTagManagerID": ""
+  "googleTagManagerId": "",
+  "googleAnalyticsId": ""
 }
