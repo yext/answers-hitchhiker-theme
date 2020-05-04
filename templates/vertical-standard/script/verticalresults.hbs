@@ -3,13 +3,6 @@ ANSWERS.addComponent('VerticalResults', Object.assign({}, {
   {{#if verticalKey}}
     verticalKey: '{{verticalKey}}',
   {{/if}}
-  {{#with componentSettings.VerticalResults}}
-    {{#if mapConfig}}
-      mapConfig: Object.assign({
-        apiKey: HitchhikerJS.getDefaultMapApiKey(('{{ mapConfig.mapProvider }}'))
-      }, {{{ json mapConfig }}}),
-    {{/if}}
-  {{/with}}
   verticalPages: [
     {{#each verticalConfigs}}
       {{#if verticalKey}}
