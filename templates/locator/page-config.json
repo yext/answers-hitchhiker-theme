@@ -32,8 +32,8 @@
       }
     }
   },
-  // This is configuration that is used to define the configuration for verticals on this page, as
-  // well as by default on a universal page.
+  // Configuration used to define the look and feel of the vertical, both on this page and, by default,
+  // on the universal page.
   "verticalsToConfig": {
     "<REPLACE ME>": { // The vertical key from your search configuration
       // "label": "", // The name of the vertical in the section header and the navigation bar

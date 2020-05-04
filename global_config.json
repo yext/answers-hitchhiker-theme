@@ -5,7 +5,7 @@
   "locale": "en", // The default locale for searches. Examples: UK: en-GB, Spanish: es, Spain Spanish: es-ES.
   "logo": "", // The link to the logo for open graph meta tag - og:image.
   "favicon": "",
-  "googleTagManagerName": "",
-  "googleTagManagerId": "",
-  "googleAnalyticsId": ""
+  "googleTagManagerName": "dataLayer", // The name of your Google Tag Manager data layer
+  "googleTagManagerId": "", // The container id associated with your Google Tag Manager container
+  "googleAnalyticsId": "" // The tracking Id associated with your Google Analytics account
 }
