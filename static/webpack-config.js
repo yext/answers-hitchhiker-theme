@@ -18,14 +18,11 @@ fs.recurseSync(jamboConfig.dirs.output, [
 
 module.exports = {
   mode: 'production',
-  entry: {
-    HitchhikerJS: './static/entry.js',
-    Formatters: './static/js/formatters.js',
-  },
+  entry: './static/entry.js',
   output: {
     filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, jamboConfig.dirs.output),
-    library: '[name]',
+    library: 'HitchhikerJS',
     libraryTarget: 'window'
   },
   plugins: [
