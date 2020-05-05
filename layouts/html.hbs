@@ -32,7 +32,7 @@
     {{/if}}
     <meta property="og:type" content="website">
     {{#if global_config.logo}}
-      <meta property="og:image" content="../static/assets/{{global_config.logo}}">
+      <meta property="og:image" content="../{{global_config.logo}}">
     {{/if}}
     {{#if canonicalUrl}}
       <meta property="og:url" content="{{canonicalUrl}}">
@@ -47,7 +47,7 @@
     {{/if}}
 
     {{#if global_config.favicon}}
-      <link rel="shortcut icon" href="../static/assets/{{global_config.favicon}}">
+      <link rel="shortcut icon" href="../{{global_config.favicon}}">
     {{/if}}
 
     {{#if global_config.googleAnalyticsId}}

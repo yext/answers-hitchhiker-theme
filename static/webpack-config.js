@@ -7,9 +7,7 @@ const HtmlPlugin = require('html-webpack-plugin');
 const jamboConfig = JSON.parse(fs.readFileSync('jambo.json'))
 
 const htmlPlugins = [];
-fs.recurseSync(jamboConfig.dirs.output, [
-  '**/*.html'
-], (filepath, relative, filename) => {
+fs.recurseSync(jamboConfig.dirs.output, ['**/*.html'], (filepath, relative, filename) => {
   htmlPlugins.push(new HtmlPlugin({
     filename: filename,
     template: path.join(jamboConfig.dirs.output, filename)
@@ -51,7 +49,6 @@ module.exports = {
         test: /\.html$/i,
         loader: 'html-loader',
         options: {
-          minimize: false,
           attributes: {
             /**
              * @param {String} _ the html attribute like 'href' or 'src'
