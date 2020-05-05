@@ -780,4 +780,4 @@ export default class Formatters {
   }
 }
 
-global.Formatters = Formatters;
+global.Formatter = Formatters;
