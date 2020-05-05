@@ -1,0 +1,33 @@
+{{#> layouts/html }}
+  <div>
+    {{#> script/core }}
+      {{> cards/all}}
+      {{> templates/universal-standard/script/searchbar }}
+      {{> templates/universal-standard/script/spellcheck }}
+      {{> templates/universal-standard/script/navigation }}
+      {{> templates/universal-standard/script/directanswer }}
+      {{> templates/universal-standard/script/universalresults }}
+      {{> templates/universal-standard/script/locationbias}}
+      {{!-- {{> templates/universal-standard/script/qasubmission }} --}}
+    {{/script/core}}
+    <div class="Answers AnswersUniversalTemplate">
+      <div class="Answers-navWrapper">
+        <div class="Answers-container">
+          {{> templates/universal-standard/markup/searchbar }}
+          {{> templates/universal-standard/markup/navigation}}
+        </div>
+      </div>
+      <div class="Answers-container Answers-resultsWrapper">
+        {{> templates/universal-standard/markup/spellcheck }}
+        <div class="Answers-filtersAndResults">
+          {{> templates/universal-standard/markup/directanswer }}
+          {{> templates/universal-standard/markup/universalresults }}
+        </div>
+        {{!-- {{> templates/universal-standard/markup/qasubmission }} --}}
+      </div>
+    </div>
+    <footer class="Answers-footer">
+      {{> templates/universal-standard/markup/locationbias }}
+    </footer>
+  </div>
+{{/layouts/html}}
