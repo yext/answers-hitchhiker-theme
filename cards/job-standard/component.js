@@ -1,9 +1,9 @@
-{{> cards/card_component componentName='JobCard'}}
+{{> cards/card_component componentName='job-standard'}}
 
-class JobCardComponent extends BaseCard.JobCard {
+class job_standardCardComponent extends BaseCard['job-standard'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
-    this.setTemplate(`{{{read 'cards/job/template' }}}`);
+    this.setTemplate(`{{{read 'cards/job-standard/template' }}}`);
   }
 
   /**
@@ -42,4 +42,4 @@ class JobCardComponent extends BaseCard.JobCard {
   }
 }
 
-ANSWERS.registerComponentType(JobCardComponent);
+ANSWERS.registerComponentType(job_standardCardComponent);
