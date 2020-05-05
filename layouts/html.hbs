@@ -49,7 +49,7 @@
     {{#if global_config.favicon}}
       <link rel="shortcut icon" href="../{{global_config.favicon}}">
     {{/if}}
-
+    <script src="bundle.js"></script>
     {{#if global_config.googleAnalyticsId}}
       <!-- Global site tag (gtag.js) - Google Analytics -->
       <script async src="https://www.googletagmanager.com/gtag/js?id={{global_config.googleAnalyticsId}}"></script>
@@ -71,6 +71,7 @@
       })(window,document,'script','{{#if global_config.googleTagManagerName}}{{global_config.googleTagManagerName}}{{else}}dataLayer{{/if}}','{{global_config.googleTagManagerId}}');</script>
       <!-- End Google Tag Manager -->
     {{/if}}
+    <link rel="stylesheet" type="text/css" href="bundle.css">
 	</head>
   <body>
     {{#if global_config.googleTagManagerId}}

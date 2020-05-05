@@ -10,7 +10,8 @@ const htmlPlugins = [];
 fs.recurseSync(jamboConfig.dirs.output, ['**/*.html'], (filepath, relative, filename) => {
   htmlPlugins.push(new HtmlPlugin({
     filename: filename,
-    template: path.join(jamboConfig.dirs.output, filename)
+    template: path.join(jamboConfig.dirs.output, filename),
+    inject: false
   }));
 });
 
@@ -18,13 +19,13 @@ module.exports = {
   mode: 'production',
   entry: './static/entry.js',
   output: {
-    filename: 'HitchhikerJS.[contenthash].js',
+    filename: 'bundle.js',
     path: path.resolve(__dirname, jamboConfig.dirs.output),
     library: 'HitchhikerJS',
     libraryTarget: 'window'
   },
   plugins: [
-    new MiniCssExtractPlugin({ filename: 'HitchhikerCSS.[contenthash].css' }),
+    new MiniCssExtractPlugin({ filename: 'bundle.css' }),
     ...htmlPlugins
   ],
   optimization: {
