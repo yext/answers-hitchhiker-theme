@@ -1,6 +1,6 @@
-{{> cards/card_component componentName='StandardCard'}}
+{{> cards/card_component componentName='standard'}}
 
-class StandardCardComponent extends BaseCard.StandardCard {
+class standardCardComponent extends BaseCard['standard'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
     this.setTemplate(`{{{read 'cards/standard/template' }}}`);
@@ -56,4 +56,4 @@ class StandardCardComponent extends BaseCard.StandardCard {
   }
 }
 
-ANSWERS.registerComponentType(StandardCardComponent);
+ANSWERS.registerComponentType(standardCardComponent);

@@ -1,9 +1,9 @@
-{{> cards/card_component componentName='AccordionCard'}}
+{{> cards/card_component componentName='faq-accordion'}}
 
-class AccordionCardComponent extends BaseCard.AccordionCard {
+class faq_accordionCardComponent extends BaseCard['faq-accordion'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
-    this.setTemplate(`{{{read 'cards/accordion/template' }}}`);
+    this.setTemplate(`{{{read 'cards/faq-accordion/template' }}}`);
   }
 
   /**
@@ -92,4 +92,4 @@ class AccordionCardComponent extends BaseCard.AccordionCard {
   }
 }
 
-ANSWERS.registerComponentType(AccordionCardComponent);
+ANSWERS.registerComponentType(faq_accordionCardComponent);
