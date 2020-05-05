@@ -32,7 +32,7 @@
     {{/if}}
     <meta property="og:type" content="website">
     {{#if global_config.logo}}
-      <meta property="og:image" content="{{global_config.logo}}">
+      <meta property="og:image" content="../{{global_config.logo}}">
     {{/if}}
     {{#if canonicalUrl}}
       <meta property="og:url" content="{{canonicalUrl}}">
@@ -47,13 +47,8 @@
     {{/if}}
 
     {{#if global_config.favicon}}
-      <link rel="shortcut icon" href="{{global_config.favicon}}">
+      <link rel="shortcut icon" href="../{{global_config.favicon}}">
     {{/if}}
-
-    <script src="bundle.js"></script>
-    <script>
-      const Formatter = HitchhikerJS.Formatters;
-    </script>
 
     {{#if global_config.googleAnalyticsId}}
       <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -85,6 +80,5 @@
       <!-- End Google Tag Manager (noscript) -->
     {{/if}}
     {{> @partial-block }}
-    <link rel="stylesheet" type="text/css" href="bundle.css">
   </body>
 </html>

@@ -779,3 +779,5 @@ export default class Formatters {
     return time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: !twentyFourHourClock })
   }
 }
+
+global.Formatters = Formatters;
