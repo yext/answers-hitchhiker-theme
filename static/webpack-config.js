@@ -18,7 +18,7 @@ module.exports = {
   mode: 'production',
   entry: './static/entry.js',
   output: {
-    filename: '[name].[contenthash].js',
+    filename: 'HitchhikerJS.[contenthash].js',
     path: path.resolve(__dirname, jamboConfig.dirs.output),
     library: 'HitchhikerJS',
     libraryTarget: 'window'
