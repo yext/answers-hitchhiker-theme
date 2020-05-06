@@ -7,5 +7,6 @@
   "favicon": "",
   "googleTagManagerName": "dataLayer", // The name of your Google Tag Manager data layer
   "googleTagManagerId": "", // The container id associated with your Google Tag Manager container
-  "googleAnalyticsId": "" // The tracking Id associated with your Google Analytics account
+  "googleAnalyticsId": "", // The tracking Id associated with your Google Analytics account
+  "conversionTrackingEnabled": false // Whether or not conversion tracking is enabled for all pages
 }
