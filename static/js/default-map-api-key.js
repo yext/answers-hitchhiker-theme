@@ -4,6 +4,11 @@
  * @returns {String}
  */
 export function getDefaultMapApiKey(mapProvider) {
+    if (!mapProvider) {
+      throw new Error(
+        `Please provide a valid mapProvider. '${mapProvider}' is invalid. Expects either 'google' or 'mapbox'.`
+      );
+    }
     switch (mapProvider.toLowerCase()) {
       case 'google':
         return 'AIzaSyB5D45ghF1YMfqTLSzWubmlCN1euBVPhFw';
