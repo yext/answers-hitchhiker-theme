@@ -39,7 +39,7 @@
 
   @media (min-width: $breakpoint-mobile-max)
   {
-    &:not(:last-child)
+    &:not(:last-child):not(.yxt-Card--universal)
     {
       border-bottom: none;
     }
