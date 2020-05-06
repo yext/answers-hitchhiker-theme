@@ -6,7 +6,7 @@ ANSWERS.addComponent('UniversalResults', Object.assign({}, {
         {{#if verticalKey}}
           '{{verticalKey}}': {
             {{#with (lookup verticalsToConfig verticalKey)}}
-              {{> VerticalConfig}}
+              {{> VerticalConfig verticalKey=../verticalKey}}
             {{/with}}
           },
         {{/if}}
@@ -24,6 +24,7 @@ ANSWERS.addComponent('UniversalResults', Object.assign({}, {
 ));
 
 {{#*inline 'VerticalConfig'}}
+  modifier: '{{verticalKey}}',
   {{#if cardType}}
     card: {
         cardType: '{{cardType}}'
