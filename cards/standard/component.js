@@ -45,9 +45,9 @@ class standardCardComponent extends BaseCard['standard'] {
       },
       // The secondary CTA of the card
       CTA2: {
-        label: secondaryCTAData.label,
+        label: 'label',//secondaryCTAData.label,
         iconName: 'chevron',
-        url: secondaryCTAData.url,
+        url: 'secondaryCTAData.url',
         target: '_top',
         eventType: 'CTA_CLICK',
         eventOptions: this.addDefaultEventOptions()
