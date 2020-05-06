@@ -9,3 +9,11 @@
         $style: italic);
     @include TextButton($padding: 0);
 }
+
+.Answers-universalResults
+{
+    .yxt-Card + .yxt-Card
+    {
+        border-top: $border-default;
+    }
+}
