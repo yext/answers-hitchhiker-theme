@@ -12,21 +12,10 @@
   border-radius: .25rem;
   min-width: 3.75rem;
 
-  &--solo {
-    flex-direction: column;
-    padding: $base-spacing / 2;
-  }
-
   &-iconWrapper
   {
     display: flex;
     padding-right: $base-spacing / 2;
-  }
-
-  &--solo &-iconWrapper {
-    justify-content: center;
-    padding-left: $base-spacing * 2;
-    padding-right: $base-spacing * 2;
   }
 
   &-iconLabel
@@ -35,10 +24,6 @@
     justify-content: center;
     align-items: center;
     white-space: nowrap;
-  }
-
-  &--solo &-iconLabel {
-    margin-top: $base-spacing / 2;
   }
 
   &-icon
