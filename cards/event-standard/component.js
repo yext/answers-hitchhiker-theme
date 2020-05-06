@@ -1,9 +1,9 @@
-{{> cards/card_component componentName='EventCard'}}
+{{> cards/card_component componentName='event-standard'}}
 
-class EventCardComponent extends BaseCard.EventCard {
+class event_standardCardComponent extends BaseCard['event-standard'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
-    this.setTemplate(`{{{read 'cards/event/template' }}}`);
+    this.setTemplate(`{{{read 'cards/event-standard/template' }}}`);
   }
 
   /**
@@ -50,4 +50,4 @@ class EventCardComponent extends BaseCard.EventCard {
   }
 }
 
-ANSWERS.registerComponentType(EventCardComponent);
+ANSWERS.registerComponentType(event_standardCardComponent);

@@ -1,9 +1,9 @@
-{{> cards/card_component componentName='LinkCard'}}
+{{> cards/card_component componentName='link-standard'}}
 
-class LinkCardComponent extends BaseCard.LinkCard {
+class link_standardCardComponent extends BaseCard['link-standard'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
-    this.setTemplate(`{{{read 'cards/link/template' }}}`);
+    this.setTemplate(`{{{read 'cards/link-standard/template' }}}`);
   }
 
   /**
@@ -31,4 +31,4 @@ class LinkCardComponent extends BaseCard.LinkCard {
   }
 }
 
-ANSWERS.registerComponentType(LinkCardComponent);
+ANSWERS.registerComponentType(link_standardCardComponent);
