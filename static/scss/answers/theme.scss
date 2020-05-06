@@ -60,4 +60,8 @@
     margin-top: $base-spacing;
     background-color: $answers-background-color;
   }
+
+  &-pagination {
+    padding-top: $base-spacing / 2;
+  }
 }
