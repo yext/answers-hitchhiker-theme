@@ -25,7 +25,7 @@ class location_standardCardComponent extends BaseCard['location-standard'] {
       phone: Formatter.nationalizedPhoneDisplay(profile), // The phone number for the card
       phoneEventType: 'TAP_TO_CALL', // The analytics event type for phone clicks
       phoneEventOptions: this.addDefaultEventOptions(), // The analytics event options for phone clicks
-      distance: profile.d_distance, // Distance from the user’s or inputted location
+      distance: Formatter.toMiles(profile), // Distance from the user’s or inputted location
       // details: profile.description, // The description for the card, displays below the address and phone
       // tagLabel: '', // The label of the displayed image
       // image: '', // The URL of the image to display on the card

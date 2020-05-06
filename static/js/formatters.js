@@ -43,6 +43,22 @@ export default class Formatters {
         return `https://www.google.com/maps/search/?api=1&query=${query}&output=classic`
     }
 
+  static toKilometers(profile, key = 'd_distance', displayUnits = 'km') {
+    if (!profile[key]) {
+      return '';
+    }
+    const distanceInKilometers = profile[key] / 1000; // Convert meters to kilometers
+    return distanceInKilometers.toFixed(1) + ' ' + displayUnits;
+  }
+
+  static toMiles(profile, key = 'd_distance', displayUnits = 'mi') {
+    if (!profile[key]) {
+      return '';
+    }
+    const distanceInMiles = profile[key] / 1609.344; // Convert meters to miles
+    return distanceInMiles.toFixed(1) + ' ' + displayUnits;
+  }
+
   static isTodayHoliday(holidayItem, todayDate) {
     if (!holidayItem.date) {
       return false;
