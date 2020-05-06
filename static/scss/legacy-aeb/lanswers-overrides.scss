@@ -32,16 +32,3 @@
     margin-bottom: $base-spacing / 2;
   }
 }
-
-.yxt-Card
-{
-  margin-bottom: 0;
-
-  @media (min-width: $breakpoint-mobile-max)
-  {
-    &:not(:last-child):not(.yxt-Card--universal)
-    {
-      border-bottom: none;
-    }
-  }
-}
