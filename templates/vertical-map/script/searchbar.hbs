@@ -1,10 +1,6 @@
 ANSWERS.addComponent('SearchBar', Object.assign({}, {
   container: '#js-answersSearchBar',
-  {{#if componentSettings.SearchBar.verticalKey}}
-    verticalKey: '{{componentSettings.SearchBar.verticalKey}}',
-  {{else}}
-    {{#if verticalKey}}
-      verticalKey: '{{verticalKey}}',
-    {{/if}}
+  {{#if verticalKey}}
+    verticalKey: '{{verticalKey}}',
   {{/if}}
 }, {{{ json componentSettings.SearchBar }}}));
