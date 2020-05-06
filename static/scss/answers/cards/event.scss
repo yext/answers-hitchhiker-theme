@@ -100,11 +100,5 @@
   {
     display: flex;
     margin-top: $base-spacing / 2;
-
-    @media (min-width: $breakpoint-mobile-max)
-    {
-      justify-content: center;
-      flex-basis: 50%;
-    }
   }
 }
