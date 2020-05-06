@@ -195,7 +195,7 @@ export default class Formatters {
   */
   static image(img, size = '200x', atLeastAsLarge = true) {
     if (!img) {
-      return null;
+      return {};
     }
     if (!img.url) {
       return img;
