@@ -1,7 +1,7 @@
 .HitchhikerMenuItemCard
 {
   display: flex;
-  font-size: .875rem;
+  font-size: $font-size-md;
   background-color: $color-brand-white;
   padding: $base-spacing;
   
@@ -20,10 +20,10 @@
   &-contentCtasWrapper
   {
     display: flex;
-    flex-direction: row;
-    @media (max-width: $breakpoint-mobile-max)
+    flex-direction: column;
+    @media (min-width: $breakpoint-mobile-max)
     {
-      flex-direction: column;
+      flex-direction: row;
     }
   }
 
@@ -44,13 +44,14 @@
   &-title
   {
     text-decoration: none;
-    font-size: 1.125rem;
-    line-height: 1.5;
-    font-weight: 600;
+    font-size: $font-size-lg;
+    line-height: $line-height-lg;
+    font-weight: $font-weight-semibold;
     max-width: 100%;
     overflow-wrap: normal;
+  }
 
-   &-titleLink
+  &-titleLink
   {
     @include Link;
   }

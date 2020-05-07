@@ -17,12 +17,14 @@ class menuitem_standardCardComponent extends BaseCard['menuitem-standard'] {
       title: profile.name, // The header text of the card
       url: profile.landingPageUrl, // If the card title is a clickable link, set URL here
       target: '_top', // If the title's URL should open in a new tab, etc.
-      image: profile.c_photo ? profile.c_photo.url : undefined, // The URL of the image to display on the card
+      image: Formatter.image(profile.c_photo).url, // The URL of the image to display on the card
+      altText: Formatter.image(profile.c_photo).altText, 
       // tagLabel: '', // The label of the displayed image
       titleEventOptions: this.addDefaultEventOptions(),
       listTitle: 'Allergens',
       listItems: profile.c_allergens,
-      subtitle: (profile.c_price ? '$'+profile.c_price+' | ' : '') 
+      subtitle: (profile.c_price ? '$'+profile.c_price : '')
+        + (profile.c_price && profile.c_calories ? ' | ' : '')
         + (profile.c_calories ? profile.c_calories + ' calories' : ''), // The sub-header text of the card
       details: profile.description, // The text in the body of the card
       // If the card's details are longer than a certain character count, you can truncate the

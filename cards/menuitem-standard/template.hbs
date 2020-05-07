@@ -67,20 +67,12 @@
           </div>
           {{#if (any (all card.CTA1 card.CTA1.url) (all card.CTA2 card.CTA2.url))}}
           <div class="HitchhikerMenuItemCard-ctasWrapper">
-            {{#if (all card.CTA1.url card.CTA1.label)}}
-            <div class="HitchhikerMenuItemCard-primaryCTA">
-              {{#with card.CTA1}}
-              {{> CTA}}
-              {{/with}}
-            </div>
-            {{/if}}
-            {{#if (all card.CTA2.url card.CTA2.label)}}
-            <div class="HitchhikerMenuItemCard-secondaryCTA">
-              {{#with card.CTA2}}
-              {{> CTA}}
-              {{/with}}
-            </div>
-            {{/if}}
+            {{#with card.CTA1}}
+            {{> CTA ctaName="primaryCTA"}}
+            {{/with}}
+            {{#with card.CTA2}}
+            {{> CTA ctaName="secondaryCTA"}}
+            {{/with}}
           </div>
           {{/if}}
         </div>
@@ -90,18 +82,22 @@
 </div>
 
 {{#*inline 'CTA'}}
-<a class="Hitchhiker-cta js-Hitchhiker-cta{{#if modifiers}} {{modifiers}}{{/if}}" href="{{url}}"
-  data-eventtype="{{eventType}}" data-eventoptions='{{json eventOptions}}'
-  target={{#if target}}"{{target}}"{{else}}"_top"{{/if}}>
-  {{#if (any iconName iconUrl)}}
-  <div class="Hitchhiker-cta-iconWrapper">
-    <div class="Hitchhiker-cta-icon" data-component="IconComponent"
-      data-opts='{ {{#if iconName}}"iconName": "{{iconName}}"{{/if}}{{#if iconUrl}}, "iconUrl": "{{iconUrl}}"{{/if}} }'>
+{{#if (all url label)}}
+<div class="HitchhikerMenuItemCard-{{ctaName}}">
+  <a class="Hitchhiker-cta js-Hitchhiker-cta{{#if modifiers}} {{modifiers}}{{/if}}" href="{{url}}"
+    data-eventtype="{{eventType}}" data-eventoptions='{{json eventOptions}}'
+    target={{#if target}}"{{target}}"{{else}}"_top"{{/if}}>
+    {{#if (any iconName iconUrl)}}
+    <div class="Hitchhiker-cta-iconWrapper">
+      <div class="Hitchhiker-cta-icon" data-component="IconComponent"
+        data-opts='{ {{#if iconName}}"iconName": "{{iconName}}"{{/if}}{{#if (all iconName iconUrl)}}, {{/if}}{{#if iconUrl}}"iconUrl": "{{iconUrl}}"{{/if}} }'>
+      </div>
     </div>
-  </div>
-  {{/if}}
-  <div class='Hitchhiker-cta-iconLabel'>
-    {{label}}
-  </div>
-</a>
+    {{/if}}
+    <div class='Hitchhiker-cta-iconLabel'>
+      {{label}}
+    </div>
+  </a>
+</div>
+{{/if}}
 {{/inline}}
