@@ -76,8 +76,8 @@
 
   &-list
   {
-    list-style: disc;
-    padding-left: $base-spacing * 1.25;
+    list-style-type: disc;
+    list-style-position: inside;
   }
 
   &-phone
