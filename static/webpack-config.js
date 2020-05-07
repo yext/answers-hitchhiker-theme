@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('file-system');
+const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ClosurePlugin = require('closure-webpack-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
@@ -17,18 +18,31 @@ module.exports = function () {
     });
   }
 
+  const entries = {
+    bundle: './static/entry.js',
+  }
+  if (process.env.HIDE_IFRAME != 'true') {
+    Object.assign(
+      entries, 
+      { iframe: './static/js/iframe.js', },
+    );
+  }
+
   return {
     mode: 'production',
-    entry: './static/entry.js',
+    entry: entries,
     output: {
-      filename: 'bundle.js',
+      filename: '[name].js',
       path: path.resolve(__dirname, jamboConfig.dirs.output),
       library: 'HitchhikerJS',
       libraryTarget: 'window'
     },
     plugins: [
       new MiniCssExtractPlugin({ filename: 'bundle.css' }),
-      ...htmlPlugins
+      ...htmlPlugins,
+      new webpack.EnvironmentPlugin(
+        ['STAGING_DOMAIN', 'PROD_DOMAIN']
+      ),
     ],
     optimization: {
       minimizer: [new ClosurePlugin()]

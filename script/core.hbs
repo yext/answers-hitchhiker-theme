@@ -15,6 +15,14 @@
           {{#with (lookup (lookup (lookup this 'answers') 'experiences') ../global_config.experienceKey)}}
             {{#if apiKey}}apiKey: "{{apiKey}}"{{/if}}
           {{/with}}
+          {{#ifeq HIDE_IFRAME 'true'}}
+          {{else}}
+          onStateChange: (params) => {
+            if ('parentIFrame' in window) {
+              parentIFrame.sendMessage(iframeGetSearchParams());
+            }
+          },
+          {{/ifeq}}
         },
       {{/with}}
       {{{ json global_config }}},

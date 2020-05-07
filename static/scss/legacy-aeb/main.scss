@@ -7,6 +7,11 @@ $font-weight-semibold: 600 !default;
 $answers-container-width: 700px !default;
 $answers-container-width-filters: 950px !default;
 
+html
+{
+  min-height: auto; // required for correct iframe resizing
+}
+
 body
 {
   background-color: $answers-background-color;
