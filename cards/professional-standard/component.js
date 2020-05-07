@@ -19,7 +19,7 @@ class professional_standardCardComponent extends BaseCard['professional-standard
     const secondaryCTAData = profile.c_secondaryCTA || {};
 
     return {
-      title: `${profile.firstName} ${profile.firstName}`, // The header text of the card
+      title: `${profile.firstName} ${profile.lastName}`, // The header text of the card
       // subtitle: '', // The sub-header text of the card
       url: profile.website || profile.landingPageUrl, // If the card title is a clickable link, set URL here
       target: '_top', // If the title's URL should open in a new tab, etc.
