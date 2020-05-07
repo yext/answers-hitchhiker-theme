@@ -88,9 +88,14 @@
 
 {{#*inline 'phone'}}
 {{#if card.phone}}
-<div class="HitchhikerProfessionalCard-phone">
+<div class="HitchhikerProfessionalCard-phone--desktop">
   {{card.phone}}
 </div>
+<a class="HitchhikerProfessionalCard-phone--mobile" href="tel:{{card.phone}}"
+  data-eventtype={{#if card.phoneEventType}}"{{card.phoneEventType}}"{{else}}"TAP_TO_CALL"{{/if}}
+  data-eventoptions='{{json card.phoneEventOptions}}'>
+  {{card.phone}}
+</a>
 {{/if}}
 {{/inline}}
 
