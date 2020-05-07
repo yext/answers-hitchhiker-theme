@@ -1,0 +1,107 @@
+.HitchhikerProfessionalCard
+{
+  display: flex;
+  font-size: .875rem;
+  background-color: $color-brand-white;
+  padding: $base-spacing;
+
+  &-wrapper
+  {
+    display: flex;
+    width: 100%;
+  }
+
+  &-body
+  {
+    flex-grow: 1;
+  }
+
+  &-contentWrapper
+  {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    @media (min-width: $breakpoint-mobile-max)
+    {
+      justify-content: space-between;
+      flex-direction: row;
+      flex-wrap: nowrap;
+    }
+  }
+
+  &-imgWrapper
+  {
+    display: flex;
+    align-items: flex-start;
+    width: 6.25rem;
+    min-width: 6.25rem;
+    margin-right: 1rem;
+  }
+
+  &-title
+  {
+    text-decoration: none;
+    font-size: 1.125rem;
+    line-height: 1.5;
+    font-weight: 600;
+  }
+
+   &-titleLink
+  {
+    @include Link;
+  }
+
+  &-subtitle
+  {
+    color: $color-text-secondary;
+    padding-bottom: 0;
+  }
+
+  &-cardDetails
+  {
+    margin-top: $base-spacing / 2;
+  }
+
+  &-detailsText
+  {
+    @include rich_text_formatting;
+  }
+
+  &-listTitle
+  {
+    margin-top: $base-spacing / 2;
+    font-weight: $font-weight-semibold;
+  }
+
+  &-list
+  {
+    list-style: disc;
+    padding-left: $base-spacing * 1.25;
+  }
+
+  &-phone
+  {
+    margin-top: $base-spacing / 2;
+  }
+
+  &-ctasWrapper
+  {
+    text-transform: uppercase;
+    margin-top: $base-spacing / 2;
+
+    @media (min-width: $breakpoint-mobile-max)
+    {
+      margin-top: 0;
+      margin-left: $base-spacing / 2;
+      justify-content: center;
+    }
+  }
+
+  &-primaryCTA,
+  &-secondaryCTA
+  {
+    display: flex;
+    margin-top: $base-spacing / 2;
+  }
+}
