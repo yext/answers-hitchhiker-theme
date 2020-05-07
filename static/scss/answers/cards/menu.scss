@@ -1,0 +1,113 @@
+.HitchhikerMenuItemCard
+{
+  display: flex;
+  font-size: .875rem;
+  background-color: $color-brand-white;
+  padding: $base-spacing;
+  
+
+  &-detailsText
+  {
+    @include rich_text_formatting;
+  }
+
+  &-wrapper
+  {
+    display: flex;
+    width: 100%;
+  }
+
+  &-contentCtasWrapper
+  {
+    display: flex;
+    flex-direction: row;
+    @media (max-width: $breakpoint-mobile-max)
+    {
+      flex-direction: column;
+    }
+  }
+
+  &-contentWrapper
+  {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    @media (min-width: $breakpoint-mobile-max)
+    {
+      justify-content: space-between;
+      flex-direction: row;
+      flex-wrap: nowrap;
+    }
+  }
+
+  &-title
+  {
+    text-decoration: none;
+    font-size: 1.125rem;
+    line-height: 1.5;
+    font-weight: 600;
+    max-width: 100%;
+    overflow-wrap: normal;
+
+   &-titleLink
+  {
+    @include Link;
+  }
+
+  &-subtitle
+  {
+    color: $color-text-secondary;
+    padding-bottom: 0;
+    margin-bottom: $base-spacing / 2;
+  }
+
+  &-listTitle
+  {
+    font-weight: $font-weight-semibold;
+  }
+
+  &-listItems {
+    padding-top: $base-spacing / 4;
+    list-style-type: disc;
+    list-style-position: inside;
+    padding-bottom: $base-spacing / 2;
+  }
+
+  &-content
+  {
+    line-height: 1.4;
+    margin-top: $base-spacing / 2;
+  }
+
+  &-imgWrapper
+  {
+    display: flex;
+    align-items: flex-start;
+    min-width: 6.25rem;
+    margin-right: 1rem;
+    @media (max-width: $breakpoint-mobile-max)
+    {
+      max-width: 6.25rem;
+    }
+  }
+
+  &-ctasWrapper
+  {
+    text-transform: uppercase;
+    margin-top: $base-spacing / 2;
+
+    @media (min-width: $breakpoint-mobile-max)
+    {
+      margin-left: $base-spacing / 2;
+      justify-content: center;
+    }
+  }
+
+  &-primaryCTA,
+  &-secondaryCTA
+  {
+    display: flex;
+    margin-top: $base-spacing / 2;
+  }
+}
