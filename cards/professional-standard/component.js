@@ -1,6 +1,6 @@
 {{> cards/card_component componentName='professional-standard'}}
 
-class ProfessionalStandardCardComponent extends BaseCard['professional-standard'] {
+class professional_standardCardComponent extends BaseCard['professional-standard'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
     this.setTemplate(`{{{read 'cards/professional-standard/template' }}}`);
@@ -60,4 +60,4 @@ class ProfessionalStandardCardComponent extends BaseCard['professional-standard'
   }
 }
 
-ANSWERS.registerComponentType(ProfessionalStandardCardComponent);
+ANSWERS.registerComponentType(professional_standardCardComponent);
