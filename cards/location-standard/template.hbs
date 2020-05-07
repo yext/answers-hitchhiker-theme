@@ -1,4 +1,5 @@
 <div class="HitchhikerLocationCard {{cardName}}">
+  {{> ordinal }}
   {{#if card.image}}
   <div class="HitchhikerLocationCard-imgWrapper">
     <img src="{{card.image}}" {{#if card.tagLabel}}alt="{{card.tagLabel}}"{{/if}}>
@@ -145,4 +146,17 @@
     {{label}}
   </div>
 </a>
+{{/inline}}
+
+{{! This partial uses the result.ordinal parameter, a reserved value automatically provided to 
+    the template. This value contains the ordinal of the card.
+}}
+{{#*inline "ordinal"}}
+  {{#if card.showOrdinal}}
+    <div class="HitchhikerLocationCard-ordinalWrapper">
+      <div class="HitchhikerLocationCard-ordinal">
+        {{result.ordinal}}
+      </div>
+    </div>
+  {{/if}}
 {{/inline}}

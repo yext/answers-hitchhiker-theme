@@ -6,6 +6,29 @@
   background-color: $color-brand-white;
   padding: $base-spacing;
 
+  &-ordinalWrapper {
+    margin-right: $base-spacing * 3/4;
+  }
+
+  &-ordinal {
+    padding-top: $base-spacing * 3/16;
+    padding-bottom: $base-spacing * 5/16;
+    padding-left: $base-spacing * 1/16;
+    border-radius: $base-spacing;
+    margin-top: $base-spacing * 1/4;
+    width: $base-spacing * 9/8;
+    height: $base-spacing * 9/8;
+    background-color: $color-brand-primary;
+    border: solid black 1px;
+    text-align: center;
+    @include Text(
+      $color: white,
+      $size: $font-size-xs,
+      $line-height: $line-height-xs,
+      $weight: $font-weight-bold,
+    );
+  }
+
   &-contentWrapper
   {
     display: flex;
