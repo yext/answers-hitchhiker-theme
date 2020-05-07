@@ -152,7 +152,7 @@
     the template. This value contains the ordinal of the card.
 }}
 {{#*inline "ordinal"}}
-  {{#if card.showOrdinal}}
+  {{#if (all card.showOrdinal result.ordinal)}}
     <div class="HitchhikerLocationCard-ordinalWrapper">
       <div class="HitchhikerLocationCard-ordinal">
         {{result.ordinal}}
