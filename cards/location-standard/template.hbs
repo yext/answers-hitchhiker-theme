@@ -54,7 +54,7 @@
                   </div>
                   <a class="HitchhikerLocationCard-phone--mobile"
                       href="tel:{{card.phone}}"
-                      data-eventtype={{#if phoneEventOptions}}"{{card.phoneEventOptions}}"{{else}}"TAP_TO_CALL"{{/if}}
+                      data-eventtype={{#if card.phoneEventType}}"{{card.phoneEventType}}"{{else}}"TAP_TO_CALL"{{/if}}
                       data-eventoptions='{{json card.phoneEventOptions}}'>
                     {{card.phone}}
                   </a>
