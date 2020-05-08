@@ -1,25 +1,23 @@
 <div class="HitchhikerMenuItemCard {{cardName}}">
   {{> image}}
-  <div class="HitchhikerMenuItemCard-contentWrapper">
-    <div class="HitchhikerMenuItemCard-info">
-      {{> title}}
-      {{> subtitle}}
-      <div class="HitchhikerMenuItemCard-contentCtasWrapper">
-        <div class="HitchhikerMenuItemCard-content">
-          {{> list}}
-          {{> details}}
-        </div>
-        {{#if (any (all card.CTA1 card.CTA1.url) (all card.CTA2 card.CTA2.url))}}
-        <div class="HitchhikerMenuItemCard-ctasWrapper">
-          {{#with card.CTA1}}
-          {{> CTA ctaName="primaryCTA"}}
-          {{/with}}
-          {{#with card.CTA2}}
-          {{> CTA ctaName="secondaryCTA"}}
-          {{/with}}
-        </div>
-        {{/if}}
+  <div class="HitchhikerMenuItemCard-body">
+    {{> title}}
+    {{> subtitle}}
+    <div class="HitchhikerMenuItemCard-contentWrapper">
+      <div class="HitchhikerMenuItemCard-content">
+        {{> list}}
+        {{> details}}
       </div>
+      {{#if (any (all card.CTA1 card.CTA1.url) (all card.CTA2 card.CTA2.url))}}
+      <div class="HitchhikerMenuItemCard-ctasWrapper">
+        {{#with card.CTA1}}
+        {{> CTA ctaName="primaryCTA"}}
+        {{/with}}
+        {{#with card.CTA2}}
+        {{> CTA ctaName="secondaryCTA"}}
+        {{/with}}
+      </div>
+      {{/if}}
     </div>
   </div>
 </div>

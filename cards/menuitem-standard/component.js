@@ -47,7 +47,7 @@ class menuitem_standardCardComponent extends BaseCard['menuitem-standard'] {
       CTA2: {
         label: 'View Menu',
         iconName: 'magnifying_glass',
-        url: profile.landingPageUrl,
+        url: profile.landingPageUrl || 'yes',
         target: '_top',
         eventType: 'CTA_CLICK',
         eventOptions: this.addDefaultEventOptions()
