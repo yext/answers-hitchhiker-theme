@@ -1,26 +1,24 @@
 <div class="HitchhikerMenuItemCard {{cardName}}">
-  <div class="HitchhikerMenuItemCard-wrapper">
-    {{> image}}
-    <div class="HitchhikerMenuItemCard-contentWrapper">
-      <div class="HitchhikerMenuItemCard-info">
-        {{> title}}
-        {{> subtitle}}
-        <div class="HitchhikerMenuItemCard-contentCtasWrapper">
-          <div class="HitchhikerMenuItemCard-content">
-            {{> list}}
-            {{> details}}
-          </div>
-          {{#if (any (all card.CTA1 card.CTA1.url) (all card.CTA2 card.CTA2.url))}}
-          <div class="HitchhikerMenuItemCard-ctasWrapper">
-            {{#with card.CTA1}}
-            {{> CTA ctaName="primaryCTA"}}
-            {{/with}}
-            {{#with card.CTA2}}
-            {{> CTA ctaName="secondaryCTA"}}
-            {{/with}}
-          </div>
-          {{/if}}
+  {{> image}}
+  <div class="HitchhikerMenuItemCard-contentWrapper">
+    <div class="HitchhikerMenuItemCard-info">
+      {{> title}}
+      {{> subtitle}}
+      <div class="HitchhikerMenuItemCard-contentCtasWrapper">
+        <div class="HitchhikerMenuItemCard-content">
+          {{> list}}
+          {{> details}}
         </div>
+        {{#if (any (all card.CTA1 card.CTA1.url) (all card.CTA2 card.CTA2.url))}}
+        <div class="HitchhikerMenuItemCard-ctasWrapper">
+          {{#with card.CTA1}}
+          {{> CTA ctaName="primaryCTA"}}
+          {{/with}}
+          {{#with card.CTA2}}
+          {{> CTA ctaName="secondaryCTA"}}
+          {{/with}}
+        </div>
+        {{/if}}
       </div>
     </div>
   </div>
@@ -64,17 +62,21 @@
 {{/inline}}
 
 {{#*inline 'list'}}
-{{#if card.listTitle}}
-<div class="HitchhikerMenuItemCard-listTitle">
-  {{card.listTitle}}
+{{#if (any card.listTitle card.listItems)}}
+<div class="HitchhikerMenuItemCard-listWrapper">
+  {{#if card.listTitle}}
+  <div class="HitchhikerMenuItemCard-listTitle">
+    {{card.listTitle}}
+  </div>
+  <ul class="HitchhikerMenuItemCard-listItems">
+    {{#each card.listItems}}
+    <li class="HitchhikerMenuItemCard-item">
+      {{this}}
+    </li>
+    {{/each}}
+  </ul>
+  {{/if}}
 </div>
-<ul class="HitchhikerMenuItemCard-listItems">
-  {{#each card.listItems}}
-  <li class="HitchhikerMenuItemCard-item">
-    {{this}}
-  </li>
-  {{/each}}
-</ul>
 {{/if}}
 {{/inline}}
 
