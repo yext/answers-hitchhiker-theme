@@ -1,23 +1,21 @@
 <div class="HitchhikerProfessionalLocationCard {{cardName}}">
-  <div class="HitchhikerProfessionalLocationCard-wrapper">
-    {{> image}}
-    {{> ordinal}}
-    <div class="HitchhikerProfessionalLocationCard-body">
-      {{#if (any card.title card.distance)}}
-      <div class="HitchhikerProfessionalLocationCard-topRow">
-        {{> title}}
-        {{> distance}}
+  {{> image}}
+  {{> ordinal}}
+  <div class="HitchhikerProfessionalLocationCard-body">
+    {{#if (any card.title card.distance)}}
+    <div class="HitchhikerProfessionalLocationCard-topRow">
+      {{> title}}
+      {{> distance}}
+    </div>
+    {{/if}}
+    {{> subtitle}}
+    <div class="HitchhikerProfessionalLocationCard-contentWrapper">
+      <div class="HitchhikerProfessionalLocationCard-info">
+        {{> details}}
+        {{> list}}
+        {{> phone}}
       </div>
-      {{/if}}
-      {{> subtitle}}
-      <div class="HitchhikerProfessionalLocationCard-contentWrapper">
-        <div class="HitchhikerProfessionalLocationCard-info">
-          {{> details}}
-          {{> list}}
-          {{> phone}}
-        </div>
-        {{> ctas}}
-      </div>
+      {{> ctas}}
     </div>
   </div>
 </div>
