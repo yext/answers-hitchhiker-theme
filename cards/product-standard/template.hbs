@@ -22,12 +22,7 @@
 {{#*inline 'image'}}
 {{#if card.image}}
 <div class="HitchhikerProductCard-imgWrapper">
-  <img src="{{card.image}}" {{#if card.altText}}alt="{{card.altText}}" {{/if}}>
-  {{#if card.altText}}
-  <div class="HitchhikerProductCard-imgTagWrapper">
-    <div class="HitchhikerProductCard-imgTag">{{card.altText}}</div>
-  </div>
-  {{/if}}
+  <img src="{{card.image}}"{{#if card.altText}}alt=" {{card.altText}}" {{/if}}>
 </div>
 {{/if}}
 {{/inline}}
