@@ -109,8 +109,13 @@
     target={{#if target}}"{{target}}"{{else}}"_top"{{/if}}>
     {{#if (any iconName iconUrl)}}
     <div class="Hitchhiker-cta-iconWrapper">
-      <div class="Hitchhiker-cta-icon" data-component="IconComponent"
-        data-opts='{ {{#if iconName}}"iconName": "{{iconName}}"{{/if}}{{#if (all iconName iconUrl)}}, {{/if}}{{#if iconUrl}}"iconUrl": "{{iconUrl}}"{{/if}} }'>
+      <div class="Hitchhiker-cta-icon" data-component="IconComponent" data-opts='{ 
+        {{#if iconUrl}}
+        "iconUrl": "{{iconUrl}}"
+        {{else if iconName}}
+        "iconName": "{{iconName}}"
+        {{/if}}
+      }'>
       </div>
     </div>
     {{/if}}
