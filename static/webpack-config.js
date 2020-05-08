@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('file-system');
+const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ClosurePlugin = require('closure-webpack-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
@@ -19,16 +20,22 @@ module.exports = function () {
 
   return {
     mode: 'production',
-    entry: './static/entry.js',
+    entry: {
+      bundle: './static/entry.js',
+      iframe: './static/js/iframe.js',
+    },
     output: {
-      filename: 'bundle.js',
+      filename: '[name].js',
       path: path.resolve(__dirname, jamboConfig.dirs.output),
       library: 'HitchhikerJS',
       libraryTarget: 'window'
     },
     plugins: [
       new MiniCssExtractPlugin({ filename: 'bundle.css' }),
-      ...htmlPlugins
+      ...htmlPlugins,
+      new webpack.EnvironmentPlugin(
+        ['JAMBO_INJECTED_DATA']
+      ),
     ],
     optimization: {
       minimizer: [new ClosurePlugin()]
