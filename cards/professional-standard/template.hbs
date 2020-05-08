@@ -70,30 +70,36 @@
 {{/inline}}
 
 {{#*inline 'list'}}
-{{#if card.listTitle}}
-<div class="HitchhikerProfessionalStandard-listTitle">
-  {{card.listTitle}}
+{{#if (any card.listTitle card.listItems.length)}}
+<div class="HitchhikerProfessionalStandard-listWrapper">
+  {{#if card.listTitle}}
+  <div class="HitchhikerProfessionalStandard-listTitle">
+    {{card.listTitle}}
+  </div>
+  {{/if}}
+  {{#if card.listItems}}
+  <ul class="HitchhikerProfessionalStandard-list">
+    {{#each card.listItems}}
+    <li class="HitchhikerProfessionalStandard-listItem">{{this}}</li>
+    {{/each}}
+  </ul>
+  {{/if}}
 </div>
-{{/if}}
-{{#if card.listItems}}
-<ul class="HitchhikerProfessionalStandard-list">
-  {{#each card.listItems}}
-  <li class="HitchhikerProfessionalStandard-listItem">{{this}}</li>
-  {{/each}}
-</ul>
 {{/if}}
 {{/inline}}
 
 {{#*inline 'phone'}}
 {{#if card.phone}}
-<div class="HitchhikerProfessionalStandard-phone--desktop">
-  {{card.phone}}
+<div class="HitchhikerProfessionalStandard-phone">
+  <div class="HitchhikerProfessionalStandard-phone--desktop">
+    {{card.phone}}
+  </div>
+  <a class="HitchhikerProfessionalStandard-phone--mobile" href="tel:{{card.phone}}"
+    data-eventtype="{{#if card.phoneEventType}}{{card.phoneEventType}}{{else}}TAP_TO_CALL{{/if}}"
+    data-eventoptions="{{json card.phoneEventOptions}}">
+    {{card.phone}}
+  </a>
 </div>
-<a class="HitchhikerProfessionalStandard-phone--mobile" href="tel:{{card.phone}}"
-  data-eventtype="{{#if card.phoneEventType}}{{card.phoneEventType}}{{else}}TAP_TO_CALL{{/if}}"
-  data-eventoptions="{{json card.phoneEventOptions}}">
-  {{card.phone}}
-</a>
 {{/if}}
 {{/inline}}
 

@@ -94,27 +94,31 @@
 {{/inline}}
 
 {{#*inline 'list'}}
-{{#if card.listTitle}}
-<div class="HitchhikerProfessionalLocationCard-listTitle">
-  {{card.listTitle}}
+{{#if (any card.listTitle card.listItems.length)}}
+<div class="HitchhikerProfessionalLocationCard-listWrapper">
+  {{#if card.listTitle}}
+  <div class="HitchhikerProfessionalLocationCard-listTitle">
+    {{card.listTitle}}
+  </div>
+  {{/if}}
+  {{#if card.listItems}}
+  <ul class="HitchhikerProfessionalLocationCard-list">
+    {{#each card.listItems}}
+    <li class="HitchhikerProfessionalLocationCard-listItem">{{this}}</li>
+    {{/each}}
+  </ul>
+  {{/if}}
 </div>
-{{/if}}
-{{#if card.listItems}}
-<ul class="HitchhikerProfessionalLocationCard-list">
-  {{#each card.listItems}}
-  <li class="HitchhikerProfessionalLocationCard-listItem">{{this}}</li>
-  {{/each}}
-</ul>
 {{/if}}
 {{/inline}}
 
 {{#*inline 'phone'}}
 {{#if card.phone}}
-<div class="HitchhikerLocationCard-phone">
-  <div class="HitchhikerLocationCard-phone--desktop">
+<div class="HitchhikerProfessionalLocationCard-phone">
+  <div class="HitchhikerProfessionalLocationCard-phone--desktop">
     {{card.phone}}
   </div>
-  <a class="HitchhikerLocationCard-phone--mobile" href="tel:{{card.phone}}"
+  <a class="HitchhikerProfessionalLocationCard-phone--mobile" href="tel:{{card.phone}}"
     data-eventtype={{#if phoneEventOptions}}"{{card.phoneEventOptions}}"{{else}}"TAP_TO_CALL"{{/if}}
     data-eventoptions='{{json card.phoneEventOptions}}'>
     {{card.phone}}
