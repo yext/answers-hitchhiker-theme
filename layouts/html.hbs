@@ -76,6 +76,23 @@
     {{#if global_config.conversionTrackingEnabled}}
       <script src="https://assets.sitescdn.net/ytag/ytag.min.js"></script>
     {{/if}}
+
+    <script>
+      function iframeGetSearchParams() {
+        let params = new URLSearchParams(window.location.search);
+        let verticalUrl = window.location.pathname.substr(1)
+        if (verticalUrl) {
+          params.set('verticalUrl', verticalUrl);
+        }
+        return params.toString();
+      }
+      window.iFrameResizer = {
+        onReady: function() {
+          window.parentIFrame.sendMessage(iframeGetSearchParams());
+        },
+      };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.10/iframeResizer.contentWindow.min.js"></script>
 	</head>
   <body>
     {{#if global_config.googleTagManagerId}}
