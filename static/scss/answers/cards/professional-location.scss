@@ -1,7 +1,7 @@
 .HitchhikerProfessionalLocationCard
 {
   $professional-location-spacing: $base-spacing !default;
-  $professional-location-ordinal-dimensions: $professional-location-spacing * 9/8 !default;
+  $professional-location-ordinal-dimensions: 18px !default;
 
   display: flex;
   font-size: $font-size-md;
@@ -41,9 +41,9 @@
   }
 
   &-ordinal {
-    padding-top: $professional-location-spacing * 3/16;
+    padding-top: 3px;
     border-radius: 50%;
-    margin-top: $professional-location-spacing * 1/4;
+    margin-top: $professional-location-spacing / 4;
     width: $professional-location-ordinal-dimensions;
     height: $professional-location-ordinal-dimensions;
     background-color: $color-brand-primary;
