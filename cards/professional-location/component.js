@@ -29,7 +29,6 @@ class professional_locationCardComponent extends BaseCard['professional-location
       listTitle: '', // Heading of the bulleted list
       listItems: [], // Content of the bulleted list
       // phone: Formatter.nationalizedPhoneDisplay(profile, 'mainPhone'), // The phone number to display
-      // phoneEventType: 'TAP_TO_CALL', // The analytics event type for phone clicks
       // phoneEventOptions: this.addDefaultEventOptions(), // The analytics event options for phone clicks
       // image: Formatter.image(profile.headshot).url, // The URL of the image to display on the card
       // altText: Formatter.image(profile.headshot).alternateText, // The alternate text for the image

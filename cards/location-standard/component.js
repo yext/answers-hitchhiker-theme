@@ -23,7 +23,6 @@ class location_standardCardComponent extends BaseCard['location-standard'] {
       // services: [], // Used for a comma delimited list of services for the location
       address: profile.address, // The address for the card
       phone: Formatter.nationalizedPhoneDisplay(profile), // The phone number for the card
-      phoneEventType: 'TAP_TO_CALL', // The analytics event type for phone clicks
       phoneEventOptions: this.addDefaultEventOptions(), // The analytics event options for phone clicks
       distance: Formatter.toMiles(profile), // Distance from the user’s or inputted location
       // details: profile.description, // The description for the card, displays below the address and phone
