@@ -25,13 +25,13 @@ class professional_locationCardComponent extends BaseCard['professional-location
       url: profile.website || profile.landingPageUrl, // If the card title is a clickable link, set URL here
       target: '_top', // If the title's URL should open in a new tab, etc.
       titleEventOptions: this.addDefaultEventOptions(),
-      // details: profile.description, // The text in the body of the card
+      details: profile.description, // The text in the body of the card
       listTitle: '', // Heading of the bulleted list
       listItems: [], // Content of the bulleted list
-      // phone: Formatter.nationalizedPhoneDisplay(profile, 'mainPhone'), // The phone number to display
-      // phoneEventOptions: this.addDefaultEventOptions(), // The analytics event options for phone clicks
-      // image: Formatter.image(profile.headshot).url, // The URL of the image to display on the card
-      // altText: Formatter.image(profile.headshot).alternateText, // The alternate text for the image
+      phone: Formatter.nationalizedPhoneDisplay(profile, 'mainPhone'), // The phone number to display
+      phoneEventOptions: this.addDefaultEventOptions(), // The analytics event options for phone clicks
+      image: Formatter.image(profile.headshot).url, // The URL of the image to display on the card
+      altText: Formatter.image(profile.headshot).alternateText, // The alternate text for the image
 
       // If the card's details are longer than a certain character count, you can truncate the
       // text. A toggle will be supplied that can show or hide the truncated text.
