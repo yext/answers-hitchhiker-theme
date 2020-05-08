@@ -1,7 +1,22 @@
 import { isStaging } from './is-staging';
 
-const stagingDomain = process.env.STAGING_DOMAIN;
-const prodDomain = process.env.PROD_DOMAIN;
+const injectedData = JSON.parse(process.env.JAMBO_INJECTED_DATA || '{}');
+
+let stagingDomain = '';
+let prodDomain = '';
+if (injectedData.pages && injectedData.pages.domains) {
+  if (injectedData.pages.domains.staging && injectedData.pages.domains.staging.domain) {
+    const isHttps = injectedData.pages.domains.staging.isHttps;
+    stagingDomain = isHttps ? 'https://' : 'http://';
+    stagingDomain += injectedData.pages.domains.staging.domain;
+  }
+  if (injectedData.pages.domains.prod && injectedData.pages.domains.prod.domain) {
+    const isHttps = injectedData.pages.domains.prod.isHttps;
+    prodDomain = isHttps ? 'https://' : 'http://';
+    prodDomain += injectedData.pages.domains.prod.domain;
+  }
+}
+
 const domain = isStaging() ? stagingDomain : prodDomain;
 
 (function(domain, queryParam, urlParam) {

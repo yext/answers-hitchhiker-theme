@@ -18,19 +18,12 @@ module.exports = function () {
     });
   }
 
-  const entries = {
-    bundle: './static/entry.js',
-  }
-  if (process.env.HIDE_IFRAME != 'true') {
-    Object.assign(
-      entries, 
-      { iframe: './static/js/iframe.js', },
-    );
-  }
-
   return {
     mode: 'production',
-    entry: entries,
+    entry: {
+      bundle: './static/entry.js',
+      iframe: './static/js/iframe.js',
+    },
     output: {
       filename: '[name].js',
       path: path.resolve(__dirname, jamboConfig.dirs.output),
@@ -41,7 +34,7 @@ module.exports = function () {
       new MiniCssExtractPlugin({ filename: 'bundle.css' }),
       ...htmlPlugins,
       new webpack.EnvironmentPlugin(
-        ['STAGING_DOMAIN', 'PROD_DOMAIN']
+        ['JAMBO_INJECTED_DATA']
       ),
     ],
     optimization: {
