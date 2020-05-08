@@ -1,69 +1,14 @@
 <div class="HitchhikerMenuItemCard {{cardName}}">
   <div class="HitchhikerMenuItemCard-wrapper">
-    {{#if card.image}}
-    <div class="HitchhikerMenuItemCard-imgWrapper">
-      <img src="{{card.image}}" />
-      {{#if card.tagLabel}}
-      <div class="HitchhikerMenuItemCard-imgTagWrapper">
-        <div class="HitchhikerMenuItemCard-imgTag">{{card.tagLabel}}</div>
-      </div>
-      {{/if}}
-    </div>
-    {{/if}}
+    {{> image}}
     <div class="HitchhikerMenuItemCard-contentWrapper">
       <div class="HitchhikerMenuItemCard-info">
-        {{#if card.title}}
-        <div class="HitchhikerMenuItemCard-title">
-          {{#if card.url}}
-          <a class="HitchhikerMenuItemCard-titleLink" href="{{card.url}}" data-eventtype="TITLE_CLICK"
-            data-eventoptions='{{json card.titleEventOptions}}'
-            target={{#if card.target}}"{{card.target}}"{{else}}"_top" rel="noopener noreferrer nofollow" {{/if}}>
-            {{card.title}}
-          </a>
-          {{else}}
-          {{card.title}}
-          {{/if}}
-        </div>
-        {{/if}}
-        {{#if card.subtitle}}
-        <div class="HitchhikerMenuItemCard-subtitle">
-          {{card.subtitle}}
-        </div>
-        {{/if}}
+        {{> title}}
+        {{> subtitle}}
         <div class="HitchhikerMenuItemCard-contentCtasWrapper">
           <div class="HitchhikerMenuItemCard-content">
-            {{#if card.listTitle}}
-            <div class="HitchhikerMenuItemCard-listTitle">
-              {{card.listTitle}}
-            </div>
-            <ul class="HitchhikerMenuItemCard-listItems">
-              {{#each card.listItems}}
-              <li class="HitchhikerMenuItemCard-item">
-                {{this}}
-              </li>
-              {{/each}}
-            </ul>
-            {{/if}}
-            {{#if card.details}}
-            <div class="HitchhikerMenuItemCard-cardDetails">
-              <div class="HitchhikerMenuItemCard-detailsText">
-                {{card.details}}
-              </div>
-              {{#if excessDetailsToggle}}
-              <button class="HitchhikerCard-details-toggle js-HitchhikerCard-details-toggle">
-                {{#if hideExcessDetails}}
-                {{card.showMoreDetails.showMoreText}}
-                <span data-component="IconComponent"
-                  data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseDown" }'></span>
-                {{else}}
-                {{card.showMoreDetails.showLessText}}
-                <span data-component="IconComponent"
-                  data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseUp" }'></span>
-                {{/if}}
-              </button>
-              {{/if}}
-            </div>
-            {{/if}}
+            {{> list}}
+            {{> details}}
           </div>
           {{#if (any (all card.CTA1 card.CTA1.url) (all card.CTA2 card.CTA2.url))}}
           <div class="HitchhikerMenuItemCard-ctasWrapper">
@@ -80,6 +25,81 @@
     </div>
   </div>
 </div>
+
+{{#*inline 'image'}}
+{{#if card.image}}
+<div class="HitchhikerMenuItemCard-imgWrapper">
+  <img src="{{card.image}}" />
+  {{#if card.tagLabel}}
+  <div class="HitchhikerMenuItemCard-imgTagWrapper">
+    <div class="HitchhikerMenuItemCard-imgTag">{{card.tagLabel}}</div>
+  </div>
+  {{/if}}
+</div>
+{{/if}}
+{{/inline}}
+
+{{#*inline 'title'}}
+{{#if card.title}}
+<div class="HitchhikerMenuItemCard-title">
+  {{#if card.url}}
+  <a class="HitchhikerMenuItemCard-titleLink" href="{{card.url}}" data-eventtype="TITLE_CLICK"
+    data-eventoptions='{{json card.titleEventOptions}}' target={{#if card.target}}"{{card.target}}"{{else}}"_top"
+    rel="noopener noreferrer nofollow" {{/if}}>
+    {{card.title}}
+  </a>
+  {{else}}
+  {{card.title}}
+  {{/if}}
+</div>
+{{/if}}
+{{/inline}}
+
+{{#*inline 'subtitle'}}
+{{#if card.subtitle}}
+<div class="HitchhikerMenuItemCard-subtitle">
+  {{card.subtitle}}
+</div>
+{{/if}}
+{{/inline}}
+
+{{#*inline 'list'}}
+{{#if card.listTitle}}
+<div class="HitchhikerMenuItemCard-listTitle">
+  {{card.listTitle}}
+</div>
+<ul class="HitchhikerMenuItemCard-listItems">
+  {{#each card.listItems}}
+  <li class="HitchhikerMenuItemCard-item">
+    {{this}}
+  </li>
+  {{/each}}
+</ul>
+{{/if}}
+{{/inline}}
+
+{{#*inline 'details'}}
+{{#if card.details}}
+<div class="HitchhikerMenuItemCard-cardDetails">
+  <div class="HitchhikerMenuItemCard-detailsText">
+    {{card.details}}
+  </div>
+  {{#if excessDetailsToggle}}
+  <button class="HitchhikerCard-details-toggle js-HitchhikerCard-details-toggle">
+    {{#if hideExcessDetails}}
+    {{card.showMoreDetails.showMoreText}}
+    <span data-component="IconComponent"
+      data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseDown" }'></span>
+    {{else}}
+    {{card.showMoreDetails.showLessText}}
+    <span data-component="IconComponent"
+      data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseUp" }'></span>
+    {{/if}}
+  </button>
+  {{/if}}
+</div>
+{{/if}}
+{{/inline}}
 
 {{#*inline 'CTA'}}
 {{#if (all url label)}}
