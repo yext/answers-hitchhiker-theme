@@ -4,9 +4,7 @@
     {{> title}}
     {{> subtitle}}
     <div class="HitchhikerProductCard-contentWrapper">
-      <div class="HitchhikerProductCard-content">
-        {{> details}}
-      </div>
+      {{> details}}
       {{#if (any (all card.CTA1 card.CTA1.url) (all card.CTA2 card.CTA2.url))}}
       <div class="HitchhikerProductCard-ctasWrapper">
         {{#with card.CTA1}}
