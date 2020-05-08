@@ -20,8 +20,8 @@ class product_standardCardComponent extends BaseCard['product-standard'] {
       title: profile.name, // The header text of the card
       url: profile.landingPageUrl, // If the card title is a clickable link, set URL here
       target: '_top', // If the title's URL should open in a new tab, etc.
-      image: profile.c_photo, // The URL of the image to display on the card
-      // tagLabel: '', // The label of the displayed image
+      image: Formatter.image(profile.c_photo).url, // The URL of the image to display on the card
+      altText: Formatter.image(profile.c_photo).altText, // The alt text of the image to display on the card
       titleEventOptions: this.addDefaultEventOptions(),
       subtitle: profile.c_price ? `$${profile.c_price}` : '', // The sub-header text of the card
       details: profile.description, // The text in the body of the card
@@ -35,16 +35,16 @@ class product_standardCardComponent extends BaseCard['product-standard'] {
       // The primary CTA of the card
       CTA1: {
         label: primaryCTAData.label, // The CTA's label
-        iconName: chevron, // The icon to use for the CTA
+        iconName: 'chevron', // The icon to use for the CTA
         url: primaryCTAData.url, // The URL a user will be directed to when clicking
         target: '_top', // Where the new URL will be opened
         eventType: 'CTA_CLICK', // Type of Analytics event fired when clicking the CTA
         eventOptions: this.addDefaultEventOptions()
       },
       // The secondary CTA of the card
-      CTA1: {
+      CTA2: {
         label: secondaryCTAData.label, // The CTA's label
-        iconName: chevron, // The icon to use for the CTA
+        iconName: 'chevron', // The icon to use for the CTA
         url: secondaryCTAData.url, // The URL a user will be directed to when clicking
         target: '_top', // Where the new URL will be opened
         eventType: 'CTA_CLICK', // Type of Analytics event fired when clicking the CTA

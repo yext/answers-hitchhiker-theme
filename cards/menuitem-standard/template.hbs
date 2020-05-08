@@ -25,10 +25,10 @@
 {{#*inline 'image'}}
 {{#if card.image}}
 <div class="HitchhikerMenuItemCard-imgWrapper">
-  <img src="{{card.image}}" />
-  {{#if card.tagLabel}}
+  <img src="{{card.image}}" {{#if card.altText}}alt="{{card.altText}}" {{/if}}/>
+  {{#if card.altText}}
   <div class="HitchhikerMenuItemCard-imgTagWrapper">
-    <div class="HitchhikerMenuItemCard-imgTag">{{card.tagLabel}}</div>
+    <div class="HitchhikerMenuItemCard-imgTag">{{card.altText}}</div>
   </div>
   {{/if}}
 </div>
