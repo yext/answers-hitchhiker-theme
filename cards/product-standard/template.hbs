@@ -31,7 +31,7 @@
 {{#if card.title}}
 <div class="HitchhikerProductStandard-title">
   {{#if card.url}}
-  <a class="HitchhikerProductStandard-titleLink" href="{{card.url}}" data-eventtype="TITLE_CLICK"
+  <a class="HitchhikerProductStandard-titleLink js-Hitchhiker-title" href="{{card.url}}" data-eventtype="TITLE_CLICK"
     data-eventoptions='{{json card.titleEventOptions}}' target={{#if card.target}}"{{card.target}}"{{else}}"_top"
     rel="noopener noreferrer nofollow" {{/if}}>
     {{card.title}}
