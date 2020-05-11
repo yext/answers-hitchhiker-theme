@@ -1,9 +1,9 @@
 <div class="HitchhikerProfessionalLocationCard {{cardName}}">
   {{> image}}
-  {{> ordinal}}
   <div class="HitchhikerProfessionalLocationCard-body">
     {{#if (any card.title card.distance)}}
     <div class="HitchhikerProfessionalLocationCard-topRow">
+      {{> ordinal}}
       {{> title}}
       {{> distance}}
     </div>

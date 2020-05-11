@@ -60,8 +60,6 @@
   &-topRow
   {
     display: flex;
-    justify-content: space-between;
-    align-items: baseline;
   }
 
   &-title
@@ -85,6 +83,7 @@
   &-distance
   {
     font-style: italic;
+    margin-left: auto;
   }
 
   &-cardDetails
