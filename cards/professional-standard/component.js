@@ -25,8 +25,8 @@ class professional_standardCardComponent extends BaseCard['professional-standard
       target: '_top', // If the title's URL should open in a new tab, etc.
       titleEventOptions: this.addDefaultEventOptions(),
       details: profile.description, // The text in the body of the card
-      listTitle: '', // Heading of the bulleted list
-      listItems: [], // Content of the bulleted list
+      // listTitle: '', // Heading of the bulleted list
+      // listItems: [], // Content of the bulleted list
       phone: Formatter.nationalizedPhoneDisplay(profile, 'mainPhone'), // The phone number to display
       phoneEventOptions: this.addDefaultEventOptions(), // The analytics event options for phone clicks
       image: Formatter.image(profile.headshot).url, // The URL of the image to display on the card
