@@ -1,5 +1,8 @@
+{{! Some partials here use the result.ordinal parameter, a reserved value automatically provided to 
+    any card template. This value contains the ordinal of the card.
+}}
+
 <div class="HitchhikerLocationCard {{cardName}}">
-  {{> ordinal }}
   {{#if card.image}}
   <div class="HitchhikerLocationCard-imgWrapper">
     <img src="{{card.image}}" {{#if card.tagLabel}}alt="{{card.tagLabel}}"{{/if}}>
@@ -13,21 +16,7 @@
   <div class="HitchhikerLocationCard-contentWrapper">
     {{#if (any card.title card.distance)}}
     <div class="HitchhikerLocationCard-topRow">
-    {{#if card.title}}
-      <div class="HitchhikerLocationCard-title">
-        {{#if card.titleUrl}}
-          <a class="HitchhikerLocationCard-titleLink"
-            href="{{card.titleUrl}}"
-            data-eventtype="TITLE_CLICK"
-            data-eventoptions='{{json card.titleEventOptions}}'
-            target={{#if card.target}}"{{card.target}}"{{else}}"_top"{{/if}}>
-            {{{card.title}}}
-          </a>
-        {{else}}
-          {{{card.title}}}
-        {{/if}}
-      </div>
-    {{/if}}
+    {{> ordinalAndTitle displayOrdinal=(all card.showOrdinal result.ordinal)}}
     {{#if card.distance}}
       <div class="HitchhikerLocationCard-distance">
         {{card.distance}}
@@ -148,15 +137,33 @@
 </a>
 {{/inline}}
 
-{{! This partial uses the result.ordinal parameter, a reserved value automatically provided to 
-    the template. This value contains the ordinal of the card.
-}}
-{{#*inline "ordinal"}}
-  {{#if (all card.showOrdinal result.ordinal)}}
-    <div class="HitchhikerLocationCard-ordinalWrapper">
-      <div class="HitchhikerLocationCard-ordinal">
-        {{result.ordinal}}
-      </div>
+{{#* inline "ordinalAndTitle"}}
+  {{#if (any displayOrdinal card.title)}}
+    <div class="HitchhikerLocationCard-ordinalAndTitle">
+      {{#if displayOrdinal}}
+        <div class="HitchhikerLocationCard-ordinal">
+          {{result.ordinal}}
+        </div>
+      {{/if}}
+      {{> title}}
+    </div>
+  {{/if}}
+{{/inline}}
+
+{{#* inline "title"}}
+  {{#if card.title}}
+    <div class="HitchhikerLocationCard-title">
+      {{#if card.titleUrl}}
+        <a class="HitchhikerLocationCard-titleLink"
+          href="{{card.titleUrl}}"
+          data-eventtype="TITLE_CLICK"
+          data-eventoptions='{{json card.titleEventOptions}}'
+          target={{#if card.target}}"{{card.target}}"{{else}}"_top"{{/if}}>
+          {{{card.title}}}
+        </a>
+      {{else}}
+        {{{card.title}}}
+      {{/if}}
     </div>
   {{/if}}
 {{/inline}}
