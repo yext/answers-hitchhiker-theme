@@ -1,5 +1,5 @@
-<link rel="stylesheet" type="text/css" href="https://assets.sitescdn.net/answers/v1.0/answers.css">
-<script src="https://assets.sitescdn.net/answers/v1.0/answerstemplates.compiled.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://assets.sitescdn.net/answers/v1.1/answers.css">
+<script src="https://assets.sitescdn.net/answers/v1.1/answerstemplates.compiled.min.js"></script>
 <script>
   function initAnswers() {
     const JAMBO_INJECTED_DATA = {{{json env.JAMBO_INJECTED_DATA}}} || {};
@@ -13,8 +13,13 @@
           experienceVersion: IS_STAGING ? 'STAGING' : 'PRODUCTION',
           {{#if businessId}}businessId: "{{businessId}}",{{/if}}
           {{#with (lookup (lookup (lookup this 'answers') 'experiences') ../global_config.experienceKey)}}
-            {{#if apiKey}}apiKey: "{{apiKey}}"{{/if}}
+            {{#if apiKey}}apiKey: "{{apiKey}}",{{/if}}
           {{/with}}
+          onStateChange: (params) => {
+            if ('parentIFrame' in window) {
+              parentIFrame.sendMessage(iframeGetSearchParams());
+            }
+          },
         },
       {{/with}}
       {{{ json global_config }}},
@@ -38,5 +43,5 @@
     ));
   };
 </script>
-<script src="https://assets.sitescdn.net/answers/v1.0/answers.min.js" onload="initAnswers()" async></script>
+<script src="https://assets.sitescdn.net/answers/v1.1/answers.min.js" onload="initAnswers()" async></script>
 

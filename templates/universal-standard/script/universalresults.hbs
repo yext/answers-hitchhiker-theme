@@ -1,6 +1,6 @@
 ANSWERS.addComponent('UniversalResults', Object.assign({}, {
-  container: '.js-answersUniversalResults',
-  config: Object.assign({}, {
+    container: '.js-answersUniversalResults',
+    config: Object.assign({}, {
       {{!-- Map each Vertical config's verticalsToConfig --}}
       {{#each verticalConfigs}}
         {{#if verticalKey}}
@@ -40,5 +40,18 @@ ANSWERS.addComponent('UniversalResults', Object.assign({}, {
     mapConfig: Object.assign({
       apiKey: HitchhikerJS.getDefaultMapApiKey('{{ mapConfig.mapProvider }}')
     }, {{{ json mapConfig }}}),
+  {{/if}}
+  {{#if universalLimit}}
+    transformData: (data) => {
+      let results = data.results;
+      if (results) {
+        results = results.filter((rex, idx) => {
+          return idx < {{universalLimit}};
+        });
+      }
+      return Object.assign(data, {
+        results: results
+      });
+    },
   {{/if}}
 {{/inline}}

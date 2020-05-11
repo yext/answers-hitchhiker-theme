@@ -44,7 +44,7 @@
                   </div>
                   <a class="HitchhikerLocationCard-phone--mobile"
                       href="tel:{{card.phone}}"
-                      data-eventtype={{#if phoneEventOptions}}"{{card.phoneEventOptions}}"{{else}}"TAP_TO_CALL"{{/if}}
+                      data-eventtype={{#if card.phoneEventType}}"{{card.phoneEventType}}"{{else}}"TAP_TO_CALL"{{/if}}
                       data-eventoptions='{{json card.phoneEventOptions}}'>
                     {{card.phone}}
                   </a>
@@ -123,11 +123,12 @@
    data-eventtype="{{eventType}}"
    data-eventoptions='{{json eventOptions}}'
    target={{#if target}}"{{target}}"{{else}}"_top"{{/if}}>
-  {{#if iconName}}
+  {{#if (any iconName iconUrl)}}
   <div class="Hitchhiker-cta-iconWrapper">
-    <div class="Hitchhiker-cta-icon"
-         data-component="IconComponent"
-         data-opts='{ "iconName": "{{iconName}}"{{#if iconUrl}}, "iconUrl": "{{iconUrl}}"{{/if}} }'>
+    <div class="Hitchhiker-cta-icon" data-component="IconComponent" data-opts='{ 
+      "iconUrl": "{{iconUrl}}",
+      "iconName": "{{iconName}}"
+    }'>
     </div>
   </div>
   {{/if}}

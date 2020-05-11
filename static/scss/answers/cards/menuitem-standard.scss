@@ -1,19 +1,24 @@
-.HitchhikerStandardCard
+.HitchhikerMenuItemCard
 {
   display: flex;
   font-size: $font-size-md;
   background-color: $color-brand-white;
   padding: $base-spacing;
+  
 
   &-detailsText
   {
     @include rich_text_formatting;
   }
 
-  &-wrapper
+  &-contentCtasWrapper
   {
     display: flex;
-    width: 100%;
+    flex-direction: column;
+    @media (min-width: $breakpoint-mobile-max)
+    {
+      flex-direction: row;
+    }
   }
 
   &-contentWrapper
@@ -36,9 +41,11 @@
     font-size: $font-size-lg;
     line-height: $line-height-lg;
     font-weight: $font-weight-semibold;
+    max-width: 100%;
+    overflow-wrap: normal;
   }
 
-   &-titleLink
+  &-titleLink
   {
     @include Link;
   }
@@ -47,7 +54,19 @@
   {
     color: $color-text-secondary;
     padding-bottom: 0;
-    margin-top: $base-spacing / 2;
+    margin-bottom: $base-spacing / 2;
+  }
+
+  &-listTitle
+  {
+    font-weight: $font-weight-semibold;
+  }
+
+  &-listItems {
+    padding-top: $base-spacing / 4;
+    list-style-type: disc;
+    list-style-position: inside;
+    padding-bottom: $base-spacing / 2;
   }
 
   &-content
@@ -60,9 +79,12 @@
   {
     display: flex;
     align-items: flex-start;
-    width: 6.25rem;
     min-width: 6.25rem;
     margin-right: 1rem;
+    @media (max-width: $breakpoint-mobile-max)
+    {
+      max-width: 6.25rem;
+    }
   }
 
   &-ctasWrapper
