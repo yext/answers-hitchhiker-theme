@@ -1,10 +1,33 @@
-.HitchhikerLocationCard
+.HitchhikerLocationStandard
 {
+  $location-standard-base-spacing: $base-spacing !default;
+  $location-standard-ordinal-dimensions: $location-standard-base-spacing * 9/8 !default;
+
   display: flex;
   font-size: .875rem;
   line-height: 1.4;
   background-color: $color-brand-white;
-  padding: $base-spacing;
+  padding: $location-standard-base-spacing;
+
+  &-ordinal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-top: $location-standard-base-spacing * 1/4;
+    margin-right: $location-standard-base-spacing * 3/4;
+    width: $location-standard-ordinal-dimensions;
+    height: $location-standard-ordinal-dimensions;
+    background-color: $color-brand-primary;
+    border: solid black 1px;
+    text-align: center;
+    @include Text(
+      $color: white,
+      $size: $font-size-xs,
+      $line-height: $line-height-xs,
+      $weight: $font-weight-bold,
+    );
+  }
 
   &-contentWrapper
   {
@@ -31,6 +54,11 @@
     @include Link;
   }
 
+  &-ordinalAndTitle
+  {
+    display: flex;
+  }
+
   &-distance
   {
     font-style: italic;
@@ -40,7 +68,7 @@
   {
     color: $color-text-secondary;
     padding-bottom: 0;
-    margin-top: $base-spacing / 2;
+    margin-top: $location-standard-base-spacing / 2;
   }
 
   &-content
@@ -63,7 +91,7 @@
     width: 6.25rem;
     min-width: 6.25rem;
     margin-right: 1rem;
-    margin-top: $base-spacing / 2;
+    margin-top: $location-standard-base-spacing / 2;
   }
 
   &-imgTagWrapper
@@ -86,11 +114,11 @@
 
   &-core
   {
-    margin-top: $base-spacing / 2;
+    margin-top: $location-standard-base-spacing / 2;
 
     @media (min-width: $breakpoint-mobile-max)
     {
-      padding-right: $base-spacing * 2;
+      padding-right: $location-standard-base-spacing * 2;
     }
   }
 
@@ -103,7 +131,7 @@
   {
     display: flex;
     font-weight: $font-weight-semibold;
-    margin-top: $base-spacing / 2;
+    margin-top: $location-standard-base-spacing / 2;
   }
 
   &-phone--desktop {
@@ -128,12 +156,12 @@
   &-details
   {
     @include rich_text_formatting;
-    margin-top: $base-spacing / 2;
+    margin-top: $location-standard-base-spacing / 2;
   }
 
   &-hoursText
   {
-    margin-top: $base-spacing / 2;
+    margin-top: $location-standard-base-spacing / 2;
   }
 
   .Hours-statusText--current
@@ -144,7 +172,7 @@
   &-services
   {
     flex-basis: 100%;
-    margin-top: $base-spacing / 2;
+    margin-top: $location-standard-base-spacing / 2;
   }
 
   &-servicesLabel
@@ -156,11 +184,11 @@
   &-ctasWrapper
   {
     text-transform: uppercase;
-    margin-top: $base-spacing / 2;
+    margin-top: $location-standard-base-spacing / 2;
 
     @media (min-width: $breakpoint-mobile-max)
     {
-      margin-left: $base-spacing / 2;
+      margin-left: $location-standard-base-spacing / 2;
       justify-content: center;
     }
   }
@@ -169,6 +197,6 @@
   &-secondaryCTA
   {
     display: flex;
-    margin-top: $base-spacing / 2;
+    margin-top: $location-standard-base-spacing / 2;
   }
 }

@@ -54,10 +54,10 @@ class faq_accordionCardComponent extends BaseCard['faq-accordion'] {
 
   onMount() {
     const self = this;
-    const accordionToggleSelector = '.js-HitchhikerAccordionCard-toggle';
-    const accordionContentSelector = '.js-HitchhikerAccordionCard-content';
-    const accordionExpandedClass = 'HitchhikerAccordionCard--expanded';
-    const accordionCardSelector = '.js-HitchhikerAccordionCard';
+    const accordionToggleSelector = '.js-HitchhikerFaqAccordion-toggle';
+    const accordionContentSelector = '.js-HitchhikerFaqAccordion-content';
+    const accordionExpandedClass = 'HitchhikerFaqAccordion--expanded';
+    const accordionCardSelector = '.js-HitchhikerFaqAccordion';
 
     const accordionToggleEl = self._container.querySelector(accordionToggleSelector);
     if (!accordionToggleEl) {
