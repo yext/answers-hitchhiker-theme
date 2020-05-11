@@ -3,25 +3,12 @@
 }}
 
 <div class="HitchhikerLocationStandard {{cardName}}">
-  {{#if card.image}}
-  <div class="HitchhikerLocationStandard-imgWrapper">
-    <img src="{{card.image}}" {{#if card.tagLabel}}alt="{{card.tagLabel}}"{{/if}}>
-    {{#if card.tagLabel}}
-    <div class="HitchhikerLocationStandard-imgTagWrapper">
-      <div class="HitchhikerLocationStandard-imgTag">{{card.tagLabel}}</div>
-    </div>
-    {{/if}}
-  </div>
-  {{/if}}
+  {{> image}}
   <div class="HitchhikerLocationStandard-contentWrapper">
     {{#if (any card.title card.distance)}}
     <div class="HitchhikerLocationStandard-topRow">
-    {{> ordinalAndTitle displayOrdinal=(all card.showOrdinal result.ordinal)}}
-    {{#if card.distance}}
-      <div class="HitchhikerLocationStandard-distance">
-        {{card.distance}}
-      </div>
-    {{/if}}
+      {{> ordinalAndTitle displayOrdinal=(all card.showOrdinal result.ordinal)}}
+      {{> distance}}
     </div>
     {{/if}}
     {{#if card.subtitle}}
@@ -31,74 +18,13 @@
     {{/if}}
     <div class="HitchhikerLocationStandard-content">
       <div class="HitchhikerLocationStandard-infoWrapper">
-        <div class="HitchhikerLocationStandard-contactInfo">
-          {{#if (any card.phone card.address)}}
-            <div class="HitchhikerLocationStandard-core">
-              {{#with card.address}}
-                {{> Address}}
-              {{/with}}
-              {{#if card.phone}}
-                <div class="HitchhikerLocationStandard-phone">
-                  <div class="HitchhikerLocationStandard-phone--desktop">
-                    {{card.phone}}
-                  </div>
-                  <a class="HitchhikerLocationStandard-phone--mobile"
-                      href="tel:{{card.phone}}"
-                      data-eventtype="TAP_TO_CALL"
-                      data-eventoptions='{{json card.phoneEventOptions}}'>
-                    {{card.phone}}
-                  </a>
-                </div>
-              {{/if}}
-            </div>
-          {{/if}}
-          {{#if (any card.hours card.services)}}
-          <div class="HitchhikerLocationStandard-infoCol">
-            {{#if card.hours}}
-            <div class="HitchhikerLocationStandard-hoursText">
-              {{{card.hours}}}
-            </div>
-            {{/if}}
-            {{#if card.services}}
-            <div class="HitchhikerLocationStandard-services">
-              <span class="HitchhikerLocationStandard-servicesLabel">
-                Services:
-              </span>
-              <span>
-              {{#each card.services~}}{{this}}{{#unless @last}}, {{/unless}}{{~/each}}
-              </span>
-            </div>
-            {{/if}}
-          </div>
-          {{/if}}
-        </div>
-        {{#if card.details}}
-          <div class="HitchhikerLocationStandard-details">
-            {{{card.details}}}
-          </div>
-        {{/if}}
-        </div>
-        {{#if (any (all card.CTA1 card.CTA1.url) (all card.CTA2 card.CTA2.url))}}
-        <div class="HitchhikerLocationStandard-ctasWrapper">
-          {{#if (all card.CTA1.url card.CTA1.label)}}
-          <div class="HitchhikerLocationStandard-primaryCTA">
-            {{#with card.CTA1}}
-              {{> CTA}}
-            {{/with}}
-          </div>
-          {{/if}}
-          {{#if (all card.CTA2.url card.CTA2.label)}}
-          <div class="HitchhikerLocationStandard-secondaryCTA">
-            {{#with card.CTA2}}
-              {{> CTA}}
-            {{/with}}
-          </div>
-          {{/if}}
-        </div>
-        {{/if}}
+        {{> contactInfo}}
+        {{> details}}
       </div>
+      {{> ctas}}
     </div>
   </div>
+</div>
 </div>
 
 {{#*inline 'Address'}}
@@ -107,9 +33,9 @@
     {{line1}}
   </div>
   {{#if line2}}
-    <div class="HitchhikerLocationStandard-addressRow">
-      {{line2}}
-    </div>
+  <div class="HitchhikerLocationStandard-addressRow">
+    {{line2}}
+  </div>
   {{/if}}
   <div class="HitchhikerLocationStandard-addressRow">
     {{#if city}}{{city}}, {{/if}}{{region}} {{postalCode}}
@@ -117,54 +43,134 @@
 </div>
 {{/inline}}
 
+{{#*inline 'phone'}}
+{{#if card.phone}}
+<div class="HitchhikerLocationStandard-phone">
+  <div class="HitchhikerLocationStandard-phone--desktop">
+    {{card.phone}}
+  </div>
+  <a class="HitchhikerLocationStandard-phone--mobile js-Hitchhiker-phone" href="tel:{{card.phone}}"
+    data-eventtype="TAP_TO_CALL"
+    data-eventoptions='{{json card.phoneEventOptions}}'>
+    {{card.phone}}
+  </a>
+</div>
+{{/if}}
+{{/inline}}
+
+{{#*inline 'image'}}
+{{#if card.image}}
+<div class="HitchhikerLocationStandard-imgWrapper">
+  <img src="{{card.image}}" alt="{{#if card.altText}}{{card.altText}}{{/if}}" />
+</div>
+{{/if}}
+{{/inline}}
+
+{{#*inline 'distance'}}
+{{#if card.distance}}
+<div class="HitchhikerLocationStandard-distance">
+  {{card.distance}}
+</div>
+{{/if}}
+{{/inline}}
+
+{{#*inline 'ctas'}}
+{{#if (any (all card.CTA1 card.CTA1.url) (all card.CTA2 card.CTA2.url))}}
+<div class="HitchhikerLocationStandard-ctasWrapper">
+  {{> CTA card.CTA1 ctaName="primaryCTA"}}
+  {{> CTA card.CTA2 ctaName="secondaryCTA"}}
+</div>
+{{/if}}
+{{/inline}}
+
 {{#*inline 'CTA'}}
-<a class="HitchhikerCTA js-HitchhikerCTA{{#if modifiers}} {{modifiers}}{{/if}}"
-   href="{{url}}"
-   data-eventtype="{{eventType}}"
-   data-eventoptions='{{json eventOptions}}'
-   target={{#if target}}"{{target}}"{{else}}"_top"{{/if}}>
-  {{#if (any iconName iconUrl)}}
-  <div class="HitchhikerCTA-iconWrapper">
-    <div class="HitchhikerCTA-icon" data-component="IconComponent" data-opts='{
-      "iconUrl": "{{iconUrl}}",
-      "iconName": "{{iconName}}"
-    }'>
+{{#if (all url label)}}
+<div class="HitchhikerLocationStandard-{{ctaName}}">
+  <a class="HitchhikerCTA js-HitchhikerCTA{{#if modifiers}} {{modifiers}}{{/if}}" href="{{url}}"
+    data-eventtype="{{eventType}}" data-eventoptions='{{json eventOptions}}'
+    target={{#if target}}"{{target}}"{{else}}"_top"{{/if}}>
+    {{#if (any iconName iconUrl)}}
+    <div class="HitchhikerCTA-iconWrapper">
+      <div class="HitchhikerCTA-icon" data-component="IconComponent" data-opts='{
+        "iconUrl": "{{iconUrl}}",
+        "iconName": "{{iconName}}"
+      }'>
+      </div>
     </div>
-  </div>
-  {{/if}}
-  <div class='HitchhikerCTA-iconLabel'>
-    {{label}}
-  </div>
-</a>
+    {{/if}}
+    <div class='HitchhikerCTA-iconLabel'>
+      {{label}}
+    </div>
+  </a>
+</div>
+{{/if}}
 {{/inline}}
 
 {{#* inline "ordinalAndTitle"}}
-  {{#if (any displayOrdinal card.title)}}
-    <div class="HitchhikerLocationStandard-ordinalAndTitle">
-      {{#if displayOrdinal}}
-        <div class="HitchhikerLocationStandard-ordinal">
-          {{result.ordinal}}
-        </div>
-      {{/if}}
-      {{> title}}
-    </div>
+{{#if (any displayOrdinal card.title)}}
+<div class="HitchhikerLocationStandard-ordinalAndTitle">
+  {{#if displayOrdinal}}
+  <div class="HitchhikerLocationStandard-ordinal">
+    {{result.ordinal}}
+  </div>
   {{/if}}
+  {{> title}}
+</div>
+{{/if}}
+{{/inline}}
+
+{{#* inline "contactInfo"}}
+<div class="HitchhikerLocationStandard-contactInfo">
+  {{#if (any card.phone card.address)}}
+  <div class="HitchhikerLocationStandard-core">
+    {{#with card.address}}
+    {{> Address}}
+    {{/with}}
+    {{> phone}}
+  </div>
+  {{/if}}
+  {{#if (any card.hours card.services)}}
+  <div class="HitchhikerLocationStandard-infoCol">
+    {{#if card.hours}}
+    <div class="HitchhikerLocationStandard-hoursText">
+      {{{card.hours}}}
+    </div>
+    {{/if}}
+    {{#if card.services}}
+    <div class="HitchhikerLocationStandard-services">
+      <span class="HitchhikerLocationStandard-servicesLabel">
+        Services:
+      </span>
+      <span>
+        {{#each card.services~}}{{this}}{{#unless @last}}, {{/unless}}{{~/each}}
+      </span>
+    </div>
+    {{/if}}
+  </div>
+  {{/if}}
+</div>
 {{/inline}}
 
 {{#* inline "title"}}
-  {{#if card.title}}
-    <div class="HitchhikerLocationStandard-title">
-      {{#if card.titleUrl}}
-        <a class="HitchhikerLocationStandard-titleLink"
-          href="{{card.titleUrl}}"
-          data-eventtype="TITLE_CLICK"
-          data-eventoptions='{{json card.titleEventOptions}}'
-          target={{#if card.target}}"{{card.target}}"{{else}}"_top"{{/if}}>
-          {{{card.title}}}
-        </a>
-      {{else}}
-        {{{card.title}}}
-      {{/if}}
-    </div>
+{{#if card.title}}
+<div class="HitchhikerLocationStandard-title">
+  {{#if card.titleUrl}}
+  <a class="HitchhikerLocationStandard-titleLink js-Hitchhiker-title" href="{{card.titleUrl}}" data-eventtype="TITLE_CLICK"
+    data-eventoptions='{{json card.titleEventOptions}}'
+    target={{#if card.target}}"{{card.target}}"{{else}}"_top"{{/if}}>
+    {{{card.title}}}
+  </a>
+  {{else}}
+  {{{card.title}}}
   {{/if}}
+</div>
+{{/if}}
+{{/inline}}
+
+{{#*inline 'details'}}
+{{#if card.details}}
+<div class="HitchhikerLocationStandard-details">
+  {{{card.details}}}
+</div>
+{{/if}}
 {{/inline}}
