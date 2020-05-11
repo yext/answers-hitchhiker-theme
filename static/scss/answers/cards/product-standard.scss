@@ -1,0 +1,84 @@
+.HitchhikerProductStandard
+{
+  display: flex;
+  font-size: $font-size-md;
+  background-color: $color-brand-white;
+  padding: $base-spacing;
+
+  &-detailsText
+  {
+    @include rich_text_formatting;
+  }
+
+  &-title
+  {
+    font-size: $font-size-lg;
+    line-height: $line-height-lg;
+    font-weight: $font-weight-semibold;
+    max-width: 100%;
+    overflow-wrap: normal;
+  }
+
+  &-titleLink
+  {
+    @include Link;
+  }
+
+  &-subtitle
+  {
+    color: $color-text-secondary;
+    padding-bottom: 0;
+  }
+
+  &-contentWrapper
+  {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    @media (min-width: $breakpoint-mobile-max)
+    {
+      justify-content: space-between;
+      flex-direction: row;
+      flex-wrap: nowrap;
+    }
+  }
+
+  &-content {
+    line-height: 1.4;
+    margin-top: $base-spacing / 4;
+  }
+
+  &-imgWrapper
+  {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 6.25rem;
+    margin-right: 1rem;
+    @media (max-width: $breakpoint-mobile-max)
+    {
+      max-width: 6.25rem;
+    }
+  }
+
+  &-ctasWrapper
+  {
+    text-transform: uppercase;
+    margin-top: $base-spacing / 2;
+
+    @media (min-width: $breakpoint-mobile-max)
+    {
+      margin-left: $base-spacing / 2;
+      margin-top: 0;
+      justify-content: center;
+    }
+  }
+
+  &-primaryCTA,
+  &-secondaryCTA
+  {
+    display: flex;
+    margin-top: $base-spacing / 2;
+  }
+}

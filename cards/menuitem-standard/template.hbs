@@ -25,12 +25,7 @@
 {{#*inline 'image'}}
 {{#if card.image}}
 <div class="HitchhikerMenuItemStandard-imgWrapper">
-  <img src="{{card.image}}" />
-  {{#if card.tagLabel}}
-  <div class="HitchhikerMenuItemStandard-imgTagWrapper">
-    <div class="HitchhikerMenuItemStandard-imgTag">{{card.tagLabel}}</div>
-  </div>
-  {{/if}}
+  <img src="{{card.image}}" alt="{{#if card.altText}}{{card.altText}}{{/if}}" />
 </div>
 {{/if}}
 {{/inline}}
@@ -87,11 +82,11 @@
   {{#if excessDetailsToggle}}
   <button class="HitchhikerCard-details-toggle js-HitchhikerCard-details-toggle">
     {{#if hideExcessDetails}}
-    {{card.showMoreDetails.showMoreText}}
+    <span class="HitchhikerMenuItemCard-showMore">{{card.showMoreDetails.showMoreText}}</span>
     <span data-component="IconComponent"
       data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseDown" }'></span>
     {{else}}
-    {{card.showMoreDetails.showLessText}}
+    <span class="HitchhikerMenuItemCard-showLess">{{card.showMoreDetails.showLessText}}</span>
     <span data-component="IconComponent"
       data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseUp" }'></span>
     {{/if}}
