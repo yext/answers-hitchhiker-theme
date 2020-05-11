@@ -12,7 +12,7 @@ ANSWERS.addComponent('VerticalResults', Object.assign({}, {
         {{#each ../excludedVerticals}}{{#ifeq this ../verticalKey}}hideInNavigation: true,{{/ifeq}}{{/each}}
         {{#ifeq ../verticalKey verticalKey}}isActive: true,{{/ifeq}}
         {{#with (lookup verticalsToConfig verticalKey)}}
-        {{#ifeq isFirst 'true'}}isFirst: true,{{/ifeq}}
+        {{#if isFirst}}isFirst: {{isFirst}},{{/if}}
         {{#if icon}}icon: '{{icon}}',{{/if}}
         {{#if iconUrl}}iconUrl: '{{iconUrl}}',{{/if}}
         label:
