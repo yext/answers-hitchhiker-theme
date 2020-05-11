@@ -1,11 +1,11 @@
-<div class="HitchhikerProfessionalCard {{cardName}}">
-  <div class="HitchhikerProfessionalCard-wrapper">
+<div class="HitchhikerProfessionalStandard {{cardName}}">
+  <div class="HitchhikerProfessionalStandard-wrapper">
     {{> image}}
-    <div class="HitchhikerProfessionalCard-body">
+    <div class="HitchhikerProfessionalStandard-body">
       {{> title}}
       {{> subtitle}}
-      <div class="HitchhikerProfessionalCard-contentWrapper">
-        <div class="HitchhikerProfessionalCard-info">
+      <div class="HitchhikerProfessionalStandard-contentWrapper">
+        <div class="HitchhikerProfessionalStandard-info">
           {{> details}}
           {{> list}}
           {{> phone}}
@@ -18,7 +18,7 @@
 
 {{#*inline 'image'}}
 {{#if card.image}}
-<div class="HitchhikerProfessionalCard-imgWrapper">
+<div class="HitchhikerProfessionalStandard-imgWrapper">
   <img src="{{card.image}}"{{#if card.altText}} alt="{{card.altText}}"{{/if}}/>
 </div>
 {{/if}}
@@ -26,9 +26,9 @@
 
 {{#*inline 'title'}}
 {{#if card.title}}
-<div class="HitchhikerProfessionalCard-title">
+<div class="HitchhikerProfessionalStandard-title">
   {{#if card.url}}
-  <a class="HitchhikerProfessionalCard-titleLink" href="{{card.url}}" data-eventtype="TITLE_CLICK"
+  <a class="HitchhikerProfessionalStandard-titleLink" href="{{card.url}}" data-eventtype="TITLE_CLICK"
     data-eventoptions='{{json card.titleEventOptions}}' target={{#if card.target}}"{{card.target}}"{{else}}"_top"
     rel="noopener noreferrer nofollow" {{/if}}>
     {{card.title}}
@@ -42,7 +42,7 @@
 
 {{#*inline 'subtitle'}}
 {{#if card.subtitle}}
-<div class="HitchhikerProfessionalCard-subtitle">
+<div class="HitchhikerProfessionalStandard-subtitle">
   {{card.subtitle}}
 </div>
 {{/if}}
@@ -50,8 +50,8 @@
 
 {{#*inline 'details'}}
 {{#if card.details}}
-<div class="HitchhikerProfessionalCard-cardDetails">
-  <div class="HitchhikerProfessionalCard-detailsText">
+<div class="HitchhikerProfessionalStandard-cardDetails">
+  <div class="HitchhikerProfessionalStandard-detailsText">
     {{card.details}}
   </div>
   {{#if excessDetailsToggle}}
@@ -73,14 +73,14 @@
 
 {{#*inline 'list'}}
 {{#if card.listTitle}}
-<div class="HitchhikerProfessionalCard-listTitle">
+<div class="HitchhikerProfessionalStandard-listTitle">
   {{card.listTitle}}
 </div>
 {{/if}}
 {{#if card.listItems}}
-<ul class="HitchhikerProfessionalCard-list">
+<ul class="HitchhikerProfessionalStandard-list">
   {{#each card.listItems}}
-  <li class="HitchhikerProfessionalCard-listItem">{{this}}</li>
+  <li class="HitchhikerProfessionalStandard-listItem">{{this}}</li>
   {{/each}}
 </ul>
 {{/if}}
@@ -88,10 +88,10 @@
 
 {{#*inline 'phone'}}
 {{#if card.phone}}
-<div class="HitchhikerProfessionalCard-phone--desktop">
+<div class="HitchhikerProfessionalStandard-phone--desktop">
   {{card.phone}}
 </div>
-<a class="HitchhikerProfessionalCard-phone--mobile" href="tel:{{card.phone}}"
+<a class="HitchhikerProfessionalStandard-phone--mobile" href="tel:{{card.phone}}"
   data-eventtype="{{#if card.phoneEventType}}{{card.phoneEventType}}{{else}}TAP_TO_CALL{{/if}}"
   data-eventoptions="{{json card.phoneEventOptions}}">
   {{card.phone}}
@@ -101,7 +101,7 @@
 
 {{#*inline 'ctas'}}
 {{#if (any (all card.CTA1 card.CTA1.url) (all card.CTA2 card.CTA2.url))}}
-<div class="HitchhikerProfessionalCard-ctasWrapper">
+<div class="HitchhikerProfessionalStandard-ctasWrapper">
   {{> CTA card.CTA1 ctaName="primaryCTA"}}
   {{> CTA card.CTA2 ctaName="secondaryCTA"}}
 </div>
@@ -110,19 +110,19 @@
 
 {{#*inline 'CTA'}}
 {{#if (all url label)}}
-<div class="HitchhikerProfessionalCard-{{ctaName}}">
-  <a class="Hitchhiker-cta js-Hitchhiker-cta{{#if modifiers}} {{modifiers}}{{/if}}" href="{{url}}"
+<div class="HitchhikerProfessionalStandard-{{ctaName}}">
+  <a class="HitchhikerCTA js-HitchhikerCTA{{#if modifiers}} {{modifiers}}{{/if}}" href="{{url}}"
     data-eventtype="{{eventType}}" data-eventoptions='{{json eventOptions}}'
     target="{{#if target}}{{target}}{{else}}_top{{/if}}">
     {{#if (any iconName iconUrl)}}
-    <div class="Hitchhiker-cta-iconWrapper">
-      <div class="Hitchhiker-cta-icon" data-component="IconComponent" data-opts='{ 
+    <div class="HitchhikerCTA-iconWrapper">
+      <div class="HitchhikerCTA-icon" data-component="IconComponent" data-opts='{
         "iconUrl": "{{iconUrl}}",
         "iconName": "{{iconName}}"
       }'>
     </div>
     {{/if}}
-    <div class='Hitchhiker-cta-iconLabel'>
+    <div class='HitchhikerCTA-iconLabel'>
       {{label}}
     </div>
   </a>
