@@ -1,21 +1,21 @@
-<div class="HitchhikerJobCard {{cardName}}">
-  <div class="HitchhikerJobCard-wrapper">
+<div class="HitchhikerJobStandard {{cardName}}">
+  <div class="HitchhikerJobStandard-wrapper">
     {{#if card.image}}
-    <div class="HitchhikerJobCard-imgWrapper">
+    <div class="HitchhikerJobStandard-imgWrapper">
       <img src="{{card.image}}" {{#if card.tagLabel}}alt="{{card.tagLabel}}"{{/if}}>
       {{#if card.tagLabel}}
-      <div class="HitchhikerJobCard-imgTagWrapper">
-        <div class="HitchhikerJobCard-imgTag">{{card.tagLabel}}</div>
+      <div class="HitchhikerJobStandard-imgTagWrapper">
+        <div class="HitchhikerJobStandard-imgTag">{{card.tagLabel}}</div>
       </div>
       {{/if}}
     </div>
     {{/if}}
-    <div class="HitchhikerJobCard-contentWrapper">
-      <div class="HitchhikerJobCard-info">
+    <div class="HitchhikerJobStandard-contentWrapper">
+      <div class="HitchhikerJobStandard-info">
         {{#if card.title}}
-        <div class="HitchhikerJobCard-title">
+        <div class="HitchhikerJobStandard-title">
           {{#if card.url}}
-            <a class="HitchhikerJobCard-titleLink"
+            <a class="HitchhikerJobStandard-titleLink"
               href="{{card.url}}"
               data-eventtype="TITLE_CLICK"
               data-eventoptions='{{json card.titleEventOptions}}'
@@ -28,13 +28,13 @@
         </div>
         {{/if}}
         {{#if card.subtitle}}
-        <div class="HitchhikerJobCard-subtitle">
+        <div class="HitchhikerJobStandard-subtitle">
           {{card.subtitle}}
         </div>
         {{/if}}
         {{#if card.details}}
-        <div class="HitchhikerJobCard-content">
-          <div class="HitchhikerJobCard-detailsText">
+        <div class="HitchhikerJobStandard-content">
+          <div class="HitchhikerJobStandard-detailsText">
             {{card.details}}
           </div>
           {{#if excessDetailsToggle}}
@@ -54,16 +54,16 @@
         {{/if}}
       </div>
       {{#if (any (all card.CTA1 card.CTA1.url) (all card.CTA2 card.CTA2.url))}}
-      <div class="HitchhikerJobCard-ctasWrapper">
+      <div class="HitchhikerJobStandard-ctasWrapper">
           {{#if (all card.CTA1.url card.CTA1.label)}}
-          <div class="HitchhikerJobCard-primaryCTA">
+          <div class="HitchhikerJobStandard-primaryCTA">
             {{#with card.CTA1}}
               {{> CTA}}
             {{/with}}
           </div>
           {{/if}}
           {{#if (all card.CTA2.url card.CTA2.label)}}
-          <div class="HitchhikerJobCard-secondaryCTA">
+          <div class="HitchhikerJobStandard-secondaryCTA">
             {{#with card.CTA2}}
               {{> CTA}}
             {{/with}}
@@ -76,21 +76,21 @@
 </div>
 
 {{#*inline 'CTA'}}
-  <a class="Hitchhiker-cta js-Hitchhiker-cta{{#if modifiers}} {{modifiers}}{{/if}}"
+  <a class="HitchhikerCTA js-HitchhikerCTA{{#if modifiers}} {{modifiers}}{{/if}}"
       href="{{url}}"
       data-eventtype="{{eventType}}"
       data-eventoptions='{{json eventOptions}}'
       target={{#if target}}"{{target}}"{{else}}"_top"{{/if}}>
       {{#if (any iconName iconUrl)}}
-      <div class="Hitchhiker-cta-iconWrapper">
-        <div class="Hitchhiker-cta-icon" data-component="IconComponent" data-opts='{ 
+      <div class="HitchhikerCTA-iconWrapper">
+        <div class="HitchhikerCTA-icon" data-component="IconComponent" data-opts='{
           "iconUrl": "{{iconUrl}}",
           "iconName": "{{iconName}}"
         }'>
         </div>
       </div>
       {{/if}}
-      <div class='Hitchhiker-cta-iconLabel'>
+      <div class='HitchhikerCTA-iconLabel'>
         {{label}}
       </div>
     </a>
