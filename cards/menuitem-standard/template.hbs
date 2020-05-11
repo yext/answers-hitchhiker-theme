@@ -82,7 +82,7 @@
   {{#if excessDetailsToggle}}
   <button class="HitchhikerCard-details-toggle js-HitchhikerCard-details-toggle">
     {{#if hideExcessDetails}}
-    {{card.showMoreDetails.showMoreText}}
+    <span class="js-Hitchhiker-showMore">{{card.showMoreDetails.showMoreText}}</span>
     <span data-component="IconComponent"
       data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseDown" }'></span>
     {{else}}
