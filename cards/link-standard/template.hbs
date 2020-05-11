@@ -1,11 +1,11 @@
-<div class="HitchhikerLinkCard {{cardName}}">
-  <div class="HitchhikerLinkCard-wrapper">
-    <div class="HitchhikerLinkCard-contentWrapper">
-      <div class="HitchhikerLinkCard-info">
+<div class="HitchhikerLinkStandard {{cardName}}">
+  <div class="HitchhikerLinkStandard-wrapper">
+    <div class="HitchhikerLinkStandard-contentWrapper">
+      <div class="HitchhikerLinkStandard-info">
         {{#if card.title}}
-        <div class="HitchhikerLinkCard-title">
+        <div class="HitchhikerLinkStandard-title">
           {{#if card.url}}
-            <a class="HitchhikerLinkCard-titleLink"
+            <a class="HitchhikerLinkStandard-titleLink"
               href="{{card.url}}"
               data-eventtype="TITLE_CLICK"
               data-eventoptions='{{json card.titleEventOptions}}'
@@ -17,14 +17,14 @@
         </div>
         {{/if}}
         {{#if card.subtitle}}
-        <div class="HitchhikerLinkCard-subtitle">
+        <div class="HitchhikerLinkStandard-subtitle">
           {{card.subtitle}}
         </div>
         {{/if}}
         {{#if card.details}}
-        <div class="HitchhikerLinkCard-content">
-          <div class="HitchhikerLinkCard-cardDetails">
-            <div class="HitchhikerLinkCard-detailsText">
+        <div class="HitchhikerLinkStandard-content">
+          <div class="HitchhikerLinkStandard-cardDetails">
+            <div class="HitchhikerLinkStandard-detailsText">
               {{{card.details}}}
             </div>
             {{#if excessDetailsToggle}}
