@@ -8,14 +8,14 @@ verticalPages: [
     {{#ifeq ../verticalKey verticalKey}}isActive: true,{{/ifeq}}
     {{#if verticalKey}}
       {{#with (lookup verticalsToConfig verticalKey)}}
-        {{#ifeq isFirst 'true'}}isFirst: true,{{/ifeq}}
+        {{#if isFirst}}isFirst: {{isFirst}},{{/if}}
         {{#if icon}}icon: '{{icon}}',{{/if}}
         label: {{#if label}}'{{label}}'{{else}}{{#if ../verticalKey}}'{{../verticalKey}}'{{else}}'{{@key}}'{{/if}}{{/if}},
         url: {{#if url}}'{{url}}'{{else}}'{{@key}}.html'{{/if}},
       {{/with}}
     {{else}}
       {{#with (lookup verticalsToConfig 'Universal')}}
-        {{#ifeq isFirst 'true'}}isFirst: true,{{/ifeq}}
+        {{#if isFirst}}isFirst: {{isFirst}},{{/if}}
         {{#if icon}}icon: '{{icon}}',{{/if}}
         label: {{#if label}}'{{label}}'{{else}}'{{@key}}'{{/if}},
         url: {{#if url}}'{{url}}'{{else}}'{{@key}}.html'{{/if}},
