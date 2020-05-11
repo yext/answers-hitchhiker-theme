@@ -36,12 +36,15 @@
     {{/if}}
     {{#if canonicalUrl}}
       <meta property="og:url" content="{{canonicalUrl}}">
+      <link rel="canonical" href="{{canonicalUrl}}" />
+    {{else if env.JAMBO_INJECTED_DATA.pages.domains.prod.domain}}
+      {{#with env.JAMBO_INJECTED_DATA.pages.domains.prod}}
+        <meta property="og:url" content="{{#if isHttps}}https://{{else}}http://{{/if}}{{domain}}">
+        <link rel="canonical" href="{{#if isHttps}}https://{{else}}http://{{/if}}{{domain}}">
+      {{/with}}
     {{/if}}
     <meta name="twitter:card" content="summary">
 
-    {{#if canonicalUrl}}
-      <link rel="canonical" href="{{canonicalUrl}}" />
-    {{/if}}
     {{#if pageTitle}}
       <title>{{pageTitle}}</title>
     {{/if}}
