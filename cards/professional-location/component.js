@@ -1,9 +1,9 @@
-{{> cards/card_component componentName='professional-standard'}}
+{{> cards/card_component componentName='professional-location'}}
 
-class professional_standardCardComponent extends BaseCard['professional-standard'] {
+class professional_locationCardComponent extends BaseCard['professional-location'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
-    this.setTemplate(`{{{read 'cards/professional-standard/template' }}}`);
+    this.setTemplate(`{{{read 'cards/professional-location/template' }}}`);
   }
 
   /**
@@ -19,6 +19,7 @@ class professional_standardCardComponent extends BaseCard['professional-standard
     const secondaryCTAData = profile.c_secondaryCTA || {};
 
     return {
+      showOrdinal: true, // Whether to display the corresponding map pin number on the card
       title: `${profile.firstName} ${profile.lastName}`, // The header text of the card
       // subtitle: '', // The sub-header text of the card
       url: profile.website || profile.landingPageUrl, // If the card title is a clickable link, set URL here
@@ -39,6 +40,8 @@ class professional_standardCardComponent extends BaseCard['professional-standard
         showMoreText: 'Show more', // Label when toggle will show truncated text
         showLessText: 'Show less' // Label when toggle will hide truncated text
       },
+      // Distance from the user’s or inputted location
+      distance: Formatter.toMiles(profile),
       // The primary CTA of the card
       CTA1: {
         label: primaryCTAData.label, // The CTA's label
@@ -61,4 +64,4 @@ class professional_standardCardComponent extends BaseCard['professional-standard
   }
 }
 
-ANSWERS.registerComponentType(professional_standardCardComponent);
+ANSWERS.registerComponentType(professional_locationCardComponent);
