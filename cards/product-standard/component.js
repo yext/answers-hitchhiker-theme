@@ -15,6 +15,10 @@ class product_standardCardComponent extends BaseCard['product-standard'] {
   dataForRender(profile) {
     const primaryCTAData = profile.c_primaryCTA || {};
     const secondaryCTAData = profile.c_secondaryCTA || {};
+    let price = '';
+    if (profile.c_price) {
+      price = `$${profile.c_price}`;
+    }
 
     return {
       title: profile.name, // The header text of the card
@@ -23,7 +27,7 @@ class product_standardCardComponent extends BaseCard['product-standard'] {
       image: Formatter.image(profile.c_photo).url, // The URL of the image to display on the card
       altText: Formatter.image(profile.c_photo).altText, // The alt text of the image to display on the card
       titleEventOptions: this.addDefaultEventOptions(),
-      subtitle: profile.c_price ? `$${profile.c_price}` : '', // The sub-header text of the card
+      subtitle: price, // The sub-header text of the card
       details: profile.description, // The text in the body of the card
       // If the card's details are longer than a certain character count, you can truncate the
       // text. A toggle will be supplied that can show or hide the truncated text.
