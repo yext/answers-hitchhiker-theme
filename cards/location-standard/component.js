@@ -29,6 +29,7 @@ class location_standardCardComponent extends BaseCard['location-standard'] {
       // details: profile.description, // The description for the card, displays below the address and phone
       // tagLabel: '', // The label of the displayed image
       // image: '', // The URL of the image to display on the card
+      showOrdinal: true, // If the ordinal should be displayed on the card
       CTA1: { // The primary call to action for the card
         iconName: 'phone', // The icon to use for the CTA
         label: 'Call', // The label of the CTA
