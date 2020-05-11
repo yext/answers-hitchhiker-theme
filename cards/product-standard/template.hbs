@@ -1,12 +1,12 @@
-<div class="HitchhikerProductCard {{cardName}}">
+<div class="HitchhikerProductStandard {{cardName}}">
   {{> image}}
-  <div class="HitchhikerProductCard-body">
+  <div class="HitchhikerProductStandard-body">
     {{> title}}
     {{> subtitle}}
-    <div class="HitchhikerProductCard-contentWrapper">
+    <div class="HitchhikerProductStandard-contentWrapper">
       {{> details}}
-      {{#if (any (all card.CTA1 card.CTA1.url) (all card.CTA2 card.CTA2.url))}}
-      <div class="HitchhikerProductCard-ctasWrapper">
+      {{#if (any (all card.CTA1 card.CTA1.label card.CTA1.url) (all card.CTA2 card.CTA2.label card.CTA2.url))}}
+      <div class="HitchhikerProductStandard-ctasWrapper">
         {{#with card.CTA1}}
         {{> CTA ctaName="primaryCTA"}}
         {{/with}}
@@ -21,17 +21,17 @@
 
 {{#*inline 'image'}}
 {{#if card.image}}
-<div class="HitchhikerProductCard-imgWrapper">
-  <img src="{{card.image}}"{{#if card.altText}}alt=" {{card.altText}}" {{/if}}>
+<div class="HitchhikerProductStandard-imgWrapper">
+  <img src="{{card.image}}"{{#if card.altText}} alt="{{card.altText}}"{{/if}} />
 </div>
 {{/if}}
 {{/inline}}
 
 {{#*inline 'title'}}
 {{#if card.title}}
-<div class="HitchhikerProductCard-title">
+<div class="HitchhikerProductStandard-title">
   {{#if card.url}}
-  <a class="HitchhikerProductCard-titleLink" href="{{card.url}}" data-eventtype="TITLE_CLICK"
+  <a class="HitchhikerProductStandard-titleLink" href="{{card.url}}" data-eventtype="TITLE_CLICK"
     data-eventoptions='{{json card.titleEventOptions}}' target={{#if card.target}}"{{card.target}}"{{else}}"_top"
     rel="noopener noreferrer nofollow" {{/if}}>
     {{card.title}}
@@ -45,7 +45,7 @@
 
 {{#*inline 'subtitle'}}
 {{#if card.subtitle}}
-<div class="HitchhikerProductCard-subtitle">
+<div class="HitchhikerProductStandard-subtitle">
   {{card.subtitle}}
 </div>
 {{/if}}
@@ -53,8 +53,8 @@
 
 {{#*inline 'details'}}
 {{#if card.details}}
-<div class="HitchhikerProductCard-content">
-  <div class="HitchhikerProductCard-detailsText">
+<div class="HitchhikerProductStandard-content">
+  <div class="HitchhikerProductStandard-detailsText">
     {{card.details}}
   </div>
   {{#if excessDetailsToggle}}
@@ -76,14 +76,14 @@
 
 {{#*inline 'CTA'}}
 {{#if (all url label)}}
-<div class="HitchhikerProductCard-{{ctaName}}">
+<div class="HitchhikerProductStandard-{{ctaName}}">
   <a class="Hitchhiker-cta js-Hitchhiker-cta{{#if modifiers}} {{modifiers}}{{/if}}" href="{{url}}"
     data-eventtype="{{eventType}}" data-eventoptions='{{json eventOptions}}'
     target={{#if target}}"{{target}}"{{else}}"_top"{{/if}}>
     {{#if (any iconName iconUrl)}}
     <div class="Hitchhiker-cta-iconWrapper">
       <div class="Hitchhiker-cta-icon" data-component="IconComponent"
-        data-opts='{ {{#if iconName}}"iconName": "{{iconName}}"{{/if}}{{#if (all iconName iconUrl)}}, {{/if}}{{#if iconUrl}}"iconUrl": "{{iconUrl}}"{{/if}} }'>
+        data-opts='{"iconName": "{{iconName}}", "iconUrl": "{{iconUrl}}"}'>
       </div>
     </div>
     {{/if}}

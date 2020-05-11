@@ -1,24 +1,13 @@
-.HitchhikerProductCard
+.HitchhikerProductStandard
 {
   display: flex;
   font-size: $font-size-md;
   background-color: $color-brand-white;
   padding: $base-spacing;
-  
 
   &-detailsText
   {
     @include rich_text_formatting;
-  }
-
-  &-contentCtasWrapper
-  {
-    display: flex;
-    flex-direction: column;
-    @media (min-width: $breakpoint-mobile-max)
-    {
-      flex-direction: row;
-    }
   }
 
   &-title
