@@ -1,70 +1,71 @@
-<div class="HitchhikerFaqAccordion yxt-{{cardName}} js-HitchhikerFaqAccordion{{#if card.isExpanded}} HitchhikerFaqAccordion--expanded{{/if}}"
-     id="{{id}}">
-  <button class="HitchhikerFaqAccordion-toggle js-HitchhikerFaqAccordion-toggle"
-    aria-expanded="{{#if card.isExpanded}}true{{else}}false{{/if}}"
-    aria-controls="{{id}}"
-    tabindex="0">
-    <h3 class="HitchhikerFaqAccordion-title">
-      {{{card.title}}}
-    </h3>
-    <div class="HitchhikerFaqAccordion-icon js-HitchhikerFaqAccordion-icon{{#if card.isExpanded}} HitchhikerFaqAccordion-icon--expanded{{/if}}"
-      data-component="IconComponent"
-      data-opts='{"iconName": "chevron"}'
-      data-prop="icon">
-    </div>
-  </button>
+<div
+  class="HitchhikerFaqAccordion yxt-{{cardName}} js-HitchhikerFaqAccordion{{#if card.isExpanded}} HitchhikerFaqAccordion--expanded{{/if}}"
+  id="{{id}}">
+  {{> header}}
   <div class="HitchhikerFaqAccordion-content js-HitchhikerFaqAccordion-content"
-       aria-hidden="{{#if card.isExpanded}}false{{else}}true{{/if}}">
-    {{#if card.subtitle}}
-      <div class="HitchhikerFaqAccordion-subtitle">
-        {{{card.subtitle}}}
-      </div>
-    {{/if}}
-    {{#if card.details}}
-      <div class="HitchhikerFaqAccordion-details">
-        {{{card.details}}}
-      </div>
-      {{#if excessDetailsToggle}}
-        <button class="HitchhikerCard-details-toggle HitchhikerFaqAccordion-details-toggle js-HitchhikerCard-details-toggle">
-        {{#if hideExcessDetails}}
-          {{card.showMoreDetails.showMoreText}}
-          <span data-component="IconComponent"
-            data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseDown" }'></span>
-        {{else}}
-          {{card.showMoreDetails.showLessText}}
-          <span data-component="IconComponent"
-            data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseUp" }'></span>
-        {{/if}}
-        </button>
-      {{/if}}
-    {{/if}}
-    {{#if (any (all card.CTA1 card.CTA1.url) (all card.CTA2 card.CTA2.url))}}
-      <div class="HitchhikerFaqAccordion-ctasWrapper">
-        {{#if card.CTA1.url}}
-        <div class="HitchhikerFaqAccordion-primaryCTA">
-          {{#with card.CTA1}}
-            {{> CTA }}
-          {{/with}}
-        </div>
-        {{/if}}
-        {{#if card.CTA2.url}}
-        <div class="HitchhikerFaqAccordion-secondaryCTA">
-          {{#with card.CTA2}}
-            {{> CTA }}
-          {{/with}}
-        </div>
-        {{/if}}
-      </div>
-    {{/if}}
+    aria-hidden="{{#if card.isExpanded}}false{{else}}true{{/if}}">
+    {{> subtitle}}
+    {{> details}}
+    {{> ctas}}
   </div>
 </div>
 
+{{#*inline 'header'}}
+<button class="HitchhikerFaqAccordion-toggle js-HitchhikerFaqAccordion-toggle"
+  aria-expanded="{{#if card.isExpanded}}true{{else}}false{{/if}}" aria-controls="{{id}}" tabindex="0">
+  <h3 class="HitchhikerFaqAccordion-title">
+    {{{card.title}}}
+  </h3>
+  <div
+    class="HitchhikerFaqAccordion-icon js-HitchhikerFaqAccordion-icon{{#if card.isExpanded}} HitchhikerFaqAccordion-icon--expanded{{/if}}"
+    data-component="IconComponent" data-opts='{"iconName": "chevron"}' data-prop="icon">
+  </div>
+</button>
+{{/inline}}
+
+{{#*inline 'subtitle'}}
+{{#if card.subtitle}}
+<div class="HitchhikerFaqAccordion-subtitle">
+  {{{card.subtitle}}}
+</div>
+{{/if}}
+{{/inline}}
+
+{{#*inline 'details'}}
+{{#if card.details}}
+<div class="HitchhikerFaqAccordion-details">
+  {{{card.details}}}
+</div>
+{{#if excessDetailsToggle}}
+<button class="HitchhikerCard-details-toggle HitchhikerFaqAccordion-details-toggle js-HitchhikerCard-details-toggle">
+  {{#if hideExcessDetails}}
+  <span class="HitchhikerFaqAccordion-showMore">{{card.showMoreDetails.showMoreText}}</span>
+  <span data-component="IconComponent"
+    data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseDown" }'></span>
+  {{else}}
+  <span class="HitchhikerFaqAccordion-showLess">{{card.showMoreDetails.showLessText}}</span>
+  <span data-component="IconComponent"
+    data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseUp" }'></span>
+  {{/if}}
+</button>
+{{/if}}
+{{/if}}
+{{/inline}}
+
+
+{{#*inline 'ctas'}}
+{{#if (any (all card.CTA1 card.CTA1.label card.CTA1.url) (all card.CTA2 card.CTA2.label card.CTA2.url))}}
+<div class="HitchhikerFaqAccordion-ctasWrapper">
+  {{> CTA card.CTA1 ctaName="primaryCTA"}}
+  {{> CTA card.CTA2 ctaName="secondaryCTA"}}
+</div>
+{{/if}}
+{{/inline}}
+
 {{#*inline 'CTA'}}
-<a class="HitchhikerCTA js-HitchhikerCTA{{#if modifiers}} {{modifiers}}{{/if}}"
-   href="{{url}}"
-   data-eventtype="{{eventType}}"
-   data-eventoptions='{{json eventOptions}}'
-   target={{#if target}}"{{target}}"{{else}}"_top"{{/if}}>
+<a class="HitchhikerCTA js-HitchhikerCTA{{#if modifiers}} {{modifiers}}{{/if}}" href="{{url}}"
+  data-eventtype="{{eventType}}" data-eventoptions='{{json eventOptions}}'
+  target={{#if target}}"{{target}}"{{else}}"_top"{{/if}}>
   {{#if (any iconName iconUrl)}}
   <div class="HitchhikerCTA-iconWrapper">
     <div class="HitchhikerCTA-icon" data-component="IconComponent" data-opts='{
