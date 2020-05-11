@@ -26,7 +26,7 @@ class location_standardCardComponent extends BaseCard['location-standard'] {
       phoneEventOptions: this.addDefaultEventOptions(), // The analytics event options for phone clicks
       distance: Formatter.toMiles(profile), // Distance from the user’s or inputted location
       // details: profile.description, // The description for the card, displays below the address and phone
-      // tagLabel: '', // The label of the displayed image
+      // altText: '', // The alt-text of the displayed image
       // image: '', // The URL of the image to display on the card
       showOrdinal: true, // If the ordinal should be displayed on the card
       CTA1: { // The primary call to action for the card
