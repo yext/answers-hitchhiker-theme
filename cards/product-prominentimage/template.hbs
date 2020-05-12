@@ -1,0 +1,101 @@
+<div class="HitchhikerProductProminentImage {{cardName}}">
+  {{> image}}
+  <div class="HitchhikerProductProminentImage-body">
+    {{> title}}
+    {{> subtitle}}
+    <div class="HitchhikerProductProminentImage-contentWrapper">
+      {{> details}}
+      {{> ctas}}
+    </div>
+  </div>
+</div>
+
+{{#*inline 'image'}}
+{{#if card.image}}
+<div class="HitchhikerProductProminentImage-imgWrapper">
+  <img src="{{card.image}}"{{#if card.altText}} alt="{{card.altText}}"{{/if}}/>
+</div>
+{{/if}}
+{{/inline}}
+
+{{#*inline 'title'}}
+{{#if card.title}}
+<div class="HitchhikerProductProminentImage-title">
+  {{#if card.url}}
+  <a class="HitchhikerProductProminentImage-titleLink"
+     href="{{card.url}}"
+     target={{#if card.target}}"{{card.target}}"{{else}}"_top"{{/if}}
+     data-eventtype="TITLE_CLICK"
+     data-eventoptions='{{json card.titleEventOptions}}'>
+    {{card.title}}
+  </a>
+  {{else}}
+  {{card.title}}
+  {{/if}}
+</div>
+{{/if}}
+{{/inline}}
+
+{{#*inline 'subtitle'}}
+{{#if card.subtitle}}
+<div class="HitchhikerProductProminentImage-subtitle">
+  {{card.subtitle}}
+</div>
+{{/if}}
+{{/inline}}
+
+{{#*inline 'details'}}
+{{#if card.details}}
+<div class="HitchhikerProductProminentImage-cardDetails">
+  <div class="HitchhikerProductProminentImage-detailsText">
+    {{card.details}}
+  </div>
+  {{#if excessDetailsToggle}}
+  <button class="HitchhikerCard-details-toggle js-HitchhikerCard-details-toggle">
+    {{#if hideExcessDetails}}
+    {{card.showMoreDetails.showMoreText}}
+    <span data-component="IconComponent"
+      data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseDown" }'></span>
+    {{else}}
+    {{card.showMoreDetails.showLessText}}
+    <span data-component="IconComponent"
+      data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseUp" }'></span>
+    {{/if}}
+  </button>
+  {{/if}}
+</div>
+{{/if}}
+{{/inline}}
+
+{{#*inline 'ctas'}}
+{{#if (any (all card.CTA1 card.CTA1.url card.CTA1.label) (all card.CTA2 card.CTA2.url card.CTA2.label))}}
+<div class="HitchhikerProductProminentImage-ctasWrapper">
+  {{> CTA card.CTA1 ctaName="primaryCTA"}}
+  {{> CTA card.CTA2 ctaName="secondaryCTA"}}
+</div>
+{{/if}}
+{{/inline}}
+
+{{#*inline 'CTA'}}
+{{#if (all url label)}}
+<div class="HitchhikerProductProminentImage-{{ctaName}}">
+  <a class="Hitchhiker-cta js-Hitchhiker-cta{{#if modifiers}} {{modifiers}}{{/if}}"
+     href="{{url}}"
+     data-eventtype="{{eventType}}"
+     data-eventoptions='{{json eventOptions}}'
+     target="{{#if target}}{{target}}{{else}}_top{{/if}}">
+    {{#if (any iconName iconUrl)}}
+    <div class="Hitchhiker-cta-iconWrapper">
+      <div class="Hitchhiker-cta-icon"
+           data-component="IconComponent"
+           data-opts='{"iconName": "{{iconName}}","iconUrl": "{{iconUrl}}"}'>
+      </div>
+    </div>
+    {{/if}}
+    <div class='Hitchhiker-cta-iconLabel'>
+      {{label}}
+    </div>
+  </a>
+</div>
+{{/if}}
+{{/inline}}
