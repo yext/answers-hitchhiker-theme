@@ -1,49 +1,58 @@
 <div class="HitchhikerLinkStandard {{cardName}}">
-  <div class="HitchhikerLinkStandard-wrapper">
+  <div class="HitchhikerLinkStandard-body">
+    {{> title}}
+    {{> subtitle}}
     <div class="HitchhikerLinkStandard-contentWrapper">
-      <div class="HitchhikerLinkStandard-info">
-        {{#if card.title}}
-        <div class="HitchhikerLinkStandard-title">
-          {{#if card.url}}
-            <a class="HitchhikerLinkStandard-titleLink"
-              href="{{card.url}}"
-              data-eventtype="TITLE_CLICK"
-              data-eventoptions='{{json card.titleEventOptions}}'
-              target={{#if card.target}}"{{card.target}}"{{else}}"_top" rel="noopener noreferrer nofollow"{{/if}}>
-              {{{card.title}}}</a>
-          {{else}}
-            {{{card.title}}}
-          {{/if}}
-        </div>
-        {{/if}}
-        {{#if card.subtitle}}
-        <div class="HitchhikerLinkStandard-subtitle">
-          {{card.subtitle}}
-        </div>
-        {{/if}}
-        {{#if card.details}}
-        <div class="HitchhikerLinkStandard-content">
-          <div class="HitchhikerLinkStandard-cardDetails">
-            <div class="HitchhikerLinkStandard-detailsText">
-              {{{card.details}}}
-            </div>
-            {{#if excessDetailsToggle}}
-              <button class="HitchhikerCard-details-toggle js-HitchhikerCard-details-toggle">
-              {{#if hideExcessDetails}}
-                {{card.showMoreDetails.showMoreText}}
-                <span data-component="IconComponent"
-                  data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseDown" }'></span>
-              {{else}}
-                {{card.showMoreDetails.showLessText}}
-                <span data-component="IconComponent"
-                  data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseUp" }'></span>
-              {{/if}}
-              </button>
-            {{/if}}
-          </div>
-        </div>
-        {{/if}}
-      </div>
+      {{> details}}
     </div>
   </div>
 </div>
+
+{{#*inline 'title'}}
+{{#if card.title}}
+<div class="HitchhikerLinkStandard-title">
+  {{#if card.url}}
+  <a class="HitchhikerLinkStandard-titleLink js-HitchhikerLinkStandard-titleLink"
+     href="{{card.url}}"
+     data-eventtype="TITLE_CLICK"
+     data-eventoptions='{{json card.titleEventOptions}}'
+     target={{#if card.target}}"{{card.target}}"{{else}}"_top"{{/if}}>
+    {{{card.title}}}
+  </a>
+  {{else}}
+  {{{card.title}}}
+  {{/if}}
+</div>
+{{/if}}
+{{/inline}}
+
+{{#*inline 'subtitle'}}
+{{#if card.subtitle}}
+<div class="HitchhikerLinkStandard-subtitle">
+  {{card.subtitle}}
+</div>
+{{/if}}
+{{/inline}}
+
+{{#*inline 'details'}}
+{{#if card.details}}
+<div class="HitchhikerLinkStandard-cardDetails">
+  <div class="HitchhikerLinkStandard-detailsText">
+    {{{card.details}}}
+  </div>
+  {{#if excessDetailsToggle}}
+  <button class="HitchhikerCard-details-toggle js-HitchhikerCard-details-toggle">
+    {{#if hideExcessDetails}}
+    {{card.showMoreDetails.showMoreText}}
+    <span data-component="IconComponent"
+      data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseDown" }'></span>
+    {{else}}
+    {{card.showMoreDetails.showLessText}}
+    <span data-component="IconComponent"
+      data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseUp" }'></span>
+    {{/if}}
+  </button>
+  {{/if}}
+</div>
+{{/if}}
+{{/inline}}
