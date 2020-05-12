@@ -1,5 +1,4 @@
 <div class="HitchhikerLinkStandard {{cardName}}">
-  {{> image}}
   <div class="HitchhikerLinkStandard-body">
     {{> title}}
     {{> subtitle}}
@@ -8,14 +7,6 @@
     </div>
   </div>
 </div>
-
-{{#*inline 'image'}}
-{{#if card.image}}
-<div class="HitchhikerLinkStandard-imgWrapper">
-  <img src="{{card.image}}" alt="{{#if card.altText}}{{card.altText}}{{/if}}"/>
-</div>
-{{/if}}
-{{/inline}}
 
 {{#*inline 'title'}}
 {{#if card.title}}
