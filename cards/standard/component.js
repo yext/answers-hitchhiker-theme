@@ -23,7 +23,7 @@ class standardCardComponent extends BaseCard['standard'] {
       url: profile.website || profile.landingPageUrl, // If the card title is a clickable link, set URL here
       target: '_top', // If the title's URL should open in a new tab, etc.
       // image: '', // The URL of the image to display on the card
-      // tagLabel: '', // The label of the displayed image
+      // altText: '', // The alternate text for the image
       titleEventOptions: this.addDefaultEventOptions(),
       // subtitle: '', // The sub-header text of the card
       details: profile.description, // The text in the body of the card
