@@ -18,4 +18,18 @@ ANSWERS.addComponent('Map', Object.assign({},
     {{{json mapConfig}}},
   {{/if}}
 {{/with}}
-{{{ json componentSettings.Map }}}));
+{{{ json componentSettings.Map }}},
+{
+  {{!-- Add theme default map pin, add first with defaults.
+  The componentSettings overrides verticalsToConfig; if
+  both are absent, use defaults. --}}
+  pin: {{> templates/vertical-map/script/mappin }},
+  {{#with (lookup verticalsToConfig verticalKey)}}
+    {{#with mapConfig.pin}}
+      pin: {{> templates/vertical-map/script/mappin }},
+    {{/with}}
+  {{/with}}
+  {{#with componentSettings.mapConfig.pin}}
+    pin: {{> templates/vertical-map/script/mappin }},
+  {{/with}}
+}));

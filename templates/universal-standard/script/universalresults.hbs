@@ -41,8 +41,16 @@ ANSWERS.addComponent('UniversalResults', Object.assign({}, {
   {{/if}}
   {{#if mapConfig}}
     mapConfig: Object.assign({
-      apiKey: HitchhikerJS.getDefaultMapApiKey('{{ mapConfig.mapProvider }}')
-    }, {{{ json mapConfig }}}),
+      apiKey: HitchhikerJS.getDefaultMapApiKey('{{ mapConfig.mapProvider }}'),
+    },
+    {{{ json mapConfig }}},
+    {{!-- This theme pin config must come after mapConfig in Object.assign --}}
+    {
+      pin: {{> templates/universal-standard/script/mappin }},
+      {{#with mapConfig.pin}}
+        pin: {{> templates/universal-standard/script/mappin }},
+      {{/with}}
+    }),
   {{/if}}
   {{#if universalLimit}}
     transformData: (data) => {
