@@ -24,6 +24,15 @@
       {{/with}}
       {{{ json global_config }}},
       {
+        {{#with (lookup verticalsToConfig verticalKey)}}
+          {{#if verticalLimit}}
+            search: {
+              limit: {{verticalLimit}},
+            },
+          {{/if}}
+        {{/with}}
+      },
+      {
         onReady: () => {
           {{> @partial-block }}
 
