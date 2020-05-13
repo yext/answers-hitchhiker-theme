@@ -19,10 +19,6 @@
       // Additional options are available in the documentation
     },
     **/
-    "Map": {
-      "mapProvider": "MapBox", // The name of the provider (e.g. Mapbox, Google)
-      // "apiKey": "" // This is provided by the theme, unless you would like to use your own
-    },
     "SearchBar": {
       "placeholderText": "Search" // The placeholder text in the answers search bar
     },
@@ -38,7 +34,10 @@
     "<REPLACE ME>": { // The vertical key from your search configuration
       // "label": "", // The name of the vertical in the section header and the navigation bar
       "cardType": "location-standard", // The name of the card to use - e.g. accordion, location, customcard 
-      "icon": "pin" // The icon to use on the card for this vertical
+      "icon": "pin", // The icon to use on the card for this vertical
+      "mapConfig": {
+        "mapProvider": "MapBox" // The name of the provider (e.g. Mapbox, Google)
+      }
     }
   }
 }
