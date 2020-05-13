@@ -8,10 +8,6 @@
     strokeColor: '{{#if pin.strokeColor}}{{pin.strokeColor}}{{else}}black{{/if}}',
   }
 
-  config.label = {
-    text: undefined, // Since our SVG has a label, we do not want to use the built-in one.
-  };
-
   const svg = 
     `<svg xmlns="http://www.w3.org/2000/svg"
          width="${pinStyling.width}"
@@ -35,6 +31,8 @@
   {{!-- Account for interface differences between GoogleMapProvider and MapboxMapProvider --}}
   if (mapProvider === 'google') {
     config.svg = svg;
+    {{!-- Don't use the sdk's built-in label for GoogleMapProvider --}}
+    config.label = {};
   } else if (mapProvider === 'mapbox') {
     const el = document.createElement('img');
     el.src = `data:image/svg+xml;charset=utf-8, ${encodeURIComponent(svg)}`;
