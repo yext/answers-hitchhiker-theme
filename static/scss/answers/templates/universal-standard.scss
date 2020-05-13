@@ -9,11 +9,12 @@
   &-filtersAndResults
   {
     display: flex;
+    flex-direction: column;
+  }
 
-    @include bplte(xs)
-    {
-      flex-direction: column;
-    }
+  &-directAnswer
+  {
+    margin-bottom: $base-spacing;
   }
 
   &-universalResults
