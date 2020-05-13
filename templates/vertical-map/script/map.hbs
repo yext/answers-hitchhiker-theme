@@ -24,13 +24,13 @@ ANSWERS.addComponent('Map', Object.assign({},
         componentSettings overrides verticalsToConfig,
         if both are absent, use defaults. --}}
   pin:
-    {{#if componentSettings.Map.pin}}
-      {{> templates/vertical-map/script/mappin componentSettings.Map.pin}},
-    {{else if (lookup verticalsToConfig verticalKey)}}
-      {{#with (lookup verticalsToConfig verticalKey)}}
-        {{> templates/vertical-map/script/mappin mapConfig.pin}},
-      {{/with}}
+    {{#if componentSettings.Map.mapProvider}}
+      {{> templates/vertical-map/script/mappin componentSettings.Map}},
     {{else}}
-      {{> templates/vertical-map/script/mappin }},
+      {{#with (lookup verticalsToConfig verticalKey)}}
+        {{#if mapConfig}}
+          {{> templates/vertical-map/script/mappin mapConfig}},
+        {{/if}}
+      {{/with}}
     {{/if}}
 }));
