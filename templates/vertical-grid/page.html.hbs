@@ -1,0 +1,39 @@
+{{#> partials/layouts/html }}
+  <div>
+    {{#> script/core }}
+      {{> cards/all}}
+      {{> templates/vertical-grid/script/searchbar}}
+      {{> templates/vertical-grid/script/spellcheck}}
+      {{> templates/vertical-grid/script/navigation}}
+      {{> templates/vertical-grid/script/verticalresults}}
+      {{> templates/vertical-grid/script/pagination}}
+      {{> templates/vertical-grid/script/locationbias}}
+      {{!-- {{> templates/vertical-grid/script/sortoptions}} --}}
+      {{!-- {{> templates/vertical-grid/script/facets}} --}}
+      {{!-- {{> templates/vertical-grid/script/filterbox}} --}}
+      {{!-- {{> templates/vertical-grid/script/qasubmission}} --}}
+    {{/script/core}}
+    <div class="Answers AnswersVerticalGrid">
+      <div class="Answers-navWrapper">
+        <div class="Answers-container">
+          {{> templates/vertical-grid/markup/searchbar }}
+          {{> templates/vertical-grid/markup/navigation}}
+        </div>
+      </div>
+      <div class="Answers-container Answers-resultsWrapper">
+        {{> templates/vertical-grid/markup/spellcheck }}
+        {{!-- {{> templates/vertical-grid/markup/sortoptions}} --}}
+        {{!-- {{> templates/vertical-grid/markup/facets}} --}}
+        {{!-- {{> templates/vertical-grid/markup/filterbox}} --}}
+        <div class="Answers-filtersAndResults">
+          {{> templates/vertical-grid/markup/verticalresults }}
+        </div>
+        {{> templates/vertical-grid/markup/pagination }}
+        {{!-- {{> templates/vertical-grid/markup/qasubmission }} --}}
+      </div>
+    </div>
+    <footer class="Answers-footer">
+      {{> templates/vertical-grid/markup/locationbias }}
+    </footer>
+  </div>
+{{/partials/layouts/html }}
