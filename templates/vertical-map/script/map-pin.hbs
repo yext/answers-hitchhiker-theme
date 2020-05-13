@@ -31,7 +31,7 @@
   {{!-- Account for interface differences between GoogleMapProvider and MapboxMapProvider --}}
   if (mapProvider === 'google') {
     config.svg = svg;
-    {{!-- Don't use google's built-in labels --}}
+    {{!-- Don't use the sdk's built-in label for GoogleMapProvider --}}
     config.label = {};
   } else if (mapProvider === 'mapbox') {
     const el = document.createElement('img');
