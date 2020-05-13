@@ -36,10 +36,8 @@ ANSWERS.addComponent('UniversalResults', Object.assign({}, {
   {{/if}}
   {{#if iconUrl}}sectionTitleIconUrl: '{{iconUrl}}',{{/if}}
   viewAllText: {{#if viewAllText}}'{{viewAllText}}'{{else}}'View All'{{/if}},
-  {{#if includeMap}}
-    includeMap: {{includeMap}},
-  {{/if}}
   {{#if mapConfig}}
+    includeMap: true,
     mapConfig: Object.assign({
       apiKey: HitchhikerJS.getDefaultMapApiKey('{{ mapConfig.mapProvider }}')
     }, {{{ json mapConfig }}}),
