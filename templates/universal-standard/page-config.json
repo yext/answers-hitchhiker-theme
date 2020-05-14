@@ -10,6 +10,9 @@
       "privacyPolicyUrl": "" // The fully qualified URL to the privacy policy
     },
     **/
+    "DirectAnswer": {
+      "footerText": "Was this what you were looking for?"
+    },
     "SearchBar": {
       "placeholderText": "Search" // The placeholder text in the answers search bar
     }
