@@ -25,7 +25,8 @@
     "VerticalResults": {
       "noResults": {
         "displayAllResults": true // Optional, whether to display all results in the vertical when no results are found.
-      }
+      },
+      "maxNumberOfColumns": 3 // The max number of columns to show for results
     }
   },
   // Configuration used to define the look and feel of the vertical, both on this page and, by default,
