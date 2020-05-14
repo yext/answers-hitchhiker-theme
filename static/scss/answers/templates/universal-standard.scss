@@ -15,6 +15,14 @@
   &-directAnswer
   {
     margin-bottom: $base-spacing;
+    
+    .yxt-DirectAnswer-footer
+    {
+      padding: 1rem;
+      @include bplte(xs) {
+        padding: 1.5rem 1rem;
+      }
+    }
   }
 
   &-universalResults
