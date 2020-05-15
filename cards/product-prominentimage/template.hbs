@@ -13,7 +13,7 @@
 {{#*inline 'image'}}
 {{#if card.image}}
 <div class="HitchhikerProductProminentImage-imgWrapper">
-  <img src="{{card.image}}"{{#if card.altText}} alt="{{card.altText}}"{{/if}}/>
+  <img src="{{card.image}}" alt="{{#if card.altText}}{{card.altText}}{{/if}}" />
 </div>
 {{/if}}
 {{/inline}}
@@ -23,10 +23,10 @@
 <div class="HitchhikerProductProminentImage-title">
   {{#if card.url}}
   <a class="HitchhikerProductProminentImage-titleLink"
-     href="{{card.url}}"
-     target={{#if card.target}}"{{card.target}}"{{else}}"_top"{{/if}}
-     data-eventtype="TITLE_CLICK"
-     data-eventoptions='{{json card.titleEventOptions}}'>
+    href="{{card.url}}"
+    target={{#if card.target}}"{{card.target}}"{{else}}"_top"{{/if}}
+    data-eventtype="TITLE_CLICK"
+    data-eventoptions='{{json card.titleEventOptions}}'>
     {{card.title}}
   </a>
   {{else}}
@@ -79,20 +79,20 @@
 {{#*inline 'CTA'}}
 {{#if (all url label)}}
 <div class="HitchhikerProductProminentImage-{{ctaName}}">
-  <a class="Hitchhiker-cta js-Hitchhiker-cta{{#if modifiers}} {{modifiers}}{{/if}}"
-     href="{{url}}"
-     data-eventtype="{{eventType}}"
-     data-eventoptions='{{json eventOptions}}'
-     target="{{#if target}}{{target}}{{else}}_top{{/if}}">
+  <a class="HitchhikerCTA js-HitchhikerCTA{{#if modifiers}} {{modifiers}}{{/if}}"
+    href="{{url}}"
+    data-eventtype="{{eventType}}"
+    data-eventoptions='{{json eventOptions}}'
+    target="{{#if target}}{{target}}{{else}}_top{{/if}}">
     {{#if (any iconName iconUrl)}}
-    <div class="Hitchhiker-cta-iconWrapper">
-      <div class="Hitchhiker-cta-icon"
-           data-component="IconComponent"
-           data-opts='{"iconName": "{{iconName}}","iconUrl": "{{iconUrl}}"}'>
+    <div class="HitchhikerCTA-iconWrapper">
+      <div class="HitchhikerCTA-icon"
+        data-component="IconComponent"
+        data-opts='{"iconName": "{{iconName}}","iconUrl": "{{iconUrl}}"}'>
       </div>
     </div>
     {{/if}}
-    <div class='Hitchhiker-cta-iconLabel'>
+    <div class='HitchhikerCTA-iconLabel'>
       {{label}}
     </div>
   </a>
