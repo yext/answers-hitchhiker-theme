@@ -79,12 +79,15 @@
 {{#*inline 'CTA'}}
 {{#if (all url label)}}
 <div class="HitchhikerProductProminentImage-{{ctaName}}">
-  <a class="HitchhikerCTA js-HitchhikerCTA{{#if modifiers}} {{modifiers}}{{/if}}" href="{{url}}"
-    data-eventtype="{{eventType}}" data-eventoptions='{{json eventOptions}}'
+  <a class="HitchhikerCTA js-HitchhikerCTA{{#if modifiers}} {{modifiers}}{{/if}}"
+    href="{{url}}"
+    data-eventtype="{{eventType}}"
+    data-eventoptions='{{json eventOptions}}'
     target="{{#if target}}{{target}}{{else}}_top{{/if}}">
     {{#if (any iconName iconUrl)}}
     <div class="HitchhikerCTA-iconWrapper">
-      <div class="HitchhikerCTA-icon" data-component="IconComponent"
+      <div class="HitchhikerCTA-icon"
+        data-component="IconComponent"
         data-opts='{"iconName": "{{iconName}}","iconUrl": "{{iconUrl}}"}'>
       </div>
     </div>
