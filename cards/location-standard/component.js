@@ -21,7 +21,7 @@ class location_standardCardComponent extends BaseCard['location-standard'] {
       // subtitle: '', // The sub-header text of the card
       hours: Formatter.openStatus(profile),
       // services: [], // Used for a comma delimited list of services for the location
-      address: profile.address, // The address for the card
+      address: Formatter.address(profile), // The address for the card
       phone: Formatter.nationalizedPhoneDisplay(profile), // The phone number for the card
       phoneEventOptions: this.addDefaultEventOptions(), // The analytics event options for phone clicks
       distance: Formatter.toMiles(profile), // Distance from the user’s or inputted location

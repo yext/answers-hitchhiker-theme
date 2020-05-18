@@ -1,4 +1,4 @@
-{{! Some partials here use the result.ordinal parameter, a reserved value automatically provided to 
+{{! Some partials here use the result.ordinal parameter, a reserved value automatically provided to
     any card template. This value contains the ordinal of the card.
 }}
 
@@ -27,20 +27,12 @@
 </div>
 </div>
 
-{{#*inline 'Address'}}
+{{#*inline 'address'}}
+{{#if card.address}}
 <div class="HitchhikerLocationStandard-address">
-  <div class="HitchhikerLocationStandard-addressRow">
-    {{line1}}
-  </div>
-  {{#if line2}}
-  <div class="HitchhikerLocationStandard-addressRow">
-    {{line2}}
-  </div>
-  {{/if}}
-  <div class="HitchhikerLocationStandard-addressRow">
-    {{#if city}}{{city}}, {{/if}}{{region}} {{postalCode}}
-  </div>
+  {{{card.address}}}
 </div>
+{{/if}}
 {{/inline}}
 
 {{#*inline 'phone'}}
@@ -123,9 +115,7 @@
 <div class="HitchhikerLocationStandard-contactInfo">
   {{#if (any card.phone card.address)}}
   <div class="HitchhikerLocationStandard-core">
-    {{#with card.address}}
-    {{> Address}}
-    {{/with}}
+    {{> address}}
     {{> phone}}
   </div>
   {{/if}}

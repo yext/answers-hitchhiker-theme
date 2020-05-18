@@ -5,6 +5,14 @@ import { parsePhoneNumberFromString } from 'libphonenumber-js'
  * of profile information.
  */
 export default class Formatters {
+    static address(profile) {
+      return components__address__i18n__addressForCountry({
+        profile: profile,
+        derivedData: {address: {stateName: ''}},
+        regionAbbr: true,
+      });
+    }
+
     static phoneLink(profile, key = 'mainPhone') {
         if (!profile[key]) {
             return '';
