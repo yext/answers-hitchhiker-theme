@@ -33,7 +33,7 @@ class job_standardCardComponent extends BaseCard['job-standard'] {
       CTA1: {
         label: 'Apply Now', // The CTA's label
         iconName: 'briefcase', // The icon to use for the CTA
-        url: profile.website, // The URL a user will be directed to when clicking
+        url: profile.applicationUrl || profile.landingPageUrl, // The URL a user will be directed to when clicking
         target: '_top', // Where the new URL will be opened
         eventType: 'CTA_CLICK', // Type of Analytics event fired when clicking the CTA
         eventOptions: this.addDefaultEventOptions()
