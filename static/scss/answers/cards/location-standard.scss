@@ -124,7 +124,9 @@
 
   &-address
   {
-    white-space: nowrap;
+    .c-AddressRow:last-child {
+      display: none;
+    }
   }
 
   &-phone
