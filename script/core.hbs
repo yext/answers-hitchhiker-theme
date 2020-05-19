@@ -1,5 +1,11 @@
-<link rel="stylesheet" type="text/css" href="https://assets.sitescdn.net/answers/v1.1/answers.css">
-<script src="https://assets.sitescdn.net/answers/v1.1/answerstemplates.compiled.min.js"></script>
+<script>
+  const sdkVersion = '{{global_config.sdkVersion}}';
+  if (!sdkVersion) {
+    console.error('ERROR: no sdkVersion specified, please specify an sdkVersion in the global_config.');
+  }
+</script>
+<link rel="stylesheet" type="text/css" href="https://assets.sitescdn.net/answers/v{{global_config.sdkVersion}}/answers.css">
+<script src="https://assets.sitescdn.net/answers/v{{global_config.sdkVersion}}/answerstemplates.compiled.min.js"></script>
 <script>
   function initAnswers() {
     const JAMBO_INJECTED_DATA = {{{json env.JAMBO_INJECTED_DATA}}} || {};
@@ -52,5 +58,5 @@
     ));
   };
 </script>
-<script src="https://assets.sitescdn.net/answers/v1.1/answers.min.js" onload="initAnswers()" async></script>
+<script src="https://assets.sitescdn.net/answers/v{{global_config.sdkVersion}}/answers.min.js" onload="initAnswers()" async></script>
 
