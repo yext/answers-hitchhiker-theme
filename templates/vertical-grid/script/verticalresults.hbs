@@ -20,6 +20,15 @@ ANSWERS.addComponent('VerticalResults', Object.assign({}, {
         url: {{#if url}}'{{url}}'{{else}}'{{@key}}.html'{{/if}},
         {{/with}}
       }{{#unless @last}},{{/unless}}
+      {{else}}
+      {
+      {{#with (lookup verticalsToConfig 'Universal')}}
+        {{#if isFirst}}isFirst: {{isFirst}},{{/if}}
+        {{#if icon}}icon: '{{icon}}',{{/if}}
+        label: {{#if label}}'{{label}}'{{else}}'{{@key}}'{{/if}},
+        url: {{#if url}}'{{url}}'{{else}}'{{@key}}.html'{{/if}}
+      {{/with}}
+      }{{#unless @last}},{{/unless}}
       {{/if}}
     {{/each}}
   ],
