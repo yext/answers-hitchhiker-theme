@@ -3,14 +3,14 @@
   &-resultsWrapper
   {
     flex-grow: 1;
-    padding-top: $base-spacing;
+    padding-top: var(--hh-base-spacing);
 
     &--withFilters
     {
       @include bpgte(sm)
       {
         max-width: 100%;
-        width: $answers-container-width-filters;
+        width: var(--hh-answers-container-width-filters);
       }
 
       .Answers-verticalResults

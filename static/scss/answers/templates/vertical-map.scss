@@ -13,15 +13,15 @@
 
   .yxt-SpellCheck
   {
-    padding: $base-spacing;
+    padding: var(--hh-base-spacing);
     margin-top: 0;
   }
 
   .yxt-NoResults
   {
-    padding-bottom: $base-spacing;
-    padding-left: $base-spacing;
-    padding-right: $base-spacing;
+    padding-bottom: var(--hh-base-spacing);
+    padding-left: var(--hh-base-spacing);
+    padding-right: var(--hh-base-spacing);
   }
 
   &-resultsColumn
@@ -34,7 +34,7 @@
       @include bpgte(sm)
       {
         max-width: 100%;
-        width: $answers-container-width-filters;
+        width: var(--hh-answers-container-width-filters);
       }
     }
 
@@ -58,7 +58,7 @@
 
   &-sortOptions
   {
-    padding: 0 $base-spacing;
+    padding: 0 var(--hh-base-spacing);
   }
 
   &-map
@@ -75,6 +75,6 @@
 
   &-qaSubmission
   {
-    background-color: $gray-5;
+    background-color: $gray-5; // TODO(creotutar) this is a variable in common variables
   }
 }

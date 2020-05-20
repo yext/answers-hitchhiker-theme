@@ -1,9 +1,9 @@
 .HitchhikerMenuItemStandard
 {
   display: flex;
-  font-size: $font-size-md;
-  background-color: $color-brand-white;
-  padding: $base-spacing;
+  font-size: var(--hh-font-size-md);
+  background-color: var(--hh-color-brand-white);
+  padding: var(--hh-base-spacing);
 
 
   &-detailsText
@@ -38,9 +38,9 @@
   &-title
   {
     text-decoration: none;
-    font-size: $font-size-lg;
-    line-height: $line-height-lg;
-    font-weight: $font-weight-semibold;
+    font-size: var(--hh-font-size-lg);
+    line-height: var(--hh-line-height-lg);
+    font-weight: var(--hh-font-weight-semibold);
     max-width: 100%;
     overflow-wrap: normal;
   }
@@ -52,27 +52,27 @@
 
   &-subtitle
   {
-    color: $color-text-secondary;
+    color: var(--hh-color-text-secondary);
     padding-bottom: 0;
-    margin-bottom: $base-spacing / 2;
+    margin-bottom: calc(var(--hh-base-spacing) / 2);
   }
 
   &-listTitle
   {
-    font-weight: $font-weight-semibold;
+    font-weight: var(--hh-font-weight-semibold);
   }
 
   &-listItems {
-    padding-top: $base-spacing / 4;
+    padding-top: calc(var(--hh-base-spacing) / 4);
     list-style-type: disc;
     list-style-position: inside;
-    padding-bottom: $base-spacing / 2;
+    padding-bottom: calc(var(--hh-base-spacing) / 2);
   }
 
   &-content
   {
     line-height: 1.4;
-    margin-top: $base-spacing / 2;
+    margin-top: calc(var(--hh-base-spacing) / 2);
   }
 
   &-imgWrapper
@@ -90,11 +90,11 @@
   &-ctasWrapper
   {
     text-transform: uppercase;
-    margin-top: $base-spacing / 2;
+    margin-top: calc(var(--hh-base-spacing) / 2);
 
     @media (min-width: $breakpoint-mobile-max)
     {
-      margin-left: $base-spacing / 2;
+      margin-left: calc(var(--hh-base-spacing) / 2);
       justify-content: center;
     }
   }
@@ -103,6 +103,6 @@
   &-secondaryCTA
   {
     display: flex;
-    margin-top: $base-spacing / 2;
+    margin-left: calc(var(--hh-base-spacing) / 2);
   }
 }

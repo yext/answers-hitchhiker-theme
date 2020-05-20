@@ -3,19 +3,19 @@
   @include Link;
 
   display: flex;
-  font-size: $font-size-md;
-  font-weight: $font-weight-semibold;
+  font-size: var(--hh-font-size-md);
+  font-weight: var(--hh-font-weight-semibold);
   text-align: center;
   text-decoration: none;
   cursor: pointer;
-  color: $color-brand-primary;
+  color: var(--hh-color-brand-primary);
   border-radius: .25rem;
   min-width: 3.75rem;
 
   &-iconWrapper
   {
     display: flex;
-    padding-right: $base-spacing / 2;
+    padding-right: calc(var(--hh-base-spacing) / 2);
   }
 
   &-iconLabel

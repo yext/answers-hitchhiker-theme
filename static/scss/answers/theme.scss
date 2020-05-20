@@ -7,7 +7,7 @@
   flex-wrap: wrap;
   flex-grow: 1;
   position: relative;
-  min-height: 30 * $autocomplete-text-font-size; // min height for autocomplete w 10 items
+  min-height: calc(30 * var(--yxt-autocomplete-text-font-size)); // min height for autocomplete w 10 items
 
   &-container
   {
@@ -17,7 +17,7 @@
 
     @include bpgte(sm)
     {
-      width: $answers-container-width;
+      width: var(--hh-answers-container-width);
     }
   }
 
@@ -26,8 +26,8 @@
   {
     @include bplte(xs)
     {
-      padding-left: $base-spacing;
-      padding-right: $base-spacing;
+      padding-left: var(--hh-base-spacing);
+      padding-right: var(--hh-base-spacing);
     }
   }
 
@@ -42,10 +42,10 @@
     position: sticky;
     top: 0;
     left: 0;
-    border-bottom: $border-2;
-    background-color: $answers-background-color;
+    border-bottom: 1px solid #dcdcdc;
+    background-color: var(--hh-answers-background-color);
     width: 100%;
-    padding-top: $base-spacing;
+    padding-top: var(--hh-base-spacing);
     z-index: 99;
   }
 
@@ -57,11 +57,11 @@
     justify-content: center;
     padding-top: 24px;
     padding-bottom: 24px;
-    margin-top: $base-spacing;
-    background-color: $answers-background-color;
+    margin-top: var(--hh-base-spacing);
+    background-color: var(--hh-answers-background-color);
   }
 
   &-pagination {
-    padding-top: $base-spacing / 2;
+    padding-top: calc(var(--hh-base-spacing) / 2);
   }
 }

@@ -1,10 +1,10 @@
 .HitchhikerLinkStandard
 {
   display: flex;
-  font-size: $font-size-md;
-  line-height: $line-height-md;
-  background-color: $color-brand-white;
-  padding: $base-spacing;
+  font-size: var(--hh-font-size-md);
+  line-height: var(--hh-line-height-md);
+  background-color: var(--hh-color-brand-white);
+  padding: var(--hh-base-spacing);
 
   &-body
   {
@@ -27,9 +27,9 @@
 
   &-title
   {
-    font-size: $font-size-lg;
-    line-height: $line-height-lg;
-    font-weight: $font-weight-semibold;
+    font-size: var(--hh-font-size-lg);
+    line-height: var(--hh-line-height-lg);
+    font-weight: var(--hh-font-weight-semibold);
   }
 
   &-titleLink
@@ -51,13 +51,13 @@
 
   &-subtitle
   {
-    color: $color-text-secondary;
+    color: var(--hh-color-text-secondary);
     padding-bottom: 0;
   }
 
   &-cardDetails
   {
-    margin-top: $base-spacing / 2;
+    margin-top: calc(var(--hh-base-spacing) / 2);
   }
 
   &-detailsText
