@@ -61,6 +61,11 @@
     background-color: var(--hh-answers-background-color);
   }
 
+  &-footerLink
+  {
+    display: flex;
+  }
+
   &-pagination {
     padding-top: calc(var(--hh-base-spacing) / 2);
   }

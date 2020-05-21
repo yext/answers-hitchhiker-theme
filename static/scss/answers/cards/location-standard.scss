@@ -9,8 +9,8 @@ $location-standard-ordinal-dimensions: calc(var(--hh-location-standard-base-spac
 .HitchhikerLocationStandard
 {
   display: flex;
-  font-size: .875rem;
-  line-height: 1.4;
+  font-size: var(--hh-font-size-md);
+  line-height: var(--hh-line-height-md);
   background-color: var(--hh-color-brand-white);
   padding: var(--hh-location-standard-base-spacing);
 
@@ -94,9 +94,14 @@ $location-standard-ordinal-dimensions: calc(var(--hh-location-standard-base-spac
     align-items: flex-start;
     position: relative;
     width: 6.25rem;
-    min-width: 6.25rem;
     margin-right: 1rem;
     margin-top: calc(var(--hh-location-standard-base-spacing) / 2);
+  }
+
+  &-img
+  {
+    width: 100%;
+    height: auto;
   }
 
   &-imgTagWrapper

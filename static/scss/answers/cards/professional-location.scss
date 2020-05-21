@@ -10,12 +10,13 @@ $professional-location-ordinal-dimensions: 18px !default;
 {
   display: flex;
   font-size: var(--hh-font-size-md);
+  line-height: var(--hh-line-height-md);
   background-color: var(--hh-color-brand-white);
   padding: var(--hh-professional-location-spacing);
 
   &-body
   {
-    flex-grow: 1;
+    width: 100%;
   }
 
   &-contentWrapper
@@ -37,8 +38,13 @@ $professional-location-ordinal-dimensions: 18px !default;
     display: flex;
     align-items: flex-start;
     width: 6.25rem;
-    min-width: 6.25rem;
     margin-right: 1rem;
+  }
+
+  &-img
+  {
+    width: 100%;
+    height: auto;
   }
 
   &-ordinal {

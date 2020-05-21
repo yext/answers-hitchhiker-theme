@@ -8,7 +8,7 @@
     strokeColor: '{{#if pin.strokeColor}}{{pin.strokeColor}}{{else}}black{{/if}}',
   }
 
-  const svg = 
+  const svg =
     `<svg xmlns="http://www.w3.org/2000/svg"
          width="${pinStyling.width}"
          height="${pinStyling.height}"
@@ -33,6 +33,10 @@
     config.svg = svg;
     {{!-- Don't use the sdk's built-in label for GoogleMapProvider --}}
     config.label = {};
+    config.scaledSize = {
+      w: pinStyling.width,
+      h: pinStyling.height,
+    };
   } else if (mapProvider === 'mapbox') {
     const el = document.createElement('img');
     el.src = `data:image/svg+xml;charset=utf-8, ${encodeURIComponent(svg)}`;
