@@ -3,6 +3,12 @@
   background-color: var(--hh-color-brand-white);
   border-top: none;
 
+  &:hover,
+  &:focus
+  {
+    background-color: var(--hh-color-background-highlight);
+  }
+
   &-toggle
   {
     display: flex;
@@ -12,7 +18,7 @@
     width: 100%;
     padding: calc(var(--hh-base-spacing) / 2) var(--hh-base-spacing);
     padding-bottom: 10px;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
     &:hover,
     &:focus
@@ -24,7 +30,7 @@
   &-toggle svg
   {
     height: 16px;
-    width:  12px;
+    width: 12px;
     color: var(--hh-color-brand-primary);
   }
 
@@ -34,7 +40,7 @@
       $size: var(--hh-base-spacing),
       $color: var(--hh-color-brand-primary),
       $line-height: var(--hh-line-height-lg),
-      $weight: var(--hh-font-weight-semibold),
+      $weight: var(--hh-font-weight-semibold)
     );
   }
 
@@ -97,6 +103,7 @@
     display: flex;
     flex-direction: column;
     margin: calc(var(--hh-base-spacing) / 2) var(--hh-base-spacing);
+    padding-bottom: calc(var(--hh-base-spacing) / 2);
   }
 
   &-primaryCTA,
