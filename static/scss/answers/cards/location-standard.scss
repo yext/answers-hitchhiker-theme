@@ -1,31 +1,36 @@
+$location-standard-base-spacing: var(--hh-base-spacing) !default;
+$location-standard-ordinal-dimensions: calc(var(--hh-location-standard-base-spacing) * 9/8) !default;
+
+:root {
+  --hh-location-standard-base-spacing: #{$location-standard-base-spacing};
+  --hh-location-standard-ordinal-dimensions: #{$location-standard-ordinal-dimensions};
+}
+
 .HitchhikerLocationStandard
 {
-  $location-standard-base-spacing: $base-spacing !default;
-  $location-standard-ordinal-dimensions: $location-standard-base-spacing * 9/8 !default;
-
   display: flex;
   font-size: .875rem;
   line-height: 1.4;
-  background-color: $color-brand-white;
-  padding: $location-standard-base-spacing;
+  background-color: var(--hh-color-brand-white);
+  padding: var(--hh-location-standard-base-spacing);
 
   &-ordinal {
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    margin-top: $location-standard-base-spacing * 1/4;
-    margin-right: $location-standard-base-spacing * 3/4;
-    width: $location-standard-ordinal-dimensions;
-    height: $location-standard-ordinal-dimensions;
-    background-color: $color-brand-primary;
+    margin-top: calc(var(--hh-location-standard-base-spacing) * 1/4);
+    margin-right: calc(var(--hh-location-standard-base-spacing) * 3/4);
+    width: var(--hh-location-standard-ordinal-dimensions);
+    height: var(--hh-location-standard-ordinal-dimensions);
+    background-color: var(--hh-color-brand-primary);
     border: solid black 1px;
     text-align: center;
     @include Text(
       $color: white,
-      $size: $font-size-xs,
-      $line-height: $line-height-xs,
-      $weight: $font-weight-bold,
+      $size: var(--hh-font-size-xs),
+      $line-height: var(--hh-line-height-xs),
+      $weight: var(--hh-font-weight-bold),
     );
   }
 
@@ -66,9 +71,9 @@
 
   &-subtitle
   {
-    color: $color-text-secondary;
+    color: var(--hh-color-text-secondary);
     padding-bottom: 0;
-    margin-top: $location-standard-base-spacing / 2;
+    margin-top: calc(var(--hh-location-standard-base-spacing) / 2);
   }
 
   &-content
@@ -91,7 +96,7 @@
     width: 6.25rem;
     min-width: 6.25rem;
     margin-right: 1rem;
-    margin-top: $location-standard-base-spacing / 2;
+    margin-top: calc(var(--hh-location-standard-base-spacing) / 2);
   }
 
   &-imgTagWrapper
@@ -114,11 +119,11 @@
 
   &-core
   {
-    margin-top: $location-standard-base-spacing / 2;
+    margin-top: calc(var(--hh-location-standard-base-spacing) / 2);
 
     @media (min-width: $breakpoint-mobile-max)
     {
-      padding-right: $location-standard-base-spacing * 2;
+      padding-right: calc(var(--hh-location-standard-base-spacing) * 2);
     }
   }
 
@@ -132,8 +137,8 @@
   &-phone
   {
     display: flex;
-    font-weight: $font-weight-semibold;
-    margin-top: $location-standard-base-spacing / 2;
+    font-weight: var(--hh-font-weight-semibold);
+    margin-top: calc(var(--hh-location-standard-base-spacing) / 2);
   }
 
   &-phone--desktop {
@@ -158,39 +163,39 @@
   &-details
   {
     @include rich_text_formatting;
-    margin-top: $location-standard-base-spacing / 2;
+    margin-top: calc(var(--hh-location-standard-base-spacing) / 2);
   }
 
   &-hoursText
   {
-    margin-top: $location-standard-base-spacing / 2;
+    margin-top: calc(var(--hh-location-standard-base-spacing) / 2);
   }
 
   .Hours-statusText--current
   {
-    font-weight: $font-weight-semibold;
+    font-weight: var(--hh-font-weight-semibold);
   }
 
   &-services
   {
     flex-basis: 100%;
-    margin-top: $location-standard-base-spacing / 2;
+    margin-top: calc(var(--hh-location-standard-base-spacing) / 2);
   }
 
   &-servicesLabel
   {
-    font-weight: $font-weight-semibold;
+    font-weight: var(--hh-font-weight-semibold);
     padding-right: 2px;
   }
 
   &-ctasWrapper
   {
     text-transform: uppercase;
-    margin-top: $location-standard-base-spacing / 2;
+    margin-top: calc(var(--hh-location-standard-base-spacing) / 2);
 
     @media (min-width: $breakpoint-mobile-max)
     {
-      margin-left: $location-standard-base-spacing / 2;
+      margin-left: calc(var(--hh-location-standard-base-spacing) / 2);
       justify-content: center;
     }
   }
@@ -199,6 +204,6 @@
   &-secondaryCTA
   {
     display: flex;
-    margin-top: $location-standard-base-spacing / 2;
+    margin-top: calc(var(--hh-location-standard-base-spacing) / 2);
   }
 }

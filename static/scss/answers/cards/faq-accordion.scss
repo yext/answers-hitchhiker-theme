@@ -1,6 +1,6 @@
 .HitchhikerFaqAccordion
 {
-  background-color: $color-brand-white;
+  background-color: var(--hh-color-brand-white);
   border-top: none;
 
   &-toggle
@@ -10,14 +10,14 @@
     align-items: center;
     cursor: pointer;
     width: 100%;
-    padding: $base-spacing / 2 $base-spacing;
+    padding: calc(var(--hh-base-spacing) / 2) var(--hh-base-spacing);
     padding-bottom: 10px;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
 
     &:hover,
     &:focus
     {
-      background-color: $color-background-highlight;
+      background-color: var(--hh-color-background-highlight);
     }
   }
 
@@ -25,16 +25,16 @@
   {
     height: 16px;
     width:  12px;
-    color: $color-brand-primary;
+    color: var(--hh-color-brand-primary);
   }
 
   &-title
   {
     @include Text(
-      $size: $base-spacing,
-      $color: $color-brand-primary,
-      $line-height: $line-height-lg,
-      $weight: $font-weight-semibold,
+      $size: var(--hh-base-spacing),
+      $color: var(--hh-color-brand-primary),
+      $line-height: var(--hh-line-height-lg),
+      $weight: var(--hh-font-weight-semibold),
     );
   }
 
@@ -69,41 +69,41 @@
 
   &-subtitle
   {
-    font-size: $font-size-md;
-    color: $color-text-secondary;
-    padding-bottom: $base-spacing / 2;
-    margin-left: $base-spacing;
+    font-size: var(--hh-font-size-md);
+    color: var(--hh-color-text-secondary);
+    padding-bottom: calc(var(--hh-base-spacing) / 2);
+    margin-left: var(--hh-base-spacing);
   }
 
   &-details
   {
     @include rich_text_formatting;
 
-    margin: $base-spacing / 2 $base-spacing;
-    font-size: $font-size-md;
-    color: $color-text-primary;
-    line-height: $line-height-md;
+    margin: calc(var(--hh-base-spacing) / 2) var(--hh-base-spacing);
+    font-size: var(--hh-font-size-md);
+    color: var(--hh-color-text-primary);
+    line-height: var(--hh-line-height-md);
   }
 
   &-details-toggle
   {
-    margin-left: $base-spacing;
-    margin-right: $base-spacing;
-    margin-bottom: $base-spacing / 2;
+    margin-left: var(--hh-base-spacing);
+    margin-right: var(--hh-base-spacing);
+    margin-bottom: calc(var(--hh-base-spacing) / 2);
   }
 
   &-ctasWrapper
   {
     display: flex;
     flex-direction: column;
-    margin: $base-spacing / 2 $base-spacing;
+    margin: calc(var(--hh-base-spacing) / 2) var(--hh-base-spacing);
   }
 
   &-primaryCTA,
   &-secondaryCTA
   {
     display: flex;
-    margin-top: $base-spacing / 2;
+    margin-top: calc(var(--hh-base-spacing) / 2);
   }
 
   .HitchhikerCTA
@@ -115,7 +115,7 @@
     {
       display: flex;
       padding-left: 0;
-      padding-right: $base-spacing / 2;
+      padding-right: calc(var(--hh-base-spacing) / 2);
     }
 
     &-iconLabel

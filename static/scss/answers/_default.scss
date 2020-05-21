@@ -2,12 +2,14 @@
 @import "~font-awesome/scss/variables";
 
 // Core variables and mixins
+@import "../common/variables";
+@import "variables";
+@import '../answers-variables';
 @import "../common/fonts";
 @import "../common/mixins";
 @import "../common/base";
 @import "../common/module";
 @import "module";
-@import "variables";
 
 // Utility styling
 @import "utils";

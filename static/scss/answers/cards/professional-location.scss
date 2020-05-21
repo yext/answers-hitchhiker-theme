@@ -1,12 +1,17 @@
+$professional-location-spacing: var(--hh-base-spacing) !default;
+$professional-location-ordinal-dimensions: 18px !default;
+
+:root {
+  --hh-professional-location-spacing: #{$professional-location-spacing};
+  --hh-professional-location-ordinal-dimensions: #{$professional-location-ordinal-dimensions};
+}
+
 .HitchhikerProfessionalLocation
 {
-  $professional-location-spacing: $base-spacing !default;
-  $professional-location-ordinal-dimensions: 18px !default;
-
   display: flex;
-  font-size: $font-size-md;
-  background-color: $color-brand-white;
-  padding: $professional-location-spacing;
+  font-size: var(--hh-font-size-md);
+  background-color: var(--hh-color-brand-white);
+  padding: var(--hh-professional-location-spacing);
 
   &-body
   {
@@ -39,18 +44,18 @@
   &-ordinal {
     padding-top: 3px;
     border-radius: 50%;
-    margin-top: $professional-location-spacing / 4;
-    margin-right: $professional-location-spacing * 3/4;
-    width: $professional-location-ordinal-dimensions;
-    height: $professional-location-ordinal-dimensions;
-    background-color: $color-brand-primary;
+    margin-top: calc(var(--hh-professional-location-spacing) / 4);
+    margin-right: calc(var(--hh-professional-location-spacing) * 3/4);
+    width: var(--hh-professional-location-ordinal-dimensions);
+    height: var(--hh-professional-location-ordinal-dimensions);
+    background-color: var(--hh-color-brand-primary);
     border: solid black 1px;
     text-align: center;
     @include Text(
       $color: white,
-      $size: $font-size-xs,
-      $line-height: $line-height-xs,
-      $weight: $font-weight-bold,
+      $size: var(--hh-font-size-xs),
+      $line-height: var(--hh-line-height-xs),
+      $weight: var(--hh-font-weight-bold),
     );
   }
 
@@ -61,9 +66,9 @@
 
   &-title
   {
-    font-size: $font-size-lg;
-    line-height: $line-height-lg;
-    font-weight: $font-weight-semibold;
+    font-size: var(--hh-font-size-lg);
+    line-height: var(--hh-line-height-lg);
+    font-weight: var(--hh-font-weight-semibold);
   }
 
    &-titleLink
@@ -73,7 +78,7 @@
 
   &-subtitle
   {
-    color: $color-text-secondary;
+    color: var(--hh-color-text-secondary);
     padding-bottom: 0;
   }
 
@@ -85,7 +90,7 @@
 
   &-cardDetails
   {
-    margin-top: $professional-location-spacing / 2;
+    margin-top: calc(var(--hh-professional-location-spacing) / 2);
   }
 
   &-detailsText
@@ -95,20 +100,20 @@
 
   &-listTitle
   {
-    margin-top: $professional-location-spacing / 2;
-    font-weight: $font-weight-semibold;
+    margin-top: calc(var(--hh-professional-location-spacing) / 2);
+    font-weight: var(--hh-font-weight-semibold);
   }
 
   &-list
   {
     list-style-type: disc;
     list-style-position: inside;
-    padding-left: $professional-location-spacing / 2;
+    padding-left: calc(var(--hh-professional-location-spacing) / 2);
   }
 
   &-phone
   {
-    margin-top: $professional-location-spacing / 2;
+    margin-top: calc(var(--hh-professional-location-spacing) / 2);
   }
 
   &-phone--desktop {
@@ -133,12 +138,12 @@
   &-ctasWrapper
   {
     text-transform: uppercase;
-    margin-top: $professional-location-spacing / 2;
+    margin-top: calc(var(--hh-professional-location-spacing) / 2);
 
     @media (min-width: $breakpoint-mobile-max)
     {
       margin-top: 0;
-      margin-left: $professional-location-spacing / 2;
+      margin-left: calc(var(--hh-professional-location-spacing) / 2);
       justify-content: center;
     }
   }
@@ -147,6 +152,6 @@
   &-secondaryCTA
   {
     display: flex;
-    margin-top: $professional-location-spacing / 2;
+    margin-top: calc(var(--hh-professional-location-spacing) / 2);
   }
 }
