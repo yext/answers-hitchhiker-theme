@@ -125,8 +125,8 @@ section
 body
 {
   line-height: normal;
-  font-family: $font-family-main;
-  font-weight: $font-weight-normal;
+  font-family: var(--yxt-font-family);
+  font-weight: var(--yxt-font-weight-normal);
   display: flex;
   flex-direction: column;
   width: 100%;

@@ -4,8 +4,8 @@
 {
     text-align: left;
     @include Text(
-        $color: var(--hh-color-brand-primary),
-        $line-height: var(--hh-line-height-md),
+        $color: var(--yxt-color-brand-primary),
+        $line-height: var(--yxt-line-height-md),
         $style: italic);
     @include TextButton($padding: 0);
 }
