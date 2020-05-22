@@ -49,13 +49,15 @@ module.exports = function () {
           ],
           loader: 'babel-loader',
           query: {
+            presets: [
+              ['@babel/preset-env', {
+                'debug': true
+              }],
+            ],
             plugins: [
-              '@babel/syntax-dynamic-import',
               ['@babel/plugin-transform-runtime', {
                 'corejs': 3
               }],
-              '@babel/plugin-transform-arrow-functions',
-              '@babel/plugin-proposal-object-rest-spread'
             ]
           }
         },
