@@ -50,9 +50,7 @@ module.exports = function () {
           loader: 'babel-loader',
           query: {
             presets: [
-              ['@babel/preset-env', {
-                'debug': true
-              }],
+              '@babel/preset-env',
             ],
             plugins: [
               ['@babel/plugin-transform-runtime', {
