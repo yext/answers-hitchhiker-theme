@@ -1,6 +1,6 @@
 .HitchhikerFaqAccordion
 {
-  background-color: var(--hh-color-brand-white);
+  background-color: var(--yxt-color-brand-white);
   border-top: none;
 
   &:hover,
@@ -16,7 +16,7 @@
     align-items: center;
     cursor: pointer;
     width: 100%;
-    padding: calc(var(--hh-base-spacing) / 2) var(--hh-base-spacing);
+    padding: calc(var(--yxt-base-spacing) / 2) var(--yxt-base-spacing);
     padding-bottom: 10px;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     text-align: left;
@@ -24,7 +24,7 @@
     &:hover,
     &:focus
     {
-      background-color: var(--hh-color-background-highlight);
+      background-color: var(--yxt-color-background-highlight);
     }
   }
 
@@ -32,16 +32,16 @@
   {
     height: 16px;
     width: 12px;
-    color: var(--hh-color-brand-primary);
+    color: var(--yxt-color-brand-primary);
   }
 
   &-title
   {
     @include Text(
-      $size: var(--hh-base-spacing),
-      $color: var(--hh-color-brand-primary),
-      $line-height: var(--hh-line-height-lg),
-      $weight: var(--hh-font-weight-semibold)
+      $size: var(--yxt-base-spacing),
+      $color: var(--yxt-color-brand-primary),
+      $line-height: var(--yxt-line-height-lg),
+      $weight: var(--yxt-font-weight-semibold),
     );
   }
 
@@ -76,42 +76,42 @@
 
   &-subtitle
   {
-    font-size: var(--hh-font-size-md);
-    color: var(--hh-color-text-secondary);
-    padding-bottom: calc(var(--hh-base-spacing) / 2);
-    margin-left: var(--hh-base-spacing);
+    font-size: var(--yxt-font-size-md);
+    color: var(--yxt-color-text-secondary);
+    padding-bottom: calc(var(--yxt-base-spacing) / 2);
+    margin-left: var(--yxt-base-spacing);
   }
 
   &-details
   {
     @include rich_text_formatting;
 
-    margin: calc(var(--hh-base-spacing) / 2) var(--hh-base-spacing);
-    font-size: var(--hh-font-size-md);
-    color: var(--hh-color-text-primary);
-    line-height: var(--hh-line-height-md);
+    margin: calc(var(--yxt-base-spacing) / 2) var(--yxt-base-spacing);
+    font-size: var(--yxt-font-size-md);
+    color: var(--yxt-color-text-primary);
+    line-height: var(--yxt-line-height-md);
   }
 
   &-details-toggle
   {
-    margin-left: var(--hh-base-spacing);
-    margin-right: var(--hh-base-spacing);
-    margin-bottom: calc(var(--hh-base-spacing) / 2);
+    margin-left: var(--yxt-base-spacing);
+    margin-right: var(--yxt-base-spacing);
+    margin-bottom: calc(var(--yxt-base-spacing) / 2);
   }
 
   &-ctasWrapper
   {
     display: flex;
     flex-direction: column;
-    margin: calc(var(--hh-base-spacing) / 2) var(--hh-base-spacing);
-    padding-bottom: calc(var(--hh-base-spacing) / 2);
+    margin: calc(var(--yxt-base-spacing) / 2) var(--yxt-base-spacing);
+    padding-bottom: calc(var(--yxt-base-spacing) / 2);
   }
 
   &-primaryCTA,
   &-secondaryCTA
   {
     display: flex;
-    margin-top: calc(var(--hh-base-spacing) / 2);
+    margin-top: calc(var(--yxt-base-spacing) / 2);
   }
 
   .HitchhikerCTA
@@ -123,7 +123,7 @@
     {
       display: flex;
       padding-left: 0;
-      padding-right: calc(var(--hh-base-spacing) / 2);
+      padding-right: calc(var(--yxt-base-spacing) / 2);
     }
 
     &-iconLabel

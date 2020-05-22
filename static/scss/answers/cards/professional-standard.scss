@@ -1,4 +1,4 @@
-$professional-standard-spacing: var(--hh-base-spacing) !default;
+$professional-standard-spacing: var(--yxt-base-spacing) !default;
 
 :root {
   --hh-professional-standard-spacing: #{$professional-standard-spacing};
@@ -6,8 +6,8 @@ $professional-standard-spacing: var(--hh-base-spacing) !default;
 .HitchhikerProfessionalStandard
 {
   display: flex;
-  font-size: var(--hh-font-size-md);
-  background-color: var(--hh-color-brand-white);
+  font-size: var(--yxt-font-size-md);
+  background-color: var(--yxt-color-brand-white);
   padding: var(--hh-professional-standard-spacing);
 
   &-body
@@ -40,9 +40,9 @@ $professional-standard-spacing: var(--hh-base-spacing) !default;
 
   &-title
   {
-    font-size: var(--hh-font-size-lg);
-    line-height: var(--hh-line-height-lg);
-    font-weight: var(--hh-font-weight-semibold);
+    font-size: var(--yxt-font-size-lg);
+    line-height: var(--yxt-line-height-lg);
+    font-weight: var(--yxt-font-weight-semibold);
   }
 
    &-titleLink
@@ -52,7 +52,7 @@ $professional-standard-spacing: var(--hh-base-spacing) !default;
 
   &-subtitle
   {
-    color: var(--hh-color-text-secondary);
+    color: var(--yxt-color-text-secondary);
     padding-bottom: 0;
   }
 
@@ -69,7 +69,7 @@ $professional-standard-spacing: var(--hh-base-spacing) !default;
   &-listTitle
   {
     margin-top: calc(var(--hh-professional-standard-spacing) / 2);
-    font-weight: var(--hh-font-weight-semibold);
+    font-weight: var(--yxt-font-weight-semibold);
   }
 
   &-list
