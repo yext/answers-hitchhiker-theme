@@ -12,7 +12,7 @@ $professional-standard-spacing: var(--yxt-base-spacing) !default;
 
   &-body
   {
-    flex-grow: 1;
+    width: 100%;
   }
 
   &-contentWrapper
@@ -34,8 +34,13 @@ $professional-standard-spacing: var(--yxt-base-spacing) !default;
     display: flex;
     align-items: flex-start;
     width: 6.25rem;
-    min-width: 6.25rem;
     margin-right: 1rem;
+  }
+
+  &-img
+  {
+    width: 100%;
+    height: auto;
   }
 
   &-title
