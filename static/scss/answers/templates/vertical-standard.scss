@@ -3,7 +3,7 @@
   &-resultsWrapper
   {
     flex-grow: 1;
-    padding-top: var(--hh-base-spacing);
+    padding-top: var(--yxt-base-spacing);
 
     &--withFilters
     {
@@ -27,6 +27,18 @@
     @include bplte(xs)
     {
       flex-direction: column;
+    }
+  }
+
+  &-filtersWrapper {
+    margin-right: calc(var(--hh-base-spacing) * 2);
+    
+    .yxt-FilterBox-container {
+      margin-bottom: var(--hh-base-spacing);
+    }
+
+    .yxt-Facets-container {
+      padding: 0;
     }
   }
 

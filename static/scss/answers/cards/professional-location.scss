@@ -1,4 +1,4 @@
-$professional-location-spacing: var(--hh-base-spacing) !default;
+$professional-location-spacing: var(--yxt-base-spacing) !default;
 $professional-location-ordinal-dimensions: 18px !default;
 
 :root {
@@ -9,9 +9,14 @@ $professional-location-ordinal-dimensions: 18px !default;
 .HitchhikerProfessionalLocation
 {
   display: flex;
+<<<<<<< HEAD
   font-size: var(--hh-font-size-md);
   line-height: var(--hh-line-height-md);
   background-color: var(--hh-color-brand-white);
+=======
+  font-size: var(--yxt-font-size-md);
+  background-color: var(--yxt-color-brand-white);
+>>>>>>> master
   padding: var(--hh-professional-location-spacing);
 
   &-body
@@ -54,14 +59,14 @@ $professional-location-ordinal-dimensions: 18px !default;
     margin-right: calc(var(--hh-professional-location-spacing) * 3/4);
     width: var(--hh-professional-location-ordinal-dimensions);
     height: var(--hh-professional-location-ordinal-dimensions);
-    background-color: var(--hh-color-brand-primary);
+    background-color: var(--yxt-color-brand-primary);
     border: solid black 1px;
     text-align: center;
     @include Text(
       $color: white,
-      $size: var(--hh-font-size-xs),
-      $line-height: var(--hh-line-height-xs),
-      $weight: var(--hh-font-weight-bold),
+      $size: var(--yxt-font-size-xs),
+      $line-height: var(--yxt-line-height-xs),
+      $weight: var(--yxt-font-weight-bold),
     );
   }
 
@@ -72,9 +77,9 @@ $professional-location-ordinal-dimensions: 18px !default;
 
   &-title
   {
-    font-size: var(--hh-font-size-lg);
-    line-height: var(--hh-line-height-lg);
-    font-weight: var(--hh-font-weight-semibold);
+    font-size: var(--yxt-font-size-lg);
+    line-height: var(--yxt-line-height-lg);
+    font-weight: var(--yxt-font-weight-semibold);
   }
 
    &-titleLink
@@ -84,7 +89,7 @@ $professional-location-ordinal-dimensions: 18px !default;
 
   &-subtitle
   {
-    color: var(--hh-color-text-secondary);
+    color: var(--yxt-color-text-secondary);
     padding-bottom: 0;
   }
 
@@ -107,7 +112,7 @@ $professional-location-ordinal-dimensions: 18px !default;
   &-listTitle
   {
     margin-top: calc(var(--hh-professional-location-spacing) / 2);
-    font-weight: var(--hh-font-weight-semibold);
+    font-weight: var(--yxt-font-weight-semibold);
   }
 
   &-list

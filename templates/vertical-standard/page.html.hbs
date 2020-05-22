@@ -20,12 +20,15 @@
           {{> templates/vertical-standard/markup/navigation}}
         </div>
       </div>
+      <!-- Add "Answers-resultsWrapper--withFilters" to this class list if you want to include filters or facets  -->
       <div class="Answers-container Answers-resultsWrapper">
         {{> templates/vertical-standard/markup/spellcheck }}
-        {{!-- {{> templates/vertical-standard/markup/sortoptions}} --}}
-        {{!-- {{> templates/vertical-standard/markup/facets}} --}}
-        {{!-- {{> templates/vertical-standard/markup/filterbox}} --}}
         <div class="Answers-filtersAndResults">
+          {{!-- <div class="Answers-filtersWrapper"> --}}
+            {{!-- {{> templates/vertical-standard/markup/sortoptions}} --}}
+            {{!-- {{> templates/vertical-standard/markup/filterbox}} --}}
+            {{!-- {{> templates/vertical-standard/markup/facets}} --}}
+          {{!-- </div> --}}
           {{> templates/vertical-standard/markup/verticalresults }}
         </div>
         {{> templates/vertical-standard/markup/pagination }}

@@ -1,13 +1,13 @@
 .HitchhikerEventStandard
 {
-  background-color: var(--hh-color-brand-white);
-  padding: var(--hh-base-spacing);
+  background-color: var(--yxt-color-brand-white);
+  padding: var(--yxt-base-spacing);
   display: flex;
   font-size: .875rem;
 
   &-dateWrapper
   {
-    margin-right: var(--hh-base-spacing);
+    margin-right: var(--yxt-base-spacing);
   }
 
   &-dateInnerWrapper
@@ -15,9 +15,9 @@
     display: flex;
     flex-direction: column;
     border-radius: 8px;
-    padding: var(--hh-base-spacing);
+    padding: var(--yxt-base-spacing);
     text-align: center;
-    background-color: var(--hh-color-background-highlight);
+    background-color: var(--yxt-color-background-highlight);
     min-width: 100px;
   }
 
@@ -25,14 +25,14 @@
   {
     font-size: 40px;
     line-height: 1.2;
-    font-weight: var(--hh-font-weight-semibold);
+    font-weight: var(--yxt-font-weight-semibold);
   }
 
   &-month
   {
     font-size: 14px;
     line-height: 1.4;
-    font-weight: var(--hh-font-weight-normal);
+    font-weight: var(--yxt-font-weight-normal);
   }
 
   &-wrapper
@@ -68,14 +68,14 @@
 
   &-subtitle
   {
-    color: var(--hh-color-text-secondary);
+    color: var(--yxt-color-text-secondary);
     padding-bottom: 0;
-    margin-top: calc(var(--hh-base-spacing) / 2);
+    margin-top: calc(var(--yxt-base-spacing) / 2);
   }
 
   &-detailsText
   {
-    margin-top: calc(var(--hh-base-spacing) / 2);
+    margin-top: calc(var(--yxt-base-spacing) / 2);
   }
 
   &-content
@@ -86,7 +86,7 @@
   &-ctasWrapper
   {
     text-transform: uppercase;
-    margin-top: calc(var(--hh-base-spacing) / 2);
+    margin-top: calc(var(--yxt-base-spacing) / 2);
 
     @media (min-width: $breakpoint-mobile-max)
     {
@@ -99,6 +99,6 @@
   &-secondaryCTA
   {
     display: flex;
-    margin-top: calc(var(--hh-base-spacing) / 2);
+    margin-top: calc(var(--yxt-base-spacing) / 2);
   }
 }

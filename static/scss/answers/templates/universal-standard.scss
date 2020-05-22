@@ -3,7 +3,7 @@
   &-resultsWrapper
   {
     flex-grow: 1;
-    padding-top: var(--hh-base-spacing);
+    padding-top: var(--yxt-base-spacing);
   }
 
   &-filtersAndResults
@@ -14,7 +14,7 @@
 
   &-directAnswer
   {
-    margin-bottom: var(--hh-base-spacing);
+    margin-bottom: var(--yxt-base-spacing);
     
     .yxt-DirectAnswer-footer
     {

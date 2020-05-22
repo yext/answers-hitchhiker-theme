@@ -2,14 +2,14 @@
 {
   display: flex;
   flex-direction: column;
-  font-size: var(--hh-font-size-md);
-  line-height: var(--hh-line-height-md);
-  background-color: var(--hh-color-brand-white);
+  font-size: var(--yxt-font-size-md);
+  line-height: var(--yxt-line-height-md);
+  background-color: var(--yxt-color-brand-white);
 
   &-body
   {
     width: 100%;
-    padding: var(--hh-base-spacing);
+    padding: var(--yxt-base-spacing);
   }
 
   &-contentWrapper
@@ -42,9 +42,9 @@
   &-title
   {
     @include Text(
-      $size: var(--hh-font-size-lg),
-      $line-height: var(--hh-line-height-lg),
-      $weight: var(--hh-font-weight-semibold));
+      $size: var(--yxt-font-size-lg),
+      $line-height: var(--yxt-line-height-lg),
+      $weight: var(--yxt-font-weight-semibold));
   }
 
   &-titleLink
@@ -54,13 +54,13 @@
 
   &-subtitle
   {
-    color: var(--hh-color-text-secondary);
+    color: var(--yxt-color-text-secondary);
     padding-bottom: 0;
   }
 
   &-cardDetails
   {
-    margin-top: calc(var(--hh-base-spacing) / 2);
+    margin-top: calc(var(--yxt-base-spacing) / 2);
   }
 
   &-detailsText
@@ -71,12 +71,12 @@
   &-ctasWrapper
   {
     text-transform: uppercase;
-    margin-top: calc(var(--hh-base-spacing) / 2);
+    margin-top: calc(var(--yxt-base-spacing) / 2);
 
     @media (min-width: $breakpoint-mobile-max)
     {
       margin-top: 0;
-      margin-left: calc(var(--hh-base-spacing) / 2);
+      margin-left: calc(var(--yxt-base-spacing) / 2);
       justify-content: center;
     }
   }
@@ -85,6 +85,6 @@
   &-secondaryCTA
   {
     display: flex;
-    margin-top: calc(var(--hh-base-spacing) / 2);
+    margin-top: calc(var(--yxt-base-spacing) / 2);
   }
 }

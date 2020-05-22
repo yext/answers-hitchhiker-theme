@@ -13,15 +13,15 @@
 
   .yxt-SpellCheck
   {
-    padding: var(--hh-base-spacing);
+    padding: var(--yxt-base-spacing);
     margin-top: 0;
   }
 
   .yxt-NoResults
   {
-    padding-bottom: var(--hh-base-spacing);
-    padding-left: var(--hh-base-spacing);
-    padding-right: var(--hh-base-spacing);
+    padding-bottom: var(--yxt-base-spacing);
+    padding-left: var(--yxt-base-spacing);
+    padding-right: var(--yxt-base-spacing);
   }
 
   &-resultsColumn
@@ -58,7 +58,7 @@
 
   &-sortOptions
   {
-    padding: 0 var(--hh-base-spacing);
+    padding: 0 var(--yxt-base-spacing);
   }
 
   &-map
@@ -75,6 +75,6 @@
 
   &-qaSubmission
   {
-    background-color: $gray-5; // TODO(creotutar) this is a variable in common variables
+    background-color: var(--hh-color-gray-2);
   }
 }
