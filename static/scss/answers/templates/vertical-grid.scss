@@ -43,6 +43,19 @@
       }
     }
 
+    &-filtersWrapper {
+      margin-right: 2rem;
+      
+      .yxt-FilterBox-container {
+        margin-bottom: 1rem;
+      }
+  
+      .yxt-Facets-container {
+        padding: 0;
+      }
+    }
+  
+
     &-verticalResults
     {
       width: 100%;
