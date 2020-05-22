@@ -75,6 +75,6 @@
 
   &-qaSubmission
   {
-    background-color: $gray-5; // TODO(creotutar) this is a variable in common variables
+    background-color: var(--hh-color-gray-2);
   }
 }

@@ -28,7 +28,7 @@
 
   &-featuresTitle
   {
-    font-weight: $font-weight-semibold;
+    font-weight: var(--yxt-font-weight-semibold);
     margin-bottom: calc(var(--yxt-base-spacing) / 2);
   }
 }
