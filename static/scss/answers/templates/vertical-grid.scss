@@ -44,10 +44,10 @@
     }
 
     &-filtersWrapper {
-      margin-right: 2rem;
+      margin-right: calc(var(--hh-base-spacing) * 2);
       
       .yxt-FilterBox-container {
-        margin-bottom: 1rem;
+        margin-bottom: var(--hh-base-spacing);
       }
   
       .yxt-Facets-container {
