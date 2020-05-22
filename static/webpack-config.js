@@ -43,6 +43,23 @@ module.exports = function () {
     module: {
       rules: [
         {
+          test: /\.js$/,
+          exclude: [
+            /node_modules\//
+          ],
+          loader: 'babel-loader',
+          query: {
+            presets: [
+              '@babel/preset-env',
+            ],
+            plugins: [
+              ['@babel/plugin-transform-runtime', {
+                'corejs': 3
+              }],
+            ]
+          }
+        },
+        {
           test: /\.scss$/,
           use: [
             MiniCssExtractPlugin.loader,
