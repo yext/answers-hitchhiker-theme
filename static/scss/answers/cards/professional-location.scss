@@ -9,14 +9,9 @@ $professional-location-ordinal-dimensions: 18px !default;
 .HitchhikerProfessionalLocation
 {
   display: flex;
-<<<<<<< HEAD
-  font-size: var(--hh-font-size-md);
-  line-height: var(--hh-line-height-md);
-  background-color: var(--hh-color-brand-white);
-=======
   font-size: var(--yxt-font-size-md);
+  line-height: var(--yxt-line-height-md);
   background-color: var(--yxt-color-brand-white);
->>>>>>> master
   padding: var(--hh-professional-location-spacing);
 
   &-body
