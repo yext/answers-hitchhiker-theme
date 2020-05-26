@@ -806,6 +806,9 @@ export default class Formatters {
   }
 
   static ctaLink(cta) {
+    if (!cta) {
+      return null;
+    }
     return CtaFormatter.generateCTAFieldTypeLink(cta);
   }
 }
