@@ -1,5 +1,6 @@
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import { components__address__i18n__addressForCountry } from './address-i18n.js'
+import CtaFormatter from '@yext/cta-formatter';
 
 /**
  * Contains some of the commonly used formatters for parsing pieces
@@ -802,6 +803,10 @@ export default class Formatters {
     time.setHours(Math.floor(yextTime / 100));
     time.setMinutes(yextTime % 100);
     return time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: !twentyFourHourClock })
+  }
+
+  static ctaLink(cta) {
+    return CtaFormatter.generateCTAFieldTypeLink(cta);
   }
 }
 

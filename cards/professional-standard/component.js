@@ -43,7 +43,7 @@ class professional_standardCardComponent extends BaseCard['professional-standard
       CTA1: {
         label: primaryCTAData.label, // The CTA's label
         iconName: 'chevron', // The icon to use for the CTA
-        url: primaryCTAData.url, // The URL a user will be directed to when clicking
+        url: Formatter.ctaLink(primaryCTAData), // The URL a user will be directed to when clicking
         target: '_top', // Where the new URL will be opened
         eventType: 'CTA_CLICK', // Type of Analytics event fired when clicking the CTA
         eventOptions: this.addDefaultEventOptions()
@@ -52,7 +52,7 @@ class professional_standardCardComponent extends BaseCard['professional-standard
       CTA2: {
         label: secondaryCTAData.label,
         iconName: 'chevron',
-        url: secondaryCTAData.url,
+        url: Formatter.ctaLink(secondaryCTAData),
         target: '_top',
         eventType: 'CTA_CLICK',
         eventOptions: this.addDefaultEventOptions()

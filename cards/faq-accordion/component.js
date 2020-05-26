@@ -34,7 +34,7 @@ class faq_accordionCardComponent extends BaseCard['faq-accordion'] {
       CTA1: {
         label: primaryCTAData.label, // The CTA's label
         // iconName: '', // The icon to use for the CTA
-        url: primaryCTAData.url, // The URL a user will be directed to when clicking
+        url: Formatter.ctaLink(primaryCTAData), // The URL a user will be directed to when clicking
         target: '_top', // Where the new URL will be opened. To open in a new tab use '_blank'
         eventType: 'CTA_CLICK', // Type of Analytics event fired when clicking the CTA
         // Event options for the analytics event fired when this CTA is clicked.
@@ -44,7 +44,7 @@ class faq_accordionCardComponent extends BaseCard['faq-accordion'] {
       CTA2: {
         label: secondaryCTAData.label,
         // iconName: '',
-        url: secondaryCTAData.url,
+        url: Formatter.ctaLink(secondaryCTAData),
         target: '_top',
         eventType: 'CTA_CLICK',
         eventOptions: this.addDefaultEventOptions({ /* Add additional options here */ })
