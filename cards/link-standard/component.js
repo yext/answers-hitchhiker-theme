@@ -1,4 +1,4 @@
-{{> cards/card_component componentName='link-standard'}}
+{{> cards/card_component componentName='link-standard' }}
 
 class link_standardCardComponent extends BaseCard['link-standard'] {
   constructor(config = {}, systemConfig = {}) {

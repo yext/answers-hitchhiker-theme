@@ -1,4 +1,4 @@
-{{> cards/card_component componentName='job-standard'}}
+{{> cards/card_component componentName='job-standard' }}
 
 class job_standardCardComponent extends BaseCard['job-standard'] {
   constructor(config = {}, systemConfig = {}) {

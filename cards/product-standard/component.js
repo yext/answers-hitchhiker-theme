@@ -1,4 +1,4 @@
-{{> cards/card_component componentName='product-standard'}}
+{{> cards/card_component componentName='product-standard' }}
 
 class product_standardCardComponent extends BaseCard['product-standard'] {
   constructor(config = {}, systemConfig = {}) {
@@ -13,11 +13,6 @@ class product_standardCardComponent extends BaseCard['product-standard'] {
    * @param profile profile of the entity in the card
    */
   dataForRender(profile) {
-<<<<<<< HEAD
-    const primaryCTAData = profile.c_primaryCTA || {};
-    const secondaryCTAData = profile.c_secondaryCTA || {};
-=======
->>>>>>> af5f195b27cd824a48761893662ab7271459f3af
     let price = '';
     if (profile.c_price) {
       price = `$${profile.c_price}`;
@@ -41,30 +36,18 @@ class product_standardCardComponent extends BaseCard['product-standard'] {
       },
       // The primary CTA of the card
       CTA1: {
-<<<<<<< HEAD
-        label: primaryCTAData.label, // The CTA's label
-        iconName: 'chevron', // The icon to use for the CTA
-        url: primaryCTAData.url, // The URL a user will be directed to when clicking
-=======
         label: profile.c_primaryCTA ? profile.c_primaryCTA.label : null, // The CTA's label
         iconName: 'chevron', // The icon to use for the CTA
         url: Formatter.generateCTAFieldTypeLink(profile.c_primaryCTA), // The URL a user will be directed to when clicking
->>>>>>> af5f195b27cd824a48761893662ab7271459f3af
         target: '_top', // Where the new URL will be opened
         eventType: 'CTA_CLICK', // Type of Analytics event fired when clicking the CTA
         eventOptions: this.addDefaultEventOptions()
       },
       // The secondary CTA of the card
       CTA2: {
-<<<<<<< HEAD
-        label: secondaryCTAData.label, // The CTA's label
-        iconName: 'chevron', // The icon to use for the CTA
-        url: secondaryCTAData.url, // The URL a user will be directed to when clicking
-=======
         label: profile.c_secondaryCTA ? profile.c_secondaryCTA.label : null,
         iconName: 'chevron', // The icon to use for the CTA
         url: Formatter.generateCTAFieldTypeLink(profile.c_secondaryCTA),
->>>>>>> af5f195b27cd824a48761893662ab7271459f3af
         target: '_top', // Where the new URL will be opened
         eventType: 'CTA_CLICK', // Type of Analytics event fired when clicking the CTA
         eventOptions: this.addDefaultEventOptions()

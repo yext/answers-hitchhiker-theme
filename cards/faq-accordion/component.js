@@ -1,4 +1,4 @@
-{{> cards/card_component componentName='faq-accordion'}}
+{{> cards/card_component componentName='faq-accordion' }}
 
 class faq_accordionCardComponent extends BaseCard['faq-accordion'] {
   constructor(config = {}, systemConfig = {}) {
@@ -13,14 +13,6 @@ class faq_accordionCardComponent extends BaseCard['faq-accordion'] {
    * @param {Object} profile of the entity in the card
    */
   dataForRender(profile) {
-<<<<<<< HEAD
-    // Extract the data for the primary and secondary CTAs from the profile.
-    // Apply a sane default if not present in the profile.
-    const primaryCTAData = profile.c_primaryCTA || {};
-    const secondaryCTAData = profile.c_secondaryCTA || {};
-
-=======
->>>>>>> af5f195b27cd824a48761893662ab7271459f3af
     return {
       title: profile.name, // The header text of the card
       // subtitle: '', // The sub-header text of the card
@@ -35,15 +27,9 @@ class faq_accordionCardComponent extends BaseCard['faq-accordion'] {
       isExpanded: false, // Whether the accordion is expanded on page load
       // The primary CTA of the card
       CTA1: {
-<<<<<<< HEAD
-        label: primaryCTAData.label, // The CTA's label
-        // iconName: '', // The icon to use for the CTA
-        url: primaryCTAData.url, // The URL a user will be directed to when clicking
-=======
         label: profile.c_primaryCTA ? profile.c_primaryCTA.label : null, // The CTA's label
         // iconName: '', // The icon to use for the CTA
         url: Formatter.generateCTAFieldTypeLink(profile.c_primaryCTA), // The URL a user will be directed to when clicking
->>>>>>> af5f195b27cd824a48761893662ab7271459f3af
         target: '_top', // Where the new URL will be opened. To open in a new tab use '_blank'
         eventType: 'CTA_CLICK', // Type of Analytics event fired when clicking the CTA
         // Event options for the analytics event fired when this CTA is clicked.
@@ -51,15 +37,9 @@ class faq_accordionCardComponent extends BaseCard['faq-accordion'] {
       },
       // The secondary CTA of the card
       CTA2: {
-<<<<<<< HEAD
-        label: secondaryCTAData.label,
-        // iconName: '',
-        url: secondaryCTAData.url,
-=======
         label: profile.c_secondaryCTA ? profile.c_secondaryCTA.label : null,
         // iconName: '',
         url: Formatter.generateCTAFieldTypeLink(profile.c_secondaryCTA),
->>>>>>> af5f195b27cd824a48761893662ab7271459f3af
         target: '_top',
         eventType: 'CTA_CLICK',
         eventOptions: this.addDefaultEventOptions({ /* Add additional options here */ })
