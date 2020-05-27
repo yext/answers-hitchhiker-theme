@@ -1,0 +1,71 @@
+.HitchhikerLinkStandard
+{
+  display: flex;
+  font-size: var(--yxt-font-size-md);
+  line-height: var(--yxt-line-height-md);
+  background-color: var(--yxt-color-brand-white);
+  padding: var(--yxt-base-spacing);
+
+  &-body
+  {
+    width: 100%;
+  }
+
+  &-contentWrapper
+  {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    @media (min-width: $breakpoint-mobile-max)
+    {
+      justify-content: space-between;
+      flex-direction: row;
+      flex-wrap: nowrap;
+    }
+  }
+
+  &-title
+  {
+    font-size: var(--yxt-font-size-lg);
+    line-height: var(--yxt-line-height-lg);
+    font-weight: var(--yxt-font-weight-semibold);
+  }
+
+  &-titleLink
+  {
+    @include Link;
+
+    &::after
+    {
+      content: "";
+      background-image: url('../../assets/images/chevron.svg');
+      background-repeat: no-repeat;
+      background-position: 100%;
+      height: 10px;
+      width: 10px;
+      display: inline-flex;
+      margin-left: 4px;
+    }
+  }
+
+  &-subtitle
+  {
+    color: var(--yxt-color-text-secondary);
+    padding-bottom: 0;
+  }
+
+  &-cardDetails
+  {
+    margin-top: calc(var(--yxt-base-spacing) / 2);
+  }
+
+  &-detailsText
+  {
+    @include rich_text_formatting;
+
+    br {
+      display: none; // TODO (agrow) figure out a less hacky way to do this
+    }
+  }
+}

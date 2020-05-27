@@ -1,0 +1,214 @@
+$location-standard-base-spacing: var(--yxt-base-spacing) !default;
+$location-standard-ordinal-dimensions: calc(var(--hh-location-standard-base-spacing) * 9/8) !default;
+
+:root {
+  --hh-location-standard-base-spacing: #{$location-standard-base-spacing};
+  --hh-location-standard-ordinal-dimensions: #{$location-standard-ordinal-dimensions};
+}
+
+.HitchhikerLocationStandard
+{
+  display: flex;
+  font-size: var(--yxt-font-size-md);
+  line-height: var(--yxt-line-height-md);
+  background-color: var(--yxt-color-brand-white);
+  padding: var(--hh-location-standard-base-spacing);
+
+  &-ordinal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-top: calc(var(--hh-location-standard-base-spacing) * 1/4);
+    margin-right: calc(var(--hh-location-standard-base-spacing) * 3/4);
+    width: var(--hh-location-standard-ordinal-dimensions);
+    height: var(--hh-location-standard-ordinal-dimensions);
+    background-color: var(--yxt-color-brand-primary);
+    border: solid black 1px;
+    text-align: center;
+    @include Text(
+      $color: white,
+      $size: var(--yxt-font-size-xs),
+      $line-height: var(--yxt-line-height-xs),
+      $weight: var(--yxt-font-weight-bold),
+    );
+  }
+
+  &-contentWrapper
+  {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  &-topRow
+  {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &-title
+  {
+    font-size: 1.125rem;
+    line-height: 1.5;
+    font-weight: 600;
+  }
+
+  &-titleLink
+  {
+    @include Link;
+  }
+
+  &-ordinalAndTitle
+  {
+    display: flex;
+  }
+
+  &-distance
+  {
+    font-style: italic;
+  }
+
+  &-subtitle
+  {
+    color: var(--yxt-color-text-secondary);
+    padding-bottom: 0;
+    margin-top: calc(var(--hh-location-standard-base-spacing) / 2);
+  }
+
+  &-content
+  {
+    display: flex;
+    flex-direction: column;
+
+    @media (min-width: $breakpoint-mobile-max)
+    {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  &-imgWrapper
+  {
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+    width: 6.25rem;
+    margin-right: 1rem;
+    margin-top: calc(var(--hh-location-standard-base-spacing) / 2);
+  }
+
+  &-img
+  {
+    width: 100%;
+    height: auto;
+  }
+
+  &-imgTagWrapper
+  {
+    position: absolute;
+    opacity: 0;
+  }
+
+  &-contactInfo
+  {
+    display: flex;
+    flex-direction: column;
+
+    @media (min-width: $breakpoint-mobile-max)
+    {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+  }
+
+  &-core
+  {
+    margin-top: calc(var(--hh-location-standard-base-spacing) / 2);
+
+    @media (min-width: $breakpoint-mobile-max)
+    {
+      padding-right: calc(var(--hh-location-standard-base-spacing) * 2);
+    }
+  }
+
+  &-address
+  {
+    .c-AddressRow:last-child {
+      display: none;
+    }
+  }
+
+  &-phone
+  {
+    display: flex;
+    font-weight: var(--yxt-font-weight-semibold);
+    margin-top: calc(var(--hh-location-standard-base-spacing) / 2);
+  }
+
+  &-phone--desktop {
+    display: none;
+
+    @media (min-width: $breakpoint-mobile-max)
+    {
+      display: flex;
+    }
+  }
+
+  &-phone--mobile {
+    @include Link;
+    display: flex;
+
+    @media (min-width: $breakpoint-mobile-max)
+    {
+      display: none;
+    }
+  }
+
+  &-details
+  {
+    @include rich_text_formatting;
+    margin-top: calc(var(--hh-location-standard-base-spacing) / 2);
+  }
+
+  &-hoursText
+  {
+    margin-top: calc(var(--hh-location-standard-base-spacing) / 2);
+  }
+
+  .Hours-statusText--current
+  {
+    font-weight: var(--yxt-font-weight-semibold);
+  }
+
+  &-services
+  {
+    flex-basis: 100%;
+    margin-top: calc(var(--hh-location-standard-base-spacing) / 2);
+  }
+
+  &-servicesLabel
+  {
+    font-weight: var(--yxt-font-weight-semibold);
+    padding-right: 2px;
+  }
+
+  &-ctasWrapper
+  {
+    text-transform: uppercase;
+    margin-top: calc(var(--hh-location-standard-base-spacing) / 2);
+
+    @media (min-width: $breakpoint-mobile-max)
+    {
+      margin-left: calc(var(--hh-location-standard-base-spacing) / 2);
+      justify-content: center;
+    }
+  }
+
+  &-primaryCTA,
+  &-secondaryCTA
+  {
+    display: flex;
+    margin-top: calc(var(--hh-location-standard-base-spacing) / 2);
+  }
+}

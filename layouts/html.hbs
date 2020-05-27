@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    <meta name="format-detection" content="telephone=no">
+
+    <!-- dns prefetch -->
+    <link rel="dns-prefetch" href="//www.yext-pixel.com">
+    <link rel="dns-prefetch" href="//a.cdnmktg.com">
+    <link rel="dns-prefetch" href="//a.mktgcdn.com">
+    <link rel="dns-prefetch" href="//dynl.mktgcdn.com">
+    <link rel="dns-prefetch" href="//dynm.mktgcdn.com">
+    <link rel="dns-prefetch" href="//www.google-analytics.com">
+    <script>
+      document.documentElement.lang = {{#if global_config.locale}}"{{global_config.locale}}"{{else}}'en'{{/if}};
+    </script>
+
+    {{#if metaDescription}}
+      <meta name="description" content="{{metaDescription}}">
+    {{/if}}
+    {{#if keywords}}
+      <meta name="keywords" content="{{keywords}}">
+    {{/if}}
+
+    {{#if pageTitle}}
+      <meta property="og:title" content="{{pageTitle}}">
+    {{/if}}
+    {{#if metaDescription}}
+      <meta property="og:description" content="{{metaDescription}}">
+    {{/if}}
+    <meta property="og:type" content="website">
+    {{#if global_config.logo}}
+      <meta property="og:image" content="../{{global_config.logo}}">
+    {{/if}}
+    {{#if canonicalUrl}}
+      <meta property="og:url" content="{{canonicalUrl}}">
+      <link rel="canonical" href="{{canonicalUrl}}" />
+    {{else if env.JAMBO_INJECTED_DATA.pages.domains.prod.domain}}
+      {{#with env.JAMBO_INJECTED_DATA.pages.domains.prod}}
+        <meta property="og:url" content="{{#if isHttps}}https://{{else}}http://{{/if}}{{domain}}">
+        <link rel="canonical" href="{{#if isHttps}}https://{{else}}http://{{/if}}{{domain}}">
+      {{/with}}
+    {{/if}}
+    <meta name="twitter:card" content="summary">
+
+    {{#if pageTitle}}
+      <title>{{pageTitle}}</title>
+    {{/if}}
+
+    {{#if global_config.favicon}}
+      <link rel="shortcut icon" href="../{{global_config.favicon}}">
+    {{/if}}
+    <script src="bundle.js"></script>
+    {{#if global_config.googleAnalyticsId}}
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id={{global_config.googleAnalyticsId}}"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', '{{global_config.googleAnalyticsId}}');
+      </script>
+    {{/if}}
+
+    {{#if global_config.googleTagManagerId}}
+      <!-- Google Tag Manager -->
+      <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','{{#if global_config.googleTagManagerName}}{{global_config.googleTagManagerName}}{{else}}dataLayer{{/if}}','{{global_config.googleTagManagerId}}');</script>
+      <!-- End Google Tag Manager -->
+    {{/if}}
+
+    {{#if global_config.conversionTrackingEnabled}}
+      <script src="https://assets.sitescdn.net/ytag/ytag.min.js"></script>
+    {{/if}}
+
+    <script>
+      function iframeGetSearchParams() {
+        let params = new URLSearchParams(window.location.search);
+        let verticalUrl = window.location.pathname.substr(1)
+        if (verticalUrl) {
+          params.set('verticalUrl', verticalUrl);
+        }
+        return params.toString();
+      }
+      window.iFrameResizer = {
+        onReady: function() {
+          window.parentIFrame.sendMessage(iframeGetSearchParams());
+        },
+      };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.10/iframeResizer.contentWindow.min.js"></script>
+	</head>
+  <body>
+    {{#if global_config.googleTagManagerId}}
+      <!-- Google Tag Manager (noscript) -->
+      <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{global_config.googleTagManagerId}}{{#ifeq googleTagManagerId 'dataLayer'}}{{else}}&l={{global_config.googleTagManagerName}}{{/ifeq}}"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+      <!-- End Google Tag Manager (noscript) -->
+    {{/if}}
+    {{> @partial-block }}
+  </body>
+</html>

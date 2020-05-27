@@ -1,0 +1,69 @@
+.AnswersVerticalGrid
+{
+  .yxt-Card
+  {
+    border: 0;
+  }
+
+  .yxt-Card-child
+  {
+    border: 1px solid var(--hh-color-gray-1);
+    flex-grow: 0;
+  }
+
+  .Answers
+  {
+    &-resultsWrapper
+    {
+      flex-grow: 1;
+      padding-top: var(--yxt-base-spacing);
+
+      &--withFilters
+      {
+        @include bpgte(sm)
+        {
+          max-width: 100%;
+          width: var(--hh-answers-container-width-filters);
+        }
+
+        .Answers-verticalResults
+        {
+          flex-grow: 1;
+        }
+      }
+    }
+
+    &-filtersAndResults
+    {
+      display: flex;
+
+      @include bplte(xs)
+      {
+        flex-direction: column;
+      }
+    }
+
+    &-filtersWrapper {
+      margin-right: calc(var(--hh-base-spacing) * 2);
+      
+      .yxt-FilterBox-container {
+        margin-bottom: var(--hh-base-spacing);
+      }
+  
+      .yxt-Facets-container {
+        padding: 0;
+      }
+    }
+  
+
+    &-verticalResults
+    {
+      width: 100%;
+    }
+
+    &-verticalResultsWrapper
+    {
+      display: flex;
+    }
+  }
+}

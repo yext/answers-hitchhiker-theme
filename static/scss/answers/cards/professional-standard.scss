@@ -1,0 +1,130 @@
+$professional-standard-spacing: var(--yxt-base-spacing) !default;
+
+:root {
+  --hh-professional-standard-spacing: #{$professional-standard-spacing};
+}
+.HitchhikerProfessionalStandard
+{
+  display: flex;
+  font-size: var(--yxt-font-size-md);
+  background-color: var(--yxt-color-brand-white);
+  padding: var(--hh-professional-standard-spacing);
+
+  &-body
+  {
+    width: 100%;
+  }
+
+  &-contentWrapper
+  {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    @media (min-width: $breakpoint-mobile-max)
+    {
+      justify-content: space-between;
+      flex-direction: row;
+      flex-wrap: nowrap;
+    }
+  }
+
+  &-imgWrapper
+  {
+    display: flex;
+    align-items: flex-start;
+    width: 6.25rem;
+    margin-right: 1rem;
+  }
+
+  &-img
+  {
+    width: 100%;
+    height: auto;
+  }
+
+  &-title
+  {
+    font-size: var(--yxt-font-size-lg);
+    line-height: var(--yxt-line-height-lg);
+    font-weight: var(--yxt-font-weight-semibold);
+  }
+
+   &-titleLink
+  {
+    @include Link;
+  }
+
+  &-subtitle
+  {
+    color: var(--yxt-color-text-secondary);
+    padding-bottom: 0;
+  }
+
+  &-cardDetails
+  {
+    margin-top: calc(var(--hh-professional-standard-spacing) / 2);
+  }
+
+  &-detailsText
+  {
+    @include rich_text_formatting;
+  }
+
+  &-listTitle
+  {
+    margin-top: calc(var(--hh-professional-standard-spacing) / 2);
+    font-weight: var(--yxt-font-weight-semibold);
+  }
+
+  &-list
+  {
+    list-style-type: disc;
+    list-style-position: inside;
+    padding-left: calc(var(--hh-professional-standard-spacing) / 2);
+  }
+
+  &-phone
+  {
+    margin-top: calc(var(--hh-professional-standard-spacing) / 2);
+  }
+
+  &-phone--desktop {
+    display: none;
+
+    @media (min-width: $breakpoint-mobile-max)
+    {
+      display: flex;
+    }
+  }
+
+  &-phone--mobile {
+    @include Link;
+    display: flex;
+
+    @media (min-width: $breakpoint-mobile-max)
+    {
+      display: none;
+    }
+  }
+
+  &-ctasWrapper
+  {
+    text-transform: uppercase;
+    margin-top: calc(var(--hh-professional-standard-spacing) / 2);
+
+    @media (min-width: $breakpoint-mobile-max)
+    {
+      margin-top: 0;
+      margin-left: calc(var(--hh-professional-standard-spacing) / 2);
+      justify-content: center;
+    }
+  }
+
+  &-primaryCTA,
+  &-secondaryCTA
+  {
+    display: flex;
+    margin-top: calc(var(--hh-professional-standard-spacing) / 2);
+  }
+}

@@ -1,0 +1,38 @@
+.HitchhikerCTA
+{
+  @include Link;
+
+  display: flex;
+  font-size: var(--yxt-font-size-md);
+  font-weight: var(--yxt-font-weight-semibold);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  color: var(--yxt-color-brand-primary);
+  border-radius: .25rem;
+  min-width: 3.75rem;
+
+  &-iconWrapper
+  {
+    display: flex;
+    padding-right: calc(var(--yxt-base-spacing) / 2);
+  }
+
+  &-iconLabel
+  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+  }
+
+  &-icon
+  {
+    &,
+    .Icon svg
+    {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}

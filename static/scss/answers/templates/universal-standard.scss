@@ -1,0 +1,32 @@
+.AnswersUniversalStandard .Answers
+{
+  &-resultsWrapper
+  {
+    flex-grow: 1;
+    padding-top: var(--yxt-base-spacing);
+  }
+
+  &-filtersAndResults
+  {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &-directAnswer
+  {
+    margin-bottom: var(--yxt-base-spacing);
+    
+    .yxt-DirectAnswer-footer
+    {
+      padding: 1rem;
+      @include bplte(xs) {
+        padding: 1.5rem 1rem;
+      }
+    }
+  }
+
+  &-universalResults
+  {
+    width: 100%;
+  }
+}

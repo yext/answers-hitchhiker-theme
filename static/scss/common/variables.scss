@@ -1,0 +1,28 @@
+// utility mixin layout variables
+$generate-classes: true;
+
+$grid-gutter-width: 32px !default;
+$grid-gutter-width-xs: $grid-gutter-width !default;
+$grid-gutter-width-sm: $grid-gutter-width !default;
+$grid-gutter-width-md: $grid-gutter-width !default;
+$grid-gutter-width-lg: $grid-gutter-width !default;
+$grid-columns: 12 !default;
+
+$vertical-margin-top: $grid-gutter-width !default;
+$vertical-margin-bottom: $grid-gutter-width !default;
+
+$screen-xs-min: 480px;
+$screen-xs-max: 767px;
+$screen-sm-min: 768px;
+$screen-sm-max: 991px;
+$screen-md-min: 992px;
+$screen-md-max: 1199px;
+$screen-lg-min: 1200px;
+
+$container-tablet-base: 768px;
+$container-desktop-base: 992px;
+$container-large-desktop-base: 1170px;
+
+$container-tablet: ($container-tablet-base + $grid-gutter-width);
+$container-desktop: ($container-desktop-base + $grid-gutter-width);
+$container-large-desktop: ($container-large-desktop-base + $grid-gutter-width);

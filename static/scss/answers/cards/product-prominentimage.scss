@@ -1,0 +1,90 @@
+.HitchhikerProductProminentImage
+{
+  display: flex;
+  flex-direction: column;
+  font-size: var(--yxt-font-size-md);
+  line-height: var(--yxt-line-height-md);
+  background-color: var(--yxt-color-brand-white);
+
+  &-body
+  {
+    width: 100%;
+    padding: var(--yxt-base-spacing);
+  }
+
+  &-contentWrapper
+  {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    @media (min-width: $breakpoint-mobile-max)
+    {
+      justify-content: space-between;
+      flex-direction: row;
+      flex-wrap: nowrap;
+    }
+  }
+
+  &-imgWrapper
+  {
+    display: flex;
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  &-img
+  {
+    width: 100%;
+    height: auto;
+  }
+
+  &-title
+  {
+    @include Text(
+      $size: var(--yxt-font-size-lg),
+      $line-height: var(--yxt-line-height-lg),
+      $weight: var(--yxt-font-weight-semibold));
+  }
+
+  &-titleLink
+  {
+    @include Link;
+  }
+
+  &-subtitle
+  {
+    color: var(--yxt-color-text-secondary);
+    padding-bottom: 0;
+  }
+
+  &-cardDetails
+  {
+    margin-top: calc(var(--yxt-base-spacing) / 2);
+  }
+
+  &-detailsText
+  {
+    @include rich_text_formatting;
+  }
+
+  &-ctasWrapper
+  {
+    text-transform: uppercase;
+    margin-top: calc(var(--yxt-base-spacing) / 2);
+
+    @media (min-width: $breakpoint-mobile-max)
+    {
+      margin-top: 0;
+      margin-left: calc(var(--yxt-base-spacing) / 2);
+      justify-content: center;
+    }
+  }
+
+  &-primaryCTA,
+  &-secondaryCTA
+  {
+    display: flex;
+    margin-top: calc(var(--yxt-base-spacing) / 2);
+  }
+}

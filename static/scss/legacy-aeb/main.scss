@@ -1,0 +1,11 @@
+html
+{
+  min-height: auto; // required for correct iframe resizing
+}
+
+body
+{
+  background-color: var(--hh-answers-background-color);
+}
+
+@import 'lanswers-overrides';

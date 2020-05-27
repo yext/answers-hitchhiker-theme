@@ -1,0 +1,89 @@
+.HitchhikerProductStandard
+{
+  display: flex;
+  font-size: var(--yxt-font-size-md);
+  line-height: var(--yxt-line-height-md);
+  background-color: var(--yxt-color-brand-white);
+  padding: var(--yxt-base-spacing);
+
+  &-body
+  {
+    width: 100%;
+  }
+
+  &-imgWrapper
+  {
+    display: flex;
+    width: 6.25rem;
+    margin-right: 1rem;
+  }
+
+  &-img
+  {
+    width: 100%;
+    height: auto;
+  }
+
+  &-title
+  {
+    font-size: var(--yxt-font-size-lg);
+    line-height: var(--yxt-line-height-lg);
+    font-weight: var(--yxt-font-weight-semibold);
+    max-width: 100%;
+    overflow-wrap: normal;
+  }
+
+  &-titleLink
+  {
+    @include Link;
+  }
+
+  &-subtitle
+  {
+    color: var(--yxt-color-text-secondary);
+    padding-bottom: 0;
+  }
+
+  &-contentWrapper
+  {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    @media (min-width: $breakpoint-mobile-max)
+    {
+      justify-content: space-between;
+      flex-direction: row;
+      flex-wrap: nowrap;
+    }
+  }
+
+  &-content {
+    margin-top: calc(var(--yxt-base-spacing) / 4);
+  }
+
+  &-detailsText
+  {
+    @include rich_text_formatting;
+  }
+
+  &-ctasWrapper
+  {
+    text-transform: uppercase;
+    margin-top: calc(var(--yxt-base-spacing) / 2);
+
+    @media (min-width: $breakpoint-mobile-max)
+    {
+      margin-left: calc(var(--yxt-base-spacing) / 2);
+      margin-top: 0;
+      justify-content: center;
+    }
+  }
+
+  &-primaryCTA,
+  &-secondaryCTA
+  {
+    display: flex;
+    margin-top: calc(var(--yxt-base-spacing) / 2);
+  }
+}

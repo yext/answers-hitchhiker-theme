@@ -1,0 +1,49 @@
+@mixin Text(
+  $size: var(--yxt-font-size-md),
+  $line-height: var(--yxt-line-height-xs),
+  $weight: var(--yxt-font-weight-normal),
+  $style: normal,
+  $color: var(--yxt-color-text-primary)
+) {
+  font-family: var(--yxt-font-family);
+  font-size: $size;
+  line-height: $line-height;
+  font-weight: $weight;
+  font-style: $style;
+  color: $color;
+}
+
+@mixin TextButton(
+  $padding: 5px 10px,
+  $focus-color: var(--yxt-color-brand-hover)
+) {
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: $padding;
+
+  &:not(:disabled) {
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &:focus {
+      color: $focus-color;
+      border: 1px solid $focus-color;
+    }
+  }
+}
+
+@mixin Link {
+  color: var(--yxt-color-brand-primary);
+
+  &:hover,
+  &:focus,
+  &:active
+  {
+    color: var(--yxt-color-brand-primary);
+    text-decoration: underline;
+  }
+}

@@ -1,0 +1,13 @@
+/** @define Main */
+
+.Main
+{
+  @include bpgte(sm)
+  {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 0;
+  }
+}

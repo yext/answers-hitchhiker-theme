@@ -1,0 +1,134 @@
+.HitchhikerFaqAccordion
+{
+  background-color: var(--yxt-color-brand-white);
+  border-top: none;
+
+  &:hover,
+  &:focus
+  {
+    background-color: var(--hh-color-background-highlight);
+  }
+
+  &-toggle
+  {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    width: 100%;
+    padding: calc(var(--yxt-base-spacing) / 2) var(--yxt-base-spacing);
+    padding-bottom: 10px;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    text-align: left;
+
+    &:hover,
+    &:focus
+    {
+      background-color: var(--yxt-color-background-highlight);
+    }
+  }
+
+  &-toggle svg
+  {
+    height: 16px;
+    width: 12px;
+    color: var(--yxt-color-brand-primary);
+  }
+
+  &-title
+  {
+    @include Text(
+      $size: var(--yxt-base-spacing),
+      $color: var(--yxt-color-brand-primary),
+      $line-height: var(--yxt-line-height-lg),
+      $weight: var(--yxt-font-weight-semibold),
+    );
+  }
+
+  &-icon
+  {
+    display: flex;
+    flex-shrink: 0;
+  }
+
+  &-icon svg
+  {
+    transform: rotate(90deg);
+    transition: all 400ms ease-in-out;
+  }
+
+  &--expanded &-icon svg
+  {
+    transform: rotate(-90deg);
+  }
+
+  &-content
+  {
+    height: 0;
+    transition: all 400ms ease-in-out;
+    overflow: hidden;
+  }
+
+  &--expanded &-content
+  {
+    height: auto;
+  }
+
+  &-subtitle
+  {
+    font-size: var(--yxt-font-size-md);
+    color: var(--yxt-color-text-secondary);
+    padding-bottom: calc(var(--yxt-base-spacing) / 2);
+    margin-left: var(--yxt-base-spacing);
+  }
+
+  &-details
+  {
+    @include rich_text_formatting;
+
+    margin: calc(var(--yxt-base-spacing) / 2) var(--yxt-base-spacing);
+    font-size: var(--yxt-font-size-md);
+    color: var(--yxt-color-text-primary);
+    line-height: var(--yxt-line-height-md);
+  }
+
+  &-details-toggle
+  {
+    margin-left: var(--yxt-base-spacing);
+    margin-right: var(--yxt-base-spacing);
+    margin-bottom: calc(var(--yxt-base-spacing) / 2);
+  }
+
+  &-ctasWrapper
+  {
+    display: flex;
+    flex-direction: column;
+    margin: calc(var(--yxt-base-spacing) / 2) var(--yxt-base-spacing);
+    padding-bottom: calc(var(--yxt-base-spacing) / 2);
+  }
+
+  &-primaryCTA,
+  &-secondaryCTA
+  {
+    display: flex;
+    margin-top: calc(var(--yxt-base-spacing) / 2);
+  }
+
+  .HitchhikerCTA
+  {
+    flex-direction: row;
+    padding: 0;
+
+    &-iconWrapper
+    {
+      display: flex;
+      padding-left: 0;
+      padding-right: calc(var(--yxt-base-spacing) / 2);
+    }
+
+    &-iconLabel
+    {
+      margin-top: 0;
+    }
+  }
+}
