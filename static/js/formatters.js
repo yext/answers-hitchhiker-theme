@@ -219,11 +219,7 @@ export default class Formatters {
   /*
   * Given object with url and alternateText, changes url to use https
   */
-  static image(simpleOrComplexImage, size = '200x', atLeastAsLarge = true) {
-    if (!simpleOrComplexImage) {
-      return {};
-    }
-
+  static image(simpleOrComplexImage = {}, size = '200x', atLeastAsLarge = true) {
     let img = simpleOrComplexImage.image || simpleOrComplexImage;
     if (!img) {
       return {};
