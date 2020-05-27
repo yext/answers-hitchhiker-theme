@@ -13,11 +13,14 @@ class standardCardComponent extends BaseCard['standard'] {
    * @param profile profile of the entity in the card
    */
   dataForRender(profile) {
+<<<<<<< HEAD
     // Extract the data for the primary and secondary CTAs from the profile.
     // Apply a sane default if not present in the profile.
     const primaryCTAData = profile.c_primaryCTA || {};
     const secondaryCTAData = profile.c_secondaryCTA || {};
 
+=======
+>>>>>>> af5f195b27cd824a48761893662ab7271459f3af
     return {
       title: profile.name, // The header text of the card
       url: profile.website || profile.landingPageUrl, // If the card title is a clickable link, set URL here
@@ -36,18 +39,30 @@ class standardCardComponent extends BaseCard['standard'] {
       },
       // The primary CTA of the card
       CTA1: {
+<<<<<<< HEAD
         label: primaryCTAData.label, // The CTA's label
         iconName: 'chevron', // The icon to use for the CTA
         url: primaryCTAData.url, // The URL a user will be directed to when clicking
+=======
+        label: profile.c_primaryCTA ? profile.c_primaryCTA.label : null, // The CTA's label
+        iconName: 'chevron', // The icon to use for the CTA
+        url: Formatter.generateCTAFieldTypeLink(profile.c_primaryCTA), // The URL a user will be directed to when clicking
+>>>>>>> af5f195b27cd824a48761893662ab7271459f3af
         target: '_top', // Where the new URL will be opened
         eventType: 'CTA_CLICK', // Type of Analytics event fired when clicking the CTA
         eventOptions: this.addDefaultEventOptions()
       },
       // The secondary CTA of the card
       CTA2: {
+<<<<<<< HEAD
         label: secondaryCTAData.label,
         iconName: 'chevron',
         url: secondaryCTAData.url,
+=======
+        label: profile.c_secondaryCTA ? profile.c_secondaryCTA.label : null,
+        iconName: 'chevron',
+        url: Formatter.generateCTAFieldTypeLink(profile.c_secondaryCTA),
+>>>>>>> af5f195b27cd824a48761893662ab7271459f3af
         target: '_top',
         eventType: 'CTA_CLICK',
         eventOptions: this.addDefaultEventOptions()
@@ -56,4 +71,8 @@ class standardCardComponent extends BaseCard['standard'] {
   }
 }
 
+<<<<<<< HEAD
 ANSWERS.registerComponentType(standardCardComponent);
+=======
+ANSWERS.registerComponentType(standardCardComponent);
+>>>>>>> af5f195b27cd824a48761893662ab7271459f3af
