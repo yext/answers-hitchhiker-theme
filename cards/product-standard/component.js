@@ -13,8 +13,6 @@ class product_standardCardComponent extends BaseCard['product-standard'] {
    * @param profile profile of the entity in the card
    */
   dataForRender(profile) {
-    const primaryCTAData = profile.c_primaryCTA || {};
-    const secondaryCTAData = profile.c_secondaryCTA || {};
     let price = '';
     if (profile.c_price) {
       price = `$${profile.c_price}`;
@@ -38,18 +36,18 @@ class product_standardCardComponent extends BaseCard['product-standard'] {
       },
       // The primary CTA of the card
       CTA1: {
-        label: primaryCTAData.label, // The CTA's label
+        label: profile.c_primaryCTA ? profile.c_primaryCTA.label : null, // The CTA's label
         iconName: 'chevron', // The icon to use for the CTA
-        url: primaryCTAData.url, // The URL a user will be directed to when clicking
+        url: Formatter.generateCTAFieldTypeLink(profile.c_primaryCTA), // The URL a user will be directed to when clicking
         target: '_top', // Where the new URL will be opened
         eventType: 'CTA_CLICK', // Type of Analytics event fired when clicking the CTA
         eventOptions: this.addDefaultEventOptions()
       },
       // The secondary CTA of the card
       CTA2: {
-        label: secondaryCTAData.label, // The CTA's label
+        label: profile.c_secondaryCTA ? profile.c_secondaryCTA.label : null,
         iconName: 'chevron', // The icon to use for the CTA
-        url: secondaryCTAData.url, // The URL a user will be directed to when clicking
+        url: Formatter.generateCTAFieldTypeLink(profile.c_secondaryCTA),
         target: '_top', // Where the new URL will be opened
         eventType: 'CTA_CLICK', // Type of Analytics event fired when clicking the CTA
         eventOptions: this.addDefaultEventOptions()
