@@ -805,6 +805,10 @@ export default class Formatters {
     return time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: !twentyFourHourClock })
   }
 
+  /**
+   * @param {Object} cta Call To Action field type
+   * @return {string} The formatted url associated with the Call to Action object if the cta object exists, null otherwise
+   */
   static generateCTAFieldTypeLink(cta) {
     if (!cta) {
       return null;
