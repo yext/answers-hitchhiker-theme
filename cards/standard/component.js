@@ -33,7 +33,7 @@ class standardCardComponent extends BaseCard['standard'] {
       CTA1: {
         label: profile.c_primaryCTA ? profile.c_primaryCTA.label : null, // The CTA's label
         iconName: 'chevron', // The icon to use for the CTA
-        url: Formatter.ctaLink(profile.c_primaryCTA), // The URL a user will be directed to when clicking
+        url: Formatter.generateCTAFieldTypeLink(profile.c_primaryCTA), // The URL a user will be directed to when clicking
         target: '_top', // Where the new URL will be opened
         eventType: 'CTA_CLICK', // Type of Analytics event fired when clicking the CTA
         eventOptions: this.addDefaultEventOptions()
@@ -42,7 +42,7 @@ class standardCardComponent extends BaseCard['standard'] {
       CTA2: {
         label: profile.c_secondaryCTA ? profile.c_secondaryCTA.label : null,
         iconName: 'chevron',
-        url: Formatter.ctaLink(profile.c_secondaryCTA),
+        url: Formatter.generateCTAFieldTypeLink(profile.c_secondaryCTA),
         target: '_top',
         eventType: 'CTA_CLICK',
         eventOptions: this.addDefaultEventOptions()

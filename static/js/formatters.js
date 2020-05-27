@@ -805,7 +805,7 @@ export default class Formatters {
     return time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: !twentyFourHourClock })
   }
 
-  static ctaLink(cta) {
+  static generateCTAFieldTypeLink(cta) {
     if (!cta) {
       return null;
     }
