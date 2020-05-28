@@ -23,7 +23,7 @@ class product_standardCardComponent extends BaseCard['product-standard'] {
       url: profile.landingPageUrl, // If the card title is a clickable link, set URL here
       target: '_top', // If the title's URL should open in a new tab, etc.
       image: Formatter.image(profile.c_photo).url, // The URL of the image to display on the card
-      altText: Formatter.image(profile.c_photo).altText, // The alt text of the image to display on the card
+      altText: Formatter.image(profile.c_photo).alternateText, // The alt text of the image to display on the card
       titleEventOptions: this.addDefaultEventOptions(),
       subtitle: price, // The sub-header text of the card
       details: profile.description, // The text in the body of the card

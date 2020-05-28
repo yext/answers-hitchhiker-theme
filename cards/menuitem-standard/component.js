@@ -18,7 +18,7 @@ class menuitem_standardCardComponent extends BaseCard['menuitem-standard'] {
       url: profile.landingPageUrl, // If the card title is a clickable link, set URL here
       target: '_top', // If the title's URL should open in a new tab, etc.
       image: Formatter.image(profile.c_photo).url, // The URL of the image to display on the card
-      altText: Formatter.image(profile.c_photo).altText,  // The alternate text for the image
+      altText: Formatter.image(profile.c_photo).alternateText,  // The alternate text for the image
       // tagLabel: '', // The label of the displayed image
       titleEventOptions: this.addDefaultEventOptions(),
       listTitle: 'Allergens',
