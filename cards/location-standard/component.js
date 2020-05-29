@@ -1,4 +1,4 @@
-{{> cards/card_component componentName='location-standard'}}
+{{> cards/card_component componentName='location-standard' }}
 
 class location_standardCardComponent extends BaseCard['location-standard'] {
   constructor(config = {}, systemConfig = {}) {

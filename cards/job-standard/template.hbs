@@ -1,13 +1,13 @@
 <div class="HitchhikerJobStandard {{cardName}}">
-  {{> image}}
+  {{> image }}
   <div class="HitchhikerJobStandard-body">
-    {{> title}}
-    {{> subtitle}}
+    {{> title }}
+    {{> subtitle }}
     <div class="HitchhikerJobStandard-contentWrapper">
       <div class="HitchhikerJobStandard-info">
-        {{> details}}
+        {{> details }}
       </div>
-      {{> ctas}}
+      {{> ctas }}
     </div>
   </div>
 </div>
@@ -72,8 +72,8 @@
 {{#*inline 'ctas'}}
 {{#if (any (all card.CTA1 card.CTA1.url card.CTA1.label) (all card.CTA2 card.CTA2.url card.CTA2.label))}}
 <div class="HitchhikerJobStandard-ctasWrapper">
-  {{> CTA card.CTA1 ctaName="primaryCTA"}}
-  {{> CTA card.CTA2 ctaName="secondaryCTA"}}
+  {{> CTA card.CTA1 ctaName="primaryCTA" }}
+  {{> CTA card.CTA2 ctaName="secondaryCTA" }}
 </div>
 {{/if}}
 {{/inline}}

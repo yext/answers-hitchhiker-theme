@@ -1,4 +1,4 @@
-{{> cards/card_component componentName='menuitem-standard'}}
+{{> cards/card_component componentName='menuitem-standard' }}
 
 class menuitem_standardCardComponent extends BaseCard['menuitem-standard'] {
   constructor(config = {}, systemConfig = {}) {

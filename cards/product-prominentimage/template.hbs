@@ -1,11 +1,11 @@
 <div class="HitchhikerProductProminentImage {{cardName}}">
-  {{> image}}
+  {{> image }}
   <div class="HitchhikerProductProminentImage-body">
-    {{> title}}
-    {{> subtitle}}
+    {{> title }}
+    {{> subtitle }}
     <div class="HitchhikerProductProminentImage-contentWrapper">
-      {{> details}}
-      {{> ctas}}
+      {{> details }}
+      {{> ctas }}
     </div>
   </div>
 </div>
@@ -70,8 +70,8 @@
 {{#*inline 'ctas'}}
 {{#if (any (all card.CTA1 card.CTA1.url card.CTA1.label) (all card.CTA2 card.CTA2.url card.CTA2.label))}}
 <div class="HitchhikerProductProminentImage-ctasWrapper">
-  {{> CTA card.CTA1 ctaName="primaryCTA"}}
-  {{> CTA card.CTA2 ctaName="secondaryCTA"}}
+  {{> CTA card.CTA1 ctaName="primaryCTA" }}
+  {{> CTA card.CTA2 ctaName="secondaryCTA" }}
 </div>
 {{/if}}
 {{/inline}}

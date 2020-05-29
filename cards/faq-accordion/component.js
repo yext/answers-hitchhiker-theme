@@ -1,4 +1,4 @@
-{{> cards/card_component componentName='faq-accordion'}}
+{{> cards/card_component componentName='faq-accordion' }}
 
 class faq_accordionCardComponent extends BaseCard['faq-accordion'] {
   constructor(config = {}, systemConfig = {}) {

@@ -1,21 +1,21 @@
 <div class="HitchhikerProfessionalLocation {{cardName}}">
-  {{> image}}
+  {{> image }}
   <div class="HitchhikerProfessionalLocation-body">
     {{#if (any card.title card.distance)}}
     <div class="HitchhikerProfessionalLocation-topRow">
-      {{> ordinal}}
-      {{> title}}
-      {{> distance}}
+      {{> ordinal }}
+      {{> title }}
+      {{> distance }}
     </div>
     {{/if}}
-    {{> subtitle}}
+    {{> subtitle }}
     <div class="HitchhikerProfessionalLocation-contentWrapper">
       <div class="HitchhikerProfessionalLocation-info">
-        {{> details}}
-        {{> list}}
-        {{> phone}}
+        {{> details }}
+        {{> list }}
+        {{> phone }}
       </div>
-      {{> ctas}}
+      {{> ctas }}
     </div>
   </div>
 </div>
@@ -127,8 +127,8 @@
 {{#*inline 'ctas'}}
 {{#if (any (all card.CTA1 card.CTA1.url) (all card.CTA2 card.CTA2.url))}}
 <div class="HitchhikerProfessionalLocation-ctasWrapper">
-  {{> CTA card.CTA1 ctaName="primaryCTA"}}
-  {{> CTA card.CTA2 ctaName="secondaryCTA"}}
+  {{> CTA card.CTA1 ctaName="primaryCTA" }}
+  {{> CTA card.CTA2 ctaName="secondaryCTA" }}
 </div>
 {{/if}}
 {{/inline}}

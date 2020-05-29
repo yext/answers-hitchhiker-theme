@@ -6,7 +6,7 @@ ANSWERS.addComponent('UniversalResults', Object.assign({}, {
         {{#if verticalKey}}
           '{{verticalKey}}': {
             {{#with (lookup verticalsToConfig verticalKey)}}
-              {{> VerticalConfig verticalKey=../verticalKey}}
+              {{> VerticalConfig verticalKey=../verticalKey }}
             {{/with}}
           },
         {{/if}}
@@ -15,7 +15,7 @@ ANSWERS.addComponent('UniversalResults', Object.assign({}, {
       {{!-- Map the Universal config's verticalsToConfig --}}
       {{#each verticalsToConfig}}
         '{{@key}}': {
-          {{> VerticalConfig verticalKey=@key}}
+          {{> VerticalConfig verticalKey=@key }}
         },
       {{/each}}
     }),
@@ -44,7 +44,7 @@ ANSWERS.addComponent('UniversalResults', Object.assign({}, {
     {{{ json mapConfig }}},
     {{!-- This theme pin config must come after mapConfig in Object.assign --}}
     {
-      pin: {{> templates/universal-standard/script/map-pin mapConfig}},
+      pin: {{> templates/universal-standard/script/map-pin mapConfig }},
     }),
   {{/if}}
   {{#if universalLimit}}

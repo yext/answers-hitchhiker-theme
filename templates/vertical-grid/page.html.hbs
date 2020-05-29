@@ -1,23 +1,23 @@
 {{#> partials/layouts/html }}
   <div>
     {{#> script/core }}
-      {{> cards/all}}
-      {{> templates/vertical-grid/script/searchbar}}
-      {{> templates/vertical-grid/script/spellcheck}}
-      {{> templates/vertical-grid/script/navigation}}
-      {{> templates/vertical-grid/script/verticalresults}}
-      {{> templates/vertical-grid/script/pagination}}
-      {{> templates/vertical-grid/script/locationbias}}
-      {{!-- {{> templates/vertical-grid/script/sortoptions}} --}}
-      {{!-- {{> templates/vertical-grid/script/facets}} --}}
-      {{!-- {{> templates/vertical-grid/script/filterbox}} --}}
-      {{!-- {{> templates/vertical-grid/script/qasubmission}} --}}
+      {{> cards/all }}
+      {{> templates/vertical-grid/script/searchbar }}
+      {{> templates/vertical-grid/script/spellcheck }}
+      {{> templates/vertical-grid/script/navigation }}
+      {{> templates/vertical-grid/script/verticalresults }}
+      {{> templates/vertical-grid/script/pagination }}
+      {{> templates/vertical-grid/script/locationbias }}
+      {{!-- {{> templates/vertical-grid/script/sortoptions }} --}}
+      {{!-- {{> templates/vertical-grid/script/facets }} --}}
+      {{!-- {{> templates/vertical-grid/script/filterbox }} --}}
+      {{!-- {{> templates/vertical-grid/script/qasubmission }} --}}
     {{/script/core}}
     <div class="Answers AnswersVerticalGrid">
       <div class="Answers-navWrapper">
         <div class="Answers-container">
           {{> templates/vertical-grid/markup/searchbar }}
-          {{> templates/vertical-grid/markup/navigation}}
+          {{> templates/vertical-grid/markup/navigation }}
         </div>
       </div>
       <!-- Add "Answers-resultsWrapper--withFilters" to this class list if you want to include filters or facets  -->
@@ -25,9 +25,9 @@
         {{> templates/vertical-grid/markup/spellcheck }}
         <div class="Answers-filtersAndResults">
           {{!-- <div class="Answers-filtersWrapper"> --}}
-            {{!-- {{> templates/vertical-grid/markup/sortoptions}} --}}
-            {{!-- {{> templates/vertical-grid/markup/filterbox}} --}}
-            {{!-- {{> templates/vertical-grid/markup/facets}} --}}
+            {{!-- {{> templates/vertical-grid/markup/sortoptions }} --}}
+            {{!-- {{> templates/vertical-grid/markup/filterbox }} --}}
+            {{!-- {{> templates/vertical-grid/markup/facets }} --}}
           {{!-- </div> --}}
           {{> templates/vertical-grid/markup/verticalresults }}
         </div>
@@ -36,7 +36,7 @@
       </div>
     </div>
     <footer class="Answers-footer">
-      {{> layouts/yext-logo}}
+      {{> layouts/yext-logo }}
       {{> templates/vertical-grid/markup/locationbias }}
     </footer>
   </div>

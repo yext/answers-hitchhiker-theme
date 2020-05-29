@@ -3,12 +3,12 @@
 }}
 
 <div class="HitchhikerLocationStandard {{cardName}}">
-  {{> image}}
+  {{> image }}
   <div class="HitchhikerLocationStandard-contentWrapper">
     {{#if (any card.title card.distance)}}
     <div class="HitchhikerLocationStandard-topRow">
-      {{> ordinalAndTitle displayOrdinal=(all card.showOrdinal result.ordinal)}}
-      {{> distance}}
+      {{> ordinalAndTitle displayOrdinal=(all card.showOrdinal result.ordinal) }}
+      {{> distance }}
     </div>
     {{/if}}
     {{#if card.subtitle}}
@@ -18,10 +18,10 @@
     {{/if}}
     <div class="HitchhikerLocationStandard-content">
       <div class="HitchhikerLocationStandard-infoWrapper">
-        {{> contactInfo}}
-        {{> details}}
+        {{> contactInfo }}
+        {{> details }}
       </div>
-      {{> ctas}}
+      {{> ctas }}
     </div>
   </div>
 </div>
@@ -69,8 +69,8 @@
 {{#*inline 'ctas'}}
 {{#if (any (all card.CTA1 card.CTA1.url) (all card.CTA2 card.CTA2.url))}}
 <div class="HitchhikerLocationStandard-ctasWrapper">
-  {{> CTA card.CTA1 ctaName="primaryCTA"}}
-  {{> CTA card.CTA2 ctaName="secondaryCTA"}}
+  {{> CTA card.CTA1 ctaName="primaryCTA" }}
+  {{> CTA card.CTA2 ctaName="secondaryCTA" }}
 </div>
 {{/if}}
 {{/inline}}
@@ -106,7 +106,7 @@
     {{result.ordinal}}
   </div>
   {{/if}}
-  {{> title}}
+  {{> title }}
 </div>
 {{/if}}
 {{/inline}}
@@ -115,8 +115,8 @@
 <div class="HitchhikerLocationStandard-contactInfo">
   {{#if (any card.phone card.address)}}
   <div class="HitchhikerLocationStandard-core">
-    {{> address}}
-    {{> phone}}
+    {{> address }}
+    {{> phone }}
   </div>
   {{/if}}
   {{#if (any card.hours card.services)}}

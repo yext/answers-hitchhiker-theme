@@ -1,4 +1,4 @@
-{{> cards/card_component componentName='professional-standard'}}
+{{> cards/card_component componentName='professional-standard' }}
 
 class professional_standardCardComponent extends BaseCard['professional-standard'] {
   constructor(config = {}, systemConfig = {}) {

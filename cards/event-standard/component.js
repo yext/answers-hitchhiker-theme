@@ -1,4 +1,4 @@
-{{> cards/card_component componentName='event-standard'}}
+{{> cards/card_component componentName='event-standard' }}
 
 class event_standardCardComponent extends BaseCard['event-standard'] {
   constructor(config = {}, systemConfig = {}) {

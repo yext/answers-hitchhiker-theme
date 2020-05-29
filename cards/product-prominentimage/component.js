@@ -1,4 +1,4 @@
-{{> cards/card_component componentName='product-prominentimage'}}
+{{> cards/card_component componentName='product-prominentimage' }}
 
 class product_prominentimageCardComponent extends BaseCard['product-prominentimage'] {
   constructor(config = {}, systemConfig = {}) {
