@@ -6,3 +6,23 @@
 //
 // These should not have a prefix, and should use descriptive names like
 // .sidebar-product, or .about-author
+
+.sr-only
+{
+  @include sr-only();
+}
+
+.sr-only-focusable
+{
+  @include sr-only-focusable();
+}
+
+.HitchhikerCard-details-toggle
+{
+    text-align: left;
+    @include Text(
+        $color: var(--yxt-color-brand-primary),
+        $line-height: var(--yxt-line-height-md),
+        $style: italic);
+    @include TextButton($padding: 0);
+}
