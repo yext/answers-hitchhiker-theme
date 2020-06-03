@@ -4,7 +4,7 @@ ANSWERS.addComponent('UniversalResults', Object.assign({}, {
       {{!-- Map each Vertical config's verticalsToConfig --}}
       {{#each verticalConfigs}}
         {{#if verticalKey}}
-          '{{verticalKey}}': {
+          '{{{verticalKey}}}': {
             {{#with (lookup verticalsToConfig verticalKey)}}
               {{> VerticalConfig verticalKey=../verticalKey }}
             {{/with}}
@@ -24,18 +24,18 @@ ANSWERS.addComponent('UniversalResults', Object.assign({}, {
 ));
 
 {{#*inline 'VerticalConfig'}}
-  modifier: '{{verticalKey}}',
+  modifier: '{{{verticalKey}}}',
   {{#if cardType}}
     card: {
-        cardType: '{{cardType}}'
+      cardType: '{{{cardType}}}'
     },
   {{/if}}
-  sectionTitle: {{#if sectionTitle}}'{{sectionTitle}}'{{else}}{{#if label}}'{{label}}'{{else}}'{{verticalKey}}'{{/if}}{{/if}},
+  sectionTitle: {{#if sectionTitle}}'{{{sectionTitle}}}'{{else}}{{#if label}}'{{{label}}}'{{else}}'{{{verticalKey}}}'{{/if}}{{/if}},
   {{#if icon}}
-      sectionTitleIconName: '{{icon}}',
+    sectionTitleIconName: '{{{icon}}}',
   {{/if}}
-  {{#if iconUrl}}sectionTitleIconUrl: '{{iconUrl}}',{{/if}}
-  viewAllText: {{#if viewAllText}}'{{viewAllText}}'{{else}}'View All'{{/if}},
+  {{#if iconUrl}}sectionTitleIconUrl: '{{{iconUrl}}}',{{/if}}
+  viewAllText: {{#if viewAllText}}'{{{viewAllText}}}'{{else}}'View All'{{/if}},
   {{#if mapConfig}}
     includeMap: true,
     mapConfig: Object.assign({
@@ -52,7 +52,7 @@ ANSWERS.addComponent('UniversalResults', Object.assign({}, {
       let results = data.results;
       if (results) {
         results = results.filter((rex, idx) => {
-          return idx < {{universalLimit}};
+          return idx < {{{universalLimit}}};
         });
       }
       return Object.assign(data, {
