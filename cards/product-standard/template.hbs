@@ -51,6 +51,11 @@
 {{/if}}
 {{/inline}}
 
+{{! Displays the details for the card. If showMoreDetails has been configured,
+    this partial handles the show more toggle, show less toggle, truncated details,
+    and full details. If showMoreDetails has not been configured, it will display the
+    the regular card details.
+}}
 {{#*inline 'details'}}
 {{#if card.details}}
 <div class="HitchhikerProductStandard-cardDetails">
