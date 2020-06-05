@@ -1,0 +1,44 @@
+// These variables are not meant to be changed by the HH. They are the default values for the theme.
+// Variable overrides should be in the answers-variables.scss file.
+
+:root {
+  // control colors throughout the theme and SDK
+  --yxt-color-brand-primary: #0f70f0;
+  --yxt-color-brand-hover: #0C5ECB;
+  --yxt-color-brand-white: #fff;
+  --yxt-color-text-primary: #212121;
+  --yxt-color-text-secondary: #757575;
+  --yxt-color-link-primary: var(--yxt-color-brand-primary);
+  --yxt-color-borders: #dcdcdc;
+  --yxt-color-error: #940000;
+  --yxt-color-background-highlight: #fafafa;
+
+  // theme specific variables
+  --hh-answers-background-color: #eeeff0;
+  --hh-answers-container-width: 700px;
+  --hh-answers-container-width-filters: 950px;
+  --hh-color-gray-1: #dcdcdc;
+  --hh-color-gray-2: #fafafa;
+
+  // common border variables
+  --yxt-border-default: 1px solid var(--yxt-color-borders);
+
+  // spacing variable, used in padding/margins across the site
+  --yxt-base-spacing: 16px;
+
+  // component specific variable overrides
+  --yxt-autocomplete-text-font-size: 16px;
+  --yxt-results-title-bar-text-color: var(--yxt-color-text-primary);
+  --yxt-results-title-bar-background: var(--yxt-color-background-highlight);
+  --yxt-searchbar-button-background-color-base: white;
+  --yxt-searchbar-button-background-color-hover: white;
+  --yxt-searchbar-button-background-color-active: white;
+  --yxt-searchbar-button-text-color-hover: #0f70f0;
+}
+
+// breakpoint variables for use in media queries within the theme styling
+$breakpoint-mobile-max: 767px;
+$breakpoint-mobile-min: 768px;
+
+$breakpoint-mobile-sm-max: 575px;
+$breakpoint-mobile-sm-min: 576px;
