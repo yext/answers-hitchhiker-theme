@@ -2,12 +2,11 @@
 @import "~font-awesome/scss/variables";
 
 // Core variables and mixins
-@import "../common/variables";
+@import "common/variables";
 @import '../answers-variables';
-@import "../common/fonts";
-@import "../common/mixins";
-@import "../common/base";
-@import "../common/module";
+@import "../fonts";
+@import "common/mixins";
+@import "common/base";
 @import "module";
 
 // Utility styling
@@ -26,8 +25,7 @@
 @import "templates/vertical-grid";
 
 // Cards styling
-@import "cards/mixins";
-@import "cards/common";
+@import "cards/ctas";
 @import "cards/event-standard";
 @import "cards/location-standard";
 @import "cards/standard";
