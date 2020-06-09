@@ -11,7 +11,7 @@
     },
     **/
     "DirectAnswer": {
-      "footerText": "Was this what you were looking for?"
+      "defaultCard": "allfields-standard" // The name of the direct answer card to use
     },
     "SearchBar": {
       "placeholderText": "Search" // The placeholder text in the answers search bar
