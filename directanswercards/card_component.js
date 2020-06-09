@@ -6,10 +6,6 @@ BaseDirectAnswerCard['{{componentName}}'] = class extends ANSWERS.Component {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
     let data = config.data || {};
-
-    this.answer = data.answer || {};
-    this.relatedItem = data.relatedItem || {};
-    this.type = data.type || '';
     this.associatedEntityId = data.relatedItem && data.relatedItem.data && data.relatedItem.data.id;
   }
 
@@ -20,7 +16,8 @@ BaseDirectAnswerCard['{{componentName}}'] = class extends ANSWERS.Component {
    * @param {Object} data
    */
   setState(data) {
-    let cardData = this.dataForRender(this.type, this.answer, this.relatedItem);
+    let { type, answer, relatedItem } = data;
+    let cardData = this.dataForRender(type, answer, relatedItem);
     this.validateDataForRender(cardData);
 
     return super.setState({
@@ -34,7 +31,6 @@ BaseDirectAnswerCard['{{componentName}}'] = class extends ANSWERS.Component {
       console.error('Error: nothing returned from dataForRender');
     }
   }
-
 
   /**
    * Returns an object with the default event options for the card, including
