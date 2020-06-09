@@ -25,9 +25,7 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
         _value = answer.value.toLocaleString();
         break;
       case "email":
-        _value = answerValue
-          .map(value => `<a href="mailto:${value}">${value}</a>`)
-          .join(', ');
+        _value = `<a href="mailto:${answer.value}">${answer.value}</a>`;
         break;
       case "hours":
         _value = Formatter.openStatus({ hours: answer.value });
