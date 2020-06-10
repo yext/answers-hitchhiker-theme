@@ -2,7 +2,6 @@ const path = require('path');
 const fs = require('file-system');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const ClosurePlugin = require('closure-webpack-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
 
 module.exports = function () {
