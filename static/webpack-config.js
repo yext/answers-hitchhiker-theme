@@ -37,9 +37,6 @@ module.exports = function () {
         ['JAMBO_INJECTED_DATA']
       ),
     ],
-    optimization: {
-      minimizer: [new ClosurePlugin()]
-    },
     module: {
       rules: [
         {
