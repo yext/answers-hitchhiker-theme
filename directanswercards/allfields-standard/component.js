@@ -12,7 +12,8 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
    * @param relatedItem profile of the related entity for the direct answer
    */
   dataForRender(type, answer, relatedItem) {
-    let value = Array.isArray(answer.value) ? answer.value : [ answer.value ];
+    let isArray = Array.isArray(answer.value);
+    let value, arrayValue, regularValue;
 
     switch (answer.fieldType) {
       case "url":
@@ -20,44 +21,96 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
       case "ios_app_url":
       case "android_app_url":
       case "facebook_url":
-        value = answer.value.map((value) => ({
-            url: value,
-            displayText: value
-          }
-        ))
+        if (isArray) {
+          arrayValue = answer.value.map((value) => ({
+              url: value,
+              displayText: value
+            }
+          ));
+        } else {
+          regularValue = {
+            url: answer.value,
+            displayText: answer.value
+          };
+        }
+        value = isArray ? arrayValue : regularValue;
         break;
       case "email":
-        value = answer.value.map((value) => ({
-            url: value,
-            displayText: `mailto:${value}`
-          }
-        ));
+        if (isArray) {
+          arrayValue = answer.value.map((value) => ({
+              url: value,
+              displayText: `mailto:${value}`
+            }
+          ));
+        } else {
+          regularValue = {
+            url: answer.value,
+            displayText: `mailto:${answer.value}`
+          };
+        }
+        value = isArray ? arrayValue : regularValue;
         break;
       case "instagram_handle":
-        value = answer.value.map((value) => ({
-            url: `https://instagram.com/${value}`,
-            displayText: `@${value}`,
-          }
-        ));
+        if (isArray) {
+          arrayValue = answer.value.map((value) => ({
+              url: `https://instagram.com/${value}`,
+              displayText: `@${value}`,
+            }
+          ));
+        } else {
+          regularValue = {
+            url: `https://instagram.com/${answer.value}`,
+            displayText: `@${answer.value}`,
+          };
+        }
+        value = isArray ? arrayValue : regularValue;
         break;
       case "twitter_handle":
-        value = answer.value.map((value) => ({
-            url: `https://twitter.com/${value}`,
-            displayText: `@${value}`,
-          }
-        ));
+        if (isArray) {
+          arrayValue = answer.value.map((value) => ({
+              url: `https://twitter.com/${value}`,
+              displayText: `@${value}`,
+            }
+          ));
+        } else {
+          regularValue = {
+            url: `https://twitter.com/${answer.value}`,
+            displayText: `@${answer.value}`,
+          };
+        }
+        value = isArray ? arrayValue : regularValue;
         break;
       case "address":
-        value = answer.value.map((value) => Formatter.address({address: value}));
+        if (isArray) {
+          arrayValue = answer.value.map((value) => Formatter.address({address: value}));
+        } else {
+          regularValue = Formatter.address({address: answer.value});
+        }
+        value = isArray ? arrayValue : regularValue;
         break;
       case "hours":
-        value = answer.value.map((value) => Formatter.openStatus({hours: value}));
+        if (isArray) {
+          arrayValue = answer.value.map((value) => Formatter.openStatus({hours: value}));
+        } else {
+          regularValue = Formatter.openStatus({hours: answer.value});
+        }
+        value = isArray ? arrayValue : regularValue;
         break;
       case "decimal":
-        value = answer.value.map((value) => value.toLocaleString());
+        if (isArray) {
+          arrayValue = answer.value.map((value) => value.toLocaleString());
+        } else {
+          regularValue = answer.value.toLocaleString();
+        }
+        value = isArray ? arrayValue : regularValue;
         break;
       case "rich_text":
-        value = answer.value.map((value) => ANSWERS.formatRichText(value));
+        if (isArray) {
+          arrayValue = answer.value.map((value) => ANSWERS.formatRichText(value));
+        } else {
+          regularValue = ANSWERS.formatRichText(answer.value);
+        }
+        value = isArray ? arrayValue : regularValue;
       default:
         value = answer.value;
         break;
@@ -66,12 +119,20 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
     // Optionally switch by field name
     // switch (answer.fieldApiName) {
     //   case "mainPhone": // The Field API name
-    //     value = answer.value.map((value) => ({
-    //         url: `tel:${value}`,
-    //         displayText: Formatter.nationalizedPhoneDisplay({mainPhone: value})
-    //       }
-    //     ));
-    //   break;
+    //     if (isArray) {
+    //       arrayValue = answer.value.map((value) => ({
+    //           url: `tel:${value}`,
+    //           displayText: Formatter.nationalizedPhoneDisplay({mainPhone: value})
+    //         }
+    //       ));
+    //     } else {
+    //       regularValue = {
+    //         url: `tel:${answer.value}`,
+    //         displayText: Formatter.nationalizedPhoneDisplay({mainPhone: answer.value})
+    //       };
+    //     }
+    //     value = isArray ? arrayValue : regularValue;
+    //     break;
     // }
 
 
