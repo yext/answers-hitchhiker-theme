@@ -6,7 +6,7 @@ ANSWERS.addComponent('UniversalResults', Object.assign({}, {
         {{#if verticalKey}}
           '{{{verticalKey}}}': {
             {{#with (lookup verticalsToConfig verticalKey)}}
-              {{> VerticalConfig verticalKey=../verticalKey }}
+              {{> VerticalConfig verticalKey=../verticalKey url=@key }}
             {{/with}}
           },
         {{/if}}
@@ -14,9 +14,15 @@ ANSWERS.addComponent('UniversalResults', Object.assign({}, {
     }, {
       {{!-- Map the Universal config's verticalsToConfig --}}
       {{#each verticalsToConfig}}
-        '{{@key}}': {
-          {{> VerticalConfig verticalKey=@key }}
-        },
+        '{{@key}}': Object.assign(
+          {},
+          { {{> VerticalConfig verticalKey=@key }} },
+          {{#each ../verticalConfigs}}
+            {{#ifeq verticalKey @../key}}
+              { {{> VerticalConfig @../this verticalKey=verticalKey url=@key }} },
+            {{/ifeq}}
+          {{/each}}
+        ),
       {{/each}}
     }),
   },
@@ -25,6 +31,14 @@ ANSWERS.addComponent('UniversalResults', Object.assign({}, {
 
 {{#*inline 'VerticalConfig'}}
   modifier: '{{{verticalKey}}}',
+  {{#if url}}
+    verticalPages: [
+      {
+        verticalKey: '{{{verticalKey}}}',
+        url: '{{{url}}}'
+      }
+    ],
+  {{/if}}
   {{#if cardType}}
     card: {
       cardType: '{{{cardType}}}'
