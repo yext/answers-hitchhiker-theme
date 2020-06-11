@@ -80,6 +80,21 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
         }
         value = isArray ? arrayValue : regularValue;
         break;
+      case "phone":
+        if (isArray) {
+          arrayValue = answer.value.map((value) => ({
+              url: Formatter.phoneLink({mainPhone: value}),
+              displayText: Formatter.nationalizedPhoneDisplay({mainPhone: value}),
+            }
+          ));
+        } else {
+          regularValue = {
+            url: Formatter.phoneLink({mainPhone: answer.value}),
+            displayText: Formatter.nationalizedPhoneDisplay({mainPhone: answer.value}),
+          };
+        }
+        value = isArray ? arrayValue : regularValue;
+        break;
       case "address":
         if (isArray) {
           arrayValue = answer.value.map((value) => Formatter.address({address: value}));
@@ -111,6 +126,8 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
           regularValue = ANSWERS.formatRichText(answer.value);
         }
         value = isArray ? arrayValue : regularValue;
+      case "single_line_text":
+      case "multi_line_text":
       default:
         value = answer.value;
         break;
@@ -121,13 +138,13 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
     //   case "mainPhone": // The Field API name
     //     if (isArray) {
     //       arrayValue = answer.value.map((value) => ({
-    //           url: `tel:${value}`,
+    //           url: Formatter.phoneLink({mainPhone: value}),
     //           displayText: Formatter.nationalizedPhoneDisplay({mainPhone: value})
     //         }
     //       ));
     //     } else {
     //       regularValue = {
-    //         url: `tel:${answer.value}`,
+    //         url: Formatter.phoneLink({mainPhone: answer.value}),
     //         displayText: Formatter.nationalizedPhoneDisplay({mainPhone: answer.value})
     //       };
     //     }
