@@ -1,3 +1,91 @@
 <div class="HitchhikerAllFieldsStandard {{cardName}}">
-  Placeholder
+  <div class="HitchhikerAllFieldsStandard-title">
+    <div class="HitchhikerAllFieldsStandard-titleIconWrapper"
+         data-component="IconComponent"
+         data-opts='{
+            "iconName": "{{iconName}}",
+            "iconUrl": "{{customIconUrl}}"
+          }'
+         data-prop="icon"
+    ></div> 
+    <h2 class="HitchhikerAllFieldsStandard-titleText">
+      <span class="HitchhikerAllFieldsStandard-entityName">
+        {{entityName}}
+      </span>
+      <span class="HitchhikerAllFieldsStandard-slash">
+        /
+      </span>
+      <span class="HitchhikerAllFieldsStandard-fieldName">
+        {{fieldName}}
+      </span>
+    </h2>
+  </div>
+  <div class="HitchhikerAllFieldsStandard-content">
+    <div class="HitchhikerAllFieldsStandard-fieldValue">
+      {{{value}}}
+    </div>
+    {{#if relatedItem.data.website}}
+      <div class="HitchhikerAllFieldsStandard-viewMoreWrapper">
+        <a class="HitchhikerAllFieldsStandard-viewMore"
+           href="{{relatedItem.data.website}}"
+           data-eventtype="CTA_CLICK"
+           data-eventoptions="{{eventOptions}}"
+           target="{{#if linkTarget}}{{linkTarget}}{{else}}_blank{{/if}}">
+          {{viewDetailsText}}
+        </a>
+      </div>
+    {{/if}}
+  </div>
+
+  <div class="HitchhikerAllFieldsStandard-footerWrapper">
+    <div class="HitchhikerAllFieldsStandard-footer">
+      {{#if feedbackSubmitted}}
+      <div class="HitchhikerAllFieldsStandard-footerText">
+          {{footerTextOnSubmission}}
+      </div>
+      {{else}}
+        <div class="HitchhikerAllFieldsStandard-footerText" style="display:inline">
+          {{footerText}}
+        </div>
+        <form class="HitchhikerAllFieldsStandard-thumbs js-hitchhikerAllFieldsStandard-feedback-form">
+          <fieldset class="HitchhikerAllFieldsStandard-fieldset">
+          <legend>
+            <div class="sr-only">
+              {{footerText}}
+            </div>
+          </legend>
+          <label class="HitchhikerAllFieldsStandard-thumb" style="display:inline">
+            <span class="HitchhikerAllFieldsStandard-thumbUpIcon"
+                 data-component="IconComponent"
+                 data-opts='{"iconName": "thumb"}'
+                 data-prop="icon"
+            ></span>
+            <input type="radio"
+                   name="feedback"
+                   value="true"
+                   class="HitchhikerAllFieldsStandard-feedback HitchhikerAllFieldsStandard-thumbUpButton js-hitchhikerAllFieldsStandard-thumbUp">
+            <span class="sr-only">
+              {{positiveFeedbackSrText}}
+            </span>
+          </label>
+          <label class="HitchhikerAllFieldsStandard-thumb" style="display:inline">
+            <span class="HitchhikerAllFieldsStandard-thumbDownIcon"
+                 data-component="IconComponent"
+                 data-opts='{"iconName": "thumb"}'
+                 data-prop="icon"
+            ></span>
+            <input type="radio"
+                   name="feedback"
+                   value="false"
+                   class="HitchhikerAllFieldsStandard-feedback HitchhikerAllFieldsStandard-thumbDownButton js-hitchhikerAllFieldsStandard-thumbDown">
+            <span class="sr-only">
+              {{negativeFeedbackSrText}}
+            </span>
+          </label>
+          </fieldset>
+          <button type="submit" class="sr-only sr-only-focusable">Send feedback</button>
+        </form>
+      {{/if}}
+    </div>
+  </div>
 </div>
