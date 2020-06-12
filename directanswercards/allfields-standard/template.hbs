@@ -8,7 +8,9 @@
   <div class="HitchhikerAllFieldsStandard-content">
     {{> content }}
     {{> details }}
-    {{!-- {{> cta CTA }} --}}
+    <div class="HitchhikerAllFieldsStandard-cta">
+      {{> cta CTA }}
+    </div>
   </div>
   <div class="HitchhikerAllFieldsStandard-footerWrapper">
     <div class="HitchhikerAllFieldsStandard-footer">
@@ -130,7 +132,7 @@
 {{/if}}
 {{/inline}}
 
-{{!-- {{#*inline 'cta'}}
+{{#*inline 'cta'}}
 {{#if (all url label)}}
 <a class="HitchhikerCTA js-HitchhikerCTA{{#if modifiers}} {{modifiers}}{{/if}}" href="{{url}}"
   data-eventtype="{{eventType}}" data-eventoptions='{{json eventOptions}}'
@@ -148,4 +150,4 @@
   </div>
 </a>
 {{/if}}
-{{/inline}} --}}
+{{/inline}}

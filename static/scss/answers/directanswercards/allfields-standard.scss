@@ -47,12 +47,28 @@
   &-content
   {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
     padding: var(--yxt-base-spacing);
     background-color: var(--yxt-direct-answer-content-background-color);
     border-left: var(--yxt-direct-answer-border);
     border-right: var(--yxt-direct-answer-border);
+  }
+
+  &-cta
+  {
+    text-transform: uppercase;
+    margin-top: calc(var(--yxt-base-spacing) / 2);
+    justify-content: center;
+
+    @media (min-width: $breakpoint-mobile-max)
+    {
+      margin-top: 0;
+      margin-left: calc(var(--yxt-base-spacing) / 2);
+      margin-right: calc(var(--yxt-base-spacing) / 2);
+      justify-content: center;
+    }
+
   }
 
   &-footerWrapper
