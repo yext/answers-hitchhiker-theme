@@ -26,7 +26,7 @@ BaseDirectAnswerCard['{{componentName}}'] = class extends ANSWERS.Component {
     return super.setState({
       ...cardData,
       feedbackSubmitted: data.feedbackSubmitted,
-      isArray: Array.isArray(this.answer.value) && this.answer.value.length > 1,
+      isArray: Array.isArray(this.answer.value),
       cardName: `{{componentName}}`
     });
   }
