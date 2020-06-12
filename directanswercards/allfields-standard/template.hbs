@@ -123,7 +123,7 @@
   <div class="HitchhikerAllFieldsStandard-footerText">
     {{footerText}}
   </div>
-  <form class="HitchhikerAllFieldsStandard-thumbs js-HitchhikerAllFieldsStandard-feedbackForm">
+  <form class="HitchhikerAllFieldsStandard-thumbs js-HitchhikerDirectAnswerCard-feedbackForm">
     <fieldset class="HitchhikerAllFieldsStandard-fieldset">
     <legend class="sr-only">
       {{footerText}}
@@ -137,7 +137,7 @@
       <input type="radio"
               name="feedback"
               value="true"
-              class="HitchhikerAllFieldsStandard-feedback HitchhikerAllFieldsStandard-thumbUpButton js-HitchhikerAllFieldsStandard-thumbInput">
+              class="HitchhikerAllFieldsStandard-feedback HitchhikerAllFieldsStandard-thumbUpButton js-HitchhikerDirectAnswerCard-thumbInput">
       <span class="sr-only">
         {{positiveFeedbackSrText}}
       </span>
@@ -151,7 +151,7 @@
       <input type="radio"
               name="feedback"
               value="false"
-              class="HitchhikerAllFieldsStandard-feedback HitchhikerAllFieldsStandard-thumbDownButton js-HitchhikerAllFieldsStandard-thumbInput">
+              class="HitchhikerAllFieldsStandard-feedback HitchhikerAllFieldsStandard-thumbDownButton js-HitchhikerDirectAnswerCard-thumbInput">
       <span class="sr-only">
         {{negativeFeedbackSrText}}
       </span>
@@ -166,7 +166,7 @@
 {{#if (all url label)}}
 <a class="HitchhikerCTA js-HitchhikerCTA{{#if modifiers}} {{modifiers}}{{/if}}" href="{{url}}"
   data-eventtype="{{eventType}}" data-eventoptions='{{{json eventOptions}}}'
-  target="{{#if linkTarget}}{{linkTarget}}{{else}}{{#if target}}{{target}}{{else}}_blank{{/if}}{{/if}}">
+  target="{{#if target}}{{target}}{{else}}{{#if linkTarget}}{{linkTarget}}{{else}}_blank{{/if}}{{/if}}">
   {{#if (any iconName iconUrl)}}
   <div class="HitchhikerCTA-iconWrapper">
     <div class="HitchhikerCTA-icon" data-component="IconComponent" data-opts='{

@@ -38,7 +38,7 @@ BaseDirectAnswerCard['{{componentName}}'] = class extends ANSWERS.Component {
   }
 
   onMount() {
-    let feedbackFormSelector = '.js-HitchhikerAllFieldsStandard-feedbackForm';
+    let feedbackFormSelector = '.js-HitchhikerDirectAnswerCard-feedbackForm';
     let feedbackFormEl = this._container.querySelector(feedbackFormSelector);
     if (feedbackFormEl) {
       // For WCAG compliance, the feedback should be a submittable form
@@ -52,7 +52,7 @@ BaseDirectAnswerCard['{{componentName}}'] = class extends ANSWERS.Component {
         });
       });
 
-      let thumbSelectorEls = this._container.querySelectorAll('.js-HitchhikerAllFieldsStandard-thumbInput');
+      let thumbSelectorEls = this._container.querySelectorAll('.js-HitchhikerDirectAnswerCard-thumbInput');
       if (thumbSelectorEls) {
         thumbSelectorEls.forEach(el => {
           el.addEventListener('click', (e) => {
