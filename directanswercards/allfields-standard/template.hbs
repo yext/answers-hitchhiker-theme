@@ -1,9 +1,7 @@
 <div class="HitchhikerAllFieldsStandard {{cardName}}">
   <div class="HitchhikerAllFieldsStandard-title">
     {{> icon }}
-    <h2 class="HitchhikerAllFieldsStandard-titleText">
-      {{> title }}
-    </h2>
+    {{> title }}
   </div>
   <div class="HitchhikerAllFieldsStandard-content">
     <div class="HitchhikerAllFieldsStandard-column">
@@ -35,30 +33,34 @@
 {{/inline}}
 
 {{#*inline 'title'}}
-{{#if link}}
-<a class="HitchhikerAllFieldsStandard-titleLink"
-   href="{{link}}"
-   target={{#if linkTarget}}"{{linkTarget}}"{{else}}"_blank"{{/if}}
-   data-eventtype={{#if linkEventType}}"{{linkEventType}}"{{else}}"TITLE_CLICK"{{/if}}
-   data-eventoptions='{{{json linkEventOptions}}}'>
-{{/if}}
-{{#if entityName}}
-<span class="HitchhikerAllFieldsStandard-entityName">
-  {{entityName}}
-</span>
-{{/if}}
-{{#if (all entityName fieldName)}}
-<span class="HitchhikerAllFieldsStandard-slash">
-  /
-</span>
-{{/if}}
-{{#if fieldName}}
-<span class="HitchhikerAllFieldsStandard-fieldName">
-  {{fieldName}}
-</span>
-{{/if}}
-{{#if link}}
-</a>
+{{#if (any entityName fieldName)}}
+<h2 class="HitchhikerAllFieldsStandard-titleText">
+  {{#if link}}
+  <a class="HitchhikerAllFieldsStandard-titleLink"
+    href="{{link}}"
+    target={{#if linkTarget}}"{{linkTarget}}"{{else}}"_blank"{{/if}}
+    data-eventtype={{#if linkEventType}}"{{linkEventType}}"{{else}}"TITLE_CLICK"{{/if}}
+    data-eventoptions='{{{json linkEventOptions}}}'>
+  {{/if}}
+  {{#if entityName}}
+  <span class="HitchhikerAllFieldsStandard-entityName">
+    {{entityName}}
+  </span>
+  {{/if}}
+  {{#if (all entityName fieldName)}}
+  <span class="HitchhikerAllFieldsStandard-slash">
+    /
+  </span>
+  {{/if}}
+  {{#if fieldName}}
+  <span class="HitchhikerAllFieldsStandard-fieldName">
+    {{fieldName}}
+  </span>
+  {{/if}}
+  {{#if link}}
+  </a>
+  {{/if}}
+</h2>
 {{/if}}
 {{/inline}}
 
