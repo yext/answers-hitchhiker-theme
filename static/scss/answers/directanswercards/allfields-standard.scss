@@ -26,6 +26,16 @@
     );
   }
 
+  &-titleLink
+  {
+    &:hover,
+    &:active,
+    &:focus
+    {
+      text-decoration: underline;
+    }
+  }
+
   &-titleIconWrapper
   {
     display: flex;
@@ -175,7 +185,7 @@
     @include Text(
       $color: var(--yxt-color-text-neutral),
     );
-    background-color: var(--yxt-color-background-highlight);   
+    background-color: var(--yxt-color-background-highlight);
     display: none;
   }
 
@@ -197,5 +207,4 @@
     $line-height: var(--yxt-direct-answer-view-details-line-height);
     margin-left: 4px;
   }
-
 }
