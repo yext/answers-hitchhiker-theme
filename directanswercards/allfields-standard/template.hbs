@@ -37,7 +37,7 @@
 {{#*inline 'title'}}
 {{#if link}}
 <a class="HitchhikerAllFieldsStandard-titleLink"
-   href={{link}}
+   href="{{link}}"
    target={{#if linkTarget}}"{{linkTarget}}"{{else}}"_blank"{{/if}}
    data-eventtype={{#if linkEventType}}"{{linkEventType}}"{{else}}"TITLE_CLICK"{{/if}}
    data-eventoptions='{{{json linkEventOptions}}}'>
@@ -69,7 +69,7 @@
       {{#if url}}
       <li class="HitchhikerAllFieldsStandard-listItem">
         <a class="HitchhikerAllFieldsStandard-fieldValueLink"
-           href={{{url}}}
+           href="{{{url}}}"
            target={{#if linkTarget}}"{{linkTarget}}"{{else}}"_blank"{{/if}}
            {{#if eventType}}data-eventtype="{{eventType}}"{{/if}}
            {{#if eventOptions}}data-eventoptions='{{{json eventOptions}}}'{{/if}}>
@@ -86,7 +86,7 @@
   {{else}}
     {{#if value.url}}
       <a class="HitchhikerAllFieldsStandard-fieldValueLink"
-         href={{{value.url}}}
+         href="{{{value.url}}}"
          target={{#if linkTarget}}"{{linkTarget}}"{{else}}"_blank"{{/if}}
          {{#if eventType}}data-eventtype="{{eventType}}"{{/if}}
          {{#if eventOptions}}data-eventoptions='{{{json eventOptions}}}'{{/if}}>
