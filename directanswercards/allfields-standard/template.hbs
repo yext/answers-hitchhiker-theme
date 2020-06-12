@@ -6,7 +6,7 @@
     </h2>
   </div>
   <div class="HitchhikerAllFieldsStandard-content">
-    <div class="HitchhikerAllFieldsStandard-col">
+    <div class="HitchhikerAllFieldsStandard-column">
       {{> content }}
       {{> details }}
     </div>
@@ -46,14 +46,16 @@
 <span class="HitchhikerAllFieldsStandard-entityName">
   {{entityName}}
 </span>
-{{#if fieldName}}
+{{/if}}
+{{#if (all entityName fieldName)}}
 <span class="HitchhikerAllFieldsStandard-slash">
   /
 </span>
+{{/if}}
+{{#if fieldName}}
 <span class="HitchhikerAllFieldsStandard-fieldName">
   {{fieldName}}
 </span>
-{{/if}}
 {{/if}}
 {{#if link}}
 </a>
@@ -68,13 +70,7 @@
     {{#each value}}
       {{#if url}}
       <li class="HitchhikerAllFieldsStandard-listItem">
-        <a class="HitchhikerAllFieldsStandard-fieldValueLink"
-           href="{{{url}}}"
-           target={{#if linkTarget}}"{{linkTarget}}"{{else}}"_blank"{{/if}}
-           {{#if eventType}}data-eventtype="{{eventType}}"{{/if}}
-           {{#if eventOptions}}data-eventoptions='{{{json eventOptions}}}'{{/if}}>
-          {{{displayText}}}
-        </a>
+        {{> valueLink linkTarget=../linkTarget }}
       </li>
       {{else}}
       <li class="HitchhikerAllFieldsStandard-listItem">
@@ -85,19 +81,23 @@
     </ul>
   {{else}}
     {{#if value.url}}
-      <a class="HitchhikerAllFieldsStandard-fieldValueLink"
-         href="{{{value.url}}}"
-         target={{#if linkTarget}}"{{linkTarget}}"{{else}}"_blank"{{/if}}
-         {{#if eventType}}data-eventtype="{{eventType}}"{{/if}}
-         {{#if eventOptions}}data-eventoptions='{{{json eventOptions}}}'{{/if}}>
-         {{{value.displayText}}}
-      </a>
+        {{> valueLink }}
     {{else}}
       {{{value}}}
     {{/if}}
   {{/if}}
 </div>
 {{/if}}
+{{/inline}}
+
+{{#*inline 'valueLink'}}
+<a class="HitchhikerAllFieldsStandard-fieldValueLink"
+   href="{{{url}}}"
+   target={{#if linkTarget}}"{{linkTarget}}"{{else}}"_blank"{{/if}}
+   {{#if eventType}}data-eventtype="{{eventType}}"{{/if}}
+   {{#if eventOptions}}data-eventoptions='{{{json eventOptions}}}'{{/if}}>
+  {{{displayText}}}
+</a>
 {{/inline}}
 
 {{#*inline 'details'}}
