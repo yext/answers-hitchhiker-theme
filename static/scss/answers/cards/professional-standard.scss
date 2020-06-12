@@ -127,4 +127,9 @@ $professional-standard-spacing: var(--yxt-base-spacing) !default;
     display: flex;
     margin-top: calc(var(--hh-professional-standard-spacing) / 2);
   }
+
+  .js-hidden
+  {
+    display: none;
+  }
 }

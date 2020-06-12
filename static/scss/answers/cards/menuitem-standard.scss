@@ -111,4 +111,9 @@
     display: flex;
     margin-left: calc(var(--yxt-base-spacing) / 2);
   }
+
+  .js-hidden
+  {
+    display: none;
+  }
 }

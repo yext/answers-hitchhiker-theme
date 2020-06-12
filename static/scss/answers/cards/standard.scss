@@ -84,4 +84,9 @@
     display: flex;
     margin-top: var(--yxt-base-spacing) / 2;
   }
+
+  .js-hidden
+  {
+    display: none;
+  }
 }

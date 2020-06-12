@@ -160,4 +160,9 @@ $professional-location-ordinal-dimensions: 18px !default;
     display: flex;
     margin-top: calc(var(--hh-professional-location-spacing) / 2);
   }
+
+  .js-hidden
+  {
+    display: none;
+  }
 }

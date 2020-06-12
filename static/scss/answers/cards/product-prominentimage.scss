@@ -87,4 +87,9 @@
     display: flex;
     margin-top: calc(var(--yxt-base-spacing) / 2);
   }
+
+  .js-hidden
+  {
+    display: none;
+  }
 }
