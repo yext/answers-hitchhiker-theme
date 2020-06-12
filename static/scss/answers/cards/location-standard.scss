@@ -211,4 +211,9 @@ $location-standard-ordinal-dimensions: calc(var(--hh-location-standard-base-spac
     display: flex;
     margin-top: calc(var(--hh-location-standard-base-spacing) / 2);
   }
+
+  .js-hidden
+  {
+    display: none;
+  }
 }
