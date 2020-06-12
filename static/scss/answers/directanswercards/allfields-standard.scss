@@ -64,17 +64,17 @@
   {
     display: flex;
     justify-content: flex-end;
-    height: var(--yxt-direct-answer-footer-height);
     align-items: center;
     padding-left: var(--yxt-base-spacing);
     padding-right: var(--yxt-base-spacing);
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 8px;
+    padding-bottom: 8px;
     border: var(--yxt-direct-answer-border);
   }
 
   &-footerText
   {
+    display: inline;
     margin-right: var(--yxt-base-spacing);
     @include Text(
       $size: var(--yxt-direct-answer-footer-font-size),
@@ -106,7 +106,7 @@
 
   &-thumb
   {
-    display: flex;
+    display: inline;
     flex-shrink: 0;
     cursor: pointer;
     font-size: 24px;
@@ -122,8 +122,15 @@
     display: inline;
     margin-inline-start: 2px;
     margin-inline-end: 2px;
-    padding-block-start: 0.35em;
+    line-height: 0;
     min-inline-size: min-content;
+  }
+
+  &-fieldValueLink
+  {
+    @include Link;
+
+    font-weight: var(--yxt-font-weight-semibold);
   }
 
   &-fieldValue
@@ -138,6 +145,13 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    list-style-type: disc;
+  }
+
+  &-ul
+  {
+    list-style-type: disc;
+    list-style-position: inside;
   }
 
   &-feedback
@@ -156,7 +170,7 @@
       $line-height: var(--yxt-direct-answer-view-details-line-height),
       $weight: var(--yxt-direct-answer-view-details-font-weight),
     );
-    //@include Link-1;
+    @include Link;
 
     display: inline-flex;
     align-items: center;
@@ -167,4 +181,5 @@
     $line-height: var(--yxt-direct-answer-view-details-line-height);
     margin-left: 4px;
   }
+
 }

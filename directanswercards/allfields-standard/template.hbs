@@ -8,6 +8,7 @@
   <div class="HitchhikerAllFieldsStandard-content">
     {{> content }}
     {{> details }}
+    {{!-- {{> cta CTA }} --}}
   </div>
   <div class="HitchhikerAllFieldsStandard-footerWrapper">
     <div class="HitchhikerAllFieldsStandard-footer">
@@ -46,7 +47,23 @@
 {{#*inline 'content'}}
 {{#if value}}
 <div class="HitchhikerAllFieldsStandard-fieldValue">
-  {{{value}}}
+  {{#if isArray}}
+    <ul class = "HitchhikerAllFieldsStandard-ul">
+    {{#each value}}
+      {{#if this.url}}
+      <li><a class="HitchhikerAllFieldsStandard-fieldValueLink" href={{{this.url}}}>{{{this.displayText}}}</a></li>
+      {{else}}
+      <li>{{{this}}}</li>
+      {{/if}}
+    {{/each}}
+    </ul>
+  {{else}}
+    {{#if value.url}}
+      <a class="HitchhikerAllFieldsStandard-fieldValueLink" href={{{value.url}}}>{{{value.displayText}}}</a>
+      {{else}}
+      {{{value}}}
+    {{/if}}
+  {{/if}}
 </div>
 {{/if}}
 {{/inline}}
@@ -74,7 +91,7 @@
   <div class="HitchhikerAllFieldsStandard-footerText">
     {{footerText}}
   </div>
-  <form class="HitchhikerAllFieldsStandard-thumbs js-hitchhikerAllFieldsStandard-feedback-form">
+  <form class="HitchhikerAllFieldsStandard-thumbs js-HitchhikerAllFieldsStandard-feedbackForm">
     <fieldset class="HitchhikerAllFieldsStandard-fieldset">
     <legend class="sr-only">
       {{footerText}}
@@ -88,7 +105,7 @@
       <input type="radio"
               name="feedback"
               value="true"
-              class="HitchhikerAllFieldsStandard-feedback HitchhikerAllFieldsStandard-thumbUpButton js-hitchhikerAllFieldsStandard-thumbUp">
+              class="HitchhikerAllFieldsStandard-feedback HitchhikerAllFieldsStandard-thumbUpButton js-HitchhikerAllFieldsStandard-thumbInput">
       <span class="sr-only">
         {{positiveFeedbackSrText}}
       </span>
@@ -102,7 +119,7 @@
       <input type="radio"
               name="feedback"
               value="false"
-              class="HitchhikerAllFieldsStandard-feedback HitchhikerAllFieldsStandard-thumbDownButton js-hitchhikerAllFieldsStandard-thumbDown">
+              class="HitchhikerAllFieldsStandard-feedback HitchhikerAllFieldsStandard-thumbDownButton js-HitchhikerAllFieldsStandard-thumbInput">
       <span class="sr-only">
         {{negativeFeedbackSrText}}
       </span>
@@ -112,3 +129,23 @@
   </form>
 {{/if}}
 {{/inline}}
+
+{{!-- {{#*inline 'cta'}}
+{{#if (all url label)}}
+<a class="HitchhikerCTA js-HitchhikerCTA{{#if modifiers}} {{modifiers}}{{/if}}" href="{{url}}"
+  data-eventtype="{{eventType}}" data-eventoptions='{{json eventOptions}}'
+  target="{{#if target}}{{target}}{{else}}_top{{/if}}">
+  {{#if (any iconName iconUrl)}}
+  <div class="HitchhikerCTA-iconWrapper">
+    <div class="HitchhikerCTA-icon" data-component="IconComponent" data-opts='{
+      "iconUrl": "{{iconUrl}}",
+      "iconName": "{{iconName}}"
+    }'></div>
+  </div>
+  {{/if}}
+  <div class='HitchhikerCTA-iconLabel'>
+    {{label}}
+  </div>
+</a>
+{{/if}}
+{{/inline}} --}}
