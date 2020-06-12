@@ -38,14 +38,14 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
       case "email":
         if (isArray) {
           arrayValue = answer.value.map((value) => ({
-              url: value,
-              displayText: `mailto:${value}`
+              url: `mailto:${value}`,
+              displayText: value,
             }
           ));
         } else {
           regularValue = {
-            url: answer.value,
-            displayText: `mailto:${answer.value}`
+            url: `mailto:${answer.value}`,
+            displayText: answer.value,
           };
         }
         value = isArray ? arrayValue : regularValue;
@@ -163,7 +163,9 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
       // linkEventOptions: this.addDefaultEventOptions(), // The event options for link click analytics
       viewDetailsText: 'View Details', // Text below the direct answer
       viewDetailsLink: relatedItem.data.website, // Link for the “view details” text
-      viewDetailsEventOptions: this.addDefaultEventOptions(), // The event options for viewDetails click analytics
+      viewDetailsEventOptions: this.addDefaultEventOptions({
+        ctaLabel: 'VIEW_DETAILS'
+      }), // The event options for viewDetails click analytics
       linkTarget: '_top', // Target for all links in the direct answer
       // CTA: {
       //   label: '', // The CTA's label

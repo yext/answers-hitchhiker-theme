@@ -10,6 +10,7 @@ BaseDirectAnswerCard['{{componentName}}'] = class extends ANSWERS.Component {
     this.answer = data.answer || {};
     this.relatedItem = data.relatedItem || {};
     this.associatedEntityId = data.relatedItem && data.relatedItem.data && data.relatedItem.data.id;
+    this.verticalConfigId = data.relatedItem && data.relatedItem.verticalConfigId;
   }
 
   /**
@@ -25,6 +26,7 @@ BaseDirectAnswerCard['{{componentName}}'] = class extends ANSWERS.Component {
     return super.setState({
       ...cardData,
       feedbackSubmitted: data.feedbackSubmitted,
+      isArray: Array.isArray(this.answer.value) && this.answer.value.length > 1,
       cardName: `{{componentName}}`
     });
   }
@@ -58,20 +60,30 @@ BaseDirectAnswerCard['{{componentName}}'] = class extends ANSWERS.Component {
             if (input) {
               input.checked = true;
             }
-            this._trigger(feedbackFormSelector, 'submit');
+            this._triggerCustomEvent(feedbackFormSelector, 'submit');
           });
         });
       }
     }
   }
 
-  _trigger (selector, event, settings) {
+  /**
+   * Triggers the event passed in dispatched from the given selector
+   * @param {string} selector selector to dispatch event from
+   * @param {string} event event to fire
+   * @param {Object} settings additional settings
+   */
+  _triggerCustomEvent(selector, event, settings) {
     let e = this._customEvent(event, settings);
     this._container.querySelector(selector).dispatchEvent(e);
   }
 
-  // Event constructor polyfill
-  _customEvent (event, settings) {
+  /**
+   * _customEvent is an event constructor polyfill
+   * @param {string} event event to fire
+   * @param {Object} settings additional settings
+   */
+  _customEvent(event, settings) {
     const _settings = {
       bubbles: true,
       cancelable: true,
@@ -87,7 +99,7 @@ BaseDirectAnswerCard['{{componentName}}'] = class extends ANSWERS.Component {
    * reportQuality will send the quality feedback to analytics
    * @param {boolean} isGood true if the answer is what you were looking for
    */
-  reportQuality (isGood) {
+  reportQuality(isGood) {
     /**
      * EventTypes are explicit strings defined
      * for what the server expects for analytics.
@@ -122,10 +134,10 @@ BaseDirectAnswerCard['{{componentName}}'] = class extends ANSWERS.Component {
    * @param {Object} eventOptions
    */
   addDefaultEventOptions(eventOptions = {}) {
-    let entityId = this.associatedEntityId ? { entityId: this.associatedEntityId } : {};
     return Object.assign({}, {
         searcher: "UNIVERSAL",
-        ...entityId,
+        verticalConfigId: this.verticalConfigId,
+        entityId: this.associatedEntityId,
         ...eventOptions
       },
     );

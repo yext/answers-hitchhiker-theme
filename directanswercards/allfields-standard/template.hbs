@@ -6,8 +6,10 @@
     </h2>
   </div>
   <div class="HitchhikerAllFieldsStandard-content">
-    {{> content }}
-    {{> details }}
+    <div class="HitchhikerAllFieldsStandard-col">
+      {{> content }}
+      {{> details }}
+    </div>
     <div class="HitchhikerAllFieldsStandard-cta">
       {{> cta CTA }}
     </div>
@@ -20,6 +22,7 @@
 </div>
 
 {{#*inline 'icon'}}
+{{#if (any iconName iconUrl)}}
 <div class="HitchhikerAllFieldsStandard-titleIconWrapper"
   data-component="IconComponent"
   data-opts='{
@@ -27,10 +30,18 @@
     "iconUrl": "{{iconUrl}}"
   }'
   data-prop="icon"
-></div> 
+></div>
+{{/if}}
 {{/inline}}
 
 {{#*inline 'title'}}
+{{#if link}}
+<a class="HitchhikerAllFieldsStandard-titleLink"
+   href={{link}}
+   target={{#if linkTarget}}"{{linkTarget}}"{{else}}"_blank"{{/if}}
+   data-eventtype={{#if linkEventType}}"{{linkEventType}}"{{else}}"TITLE_CLICK"{{/if}}
+   data-eventoptions='{{{json linkEventOptions}}}'>
+{{/if}}
 {{#if entityName}}
 <span class="HitchhikerAllFieldsStandard-entityName">
   {{entityName}}
@@ -44,25 +55,44 @@
 </span>
 {{/if}}
 {{/if}}
+{{#if link}}
+</a>
+{{/if}}
 {{/inline}}
 
 {{#*inline 'content'}}
 {{#if value}}
 <div class="HitchhikerAllFieldsStandard-fieldValue">
   {{#if isArray}}
-    <ul class = "HitchhikerAllFieldsStandard-ul">
+    <ul class="HitchhikerAllFieldsStandard-ul">
     {{#each value}}
-      {{#if this.url}}
-      <li><a class="HitchhikerAllFieldsStandard-fieldValueLink" href={{{this.url}}}>{{{this.displayText}}}</a></li>
+      {{#if url}}
+      <li class="HitchhikerAllFieldsStandard-listItem">
+        <a class="HitchhikerAllFieldsStandard-fieldValueLink"
+           href={{{url}}}
+           target={{#if linkTarget}}"{{linkTarget}}"{{else}}"_blank"{{/if}}
+           {{#if eventType}}data-eventtype="{{eventType}}"{{/if}}
+           {{#if eventOptions}}data-eventoptions='{{{json eventOptions}}}'{{/if}}>
+          {{{displayText}}}
+        </a>
+      </li>
       {{else}}
-      <li>{{{this}}}</li>
+      <li class="HitchhikerAllFieldsStandard-listItem">
+        {{{this}}}
+      </li>
       {{/if}}
     {{/each}}
     </ul>
   {{else}}
     {{#if value.url}}
-      <a class="HitchhikerAllFieldsStandard-fieldValueLink" href={{{value.url}}}>{{{value.displayText}}}</a>
-      {{else}}
+      <a class="HitchhikerAllFieldsStandard-fieldValueLink"
+         href={{{value.url}}}
+         target={{#if linkTarget}}"{{linkTarget}}"{{else}}"_blank"{{/if}}
+         {{#if eventType}}data-eventtype="{{eventType}}"{{/if}}
+         {{#if eventOptions}}data-eventoptions='{{{json eventOptions}}}'{{/if}}>
+         {{{value.displayText}}}
+      </a>
+    {{else}}
       {{{value}}}
     {{/if}}
   {{/if}}
@@ -76,7 +106,7 @@
     <a class="HitchhikerAllFieldsStandard-viewMore"
         href="{{viewDetailsLink}}"
         data-eventtype="CTA_CLICK"
-        data-eventoptions="{{viewDetailsEventOptions}}"
+        data-eventoptions='{{{json viewDetailsEventOptions}}}'
         target="{{#if linkTarget}}{{linkTarget}}{{else}}_blank{{/if}}">
       {{viewDetailsText}}
     </a>
@@ -135,8 +165,8 @@
 {{#*inline 'cta'}}
 {{#if (all url label)}}
 <a class="HitchhikerCTA js-HitchhikerCTA{{#if modifiers}} {{modifiers}}{{/if}}" href="{{url}}"
-  data-eventtype="{{eventType}}" data-eventoptions='{{json eventOptions}}'
-  target="{{#if target}}{{target}}{{else}}_top{{/if}}">
+  data-eventtype="{{eventType}}" data-eventoptions='{{{json eventOptions}}}'
+  target="{{#if linkTarget}}{{linkTarget}}{{else}}_blank{{/if}}">
   {{#if (any iconName iconUrl)}}
   <div class="HitchhikerCTA-iconWrapper">
     <div class="HitchhikerCTA-icon" data-component="IconComponent" data-opts='{
