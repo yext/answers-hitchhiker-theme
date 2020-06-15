@@ -17,9 +17,11 @@
   @include sr-only-focusable();
 }
 
-.HitchhikerCard-details-toggle
+.HitchhikerCard-detailsToggle
 {
     text-align: left;
+    margin-top: calc(var(--yxt-base-spacing) / 4);
+
     @include Text(
         $color: var(--yxt-color-brand-primary),
         $line-height: var(--yxt-line-height-md),
