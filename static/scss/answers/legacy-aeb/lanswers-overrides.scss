@@ -32,3 +32,14 @@
     margin-bottom: calc(var(--yxt-base-spacing) / 2);
   }
 }
+
+.yxt-locationBias-updateLoc
+{
+  text-decoration: underline;
+  color: var(--yxt-color-link-primary);
+
+  &:hover
+  {
+    text-decoration: none;
+  }
+}
