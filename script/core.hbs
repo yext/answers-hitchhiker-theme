@@ -15,10 +15,11 @@
     const IS_STAGING = HitchhikerJS.isStaging(pages.stagingDomains || []);
     ANSWERS.init(Object.assign(
       {"templateBundle": TemplateBundle.default},
+      {
+        experienceVersion: IS_STAGING ? 'STAGING' : 'PRODUCTION',
+      },
       {{#with env.JAMBO_INJECTED_DATA}}
         {
-          experienceKey: "{{../global_config.experienceKey}}",
-          experienceVersion: IS_STAGING ? 'STAGING' : 'PRODUCTION',
           {{#if businessId}}businessId: "{{businessId}}",{{/if}}
           {{#with (lookup (lookup (lookup this 'answers') 'experiences') ../global_config.experienceKey)}}
             {{#if apiKey}}apiKey: "{{apiKey}}",{{/if}}
