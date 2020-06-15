@@ -1,0 +1,59 @@
+// These variables are not meant to be changed by the HH. They are the default values for the theme.
+// Variable overrides should be in the fonts.scss file.
+
+$font-weight-bold: 700;
+$font-weight-semibold: 600;
+$font-weight-medium: 500;
+$font-weight-normal: 400;
+$font-weight-light: 300;
+
+:root {
+  --yxt-font-weight-bold: #{$font-weight-bold};
+  --yxt-font-weight-semibold: #{$font-weight-semibold};
+  --yxt-font-weight-medium: #{$font-weight-medium};
+  --yxt-font-weight-normal: #{$font-weight-normal};
+  --yxt-font-weight-light: #{$font-weight-light};
+
+  --yxt-font-size-xs: 10px;
+  --yxt-font-size-sm: 12px;
+  --yxt-font-size-md: 14px;
+  --yxt-font-size-md-lg: 16px;
+  --yxt-font-size-lg: 18px;
+  --yxt-font-size-xlg: 20px;
+  --yxt-font-size-xxlg: 40px;
+
+  --yxt-line-height-xs: 1;
+  --yxt-line-height-sm: 1.2;
+  --yxt-line-height-md-sm: 4/3;
+  --yxt-line-height-md: 1.4;
+  --yxt-line-height-lg: 1.5;
+  --yxt-line-height-xlg: 5/3;
+  --yxt-line-height-xxlg: 1.7;
+
+  --yxt-font-family: "Open Sans",system-ui,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+}
+
+@font-face
+{
+  font-family: "Open Sans";
+  src: url('../../assets/fonts/opensans-regular-webfont.woff') format("woff");
+  font-weight: $font-weight-normal;
+  font-style: normal;
+}
+
+@font-face
+{
+  font-family: "Open Sans";
+  src: url('../../assets/fonts/opensans-bold-webfont.woff') format("woff");
+  font-weight: $font-weight-bold;
+  font-style: normal;
+}
+
+@font-face
+{
+  font-family: "Open Sans";
+  src: url('../../assets/fonts/opensans-semibold-webfont.woff') format("woff");
+  font-weight: $font-weight-semibold;
+  font-style: normal;
+}
+
