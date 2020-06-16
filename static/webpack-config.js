@@ -84,7 +84,7 @@ module.exports = function () {
                * @param {String} value the path to the static asset
                */
               urlFilter: (_, value) => {
-                const assetsDir = '../static/assets/';
+                const assetsDir = 'static/assets/';
                 return value.startsWith(assetsDir);
               },
               list: [
