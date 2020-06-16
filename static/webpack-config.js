@@ -3,6 +3,7 @@ const fs = require('file-system');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
+const clean = require('clean-webpack-plugin');
 
 module.exports = function () {
   const jamboConfig = JSON.parse(fs.readFileSync('jambo.json'))
@@ -20,8 +21,8 @@ module.exports = function () {
   return {
     mode: 'production',
     entry: {
-      bundle: './static/entry.js',
-      iframe: './static/js/iframe.js',
+      bundle: `./${jamboConfig.dirs.output}/static/entry.js`,
+      iframe: `./${jamboConfig.dirs.output}/static/js/iframe.js`,
     },
     output: {
       filename: '[name].js',
@@ -35,6 +36,11 @@ module.exports = function () {
       new webpack.EnvironmentPlugin(
         ['JAMBO_INJECTED_DATA']
       ),
+      new clean.CleanWebpackPlugin({
+        root: `${jamboConfig.dirs.output}/static`,
+        verbose: true,
+        dry: false
+      })
     ],
     module: {
       rules: [
