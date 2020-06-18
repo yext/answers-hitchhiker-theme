@@ -12,21 +12,6 @@
     flex: 1;
   }
 
-  .Hitchhiker-3-columns
-  {
-    .yxt-Card
-    {
-      flex: 0 0 33.33%;
-      min-width: 0;
-    }
-
-    .yxt-Results-items
-    {
-      display: flex;
-      flex-wrap: wrap;
-    }
-  }
-
   .Hitchhiker-2-columns
   {
     .yxt-Card
@@ -42,6 +27,21 @@
     }
   }
 
+  .Hitchhiker-3-columns
+  {
+    .yxt-Card
+    {
+      flex: 0 0 33.33%;
+      min-width: 0;
+    }
+
+    .yxt-Results-items
+    {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+  
   .Hitchhiker-4-columns
   {
     .yxt-Card
