@@ -8,20 +8,52 @@
   .yxt-Card-child
   {
     border: 1px solid var(--hh-color-gray-1);
-    flex-grow: 0;
+    display: flex;
+    flex: 1;
   }
 
   .Hitchhiker-3-columns
   {
     .yxt-Card
     {
-      width: 32%;
-      display: inline-block;
+      flex: 0 0 33.33%;
+      min-width: 0;
     }
 
     .yxt-Results-items
     {
-      display: inline-block;
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+
+  .Hitchhiker-2-columns
+  {
+    .yxt-Card
+    {
+      flex: 0 0 50%;
+      min-width: 0;
+    }
+
+    .yxt-Results-items
+    {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+
+  .Hitchhiker-4-columns
+  {
+    .yxt-Card
+    {
+      flex: 0 0 25%;
+      min-width: 0;
+    }
+
+    .yxt-Results-items
+    {
+      display: flex;
+      flex-wrap: wrap;
     }
   }
 
