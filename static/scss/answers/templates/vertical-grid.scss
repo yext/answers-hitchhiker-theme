@@ -12,11 +12,14 @@
     flex: 1;
   }
 
-  .Hitchhiker-2-columns
+  .Hitchhiker-2-columns,
+  .Hitchhiker-3-columns,
+  .Hitchhiker-4-columns 
   {
     .yxt-Card
     {
-      flex: 0 0 50%;
+      flex-grow: 0;
+      flex-shrink: 0;
       min-width: 0;
     }
 
@@ -27,34 +30,19 @@
     }
   }
 
-  .Hitchhiker-3-columns
+  .Hitchhiker-2-columns .yxt-Card 
   {
-    .yxt-Card
-    {
-      flex: 0 0 33.33%;
-      min-width: 0;
-    }
-
-    .yxt-Results-items
-    {
-      display: flex;
-      flex-wrap: wrap;
-    }
+    flex-basis: 50%;
   }
-  
-  .Hitchhiker-4-columns
-  {
-    .yxt-Card
-    {
-      flex: 0 0 25%;
-      min-width: 0;
-    }
 
-    .yxt-Results-items
-    {
-      display: flex;
-      flex-wrap: wrap;
-    }
+  .Hitchhiker-3-columns .yxt-Card 
+  {
+    flex-basis: 33.33%;
+  }
+
+  .Hitchhiker-4-columns .yxt-Card 
+  {
+    flex-basis: 25%;
   }
 
   .Answers
