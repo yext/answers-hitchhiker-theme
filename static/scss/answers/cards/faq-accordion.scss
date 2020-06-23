@@ -91,17 +91,6 @@
     color: var(--yxt-color-text-primary);
     line-height: var(--yxt-line-height-md);
   }
-
-
-  &-details a 
-  {
-    color: var(--yxt-color-brand-primary);
-    text-decoration: underline;
-
-    &:hover {
-      text-decoration: none
-    }
-  }
  
   &-details-toggle
   {

@@ -44,7 +44,7 @@
 
   li
   {
-    margin-bottom: 16px;
+    margin-bottom: --yxt-base-spacing;
   }
 
   ol
@@ -68,6 +68,16 @@
   u
   {
     @include u_styling;
+  }
+
+  a
+  {
+    color: var(--yxt-color-brand-primary);
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: none
+    }
   }
 }
 
