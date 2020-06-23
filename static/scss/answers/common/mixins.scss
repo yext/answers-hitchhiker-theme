@@ -44,7 +44,7 @@
 
   li
   {
-    margin-bottom: --yxt-base-spacing;
+    margin-bottom: var(--yxt-base-spacing);
   }
 
   ol
@@ -78,6 +78,11 @@
     &:hover {
       text-decoration: none
     }
+  }
+
+  p + p
+  {
+    margin-top: var(--yxt-base-spacing);
   }
 }
 
