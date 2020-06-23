@@ -5,10 +5,44 @@
     border: 0;
   }
 
-  .yxt-Card-child
+  .Hitchhiker-2-columns,
+  .Hitchhiker-3-columns,
+  .Hitchhiker-4-columns 
   {
-    border: 1px solid var(--hh-color-gray-1);
-    flex-grow: 0;
+    .yxt-Card
+    {
+      flex-grow: 0;
+      flex-shrink: 0;
+      min-width: 0;
+    }
+
+    .yxt-Card-child
+    {
+      border: 1px solid var(--hh-color-gray-1);
+      display: flex;
+      flex: 1;
+    }
+
+    .yxt-Results-items
+    {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+
+  .Hitchhiker-2-columns .yxt-Card 
+  {
+    flex-basis: 50%;
+  }
+
+  .Hitchhiker-3-columns .yxt-Card 
+  {
+    flex-basis: 33.33%;
+  }
+
+  .Hitchhiker-4-columns .yxt-Card 
+  {
+    flex-basis: 25%;
   }
 
   .Answers
