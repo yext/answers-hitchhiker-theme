@@ -4,6 +4,13 @@
   // "metaDescription": "", // The meta tag for open graph description
   // "canonicalUrl": "", // The link tag for canonical URL as well as the meta tag for open graph url
   // "keywords": "", // The meta tag for keywords
+  "pageSettings": {
+    /**
+     "search": {
+       "defaultInitialSearch": "" // Enter a default search term
+     }
+    **/
+  },  
   "componentSettings": {
     /**
     "QASubmission": {
@@ -26,6 +33,11 @@
       "noResults": {
         "displayAllResults": true // Optional, whether to display all results in the vertical when no results are found.
       }
+    },
+     "Pagination": {
+       "noResults": {
+        "visible": true 
+      }
     }
   },
   // Configuration used to define the look and feel of the vertical, both on this page and, by default,
@@ -33,6 +45,8 @@
   "verticalsToConfig": {
     "<REPLACE ME>": { // The vertical key from your search configuration
       // "label": "", // The name of the vertical in the section header and the navigation bar
+      // "verticalLimit": 15, // The result count limit for vertical search
+      // "universalLimit": 5, // The result count limit for universal search
       "cardType": "standard", // The name of the card to use - e.g. accordion, location, customcard 
       "icon": "star" // The icon to use on the card for this vertical
     }
