@@ -32,6 +32,9 @@
     "VerticalResults": {
       "noResults": {
         "displayAllResults": true // Optional, whether to display all results in the vertical when no results are found.
+      },
+      "appliedFilters": {
+        "removable": true
       }
     },
     "Pagination": {
