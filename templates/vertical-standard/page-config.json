@@ -7,6 +7,7 @@
   "pageSettings": {
     /**
      "search": {
+       "verticalKey": "<REPLACE ME>", // The vertical key from your search configuration
        "defaultInitialSearch": "" // Enter a default search term
      }
     **/
