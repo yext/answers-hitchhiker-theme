@@ -24,13 +24,13 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
         if (isArray) {
           arrayValue = answer.value.map((value) => ({
               url: value,
-              displayText: value
+              label: value
             }
           ));
         } else {
           regularValue = {
             url: answer.value,
-            displayText: answer.value
+            label: answer.value
           };
         }
         value = isArray ? arrayValue : regularValue;
@@ -39,13 +39,13 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
         if (isArray) {
           arrayValue = answer.value.map((value) => ({
               url: `mailto:${value}`,
-              displayText: value,
+              label: value,
             }
           ));
         } else {
           regularValue = {
             url: `mailto:${answer.value}`,
-            displayText: answer.value,
+            label: answer.value,
           };
         }
         value = isArray ? arrayValue : regularValue;
@@ -54,13 +54,13 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
         if (isArray) {
           arrayValue = answer.value.map((value) => ({
               url: `https://instagram.com/${value}`,
-              displayText: `@${value}`,
+              label: `@${value}`,
             }
           ));
         } else {
           regularValue = {
             url: `https://instagram.com/${answer.value}`,
-            displayText: `@${answer.value}`,
+            label: `@${answer.value}`,
           };
         }
         value = isArray ? arrayValue : regularValue;
@@ -69,13 +69,13 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
         if (isArray) {
           arrayValue = answer.value.map((value) => ({
               url: `https://twitter.com/${value}`,
-              displayText: `@${value}`,
+              label: `@${value}`,
             }
           ));
         } else {
           regularValue = {
             url: `https://twitter.com/${answer.value}`,
-            displayText: `@${answer.value}`,
+            label: `@${answer.value}`,
           };
         }
         value = isArray ? arrayValue : regularValue;
@@ -84,13 +84,13 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
         if (isArray) {
           arrayValue = answer.value.map((value) => ({
               url: Formatter.phoneLink({mainPhone: value}),
-              displayText: Formatter.nationalizedPhoneDisplay({mainPhone: value}),
+              label: Formatter.nationalizedPhoneDisplay({mainPhone: value}),
             }
           ));
         } else {
           regularValue = {
             url: Formatter.phoneLink({mainPhone: answer.value}),
-            displayText: Formatter.nationalizedPhoneDisplay({mainPhone: answer.value}),
+            label: Formatter.nationalizedPhoneDisplay({mainPhone: answer.value}),
           };
         }
         value = isArray ? arrayValue : regularValue;
@@ -139,13 +139,13 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
     //     if (isArray) {
     //       arrayValue = answer.value.map((value) => ({
     //           url: Formatter.phoneLink({mainPhone: value}),
-    //           displayText: Formatter.nationalizedPhoneDisplay({mainPhone: value})
+    //           label: Formatter.nationalizedPhoneDisplay({mainPhone: value})
     //         }
     //       ));
     //     } else {
     //       regularValue = {
     //         url: Formatter.phoneLink({mainPhone: answer.value}),
-    //         displayText: Formatter.nationalizedPhoneDisplay({mainPhone: answer.value})
+    //         label: Formatter.nationalizedPhoneDisplay({mainPhone: answer.value})
     //       };
     //     }
     //     value = isArray ? arrayValue : regularValue;
