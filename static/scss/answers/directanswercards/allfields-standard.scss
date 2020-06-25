@@ -200,6 +200,7 @@
 
     display: inline-flex;
     align-items: center;
+    margin-top: calc(var(--yxt-base-spacing) / 2);
   }
 
   &-viewMoreIcon
