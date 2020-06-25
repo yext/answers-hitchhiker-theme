@@ -4,6 +4,14 @@
   // "metaDescription": "", // The meta tag for open graph description
   // "canonicalUrl": "", // The link tag for canonical URL as well as the meta tag for open graph url
   // "keywords": "", // The meta tag for keywords
+  "pageSettings": {
+    /**
+     "search": {
+       "verticalKey": "<REPLACE ME>", // The vertical key from your search configuration
+       "defaultInitialSearch": "" // Enter a default search term
+     }
+    **/
+  },  
   "componentSettings": {
     /**
     "QASubmission": {
@@ -25,6 +33,14 @@
     "VerticalResults": {
       "noResults": {
         "displayAllResults": true // Optional, whether to display all results in the vertical when no results are found.
+      },
+      "appliedFilters": {
+        "removable": true
+      }
+    },
+    "Pagination": {
+       "noResults": {
+        "visible": true 
       }
     }
   },
