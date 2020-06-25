@@ -1,22 +1,20 @@
 <div class="HitchhikerAllFieldsStandard {{cardName}}">
+  {{#if (any iconName iconUrl entityName fieldName)}}
   <div class="HitchhikerAllFieldsStandard-title">
     {{> icon }}
     {{> title }}
   </div>
+  {{/if}}
+  {{#if (any value (all viewDetailsLink viewDetailsText) (all CTA CTA.url CTA.label))}}
   <div class="HitchhikerAllFieldsStandard-content">
     <div class="HitchhikerAllFieldsStandard-column">
-      {{> content }}
-      {{> details }}
+      {{> answer_value }}
+      {{> view_details_link }}
     </div>
-    <div class="HitchhikerAllFieldsStandard-cta">
-      {{> cta CTA linkTarget=linkTarget}}
-    </div>
+    {{> cta CTA linkTarget=linkTarget}}
   </div>
-  <div class="HitchhikerAllFieldsStandard-footerWrapper">
-    <div class="HitchhikerAllFieldsStandard-footer">
-      {{> footer }}
-    </div>
-  </div>
+  {{/if}}
+  {{> footer }}
 </div>
 
 {{#*inline 'icon'}}
@@ -64,15 +62,15 @@
 {{/if}}
 {{/inline}}
 
-{{#*inline 'content'}}
+{{#*inline 'answer_value'}}
 {{#if value}}
 <div class="HitchhikerAllFieldsStandard-fieldValue">
   {{#if isArray}}
     <ul class="HitchhikerAllFieldsStandard-ul">
     {{#each value}}
-      {{#if url}}
+      {{#if (all url label)}}
       <li class="HitchhikerAllFieldsStandard-listItem">
-        {{> valueLink linkTarget=../linkTarget }}
+        {{> value_link linkTarget=../linkTarget }}
       </li>
       {{else}}
       <li class="HitchhikerAllFieldsStandard-listItem">
@@ -82,8 +80,8 @@
     {{/each}}
     </ul>
   {{else}}
-    {{#if value.url}}
-      {{> valueLink value }}
+    {{#if (all value.url value.label)}}
+      {{> value_link value }}
     {{else}}
       {{{value}}}
     {{/if}}
@@ -92,18 +90,18 @@
 {{/if}}
 {{/inline}}
 
-{{#*inline 'valueLink'}}
+{{#*inline 'value_link'}}
 <a class="HitchhikerAllFieldsStandard-fieldValueLink"
    href="{{{url}}}"
    target={{#if linkTarget}}"{{linkTarget}}"{{else}}"_blank"{{/if}}
    {{#if eventType}}data-eventtype="{{eventType}}"{{/if}}
    {{#if eventOptions}}data-eventoptions='{{{json eventOptions}}}'{{/if}}>
-  {{{displayText}}}
+  {{{label}}}
 </a>
 {{/inline}}
 
-{{#*inline 'details'}}
-{{#if viewDetailsLink}}
+{{#*inline 'view_details_link'}}
+{{#if (all viewDetailsLink viewDetailsText)}}
   <div class="HitchhikerAllFieldsStandard-viewMoreWrapper">
     <a class="HitchhikerAllFieldsStandard-viewMore"
         href="{{viewDetailsLink}}"
@@ -117,69 +115,77 @@
 {{/inline}}
 
 {{#*inline 'footer'}}
-{{#if feedbackSubmitted}}
-<div class="HitchhikerAllFieldsStandard-footerText">
-    {{footerTextOnSubmission}}
-</div>
-{{else}}
+{{#if (any footerTextOnSubmission footerText)}}
+<div class="HitchhikerAllFieldsStandard-footerWrapper">
+  <div class="HitchhikerAllFieldsStandard-footer">
+  {{#if feedbackSubmitted}}
   <div class="HitchhikerAllFieldsStandard-footerText">
-    {{footerText}}
+      {{footerTextOnSubmission}}
   </div>
-  <form class="HitchhikerAllFieldsStandard-thumbs js-HitchhikerDirectAnswerCard-feedbackForm">
-    <fieldset class="HitchhikerAllFieldsStandard-fieldset">
-    <legend class="sr-only">
+  {{else}}
+    <div class="HitchhikerAllFieldsStandard-footerText">
       {{footerText}}
-    </legend>
-    <label class="HitchhikerAllFieldsStandard-thumb">
-      <span class="HitchhikerAllFieldsStandard-thumbUpIcon"
-            data-component="IconComponent"
-            data-opts='{"iconName": "thumb"}'
-            data-prop="icon"
-      ></span>
-      <input type="radio"
-              name="feedback"
-              value="true"
-              class="HitchhikerAllFieldsStandard-feedback HitchhikerAllFieldsStandard-thumbUpButton js-HitchhikerDirectAnswerCard-thumbInput">
-      <span class="sr-only">
-        {{positiveFeedbackSrText}}
-      </span>
-    </label>
-    <label class="HitchhikerAllFieldsStandard-thumb">
-      <span class="HitchhikerAllFieldsStandard-thumbDownIcon"
-            data-component="IconComponent"
-            data-opts='{"iconName": "thumb"}'
-            data-prop="icon"
-      ></span>
-      <input type="radio"
-              name="feedback"
-              value="false"
-              class="HitchhikerAllFieldsStandard-feedback HitchhikerAllFieldsStandard-thumbDownButton js-HitchhikerDirectAnswerCard-thumbInput">
-      <span class="sr-only">
-        {{negativeFeedbackSrText}}
-      </span>
-    </label>
-    </fieldset>
-    <button type="submit" class="sr-only sr-only-focusable">Send feedback</button>
-  </form>
+    </div>
+    <form class="HitchhikerAllFieldsStandard-thumbs js-HitchhikerDirectAnswerCard-feedbackForm">
+      <fieldset class="HitchhikerAllFieldsStandard-fieldset">
+      <legend class="sr-only">
+        {{footerText}}
+      </legend>
+      <label class="HitchhikerAllFieldsStandard-thumb">
+        <span class="HitchhikerAllFieldsStandard-thumbUpIcon"
+              data-component="IconComponent"
+              data-opts='{"iconName": "thumb"}'
+              data-prop="icon"
+        ></span>
+        <input type="radio"
+                name="feedback"
+                value="true"
+                class="HitchhikerAllFieldsStandard-feedback HitchhikerAllFieldsStandard-thumbUpButton js-HitchhikerDirectAnswerCard-thumbInput">
+        <span class="sr-only">
+          {{positiveFeedbackSrText}}
+        </span>
+      </label>
+      <label class="HitchhikerAllFieldsStandard-thumb">
+        <span class="HitchhikerAllFieldsStandard-thumbDownIcon"
+              data-component="IconComponent"
+              data-opts='{"iconName": "thumb"}'
+              data-prop="icon"
+        ></span>
+        <input type="radio"
+                name="feedback"
+                value="false"
+                class="HitchhikerAllFieldsStandard-feedback HitchhikerAllFieldsStandard-thumbDownButton js-HitchhikerDirectAnswerCard-thumbInput">
+        <span class="sr-only">
+          {{negativeFeedbackSrText}}
+        </span>
+      </label>
+      </fieldset>
+      <button type="submit" class="sr-only sr-only-focusable">Send feedback</button>
+    </form>
+  {{/if}}
+  </div>
+</div>
 {{/if}}
 {{/inline}}
 
 {{#*inline 'cta'}}
 {{#if (all url label)}}
-<a class="HitchhikerCTA js-HitchhikerCTA{{#if modifiers}} {{modifiers}}{{/if}}" href="{{url}}"
-  data-eventtype="{{eventType}}" data-eventoptions='{{{json eventOptions}}}'
-  target="{{#if target}}{{target}}{{else}}{{#if linkTarget}}{{linkTarget}}{{else}}_blank{{/if}}{{/if}}">
-  {{#if (any iconName iconUrl)}}
-  <div class="HitchhikerCTA-iconWrapper">
-    <div class="HitchhikerCTA-icon" data-component="IconComponent" data-opts='{
-      "iconUrl": "{{iconUrl}}",
-      "iconName": "{{iconName}}"
-    }'></div>
-  </div>
-  {{/if}}
-  <div class='HitchhikerCTA-iconLabel'>
-    {{label}}
-  </div>
-</a>
+<div class="HitchhikerAllFieldsStandard-cta">
+  <a class="HitchhikerCTA js-HitchhikerCTA{{#if modifiers}} {{modifiers}}{{/if}}" href="{{url}}"
+    data-eventtype="{{eventType}}" data-eventoptions='{{{json eventOptions}}}'
+    target="{{#if target}}{{target}}{{else}}{{#if linkTarget}}{{linkTarget}}{{else}}_blank{{/if}}{{/if}}">
+    {{#if (any iconName iconUrl)}}
+    <div class="HitchhikerCTA-iconWrapper">
+      <div class="HitchhikerCTA-icon" data-component="IconComponent" data-opts='{
+        "iconUrl": "{{iconUrl}}",
+        "iconName": "{{iconName}}"
+      }'></div>
+    </div>
+    {{/if}}
+    <div class='HitchhikerCTA-iconLabel'>
+      {{label}}
+    </div>
+  </a>
+</div>
 {{/if}}
 {{/inline}}

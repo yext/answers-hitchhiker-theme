@@ -54,6 +54,11 @@
     display: inline-flex;
   }
 
+  &-column
+  {
+    width: 100%;
+  }
+
   &-content
   {
     display: flex;
