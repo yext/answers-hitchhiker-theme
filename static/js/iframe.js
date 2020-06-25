@@ -36,15 +36,17 @@ const domain = isStaging() ? stagingDomain : prodDomain;
     // Parse the params out of the URL
     var params = paramString.split('&'),
                  verticalUrl;
+    var referrerPageUrl = document.referrer.split('?')[0].split('#')[0];
 
     // Default for localhost is index.html, empty o/w
     if (isLocalHost) {
       verticalUrl = 'index.html';
     }
 
-    // Don't include the verticalUrl in the frame src
+    // Don't include the verticalUrl or raw referrerPageUrl in the frame src
     var new_params = params.filter(function(param) {
-       return param.split('=')[0] !== 'verticalUrl';
+       return (param.split('=')[0] !== 'verticalUrl') &&
+        (param.split('=')[0] !== 'referrerPageUrl');
     });
 
     for (var i = 0; i < params.length; i ++) {
@@ -52,7 +54,13 @@ const domain = isStaging() ? stagingDomain : prodDomain;
       if (kv[0] === 'verticalUrl') {
         verticalUrl = kv[1];
       }
+
+      if (kv[0] === 'referrerPageUrl') {
+        referrerPageUrl = kv[1];
+      }
     }
+
+    new_params.push('referrerPageUrl=' + referrerPageUrl);
 
     // Build the Iframe URL
     var iframeUrl = domain;
