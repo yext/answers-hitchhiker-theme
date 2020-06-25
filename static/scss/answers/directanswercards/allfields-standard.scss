@@ -202,6 +202,14 @@
     align-items: center;
   }
 
+  &-viewMoreWrapper
+  {
+    &:not(:first-child)
+    {
+      margin-top: calc(var(--yxt-base-spacing) / 2);
+    }
+  }
+
   &-viewMoreIcon
   {
     $line-height: var(--yxt-direct-answer-view-details-line-height);
