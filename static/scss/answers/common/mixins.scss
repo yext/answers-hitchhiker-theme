@@ -80,6 +80,10 @@
     }
   }
 
+  b {
+    font-weight: var(--yxt-font-weight-bold);
+  }
+
   p + p
   {
     margin-top: var(--yxt-base-spacing);
