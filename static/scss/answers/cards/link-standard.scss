@@ -36,12 +36,9 @@
   {
     @include Link;
 
-    &::after
+    svg
     {
-      content: "";
-      background-image: url('../../assets/images/chevron.svg');
-      background-repeat: no-repeat;
-      background-position: 100%;
+      fill: var(--yxt-color-brand-primary);
       height: 10px;
       width: 10px;
       display: inline-flex;
