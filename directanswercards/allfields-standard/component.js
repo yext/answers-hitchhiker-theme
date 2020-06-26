@@ -105,9 +105,9 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
         break;
       case "hours":
         if (isArray) {
-          arrayValue = answer.value.map((value) => Formatter.openStatus({hours: value}));
+          arrayValue = answer.value.map((value) => `<div>${Formatter.openStatus({hours: value})}</div>`);
         } else {
-          regularValue = Formatter.openStatus({hours: answer.value});
+          regularValue = `<div>${Formatter.openStatus({hours: answer.value})}</div>`;
         }
         value = isArray ? arrayValue : regularValue;
         break;
