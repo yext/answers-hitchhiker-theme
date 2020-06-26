@@ -80,17 +80,17 @@
     }
 
     &-filtersWrapper {
-      margin-right: calc(var(--hh-base-spacing) * 2);
-      
+      margin-right: calc(var(--yxt-base-spacing) * 2);
+
       .yxt-FilterBox-container {
-        margin-bottom: var(--hh-base-spacing);
+        margin-bottom: var(--yxt-base-spacing);
       }
-  
+
       .yxt-Facets-container {
         padding: 0;
       }
     }
-  
+
 
     &-verticalResults
     {
