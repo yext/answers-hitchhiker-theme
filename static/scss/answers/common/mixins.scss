@@ -55,6 +55,7 @@
     flex-direction: column;
   }
 
+  b,
   strong
   {
     @include strong_styling;
