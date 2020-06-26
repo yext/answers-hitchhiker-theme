@@ -31,6 +31,15 @@
 
     &--withFilters
     {
+      padding-left: var(--yxt-base-spacing);
+      padding-right: var(--yxt-base-spacing);
+
+      @include bpgte(md)
+      {
+        padding-left: 0;
+        padding-right: 0;
+      }
+
       @include bpgte(sm)
       {
         max-width: 100%;

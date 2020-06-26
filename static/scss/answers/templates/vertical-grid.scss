@@ -32,17 +32,17 @@
     }
   }
 
-  .Hitchhiker-2-columns .yxt-Card 
+  .Hitchhiker-2-columns .yxt-Card
   {
     flex-basis: 50%;
   }
 
-  .Hitchhiker-3-columns .yxt-Card 
+  .Hitchhiker-3-columns .yxt-Card
   {
     flex-basis: 33.33%;
   }
 
-  .Hitchhiker-4-columns .yxt-Card 
+  .Hitchhiker-4-columns .yxt-Card
   {
     flex-basis: 25%;
   }
@@ -56,6 +56,15 @@
 
       &--withFilters
       {
+        padding-left: var(--yxt-base-spacing);
+        padding-right: var(--yxt-base-spacing);
+
+        @include bpgte(md)
+        {
+          padding-left: 0;
+          padding-right: 0;
+        }
+
         @include bpgte(sm)
         {
           max-width: 100%;
