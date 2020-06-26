@@ -43,6 +43,8 @@
       $line-height: var(--yxt-line-height-lg),
       $weight: var(--yxt-font-weight-semibold),
     );
+    
+    margin-right: calc(var(--yxt-base-spacing)/2);
   }
 
   &-icon
