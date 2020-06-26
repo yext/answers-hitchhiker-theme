@@ -55,6 +55,7 @@
     flex-direction: column;
   }
 
+  b,
   strong
   {
     @include strong_styling;
@@ -78,10 +79,6 @@
     &:hover {
       text-decoration: none
     }
-  }
-
-  b {
-    font-weight: var(--yxt-font-weight-bold);
   }
 
   p + p
