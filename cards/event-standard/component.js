@@ -35,7 +35,8 @@ class event_standardCardComponent extends BaseCard['event-standard'] {
         url: profile.ticketUrl || profile.website, // The URL a user will be directed to when clicking
         target: '_top', // Where the new URL will be opened
         eventType: 'RSVP', // Type of Analytics event fired when clicking the CTA
-        eventOptions: this.addDefaultEventOptions()
+        eventOptions: this.addDefaultEventOptions(),
+        // ariaLabel: '', // Accessible text providing a descriptive label for the CTA
       },
       // The secondary CTA of the card
       CTA2: {
@@ -44,7 +45,8 @@ class event_standardCardComponent extends BaseCard['event-standard'] {
         url: Formatter.getDirectionsUrl(profile),
         target: '_top',
         eventType: 'DRIVING_DIRECTIONS',
-        eventOptions: this.addDefaultEventOptions()
+        eventOptions: this.addDefaultEventOptions(),
+        // ariaLabel: '',
       }
     };
   }

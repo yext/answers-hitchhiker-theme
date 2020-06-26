@@ -36,6 +36,7 @@ class location_standardCardComponent extends BaseCard['location-standard'] {
         target: '_top', // If the URL will be opened in a new tab, etc.
         eventType: 'TAP_TO_CALL', // Type of Analytics event fired when clicking the CTA
         eventOptions: this.addDefaultEventOptions(), // The analytics event options for CTA clicks
+        // ariaLabel: '', // Accessible text providing a descriptive label for the CTA
       },
       CTA2: { // The secondary call to action for the card
         label: 'Get Directions',
@@ -44,6 +45,7 @@ class location_standardCardComponent extends BaseCard['location-standard'] {
         target: '_top',
         eventType: 'DRIVING_DIRECTIONS',
         eventOptions: this.addDefaultEventOptions(),
+        // ariaLabel: '',
       }
     };
   }

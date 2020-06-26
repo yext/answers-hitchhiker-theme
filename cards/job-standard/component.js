@@ -36,7 +36,8 @@ class job_standardCardComponent extends BaseCard['job-standard'] {
         url: profile.applicationUrl || profile.landingPageUrl, // The URL a user will be directed to when clicking
         target: '_top', // Where the new URL will be opened
         eventType: 'CTA_CLICK', // Type of Analytics event fired when clicking the CTA
-        eventOptions: this.addDefaultEventOptions()
+        eventOptions: this.addDefaultEventOptions(),
+        // ariaLabel: '', // Accessible text providing a descriptive label for the CTA
       }
     };
   }

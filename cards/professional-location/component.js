@@ -44,7 +44,8 @@ class professional_locationCardComponent extends BaseCard['professional-location
         url: Formatter.generateCTAFieldTypeLink(profile.c_primaryCTA), // The URL a user will be directed to when clicking
         target: '_top', // Where the new URL will be opened
         eventType: 'CTA_CLICK', // Type of Analytics event fired when clicking the CTA
-        eventOptions: this.addDefaultEventOptions()
+        eventOptions: this.addDefaultEventOptions(),
+        // ariaLabel: '', // Accessible text providing a descriptive label for the CTA
       },
       // The secondary CTA of the card
       CTA2: {
@@ -53,7 +54,8 @@ class professional_locationCardComponent extends BaseCard['professional-location
         url: Formatter.generateCTAFieldTypeLink(profile.c_secondaryCTA),
         target: '_top',
         eventType: 'CTA_CLICK',
-        eventOptions: this.addDefaultEventOptions()
+        eventOptions: this.addDefaultEventOptions(),
+        // ariaLabel: ''
       }
     };
   }
