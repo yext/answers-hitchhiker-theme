@@ -1,32 +1,46 @@
-ANSWERS.addComponent('UniversalResults', Object.assign({}, {
+const universalVerticalsToConfig = {
+  {{!-- Map the Universal config's verticalsToConfig --}}
+  {{#each verticalsToConfig}}
+    '{{@key}}':
+      {{#with (deepMerge
+        this 
+        (lookup @root/componentSettings.UniversalResults.config @key)
+        (lookup @root/componentSettings.UniversalResults.verticals @key)
+      )}}
+        Object.assign({}, {{{ json this }}}, { {{> VerticalConfig verticalKey=@key }} })
+      {{/with}}
+    ,
+  {{/each}}
+};
+
+const pageVerticalsToConfig = {
+  {{!-- Map each Page config's verticalsToConfig --}}
+  {{#each verticalConfigs}}
+    {{#if verticalKey}}
+      '{{{verticalKey}}}': 
+        {{#with (deepMerge
+          (lookup verticalsToConfig verticalKey)
+          (lookup @root/verticalsToConfig verticalKey)
+          (lookup @root/componentSettings.UniversalResults.config verticalKey)
+          (lookup @root/componentSettings.UniversalResults.verticals verticalKey)
+        )}}
+          Object.assign({}, {{{ json this }}}, { {{> VerticalConfig verticalKey=../verticalKey url=@key }} })
+        {{/with}}
+      ,
+    {{/if}}
+  {{/each}}
+};
+
+ANSWERS.addComponent('UniversalResults', Object.assign({},
+  {{{ json componentSettings.UniversalResults }}}, 
+  {
     container: '.js-answersUniversalResults',
-    config: Object.assign({}, {
-      {{!-- Map each Vertical config's verticalsToConfig --}}
-      {{#each verticalConfigs}}
-        {{#if verticalKey}}
-          '{{{verticalKey}}}': {
-            {{#with (lookup verticalsToConfig verticalKey)}}
-              {{> VerticalConfig verticalKey=../verticalKey url=@key }}
-            {{/with}}
-          },
-        {{/if}}
-      {{/each}}
-    }, {
-      {{!-- Map the Universal config's verticalsToConfig --}}
-      {{#each verticalsToConfig}}
-        '{{@key}}': Object.assign(
-          {},
-          { {{> VerticalConfig verticalKey=@key }} },
-          {{#each ../verticalConfigs}}
-            {{#ifeq verticalKey @../key}}
-              { {{> VerticalConfig @../this verticalKey=verticalKey url=@key }} },
-            {{/ifeq}}
-          {{/each}}
-        ),
-      {{/each}}
-    }),
-  },
-  {{{ json componentSettings.UniversalResults }}}
+    verticals: Object.assign({},
+      {{{ json componentSettings.UniversalResults.verticals}}},
+      universalVerticalsToConfig,
+      pageVerticalsToConfig
+    ),
+  }
 ));
 
 {{#*inline 'VerticalConfig'}}
