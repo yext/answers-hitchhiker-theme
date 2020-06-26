@@ -41,7 +41,8 @@ class menuitem_standardCardComponent extends BaseCard['menuitem-standard'] {
         url: profile.orderUrl, // The URL a user will be directed to when clicking
         target: '_top', // Where the new URL will be opened
         eventType: 'CTA_CLICK', // Type of Analytics event fired when clicking the CTA
-        eventOptions: this.addDefaultEventOptions()
+        eventOptions: this.addDefaultEventOptions(),
+        // ariaLabel: '', // Accessible text providing a descriptive label for the CTA
       },
       // The secondary CTA of the card
       CTA2: {
@@ -50,7 +51,8 @@ class menuitem_standardCardComponent extends BaseCard['menuitem-standard'] {
         url: profile.landingPageUrl,
         target: '_top',
         eventType: 'CTA_CLICK',
-        eventOptions: this.addDefaultEventOptions()
+        eventOptions: this.addDefaultEventOptions(),
+        // ariaLabel: '',
       }
     };
   }

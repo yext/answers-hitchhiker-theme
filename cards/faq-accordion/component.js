@@ -33,7 +33,8 @@ class faq_accordionCardComponent extends BaseCard['faq-accordion'] {
         target: '_top', // Where the new URL will be opened. To open in a new tab use '_blank'
         eventType: 'CTA_CLICK', // Type of Analytics event fired when clicking the CTA
         // Event options for the analytics event fired when this CTA is clicked.
-        eventOptions: this.addDefaultEventOptions({ /* Add additional options here */ })
+        eventOptions: this.addDefaultEventOptions({ /* Add additional options here */ }),
+        // ariaLabel: '', // Accessible text providing a descriptive label for the CTA
       },
       // The secondary CTA of the card
       CTA2: {
@@ -42,7 +43,8 @@ class faq_accordionCardComponent extends BaseCard['faq-accordion'] {
         url: Formatter.generateCTAFieldTypeLink(profile.c_secondaryCTA),
         target: '_top',
         eventType: 'CTA_CLICK',
-        eventOptions: this.addDefaultEventOptions({ /* Add additional options here */ })
+        eventOptions: this.addDefaultEventOptions({ /* Add additional options here */ }),
+        // ariaLabel: '',
       },
     };
   }
