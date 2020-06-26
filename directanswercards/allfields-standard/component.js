@@ -16,11 +16,11 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
     let value, arrayValue, regularValue;
 
     switch (answer.fieldType) {
-      case "url":
-      case "complex_url":
-      case "ios_app_url":
-      case "android_app_url":
-      case "facebook_url":
+      case 'url':
+      case 'complex_url':
+      case 'ios_app_url':
+      case 'android_app_url':
+      case 'facebook_url':
         if (isArray) {
           arrayValue = answer.value.map((value) => ({
               url: value,
@@ -35,7 +35,7 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
         }
         value = isArray ? arrayValue : regularValue;
         break;
-      case "email":
+      case 'email':
         if (isArray) {
           arrayValue = answer.value.map((value) => ({
               url: `mailto:${value}`,
@@ -50,7 +50,7 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
         }
         value = isArray ? arrayValue : regularValue;
         break;
-      case "instagram_handle":
+      case 'instagram_handle':
         if (isArray) {
           arrayValue = answer.value.map((value) => ({
               url: `https://instagram.com/${value}`,
@@ -65,7 +65,7 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
         }
         value = isArray ? arrayValue : regularValue;
         break;
-      case "twitter_handle":
+      case 'twitter_handle':
         if (isArray) {
           arrayValue = answer.value.map((value) => ({
               url: `https://twitter.com/${value}`,
@@ -80,7 +80,7 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
         }
         value = isArray ? arrayValue : regularValue;
         break;
-      case "phone":
+      case 'phone':
         if (isArray) {
           arrayValue = answer.value.map((value) => ({
               url: Formatter.phoneLink({mainPhone: value}),
@@ -95,7 +95,7 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
         }
         value = isArray ? arrayValue : regularValue;
         break;
-      case "address":
+      case 'address':
         if (isArray) {
           arrayValue = answer.value.map((value) => Formatter.address({address: value}));
         } else {
@@ -103,7 +103,7 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
         }
         value = isArray ? arrayValue : regularValue;
         break;
-      case "hours":
+      case 'hours':
         if (isArray) {
           arrayValue = answer.value.map((value) => Formatter.openStatus({hours: value}));
         } else {
@@ -111,7 +111,7 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
         }
         value = isArray ? arrayValue : regularValue;
         break;
-      case "decimal":
+      case 'decimal':
         if (isArray) {
           arrayValue = answer.value.map((value) => value.toLocaleString());
         } else {
@@ -119,15 +119,15 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
         }
         value = isArray ? arrayValue : regularValue;
         break;
-      case "rich_text":
+      case 'rich_text':
         if (isArray) {
           arrayValue = answer.value.map((value) => ANSWERS.formatRichText(value));
         } else {
           regularValue = ANSWERS.formatRichText(answer.value);
         }
         value = isArray ? arrayValue : regularValue;
-      case "single_line_text":
-      case "multi_line_text":
+      case 'single_line_text':
+      case 'multi_line_text':
       default:
         value = answer.value;
         break;
@@ -135,7 +135,7 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
 
     // Optionally switch by field name
     // switch (answer.fieldApiName) {
-    //   case "mainPhone": // The Field API name
+    //   case 'mainPhone': // The Field API name
     //     if (isArray) {
     //       arrayValue = answer.value.map((value) => ({
     //           url: Formatter.phoneLink({mainPhone: value}),
