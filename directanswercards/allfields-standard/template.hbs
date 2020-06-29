@@ -168,7 +168,8 @@
 {{#if (all url label)}}
 <a class="HitchhikerCTA js-HitchhikerCTA{{#if modifiers}} {{modifiers}}{{/if}}" href="{{url}}"
   data-eventtype="{{eventType}}" data-eventoptions='{{{json eventOptions}}}'
-  target="{{#if target}}{{target}}{{else}}{{#if linkTarget}}{{linkTarget}}{{else}}_blank{{/if}}{{/if}}">
+  target="{{#if target}}{{target}}{{else}}{{#if linkTarget}}{{linkTarget}}{{else}}_blank{{/if}}{{/if}}"
+  {{#if ariaLabel}} aria-label="{{ariaLabel}}"{{/if}}>
   {{#if (any iconName iconUrl)}}
   <div class="HitchhikerCTA-iconWrapper">
     <div class="HitchhikerCTA-icon" data-component="IconComponent" data-opts='{

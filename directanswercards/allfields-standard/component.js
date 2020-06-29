@@ -173,7 +173,8 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
       //   url: '', // The URL a user will be directed to when clicking
       //   target: '_top', // Where the new URL will be opened
       //   eventType: 'CTA_CLICK', // Type of Analytics event fired when clicking the CTA
-      //   eventOptions: this.addDefaultEventOptions() // The event options for CTA click analytics
+      //   eventOptions: this.addDefaultEventOptions(), // The event options for CTA click analytics
+      //   ariaLabel: ""
       // },
       footerTextOnSubmission: 'Thank you for your feedback!', // Text to display in the footer when a thumbs up/down is clicked
       footerText: 'Was this the answer you were looking for?', // Text to display in the footer
