@@ -8,6 +8,9 @@ import CtaFormatter from '@yext/cta-formatter';
  */
 export default class Formatters {
     static address(profile) {
+      if (!profile.address) {
+        return '';
+      }
       return components__address__i18n__addressForCountry({
         profile: profile,
         derivedData: {address: {stateName: ''}},
