@@ -27,8 +27,8 @@
         ...{{{ json this }}},
         {{#if verticalLimit}}
           search: {
-            ...{{{ json search }}},
-            limit: {{verticalLimit}}
+            limit: {{verticalLimit}},
+            ...{{{ json search }}}
           },
         {{/if}}
       {{/with}}
