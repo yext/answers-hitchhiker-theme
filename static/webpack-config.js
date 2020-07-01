@@ -70,36 +70,41 @@ module.exports = function () {
         },
         {
           test: /\.html$/i,
-          loader: 'html-loader',
-          options: {
-            attributes: {
-              /**
-               * @param {String} _ the html attribute like 'href' or 'src'
-               * @param {String} value the path to the static asset
-               */
-              urlFilter: (_, value) => {
-                const assetsDir = 'static/assets/';
-                return value.startsWith(assetsDir);
-              },
-              list: [
-                {
-                  tag: 'img',
-                  attribute: 'src',
-                  type: 'src',
-                },
-                {
-                  tag: 'link',
-                  attribute: 'href',
-                  type: 'src',
-                },
-                {
-                  tag: 'meta',
-                  attribute: 'content',
-                  type: 'src',
+          use: [
+            { loader: path.resolve(__dirname, './static/webpack/html-image-loader.js') },
+            {
+              loader: 'html-loader',
+              options: {
+                attributes: {
+                  /**
+                   * @param {String} _ the html attribute like 'href' or 'src'
+                   * @param {String} value the path to the static asset
+                   */
+                  urlFilter: (_, value) => {
+                    const assetsDir = 'static/assets/';
+                    return value.startsWith(assetsDir);
+                  },
+                  list: [
+                    {
+                      tag: 'img',
+                      attribute: 'src',
+                      type: 'src',
+                    },
+                    {
+                      tag: 'link',
+                      attribute: 'href',
+                      type: 'src',
+                    },
+                    {
+                      tag: 'meta',
+                      attribute: 'content',
+                      type: 'src',
+                    }
+                  ]
                 }
-              ]
+              }
             }
-          }
+          ]
         }
       ],
     },
