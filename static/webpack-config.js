@@ -20,8 +20,10 @@ module.exports = function () {
   return {
     mode: 'production',
     entry: {
-      bundle: `./${jamboConfig.dirs.output}/static/entry.js`,
-      iframe: `./${jamboConfig.dirs.output}/static/js/iframe.js`,
+      'bundle': `./${jamboConfig.dirs.output}/static/entry.js`,
+      'iframe': `./${jamboConfig.dirs.output}/static/js/iframe.js`,
+      'iframe-prod': `./${jamboConfig.dirs.output}/static/js/iframe-prod.js`,
+      'iframe-staging': `./${jamboConfig.dirs.output}/static/js/iframe-staging.js`,
     },
     output: {
       filename: '[name].js',
