@@ -49,57 +49,55 @@
 
   .Answers
   {
+    &-container {
+      position: relative;
+    }
+
     &-resultsWrapper
     {
       flex-grow: 1;
-      padding-top: var(--yxt-base-spacing);
+      padding-top: calc(var(--yxt-base-spacing) * 2);
 
-      &--withFilters
-      {
-        padding-left: var(--yxt-base-spacing);
-        padding-right: var(--yxt-base-spacing);
-
-        @include bpgte(md)
-        {
-          padding-left: 0;
-          padding-right: 0;
-        }
-
-        @include bpgte(sm)
-        {
-          max-width: 100%;
-          width: var(--hh-answers-container-width-filters);
-        }
-
-        .Answers-verticalResults
-        {
-          flex-grow: 1;
-        }
+      .yxt-ResultsHeader {
+        padding: 0 var(--yxt-results-header-spacing);
       }
     }
 
     &-filtersAndResults
     {
       display: flex;
+      flex-direction: column;
 
-      @include bplte(xs)
+      @include bpgte(lg)
       {
-        flex-direction: column;
+        flex-direction: row;
       }
     }
 
     &-filtersWrapper {
-      margin-right: calc(var(--yxt-base-spacing) * 2);
-
-      .yxt-FilterBox-container {
-        margin-bottom: var(--yxt-base-spacing);
-      }
+      margin-bottom: 20px;
 
       .yxt-Facets-container {
-        padding: 0;
+        padding: 0 24px;
+        width: 100%;
+      }
+
+      @include bpgte(lg) {
+        position: absolute;
+        top: calc(var(--yxt-base-spacing) * 2);
+        left: calc(-200px - 24px);
+        margin-bottom: 0;
+
+        .yxt-FilterBox-container {
+          margin-bottom: var(--yxt-base-spacing);
+        }
+
+        .yxt-Facets-container {
+          padding: 0;
+          width: 200px;
+        }
       }
     }
-
 
     &-verticalResults
     {
