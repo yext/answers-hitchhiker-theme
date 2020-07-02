@@ -8,59 +8,57 @@
 <link rel="stylesheet" type="text/css" href="bundle.css">
 <script src="https://assets.sitescdn.net/answers/v{{global_config.sdkVersion}}/answerstemplates.compiled.min.js"></script>
 <script>
-  {{#babel}}
+{{#babel}}
   function initAnswers() {
-    const JAMBO_INJECTED_DATA = {{{json env.JAMBO_INJECTED_DATA}}} || {};
+    const JAMBO_INJECTED_DATA = {{{ json env.JAMBO_INJECTED_DATA }}} || {};
     const pages = JAMBO_INJECTED_DATA.pages || {};
     const IS_STAGING = HitchhikerJS.isStaging(pages.stagingDomains || []);
-    ANSWERS.init(Object.assign(
-      {"templateBundle": TemplateBundle.default},
-      {
-        experienceVersion: IS_STAGING ? 'STAGING' : 'PRODUCTION',
-      },
+    const injectedConfig = {
+      experienceVersion: IS_STAGING ? 'STAGING' : 'PRODUCTION',
       {{#with env.JAMBO_INJECTED_DATA}}
-        {
-          {{#if businessId}}businessId: "{{businessId}}",{{/if}}
-          {{#with (lookup (lookup (lookup this 'answers') 'experiences') ../global_config.experienceKey)}}
-            {{#if apiKey}}apiKey: "{{apiKey}}",{{/if}}
-          {{/with}}
-          onStateChange: (params) => {
-            if ('parentIFrame' in window) {
-              parentIFrame.sendMessage(iframeGetSearchParams());
-            }
-          },
-        },
-      {{/with}}
-      {{{ json global_config }}},
-      {
-        {{#with (lookup verticalsToConfig verticalKey)}}
-          {{#if verticalLimit}}
-            search: {
-              limit: {{verticalLimit}},
-            },
-          {{/if}}
+        {{#if businessId}}businessId: "{{businessId}}",{{/if}}
+        {{#with (lookup (lookup (lookup this 'answers') 'experiences') ../global_config.experienceKey)}}
+          {{#if apiKey}}apiKey: "{{apiKey}}",{{/if}}
         {{/with}}
-      },
-      {{{ json pageSettings }}},
-      {
-        onReady: () => {
-          {{> @partial-block }}
-
-          {{#if global_config.conversionTrackingEnabled}}
-            ANSWERS.setConversionsOptIn(true);
-          {{/if}}
-
-          ANSWERS.registerHelper('all', function (...args) {
-            return args.filter(item => item).length === args.length;
-          });
-
-          ANSWERS.registerHelper('any', function (...args) {
-            return args.filter(item => item).length > 1;
-          });
+      {{/with}}
+    };
+    const userConfig = {
+      {{#with (deepMerge global_config (lookup verticalsToConfig verticalKey) pageSettings) }}
+        ...{{{ json this }}},
+        {{#if verticalLimit}}
+          search: {
+            limit: {{verticalLimit}},
+            ...{{{ json search }}}
+          },
+        {{/if}}
+      {{/with}}
+    };
+    ANSWERS.init({
+      templateBundle: TemplateBundle.default,
+      ...injectedConfig,
+      ...userConfig,
+      onStateChange: (params) => {
+        if ('parentIFrame' in window) {
+          parentIFrame.sendMessage(iframeGetSearchParams());
         }
+      },
+      onReady: () => {
+        {{> @partial-block }}
+
+        {{#if global_config.conversionTrackingEnabled}}
+          ANSWERS.setConversionsOptIn(true);
+        {{/if}}
+
+        ANSWERS.registerHelper('all', function (...args) {
+          return args.filter(item => item).length === args.length;
+        });
+
+        ANSWERS.registerHelper('any', function (...args) {
+          return args.filter(item => item).length > 1;
+        });
       }
-    ));
-  };
+    });
+  }
 {{/babel}}
 </script>
 <script src="https://assets.sitescdn.net/answers/v{{global_config.sdkVersion}}/answers.min.js" onload="initAnswers()" async></script>
