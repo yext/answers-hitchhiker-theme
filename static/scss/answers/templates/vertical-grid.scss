@@ -49,57 +49,81 @@
 
   .Answers
   {
+    &-container {
+      position: relative;
+    }
+
     &-resultsWrapper
     {
       flex-grow: 1;
-      padding-top: var(--yxt-base-spacing);
+      padding-top: calc(var(--yxt-base-spacing) * 2);
 
-      &--withFilters
-      {
-        padding-left: var(--yxt-base-spacing);
-        padding-right: var(--yxt-base-spacing);
-
-        @include bpgte(md)
-        {
-          padding-left: 0;
-          padding-right: 0;
-        }
-
-        @include bpgte(sm)
-        {
-          max-width: 100%;
-          width: var(--hh-answers-container-width-filters);
-        }
-
-        .Answers-verticalResults
-        {
-          flex-grow: 1;
-        }
+      .yxt-ResultsHeader {
+        padding: 0 var(--yxt-results-header-spacing);
       }
     }
 
     &-filtersAndResults
     {
       display: flex;
+      flex-direction: column;
 
-      @include bplte(xs)
+      @include bpgte(lg)
       {
-        flex-direction: column;
+        flex-direction: row;
       }
     }
 
     &-filtersWrapper {
-      margin-right: calc(var(--yxt-base-spacing) * 2);
+      margin-bottom: 20px;
 
-      .yxt-FilterBox-container {
-        margin-bottom: var(--yxt-base-spacing);
+      .Answers-facets,
+      .Answers-filterBox,
+      .Answers-sortOptions {
+        padding: 0 24px;
+        width: 100%;
+
+        &:not(:last-child) {
+          padding-bottom: 12px;
+          border-bottom: var(--yxt-border-default);
+        }
+
+        &:not(:first-child) {
+          padding-top: 20px;
+        }
+      }
+
+      .yxt-SortOptions-fieldSet {
+        margin: 0;
+      }
+
+      .yxt-SortOptions-options {
+        margin-bottom: 0;
+      }
+
+      .yxt-FilterOptions-selectedCount {
+        margin: 0 12px;
       }
 
       .yxt-Facets-container {
         padding: 0;
+        width: 100%;
+      }
+
+      @include bpgte(lg) {
+        position: absolute;
+        top: calc(var(--yxt-base-spacing) * 2);
+        left: calc(-200px - 24px);
+        margin-bottom: 0;
+
+        .Answers-facets,
+        .Answers-filterBox,
+        .Answers-sortOptions {
+          padding: 0;
+          width: 200px;
+        }
       }
     }
-
 
     &-verticalResults
     {
