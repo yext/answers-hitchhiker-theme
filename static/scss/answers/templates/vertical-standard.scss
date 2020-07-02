@@ -28,13 +28,37 @@
   &-filtersWrapper {
     margin-bottom: 20px;
 
-    .yxt-Facets-container {
+    .Answers-facets,
+    .Answers-filterBox,
+    .Answers-sortOptions {
       padding: 0 24px;
       width: 100%;
+
+      &:not(:last-child) {
+        padding-bottom: 12px;
+        border-bottom: var(--yxt-border-default);
+      }
+
+      &:not(:first-child) {
+        padding-top: 20px;
+      }
+    }
+
+    .yxt-SortOptions-fieldSet {
+      margin: 0;
+    }
+
+    .yxt-SortOptions-options {
+      margin-bottom: 0;
     }
 
     .yxt-FilterOptions-selectedCount {
       margin: 0 12px;
+    }
+
+    .yxt-Facets-container {
+      padding: 0;
+      width: 100%;
     }
 
     @include bpgte(lg) {
@@ -43,11 +67,9 @@
       left: calc(-200px - 24px);
       margin-bottom: 0;
 
-      .yxt-FilterBox-container {
-        margin-bottom: var(--yxt-base-spacing);
-      }
-
-      .yxt-Facets-container {
+      .Answers-facets,
+      .Answers-filterBox,
+      .Answers-sortOptions {
         padding: 0;
         width: 200px;
       }
