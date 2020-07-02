@@ -77,7 +77,7 @@ module.exports = function () {
         {
           test: /\.html$/i,
           use: [
-            { loader: path.resolve(__dirname, './static/webpack/html-image-loader.js') },
+            { loader: path.resolve(__dirname, './themes/answers-hitchhiker-theme/static/webpack/html-image-loader.js') },
             {
               loader: 'html-loader',
               options: {

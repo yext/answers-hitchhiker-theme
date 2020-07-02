@@ -46,7 +46,8 @@ ANSWERS.addComponent('UniversalResults', Object.assign({}, {
   {{/if}}
   sectionTitle: {{#if sectionTitle}}'{{{sectionTitle}}}'{{else}}{{#if label}}'{{{label}}}'{{else}}'{{{verticalKey}}}'{{/if}}{{/if}},
   {{#if icon}}
-    sectionTitleIconName: '{{{icon}}}',
+  {{!-- sectionTitleIconName: '{{{icon}}}', --}}
+  sectionTitleIconUrl: 'static/assets/images/test2.svg',
   {{/if}}
   {{#if iconUrl}}sectionTitleIconUrl: '{{{iconUrl}}}',{{/if}}
   viewAllText: {{#if viewAllText}}'{{{viewAllText}}}'{{else}}'View All'{{/if}},
