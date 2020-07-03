@@ -9,16 +9,14 @@ verticalPages: [
     {{#if verticalKey}}
       {{#with (lookup verticalsToConfig verticalKey)}}
         {{#if isFirst}}isFirst: {{isFirst}},{{/if}}
-        {{!-- {{#if icon}}icon: '{{{icon}}}',{{/if}} --}}
-        iconUrl: 'static/assets/images/test2.svg',
+        {{#if icon}}icon: '{{{icon}}}',{{/if}}
         label: {{#if label}}'{{{label}}}'{{else}}{{#if ../verticalKey}}'{{{../verticalKey}}}'{{else}}'{{{@key}}}'{{/if}}{{/if}},
         url: {{#if url}}'{{{url}}}'{{else}}'{{{@key}}}.html'{{/if}},
       {{/with}}
     {{else}}
       {{#with (lookup verticalsToConfig 'Universal')}}
         {{#if isFirst}}isFirst: {{isFirst}},{{/if}}
-        {{!-- {{#if icon}}icon: '{{{icon}}}',{{/if}} --}}
-        iconUrl: 'static/assets/images/test2.svg',
+        {{#if icon}}icon: '{{{icon}}}',{{/if}}
         label: {{#if label}}'{{{label}}}'{{else}}'{{{@key}}}'{{/if}},
         url: {{#if url}}'{{{url}}}'{{else}}'{{{@key}}}.html'{{/if}},
       {{/with}}
