@@ -86,6 +86,18 @@ module.exports = function () {
             {
               loader: 'html-loader',
               options: {
+                minimize: {
+                  removeAttributeQuotes: false,
+                  collapseWhitespace: true,
+                  conservativeCollapse: true,
+                  keepClosingSlash: true,
+                  minifyCSS: true,
+                  minifyJS: true,
+                  removeComments: true,
+                  removeScriptTypeAttributes: true,
+                  removeStyleLinkTypeAttributes: true,
+                  useShortDoctype: true
+                },
                 attributes: {
                   /**
                    * @param {String} _ the html attribute like 'href' or 'src'
@@ -96,11 +108,6 @@ module.exports = function () {
                     return value.startsWith(assetsDir);
                   },
                   list: [
-                    {
-                      tag: 'img',
-                      attribute: 'src',
-                      type: 'src',
-                    },
                     {
                       tag: 'link',
                       attribute: 'href',
