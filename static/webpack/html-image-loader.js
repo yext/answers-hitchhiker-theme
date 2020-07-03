@@ -18,9 +18,11 @@ const loaderUtils = require('loader-utils');
  * @return {string} The modified source with updated asset imports
  */
 module.exports = function loader(source) {
+  const options = loaderUtils.getOptions(this) || {};
+
   let matchNumber = 0;
   const imports = [];
-  const regex = /\\"(static\/assets\/images\/[^"]*)\\"/g;
+  const regex = options.regex || /\\"(static\/assets\/images\/[^"]*)\\"/g;
   const getUrlImport = `var ___CUSTOM_LOADER_GET_SOURCE_FROM_IMPORT___ = require("../node_modules/html-loader/dist/runtime/getUrl.js")`;
 
   source = source.replace(regex, function(match, group1) {
