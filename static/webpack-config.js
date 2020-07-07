@@ -78,9 +78,9 @@ module.exports = function () {
           test: /\.html$/i,
           use: [
             {
-              loader: path.resolve(__dirname, './themes/answers-hitchhiker-theme/static/webpack/html-image-loader.js'),
+              loader: path.resolve(__dirname, './themes/answers-hitchhiker-theme/static/webpack/html-asset-loader.js'),
               options: {
-                regex: /\\"(static\/assets\/images\/[^"]*)\\"/g
+                regex: /\\"(static\/assets\/[^"]*)\\"/g
               }
             },
             {
@@ -98,28 +98,7 @@ module.exports = function () {
                   removeStyleLinkTypeAttributes: true,
                   useShortDoctype: true
                 },
-                attributes: {
-                  /**
-                   * @param {String} _ the html attribute like 'href' or 'src'
-                   * @param {String} value the path to the static asset
-                   */
-                  urlFilter: (_, value) => {
-                    const assetsDir = 'static/assets/';
-                    return value.startsWith(assetsDir);
-                  },
-                  list: [
-                    {
-                      tag: 'link',
-                      attribute: 'href',
-                      type: 'src',
-                    },
-                    {
-                      tag: 'meta',
-                      attribute: 'content',
-                      type: 'src',
-                    }
-                  ]
-                }
+                attributes: false
               }
             }
           ]

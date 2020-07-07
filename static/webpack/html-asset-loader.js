@@ -12,7 +12,7 @@ const loaderUtils = require('loader-utils');
  * (3) an html-loader helper function is available
  *
  * After this loader, you will see imports like the following at the top of the file
- * var ___CUSTOM_LOADER_MATCH_0___ = ___CUSTOM_LOADER_GET_SOURCE_FROM_IMPORT___(require("./static/assets/images/test2.svg"));
+ * var ___HTML_ASSET_LOADER_MATCH_0___ = ___HTML_ASSET_LOADER_GET_SOURCE_FROM_IMPORT___(require("./static/assets/images/test2.svg"));
  *
  * @param {string} source The source code of the file from the previous loader
  * @return {string} The modified source with updated asset imports
@@ -22,13 +22,13 @@ module.exports = function loader(source) {
 
   let matchNumber = 0;
   const imports = [];
-  const regex = options.regex || /\\"(static\/assets\/images\/[^"]*)\\"/g;
-  const getUrlImport = `var ___CUSTOM_LOADER_GET_SOURCE_FROM_IMPORT___ = require("../node_modules/html-loader/dist/runtime/getUrl.js")`;
+  const regex = options.regex;
+  const getUrlImport = `var ___HTML_ASSET_LOADER_GET_SOURCE_FROM_IMPORT___ = require("../node_modules/html-loader/dist/runtime/getUrl.js")`;
 
   source = source.replace(regex, function(match, group1) {
-    const variableName = `___CUSTOM_LOADER_MATCH_${matchNumber}___`;
+    const variableName = `___HTML_ASSET_LOADER_MATCH_${matchNumber}___`;
     const requirePath = loaderUtils.stringifyRequest(this, loaderUtils.urlToRequest(group1));
-    const importString = `var ${variableName} = ___CUSTOM_LOADER_GET_SOURCE_FROM_IMPORT___(require(${requirePath}));`;
+    const importString = `var ${variableName} = ___HTML_ASSET_LOADER_GET_SOURCE_FROM_IMPORT___(require(${requirePath}));`;
 
     matchNumber += 1;
     imports.push(importString);
