@@ -78,6 +78,13 @@ export function generateIFrame(domain, queryParam, urlParam) {
   iframe.style.minWidth = '100%';
   iframe.id = 'answers-frame';
 
+  // Scroll to the top of the page when the iframe loads or a link is clicked.
+  iframe.addEventListener('load', () => {
+    document.documentElement.scrollTop = 0;
+    // For Safari
+    document.body.scrollTop = 0;
+  });
+
   window.onpopstate = function() {
     iframe.contentWindow.location.replace(calcFrameSrc());
   };
