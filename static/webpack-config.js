@@ -22,6 +22,7 @@ module.exports = function () {
     entry: {
       'bundle': `./${jamboConfig.dirs.output}/static/entry.js`,
       'iframe': `./${jamboConfig.dirs.output}/static/js/iframe.js`,
+      'answers': `./${jamboConfig.dirs.output}/static/js/iframe.js`,
       'iframe-prod': `./${jamboConfig.dirs.output}/static/js/iframe-prod.js`,
       'iframe-staging': `./${jamboConfig.dirs.output}/static/js/iframe-staging.js`,
     },
