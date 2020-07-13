@@ -51,7 +51,8 @@ export default class Formatters {
         }
 
         const line2 = addr.line2 ? ` ${addr.line2},` : ``;
-        const rawQuery = `${addr.line1},${line2} ${addr.city},${addr.region} ${addr.postalCode} ${addr.countryCode}`;
+        const region = addr.region ? ` ${addr.region}` : ``;
+        const rawQuery = `${addr.line1},${line2} ${addr.city},${region} ${addr.postalCode} ${addr.countryCode}`;
         const query = encodeURIComponent(rawQuery);
         return `https://www.google.com/maps/search/?api=1&query=${query}&output=classic`
     }
