@@ -1,11 +1,27 @@
 // This file is for custom CSS variables, you can
 // (1) override the existing Answers SDK variables (prefixed yxt)
 // (2) override existing or define new theme variables (prefixed hh)
+@function darkenMe($primary) {
+  $red: red($primary);
+  $green: green($primary);
+  $blue: blue($primary);
+
+  @return rgb($red - 3, $green - 18, $blue - 37);
+}
+
+$primary: #0f70f0;
+$hover: darkenMe($primary);
+
+// $primary: #0f70f0;
+// $hover: darken($primary, 11%);
 
 :root {
   // control colors throughout the theme and SDK
-  --yxt-color-brand-primary: #0f70f0;
-  --yxt-color-brand-hover: #0C5ECB;
+  // --yxt-color-brand-primary: #0f70f0;
+  // --yxt-color-brand-hover: darken(var(--yxt-color-brand-primary), 10%);
+  --yxt-color-brand-primary: #{$primary}; 
+  // //--yxt-color-brand-hover: #0C5ECB;
+  --yxt-color-brand-hover: #{$hover};
   --yxt-color-brand-white: #fff;
   --yxt-color-text-primary: #212121;
   --yxt-color-text-secondary: #757575;
