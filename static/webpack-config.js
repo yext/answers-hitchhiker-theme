@@ -3,6 +3,7 @@ const fs = require('file-system');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
+const clean = require('clean-webpack-plugin');
 
 module.exports = function () {
   const jamboConfig = JSON.parse(fs.readFileSync('jambo.json'))
@@ -38,6 +39,11 @@ module.exports = function () {
       new webpack.EnvironmentPlugin(
         ['JAMBO_INJECTED_DATA']
       ),
+      new clean.CleanWebpackPlugin({
+        root: `${jamboConfig.dirs.output}/static`,
+        verbose: true,
+        dry: false
+      })
     ],
     module: {
       rules: [
@@ -73,36 +79,32 @@ module.exports = function () {
         },
         {
           test: /\.html$/i,
-          loader: 'html-loader',
-          options: {
-            attributes: {
-              /**
-               * @param {String} _ the html attribute like 'href' or 'src'
-               * @param {String} value the path to the static asset
-               */
-              urlFilter: (_, value) => {
-                const assetsDir = 'static/assets/';
-                return value.startsWith(assetsDir);
-              },
-              list: [
-                {
-                  tag: 'img',
-                  attribute: 'src',
-                  type: 'src',
+          use: [
+            {
+              loader: path.resolve(__dirname, './themes/answers-hitchhiker-theme/static/webpack/html-asset-loader.js'),
+              options: {
+                regex: /\\"(static\/assets\/[^"]*)\\"/g
+              }
+            },
+            {
+              loader: 'html-loader',
+              options: {
+                minimize: {
+                  removeAttributeQuotes: false,
+                  collapseWhitespace: true,
+                  conservativeCollapse: true,
+                  keepClosingSlash: true,
+                  minifyCSS: true,
+                  minifyJS: true,
+                  removeComments: true,
+                  removeScriptTypeAttributes: true,
+                  removeStyleLinkTypeAttributes: true,
+                  useShortDoctype: true
                 },
-                {
-                  tag: 'link',
-                  attribute: 'href',
-                  type: 'src',
-                },
-                {
-                  tag: 'meta',
-                  attribute: 'content',
-                  type: 'src',
-                }
-              ]
+                attributes: false
+              }
             }
-          }
+          ]
         }
       ],
     },
