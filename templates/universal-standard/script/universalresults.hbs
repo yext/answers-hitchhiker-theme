@@ -33,6 +33,12 @@ ANSWERS.addComponent('UniversalResults', Object.assign({}, {
   modifier: '{{{verticalKey}}}',
   {{#if urlWithoutExtension}}
     url: '{{{urlWithoutExtension}}}.html',
+    verticalPages: [ // TODO remove this once the theme version does not support pre-v1.3 of the SDK
+      {
+        verticalKey: '{{{verticalKey}}}',
+        url: '{{{urlWithoutExtension}}}.html',
+      }
+    ]
   {{/if}}
   {{#if cardType}}
     card: {
