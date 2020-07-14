@@ -1,3 +1,5 @@
+require('iframe-resizer');
+
 export function generateIFrame(domain, queryParam, urlParam) {
   var isLocalHost = window.location.host.split(':')[0] === 'localhost';
   var containerEl = document.querySelector('#answers-container');
@@ -50,26 +52,7 @@ export function generateIFrame(domain, queryParam, urlParam) {
     iframeUrl += '?' + new_params.join('&');
     return iframeUrl;
   };
-  // For dynamic iFrame resizing
-  var resizer = document.createElement('script');
-
-  resizer.onload = function() {
-    iFrameResize({
-      //log: true,
-      checkOrigin: false,
-      onMessage: function(data) {
-        iframe.iFrameResizer.resize();
-        var currLocation = window.location.href.split('?')[0];
-        var newLocation = currLocation + '?' + data.message;
-        if (window.location.href !== newLocation) {
-          history.pushState({query: data.message}, window.document.title, newLocation);
-        }
-      }
-    }, '#answers-frame');
-  };
-  resizer.src = "https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.1.1/iframeResizer.min.js";
-  document.body.appendChild(resizer);
-
+  
   iframe.src = calcFrameSrc();
   iframe.frameBorder = 0;
 
@@ -90,4 +73,17 @@ export function generateIFrame(domain, queryParam, urlParam) {
   };
 
   containerEl.appendChild(iframe);
+
+  // For dynamic iFrame resizing
+  iFrameResize({
+    checkOrigin: false,
+    onMessage: function(data) {
+      iframe.iFrameResizer.resize();
+      var currLocation = window.location.href.split('?')[0];
+      var newLocation = currLocation + '?' + data.message;
+      if (window.location.href !== newLocation) {
+        history.pushState({query: data.message}, window.document.title, newLocation);
+      }
+    }
+  }, '#answers-frame');
 }
