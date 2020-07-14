@@ -6,7 +6,7 @@ ANSWERS.addComponent('UniversalResults', Object.assign({}, {
         {{#if verticalKey}}
           '{{{verticalKey}}}': {
             {{#with (lookup verticalsToConfig verticalKey)}}
-              {{> VerticalConfig verticalKey=../verticalKey url=@key }}
+              {{> VerticalConfig verticalKey=../verticalKey urlWithoutExtension=@key }}
             {{/with}}
           },
         {{/if}}
@@ -19,7 +19,7 @@ ANSWERS.addComponent('UniversalResults', Object.assign({}, {
           { {{> VerticalConfig verticalKey=@key }} },
           {{#each ../verticalConfigs}}
             {{#ifeq verticalKey @../key}}
-              { {{> VerticalConfig @../this verticalKey=verticalKey url=@key }} },
+              { {{> VerticalConfig @../this verticalKey=verticalKey urlWithoutExtension=@key }} },
             {{/ifeq}}
           {{/each}}
         ),
@@ -31,11 +31,12 @@ ANSWERS.addComponent('UniversalResults', Object.assign({}, {
 
 {{#*inline 'VerticalConfig'}}
   modifier: '{{{verticalKey}}}',
-  {{#if url}}
-    verticalPages: [
+  {{#if urlWithoutExtension}}
+    url: '{{{urlWithoutExtension}}}.html',
+    verticalPages: [ // TODO remove this once the theme version does not support pre-v1.3 of the SDK
       {
         verticalKey: '{{{verticalKey}}}',
-        url: '{{{url}}}'
+        url: '{{{urlWithoutExtension}}}.html',
       }
     ],
   {{/if}}
