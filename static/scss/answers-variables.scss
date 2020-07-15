@@ -5,11 +5,10 @@
 @import 'common/functions.scss';
 
 $primary: #0f70f0;
-$hover: darkenMe($primary);
 
 :root {
   --yxt-color-brand-primary: #{$primary}; 
-  --yxt-color-brand-hover: #{$hover};
+  --yxt-color-brand-hover: #{darkenMe($primary)};
   --yxt-color-brand-white: #fff;
   --yxt-color-text-primary: #212121;
   --yxt-color-text-secondary: #757575;
