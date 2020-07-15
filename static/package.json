@@ -35,6 +35,7 @@
   "dependencies": {
     "bootstrap-sass": "^3.4.1",
     "font-awesome": "^4.7.0",
+    "iframe-resizer": "^4.1.1",
     "libphonenumber-js": "^1.7.51"
   }
 }
