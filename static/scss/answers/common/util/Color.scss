@@ -1,0 +1,7 @@
+@function darkenMe($primary) {
+    $red: red($primary);
+    $green: green($primary);
+    $blue: blue($primary);
+
+    @return rgb($red - 3, $green - 18, $blue - 37);
+}
