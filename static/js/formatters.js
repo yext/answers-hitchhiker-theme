@@ -1,6 +1,7 @@
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import { components__address__i18n__addressForCountry } from './address-i18n.js'
 import CtaFormatter from '@yext/cta-formatter';
+import provideOpenStatusTranslation from './open-status-18n';
 
 /**
  * Contains some of the commonly used formatters for parsing pieces
@@ -380,7 +381,10 @@ export default class Formatters {
     return truncated;
   }
 
-  static openStatus(profile) {
+  /**
+   * TODO: this formatter should not mutate the profile data.
+   */
+  static openStatus(profile, locale = 'en-US') {
     if (!profile.hours) {
       return '';
     }
@@ -392,6 +396,10 @@ export default class Formatters {
 
 
     const { time, day } = this._calculateYextDayTime(new Date(), profile.timeZoneUtcOffset);
+
+    /**
+     * @type {{days: Object[], time: number, day: string, dayIndex: number }}
+     */
     let hours = {
         days: days,
         time: time,
@@ -405,7 +413,7 @@ export default class Formatters {
     hours.nextDay = nextDay;
     hours.status = status;
 
-    return this._getTodaysMessage({ hoursToday: hours, isTwentyFourHourClock: false });
+    return this._getTodaysMessage({ hoursToday: hours, isTwentyFourHourClock: false, locale: locale });
   }
 
   static _prepareIntervals({ days }) { //days is a parsed json of hours.days
@@ -549,6 +557,22 @@ export default class Formatters {
     }
   }
 
+  /**
+   * @param {Object} days e.g. 
+   * { 
+   *   monday: {
+   *     isClosed: false,
+   *     openIntervals: [{ start: '01:00', end: '02:00' }]
+   *   },
+   *   holidayHours: [
+   *     { date: '2020-7-28', openIntervals: [{ start: '01:00', end: '02:00' }] },
+   *     { date: '2020-7-29', isClosed: true },
+   *     { date: '2020-7-30', isRegularHours: true }
+   *   ]
+   * }
+   * @param {string} timezone e.g. "-04:00"
+   * @returns {Object[]}
+   */
   static _formatHoursForAnswers(days, timezone) {
     const daysOfWeek = [
       'SUNDAY',
@@ -573,9 +597,6 @@ export default class Formatters {
           let holidayDate = new Date(holiday.date + 'T00:00:00.000');
           if (dayNameToDate.toDateString() == holidayDate.toDateString()) {
             holiday.intervals = this._formatIntervals(holiday.openIntervals);
-            if (!holiday.intervals) {
-              holiday.intervals = [];
-            }
             days[day].dailyHolidayHours = holiday;
           }
         }
@@ -633,9 +654,17 @@ export default class Formatters {
     return resultDate;
   }
 
+  /**
+   * Returns the hours intervals array with hours parsed into a number 
+   * e.g. "09:00" turning into 900.
+   * @param {Object[]} intervals
+   * @param {string} intervals[].start start time like "09:00"
+   * @param {string} intervals[].end end time like "17:00"
+   * @returns {Object[]}
+   */
   static _formatIntervals(intervals) {
     if (!intervals) {
-      return intervals;
+      return [];
     }
     let formatted = Array.from(intervals);
     for (let interval of formatted) {
@@ -670,6 +699,7 @@ export default class Formatters {
    *
    * @param {Date} now
    * @param {{start: number, offset: number}[]} utcOffsets
+   * @returns {{ time: number, day: string }}
    */
   static _calculateYextDayTime(now, utcOffsets) {
     // Get offset data from store page metadata
@@ -702,6 +732,10 @@ export default class Formatters {
     return {time, day};
   }
 
+  /**
+   * @param {Date} date
+   * @returns {number} a number like 1425, which represents 02:25 PM
+   */
   static _getYextTime(date) {
     return date.getHours() * 100 + date.getMinutes();
   }
@@ -718,29 +752,39 @@ export default class Formatters {
     }
   }
 
-  static _getTodaysMessage({ hoursToday, isTwentyFourHourClock }) {
+  static _translate(text, translationData) {
+    if (!translationData.hasOwnProperty(text)) {
+      console.error(`Could not translate "${text}".`);
+      return text;
+    }
+    return translationData[text];
+  }
+
+  static _getTodaysMessage({ hoursToday, isTwentyFourHourClock, locale }) {
     let time, day;
+    const translationData = provideOpenStatusTranslation(locale);
+    const translate = text => this._translate(text, translationData);
     switch (hoursToday.status) {
       case 'OPEN24':
-        return `<span class="Hours-statusText">Open 24 Hours</span>`;
+        return `<span class="Hours-statusText">${translate('Open 24 Hours')}</span>`;
       case 'OPENSTODAY':
-        time = this._getTimeString(hoursToday.nextTime, isTwentyFourHourClock);
+        time = this._getTimeString(hoursToday.nextTime, isTwentyFourHourClock, locale);
         return `
           <span class="Hours-statusText">
             <span class="Hours-statusText--current">
-              Closed
-            </span> · Opens at <span class="HoursInterval-time">
+              ${translate('Closed')}
+            </span> · ${translate('Opens at')} <span class="HoursInterval-time">
               ${time}
             </span>
           </span>`;
       case 'OPENSNEXT':
-        time = this._getTimeString(hoursToday.nextTime, isTwentyFourHourClock);
-        day = this._translateDay(hoursToday.nextDay);
+        time = this._getTimeString(hoursToday.nextTime, isTwentyFourHourClock, locale);
+        day = translate(hoursToday.nextDay);
         return `
           <span class="Hours-statusText">
             <span class="Hours-statusText--current">
-              Closed
-            </span> · Opens at
+              ${translate('Closed')}
+            </span> · ${translate('Opens at')}
           </span>
           <span class="HoursInterval-time">
             ${time}
@@ -749,24 +793,24 @@ export default class Formatters {
             ${day}
           </span>`;
       case 'CLOSESTODAY':
-        time = this._getTimeString(hoursToday.nextTime, isTwentyFourHourClock);
+        time = this._getTimeString(hoursToday.nextTime, isTwentyFourHourClock, locale);
         return `
           <span class="Hours-statusText">
             <span class="Hours-statusText--current">
-            Open Now
-            </span> · Closes at
+              ${translate('Open Now')}
+            </span> · ${translate('Closes at')}
           </span>
           <span class="HoursInterval-time">
             ${time}
           </span>`;
       case 'CLOSESNEXT':
-        time = this._getTimeString(hoursToday.nextTime, isTwentyFourHourClock);
-        day = this._translateDay(hoursToday.nextDay);
+        time = this._getTimeString(hoursToday.nextTime, isTwentyFourHourClock, locale);
+        day = translate(hoursToday.nextDay);
         return `
           <span class="Hours-statusText">
             <span class="Hours-statusText--current">
-              Open Now
-            </span> · Closes at
+              ${translate('Open Now')}
+            </span> · ${translate('Closes at')}
           </span>
           <span class="HoursInterval-time">
             ${time}
@@ -777,38 +821,18 @@ export default class Formatters {
       case 'CLOSED':
         return `
           <span class="Hours-statusText">
-            Closed
+            ${translate('Closed')}
           </span>`;
       default:
         return '';
     }
   }
 
-  static _translateDay(day) {
-    switch (day) {
-      case 'MONDAY':
-        return 'Monday';
-      case 'TUESDAY':
-        return 'Tuesday'
-      case 'WEDNESDAY':
-        return 'Wednesday'
-      case 'THURSDAY':
-        return 'Thursday'
-      case 'FRIDAY':
-        return 'Friday';
-      case 'SATURDAY':
-        return 'Saturday'
-      case 'SUNDAY':
-        return 'Sunday';
-    }
-    return -1;
-  }
-
-  static _getTimeString(yextTime, twentyFourHourClock) {
+  static _getTimeString(yextTime, twentyFourHourClock, locale = 'en-US') {
     let time = new Date();
     time.setHours(Math.floor(yextTime / 100));
     time.setMinutes(yextTime % 100);
-    return time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: !twentyFourHourClock })
+    return time.toLocaleString(locale, { hour: 'numeric', minute: 'numeric', hour12: !twentyFourHourClock })
   }
 
   /**
