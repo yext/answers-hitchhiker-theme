@@ -2,7 +2,7 @@
 // (1) override the existing Answers SDK variables (prefixed yxt)
 // (2) override existing or define new theme variables (prefixed hh)
 
-@import 'common/util/Color.scss';
+@import 'common/functions.scss';
 
 $primary: #0f70f0;
 $hover: darkenMe($primary);
