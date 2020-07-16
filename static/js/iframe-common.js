@@ -88,8 +88,6 @@ export function generateIFrame(domain, queryParam, urlParam) {
 
   containerEl.appendChild(iframe);
 
-
-
   // For dynamic iFrame resizing
   iFrameResize({
     checkOrigin: false,
