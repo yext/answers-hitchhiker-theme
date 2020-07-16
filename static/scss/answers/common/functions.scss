@@ -1,7 +1,14 @@
-@function darkenMe($primary) {
-    $red: red($primary);
-    $green: green($primary);
-    $blue: blue($primary);
+// This file contains common SCSS functions that are provided for convenience
 
-    @return rgb($red - 3, $green - 18, $blue - 37);
+/**
+ * Takes in a SASS color variable $color and returns a darkened version of the color
+ * Reduces red, green and blue intensity of $color by 20%, 16.07% and 15.42% respectively
+ *
+ * */
+@function darkenMe($color) {
+    $red: red($color)*0.8;
+    $green: green($color)*0.8393;
+    $blue: blue($color)*0.8458;
+  
+    @return rgb(round($red), round($green), round($blue));
 }
