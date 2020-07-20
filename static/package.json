@@ -35,8 +35,10 @@
   },
   "dependencies": {
     "bootstrap-sass": "^3.4.1",
+    "comment-json": "^3.0.2",
     "font-awesome": "^4.7.0",
     "iframe-resizer": "^4.1.1",
-    "libphonenumber-js": "^1.7.51"
+    "libphonenumber-js": "^1.7.51",
+    "simple-git": "^2.14.0"
   }
 }
