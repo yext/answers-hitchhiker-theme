@@ -11,12 +11,6 @@
     flex-grow: 1;
   }
 
-  .yxt-SpellCheck
-  {
-    padding: var(--yxt-base-spacing);
-    margin-top: 0;
-  }
-
   .yxt-NoResults
   {
     padding-bottom: var(--yxt-base-spacing);
@@ -85,5 +79,12 @@
   &-qaSubmission
   {
     background-color: var(--hh-color-gray-2);
+  }
+
+  &-spellCheck
+  {
+    padding: var(--yxt-base-spacing);
+    margin-top: calc(2*var(--yxt-base-spacing));
+    margin-bottom: calc(2*var(--yxt-base-spacing));
   }
 }

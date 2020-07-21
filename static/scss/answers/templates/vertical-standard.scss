@@ -85,4 +85,11 @@
   {
     display: flex;
   }
+
+  &-spellCheck
+  {
+    padding-bottom: var(--yxt-base-spacing);
+    margin-top: calc(2*var(--yxt-base-spacing));
+    margin-bottom: calc(2*var(--yxt-base-spacing));
+  }
 }
