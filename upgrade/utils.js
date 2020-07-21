@@ -1,19 +1,18 @@
 const fsPromises = require('fs').promises;
 const { parse, assign, stringify } = require('comment-json');
+const path = require('path');
+
 const simpleGit = require('simple-git/promise')();
+exports.simpleGit = simpleGit;
 
 /**
- * Merges two comment-json files.
- * @param {string} incomingPath 
- * @param {string} originalPath 
+ * Merges two comment-json files, with the original having higher priority.
+ * @param {string} updatedCommentJson 
+ * @param {string} originalCommentJson 
  * @returns {Promise.<string>}
  */
-exports.mergeJson = async function(incomingPath, originalPath) {
-  const incoming = await fsPromises.readFile(incomingPath, 'utf-8');
-  const original = await fsPromises.readFile(originalPath, 'utf-8');
-  const parsedOriginal = parse(original);
-  const parsedIncoming = parse(incoming);
-  const merged = assign(parsedIncoming, parsedOriginal);
+exports.mergeJson = async function(updatedCommentJson, originalCommentJson) {
+  const merged = assign(parse(updatedCommentJson), parse(originalCommentJson));
   return stringify(merged, null, 2);
 }
 
@@ -45,7 +44,7 @@ exports.deleteFile = async function(filepath) {
  * @param {string} dirpath 
  * @returns {Promise.<Array.<{{dirpath: string, dirent: fs.Dirent}}>>}
  */
-exports.getFilesRecursively = async function(dirpath) {
+async function getFilesRecursively(dirpath) {
   const directoryEntries = await fsPromises.readdir(dirpath, { withFileTypes: true });
   const files = [];
   for (const dirent of directoryEntries) {
@@ -53,17 +52,18 @@ exports.getFilesRecursively = async function(dirpath) {
       const subfolderFiles = await getFilesRecursively(path.join(dirpath, dirent.name));
       files.push(...subfolderFiles);
     } else if (dirent.isFile()) {
-      files.push({ dirpath, dirent })
+      files.push({ dirpath, dirent });
     }
   }
   return files;
 }
+exports.getFilesRecursively = getFilesRecursively;
 
 /**
  * Code from https://gist.github.com/fixpunkt/fe32afe14fbab99d9feb4e8da7268445
  * @param {string} dirpath 
  */
-exports.removeEmptyDirectoriesRecursively = async function(dirpath) {
+async function removeEmptyDirectoriesRecursively(dirpath) {
   const stats = await fsPromises.lstat(dirpath);
   if (!stats.isDirectory()) {
     return;
@@ -80,20 +80,4 @@ exports.removeEmptyDirectoriesRecursively = async function(dirpath) {
     await fsPromises.rmdir(dirpath);
   }
 }
-
-/**
- * Checks whether a given file has been modified by checking if
- * git lists it as a modified file in either the main repo or one of its submodules.
- * @param {string} filepath
- * @returns {Promise.<boolean>}
- */
-exports.checkIfFileIsModified = async function(filepath) {
-  const changedInMainRepo = await simpleGit.raw(['ls-files', '-m', filepath]);
-  const submoduleLsFiles =
-    await simpleGit.subModule(['foreach', '--quiet', `git ls-files -m ${filepath}`]);
-  const changedInSubmodule = submoduleLsFiles
-    .split('\n')
-    .find(p => p === filepath);
-  return changedInMainRepo || changedInSubmodule;
-}
-
+exports.removeEmptyDirectoriesRecursively = removeEmptyDirectoriesRecursively;

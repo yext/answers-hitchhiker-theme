@@ -1,7 +1,7 @@
 const fsPromises = require('fs').promises;
 const fsExtra = require('fs-extra');
 const path = require('path');
-const { mergeJson, checkIfFileIsModified } = require('./utils');
+const { mergeJson, simpleGit } = require('./utils');
 
 class ThemeUpgrader {
   constructor (themeDir, configDir) {
@@ -12,9 +12,9 @@ class ThemeUpgrader {
 
   async upgrade() {
     await this.removeFromTheme('.git', '.gitignore', 'tests');
-    const themeGlobalConfig = path.join(this.themeDir, this.globalConfigFile);
-    if (await checkIfFileIsModified(themeGlobalConfig)) {
-      await this.mergeGlobalConfig();
+    const themeGlobalConfigPath = path.join(this.themeDir, this.globalConfigFile);
+    if (await fsExtra.pathExists(themeGlobalConfigPath)) {
+      await this.mergeThemeGlobalConfig(themeGlobalConfigPath);
     }
     await this.copyRootLevelFiles('package.json', 'Gruntfile.js', 'webpack-config.js', 'package-lock.json');
   }
@@ -30,11 +30,11 @@ class ThemeUpgrader {
   /**
    * Merges the theme's global_config with the user's current global_config.
    */
-  async mergeGlobalConfig() {
-    const userGlobalConfigPath = path.join(this.configDir, this.globalConfigFile);
-    const themeGlobalConfigPath = path.join(this.themeDir, this.globalConfigFile);
-    const mergedCommentJson = await mergeJson(themeGlobalConfigPath, userGlobalConfigPath);
-    await fsPromises.writeFile(userGlobalConfigPath, mergedCommentJson);
+  async mergeThemeGlobalConfig(themeGlobalConfigPath) {
+    const updatedCommentJson = await fsPromises.readFile(themeGlobalConfigPath, 'utf-8');
+    const originalCommentJson = await simpleGit.show([`HEAD:${themeGlobalConfigPath}`]);
+    const mergedCommentJson = await mergeJson(updatedCommentJson, originalCommentJson);
+    await fsPromises.writeFile(themeGlobalConfigPath, mergedCommentJson);
   }
 
   /**
