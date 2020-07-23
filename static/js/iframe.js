@@ -2,21 +2,22 @@ import { isStaging } from './is-staging';
 import { generateIFrame } from './iframe-common';
 
 const injectedData = JSON.parse(process.env.JAMBO_INJECTED_DATA || '{}');
+const injectedPagesData = injectedData.pages || {};
 
 let stagingDomain = '';
 let prodDomain = '';
-if (injectedData.pages && injectedData.pages.domains) {
-  if (injectedData.pages.domains.staging && injectedData.pages.domains.staging.domain) {
-    const isHttps = injectedData.pages.domains.staging.isHttps;
+if (injectedPagesData.domains) {
+  if (injectedPagesData.domains.staging && injectedPagesData.domains.staging.domain) {
+    const isHttps = injectedPagesData.domains.staging.isHttps;
     stagingDomain = isHttps ? 'https://' : 'http://';
-    stagingDomain += injectedData.pages.domains.staging.domain;
+    stagingDomain += injectedPagesData.domains.staging.domain;
   }
-  if (injectedData.pages.domains.prod && injectedData.pages.domains.prod.domain) {
-    const isHttps = injectedData.pages.domains.prod.isHttps;
+  if (injectedPagesData.domains.prod && injectedPagesData.domains.prod.domain) {
+    const isHttps = injectedPagesData.domains.prod.isHttps;
     prodDomain = isHttps ? 'https://' : 'http://';
-    prodDomain += injectedData.pages.domains.prod.domain;
+    prodDomain += injectedPagesData.domains.prod.domain;
   }
 }
 
-const domain = isStaging() ? stagingDomain : prodDomain;
+const domain = isStaging(injectedPagesData.stagingDomains) ? stagingDomain : prodDomain;
 generateIFrame(domain);
