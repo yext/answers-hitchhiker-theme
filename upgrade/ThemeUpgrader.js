@@ -12,7 +12,8 @@ class ThemeUpgrader {
 
   async upgrade() {
     await this.removeFromTheme('.git', '.gitignore', 'tests');
-    const themeGlobalConfigPath = path.join(this.themeDir, this.globalConfigFile);
+    const themeGlobalConfigPath = 
+      path.relative(process.cwd(), path.join(this.themeDir, this.globalConfigFile));
     if (await fsExtra.pathExists(themeGlobalConfigPath)) {
       await this.mergeThemeGlobalConfig(themeGlobalConfigPath);
     }
