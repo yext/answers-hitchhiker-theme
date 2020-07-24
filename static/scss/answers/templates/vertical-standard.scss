@@ -7,7 +7,7 @@
   &-resultsWrapper
   {
     flex-grow: 1;
-    padding-top: calc(var(--yxt-base-spacing));
+    padding-top: calc(var(--yxt-base-spacing) * 2);
 
     .yxt-ResultsHeader {
       padding: 0 var(--yxt-results-header-spacing);
@@ -89,7 +89,7 @@
   &-spellCheck
   {
     padding-bottom: var(--yxt-base-spacing);
-    margin-top: calc(2*var(--yxt-base-spacing));
+    margin-top: calc(var(--yxt-base-spacing));
     margin-bottom: calc(2*var(--yxt-base-spacing));
   }
 }
