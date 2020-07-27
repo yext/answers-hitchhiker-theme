@@ -4,9 +4,8 @@ const path = require('path');
 const { mergeJson, simpleGit } = require('./utils');
 
 /**
- * ThemeUpgrader is responsible for changes to the filesystem that occur after the theme
- * is upgraded. Notably, it removes unneeded/unwanted files and folders from the theme,
- * and also copies certain files into the top level directory, (e.g. the package.json).
+ * PostUpgradeHandler performs filesystem changes
+ * after the Theme repository has been upgraded.
  */
 class PostUpgradeHandler {
   constructor (themeDir, configDir) {

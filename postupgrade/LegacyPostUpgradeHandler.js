@@ -9,10 +9,8 @@ const {
 } = require('./utils');
 
 /**
- * LegacyUpgrader is responsible for performing filesystem changes after
- * the theme is upgraded, after a legacy theme upgrade is run. This includes
- * all changes from {@link ThemeUpgrader}, as well as removal and movement of
- * files/folders in the top level static/ directory.
+ * LegacyPostUpgradeHandler performs legacy-specific filesystem
+ * changes after the Theme repository has been upgraded.
  */
 class LegacyPostUpgradeHandler {
   constructor(themeDir, configDir) {
