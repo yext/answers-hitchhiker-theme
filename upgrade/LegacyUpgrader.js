@@ -8,6 +8,12 @@ const {
   deleteFile
 } = require('./utils');
 
+/**
+ * LegacyUpgrader is responsible for performing filesystem changes after
+ * the theme is upgraded, after a legacy theme upgrade is run. This includes
+ * all changes from {@link ThemeUpgrader}, as well as removal and movement of
+ * files/folders in the top level static/ directory.
+ */
 class LegacyUpgrader {
   constructor(themeDir, configDir) {
     this.themeUpgrader = new ThemeUpgrader(themeDir, configDir);
@@ -17,7 +23,7 @@ class LegacyUpgrader {
   async upgrade() {
     await this.themeUpgrader.upgrade();
     const files = await getFilesRecursively('static');
-    await Promise.all(files.map(f => this.handleStaticFile(f.dirpath, f.dirent)));
+    await Promise.all(files.map(f => this.handleStaticFile(f.dirpath, f.dirent.name)));
     if (this.preservedFontsFileContent) {
       await fsExtra.mkdirp('static/scss');
       await fsPromises.writeFile('static/scss/fonts.scss', this.preservedFontsFileContent);
@@ -28,11 +34,10 @@ class LegacyUpgrader {
 
   /**
    * Defines how to handle a given file in the static/ folder.
-   * @param {string} dirpath 
-   * @param {string} dirent 
+   * @param {string} dirpath the path to the folder containing the file
+   * @param {string} filename the name of the file, e.g. answers.scss
    */
-  async handleStaticFile(dirpath, dirent) {
-    const filename = dirent.name;
+  async handleStaticFile(dirpath, filename) {
     const filepath = path.resolve(dirpath, filename);
 
     if (filename === 'fonts.scss') {

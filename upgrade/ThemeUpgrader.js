@@ -3,6 +3,11 @@ const fsExtra = require('fs-extra');
 const path = require('path');
 const { mergeJson, simpleGit } = require('./utils');
 
+/**
+ * ThemeUpgrader is responsible for changes to the filesystem that occur after the theme
+ * is upgraded. Notably, it removes unneeded/unwanted files and folders from the theme,
+ * and also copies certain files into the top level directory, (e.g. the package.json).
+ */
 class ThemeUpgrader {
   constructor (themeDir, configDir) {
     this.themeDir = themeDir;
@@ -17,7 +22,7 @@ class ThemeUpgrader {
     if (await fsExtra.pathExists(themeGlobalConfigPath)) {
       await this.mergeThemeGlobalConfig(themeGlobalConfigPath);
     }
-    await this.copyRootLevelFiles('package.json', 'Gruntfile.js', 'webpack-config.js', 'package-lock.json');
+    await this.copyStaticFilesToTopLevel('package.json', 'Gruntfile.js', 'webpack-config.js', 'package-lock.json');
   }
 
   /**
@@ -41,7 +46,7 @@ class ThemeUpgrader {
   /**
    * @param  {...string} staticFilesToUpdate 
    */
-  async copyRootLevelFiles(...staticFilesToUpdate) {
+  async copyStaticFilesToTopLevel(...staticFilesToUpdate) {
     await Promise.all(staticFilesToUpdate.map(filename => {
       const srcPath = path.resolve(this.themeDir, 'static', filename);
       return fsPromises.copyFile(srcPath, filename);
