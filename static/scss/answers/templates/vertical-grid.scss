@@ -1,5 +1,11 @@
 .AnswersVerticalGrid
 {
+
+  .yxt-SpellCheck 
+  {
+    margin-bottom: calc(2*var(--yxt-base-spacing));
+  }
+
   .yxt-Card
   {
     border: 0;
@@ -66,7 +72,7 @@
         padding: 0 var(--yxt-results-header-spacing);
       }
     }
-
+    
     &-filtersAndResults
     {
       display: flex;
@@ -138,12 +144,5 @@
     {
       display: flex;
     }
-  }
-
-  &-spellCheck
-  {
-    padding-bottom: var(--yxt-base-spacing);
-    margin-top: calc(2*var(--yxt-base-spacing));
-    margin-bottom: calc(2*var(--yxt-base-spacing));
   }
 }

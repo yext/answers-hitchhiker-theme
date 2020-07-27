@@ -29,11 +29,13 @@
   {
     width: 100%;
   }
+}
 
-  &-spellCheck
+.AnswersUniversalStandard 
+{
+  .yxt-SpellCheck
   {
-    padding-bottom: var(--yxt-base-spacing);
-    margin-top: calc(2*var(--yxt-base-spacing));
-    margin-bottom: calc(2*var(--yxt-base-spacing));
+    margin-top: var(--yxt-base-spacing);
+    margin-bottom: var(--yxt-base-spacing);
   }
 }
