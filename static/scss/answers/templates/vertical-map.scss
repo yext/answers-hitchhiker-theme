@@ -88,7 +88,7 @@
   .yxt-SpellCheck
   {
     padding: var(--yxt-base-spacing);
-    margin-top: calc(var(--yxt-base-spacing));
-    margin-bottom: calc(var(--yxt-base-spacing));
+    margin-top: var(--yxt-base-spacing);
+    margin-bottom: var(--yxt-base-spacing);
   }
 }

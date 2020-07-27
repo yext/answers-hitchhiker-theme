@@ -35,7 +35,7 @@
 {
   .yxt-SpellCheck
   {
-    margin-top: calc(var(--yxt-base-spacing));
-    margin-bottom: calc(var(--yxt-base-spacing));
+    margin-top: var(--yxt-base-spacing);
+    margin-bottom: var(--yxt-base-spacing);
   }
 }
