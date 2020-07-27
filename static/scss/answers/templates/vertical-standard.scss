@@ -85,12 +85,12 @@
   {
     display: flex;
   }
-}
 
-.AnswersVerticalStandard 
-{
-  .yxt-SpellCheck
+  &-spellCheck 
   {
-    margin-bottom: calc(2*var(--yxt-base-spacing));
+    .yxt-SpellCheck
+    {
+      margin-bottom: calc(2*var(--yxt-base-spacing));
+    }
   }
 }

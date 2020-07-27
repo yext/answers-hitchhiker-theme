@@ -81,14 +81,13 @@
     background-color: var(--hh-color-gray-2);
   }
 
-}
-
-.AnswersVerticalMap 
-{
-  .yxt-SpellCheck
+  &-spellCheck
   {
-    padding: var(--yxt-base-spacing);
-    margin-top: var(--yxt-base-spacing);
-    margin-bottom: var(--yxt-base-spacing);
+    .yxt-SpellCheck
+    {
+      padding: var(--yxt-base-spacing);
+      margin-top: var(--yxt-base-spacing);
+      margin-bottom: var(--yxt-base-spacing);
+    }
   }
 }
