@@ -20,7 +20,8 @@ class ThemeUpgrader {
     const themeGlobalConfigPath = 
       path.relative(process.cwd(), path.join(this.themeDir, this.globalConfigFile));
     if (await fsExtra.pathExists(themeGlobalConfigPath)) {
-      await this.mergeThemeGlobalConfig(themeGlobalConfigPath);
+      const mergedGlobalConfig = await this.mergeThemeGlobalConfig(themeGlobalConfigPath);
+      await fsPromises.writeFile(themeGlobalConfigPath, mergedGlobalConfig);
     }
     await this.copyStaticFilesToTopLevel('package.json', 'Gruntfile.js', 'webpack-config.js', 'package-lock.json');
   }
@@ -39,8 +40,7 @@ class ThemeUpgrader {
   async mergeThemeGlobalConfig(themeGlobalConfigPath) {
     const updatedCommentJson = await fsPromises.readFile(themeGlobalConfigPath, 'utf-8');
     const originalCommentJson = await simpleGit.show([`HEAD:${themeGlobalConfigPath}`]);
-    const mergedCommentJson = await mergeJson(updatedCommentJson, originalCommentJson);
-    await fsPromises.writeFile(themeGlobalConfigPath, mergedCommentJson);
+    return mergeJson(updatedCommentJson, originalCommentJson);
   }
 
   /**
