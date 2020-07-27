@@ -85,8 +85,11 @@
   {
     display: flex;
   }
+}
 
-  &-spellCheck
+.AnswersVerticalStandard 
+{
+  .yxt-SpellCheck
   {
     padding-bottom: var(--yxt-base-spacing);
     margin-top: calc(var(--yxt-base-spacing));

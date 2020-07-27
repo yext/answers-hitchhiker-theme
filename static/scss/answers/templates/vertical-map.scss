@@ -81,7 +81,11 @@
     background-color: var(--hh-color-gray-2);
   }
 
-  &-spellCheck
+}
+
+.AnswersVerticalMap 
+{
+  .yxt-SpellCheck
   {
     padding: var(--yxt-base-spacing);
     margin-top: calc(2*var(--yxt-base-spacing));

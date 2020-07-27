@@ -29,8 +29,11 @@
   {
     width: 100%;
   }
+}
 
-  &-spellCheck
+.AnswersUniversalStandard 
+{
+  .yxt-SpellCheck
   {
     margin-top: calc(2*var(--yxt-base-spacing));
     margin-bottom: calc(2*var(--yxt-base-spacing));
