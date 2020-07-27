@@ -1,4 +1,4 @@
-const fsPromises = require('fs').promises;
+const fs = require('fs');
 const { parse, assign, stringify } = require('comment-json');
 const path = require('path');
 
@@ -9,9 +9,9 @@ exports.simpleGit = simpleGit;
  * Merges two comment-json files, with the original having higher priority.
  * @param {string} updatedCommentJson 
  * @param {string} originalCommentJson 
- * @returns {Promise.<string>}
+ * @returns {string}
  */
-exports.mergeJson = async function(updatedCommentJson, originalCommentJson) {
+exports.mergeJson = function(updatedCommentJson, originalCommentJson) {
   const merged = assign(parse(updatedCommentJson), parse(originalCommentJson));
   return stringify(merged, null, 2);
 }
@@ -36,20 +36,20 @@ exports.getJamboParam = function(param) {
 /**
  * @param {string} filepath 
  */
-exports.deleteFile = async function(filepath) {
-  await fsPromises.unlink(filepath);
+exports.deleteFile = function(filepath) {
+  fs.unlinkSync(filepath);
 }
 
 /**
  * @param {string} dirpath 
- * @returns {Promise.<Array.<{{dirpath: string, dirent: fs.Dirent}}>>}
+ * @returns {Array.<{{dirpath: string, dirent: fs.Dirent}}>}
  */
-async function getFilesRecursively(dirpath) {
-  const directoryEntries = await fsPromises.readdir(dirpath, { withFileTypes: true });
+function getFilesRecursively(dirpath) {
+  const directoryEntries = fs.readdirSync(dirpath, { withFileTypes: true });
   const files = [];
   for (const dirent of directoryEntries) {
     if (dirent.isDirectory()) {
-      const subfolderFiles = await getFilesRecursively(path.join(dirpath, dirent.name));
+      const subfolderFiles = getFilesRecursively(path.join(dirpath, dirent.name));
       files.push(...subfolderFiles);
     } else if (dirent.isFile()) {
       files.push({ dirpath, dirent });
@@ -60,24 +60,24 @@ async function getFilesRecursively(dirpath) {
 exports.getFilesRecursively = getFilesRecursively;
 
 /**
- * Code from https://gist.github.com/fixpunkt/fe32afe14fbab99d9feb4e8da7268445
- * @param {string} dirpath 
+ * Will remove all empty directories on the given path, including the
+ * path itself (if it is a directory).
+ * @param {string} dirpath
  */
-async function removeEmptyDirectoriesRecursively(dirpath) {
-  const stats = await fsPromises.lstat(dirpath);
+function removeEmptyDirectoriesRecursively(dirpath) {
+  const stats = fs.lstatSync(dirpath);
   if (!stats.isDirectory()) {
     return;
   }
-  let directoryEntries = await fsPromises.readdir(dirpath);
+  let directoryEntries = fs.readdirSync(dirpath);
   if (directoryEntries.length > 0) {
-    await Promise.all(directoryEntries.map(filename =>
+    for (const filename of directoryEntries) {
       removeEmptyDirectoriesRecursively(path.join(dirpath, filename))
-    ));
-    directoryEntries = await fsPromises.readdir(dirpath);
+    }
+    directoryEntries = fs.readdirSync(dirpath);
   }
-
   if (directoryEntries.length === 0) {
-    await fsPromises.rmdir(dirpath);
+    fs.rmdirSync(dirpath);
   }
 }
 exports.removeEmptyDirectoriesRecursively = removeEmptyDirectoriesRecursively;

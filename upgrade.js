@@ -1,18 +1,18 @@
 #!/usr/bin/env node
-const { LegacyUpgrader } = require('./upgrade/LegacyUpgrader');
-const { ThemeUpgrader } = require('./upgrade/ThemeUpgrader')
-const { getJamboParam } = require('./upgrade/utils');
+const LegacyPostUpgradeHandler = require('./postupgrade/LegacyPostUpgradeHandler');
+const PostUpgradeHandler = require('./postupgrade/PostUpgradeHandler');
+const { getJamboParam } = require('./postupgrade/utils');
 
 (async () => {
   try {
     const themeDir = `${getJamboParam('dirs.themes')}/${getJamboParam('defaultTheme')}`;
     const configDir = getJamboParam('dirs.config');
     if (process.argv.includes('--isLegacy')) {
-      const legacyUpgrader = new LegacyUpgrader(themeDir, configDir);
-      await legacyUpgrader.upgrade();
+      const legacyHandler = new LegacyPostUpgradeHandler(themeDir, configDir);
+      await legacyHandler.handlePostUpgrade();
     } else {
-      const themeUpgrader = new ThemeUpgrader(themeDir, configDir);
-      await themeUpgrader.upgrade();
+      const handler = new PostUpgradeHandler(themeDir, configDir);
+      await handler.handlePostUpgrade();
     }
   } catch (e) {
     console.error(e.message, e.stack);

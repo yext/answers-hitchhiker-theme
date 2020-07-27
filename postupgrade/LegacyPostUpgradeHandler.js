@@ -1,7 +1,7 @@
-const fsPromises = require('fs').promises;
+const fs = require('fs');
 const fsExtra = require('fs-extra');
 const path = require('path');
-const { ThemeUpgrader } = require('./ThemeUpgrader');
+const PostUpgradeHandler = require('./PostUpgradeHandler');
 const {
   removeEmptyDirectoriesRecursively,
   getFilesRecursively,
@@ -14,22 +14,19 @@ const {
  * all changes from {@link ThemeUpgrader}, as well as removal and movement of
  * files/folders in the top level static/ directory.
  */
-class LegacyUpgrader {
+class LegacyPostUpgradeHandler {
   constructor(themeDir, configDir) {
-    this.themeUpgrader = new ThemeUpgrader(themeDir, configDir);
-    this.preservedFontsFileContent = null;
+    this.postUpgradeHandler = new PostUpgradeHandler(themeDir, configDir);
   }
 
-  async upgrade() {
-    await this.themeUpgrader.upgrade();
-    const files = await getFilesRecursively('static');
-    await Promise.all(files.map(f => this.handleStaticFile(f.dirpath, f.dirent.name)));
-    if (this.preservedFontsFileContent) {
-      await fsExtra.mkdirp('static/scss');
-      await fsPromises.writeFile('static/scss/fonts.scss', this.preservedFontsFileContent);
+  async handlePostUpgrade() {
+    await this.postUpgradeHandler.handlePostUpgrade();
+    const files = getFilesRecursively('static');
+    for (const f of files) {
+      this.handleStaticFile(f.dirpath, f.dirent.name);
     }
-    await fsExtra.remove('partials/layouts');
-    await removeEmptyDirectoriesRecursively('static');
+    fsExtra.removeSync('partials/layouts');
+    removeEmptyDirectoriesRecursively('static');
   }
 
   /**
@@ -37,12 +34,13 @@ class LegacyUpgrader {
    * @param {string} dirpath the path to the folder containing the file
    * @param {string} filename the name of the file, e.g. answers.scss
    */
-  async handleStaticFile(dirpath, filename) {
+  handleStaticFile(dirpath, filename) {
     const filepath = path.resolve(dirpath, filename);
 
     if (filename === 'fonts.scss') {
-      this.preservedFontsFileContent = await fsPromises.readFile(filepath);
-      await deleteFile(filepath);
+      fsExtra.mkdirpSync('static/scss');
+      fs.writeFileSync('static/scss/fonts.scss', fs.readFileSync(filepath));
+      deleteFile(filepath);
     } else if (dirpath.startsWith('static/assets/fonts')) {
       const filesToDelete = [
         'opensans-bold-webfont.woff',
@@ -50,21 +48,21 @@ class LegacyUpgrader {
         'opensans-regular-webfont.woff'
       ];
       if (filesToDelete.includes(filename)) {
-        await deleteFile(filepath);
+        deleteFile(filepath);
       }
     } else if (dirpath.startsWith('static/assets/images')) {
       if (filename === 'yext-logo.svg') {
-        await deleteFile(filepath);
+        deleteFile(filepath);
       }
     } else if (dirpath.startsWith('static/scss')) {
       const filesToPreserve = ['answers.scss', 'answers-variables.scss'];
       if (!filesToPreserve.includes(filename)) {
-        await deleteFile(filepath);
+        deleteFile(filepath);
       }
     } else {
-      await deleteFile(filepath);
+      deleteFile(filepath);
     }
   }
 }
 
-exports.LegacyUpgrader = LegacyUpgrader;
+module.exports = LegacyPostUpgradeHandler;
