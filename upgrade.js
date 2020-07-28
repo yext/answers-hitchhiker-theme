@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 const LegacyPostUpgradeHandler = require('./postupgrade/LegacyPostUpgradeHandler');
 const PostUpgradeHandler = require('./postupgrade/PostUpgradeHandler');
 const { getJamboParam } = require('./postupgrade/utils');
