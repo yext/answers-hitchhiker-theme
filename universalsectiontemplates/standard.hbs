@@ -3,7 +3,7 @@
     {{> noResults}}
   {{/if}}
   {{#if resultsPresent}}
-    <section class="HitchhikerResultsStandard HitchhikerResultsStandard--{{_config.modifier}}{{#if _config.isUniversal}} HitchhikerResultsStandard--universal{{/if}}">
+    <section class="HitchhikerResultsStandard HitchhikerResultsStandard--{{_config.modifier}} HitchhikerResultsStandard--universal">
       {{> header}}
       {{> map}}
       {{> results}}
@@ -15,24 +15,19 @@
 {{#*inline "noResults"}}
   {{#if useLegacyNoResults}}
     {{> results/noresults}}
-  {{else}}
-    <div class="HitchhikerResultsStandard-alternativeVerticals"
-          data-component="AlternativeVerticals"></div>
   {{/if}}
 {{/inline}}
 
 
 {{#*inline "header"}}
-  {{#if _config.isUniversal}}
-    <div class="HitchhikerResultsStandard-title">
-      {{#if iconIsBuiltIn}}
-        <div data-component="IconComponent" data-opts='{ "iconName": "{{ _config.icon }}" }'></div>
-      {{else}}
-        <div data-component="IconComponent" data-opts='{ "iconUrl": "{{ _config.icon }}" }'></div>
-      {{/if}}
-      <div class="HitchhikerResultsStandard-titleLabel">{{_config.title}}</div>
-    </div>
-  {{/if}}
+  <div class="HitchhikerResultsStandard-title">
+    {{#if iconIsBuiltIn}}
+      <div data-component="IconComponent" data-opts='{ "iconName": "{{ _config.icon }}" }'></div>
+    {{else}}
+      <div data-component="IconComponent" data-opts='{ "iconUrl": "{{ _config.icon }}" }'></div>
+    {{/if}}
+    <div class="HitchhikerResultsStandard-titleLabel">{{_config.title}}</div>
+  </div>
   {{#if showResultsHeader}}
     <div data-component="ResultsHeader"></div>
   {{/if}}
