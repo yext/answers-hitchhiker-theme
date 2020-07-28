@@ -11,6 +11,7 @@
     {{> subtitle }}
     <div class="HitchhikerProfessionalLocation-contentWrapper">
       <div class="HitchhikerProfessionalLocation-info">
+        {{> address }}
         {{> details }}
         {{> list }}
         {{> phone }}
@@ -64,6 +65,14 @@
 {{#if card.subtitle}}
 <div class="HitchhikerProfessionalLocation-subtitle">
   {{card.subtitle}}
+</div>
+{{/if}}
+{{/inline}}
+
+{{#*inline 'address'}}
+{{#if card.address}}
+<div class="HitchhikerProfessionalLocation-address">
+  {{{card.address}}}
 </div>
 {{/if}}
 {{/inline}}
