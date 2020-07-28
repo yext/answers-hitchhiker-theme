@@ -2,7 +2,7 @@ const fs = require('fs');
 const fsExtra = require('fs-extra');
 const PostUpgradeHandler = require('./PostUpgradeHandler');
 const fileSystem = require('file-system');
-const { removeEmptyDirectoriesRecursively, } = require('./utils');
+const { removeEmptyDirectoriesRecursively } = require('./utils');
 
 /**
  * LegacyPostUpgradeHandler performs legacy-specific filesystem changes after the Theme repository
