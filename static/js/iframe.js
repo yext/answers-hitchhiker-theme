@@ -18,5 +18,6 @@ if (injectedData.pages && injectedData.pages.domains) {
   }
 }
 
-const domain = isStaging() ? stagingDomain : prodDomain;
+const injectedPagesData = injectedData.pages || {};
+const domain = isStaging(injectedPagesData.stagingDomains) ? stagingDomain : prodDomain;
 generateIFrame(domain);
