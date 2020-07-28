@@ -2,9 +2,6 @@ const fs = require('fs');
 const { parse, assign, stringify } = require('comment-json');
 const path = require('path');
 
-const simpleGit = require('simple-git/promise')();
-exports.simpleGit = simpleGit;
-
 /**
  * Merges two comment-json files, with the original having higher priority.
  * @param {string} updatedCommentJson 
@@ -32,32 +29,6 @@ exports.getJamboParam = function(param) {
   }
   return getProcessArgument(`--jambo.${param}`);
 }
-
-/**
- * @param {string} filepath 
- */
-exports.deleteFile = function(filepath) {
-  fs.unlinkSync(filepath);
-}
-
-/**
- * @param {string} dirpath 
- * @returns {Array.<{{dirpath: string, dirent: fs.Dirent}}>}
- */
-function getFilesRecursively(dirpath) {
-  const directoryEntries = fs.readdirSync(dirpath, { withFileTypes: true });
-  const files = [];
-  for (const dirent of directoryEntries) {
-    if (dirent.isDirectory()) {
-      const subfolderFiles = getFilesRecursively(path.join(dirpath, dirent.name));
-      files.push(...subfolderFiles);
-    } else if (dirent.isFile()) {
-      files.push({ dirpath, dirent });
-    }
-  }
-  return files;
-}
-exports.getFilesRecursively = getFilesRecursively;
 
 /**
  * Will remove all empty directories on the given path, including the

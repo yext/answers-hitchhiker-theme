@@ -1,11 +1,11 @@
 const fs = require('fs');
 const fsExtra = require('fs-extra');
 const path = require('path');
-const { mergeJson, simpleGit } = require('./utils');
+const { mergeJson } = require('./utils');
+const simpleGit = require('simple-git/promise')();
 
 /**
- * PostUpgradeHandler performs filesystem changes
- * after the Theme repository has been upgraded.
+ * PostUpgradeHandler performs filesystem changes after the Theme repository has been upgraded.
  */
 class PostUpgradeHandler {
   constructor (themeDir, configDir) {
@@ -22,7 +22,8 @@ class PostUpgradeHandler {
       const mergedGlobalConfig = await this.mergeThemeGlobalConfig(themeGlobalConfigPath);
       fs.writeFileSync(themeGlobalConfigPath, mergedGlobalConfig);
     }
-    this.copyStaticFilesToTopLevel('package.json', 'Gruntfile.js', 'webpack-config.js', 'package-lock.json');
+    this.copyStaticFilesToTopLevel(
+      'package.json', 'Gruntfile.js', 'webpack-config.js', 'package-lock.json');
   }
 
   /**
