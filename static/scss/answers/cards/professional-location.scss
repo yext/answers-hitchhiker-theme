@@ -48,6 +48,7 @@ $professional-location-ordinal-dimensions: 18px !default;
   }
 
   &-ordinal {
+    flex-shrink: 0;
     padding-top: 3px;
     border-radius: 50%;
     margin-top: calc(var(--hh-professional-location-spacing) / 4);
@@ -91,7 +92,8 @@ $professional-location-ordinal-dimensions: 18px !default;
   &-distance
   {
     font-style: italic;
-    margin-left: auto;
+    white-space: nowrap;
+    padding-left: 4px;
   }
 
   &-cardDetails
