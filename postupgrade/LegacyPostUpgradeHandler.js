@@ -24,16 +24,6 @@ class LegacyPostUpgradeHandler {
     removeEmptyDirectoriesRecursively('static');
   }
 
-  getAllStaticFiles() {
-    const files = [];
-    fileSystem.recurseSync('static', ['**/*'], (filepath, relative, filename) => {
-      if (filename) {
-        files.push({ filepath, filename });
-      }
-    });
-    return files;
-  }
-
   /**
    * Defines how to handle a given file in the static/ folder.
    * @param {string} filepath the path of the file e.g. static/answers.scss
