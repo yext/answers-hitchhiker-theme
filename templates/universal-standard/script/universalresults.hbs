@@ -31,10 +31,9 @@ ANSWERS.addComponent('UniversalResults', Object.assign({}, {
 
 {{#*inline 'VerticalConfig'}}
   {{#if universalSectionTemplate}}
-    {{!-- template: `{{{'universalsectiontemplates/{{universalSectionTemplate}}'}}}`, --}}
     template: `{{{read (concat 'universalsectiontemplates/' universalSectionTemplate)}}}`,
-  {{!-- {{else}}
-    template: `{{{read 'universalsectiontemplates/standard'}}}`, --}}
+  {{else}}
+    template: `{{{read 'universalsectiontemplates/standard'}}}`,
   {{/if}}
   modifier: '{{{verticalKey}}}',
   {{#if urlWithoutExtension}}
@@ -83,8 +82,3 @@ ANSWERS.addComponent('UniversalResults', Object.assign({}, {
     },
   {{/if}}
 {{/inline}}
-
-
-Handlebars.registerHelper( 'concat', function(path) {
-    return 'universalsectiontemplates/' + path;
-});
