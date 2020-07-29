@@ -32,7 +32,7 @@ ANSWERS.addComponent('UniversalResults', Object.assign({}, {
 {{#*inline 'VerticalConfig'}}
   {{#if universalSectionTemplate}}
     {{!-- template: `{{{'universalsectiontemplates/{{universalSectionTemplate}}'}}}`, --}}
-    template: `{{{read 'universalsectiontemplates/standard'}}}`,
+    template: `{{{read (concat 'universalsectiontemplates/' universalSectionTemplate)}}}`,
   {{!-- {{else}}
     template: `{{{read 'universalsectiontemplates/standard'}}}`, --}}
   {{/if}}
