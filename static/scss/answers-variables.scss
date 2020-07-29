@@ -5,7 +5,7 @@
 :root {
   // control colors throughout the theme and SDK
   --yxt-color-brand-primary: #0f70f0;
-  --yxt-color-brand-hover: #0C5ECB;
+  --yxt-color-brand-hover: var(--yxt-color-text-secondary);
   --yxt-color-brand-white: #fff;
   --yxt-color-text-primary: #212121;
   --yxt-color-text-secondary: #757575;
