@@ -187,42 +187,44 @@ $results-filters-background: white !default;
   }
 }
 
-.HitchhikerResultsStandard-items {
-  > .HitchhikerResultsStandard-Card,
-  > .HitchhikerResultsStandard-Card-placeholder
-  {
-    flex-basis: 100%;
-    flex-grow: 1;
-  }
+// .HitchhikerResultsStandard-items {
+//   > .HitchhikerResultsStandard-Card,
+//   > .HitchhikerResultsStandard-Card-placeholder
+//   {
+//     flex-basis: 100%;
+//     flex-grow: 1;
+//   }
 
-  &--1 > .HitchhikerResultsStandard-Card
-  {
-    margin-right: 0;
-  }
+//   &--1 > .HitchhikerResultsStandard-Card
+//   {
+//     margin-right: 0;
+//   }
 
-  @media (min-width: $breakpoint-mobile-max) {
+//   @media (min-width: $breakpoint-mobile-max) {
 
-    &--2 > .HitchhikerResultsStandard-Card
-    &--2 > .HitchhikerResultsStandard-Card-placeholder {
-      flex-basis: 45%;
-    }
+//     &--2 > .HitchhikerResultsStandard-Card
+//     &--2 > .HitchhikerResultsStandard-Card-placeholder {
+//       flex-basis: 45%;
+//     }
 
-    &--3 > .HitchhikerResultsStandard-Card,
-    &--3 > .HitchhikerResultsStandard-Card-placeholder {
-      flex-basis: 30%;
-    }
+//     &--3 > .HitchhikerResultsStandard-Card,
+//     &--3 > .HitchhikerResultsStandard-Card-placeholder {
+//       flex-basis: 30%;
+//     }
 
-    &--4 > .HitchhikerResultsStandard-Card,
-    &--4 > .HitchhikerResultsStandard-Card-placeholder {
-      flex-basis: 22%;
-    }
-  }
-}
+//     &--4 > .HitchhikerResultsStandard-Card,
+//     &--4 > .HitchhikerResultsStandard-Card-placeholder {
+//       flex-basis: 22%;
+//     }
+//   }
+// }
 
 .HitchhikerResultsStandard-Card {
   display: flex;
   flex-direction: column;
   margin-bottom: var(--yxt-cards-margin);
+  flex-basis: 100%;
+  flex-grow: 1;
 
   &,
   &-placeholder {

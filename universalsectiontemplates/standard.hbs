@@ -34,9 +34,9 @@
 {{/inline}}
 
 {{#*inline "results"}}
-  <div class="HitchhikerResultsStandard-items js-HitchhikerResultsStandard-items{{#if numColumns}} HitchhikerResultsStandard-items--{{numColumns}}{{/if}}">
+  <div class="HitchhikerResultsStandard-items js-HitchhikerResultsStandard-items">
     {{#each results}}
-      <div class="HitchhikerResultsStandard-Card{{#if ../_config.isUniversal}} HitchhikerResultsStandard-Card--universal{{/if}}"
+      <div class="HitchhikerResultsStandard-Card HitchhikerResultsStandard-Card--universal"
         data-component="Card"
         data-opts='{ "_index": {{@index}} }'>
       </div>
