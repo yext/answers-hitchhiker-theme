@@ -30,6 +30,11 @@ ANSWERS.addComponent('UniversalResults', Object.assign({}, {
 ));
 
 {{#*inline 'VerticalConfig'}}
+  {{#if universalSectionTemplate}}
+    template: `{{{read (concat 'universalsectiontemplates/' universalSectionTemplate)}}}`,
+  {{else}}
+    template: `{{{read 'universalsectiontemplates/standard'}}}`,
+  {{/if}}
   modifier: '{{{verticalKey}}}',
   {{#if urlWithoutExtension}}
     url: '{{{urlWithoutExtension}}}.html',

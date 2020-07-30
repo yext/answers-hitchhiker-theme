@@ -53,7 +53,8 @@
       // "verticalLimit": 15, // The result count limit for vertical search
       // "universalLimit": 5, // The result count limit for universal search
       "cardType": "standard", // The name of the card to use - e.g. accordion, location, customcard 
-      "icon": "star" // The icon to use on the card for this vertical
+      "icon": "star", // The icon to use on the card for this vertical
+      "universalSectionTemplate": "standard"
     }
   }
 }

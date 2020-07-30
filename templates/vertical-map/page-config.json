@@ -65,7 +65,8 @@
           "displayAllResults": true, // Set to FALSE to hide results on the map when a search returns no results
           "visible": true // Set to FALSE to hide the map when a search returns no results
         }
-      }
+      },
+      "universalSectionTemplate": "standard"
     }
   }
 }
