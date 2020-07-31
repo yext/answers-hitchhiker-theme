@@ -88,8 +88,9 @@ module.exports = function () {
           test: /\.html$/i,
           use: [
             {
-              loader: path.resolve(__dirname, './themes/answers-hitchhiker-theme/static/webpack/html-asset-loader.js'),
+              loader: path.resolve(__dirname, `./${jamboConfig.dirs.output}/static/webpack/html-asset-loader.js`),
               options: {
+                relativePath: path.resolve(__dirname, jamboConfig.dirs.output),
                 regex: /\\"(static\/assets\/[^"]*)\\"/g
               }
             },
