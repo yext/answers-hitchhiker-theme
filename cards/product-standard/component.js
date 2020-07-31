@@ -3,7 +3,7 @@
 class product_standardCardComponent extends BaseCard['product-standard'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
-    this.setTemplate(`{{{read 'cards/product-standard/template' }}}`);
+    this._templateName = 'cards/product-standard';
   }
 
   /**
@@ -58,4 +58,8 @@ class product_standardCardComponent extends BaseCard['product-standard'] {
   }
 }
 
+ANSWERS.registerTemplate(
+  'cards/product-standard',
+  `{{{read 'cards/product-standard/template' }}}`
+);
 ANSWERS.registerComponentType(product_standardCardComponent);

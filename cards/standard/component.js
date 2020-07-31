@@ -3,7 +3,7 @@
 class standardCardComponent extends BaseCard['standard'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
-    this.setTemplate(`{{{read 'cards/standard/template' }}}`);
+    this._templateName = 'cards/standard';
   }
 
   /**
@@ -53,4 +53,8 @@ class standardCardComponent extends BaseCard['standard'] {
   }
 }
 
+ANSWERS.registerTemplate(
+  'cards/standard',
+  `{{{read 'cards/standard/template' }}}`
+);
 ANSWERS.registerComponentType(standardCardComponent);

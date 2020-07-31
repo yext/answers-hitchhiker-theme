@@ -3,7 +3,7 @@
 class menuitem_standardCardComponent extends BaseCard['menuitem-standard'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
-    this.setTemplate(`{{{read 'cards/menuitem-standard/template' }}}`);
+    this._templateName = 'cards/menuitem-standard';
   }
 
   /**
@@ -58,4 +58,8 @@ class menuitem_standardCardComponent extends BaseCard['menuitem-standard'] {
   }
 }
 
+ANSWERS.registerTemplate(
+  'cards/menuitem-standard',
+  `{{{read 'cards/menuitem-standard/template' }}}`
+);
 ANSWERS.registerComponentType(menuitem_standardCardComponent);

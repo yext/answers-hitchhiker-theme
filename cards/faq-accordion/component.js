@@ -3,7 +3,7 @@
 class faq_accordionCardComponent extends BaseCard['faq-accordion'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
-    this.setTemplate(`{{{read 'cards/faq-accordion/template' }}}`);
+    this._templateName = 'cards/faq-accordion';
   }
 
   /**
@@ -89,4 +89,8 @@ class faq_accordionCardComponent extends BaseCard['faq-accordion'] {
   }
 }
 
+ANSWERS.registerTemplate(
+  'cards/faq-accordion',
+  `{{{read 'cards/faq-accordion/template' }}}`
+);
 ANSWERS.registerComponentType(faq_accordionCardComponent);

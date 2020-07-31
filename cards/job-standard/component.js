@@ -3,7 +3,7 @@
 class job_standardCardComponent extends BaseCard['job-standard'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
-    this.setTemplate(`{{{read 'cards/job-standard/template' }}}`);
+    this._templateName = 'cards/job-standard';
   }
 
   /**
@@ -43,4 +43,8 @@ class job_standardCardComponent extends BaseCard['job-standard'] {
   }
 }
 
+ANSWERS.registerTemplate(
+  'cards/job-standard',
+  `{{{read 'cards/job-standard/template' }}}`
+);
 ANSWERS.registerComponentType(job_standardCardComponent);

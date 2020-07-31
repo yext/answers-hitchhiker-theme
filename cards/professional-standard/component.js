@@ -3,7 +3,7 @@
 class professional_standardCardComponent extends BaseCard['professional-standard'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
-    this.setTemplate(`{{{read 'cards/professional-standard/template' }}}`);
+    this._templateName = 'cards/professional-standard';
   }
 
   /**
@@ -58,4 +58,8 @@ class professional_standardCardComponent extends BaseCard['professional-standard
   }
 }
 
+ANSWERS.registerTemplate(
+  'cards/professional-standard',
+  `{{{read 'cards/professional-standard/template' }}}`
+);
 ANSWERS.registerComponentType(professional_standardCardComponent);
