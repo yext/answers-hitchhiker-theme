@@ -94,6 +94,7 @@ $professional-location-ordinal-dimensions: 18px !default;
     margin-left: auto;
   }
 
+  &-address,
   &-cardDetails
   {
     margin-top: calc(var(--hh-professional-location-spacing) / 2);
