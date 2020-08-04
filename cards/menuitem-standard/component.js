@@ -6,15 +6,6 @@ class menuitem_standardCardComponent extends BaseCard['menuitem-standard'] {
   }
 
   /**
-   * The template to render
-   * @returns {string}
-   * @override
-   */
-  static defaultTemplateName (config) {
-    return 'cards/menuitem-standard';
-  }
-
-  /**
    * This returns an object that will be called `card`
    * in the template. Put all mapping logic here.
    *
@@ -63,6 +54,15 @@ class menuitem_standardCardComponent extends BaseCard['menuitem-standard'] {
         // ariaLabel: '',
       }
     };
+  }
+
+  /**
+   * The template to render
+   * @returns {string}
+   * @override
+   */
+  static defaultTemplateName (config) {
+    return 'cards/menuitem-standard';
   }
 }
 

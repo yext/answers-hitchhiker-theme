@@ -6,15 +6,6 @@ class standardCardComponent extends BaseCard['standard'] {
   }
 
   /**
-   * The template to render
-   * @returns {string}
-   * @override
-   */
-  static defaultTemplateName (config) {
-    return 'cards/standard';
-  }
-
-  /**
    * This returns an object that will be called `card`
    * in the template. Put all mapping logic here.
    *
@@ -58,6 +49,15 @@ class standardCardComponent extends BaseCard['standard'] {
         // ariaLabel: '',
       }
     };
+  }
+
+  /**
+   * The template to render
+   * @returns {string}
+   * @override
+   */
+  static defaultTemplateName (config) {
+    return 'cards/standard';
   }
 }
 

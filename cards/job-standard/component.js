@@ -6,15 +6,6 @@ class job_standardCardComponent extends BaseCard['job-standard'] {
   }
 
   /**
-   * The template to render
-   * @returns {string}
-   * @override
-   */
-  static defaultTemplateName (config) {
-    return 'cards/job-standard';
-  }
-
-  /**
    * This returns an object that will be called `card`
    * in the template. Put all mapping logic here.
    *
@@ -48,6 +39,15 @@ class job_standardCardComponent extends BaseCard['job-standard'] {
         // ariaLabel: '', // Accessible text providing a descriptive label for the CTA
       }
     };
+  }
+
+  /**
+   * The template to render
+   * @returns {string}
+   * @override
+   */
+  static defaultTemplateName (config) {
+    return 'cards/job-standard';
   }
 }
 

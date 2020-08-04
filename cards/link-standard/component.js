@@ -6,15 +6,6 @@ class link_standardCardComponent extends BaseCard['link-standard'] {
   }
 
   /**
-   * The template to render
-   * @returns {string}
-   * @override
-   */
-  static defaultTemplateName (config) {
-    return 'cards/link-standard';
-  }
-
-  /**
    * This returns an object that will be called `card`
    * in the template. Put all mapping logic here.
    *
@@ -36,6 +27,15 @@ class link_standardCardComponent extends BaseCard['link-standard'] {
       // },
       details: profile.htmlSnippet, // The text in the body of the card
     };
+  }
+
+  /**
+   * The template to render
+   * @returns {string}
+   * @override
+   */
+  static defaultTemplateName (config) {
+    return 'cards/link-standard';
   }
 }
 

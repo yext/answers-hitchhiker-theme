@@ -6,15 +6,6 @@ class professional_locationCardComponent extends BaseCard['professional-location
   }
 
   /**
-   * The template to render
-   * @returns {string}
-   * @override
-   */
-  static defaultTemplateName (config) {
-    return 'cards/professional-location';
-  }
-
-  /**
    * This returns an object that will be called `card`
    * in the template. Put all mapping logic here.
    *
@@ -66,6 +57,15 @@ class professional_locationCardComponent extends BaseCard['professional-location
         // ariaLabel: ''
       }
     };
+  }
+
+  /**
+   * The template to render
+   * @returns {string}
+   * @override
+   */
+  static defaultTemplateName (config) {
+    return 'cards/professional-location';
   }
 }
 

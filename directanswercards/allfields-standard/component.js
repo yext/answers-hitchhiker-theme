@@ -6,15 +6,6 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
   }
 
   /**
-   * The template to render
-   * @returns {string}
-   * @override
-   */
-  static defaultTemplateName (config) {
-    return 'directanswercards/allfields-standard';
-  }
-
-  /**
    * @param type the type of direct answer
    * @param answer the full answer returned from the API, corresponds to response.directAnswer.answer.
    * @param relatedItem profile of the related entity for the direct answer
@@ -188,6 +179,15 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
       positiveFeedbackSrText: 'This answered my question', // Screen reader only text for thumbs-up
       negativeFeedbackSrText: 'This did not answer my question', // Screen reader only text for thumbs-down
     };
+  }
+
+  /**
+   * The template to render
+   * @returns {string}
+   * @override
+   */
+  static defaultTemplateName (config) {
+    return 'directanswercards/allfields-standard';
   }
 }
 

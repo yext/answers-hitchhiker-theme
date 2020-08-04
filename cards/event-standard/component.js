@@ -6,15 +6,6 @@ class event_standardCardComponent extends BaseCard['event-standard'] {
   }
 
   /**
-   * The template to render
-   * @returns {string}
-   * @override
-   */
-  static defaultTemplateName (config) {
-    return 'cards/event-standard';
-  }
-
-  /**
    * This returns an object that will be called `card`
    * in the template. Put all mapping logic here.
    *
@@ -57,6 +48,15 @@ class event_standardCardComponent extends BaseCard['event-standard'] {
         // ariaLabel: '',
       }
     };
+  }
+
+  /**
+   * The template to render
+   * @returns {string}
+   * @override
+   */
+  static defaultTemplateName (config) {
+    return 'cards/event-standard';
   }
 }
 
