@@ -3,7 +3,15 @@
 class location_standardCardComponent extends BaseCard['location-standard'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
-    this._templateName = 'cards/location-standard';
+  }
+
+  /**
+   * The template to render
+   * @returns {string}
+   * @override
+   */
+  static defaultTemplateName (config) {
+    return 'cards/location-standard';
   }
 
   /**

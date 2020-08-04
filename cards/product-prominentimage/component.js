@@ -3,7 +3,15 @@
 class product_prominentimageCardComponent extends BaseCard['product-prominentimage'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
-    this._templateName = 'cards/product-prominentimage';
+  }
+
+  /**
+   * The template to render
+   * @returns {string}
+   * @override
+   */
+  static defaultTemplateName (config) {
+    return 'cards/product-prominentimage';
   }
 
   /**

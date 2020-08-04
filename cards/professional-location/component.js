@@ -3,7 +3,15 @@
 class professional_locationCardComponent extends BaseCard['professional-location'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
-    this._templateName = 'cards/professional-location';
+  }
+
+  /**
+   * The template to render
+   * @returns {string}
+   * @override
+   */
+  static defaultTemplateName (config) {
+    return 'cards/professional-location';
   }
 
   /**

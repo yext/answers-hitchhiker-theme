@@ -3,7 +3,15 @@
 class professional_standardCardComponent extends BaseCard['professional-standard'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
-    this._templateName = 'cards/professional-standard';
+  }
+
+  /**
+   * The template to render
+   * @returns {string}
+   * @override
+   */
+  static defaultTemplateName (config) {
+    return 'cards/professional-standard';
   }
 
   /**

@@ -3,7 +3,15 @@
 class menuitem_standardCardComponent extends BaseCard['menuitem-standard'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
-    this._templateName = 'cards/menuitem-standard';
+  }
+
+  /**
+   * The template to render
+   * @returns {string}
+   * @override
+   */
+  static defaultTemplateName (config) {
+    return 'cards/menuitem-standard';
   }
 
   /**

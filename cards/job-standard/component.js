@@ -3,7 +3,15 @@
 class job_standardCardComponent extends BaseCard['job-standard'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
-    this._templateName = 'cards/job-standard';
+  }
+
+  /**
+   * The template to render
+   * @returns {string}
+   * @override
+   */
+  static defaultTemplateName (config) {
+    return 'cards/job-standard';
   }
 
   /**

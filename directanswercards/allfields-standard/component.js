@@ -3,7 +3,15 @@
 class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standard'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
-    this._templateName = 'directanswercards/allfields-standard';
+  }
+
+  /**
+   * The template to render
+   * @returns {string}
+   * @override
+   */
+  static defaultTemplateName (config) {
+    return 'directanswercards/allfields-standard';
   }
 
   /**

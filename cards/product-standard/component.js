@@ -3,7 +3,15 @@
 class product_standardCardComponent extends BaseCard['product-standard'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
-    this._templateName = 'cards/product-standard';
+  }
+
+  /**
+   * The template to render
+   * @returns {string}
+   * @override
+   */
+  static defaultTemplateName (config) {
+    return 'cards/product-standard';
   }
 
   /**
