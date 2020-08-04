@@ -3,7 +3,6 @@
 class menuitem_standardCardComponent extends BaseCard['menuitem-standard'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
-    this.setTemplate(`{{{read 'cards/menuitem-standard/template' }}}`);
   }
 
   /**
@@ -56,6 +55,19 @@ class menuitem_standardCardComponent extends BaseCard['menuitem-standard'] {
       }
     };
   }
+
+  /**
+   * The template to render
+   * @returns {string}
+   * @override
+   */
+  static defaultTemplateName (config) {
+    return 'cards/menuitem-standard';
+  }
 }
 
+ANSWERS.registerTemplate(
+  'cards/menuitem-standard',
+  `{{{read 'cards/menuitem-standard/template' }}}`
+);
 ANSWERS.registerComponentType(menuitem_standardCardComponent);

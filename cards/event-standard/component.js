@@ -3,7 +3,6 @@
 class event_standardCardComponent extends BaseCard['event-standard'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
-    this.setTemplate(`{{{read 'cards/event-standard/template' }}}`);
   }
 
   /**
@@ -50,6 +49,19 @@ class event_standardCardComponent extends BaseCard['event-standard'] {
       }
     };
   }
+
+  /**
+   * The template to render
+   * @returns {string}
+   * @override
+   */
+  static defaultTemplateName (config) {
+    return 'cards/event-standard';
+  }
 }
 
+ANSWERS.registerTemplate(
+  'cards/event-standard',
+  `{{{read 'cards/event-standard/template' }}}`
+);
 ANSWERS.registerComponentType(event_standardCardComponent);

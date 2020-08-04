@@ -3,7 +3,6 @@
 class product_prominentimageCardComponent extends BaseCard['product-prominentimage'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
-    this.setTemplate(`{{{read 'cards/product-prominentimage/template' }}}`);
   }
 
   /**
@@ -51,6 +50,19 @@ class product_prominentimageCardComponent extends BaseCard['product-prominentima
       }
     };
   }
+
+  /**
+   * The template to render
+   * @returns {string}
+   * @override
+   */
+  static defaultTemplateName (config) {
+    return 'cards/product-prominentimage';
+  }
 }
 
+ANSWERS.registerTemplate(
+  'cards/product-prominentimage',
+  `{{{read 'cards/product-prominentimage/template' }}}`
+);
 ANSWERS.registerComponentType(product_prominentimageCardComponent);

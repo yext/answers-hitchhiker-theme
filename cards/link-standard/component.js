@@ -3,7 +3,6 @@
 class link_standardCardComponent extends BaseCard['link-standard'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
-    this.setTemplate(`{{{read 'cards/link-standard/template' }}}`);
   }
 
   /**
@@ -29,6 +28,19 @@ class link_standardCardComponent extends BaseCard['link-standard'] {
       details: profile.htmlSnippet, // The text in the body of the card
     };
   }
+
+  /**
+   * The template to render
+   * @returns {string}
+   * @override
+   */
+  static defaultTemplateName (config) {
+    return 'cards/link-standard';
+  }
 }
 
+ANSWERS.registerTemplate(
+  'cards/link-standard',
+  `{{{read 'cards/link-standard/template' }}}`
+);
 ANSWERS.registerComponentType(link_standardCardComponent);

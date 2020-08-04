@@ -3,7 +3,6 @@
 class professional_locationCardComponent extends BaseCard['professional-location'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
-    this.setTemplate(`{{{read 'cards/professional-location/template' }}}`);
   }
 
   /**
@@ -60,6 +59,19 @@ class professional_locationCardComponent extends BaseCard['professional-location
       }
     };
   }
+
+  /**
+   * The template to render
+   * @returns {string}
+   * @override
+   */
+  static defaultTemplateName (config) {
+    return 'cards/professional-location';
+  }
 }
 
+ANSWERS.registerTemplate(
+  'cards/professional-location',
+  `{{{read 'cards/professional-location/template' }}}`
+);
 ANSWERS.registerComponentType(professional_locationCardComponent);

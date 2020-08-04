@@ -3,7 +3,6 @@
 class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standard'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
-    this.setTemplate(`{{{read 'directanswercards/allfields-standard/template' }}}`);
   }
 
   /**
@@ -181,6 +180,19 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
       negativeFeedbackSrText: 'This did not answer my question', // Screen reader only text for thumbs-down
     };
   }
+
+  /**
+   * The template to render
+   * @returns {string}
+   * @override
+   */
+  static defaultTemplateName (config) {
+    return 'directanswercards/allfields-standard';
+  }
 }
 
+ANSWERS.registerTemplate(
+  'directanswercards/allfields-standard',
+  `{{{read 'directanswercards/allfields-standard/template' }}}`
+);
 ANSWERS.registerComponentType(allfields_standardComponent);

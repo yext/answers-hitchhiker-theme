@@ -3,7 +3,6 @@
 class location_standardCardComponent extends BaseCard['location-standard'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
-    this.setTemplate(`{{{read 'cards/location-standard/template' }}}`);
   }
 
   /**
@@ -49,6 +48,19 @@ class location_standardCardComponent extends BaseCard['location-standard'] {
       }
     };
   }
+
+  /**
+   * The template to render
+   * @returns {string}
+   * @override
+   */
+  static defaultTemplateName (config) {
+    return 'cards/location-standard';
+  }
 }
 
+ANSWERS.registerTemplate(
+  'cards/location-standard',
+  `{{{read 'cards/location-standard/template' }}}`
+);
 ANSWERS.registerComponentType(location_standardCardComponent);
