@@ -90,7 +90,7 @@ module.exports = function () {
             {
               loader: path.resolve(__dirname, './themes/answers-hitchhiker-theme/static/webpack/html-asset-loader.js'),
               options: {
-                regex: /\\"(static\/assets\/[^"]*)\\"/g
+                regex: /\\"([./]*static\/assets\/[^"]*)\\"/g
               }
             },
             {
