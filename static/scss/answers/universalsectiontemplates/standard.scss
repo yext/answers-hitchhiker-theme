@@ -1,4 +1,4 @@
-/** @define HitchhikerResultsStandards */
+/** @define HitchhikerResultsStandard */
 
 $results-filters-background: white !default;
 
@@ -115,12 +115,12 @@ $results-filters-background: white !default;
     text-decoration: none;
     display: flex;
     align-items: center;
+  }
 
-    &:hover .HitchhikerResultsStandard-viewAllLabel,
-    &:focus .HitchhikerResultsStandard-viewAllLabel
-    {
-      text-decoration: underline;
-    }
+  &-viewAll:hover &-viewAllLabel,
+  &-viewAll:focus &-viewAllLabel
+  {
+    text-decoration: underline;
   }
 
   &-viewAll svg
@@ -185,58 +185,49 @@ $results-filters-background: white !default;
       $size: var(--yxt-font-size-md-lg),
     );
   }
-}
 
-.HitchhikerResultsStandard-Card {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: var(--yxt-cards-margin);
-  flex-basis: 100%;
-  flex-grow: 1;
-
-  &,
-  &-placeholder {
-    min-width: var(--yxt-cards-min-width);
-    border: var(--yxt-border-default);
-    margin-right: var(--yxt-cards-margin);
-  }
-
-  &-placeholder {
-    visibility: hidden;
-    border-top: none;
-    border-bottom: none;
-  }
-
-  &-child {
+  &-Card {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: var(--yxt-cards-margin);
+    flex-basis: 100%;
     flex-grow: 1;
-    min-height: 1px;
-  }
 
-  &--universal {
-    margin-bottom: 0;
-  }
+    &,
+    &-placeholder {
+      min-width: var(--yxt-cards-min-width);
+      border: var(--yxt-border-default);
+      margin-right: var(--yxt-cards-margin);
+    }
 
-  &--universal + &--universal {
-    border-top: 0;
-  }
+    &-placeholder {
+      visibility: hidden;
+      border-top: none;
+      border-bottom: none;
+    }
 
-  // hack: Add 1px left padding on IE11 so child elements
-  // with background colors won't hide this elements border
-  _:-ms-fullscreen, :root & {
-    padding-left: 1px;
-  }
+    &-child {
+      flex-grow: 1;
+      min-height: 1px;
+    }
 
-  @media (max-width: $breakpoint-mobile-max) {
-    margin-bottom: 0;
-    & + & {
+    &--universal {
+      border: var(--yxt-border-default);
       border-top: 0;
+      margin: 0;
+    }
+
+    // hack: Add 1px left padding on IE11 so child elements
+    // with background colors won't hide this elements border
+    _:-ms-fullscreen, :root & {
+      padding-left: 1px;
+    }
+
+    @media (max-width: $breakpoint-mobile-max) {
+      margin-bottom: 0;
+      & + & {
+        border-top: 0;
+      }
     }
   }
-}
-
-.HitchhikerResultsStandard-Card--universal
-{
-  border: var(--yxt-border-default);
-  border-top: 0;
-  margin: 0;
 }
