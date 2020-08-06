@@ -231,6 +231,8 @@
 }
 
 @mixin column-grid-items {
+  background-color: var(--yxt-color-background-highlight);
+
   @media (min-width: $breakpoint-mobile-min) {
     padding-top: calc(var(--yxt-base-spacing) / 2);
     padding-right: 7px; // offset border
