@@ -1,0 +1,68 @@
+{{#if isSearchComplete}}
+  {{#if showNoResults}}
+    {{> noResults}}
+  {{/if}}
+  {{#if resultsPresent}}
+    <section class="HitchhikerResultsThreeColumns HitchhikerResultsThreeColumns--{{_config.modifier}} HitchhikerResultsThreeColumns--universal">
+      {{> header}}
+      {{> map}}
+      {{> results}}
+      {{> viewMore}}
+    </section>
+  {{/if}}
+{{/if}}
+
+{{#*inline "noResults"}}
+  {{#if useLegacyNoResults}}
+    {{> results/noresults}}
+  {{/if}}
+{{/inline}}
+
+
+{{#*inline "header"}}
+  <div class="HitchhikerResultsThreeColumns-title">
+    {{#if iconIsBuiltIn}}
+      <div data-component="IconComponent" data-opts='{ "iconName": "{{ _config.icon }}" }'></div>
+    {{else}}
+      <div data-component="IconComponent" data-opts='{ "iconUrl": "{{ _config.icon }}" }'></div>
+    {{/if}}
+    <div class="HitchhikerResultsThreeColumns-titleLabel">{{_config.title}}</div>
+  </div>
+  {{#if showResultsHeader}}
+    <div data-component="ResultsHeader"></div>
+  {{/if}}
+{{/inline}}
+
+{{#*inline "results"}}
+  <div class="HitchhikerResultsThreeColumns-items js-HitchhikerResultsThreeColumns-items">
+    {{#each results}}
+      <div class="HitchhikerResultsThreeColumns-Card HitchhikerResultsThreeColumns-Card--universal"
+        data-component="Card"
+        data-opts='{ "_index": {{@index}} }'>
+      </div>
+    {{/each}}
+    {{#each placeholders}}
+      <div class="HitchhikerResultsThreeColumns-Card-placeholder" aria-hidden="true"></div>
+    {{/each}}
+  </div>
+{{/inline}}
+
+{{#*inline "map"}}
+  {{#if _config.includeMap}}
+    <div class="HitchhikerResultsThreeColumns-map"
+          data-component="Map"
+          data-prop="map">
+    </div>
+  {{/if}}
+{{/inline}}
+
+{{#*inline "viewMore"}}
+  {{#if _config.isUniversal}}
+    <div class="HitchhikerResultsThreeColumns-viewMore">
+      <a class="HitchhikerResultsThreeColumns-viewMoreLink" href="{{ verticalURL }}">
+        <div class="HitchhikerResultsThreeColumns-viewMoreLabel">{{_config.viewMoreLabel}}</div>
+        <div data-component="IconComponent" data-opts='{ "iconName": "chevron" }'></div>
+      </a>
+    </div>
+  {{/if}}
+{{/inline}}
