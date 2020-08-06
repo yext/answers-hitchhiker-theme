@@ -1,0 +1,35 @@
+/** @define HitchhikerResultsTwoColumns */
+
+@import 'common';
+
+.HitchhikerResultsTwoColumns
+{
+  @include universal-standard;
+
+  &-items
+  {
+    @media (min-width: $breakpoint-mobile-min) {
+      padding-top: calc(var(--yxt-base-spacing) / 2);
+      padding-right: 7px; // offset border
+      padding-bottom: calc(var(--yxt-base-spacing) / 2);
+      padding-left: 7px;
+
+      border-left: var(--yxt-border-default);
+      border-right: var(--yxt-border-default);
+      border-bottom: var(--yxt-border-default);
+    }
+  }
+
+  &-Card
+  {
+    &--universal
+    {
+      @media (min-width: $breakpoint-mobile-min) {
+        margin: 8px;
+        flex-basis: var(--hh-two-columns-width);
+        max-width: var(--hh-two-columns-width);
+        border: var(--yxt-border-default);
+      }
+    }
+  }
+}
