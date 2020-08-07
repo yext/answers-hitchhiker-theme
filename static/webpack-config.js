@@ -90,7 +90,6 @@ module.exports = function () {
             {
               loader: path.resolve(__dirname, `./${jamboConfig.dirs.output}/static/webpack/html-asset-loader.js`),
               options: {
-                absolutePathToOutputDirectory: path.resolve(__dirname, jamboConfig.dirs.output),
                 regex: /\\"(static\/assets\/[^"]*)\\"/g
               }
             },
