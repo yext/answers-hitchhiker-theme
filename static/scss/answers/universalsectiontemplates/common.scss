@@ -1,0 +1,246 @@
+@mixin universal-standard
+{
+  $results-filters-background: white !default;
+
+  border-bottom: 0;
+  width: 100%;
+  margin-top: var(--yxt-base-spacing);
+
+  & + &
+  {
+    margin-top: var(--yxt-base-spacing);
+  }
+
+  &-left
+  {
+    display: flex;
+    align-items: center;
+  }
+
+  &-titleIconWrapper
+  {
+    display: flex;
+    margin-right: calc(var(--yxt-base-spacing) / 2);
+  }
+
+  &-title
+  {
+    @include Text(
+      var(--yxt-font-size-md-lg),
+      var(--yxt-line-height-lg),
+      var(--yxt-font-weight-bold),
+      $color: var(--yxt-color-text-primary)
+    );
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  &-titleBar
+  {
+    border: var(--yxt-border-default);
+    display: flex;
+    padding: calc(var(--yxt-base-spacing) / 2) var(--yxt-base-spacing);
+    align-items: center;
+    background-color:  var(--yxt-color-background-highlight);
+  }
+
+  &-map
+  {
+    height: 300px;
+    border-bottom: var(--yxt-border-default);
+  }
+
+  &-items {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-right: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-flow: row wrap;
+  }
+
+  &-viewMore
+  {
+    display: flex;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: calc(var(--yxt-base-spacing) / 2) var(--yxt-base-spacing);
+    background-color: $results-filters-background;
+    border-right: var(--yxt-border-default);
+    border-left: var(--yxt-border-default);
+    border-bottom: var(--yxt-border-default);
+  }
+
+  &-viewMore svg
+  {
+    height: calc(var(--yxt-base-spacing) / 2);
+    width: calc(var(--yxt-base-spacing) / 2);
+    color: var(--yxt-color-brand-primary);
+  }
+
+  &-viewMoreLink
+  {
+    text-decoration: none;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    @include Link;
+  }
+
+  &-viewMoreLabel
+  {
+    margin-right: calc(var(--yxt-base-spacing) / 2);
+    @include Text(
+      $color: var(--yxt-color-brand-primary),
+      $weight: var(--yxt-font-weight-semibold),
+      $line-height: var(--yxt-line-height-lg),
+      $size: var(--yxt-font-size-md)
+    );
+  }
+
+  &-viewAll
+  {
+    display: flex;
+    justify-content: center;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: calc(var(--yxt-base-spacing) / 2) var(--yxt-base-spacing);
+    background-color: var(--yxt-color-background-highlight);
+    border-right: var(--yxt-border-default);
+    border-left: var(--yxt-border-default);
+    border-bottom: var(--yxt-border-default);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
+
+  &-viewAll:hover &-viewAllLabel,
+  &-viewAll:focus &-viewAllLabel
+  {
+    text-decoration: underline;
+  }
+
+  &-viewAll svg
+  {
+    height: calc(var(--yxt-base-spacing) / 2);
+    width: calc(var(--yxt-base-spacing) / 2);
+    color: var(--yxt-color-brand-primary);
+  }
+
+  &-viewAllLink
+  {
+    display: flex;
+    align-items: center;
+
+    @include Text(
+      var(--yxt-font-size-md),
+      var(--yxt-line-height-xxlg),
+      var(--yxt-font-weight-semibold),
+    );
+    @include Link;
+  }
+
+  &-viewAllLabel
+  {
+    margin-right: calc(var(--yxt-base-spacing) / 2);
+    @include Text(
+      $color: var(--yxt-color-brand-primary),
+      $weight: var(--yxt-font-weight-semibold),
+      $line-height: var(--yxt-line-height-lg),
+      $size: var(--yxt-font-size-md)
+    );
+  }
+
+  &-title
+  {
+    border: var(--yxt-border-default);
+    display: flex;
+    padding: calc(var(--yxt-base-spacing) / 2) var(--yxt-base-spacing);
+    align-items: center;
+    background-color:  var(--yxt-color-background-highlight);
+  }
+
+  &-title .Icon
+  {
+    margin-right: calc(var(--yxt-base-spacing) / 2);
+  }
+
+  &-title svg, &-title img 
+  {
+    color: var(--yxt-color-brand-primary);
+    height: var(--yxt-base-spacing);
+    width: var(--yxt-base-spacing);
+  }
+
+  &-titleLabel 
+  {
+    text-transform: uppercase;
+    @include Text(
+      $color: var(--yxt-color-text-primary),
+      $weight: var(--yxt-font-weight-semibold),
+      $line-height: var(--yxt-line-height-lg),
+      $size: var(--yxt-font-size-md-lg),
+    );
+  }
+
+  &-Card {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: var(--yxt-cards-margin);
+    flex-basis: 100%;
+    flex-grow: 1;
+
+    &,
+    &-placeholder {
+      min-width: var(--yxt-cards-min-width);
+      border: var(--yxt-border-default);
+      margin-right: var(--yxt-cards-margin);
+    }
+
+    &-placeholder {
+      visibility: hidden;
+      border-top: none;
+      border-bottom: none;
+    }
+
+    &-child {
+      flex-grow: 1;
+      min-height: 1px;
+    }
+
+    &--universal {
+      border: var(--yxt-border-default);
+      border-top: 0;
+      margin: 0;
+    }
+
+    // hack: Add 1px left padding on IE11 so child elements
+    // with background colors won't hide this elements border
+    _:-ms-fullscreen, :root & {
+      padding-left: 1px;
+    }
+
+    @media (max-width: $breakpoint-mobile-max) {
+      margin-bottom: 0;
+      & + & {
+        border-top: 0;
+      }
+    }
+  }
+}
+
+@mixin column-grid-items {
+  background-color: var(--yxt-color-background-highlight);
+
+  @media (min-width: $breakpoint-mobile-min) {
+    padding-top: calc(var(--yxt-base-spacing) / 2);
+    padding-right: 7px; // offset border
+    padding-bottom: calc(var(--yxt-base-spacing) / 2);
+    padding-left: 7px;
+
+    border-left: var(--yxt-border-default);
+    border-right: var(--yxt-border-default);
+    border-bottom: var(--yxt-border-default);
+  }
+}
