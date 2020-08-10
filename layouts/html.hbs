@@ -54,7 +54,7 @@
     {{#if global_config.favicon}}
       <link rel="shortcut icon" href="{{global_config.favicon}}">
     {{/if}}
-    <script src="bundle.js"></script>
+    <script src="{{relativePath}}/bundle.js"></script>
     {{#if global_config.googleAnalyticsId}}
       <!-- Global site tag (gtag.js) - Google Analytics -->
       <script async src="https://www.googletagmanager.com/gtag/js?id={{global_config.googleAnalyticsId}}"></script>
