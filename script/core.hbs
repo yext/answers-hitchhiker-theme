@@ -45,7 +45,7 @@
       onReady: () => {
         {{> @partial-block }}
 
-        {{> script/onReady}}
+        {{> script/on_ready}}
 
         {{#if global_config.conversionTrackingEnabled}}
           ANSWERS.setConversionsOptIn(true);
@@ -60,7 +60,7 @@
         });
       }
     });
-    {{> script/afterInit}}
+    {{> script/after_init}}
   }
 {{/babel}}
 </script>
