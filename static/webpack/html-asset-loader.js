@@ -25,7 +25,7 @@ module.exports = function loader(source) {
   const regex = options.regex;
   const getUrlImport = `
     var ___HTML_ASSET_LOADER_GET_SOURCE_FROM_IMPORT___ = function(relativePath, asset) {
-      const getHashedPath = require("${options.relativePath}/../node_modules/html-loader/dist/runtime/getUrl.js");
+      const getHashedPath = require("html-loader/dist/runtime/getUrl.js");
       return relativePath + getHashedPath(asset);
     }`;
 

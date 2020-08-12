@@ -1,0 +1,26 @@
+/** @define HitchhikerResultsTwoColumns */
+
+@import 'common';
+
+.HitchhikerResultsTwoColumns
+{
+  @include universal-standard;
+
+  &-items
+  {
+    @include column-grid-items;
+  }
+
+  &-Card
+  {
+    &--universal
+    {
+      @media (min-width: $breakpoint-mobile-min) {
+        margin: 8px;
+        flex-basis: var(--hh-two-columns-width);
+        max-width: var(--hh-two-columns-width);
+        border: var(--yxt-border-default);
+      }
+    }
+  }
+}
