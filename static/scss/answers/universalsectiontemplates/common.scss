@@ -81,6 +81,7 @@
 
   &-viewMoreLink
   {
+    width: 100%;
     text-decoration: none;
     justify-content: center;
     display: flex;
@@ -166,14 +167,14 @@
     margin-right: calc(var(--yxt-base-spacing) / 2);
   }
 
-  &-title svg, &-title img 
+  &-title svg, &-title img
   {
     color: var(--yxt-color-brand-primary);
     height: var(--yxt-base-spacing);
     width: var(--yxt-base-spacing);
   }
 
-  &-titleLabel 
+  &-titleLabel
   {
     text-transform: uppercase;
     @include Text(
