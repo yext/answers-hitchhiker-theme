@@ -91,7 +91,10 @@
       }
       window.iFrameResizer = {
         onReady: function() {
-          window.parentIFrame.sendMessage(iframeGetSearchParams());
+          window.parentIFrame.sendMessage(JSON.stringify({
+            params: iframeGetSearchParams(),
+            replaceHistory: true
+          }));
         },
       };
     </script>
