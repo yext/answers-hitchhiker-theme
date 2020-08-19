@@ -1,10 +1,10 @@
-ANSWERS.addComponent('UniversalResults', Object.assign({}, {
-    container: '.js-answersUniversalResults',
+ANSWERS.addComponent("UniversalResults", Object.assign({}, {
+    container: ".js-answersUniversalResults",
     config: Object.assign({}, {
       {{!-- Map each Vertical config's verticalsToConfig --}}
       {{#each verticalConfigs}}
         {{#if verticalKey}}
-          '{{{verticalKey}}}': {
+          "{{{verticalKey}}}": {
             {{#with (lookup verticalsToConfig verticalKey)}}
               {{> VerticalConfig verticalKey=../verticalKey urlWithoutExtension=@key }}
             {{/with}}
@@ -14,7 +14,7 @@ ANSWERS.addComponent('UniversalResults', Object.assign({}, {
     }, {
       {{!-- Map the Universal config's verticalsToConfig --}}
       {{#each verticalsToConfig}}
-        '{{@key}}': Object.assign(
+        "{{@key}}": Object.assign(
           {},
           { {{> VerticalConfig verticalKey=@key }} },
           {{#each ../verticalConfigs}}
@@ -29,38 +29,38 @@ ANSWERS.addComponent('UniversalResults', Object.assign({}, {
   {{{ json componentSettings.UniversalResults }}}
 ));
 
-{{#*inline 'VerticalConfig'}}
+{{#*inline "VerticalConfig"}}
   {{#if universalSectionTemplate}}
-    template: `{{{read (concat 'universalsectiontemplates/' universalSectionTemplate)}}}`,
+    template: `{{{read (concat "universalsectiontemplates/" universalSectionTemplate)}}}`,
   {{else}}
-    template: `{{{read 'universalsectiontemplates/standard'}}}`,
+    template: `{{{read "universalsectiontemplates/standard"}}}`,
   {{/if}}
-  modifier: '{{{verticalKey}}}',
+  modifier: "{{{verticalKey}}}",
   {{#if urlWithoutExtension}}
-    url: '{{{urlWithoutExtension}}}.html',
+    url: "{{{urlWithoutExtension}}}.html",
     verticalPages: [ // TODO remove this once the theme version does not support pre-v1.3 of the SDK
       {
-        verticalKey: '{{{verticalKey}}}',
-        url: '{{{urlWithoutExtension}}}.html',
+        verticalKey: "{{{verticalKey}}}",
+        url: "{{{urlWithoutExtension}}}.html",
       }
     ],
   {{/if}}
   {{#if cardType}}
     card: {
-      cardType: '{{{cardType}}}'
+      cardType: "{{{cardType}}}"
     },
   {{/if}}
-  sectionTitle: {{#if sectionTitle}}'{{{sectionTitle}}}'{{else}}{{#if label}}'{{{label}}}'{{else}}'{{{verticalKey}}}'{{/if}}{{/if}},
+  sectionTitle: {{#if sectionTitle}}"{{{sectionTitle}}}"{{else}}{{#if label}}"{{{label}}}"{{else}}"{{{verticalKey}}}"{{/if}}{{/if}},
   {{#if icon}}
-    sectionTitleIconName: '{{{icon}}}',
+    sectionTitleIconName: "{{{icon}}}",
   {{/if}}
-  {{#if iconUrl}}sectionTitleIconUrl: '{{{iconUrl}}}',{{/if}}
-  viewAllText: {{#if viewAllText}}'{{{viewAllText}}}'{{else}}'View All'{{/if}},
+  {{#if iconUrl}}sectionTitleIconUrl: "{{{iconUrl}}}",{{/if}}
+  viewAllText: {{#if viewAllText}}"{{{viewAllText}}}"{{else}}"View All"{{/if}},
   {{#if viewMore}}viewMore: {{viewMore}},{{/if}}
   {{#if mapConfig}}
     includeMap: true,
     mapConfig: Object.assign({
-      apiKey: HitchhikerJS.getDefaultMapApiKey('{{ mapConfig.mapProvider }}')
+      apiKey: HitchhikerJS.getDefaultMapApiKey("{{ mapConfig.mapProvider }}")
     },
     {{{ json mapConfig }}},
     {{!-- This theme pin config must come after mapConfig in Object.assign --}}

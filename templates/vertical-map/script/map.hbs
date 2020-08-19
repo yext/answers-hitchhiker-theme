@@ -1,14 +1,14 @@
 if (!HitchhikerJS.isMobile()) {
-  ANSWERS.addComponent('Map', Object.assign({},
+  ANSWERS.addComponent("Map", Object.assign({},
   {
-    container: '#js-answersMap',
+    container: "#js-answersMap",
     apiKey: HitchhikerJS.getDefaultMapApiKey(
       {{#if componentSettings.Map.mapProvider}}
-        '{{componentSettings.Map.mapProvider}}'
+        "{{componentSettings.Map.mapProvider}}"
       {{else}}
         {{#with (lookup verticalsToConfig verticalKey)}}
           {{#if mapConfig}}
-            '{{mapConfig.mapProvider}}'
+            "{{mapConfig.mapProvider}}"
           {{/if}}
         {{/with}}
       {{/if}}
