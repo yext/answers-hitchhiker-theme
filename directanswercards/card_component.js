@@ -2,7 +2,7 @@ BaseDirectAnswerCard = typeof (BaseDirectAnswerCard) !== 'undefined' ?
   BaseDirectAnswerCard :
   {};
 
-BaseDirectAnswerCard['{{componentName}}'] = class extends ANSWERS.Component {
+BaseDirectAnswerCard["{{componentName}}"] = class extends ANSWERS.Component {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
     let data = config.data || {};
