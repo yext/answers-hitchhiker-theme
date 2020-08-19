@@ -78,7 +78,7 @@ export function generateIFrame(domain, queryParam, urlParam) {
   iFrameResize({
     checkOrigin: false,
     onMessage: function(messageData) {
-      const message = JSON.parse(messageData.message || {});
+      const message = JSON.parse(messageData.message);
       const params = message.params;
       const replaceHistory = message.replaceHistory;
       iframe.iFrameResizer.resize();
