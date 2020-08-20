@@ -17,7 +17,7 @@ ANSWERS.addComponent("VerticalResults", Object.assign({}, {
         {{#if iconUrl}}iconUrl: "{{{iconUrl}}}",{{/if}}
         label:
         {{#if label}}"{{{label}}}"{{else}}{{#if ../verticalKey}}"{{{../verticalKey}}}"{{else}}"{{{@key}}}"{{/if}}{{/if}},
-        url: {{#if url}}"{{{url}}}"{{else}}"{{{@key}}}.html"{{/if}},
+        url: "{{#if url}}{{{url}}}{{else if ../url}}{{{../url}}}{{else}}{{{@key}}}.html{{/if}}",
         {{/with}}
       }{{#unless @last}},{{/unless}}
       {{else}}
@@ -26,7 +26,7 @@ ANSWERS.addComponent("VerticalResults", Object.assign({}, {
         {{#if isFirst}}isFirst: {{isFirst}},{{/if}}
         {{#if icon}}icon: "{{{icon}}}",{{/if}}
         label: {{#if label}}"{{{label}}}"{{else}}"{{{@key}}}"{{/if}},
-        url: {{#if url}}"{{{url}}}"{{else}}"{{{@key}}}.html"{{/if}}
+        url: "{{#if url}}{{{url}}}{{else if ../url}}{{{../url}}}{{else}}{{{@key}}}.html{{/if}}",
       {{/with}}
       }{{#unless @last}},{{/unless}}
       {{/if}}

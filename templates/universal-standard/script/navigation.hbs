@@ -11,14 +11,14 @@ verticalPages: [
         {{#if isFirst}}isFirst: {{isFirst}},{{/if}}
         {{#if icon}}icon: "{{{icon}}}",{{/if}}
         label: {{#if label}}"{{{label}}}"{{else}}{{#if ../verticalKey}}"{{{../verticalKey}}}"{{else}}"{{{@key}}}"{{/if}}{{/if}},
-        url: {{#if url}}"{{{url}}}"{{else}}"{{{@key}}}.html"{{/if}},
+        url: "{{#if url}}{{{url}}}{{else if ../url}}{{{../url}}}{{else}}{{{@key}}}.html{{/if}}",
       {{/with}}
     {{else}}
       {{#with (lookup verticalsToConfig "Universal")}}
         {{#if isFirst}}isFirst: {{isFirst}},{{/if}}
         {{#if icon}}icon: "{{{icon}}}",{{/if}}
         label: {{#if label}}"{{{label}}}"{{else}}"{{{@key}}}"{{/if}},
-        url: {{#if url}}"{{{url}}}"{{else}}"{{{@key}}}.html"{{/if}},
+        url: "{{#if url}}{{{url}}}{{else if ../url}}{{{../url}}}{{else}}{{{@key}}}.html{{/if}}",
       {{/with}}
     {{/if}}
   }{{#unless @last}},{{/unless}}
