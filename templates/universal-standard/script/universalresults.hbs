@@ -45,11 +45,11 @@ ANSWERS.addComponent('UniversalResults', Object.assign({}, {
       }
     ],
   {{else if pagePath}}
-    url: '{{relativePath}}/{{{pagePath}}}',
+    url: '{{{pagePath}}}',
     verticalPages: [ // TODO remove this once the theme version does not support pre-v1.3 of the SDK
       {
         verticalKey: '{{{verticalKey}}}',
-        pageUrl: '{{relativePath}}/{{{pagePath}}}',
+        pageUrl: '{{{pagePath}}}',
       }
     ],
   {{else if pageName}}
