@@ -3,7 +3,7 @@
     {{> noResults}}
   {{/if}}
   {{#if resultsPresent}}
-    <section class="HitchhikerResultsTwoColumns HitchhikerResultsTwoColumns--{{_config.modifier}} HitchhikerResultsTwoColumns--universal">
+    <section class="HitchhikerResultsGridThreeColumns HitchhikerResultsGridThreeColumns--{{_config.modifier}} HitchhikerResultsGridThreeColumns--universal">
       {{> header}}
       {{> map}}
       {{> results}}
@@ -20,34 +20,34 @@
 
 
 {{#*inline "header"}}
-  <div class="HitchhikerResultsTwoColumns-title">
+  <div class="HitchhikerResultsGridThreeColumns-title">
     {{#if iconIsBuiltIn}}
       <div data-component="IconComponent" data-opts='{ "iconName": "{{ _config.icon }}" }'></div>
     {{else}}
       <div data-component="IconComponent" data-opts='{ "iconUrl": "{{ _config.icon }}" }'></div>
     {{/if}}
-    <div class="HitchhikerResultsTwoColumns-titleLabel">{{_config.title}}</div>
+    <div class="HitchhikerResultsGridThreeColumns-titleLabel">{{_config.title}}</div>
   </div>
   <div data-component="ResultsHeader"></div>
 {{/inline}}
 
 {{#*inline "results"}}
-  <div class="HitchhikerResultsTwoColumns-items js-HitchhikerResultsTwoColumns-items">
+  <div class="HitchhikerResultsGridThreeColumns-items js-HitchhikerResultsGridThreeColumns-items">
     {{#each results}}
-      <div class="HitchhikerResultsTwoColumns-Card HitchhikerResultsTwoColumns-Card--universal"
+      <div class="HitchhikerResultsGridThreeColumns-Card HitchhikerResultsGridThreeColumns-Card--universal"
         data-component="Card"
         data-opts='{ "_index": {{@index}} }'>
       </div>
     {{/each}}
     {{#each placeholders}}
-      <div class="HitchhikerResultsTwoColumns-Card-placeholder" aria-hidden="true"></div>
+      <div class="HitchhikerResultsGridThreeColumns-Card-placeholder" aria-hidden="true"></div>
     {{/each}}
   </div>
 {{/inline}}
 
 {{#*inline "map"}}
   {{#if _config.includeMap}}
-    <div class="HitchhikerResultsTwoColumns-map"
+    <div class="HitchhikerResultsGridThreeColumns-map"
           data-component="Map"
           data-prop="map">
     </div>
@@ -56,9 +56,9 @@
 
 {{#*inline "viewMore"}}
   {{#if _config.isUniversal}}
-    <div class="HitchhikerResultsTwoColumns-viewMore">
-      <a class="HitchhikerResultsTwoColumns-viewMoreLink" href="{{ verticalURL }}">
-        <div class="HitchhikerResultsTwoColumns-viewMoreLabel">{{_config.viewMoreLabel}}</div>
+    <div class="HitchhikerResultsGridThreeColumns-viewMore">
+      <a class="HitchhikerResultsGridThreeColumns-viewMoreLink" href="{{ verticalURL }}">
+        <div class="HitchhikerResultsGridThreeColumns-viewMoreLabel">{{_config.viewMoreLabel}}</div>
         <div data-component="IconComponent" data-opts='{ "iconName": "chevron" }'></div>
       </a>
     </div>
