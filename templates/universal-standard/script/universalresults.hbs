@@ -6,7 +6,7 @@ ANSWERS.addComponent("UniversalResults", Object.assign({}, {
         {{#if verticalKey}}
           "{{{verticalKey}}}": {
             {{#with (lookup verticalsToConfig verticalKey)}}
-              {{> VerticalConfig verticalKey=../verticalKey pageName=@key pagePath=../url }}
+              {{> VerticalConfig verticalKey=../verticalKey pageName=@key pagePath=../url relativePath=../../relativePath }}
             {{/with}}
           },
         {{/if}}
@@ -19,7 +19,7 @@ ANSWERS.addComponent("UniversalResults", Object.assign({}, {
           { {{> VerticalConfig verticalKey=@key }} },
           {{#each ../verticalConfigs}}
             {{#ifeq verticalKey @../key}}
-              { {{> VerticalConfig @../this verticalKey=verticalKey pageName=@key pagePath=../url }} },
+              { {{> VerticalConfig @../this verticalKey=verticalKey pageName=@key pagePath=../url relativePath=../../relativePath }} },
             {{/ifeq}}
           {{/each}}
         ),
@@ -37,19 +37,19 @@ ANSWERS.addComponent("UniversalResults", Object.assign({}, {
   {{/if}}
   modifier: "{{{verticalKey}}}",
   {{#if url}}
-    url: "{{{url}}}",
+    url: "{{relativePath}}/{{{url}}}",
     verticalPages: [ // TODO remove this once the theme version does not support pre-v1.3 of the SDK
       {
         verticalKey: "{{{verticalKey}}}",
-        url: "{{{url}}}",
+        url: "{{relativePath}}/{{{url}}}",
       }
     ],
   {{else if pagePath}}
-    url: "{{{pagePath}}}",
+    url: "{{relativePath}}/{{{pagePath}}}",
     verticalPages: [ // TODO remove this once the theme version does not support pre-v1.3 of the SDK
       {
         verticalKey: "{{{verticalKey}}}",
-        pageUrl: "{{{pagePath}}}",
+        pageUrl: "{{relativePath}}/{{{pagePath}}}",
       }
     ],
   {{else if pageName}}
