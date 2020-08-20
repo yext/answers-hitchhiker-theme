@@ -1,8 +1,8 @@
-/** @define HitchhikerResultsThreeColumns */
+/** @define HitchhikerResultsGridTwoColumns */
 
 @import 'common';
 
-.HitchhikerResultsThreeColumns
+.HitchhikerResultsGridTwoColumns
 {
   @include universal-standard;
 
@@ -17,8 +17,8 @@
     {
       @media (min-width: $breakpoint-mobile-min) {
         margin: 8px;
-        flex-basis: var(--hh-three-columns-width);
-        max-width: var(--hh-three-columns-width);
+        flex-basis: var(--hh-universal-grid-two-columns-width);
+        max-width: var(--hh-universal-grid-two-columns-width);
         border: var(--yxt-border-default);
       }
     }
