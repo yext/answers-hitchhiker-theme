@@ -37,9 +37,12 @@
       templateBundle: TemplateBundle.default,
       ...injectedConfig,
       ...userConfig,
-      onStateChange: (params) => {
+      onStateChange: (objParams, stringParams, replaceHistory) => {
         if ('parentIFrame' in window) {
-          parentIFrame.sendMessage(iframeGetSearchParams());
+          parentIFrame.sendMessage(JSON.stringify({
+            params: iframeGetSearchParams(),
+            replaceHistory: replaceHistory
+          }));
         }
       },
       onReady: () => {
