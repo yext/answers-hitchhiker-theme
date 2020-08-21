@@ -27,7 +27,7 @@
       var(--yxt-font-size-md-lg),
       var(--yxt-line-height-lg),
       var(--yxt-font-weight-bold),
-      $color: var(--hh-results-section-title-text-color)
+      $color: var(--hh-universal-section-title-text-color)
     );
     margin: 0;
     text-transform: uppercase;
@@ -39,7 +39,7 @@
     display: flex;
     padding: calc(var(--yxt-base-spacing) / 2) var(--yxt-base-spacing);
     align-items: center;
-    background-color: var(--hh-results-section-title-background);
+    background-color: var(--hh-universal-section-title-background);
   }
 
   &-map
@@ -163,7 +163,7 @@
   &-title .Icon
   {
     margin-right: calc(var(--yxt-base-spacing) / 2);
-    color: var(--hh-results-section-title-icon);
+    color: var(--hh-universal-section-title-icon);
   }
 
   &-title svg, &-title img
