@@ -29,13 +29,9 @@
       var(--yxt-font-weight-bold),
       $color: var(--hh-universal-section-title-text-color)
     );
-    display: flex;
-    align-items: center;
-    text-transform: uppercase;
-    background-color: var(--hh-universal-section-title-background);
-    padding: calc(var(--yxt-base-spacing) / 2) var(--yxt-base-spacing);
-    border: var(--yxt-border-default);
     margin: 0;
+
+    text-transform: uppercase;
   }
 
   &-titleBar
@@ -44,6 +40,7 @@
     display: flex;
     padding: calc(var(--yxt-base-spacing) / 2) var(--yxt-base-spacing);
     align-items: center;
+    background-color:  var(--hh-universal-section-title-background);
   }
 
   &-map
@@ -153,6 +150,15 @@
       $line-height: var(--yxt-line-height-lg),
       $size: var(--yxt-font-size-md)
     );
+  }
+
+  &-title
+  {
+    border: var(--yxt-border-default);
+    display: flex;
+    padding: calc(var(--yxt-base-spacing) / 2) var(--yxt-base-spacing);
+    align-items: center;
+    background-color: var(--hh-universal-section-title-background);
   }
 
   &-title .Icon
