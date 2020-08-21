@@ -12,7 +12,7 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
    */
   dataForRender(type, answer, relatedItem) {
     let isArray = Array.isArray(answer.value);
-    let value, arrayValue, regularValue;
+    let value, arrayValue, regularValue, isRichText;
 
     switch (answer.fieldType) {
       case 'url':
@@ -119,12 +119,14 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
         value = isArray ? arrayValue : regularValue;
         break;
       case 'rich_text':
+        isRichText = true;
         if (isArray) {
           arrayValue = answer.value.map((value) => ANSWERS.formatRichText(value));
         } else {
           regularValue = ANSWERS.formatRichText(answer.value);
         }
         value = isArray ? arrayValue : regularValue;
+        break;
       case 'single_line_text':
       case 'multi_line_text':
       default:
@@ -178,6 +180,7 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
       footerText: 'Was this the answer you were looking for?', // Text to display in the footer
       positiveFeedbackSrText: 'This answered my question', // Screen reader only text for thumbs-up
       negativeFeedbackSrText: 'This did not answer my question', // Screen reader only text for thumbs-down
+      isRichText: isRichText, // If the direct answer is sourced from a rich-text field
     };
   }
 
