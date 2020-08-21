@@ -29,8 +29,13 @@
       var(--yxt-font-weight-bold),
       $color: var(--hh-universal-section-title-text-color)
     );
-    margin: 0;
+    display: flex;
+    align-items: center;
     text-transform: uppercase;
+    background-color: var(--hh-universal-section-title-background);
+    padding: calc(var(--yxt-base-spacing) / 2) var(--yxt-base-spacing);
+    border: var(--yxt-border-default);
+    margin: 0;
   }
 
   &-titleBar
@@ -39,7 +44,6 @@
     display: flex;
     padding: calc(var(--yxt-base-spacing) / 2) var(--yxt-base-spacing);
     align-items: center;
-    background-color: var(--hh-universal-section-title-background);
   }
 
   &-map
@@ -151,24 +155,14 @@
     );
   }
 
-  &-title
-  {
-    border: var(--yxt-border-default);
-    display: flex;
-    padding: calc(var(--yxt-base-spacing) / 2) var(--yxt-base-spacing);
-    align-items: center;
-    background-color:  var(--yxt-color-background-highlight);
-  }
-
   &-title .Icon
   {
     margin-right: calc(var(--yxt-base-spacing) / 2);
-    color: var(--hh-universal-section-title-icon);
   }
 
   &-title svg, &-title img
   {
-    color: var(--yxt-color-brand-primary);
+    color: var(--hh-universal-section-title-icon);
     height: var(--yxt-base-spacing);
     width: var(--yxt-base-spacing);
   }
@@ -177,7 +171,7 @@
   {
     text-transform: uppercase;
     @include Text(
-      $color: var(--yxt-color-text-primary),
+      $color: var(--hh-universal-section-title-text-color),
       $weight: var(--yxt-font-weight-semibold),
       $line-height: var(--yxt-line-height-lg),
       $size: var(--yxt-font-size-md-lg),
