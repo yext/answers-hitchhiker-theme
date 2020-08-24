@@ -1,6 +1,6 @@
-{{> directanswercards/card_component componentName = 'allfields-standard' }}
+{{> directanswercards/card_component componentName = 'multilang-allfields-standard' }}
 
-class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standard'] {
+class multilang_allfields_standardComponent extends BaseDirectAnswerCard['multilang-allfields-standard'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
   }
@@ -187,12 +187,12 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
    * @override
    */
   static defaultTemplateName (config) {
-    return 'directanswercards/allfields-standard';
+    return 'directanswercards/multilang-allfields-standard';
   }
 }
 
 ANSWERS.registerTemplate(
-  'directanswercards/allfields-standard',
-  `{{{read 'directanswercards/allfields-standard/template' }}}`
+  'directanswercards/multilang-allfields-standard',
+  `{{{read 'directanswercards/multilang-allfields-standard/template' }}}`
 );
-ANSWERS.registerComponentType(allfields_standardComponent);
+ANSWERS.registerComponentType(multilang-allfields_standardComponent);
