@@ -1,6 +1,6 @@
-{{> cards/card_component componentName='link-standard' }}
+{{> cards/card_component componentName='multilang-link-standard' }}
 
-class link_standardCardComponent extends BaseCard['link-standard'] {
+class multilang_link_standardCardComponent extends BaseCard['multilang-link-standard'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
   }
@@ -35,12 +35,12 @@ class link_standardCardComponent extends BaseCard['link-standard'] {
    * @override
    */
   static defaultTemplateName (config) {
-    return 'cards/link-standard';
+    return 'cards/multilang-link-standard';
   }
 }
 
 ANSWERS.registerTemplate(
-  'cards/link-standard',
-  `{{{read 'cards/link-standard/template' }}}`
+  'cards/multilang-link-standard',
+  `{{{read 'cards/multilang-link-standard/template' }}}`
 );
-ANSWERS.registerComponentType(link_standardCardComponent);
+ANSWERS.registerComponentType(multilang_link_standardCardComponent);

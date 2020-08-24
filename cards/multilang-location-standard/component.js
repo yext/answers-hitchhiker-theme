@@ -1,6 +1,6 @@
-{{> cards/card_component componentName='location-standard' }}
+{{> cards/card_component componentName='multilang-location-standard' }}
 
-class location_standardCardComponent extends BaseCard['location-standard'] {
+class multilang_location_standardCardComponent extends BaseCard['multilang-location-standard'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
   }
@@ -55,12 +55,12 @@ class location_standardCardComponent extends BaseCard['location-standard'] {
    * @override
    */
   static defaultTemplateName (config) {
-    return 'cards/location-standard';
+    return 'cards/multilang-location-standard';
   }
 }
 
 ANSWERS.registerTemplate(
-  'cards/location-standard',
-  `{{{read 'cards/location-standard/template' }}}`
+  'cards/multilang-location-standard',
+  `{{{read 'cards/multilang-location-standard/template' }}}`
 );
-ANSWERS.registerComponentType(location_standardCardComponent);
+ANSWERS.registerComponentType(multilang_location_standardCardComponent);

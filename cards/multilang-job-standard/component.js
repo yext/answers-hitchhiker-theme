@@ -1,6 +1,6 @@
-{{> cards/card_component componentName='job-standard' }}
+{{> cards/card_component componentName='multilang-job-standard' }}
 
-class job_standardCardComponent extends BaseCard['job-standard'] {
+class multilang_job_standardCardComponent extends BaseCard['multilang-job-standard'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
   }
@@ -47,12 +47,12 @@ class job_standardCardComponent extends BaseCard['job-standard'] {
    * @override
    */
   static defaultTemplateName (config) {
-    return 'cards/job-standard';
+    return 'cards/multilang-job-standard';
   }
 }
 
 ANSWERS.registerTemplate(
-  'cards/job-standard',
-  `{{{read 'cards/job-standard/template' }}}`
+  'cards/multilang-job-standard',
+  `{{{read 'cards/multilang-job-standard/template' }}}`
 );
-ANSWERS.registerComponentType(job_standardCardComponent);
+ANSWERS.registerComponentType(multilang_job_standardCardComponent);

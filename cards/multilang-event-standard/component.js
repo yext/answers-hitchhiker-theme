@@ -1,6 +1,6 @@
-{{> cards/card_component componentName='event-standard' }}
+{{> cards/card_component componentName='multilang-event-standard' }}
 
-class event_standardCardComponent extends BaseCard['event-standard'] {
+class multilang_event_standardCardComponent extends BaseCard['multilang-event-standard'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
   }
@@ -56,12 +56,12 @@ class event_standardCardComponent extends BaseCard['event-standard'] {
    * @override
    */
   static defaultTemplateName (config) {
-    return 'cards/event-standard';
+    return 'cards/multilang-event-standard';
   }
 }
 
 ANSWERS.registerTemplate(
-  'cards/event-standard',
-  `{{{read 'cards/event-standard/template' }}}`
+  'cards/multilang-event-standard',
+  `{{{read 'cards/multilang-event-standard/template' }}}`
 );
-ANSWERS.registerComponentType(event_standardCardComponent);
+ANSWERS.registerComponentType(multilang_event_standardCardComponent);

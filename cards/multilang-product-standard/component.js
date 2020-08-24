@@ -1,6 +1,6 @@
-{{> cards/card_component componentName='product-prominentimage' }}
+{{> cards/card_component componentName='multilang-product-standard' }}
 
-class product_prominentimageCardComponent extends BaseCard['product-prominentimage'] {
+class multilang_product_standardCardComponent extends BaseCard['multilang-product-standard'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
   }
@@ -12,14 +12,19 @@ class product_prominentimageCardComponent extends BaseCard['product-prominentima
    * @param profile profile of the entity in the card
    */
   dataForRender(profile) {
+    let price = '';
+    if (profile.c_price) {
+      price = `$${profile.c_price}`;
+    }
+
     return {
       title: profile.name, // The header text of the card
       url: profile.landingPageUrl, // If the card title is a clickable link, set URL here
       target: '_top', // If the title's URL should open in a new tab, etc.
-      titleEventOptions: this.addDefaultEventOptions(),
-      subtitle: profile.c_price ? `$${profile.c_price}` : '', // The sub-header text of the card
       image: Formatter.image(profile.c_photo).url, // The URL of the image to display on the card
-      altText: Formatter.image(profile.c_photo).alternateText,  // The alternate text for the image
+      altText: Formatter.image(profile.c_photo).alternateText, // The alt text of the image to display on the card
+      titleEventOptions: this.addDefaultEventOptions(),
+      subtitle: price, // The sub-header text of the card
       details: profile.description, // The text in the body of the card
       // If the card's details are longer than a certain character count, you can truncate the
       // text. A toggle will be supplied that can show or hide the truncated text.
@@ -41,13 +46,13 @@ class product_prominentimageCardComponent extends BaseCard['product-prominentima
       // The secondary CTA of the card
       CTA2: {
         label: profile.c_secondaryCTA ? profile.c_secondaryCTA.label : null,
-        iconName: 'chevron',
+        iconName: 'chevron', // The icon to use for the CTA
         url: Formatter.generateCTAFieldTypeLink(profile.c_secondaryCTA),
-        target: '_top',
-        eventType: 'CTA_CLICK',
+        target: '_top', // Where the new URL will be opened
+        eventType: 'CTA_CLICK', // Type of Analytics event fired when clicking the CTA
         eventOptions: this.addDefaultEventOptions(),
         // ariaLabel: '',
-      }
+      },
     };
   }
 
@@ -57,12 +62,12 @@ class product_prominentimageCardComponent extends BaseCard['product-prominentima
    * @override
    */
   static defaultTemplateName (config) {
-    return 'cards/product-prominentimage';
+    return 'cards/multilang-product-standard';
   }
 }
 
 ANSWERS.registerTemplate(
-  'cards/product-prominentimage',
-  `{{{read 'cards/product-prominentimage/template' }}}`
+  'cards/multilang-product-standard',
+  `{{{read 'cards/multilang-product-standard/template' }}}`
 );
-ANSWERS.registerComponentType(product_prominentimageCardComponent);
+ANSWERS.registerComponentType(multilang_product_standardCardComponent);

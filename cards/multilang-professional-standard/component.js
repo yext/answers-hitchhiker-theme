@@ -1,6 +1,6 @@
-{{> cards/card_component componentName='professional-standard' }}
+{{> cards/card_component componentName='multilang-professional-standard' }}
 
-class professional_standardCardComponent extends BaseCard['professional-standard'] {
+class multilang_professional_standardCardComponent extends BaseCard['multilang-professional-standard'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
   }
@@ -62,12 +62,12 @@ class professional_standardCardComponent extends BaseCard['professional-standard
    * @override
    */
   static defaultTemplateName (config) {
-    return 'cards/professional-standard';
+    return 'cards/multilang-professional-standard';
   }
 }
 
 ANSWERS.registerTemplate(
-  'cards/professional-standard',
-  `{{{read 'cards/professional-standard/template' }}}`
+  'cards/multilang-professional-standard',
+  `{{{read 'cards/multilang-professional-standard/template' }}}`
 );
-ANSWERS.registerComponentType(professional_standardCardComponent);
+ANSWERS.registerComponentType(multilang_professional_standardCardComponent);

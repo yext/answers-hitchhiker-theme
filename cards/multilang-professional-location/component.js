@@ -1,6 +1,6 @@
-{{> cards/card_component componentName='product-standard' }}
+{{> cards/card_component componentName='multilang-professional-location' }}
 
-class product_standardCardComponent extends BaseCard['product-standard'] {
+class multilang_professional_locationCardComponent extends BaseCard['multilang-professional-location'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
   }
@@ -12,27 +12,31 @@ class product_standardCardComponent extends BaseCard['product-standard'] {
    * @param profile profile of the entity in the card
    */
   dataForRender(profile) {
-    let price = '';
-    if (profile.c_price) {
-      price = `$${profile.c_price}`;
-    }
-
     return {
-      title: profile.name, // The header text of the card
-      url: profile.landingPageUrl, // If the card title is a clickable link, set URL here
+      showOrdinal: true, // Whether to display the corresponding map pin number on the card
+      title: `${profile.firstName} ${profile.lastName}`, // The header text of the card
+      // subtitle: '', // The sub-header text of the card
+      url: profile.website || profile.landingPageUrl, // If the card title is a clickable link, set URL here
       target: '_top', // If the title's URL should open in a new tab, etc.
-      image: Formatter.image(profile.c_photo).url, // The URL of the image to display on the card
-      altText: Formatter.image(profile.c_photo).alternateText, // The alt text of the image to display on the card
       titleEventOptions: this.addDefaultEventOptions(),
-      subtitle: price, // The sub-header text of the card
+      address: Formatter.address(profile), // The address for the card
       details: profile.description, // The text in the body of the card
+      // listTitle: '', // Heading of the bulleted list
+      // listItems: [], // Content of the bulleted list
+      phone: Formatter.nationalizedPhoneDisplay(profile, 'mainPhone'), // The phone number to display
+      phoneEventOptions: this.addDefaultEventOptions(), // The analytics event options for phone clicks
+      image: Formatter.image(profile.headshot).url, // The URL of the image to display on the card
+      altText: Formatter.image(profile.headshot).alternateText, // The alternate text for the image
+
       // If the card's details are longer than a certain character count, you can truncate the
       // text. A toggle will be supplied that can show or hide the truncated text.
       showMoreDetails: {
-        showMoreLimit: 350, // Character count limit
+        showMoreLimit: 500, // Character count limit
         showMoreText: {{ translateJS phrase='Show more' }}, // Label when toggle will show truncated text
         showLessText: {{ translateJS phrase='Show less' }} // Label when toggle will hide truncated text
       },
+      // Distance from the user’s or inputted location
+      distance: Formatter.toMiles(profile),
       // The primary CTA of the card
       CTA1: {
         label: profile.c_primaryCTA ? profile.c_primaryCTA.label : null, // The CTA's label
@@ -46,13 +50,13 @@ class product_standardCardComponent extends BaseCard['product-standard'] {
       // The secondary CTA of the card
       CTA2: {
         label: profile.c_secondaryCTA ? profile.c_secondaryCTA.label : null,
-        iconName: 'chevron', // The icon to use for the CTA
+        iconName: 'chevron',
         url: Formatter.generateCTAFieldTypeLink(profile.c_secondaryCTA),
-        target: '_top', // Where the new URL will be opened
-        eventType: 'CTA_CLICK', // Type of Analytics event fired when clicking the CTA
+        target: '_top',
+        eventType: 'CTA_CLICK',
         eventOptions: this.addDefaultEventOptions(),
-        // ariaLabel: '',
-      },
+        // ariaLabel: ''
+      }
     };
   }
 
@@ -62,12 +66,12 @@ class product_standardCardComponent extends BaseCard['product-standard'] {
    * @override
    */
   static defaultTemplateName (config) {
-    return 'cards/product-standard';
+    return 'cards/multilang-professional-location';
   }
 }
 
 ANSWERS.registerTemplate(
-  'cards/product-standard',
-  `{{{read 'cards/product-standard/template' }}}`
+  'cards/multilang-professional-location',
+  `{{{read 'cards/multilang-professional-location/template' }}}`
 );
-ANSWERS.registerComponentType(product_standardCardComponent);
+ANSWERS.registerComponentType(multilang_professional_locationCardComponent);

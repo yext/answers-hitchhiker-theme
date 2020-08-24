@@ -1,6 +1,6 @@
-{{> cards/card_component componentName='menuitem-standard' }}
+{{> cards/card_component componentName='multilang-product-prominentimage' }}
 
-class menuitem_standardCardComponent extends BaseCard['menuitem-standard'] {
+class multilang_product_prominentimageCardComponent extends BaseCard['multilang-product-prominentimage'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
   }
@@ -16,15 +16,10 @@ class menuitem_standardCardComponent extends BaseCard['menuitem-standard'] {
       title: profile.name, // The header text of the card
       url: profile.landingPageUrl, // If the card title is a clickable link, set URL here
       target: '_top', // If the title's URL should open in a new tab, etc.
+      titleEventOptions: this.addDefaultEventOptions(),
+      subtitle: profile.c_price ? `$${profile.c_price}` : '', // The sub-header text of the card
       image: Formatter.image(profile.c_photo).url, // The URL of the image to display on the card
       altText: Formatter.image(profile.c_photo).alternateText,  // The alternate text for the image
-      // tagLabel: '', // The label of the displayed image
-      titleEventOptions: this.addDefaultEventOptions(),
-      listTitle: {{ translateJS phrase='Allergens' }},
-      listItems: profile.c_allergens,
-      subtitle: (profile.c_price ? '$'+profile.c_price : '')
-        + (profile.c_price && profile.c_calories ? ' | ' : '')
-        + (profile.c_calories ? profile.c_calories + ` {{ translate phrase='calories' }}` : ''), // The sub-header text of the card
       details: profile.description, // The text in the body of the card
       // If the card's details are longer than a certain character count, you can truncate the
       // text. A toggle will be supplied that can show or hide the truncated text.
@@ -35,9 +30,9 @@ class menuitem_standardCardComponent extends BaseCard['menuitem-standard'] {
       },
       // The primary CTA of the card
       CTA1: {
-        label: {{ translateJS phrase='Order Now' }}, // The CTA's label
+        label: profile.c_primaryCTA ? profile.c_primaryCTA.label : null, // The CTA's label
         iconName: 'chevron', // The icon to use for the CTA
-        url: profile.orderUrl, // The URL a user will be directed to when clicking
+        url: Formatter.generateCTAFieldTypeLink(profile.c_primaryCTA), // The URL a user will be directed to when clicking
         target: '_top', // Where the new URL will be opened
         eventType: 'CTA_CLICK', // Type of Analytics event fired when clicking the CTA
         eventOptions: this.addDefaultEventOptions(),
@@ -45,9 +40,9 @@ class menuitem_standardCardComponent extends BaseCard['menuitem-standard'] {
       },
       // The secondary CTA of the card
       CTA2: {
-        label: {{ translateJS phrase='View Menu' }},
-        iconName: 'magnifying_glass',
-        url: profile.landingPageUrl,
+        label: profile.c_secondaryCTA ? profile.c_secondaryCTA.label : null,
+        iconName: 'chevron',
+        url: Formatter.generateCTAFieldTypeLink(profile.c_secondaryCTA),
         target: '_top',
         eventType: 'CTA_CLICK',
         eventOptions: this.addDefaultEventOptions(),
@@ -62,12 +57,12 @@ class menuitem_standardCardComponent extends BaseCard['menuitem-standard'] {
    * @override
    */
   static defaultTemplateName (config) {
-    return 'cards/menuitem-standard';
+    return 'cards/multilang-product-prominentimage';
   }
 }
 
 ANSWERS.registerTemplate(
-  'cards/menuitem-standard',
-  `{{{read 'cards/menuitem-standard/template' }}}`
+  'cards/multilang-product-prominentimage',
+  `{{{read 'cards/multilang-product-prominentimage/template' }}}`
 );
-ANSWERS.registerComponentType(menuitem_standardCardComponent);
+ANSWERS.registerComponentType(multilang_product_prominentimageCardComponent);

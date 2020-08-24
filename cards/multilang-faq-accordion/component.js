@@ -1,6 +1,6 @@
-{{> cards/card_component componentName='faq-accordion' }}
+{{> cards/card_component componentName='multilang-faq-accordion' }}
 
-class faq_accordionCardComponent extends BaseCard['faq-accordion'] {
+class multilang_faq_accordionCardComponent extends BaseCard['multilang-faq-accordion'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
   }
@@ -93,12 +93,12 @@ class faq_accordionCardComponent extends BaseCard['faq-accordion'] {
    * @override
    */
   static defaultTemplateName (config) {
-    return 'cards/faq-accordion';
+    return 'cards/multilang-faq-accordion';
   }
 }
 
 ANSWERS.registerTemplate(
-  'cards/faq-accordion',
-  `{{{read 'cards/faq-accordion/template' }}}`
+  'cards/multilang-faq-accordion',
+  `{{{read 'cards/multilang-faq-accordion/template' }}}`
 );
-ANSWERS.registerComponentType(faq_accordionCardComponent);
+ANSWERS.registerComponentType(multilang_faq_accordionCardComponent);
