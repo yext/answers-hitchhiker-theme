@@ -30,8 +30,8 @@ class product_standardCardComponent extends BaseCard['product-standard'] {
       // text. A toggle will be supplied that can show or hide the truncated text.
       showMoreDetails: {
         showMoreLimit: 350, // Character count limit
-        showMoreText: 'Show more', // Label when toggle will show truncated text
-        showLessText: 'Show less' // Label when toggle will hide truncated text
+        showMoreText: {{ translateJS phrase='Show more' }}, // Label when toggle will show truncated text
+        showLessText: {{ translateJS phrase='Show less' }} // Label when toggle will hide truncated text
       },
       // The primary CTA of the card
       CTA1: {

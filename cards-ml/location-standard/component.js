@@ -30,7 +30,7 @@ class location_standardCardComponent extends BaseCard['location-standard'] {
       showOrdinal: true, // If the ordinal should be displayed on the card
       CTA1: { // The primary call to action for the card
         iconName: 'phone', // The icon to use for the CTA
-        label: 'Call', // The label of the CTA
+        label: {{ translateJS phrase='Call' }}, // The label of the CTA
         url: Formatter.phoneLink(profile), // The URL a user will be directed to when clicking
         target: '_top', // If the URL will be opened in a new tab, etc.
         eventType: 'TAP_TO_CALL', // Type of Analytics event fired when clicking the CTA
@@ -38,7 +38,7 @@ class location_standardCardComponent extends BaseCard['location-standard'] {
         // ariaLabel: '', // Accessible text providing a descriptive label for the CTA
       },
       CTA2: { // The secondary call to action for the card
-        label: 'Get Directions',
+        label: {{ translateJS phrase='Get Directions' }},
         iconName: 'directions',
         url: Formatter.getDirectionsUrl(profile),
         target: '_top',
