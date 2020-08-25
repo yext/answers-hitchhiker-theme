@@ -133,7 +133,7 @@
     {{#if card.services}}
     <div class="HitchhikerLocationStandard-services">
       <span class="HitchhikerLocationStandard-servicesLabel">
-        Services:
+        {{ translate phrase='Services:' }}
       </span>
       <span>
         {{#each card.services~}}{{this}}{{#unless @last}}, {{/unless}}{{~/each}}
