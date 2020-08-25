@@ -195,4 +195,4 @@ ANSWERS.registerTemplate(
   'directanswercards/multilang-allfields-standard',
   `{{{read 'directanswercards/multilang-allfields-standard/template' }}}`
 );
-ANSWERS.registerComponentType(multilang-allfields_standardComponent);
+ANSWERS.registerComponentType(multilang_allfields_standardComponent);
