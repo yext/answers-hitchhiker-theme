@@ -1,0 +1,148 @@
+<div class="HitchhikerProfessionalStandard {{cardName}}">
+  {{> image }}
+  <div class="HitchhikerProfessionalStandard-body">
+    {{> title }}
+    {{> subtitle }}
+    <div class="HitchhikerProfessionalStandard-contentWrapper">
+      <div class="HitchhikerProfessionalStandard-info">
+        {{> details }}
+        {{> list }}
+        {{> phone }}
+      </div>
+      {{> ctas }}
+    </div>
+  </div>
+</div>
+
+{{#*inline 'image'}}
+{{#if card.image}}
+<div class="HitchhikerProfessionalStandard-imgWrapper">
+  <img class="HitchhikerProfessionalStandard-img" src="{{card.image}}"{{#if card.altText}} alt="{{card.altText}}"{{/if}}/>
+</div>
+{{/if}}
+{{/inline}}
+
+{{#*inline 'title'}}
+{{#if card.title}}
+<div class="HitchhikerProfessionalStandard-title">
+  {{#if card.url}}
+  <a class="HitchhikerProfessionalStandard-titleLink" href="{{card.url}}" data-eventtype="TITLE_CLICK"
+    data-eventoptions='{{json card.titleEventOptions}}' target={{#if card.target}}"{{card.target}}"{{else}}"_top"
+    rel="noopener noreferrer nofollow" {{/if}}>
+    {{card.title}}
+  </a>
+  {{else}}
+  {{card.title}}
+  {{/if}}
+</div>
+{{/if}}
+{{/inline}}
+
+{{#*inline 'subtitle'}}
+{{#if card.subtitle}}
+<div class="HitchhikerProfessionalStandard-subtitle">
+  {{card.subtitle}}
+</div>
+{{/if}}
+{{/inline}}
+
+{{! Displays the details for the card. If showMoreDetails has been configured,
+    this partial handles the show more toggle, show less toggle, truncated details,
+    and full details. If showMoreDetails has not been configured, it will display the
+    the regular card details.
+}}
+{{#*inline 'details'}}
+{{#if card.details}}
+<div class="HitchhikerProfessionalStandard-cardDetails">
+  {{#if showExcessDetailsToggle}}
+    <div class="HitchhikerProfessionalStandard-detailsText js-HitchhikerCard-detailsText">
+      {{truncatedDetails}}
+    </div>
+  {{/if}}
+  <div class="HitchhikerProfessionalStandard-detailsText js-HitchhikerCard-detailsText{{#if showExcessDetailsToggle}} js-hidden{{/if}}">
+    {{card.details}}
+  </div>
+  {{#if showExcessDetailsToggle}}
+  <button class="HitchhikerCard-detailsToggle js-HitchhikerCard-detailsToggle">
+    {{card.showMoreDetails.showMoreText}}
+    <span data-component="IconComponent"
+      data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseDown" }'></span>
+  </button>
+  <button class="HitchhikerCard-detailsToggle js-HitchhikerCard-detailsToggle js-hidden">
+    {{card.showMoreDetails.showLessText}}
+    <span data-component="IconComponent"
+      data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseUp" }'></span>
+  </button>
+  {{/if}}
+</div>
+{{/if}}
+{{/inline}}
+
+{{#*inline 'list'}}
+{{#if (any card.listTitle card.listItems.length)}}
+<div class="HitchhikerProfessionalStandard-listWrapper">
+  {{#if card.listTitle}}
+  <div class="HitchhikerProfessionalStandard-listTitle">
+    {{card.listTitle}}
+  </div>
+  {{/if}}
+  {{#if card.listItems}}
+  <ul class="HitchhikerProfessionalStandard-list">
+    {{#each card.listItems}}
+    <li class="HitchhikerProfessionalStandard-listItem">{{this}}</li>
+    {{/each}}
+  </ul>
+  {{/if}}
+</div>
+{{/if}}
+{{/inline}}
+
+{{#*inline 'phone'}}
+{{#if card.phone}}
+<div class="HitchhikerProfessionalStandard-phone">
+  <div class="HitchhikerProfessionalStandard-phone--desktop">
+    {{card.phone}}
+  </div>
+  <a class="HitchhikerProfessionalStandard-phone--mobile" href="tel:{{card.phone}}"
+    data-eventtype="TAP_TO_CALL"
+    data-eventoptions="{{json card.phoneEventOptions}}"
+    target="_top">
+    {{card.phone}}
+  </a>
+</div>
+{{/if}}
+{{/inline}}
+
+{{#*inline 'ctas'}}
+{{#if (any (all card.CTA1 card.CTA1.url) (all card.CTA2 card.CTA2.url))}}
+<div class="HitchhikerProfessionalStandard-ctasWrapper">
+  {{> CTA card.CTA1 ctaName="primaryCTA" }}
+  {{> CTA card.CTA2 ctaName="secondaryCTA" }}
+</div>
+{{/if}}
+{{/inline}}
+
+{{#*inline 'CTA'}}
+{{#if (all url label)}}
+<div class="HitchhikerProfessionalStandard-{{ctaName}}">
+  <a class="HitchhikerCTA js-HitchhikerCTA{{#if modifiers}} {{modifiers}}{{/if}}"
+    href="{{url}}"
+    data-eventtype="{{eventType}}"
+    data-eventoptions='{{json eventOptions}}'
+    target="{{#if target}}{{target}}{{else}}_top{{/if}}"
+    {{#if ariaLabel}}aria-label="{{ariaLabel}}"{{/if}}>
+    {{#if (any iconName iconUrl)}}
+    <div class="HitchhikerCTA-iconWrapper">
+      <div class="HitchhikerCTA-icon" data-component="IconComponent" data-opts='{
+        "iconUrl": "{{iconUrl}}",
+        "iconName": "{{iconName}}"
+      }'></div>
+    </div>
+    {{/if}}
+    <div class='HitchhikerCTA-iconLabel'>
+      {{label}}
+    </div>
+  </a>
+</div>
+{{/if}}
+{{/inline}}
