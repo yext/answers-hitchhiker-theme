@@ -1,0 +1,108 @@
+<div class="HitchhikerProductStandard {{cardName}}">
+  {{> image }}
+  <div class="HitchhikerProductStandard-body">
+    {{> title }}
+    {{> subtitle }}
+    <div class="HitchhikerProductStandard-contentWrapper">
+      {{> details }}
+      {{#if (any (all card.CTA1 card.CTA1.label card.CTA1.url) (all card.CTA2 card.CTA2.label card.CTA2.url))}}
+      <div class="HitchhikerProductStandard-ctasWrapper">
+        {{#with card.CTA1}}
+        {{> CTA ctaName="primaryCTA" }}
+        {{/with}}
+        {{#with card.CTA2}}
+        {{> CTA ctaName="secondaryCTA" }}
+        {{/with}}
+      </div>
+      {{/if}}
+    </div>
+  </div>
+</div>
+
+{{#*inline 'image'}}
+{{#if card.image}}
+<div class="HitchhikerProductStandard-imgWrapper">
+  <img class="HitchhikerProductStandard-img" src="{{card.image}}" alt="{{#if card.altText}}{{card.altText}}{{/if}}" />
+</div>
+{{/if}}
+{{/inline}}
+
+{{#*inline 'title'}}
+{{#if card.title}}
+<div class="HitchhikerProductStandard-title">
+  {{#if card.url}}
+  <a class="HitchhikerProductStandard-titleLink js-Hitchhiker-title" href="{{card.url}}" data-eventtype="TITLE_CLICK"
+    data-eventoptions='{{json card.titleEventOptions}}' target={{#if card.target}}"{{card.target}}"{{else}}"_top"
+    rel="noopener noreferrer nofollow" {{/if}}>
+    {{card.title}}
+  </a>
+  {{else}}
+  {{card.title}}
+  {{/if}}
+</div>
+{{/if}}
+{{/inline}}
+
+{{#*inline 'subtitle'}}
+{{#if card.subtitle}}
+<div class="HitchhikerProductStandard-subtitle">
+  {{card.subtitle}}
+</div>
+{{/if}}
+{{/inline}}
+
+{{! Displays the details for the card. If showMoreDetails has been configured,
+    this partial handles the show more toggle, show less toggle, truncated details,
+    and full details. If showMoreDetails has not been configured, it will display the
+    the regular card details.
+}}
+{{#*inline 'details'}}
+{{#if card.details}}
+<div class="HitchhikerProductStandard-cardDetails">
+  {{#if showExcessDetailsToggle}}
+    <div class="HitchhikerProductStandard-detailsText js-HitchhikerCard-detailsText">
+      {{truncatedDetails}}
+    </div>
+  {{/if}}
+  <div class="HitchhikerProductStandard-detailsText js-HitchhikerCard-detailsText{{#if showExcessDetailsToggle}} js-hidden{{/if}}">
+    {{card.details}}
+  </div>
+  {{#if showExcessDetailsToggle}}
+  <button class="HitchhikerCard-detailsToggle js-HitchhikerCard-detailsToggle">
+    {{card.showMoreDetails.showMoreText}}
+    <span data-component="IconComponent"
+      data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseDown" }'></span>
+  </button>
+  <button class="HitchhikerCard-detailsToggle js-HitchhikerCard-detailsToggle js-hidden">
+    {{card.showMoreDetails.showLessText}}
+    <span data-component="IconComponent"
+      data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseUp" }'></span>
+  </button>
+  {{/if}}
+</div>
+{{/if}}
+{{/inline}}
+
+{{#*inline 'CTA'}}
+{{#if (all url label)}}
+<div class="HitchhikerProductStandard-{{ctaName}}">
+  <a class="HitchhikerCTA js-HitchhikerCTA{{#if modifiers}} {{modifiers}}{{/if}}"
+    href="{{url}}"
+    data-eventtype="{{eventType}}"
+    data-eventoptions='{{json eventOptions}}'
+    target={{#if target}}"{{target}}"{{else}}"_top"{{/if}}
+    {{#if ariaLabel}}aria-label="{{ariaLabel}}"{{/if}}>
+    {{#if (any iconName iconUrl)}}
+    <div class="HitchhikerCTA-iconWrapper">
+      <div class="HitchhikerCTA-icon" data-component="IconComponent"
+        data-opts='{"iconName": "{{iconName}}", "iconUrl": "{{iconUrl}}"}'>
+      </div>
+    </div>
+    {{/if}}
+    <div class='HitchhikerCTA-iconLabel'>
+      {{label}}
+    </div>
+  </a>
+</div>
+{{/if}}
+{{/inline}}

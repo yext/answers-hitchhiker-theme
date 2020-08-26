@@ -1,0 +1,76 @@
+<div class="HitchhikerLinkStandard {{cardName}}">
+  <div class="HitchhikerLinkStandard-body">
+    {{> title }}
+    {{> subtitle }}
+    <div class="HitchhikerLinkStandard-contentWrapper">
+      {{> details }}
+    </div>
+  </div>
+</div>
+
+{{#*inline 'title'}}
+{{#if card.title}}
+<div class="HitchhikerLinkStandard-title">
+  {{#if card.url}}
+  <a class="HitchhikerLinkStandard-titleLink js-HitchhikerLinkStandard-titleLink"
+     href="{{card.url}}"
+     data-eventtype="TITLE_CLICK"
+     data-eventoptions='{{json card.titleEventOptions}}'
+     target={{#if card.target}}"{{card.target}}"{{else}}"_top"{{/if}}>
+    {{{card.title}}}
+    {{> chevron_icon }}
+  </a>
+  {{else}}
+  {{{card.title}}}
+  {{/if}}
+</div>
+{{/if}}
+{{/inline}}
+
+{{#*inline 'chevron_icon'}}
+<svg viewBox="0 0 7 9" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(-1 -8)">
+    <path d="m2.6417004 8-1.1417004 1.0575 3.70850202 3.4425-3.70850202 3.4425 1.1417004 1.0575 4.8582996-4.5z"></path>
+  </g>
+</svg>
+{{/inline}}
+
+{{#*inline 'subtitle'}}
+{{#if card.subtitle}}
+<div class="HitchhikerLinkStandard-subtitle">
+  {{card.subtitle}}
+</div>
+{{/if}}
+{{/inline}}
+
+{{! Displays the details for the card. If showMoreDetails has been configured,
+    this partial handles the show more toggle, show less toggle, truncated details,
+    and full details. If showMoreDetails has not been configured, it will display the
+    the regular card details.
+}}
+{{#*inline 'details'}}
+{{#if card.details}}
+<div class="HitchhikerLinkStandard-cardDetails">
+  {{#if showExcessDetailsToggle}}
+    <div class="HitchhikerLinkStandard-detailsText js-HitchhikerCard-detailsText">
+      {{truncatedDetails}}
+    </div>
+  {{/if}}
+  <div class="HitchhikerLinkStandard-detailsText js-HitchhikerCard-detailsText{{#if showExcessDetailsToggle}} js-hidden{{/if}}">
+    {{{card.details}}}
+  </div>
+  {{#if showExcessDetailsToggle}}
+  <button class="HitchhikerCard-detailsToggle js-HitchhikerCard-detailsToggle">
+    {{card.showMoreDetails.showMoreText}}
+    <span data-component="IconComponent"
+      data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseDown" }'></span>
+  </button>
+  <button class="HitchhikerCard-detailsToggle js-HitchhikerCard-detailsToggle js-hidden">
+    {{card.showMoreDetails.showLessText}}
+    <span data-component="IconComponent"
+      data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseUp" }'></span>
+  </button>
+  {{/if}}
+</div>
+{{/if}}
+{{/inline}}
