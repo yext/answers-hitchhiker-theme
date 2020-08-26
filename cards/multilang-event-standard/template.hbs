@@ -1,0 +1,109 @@
+<div class="HitchhikerEventStandard {{cardName}}">
+  <div class="HitchhikerEventStandard-wrapper">
+    {{#if (all card.date.day card.date.month) }}
+      <div class="HitchhikerEventStandard-dateWrapper">
+        <div class="HitchhikerEventStandard-dateInnerWrapper">
+          <span class="HitchhikerEventStandard-day">{{card.date.day}}</span>
+          <span class="HitchhikerEventStandard-month">{{card.date.month}}</span>
+        </div>
+      </div>
+    {{/if}}
+    <div class="HitchhikerEventStandard-contentWrapper">
+      <div class="HitchhikerEventStandard-info">
+        {{#if card.title}}
+        <div class="HitchhikerEventStandard-title">
+          {{#if card.url}}
+            <a class="HitchhikerEventStandard-titleLink"
+              href="{{card.url}}"
+              data-eventtype="TITLE_CLICK"
+              data-eventoptions='{{json card.titleEventOptions}}'
+              target={{#if card.target}}"{{card.target}}"{{else}}"_top"{{/if}}>
+              {{card.title}}
+            </a>
+          {{else}}
+            {{card.title}}
+          {{/if}}
+        </div>
+        {{/if}}
+        {{#if card.subtitle}}
+        <div class="HitchhikerEventStandard-subtitle">
+          {{card.subtitle}}
+        </div>
+        {{/if}}
+        {{> 'details'}}
+      </div>
+      {{#if (any (all card.CTA1 card.CTA1.url) (all card.CTA2 card.CTA2.url))}}
+      <div class="HitchhikerEventStandard-ctasWrapper">
+        {{#if (all card.CTA1.url card.CTA1.label)}}
+        <div class="HitchhikerEventStandard-primaryCTA">
+          {{#with card.CTA1}}
+            {{> CTA }}
+          {{/with}}
+        </div>
+        {{/if}}
+        {{#if (all card.CTA2.url card.CTA2.label)}}
+        <div class="HitchhikerEventStandard-secondaryCTA">
+          {{#with card.CTA2}}
+            {{> CTA }}
+          {{/with}}
+        </div>
+        {{/if}}
+      </div>
+      {{/if}}
+    </div>
+  </div>
+</div>
+
+{{! Displays the details for the card. If showMoreDetails has been configured,
+    this partial handles the show more toggle, show less toggle, truncated details,
+    and full details. If showMoreDetails has not been configured, it will display the
+    the regular card details.
+}}
+{{#*inline 'details'}}
+{{#if card.details}}
+<div class="HitchhikerEventStandard-content">
+  {{#if showExcessDetailsToggle}}
+    <div class="HitchhikerEventStandard-detailsText js-HitchhikerCard-detailsText">
+      {{{truncatedDetails}}}
+    </div>
+  {{/if}}
+  <div class="HitchhikerEventStandard-detailsText js-HitchhikerCard-detailsText{{#if showExcessDetailsToggle}} js-hidden{{/if}}">
+    {{{card.details}}}
+  </div>
+  {{#if showExcessDetailsToggle}}
+  <button class="HitchhikerCard-detailsToggle js-HitchhikerCard-detailsToggle">
+    {{card.showMoreDetails.showMoreText}}
+    <span data-component="IconComponent"
+      data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseDown" }'></span>
+  </button>
+  <button class="HitchhikerCard-detailsToggle js-HitchhikerCard-detailsToggle js-hidden">
+    {{card.showMoreDetails.showLessText}}
+    <span data-component="IconComponent"
+      data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseUp" }'></span>
+  </button>
+  {{/if}}
+</div>
+{{/if}}
+{{/inline}}
+
+{{#*inline 'CTA'}}
+  <a class="HitchhikerCTA js-HitchhikerCTA{{#if modifiers}} {{modifiers}}{{/if}}"
+    href="{{url}}"
+    data-eventtype="{{eventType}}"
+    data-eventoptions='{{json eventOptions}}'
+    target={{#if target}}"{{target}}"{{else}}"_top"{{/if}}
+    {{#if ariaLabel}}aria-label="{{ariaLabel}}"{{/if}}>
+    {{#if (any iconName iconUrl)}}
+    <div class="HitchhikerCTA-iconWrapper">
+      <div class="HitchhikerCTA-icon" data-component="IconComponent" data-opts='{
+        "iconUrl": "{{iconUrl}}",
+        "iconName": "{{iconName}}"
+      }'>
+      </div>
+    </div>
+    {{/if}}
+    <div class='HitchhikerCTA-iconLabel'>
+      {{label}}
+    </div>
+  </a>
+{{/inline}}
