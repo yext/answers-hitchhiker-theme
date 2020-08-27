@@ -24,7 +24,7 @@ class multilang_menuitem_standardCardComponent extends BaseCard['multilang-menui
       listItems: profile.c_allergens,
       subtitle: (profile.c_price ? '$'+profile.c_price : '')
         + (profile.c_price && profile.c_calories ? ' | ' : '')
-        + (profile.c_calories ? {{ translateJS phrase='{{calorieCount}} calories' calorieCount=profile.c_calories }} : ''), // The sub-header text of the card
+        + (profile.c_calories ? {{ translateJS phrase='[[calorieCount]] calories' calorieCount=profile.c_calories }} : ''), // The sub-header text of the card
       details: profile.description, // The text in the body of the card
       // If the card's details are longer than a certain character count, you can truncate the
       // text. A toggle will be supplied that can show or hide the truncated text.
