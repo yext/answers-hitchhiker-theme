@@ -384,9 +384,13 @@ export default class Formatters {
   }
 
   /**
-   * TODO: this formatter should not mutate the profile data.
+   * Returns a string, a formatted representation of the open hours status
+   * for the given profile.
+   * @param {Object} profile The profile information of the entity
+   * @param {String} locale The locale for the time string
+   * @param {boolean} isTwentyFourHourClock Use 24 hour vs 12 hour formatting for time string
    */
-  static openStatus(profile, locale = 'en-US') {
+  static openStatus(profile, locale = 'en-US', isTwentyFourHourClock = false) {
     if (!profile.hours) {
       return '';
     }
@@ -415,7 +419,7 @@ export default class Formatters {
     hours.nextDay = nextDay;
     hours.status = status;
 
-    return this._getTodaysMessage({ hoursToday: hours, isTwentyFourHourClock: false, locale: locale });
+    return this._getTodaysMessage({ hoursToday: hours, isTwentyFourHourClock, locale: locale });
   }
 
   static _prepareIntervals({ days }) { //days is a parsed json of hours.days
