@@ -32,7 +32,7 @@ module.exports = function loader(source) {
   source = source.replace(regex, function(match, group1) {
     const variableName = `___HTML_ASSET_LOADER_MATCH_${matchNumber}___`;
     const requirePath = loaderUtils.stringifyRequest(this, loaderUtils.urlToRequest(group1));
-    const relativePath = requirePath.substring(1, requirePath.indexOf('s')); // TODO this is a hack
+    const relativePath = requirePath.substring(1, requirePath.indexOf('static')); // TODO this is a hack
     const importString = `var ${variableName} = ___HTML_ASSET_LOADER_GET_SOURCE_FROM_IMPORT___('${relativePath}', require(${requirePath}));`;
 
     matchNumber += 1;
