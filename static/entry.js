@@ -1,3 +1,6 @@
+// Import global polyfills
+import 'core-js/stable';
+
 // Import all SCSS
 import Scss from './scss/answers/_default.scss';
 
