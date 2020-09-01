@@ -80,16 +80,11 @@ export function generateIFrame(domain, queryParam, urlParam) {
     onMessage: function(messageData) {
       const message = JSON.parse(messageData.message);
       const params = message.params;
-      const replaceHistory = message.replaceHistory;
       iframe.iFrameResizer.resize();
       var currLocation = window.location.href.split('?')[0];
       var newLocation = currLocation + '?' + params;
       if (window.location.href !== newLocation) {
-        if (replaceHistory) {
-          history.replaceState({query: params}, window.document.title, newLocation);
-        } else {
-          history.pushState({query: params}, window.document.title, newLocation);
-        }
+        history.replaceState({query: params}, window.document.title, newLocation);
       }
     }
   }, '#answers-frame');
