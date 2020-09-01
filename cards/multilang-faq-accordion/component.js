@@ -21,7 +21,7 @@ class multilang_faq_accordionCardComponent extends BaseCard['multilang-faq-accor
       // showMoreDetails: {
       //   showMoreLimit: null, // Character count limit
       //   showMoreText: {{ translateJS phrase='Show more' }}, // Label when toggle will show truncated text
-      //   showLessText: {{ translateJS phrase='Show less' }}' // Label when toggle will hide truncated text
+      //   showLessText: {{ translateJS phrase='Show less' }} // Label when toggle will hide truncated text
       // },
       isExpanded: false, // Whether the accordion is expanded on page load
       // The primary CTA of the card
