@@ -18,7 +18,7 @@ class multilang_location_standardCardComponent extends BaseCard['multilang-locat
       target: '_top', // If the title's URL should open in a new tab, etc.
       titleEventOptions: this.addDefaultEventOptions(), // The event options for title click analytics
       // subtitle: '', // The sub-header text of the card
-      hours: Formatter.openStatus(profile),
+      hours: Formatter.openStatus(profile, document.documentElement.lang),
       // services: [], // Used for a comma delimited list of services for the location
       address: Formatter.address(profile), // The address for the card
       phone: Formatter.nationalizedPhoneDisplay(profile), // The phone number for the card
