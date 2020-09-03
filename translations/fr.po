@@ -10,8 +10,8 @@ msgstr ""
 "Language: fr\n"
 
 #: cards/multilang-menuitem-standard/component.js:27
-msgid "{{calorieCount}} calories"
-msgstr "{{calorieCount}} calorías"
+msgid "[[calorieCount]] calories"
+msgstr "[[calorieCount]] calorías"
 
 #: cards/multilang-menuitem-standard/component.js:23
 msgid "Allergens"
