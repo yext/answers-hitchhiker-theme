@@ -71,7 +71,7 @@ ANSWERS.addComponent("UniversalResults", Object.assign({}, {
     sectionTitleIconName: "{{{icon}}}",
   {{/if}}
   {{#if iconUrl}}sectionTitleIconUrl: "{{{iconUrl}}}",{{/if}}
-  viewAllText: {{#if viewAllText}}"{{{viewAllText}}}"{{else}}"View All"{{/if}},
+  viewAllText: {{#if viewAllText}}"{{{viewAllText}}}"{{else}}{{ translateJS phrase='View All' context='View is a verb' }}{{/if}},
   {{#if viewMore}}viewMore: {{viewMore}},{{/if}}
   {{#if mapConfig}}
     includeMap: true,
