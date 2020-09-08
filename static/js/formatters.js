@@ -3,7 +3,7 @@ import { components__address__i18n__addressForCountry } from './address-i18n.js'
 import CtaFormatter from '@yext/cta-formatter';
 import provideOpenStatusTranslation from './open-status-18n';
 
-import cloneDeep from 'lodash.cloneDeep';
+import clonedeep from 'lodash.clonedeep';
 
 /**
  * Contains some of the commonly used formatters for parsing pieces
@@ -580,7 +580,7 @@ export default class Formatters {
    * @returns {Object[]}
    */
   static _formatHoursForAnswers(days, timezone) {
-    const formattedDays = cloneDeep(days);
+    const formattedDays = clonedeep(days);
     const daysOfWeek = [
       'SUNDAY',
       'MONDAY',
