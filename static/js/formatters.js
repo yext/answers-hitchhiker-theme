@@ -48,6 +48,10 @@ export default class Formatters {
     }
 
     static getDirectionsUrl(profile, key = 'address') {
+        if (profile.googlePlaceId) {
+          return `https://www.google.com/maps/place/?q=place_id:${profile.googlePlaceId}`;
+        }
+
         const addr = profile[key];
         if (!addr) {
           return '';
