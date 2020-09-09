@@ -71,7 +71,12 @@
     text-decoration: underline;
 
     &:hover {
-      text-decoration: none
+      text-decoration: none;
+    }
+
+    &:focus {
+      background: var(--yxt-color-text-secondary);
+      border-radius: 4px;
     }
   }
 
