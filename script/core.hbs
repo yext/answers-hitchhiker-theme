@@ -6,7 +6,7 @@
 </script>
 <link rel="stylesheet" type="text/css" href="https://assets.sitescdn.net/answers/v{{global_config.sdkVersion}}/answers.css">
 <link rel="stylesheet" type="text/css" href="{{relativePath}}/bundle.css">
-<script src="https://assets.sitescdn.net/answers/v{{global_config.sdkVersion}}/answerstemplates.compiled.min.js"></script>
+<script src="https://assets.sitescdn.net/answers/v{{global_config.sdkVersion}}/{{#unless (eq sdkBundleLocale 'en')}}{{sdkBundleLocale}}-{{/unless}}answerstemplates.compiled.min.js"></script>
 <script>
 {{#babel}}
   function initAnswers() {
@@ -61,5 +61,5 @@
   }
 {{/babel}}
 </script>
-<script src="https://assets.sitescdn.net/answers/v{{global_config.sdkVersion}}/answers.min.js" onload="initAnswers()" async></script>
+<script src="https://assets.sitescdn.net/answers/v{{global_config.sdkVersion}}/{{#unless (eq sdkBundleLocale 'en')}}{{sdkBundleLocale}}-{{/unless}}answers.min.js" onload="initAnswers()" async></script>
 
