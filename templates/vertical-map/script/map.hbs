@@ -12,6 +12,7 @@ ANSWERS.addComponent("Map", Object.assign({},
       {{/with}}
     {{/if}}
   ),
+  locale: '{{ @root.global_config.locale }}'
 },
 {{#with (lookup verticalsToConfig verticalKey)}}
   {{#if mapConfig}}
