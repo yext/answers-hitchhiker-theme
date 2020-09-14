@@ -76,7 +76,8 @@ ANSWERS.addComponent("UniversalResults", Object.assign({}, {
   {{#if mapConfig}}
     includeMap: true,
     mapConfig: Object.assign({
-      apiKey: HitchhikerJS.getDefaultMapApiKey("{{ mapConfig.mapProvider }}")
+      apiKey: HitchhikerJS.getDefaultMapApiKey("{{ mapConfig.mapProvider }}"),
+      locale: '{{ @root.global_config.locale }}'
     },
     {{{ json mapConfig }}},
     {{!-- This theme pin config must come after mapConfig in Object.assign --}}
