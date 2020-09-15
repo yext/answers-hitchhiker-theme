@@ -90,3 +90,8 @@ msgstr "Appelle"
 msgctxt "RSVP is a verb"
 msgid "RSVP"
 msgstr "RSVP"
+
+#: templates/universal-standard/script/universalresults.js:74
+msgctxt "View is a verb"
+msgid "View All"
+msgstr "Voir tout"
