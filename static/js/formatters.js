@@ -683,8 +683,8 @@ export default class Formatters {
   }
 
   /**
-   * Calculates a yext time and date using utc offsets
-   * If no valid utc offsets are found, time and date will
+   * Calculates a yext time and date using utc offset
+   * If no valid utc offset is provided, time and date will
    * be based off of clients local time.
    *
    * Example
@@ -693,7 +693,7 @@ export default class Formatters {
    * Their localUtcOffset will be +4 hours (for user offset, +/- is flipped)
    *
    * They are viewing a store in germany, CEST/GMT+2
-   * For this date, the utcOffset will be +2 hours (for entity offset, +/- is normal)
+   * For this date, the timezoneUtcOffset will be +2 hours (for entity offset, +/- is normal)
    *
    * Adding this together:
    * now + utcOffset + localUtcOffset -> now + 2 hours + 4 hours
@@ -705,7 +705,7 @@ export default class Formatters {
    * pages to display as if the user was in the same timezone as the entity.
    *
    * @param {Date} now
-   * @param {string} timezoneUtcOffset
+   * @param {string} timezoneUtcOffset e.g. in EDT, GMT-0400, this value would be "-04:00"
    * @returns {{ time: number, day: string }}
    */
   static _calculateYextDayTime(now, timezoneUtcOffset) {
