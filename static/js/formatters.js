@@ -843,7 +843,12 @@ export default class Formatters {
     let time = new Date();
     time.setHours(Math.floor(yextTime / 100));
     time.setMinutes(yextTime % 100);
-    return time.toLocaleString(locale, { hour: 'numeric', minute: 'numeric', hour12: !twentyFourHourClock })
+
+    return time.toLocaleString(locale, {
+      hour: 'numeric',
+      minute: 'numeric',
+      hourCycle: twentyFourHourClock ? 'h24' : 'h12'
+    });
   }
 
   /**
