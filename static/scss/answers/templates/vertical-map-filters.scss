@@ -1,0 +1,94 @@
+.AnswersVerticalMap .Answers
+{
+  &-resultsWrapper
+  {
+    display: flex;
+    flex-grow: 1;
+  }
+
+  &-verticalResults
+  {
+    flex-grow: 1;
+  }
+
+  .yxt-NoResults
+  {
+    padding-bottom: var(--yxt-base-spacing);
+    padding-left: var(--yxt-base-spacing);
+    padding-right: var(--yxt-base-spacing);
+  }
+
+  &-resultsColumn
+  {
+    padding-top: 0;
+    width: 100%;
+
+    &--withFilters
+    {
+      padding-left: var(--yxt-base-spacing);
+      padding-right: var(--yxt-base-spacing);
+
+      @include bpgte(md)
+      {
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      @include bpgte(sm)
+      {
+        max-width: 100%;
+        width: var(--hh-answers-container-width-filters);
+      }
+    }
+
+    @include bpgte(sm)
+    {
+      width: 50%;
+      height: 950px;
+      overflow-y: auto;
+    }
+  }
+
+  &-filtersAndResults
+  {
+    display: flex;
+
+    @include bplte(xs)
+    {
+      flex-direction: column;
+    }
+  }
+
+  &-sortOptions
+  {
+    padding: 0 var(--yxt-base-spacing);
+  }
+
+  &-map
+  {
+    width: 50%;
+    height: 100%;
+    min-height: 950px;
+
+    @include bplte(xs)
+    {
+      display: none;
+    }
+  }
+
+  &-qaSubmission
+  {
+    background-color: var(--hh-color-gray-2);
+  }
+
+  &-spellCheck
+  {
+    .yxt-SpellCheck
+    {
+      margin-left: var(--yxt-base-spacing);
+      margin-right: var(--yxt-base-spacing);
+      margin-top: calc(2*var(--yxt-base-spacing));
+      margin-bottom: calc(2*var(--yxt-base-spacing));
+    }
+  }
+}
