@@ -54,7 +54,7 @@ function getUnitsForLocale(locale) {
   // Note: Getting region this way may be invalid if script tags are used.
   // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl
   // Optionally, we can use Intl.locale() but we would need to polyfill it for IE11
-  const region = locale.substring(3,4); 
+  const region = locale.substring(3,5); 
   
   if (!(language in LOCALE_UNIT_MAP)) {
     return Object.assign({}, LOCALE_UNIT_MAP['default']['default']);
