@@ -132,7 +132,7 @@ export default class Formatters {
     }
 
     const date = this.betterTime(dateString);
-    const locale = this._getDocumentLocale;
+    const locale = this._getDocumentLocale();
     const time = date.toLocaleString(locale, {
       hour: 'numeric',
       minute: 'numeric',
