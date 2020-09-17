@@ -1,0 +1,42 @@
+{{#> layouts/html }}
+  <div>
+    {{#> script/core }}
+      {{> cards/all }}
+      {{> templates/vertical-map-filters/script/searchbar }}
+      {{> templates/vertical-map-filters/script/spellcheck }}
+      {{> templates/vertical-map-filters/script/navigation }}
+      {{!-- {{> templates/vertical-map-filters/script/sortoptions }} --}}
+      {{!-- {{> templates/vertical-map-filters/script/facets }} --}}
+      {{!-- {{> templates/vertical-map-filters/script/filterbox }} --}}
+      {{> templates/vertical-map-filters/script/verticalresults }}
+      {{> templates/vertical-map-filters/script/pagination }}
+      {{!-- {{> templates/vertical-map-filters/script/qasubmission }} --}}
+      {{> templates/vertical-map-filters/script/map }}
+      {{> templates/vertical-map-filters/script/locationbias }}
+    {{/script/core }}
+    <div class="Answers AnswersVerticalMap">
+      <div class="Answers-navWrapper">
+        <div class="Answers-container">
+          {{> templates/vertical-map-filters/markup/searchbar }}
+          {{> templates/vertical-map-filters/markup/navigation }}
+        </div>
+      </div>
+      <div class="Answers-resultsWrapper">
+        <div class="Answers-resultsColumn">
+          {{> templates/vertical-map-filters/markup/spellcheck }}
+          {{!-- {{> templates/vertical-map-filters/markup/sortoptions }} --}}
+          {{!-- {{> templates/vertical-map-filters/markup/facets }} --}}
+          {{!-- {{> templates/vertical-map-filters/markup/filterbox }} --}}
+          {{> templates/vertical-map-filters/markup/verticalresults }}
+          {{> templates/vertical-map-filters/markup/pagination }}
+          {{!-- {{> templates/vertical-map-filters/markup/qasubmission }} --}}
+        </div>
+        {{> templates/vertical-map-filters/markup/map }}
+      </div>
+    </div>
+    <div class="Answers-footer">
+      {{> layouts/yext-logo }}
+      {{> templates/vertical-map-filters/markup/locationbias }}
+    </div>
+  </div>
+{{/layouts/html }}
