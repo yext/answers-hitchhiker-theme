@@ -1,8 +1,9 @@
 /**
  * This object is keyed by language and region. Both region and langauge fallback to
  * default if they aren't found.
+ * @type {Object}
  */
-export const LOCALE_UNIT_MAP = {
+const LOCALE_UNIT_MAP = {
   en: {
     GB: {
       distance: 'km'
@@ -44,14 +45,24 @@ export const LOCALE_UNIT_MAP = {
   },
 };
 
+/**
+ * Gets the distance unit for the specified locale
+ * @param {string} locale
+ * @returns {string} 'km' or 'mi'
+ */
 export function getDistanceUnit(locale){
   const units = getUnitsForLocale(locale);
   return units['distance'];
 };
 
+/**
+ * Gets a map of unit types for a specified locale
+ * @param {string} locale 
+ * @returns {Object}
+ */
 function getUnitsForLocale(locale) {
   const language = locale.substring(0,2);
-  // Note: Getting region this way may be invalid if script tags are used.
+  // Note: Getting region this way will be invalid if script tags are used in the future.
   // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl
   // Optionally, we can use Intl.locale() but we would need to polyfill it for IE11
   const region = locale.substring(3,4); 
@@ -60,7 +71,7 @@ function getUnitsForLocale(locale) {
     return Object.assign({}, LOCALE_UNIT_MAP['default']['default']);
   }
 
-  if (!region in LOCALE_UNIT_MAP[language]) {
+  if (!(region in LOCALE_UNIT_MAP[language])) {
     return Object.assign({}, LOCALE_UNIT_MAP[language]['default']);
   }
 
