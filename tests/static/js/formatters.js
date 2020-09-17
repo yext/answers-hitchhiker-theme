@@ -1,7 +1,5 @@
 import Formatters from 'static/js/formatters.js';
 
-
-
 describe('Formatters', () => {
   describe('toLocalizedDistance', () => {
     const profile = { d_distance: 100000 }; // Distance in meters
