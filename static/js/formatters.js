@@ -68,6 +68,8 @@ export default class Formatters {
     } else if (distanceUnits === 'km') {
       return this.toKilometers(profile);
     }
+    
+    return this.toMiles(profile);
   }
 
   static _getDocumentLocale() {

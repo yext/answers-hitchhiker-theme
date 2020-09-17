@@ -1,48 +1,40 @@
 /**
- * This object is keyed by language and region. Both region and langauge fallback to
- * default if they aren't found.
+ * Object containing imperial units
+ */
+const IMPERIAL = {
+  distance: 'mi'
+}
+
+/**
+ * Object containing metric units
+ */
+const METRIC = {
+  distance: 'km'
+}
+
+/**
+ * This object is keyed by language and region. If a region isn't defined, it falls back
+ * to 'default'
  * @type {Object}
  */
 const LOCALE_UNIT_MAP = {
   en: {
-    GB: {
-      distance: 'km'
-    },
-    AU: {
-      distance: 'km'
-    },
-    US: {
-      distance: 'mi'
-    },
-    default: {
-      distance: 'mi'
-    }
+    GB: METRIC,
+    AU: METRIC,
+    default: IMPERIAL
   },
   es: {
-    default: {
-      distance: 'km'
-    }
+    default: METRIC,
   },
   fr: {
-    default: {
-      distance: 'km'
-    }
+    default: METRIC,
   },
   de: {
-    default: {
-      distance: 'km'
-    }
+    default: METRIC,
   },
   it: {
-    default: {
-      distance: 'km'
-    }
-  },
-  default: {
-    default: {
-      distance: 'mi'
-    }
-  },
+    default: METRIC,
+  }
 };
 
 /**
@@ -68,7 +60,7 @@ function getUnitsForLocale(locale) {
   const region = locale.substring(3,5); 
   
   if (!(language in LOCALE_UNIT_MAP)) {
-    return Object.assign({}, LOCALE_UNIT_MAP['default']['default']);
+    return Object.assign({}, IMPERIAL);
   }
 
   if (!(region in LOCALE_UNIT_MAP[language])) {
