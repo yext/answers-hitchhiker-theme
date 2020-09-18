@@ -169,8 +169,8 @@ $results-column-height: calc(100vh - #{$nav-wrapper-height} - #{$answers-header-
     margin-bottom: $apply-filters-button-height;
   }
 
-  &-resultsCount {
-    .yxt-ResultsCount {
+  &-verticalResultsCount {
+    .yxt-VerticalResultsCount {
       margin-right: 12px;
     }
   }

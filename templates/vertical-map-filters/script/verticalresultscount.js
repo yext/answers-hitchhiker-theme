@@ -1,10 +1,10 @@
-ANSWERS.addComponent('ResultsCount', {
-  container: '#js-answersResultsCount',
+ANSWERS.addComponent('VerticalResultsCount', {
+  container: '#js-answersVerticalResultsCount',
   {{#if verticalKey}}
     verticalKey: '{{{verticalKey}}}',
   {{/if}}
   ...{{{ json componentSettings.VerticalResults.appliedFilters }}},
-  ...{{{ json componentSettings.ResultsCount }}},
+  ...{{{ json componentSettings.VerticalResultsCount }}},
   onCreate: function () {
     ANSWERS.core.globalStorage.on('update', 'facets-on-mount', () => this.setState());
   },
