@@ -2,6 +2,7 @@ import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import { components__address__i18n__addressForCountry } from './address-i18n.js'
 import CtaFormatter from '@yext/cta-formatter';
 import provideOpenStatusTranslation from './open-status-18n';
+import { getDistanceUnit } from './units-i18n';
 
 import clonedeep from 'lodash.clonedeep';
 
@@ -64,6 +65,23 @@ export default class Formatters {
         return `https://www.google.com/maps/search/?api=1&query=${query}&output=classic`
     }
 
+  static toLocalizedDistance(profile, key = 'd_distance', displayUnits) {
+    const locale = this._getDocumentLocale();
+    const distanceUnits = displayUnits || getDistanceUnit(locale);
+
+    if (distanceUnits === 'mi') {
+      return this.toMiles(profile);
+    } else if (distanceUnits === 'km') {
+      return this.toKilometers(profile);
+    }
+    
+    return this.toMiles(profile);
+  }
+
+  static _getDocumentLocale() {
+    return document.documentElement.lang.replace('_', '-');
+  }
+
   static toKilometers(profile, key = 'd_distance', displayUnits = 'km') {
     if (!profile[key]) {
       return '';
@@ -122,7 +140,7 @@ export default class Formatters {
     }
 
     const date = this.betterTime(dateString);
-    const locale = document.documentElement.lang.replace('_', '-');
+    const locale = this._getDocumentLocale();
     const time = date.toLocaleString(locale, {
       hour: 'numeric',
       minute: 'numeric',
@@ -166,7 +184,7 @@ export default class Formatters {
       return null;
     }
 
-    const locale = document.documentElement.lang.replace('_', '-');
+    const locale = this._getDocumentLocale();
     const start = this.betterTime(dateField.start);
     const end = this.betterTime(dateField.end);
     const startString = start.toLocaleString(locale, dateFormatOptions);
@@ -399,6 +417,8 @@ export default class Formatters {
     if (!profile[key]) {
       return '';
     }
+    
+    locale = locale || this._getDocumentLocale();
 
     const days = this._formatHoursForAnswers(profile[key], profile.timeZoneUtcOffset);
     if (days.length === 0) {
