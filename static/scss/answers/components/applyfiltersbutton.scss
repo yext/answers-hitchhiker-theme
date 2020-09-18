@@ -1,0 +1,33 @@
+.yxt-ApplyFiltersButton {
+  width: 100%;
+  font-family: var(--yxt-font-family);
+  font-size: var(--yxt-font-size-md);
+  line-height: var(--yxt-line-height-xs);
+  font-weight: var(--yxt-font-weight-semibold);
+  font-style: normal;
+  color: #fff;
+  border: 0;
+  border-radius: 0.1875rem;
+  background: var(--yxt-color-brand-primary);
+  letter-spacing: 0.03125rem;
+  text-transform: uppercase;
+  height: 2.5rem;
+  cursor: pointer;
+
+  &:not(:disabled) {
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      background: padding-box #0c5ecb;
+    }
+
+    &:focus {
+      border: var(--yxt-button-focus-border-size) double #0c5ecb;
+    }
+  }
+
+  .yxt-ResultsCount {
+    margin-bottom: 0;
+  }
+}

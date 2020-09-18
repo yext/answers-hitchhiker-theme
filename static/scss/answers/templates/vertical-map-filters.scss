@@ -1,3 +1,12 @@
+$nav-wrapper-height: 113px;
+$answers-header-height: 44px;
+$apply-filters-button-height: 44px;
+$collapsible-filters-mobile-breakpoint: 768px;
+$results-column-height: calc(100vh - #{$nav-wrapper-height} - #{$answers-header-height} - 2px); 
+
+@import '../components/filterpaneltoggle';
+@import '../components/applyfiltersbutton';
+
 .AnswersVerticalMapFilters .Answers
 {
   &-resultsWrapper
@@ -21,31 +30,15 @@
   &-resultsColumn
   {
     padding-top: 0;
+    display: flex;
+    flex-direction: column;
+    height: $results-column-height;
     width: 100%;
+    overflow-y: auto;
+    margin-top: $answers-header-height;
 
-    &--withFilters
-    {
-      padding-left: var(--yxt-base-spacing);
-      padding-right: var(--yxt-base-spacing);
-
-      @include bpgte(md)
-      {
-        padding-left: 0;
-        padding-right: 0;
-      }
-
-      @include bpgte(sm)
-      {
-        max-width: 100%;
-        width: var(--hh-answers-container-width-filters);
-      }
-    }
-
-    @include bpgte(sm)
-    {
-      width: 50%;
-      height: 950px;
-      overflow-y: auto;
+    @media (max-width: $collapsible-filters-mobile-breakpoint) {
+      height: auto;
     }
   }
 
@@ -61,14 +54,16 @@
 
   &-sortOptions
   {
-    padding: 0 var(--yxt-base-spacing);
+    padding: 0;
   }
 
   &-map
   {
     width: 50%;
     height: 100%;
-    min-height: 950px;
+    position: fixed;
+    left: 50%;
+    border-left: var(--yxt-border-default);
 
     @include bplte(xs)
     {
@@ -90,5 +85,226 @@
       margin-top: calc(2*var(--yxt-base-spacing));
       margin-bottom: calc(2*var(--yxt-base-spacing));
     }
+  }
+
+  &-resultsWrapper {
+    margin-top: $nav-wrapper-height;
+    @media (max-width: $collapsible-filters-mobile-breakpoint) {
+      height: auto;
+    }
+  }
+
+  &-resultsAndHeader {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  &-resultsAndHeader {
+    @media (min-width: $collapsible-filters-mobile-breakpoint) {
+      width: 50%;
+    }
+  }
+
+  &-filterPanelToggle {
+    margin-left: auto;
+    margin-right: 14px;
+  }
+
+  &-applyFiltersButton {
+    position: fixed;
+    width: calc(50% - 1rem);
+    bottom: 0;
+    z-index: 100;
+    background-color: var(--hh-answers-background-color);
+    padding: 0px 8px 4px;
+    left: 0;
+  
+    @media (max-width: $collapsible-filters-mobile-breakpoint) {
+      width: 100%;
+    }
+  }
+
+  &-navWrapper {
+    height: $nav-wrapper-height;
+    position: fixed;
+  }
+
+  &-facets {
+    flex-grow: 1;
+  }
+
+  &-footer {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  &-header {
+    padding-left: 16px;
+    display: flex;
+    padding-top: 12px;
+    padding-bottom: 8px;
+    top: 0;
+    background: var(--hh-answers-background-color);
+    border-bottom: var(--yxt-border-default);
+
+    position: fixed;
+    margin-top: $nav-wrapper-height;
+    width: 50%;
+    z-index: 100;
+
+    @media (max-width: $collapsible-filters-mobile-breakpoint) {
+      width: 100%;
+    }
+  }
+
+  &-filters {
+    position: relative;
+    z-index: 0;
+    background-color: var(--hh-answers-background-color);
+    flex-direction: column;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 4px;
+    margin-bottom: $apply-filters-button-height;
+  }
+
+  &-resultsCount {
+    .yxt-ResultsCount {
+      margin-right: 12px;
+    }
+  }
+}
+
+.AnswersVerticalMapFilters {
+  input[type="radio"] {
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(118, 118, 118);
+    border-radius: 50%;
+  }
+
+  .yxt-FilterOptions {
+    &-fieldSet {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    &-showToggle {
+      margin-bottom: 2px;
+      margin-top: 2px;
+    }
+
+    &-optionLabel::before {
+      background: white;
+    }
+
+    &-radioButtonInput {
+      margin-right: 10px;
+    }
+
+    &-radioButtonInput:focus {
+      outline: none;
+    }
+
+    &-options {
+      margin-top: 4px;
+      margin-bottom: 4px;
+      padding-left: 4px;
+    }
+
+    &-option {
+      margin-top: 4px;
+    }
+  }
+
+  @media (max-width: $collapsible-filters-mobile-breakpoint) {
+    .yxt-SortOptions-option, .yxt-FilterOptions-option {
+      margin: 8px 0px;
+    }
+  }
+
+  .yxt-SortOptions {
+    &-container {
+      padding-left: 4px;
+    }
+
+    &-fieldSet {
+      margin: 0;
+    }
+
+    &-option {
+      align-items: center;
+      margin-top: 4px;
+      margin-bottom: 0px;
+    }
+
+    &-options {
+      margin-top: 8px;
+      margin-bottom: 0px;
+    }
+
+    &-optionLabel {
+      margin-left: 10px;
+    }
+  }
+
+  .yxt-Facets-container {
+    width: 100%;
+    padding: 0;
+  }
+
+  .yxt-FilterBox {
+    &-titleContainer {
+      display: none;
+    }
+
+    &-container {
+      padding: 0;
+    }
+
+    &-filter {
+      padding-top: 8px;
+      margin-top: 0;
+      @media (min-width: $collapsible-filters-mobile-breakpoint) {
+        margin-top: 4px;
+      }
+    }
+
+    &-filter + &-filter {
+      border-top: none;
+    }
+
+    &-apply {
+      margin: 0;
+    }
+  }
+
+  .yxt-AppliedFilters {
+    margin-right: 0;
+  }
+
+  .yxt-AlternativeVerticals {
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    margin-bottom: 0;
+    
+    @media (max-width: $collapsible-filters-mobile-breakpoint) {
+      border-bottom: none;
+    }
+
+    @media (min-width: $collapsible-filters-mobile-breakpoint) {
+      &-noResultsInfo {
+        font-size: 18px;
+      }
+    }
+  }
+
+  .yxt-Card {
+    margin-bottom: 0;
+    border-left: none;
+    border-right: none;
+    border-top: none;
   }
 }

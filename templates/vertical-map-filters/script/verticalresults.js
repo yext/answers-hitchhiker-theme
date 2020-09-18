@@ -37,4 +37,6 @@ ANSWERS.addComponent("VerticalResults", Object.assign({}, {
       {{#if cardType}}cardType: "{{{cardType}}}",{{/if}}
     },
   {{/with}}
+  {{!-- used to hide the default results header --}}
+  hideResultsHeader: true
 }, {{{ json componentSettings.VerticalResults }}}));
