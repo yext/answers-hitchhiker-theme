@@ -1,19 +1,5 @@
 require('iframe-resizer');
 
-// Replace history when the only changes are referrerPageUrl/context
-const replaceHistory = function(urlParams, currentParams) {
-  for (const param of urlParams.split('&')) {
-    if (currentParams.indexOf(param) > -1) {
-      continue;
-    }
-    const key = param.split('=')[0];
-    if (key !== 'context' && key !== 'referrerPageUrl') {
-      return false;
-    }
-  }
-  return true;
-}
-
 export function generateIFrame(domain, queryParam, urlParam) {
   var isLocalHost = window.location.host.split(':')[0] === 'localhost';
   var containerEl = document.querySelector('#answers-container');
@@ -91,16 +77,14 @@ export function generateIFrame(domain, queryParam, urlParam) {
   // For dynamic iFrame resizing
   iFrameResize({
     checkOrigin: false,
-    onMessage: function(data) {
+    onMessage: function(messageData) {
+      const message = JSON.parse(messageData.message);
+      const params = message.params;
       iframe.iFrameResizer.resize();
       var currLocation = window.location.href.split('?')[0];
-      var newLocation = currLocation + '?' + data.message;
+      var newLocation = currLocation + '?' + params;
       if (window.location.href !== newLocation) {
-        if (replaceHistory(data.message, window.location.search.substr(1))) {
-          history.replaceState({query: data.message}, window.document.title, newLocation);
-        } else {
-          history.pushState({query: data.message}, window.document.title, newLocation);
-        }
+        history.replaceState({query: params}, window.document.title, newLocation);
       }
     }
   }, '#answers-frame');

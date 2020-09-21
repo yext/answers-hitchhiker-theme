@@ -64,7 +64,7 @@
 
 {{#*inline 'answer_value'}}
 {{#if value}}
-<div class="HitchhikerAllFieldsStandard-fieldValue">
+<div class="HitchhikerAllFieldsStandard-fieldValue{{#if isRichText}} HitchhikerAllFieldsStandard-fieldValueRtf{{/if}}">
   {{#if isArray}}
     <ul class="HitchhikerAllFieldsStandard-ul">
     {{#each value}}

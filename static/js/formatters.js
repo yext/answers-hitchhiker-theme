@@ -4,6 +4,8 @@ import CtaFormatter from '@yext/cta-formatter';
 import provideOpenStatusTranslation from './open-status-18n';
 import { getDistanceUnit } from './units-i18n';
 
+import clonedeep from 'lodash.clonedeep';
+
 /**
  * Contains some of the commonly used formatters for parsing pieces
  * of profile information.
@@ -47,6 +49,10 @@ export default class Formatters {
     }
 
     static getDirectionsUrl(profile, key = 'address') {
+        if (profile.googlePlaceId) {
+          return `https://www.google.com/maps/place/?q=place_id:${profile.googlePlaceId}`;
+        }
+
         const addr = profile[key];
         if (!addr) {
           return '';
@@ -68,7 +74,7 @@ export default class Formatters {
     } else if (distanceUnits === 'km') {
       return this.toKilometers(profile);
     }
-    
+
     return this.toMiles(profile);
   }
 
@@ -400,9 +406,13 @@ export default class Formatters {
   }
 
   /**
-   * TODO: this formatter should not mutate the profile data.
+   * Returns a string, a formatted representation of the open hours status
+   * for the given profile.
+   * @param {Object} profile The profile information of the entity
+   * @param {String} locale The locale for the time string
+   * @param {boolean} isTwentyFourHourClock Use 24 hour vs 12 hour formatting for time string
    */
-  static openStatus(profile, locale) {
+  static openStatus(profile, locale = 'en-US', isTwentyFourHourClock = false) {
     if (!profile.hours) {
       return '';
     }
@@ -433,7 +443,7 @@ export default class Formatters {
     hours.nextDay = nextDay;
     hours.status = status;
 
-    return this._getTodaysMessage({ hoursToday: hours, isTwentyFourHourClock: false, locale: locale });
+    return this._getTodaysMessage({ hoursToday: hours, isTwentyFourHourClock, locale: locale });
   }
 
   static _prepareIntervals({ days }) { //days is a parsed json of hours.days
@@ -578,8 +588,8 @@ export default class Formatters {
   }
 
   /**
-   * @param {Object} days e.g. 
-   * { 
+   * @param {Object} days e.g.
+   * {
    *   monday: {
    *     isClosed: false,
    *     openIntervals: [{ start: '01:00', end: '02:00' }]
@@ -594,6 +604,7 @@ export default class Formatters {
    * @returns {Object[]}
    */
   static _formatHoursForAnswers(days, timezone) {
+    const formattedDays = clonedeep(days);
     const daysOfWeek = [
       'SUNDAY',
       'MONDAY',
@@ -603,10 +614,10 @@ export default class Formatters {
       'FRIDAY',
       'SATURDAY',
     ];
-    const holidayHours = days.holidayHours || [];
-    for (let day in days) {
+    const holidayHours = formattedDays.holidayHours || [];
+    for (let day in formattedDays) {
       if (day === 'holidayHours' || day === 'reopenDate') {
-        delete days[day];
+        delete formattedDays[day];
       } else {
         const currentDayName = day.toUpperCase();
         const numberTimezone = this._convertTimezoneToNumber(timezone);
@@ -617,13 +628,13 @@ export default class Formatters {
           let holidayDate = new Date(holiday.date + 'T00:00:00.000');
           if (dayNameToDate.toDateString() == holidayDate.toDateString()) {
             holiday.intervals = this._formatIntervals(holiday.openIntervals);
-            days[day].dailyHolidayHours = holiday;
+            formattedDays[day].dailyHolidayHours = holiday;
           }
         }
 
-        days[day].day = day.toUpperCase();
+        formattedDays[day].day = day.toUpperCase();
 
-        let intervals = days[day].openIntervals;
+        let intervals = formattedDays[day].openIntervals;
         if (intervals) {
           for (let interval of intervals) {
             for (let period in interval) {
@@ -631,13 +642,13 @@ export default class Formatters {
             }
           }
         } else {
-          days[day].openIntervals = [];
+          formattedDays[day].openIntervals = [];
         }
-        days[day].intervals = days[day].openIntervals;
+        formattedDays[day].intervals = formattedDays[day].openIntervals;
       }
     }
 
-    return Object.values(days);
+    return Object.values(formattedDays);
   }
 
   // "-05:00 -> -5
@@ -675,7 +686,7 @@ export default class Formatters {
   }
 
   /**
-   * Returns the hours intervals array with hours parsed into a number 
+   * Returns the hours intervals array with hours parsed into a number
    * e.g. "09:00" turning into 900.
    * @param {Object[]} intervals
    * @param {string} intervals[].start start time like "09:00"
@@ -696,8 +707,8 @@ export default class Formatters {
   }
 
   /**
-   * Calculates a yext time and date using utc offsets
-   * If no valid utc offsets are found, time and date will
+   * Calculates a yext time and date using utc offset
+   * If no valid utc offset is provided, time and date will
    * be based off of clients local time.
    *
    * Example
@@ -706,7 +717,7 @@ export default class Formatters {
    * Their localUtcOffset will be +4 hours (for user offset, +/- is flipped)
    *
    * They are viewing a store in germany, CEST/GMT+2
-   * For this date, the utcOffset will be +2 hours (for entity offset, +/- is normal)
+   * For this date, the timezoneUtcOffset will be +2 hours (for entity offset, +/- is normal)
    *
    * Adding this together:
    * now + utcOffset + localUtcOffset -> now + 2 hours + 4 hours
@@ -718,33 +729,20 @@ export default class Formatters {
    * pages to display as if the user was in the same timezone as the entity.
    *
    * @param {Date} now
-   * @param {{start: number, offset: number}[]} utcOffsets
+   * @param {string} timezoneUtcOffset e.g. in EDT, GMT-0400, this value would be "-04:00"
    * @returns {{ time: number, day: string }}
    */
-  static _calculateYextDayTime(now, utcOffsets) {
-    // Get offset data from store page metadata
-
-    // Init UTC offset as just zero
-    let utcOffset = 0;
-
+  static _calculateYextDayTime(now, timezoneUtcOffset) {
     // Get the UTC offset of the clients timezone (minutes converted to millis)
     const localUtcOffset = now.getTimezoneOffset() * 60 * 1000;
 
-    // If the store has UTC offset data, loop through the data
-    if (utcOffsets && utcOffsets.length) {
-      for (const offsetPeriod of utcOffsets) {
+    // Get the entity's offset in millis
+    const entityUtcOffsetInHours = this._convertTimezoneToNumber(timezoneUtcOffset);
+    const entityUtcOffsetMillis = entityUtcOffsetInHours * 60 * 60 * 1000;
 
-        // The store offset data is provided as a list of dates with timestamps
-        // Only use offsets that are valid, which are offsets that started prior to the current time
-        if (offsetPeriod.start * 1000 < now.valueOf()) {
-          utcOffset = offsetPeriod.offset * 1000;
-        }
-      }
-    }
-
-    // If a valid offset was found, set the today value to a new date that accounts for the store & local UTC offsets
-    if (utcOffset !== 0) {
-      now = new Date(now.valueOf() + utcOffset + localUtcOffset);
+    // If a valid offset was found, set the today value to a new date that accounts for the entity & local UTC offsets
+    if (entityUtcOffsetMillis !== 0) {
+      now = new Date(now.valueOf() + entityUtcOffsetMillis + localUtcOffset);
     }
     const time = this._getYextTime(now);
     const day = this._getYextDay(now);
@@ -852,7 +850,12 @@ export default class Formatters {
     let time = new Date();
     time.setHours(Math.floor(yextTime / 100));
     time.setMinutes(yextTime % 100);
-    return time.toLocaleString(locale, { hour: 'numeric', minute: 'numeric', hour12: !twentyFourHourClock })
+
+    return time.toLocaleString(locale, {
+      hour: 'numeric',
+      minute: 'numeric',
+      hourCycle: twentyFourHourClock ? 'h24' : 'h12'
+    });
   }
 
   /**

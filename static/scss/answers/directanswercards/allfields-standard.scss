@@ -164,6 +164,11 @@
     font-weight: var(--yxt-font-weight-semibold);
   }
 
+  &-fieldValueRtf
+  {
+    @include rich_text_formatting;
+  }
+
   &-fieldValue
   {
     @include Text(
