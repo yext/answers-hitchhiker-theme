@@ -1,3 +1,8 @@
+ANSWERS.registerTemplate(
+  'universalsectiontemplates/standard',
+  `{{{read 'universalsectiontemplates/standard' }}}`
+);
+
 ANSWERS.addComponent('UniversalResults', Object.assign({}, {
     container: '.js-answersUniversalResults',
     config: Object.assign({}, {
@@ -31,9 +36,10 @@ ANSWERS.addComponent('UniversalResults', Object.assign({}, {
 
 {{#*inline 'VerticalConfig'}}
   {{#if universalSectionTemplate}}
+    // TODO (agrow) register these templates at build time and specify template name here.
     template: `{{{read (concat 'universalsectiontemplates/' universalSectionTemplate)}}}`,
   {{else}}
-    template: `{{{read 'universalsectiontemplates/standard'}}}`,
+    templateName: 'universalsectiontemplates/standard',
   {{/if}}
   modifier: '{{{verticalKey}}}',
   {{#if urlWithoutExtension}}
