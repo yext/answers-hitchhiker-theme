@@ -74,7 +74,7 @@ export default class Formatters {
     } else if (distanceUnits === 'km') {
       return this.toKilometers(profile);
     }
-    
+
     return this.toMiles(profile);
   }
 
@@ -589,8 +589,8 @@ export default class Formatters {
   }
 
   /**
-   * @param {Object} days e.g. 
-   * { 
+   * @param {Object} days e.g.
+   * {
    *   monday: {
    *     isClosed: false,
    *     openIntervals: [{ start: '01:00', end: '02:00' }]
@@ -687,7 +687,7 @@ export default class Formatters {
   }
 
   /**
-   * Returns the hours intervals array with hours parsed into a number 
+   * Returns the hours intervals array with hours parsed into a number
    * e.g. "09:00" turning into 900.
    * @param {Object[]} intervals
    * @param {string} intervals[].start start time like "09:00"
