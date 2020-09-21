@@ -1,0 +1,142 @@
+input[type="radio"] {
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(118, 118, 118);
+  border-radius: 50%;
+}
+
+.yxt-FilterOptions {
+  &-fieldSet {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  &-showToggle {
+    margin-bottom: 2px;
+    margin-top: 2px;
+  }
+
+  &-optionLabel::before {
+    background: white;
+  }
+
+  &-radioButtonInput {
+    margin-right: 10px;
+  }
+
+  &-radioButtonInput:focus {
+    outline: none;
+  }
+
+  &-options {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    padding-left: 4px;
+  }
+
+  &-option {
+    margin-top: 4px;
+  }
+}
+
+@media (max-width: $collapsible-filters-mobile-breakpoint) {
+  .yxt-SortOptions-option,
+  .yxt-FilterOptions-option {
+    margin: 8px 0px;
+  }
+}
+
+.yxt-SortOptions {
+  &-container {
+    padding-left: 4px;
+  }
+
+  &-fieldSet {
+    margin: 0;
+  }
+
+  &-option {
+    align-items: center;
+    margin-top: 4px;
+    margin-bottom: 0px;
+  }
+
+  &-options {
+    margin-top: 8px;
+    margin-bottom: 0px;
+  }
+
+  &-optionLabel {
+    margin-left: 10px;
+  }
+}
+
+.yxt-Facets-container {
+  width: 100%;
+  padding: 0;
+}
+
+.yxt-FilterBox {
+  &-titleContainer {
+    display: none;
+  }
+
+  &-container {
+    padding: 0;
+  }
+
+  &-filter {
+    padding-top: 8px;
+    margin-top: 0;
+    @media (min-width: $collapsible-filters-mobile-breakpoint) {
+      margin-top: 4px;
+    }
+
+    & + & {
+      border-top: none;
+    }
+  }
+
+  &-apply {
+    margin: 0;
+  }
+}
+
+.yxt-AppliedFilters {
+  margin-right: 0;
+}
+
+.yxt-AlternativeVerticals {
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  margin-bottom: 0;
+
+  @media (max-width: $collapsible-filters-mobile-breakpoint) {
+    border-bottom: none;
+  }
+
+  @media (min-width: $collapsible-filters-mobile-breakpoint) {
+    &-noResultsInfo {
+      font-size: 18px;
+    }
+  }
+}
+
+.yxt-Card {
+  margin-bottom: 0;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+}
+
+.yxt-SpellCheck {
+  margin-left: var(--yxt-base-spacing);
+  margin-right: var(--yxt-base-spacing);
+  margin-top: calc(2 * var(--yxt-base-spacing));
+  margin-bottom: calc(2 * var(--yxt-base-spacing));
+}
+
+.yxt-VerticalResultsCount {
+  margin-right: 12px;
+}
