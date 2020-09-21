@@ -1,6 +1,18 @@
-ANSWERS.addComponent('Facets', Object.assign({}, {
-  container: '#js-answersFacets',
-  {{#if verticalKey}}
-    verticalKey: '{{{verticalKey}}}',
-  {{/if}}
-}, {{{ json componentSettings.Facets }}}));
+if (typeof ComponentManagers !== 'undefined' && ComponentManagers.Facets) {
+  ANSWERS.addComponent('Facets', {
+    container: '#js-answersFacets',
+    {{#if verticalKey}}
+      verticalKey: '{{{verticalKey}}}',
+    {{/if}}
+    ...{{{ json componentSettings.Facets }}},
+    ...getLifecycleMethods(ComponentManagers.Facets)
+  });
+} else {
+  ANSWERS.addComponent('Facets', {
+    container: '#js-answersFacets',
+    {{#if verticalKey}}
+      verticalKey: '{{{verticalKey}}}',
+    {{/if}}
+    ...{{{ json componentSettings.Facets }}}
+  });
+}

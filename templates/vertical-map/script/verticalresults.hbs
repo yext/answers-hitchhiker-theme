@@ -37,4 +37,5 @@ ANSWERS.addComponent('VerticalResults', Object.assign({}, {
       {{#if cardType}}cardType: '{{{cardType}}}',{{/if}}
     },
   {{/with}}
+  hideResultsHeader: typeof IS_COLLAPSIBLE_FILTERS !== 'undefined' && IS_COLLAPSIBLE_FILTERS
 }, {{{ json componentSettings.VerticalResults }}}));

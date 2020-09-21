@@ -1,42 +1,99 @@
 {{#> layouts/html }}
-  <div>
-    {{#> script/core }}
-      {{> cards/all }}
-      {{> templates/vertical-map/script/searchbar }}
-      {{> templates/vertical-map/script/spellcheck }}
-      {{> templates/vertical-map/script/navigation }}
-      {{!-- {{> templates/vertical-map/script/sortoptions }} --}}
-      {{!-- {{> templates/vertical-map/script/facets }} --}}
-      {{!-- {{> templates/vertical-map/script/filterbox }} --}}
-      {{> templates/vertical-map/script/verticalresults }}
-      {{> templates/vertical-map/script/pagination }}
-      {{!-- {{> templates/vertical-map/script/qasubmission }} --}}
-      {{> templates/vertical-map/script/map }}
-      {{> templates/vertical-map/script/locationbias }}
-    {{/script/core }}
-    <div class="Answers AnswersVerticalMap">
-      <div class="Answers-navWrapper">
-        <div class="Answers-container">
-          {{> templates/vertical-map/markup/searchbar }}
-          {{> templates/vertical-map/markup/navigation }}
-        </div>
-      </div>
-      <div class="Answers-resultsWrapper">
-        <div class="Answers-resultsColumn">
-          {{> templates/vertical-map/markup/spellcheck }}
-          {{!-- {{> templates/vertical-map/markup/sortoptions }} --}}
-          {{!-- {{> templates/vertical-map/markup/facets }} --}}
-          {{!-- {{> templates/vertical-map/markup/filterbox }} --}}
-          {{> templates/vertical-map/markup/verticalresults }}
-          {{> templates/vertical-map/markup/pagination }}
-          {{!-- {{> templates/vertical-map/markup/qasubmission }} --}}
-        </div>
-        {{> templates/vertical-map/markup/map }}
+  {{#> script/core }}
+    {{> cards/all }}
+
+    {{!--
+      To turn on collapsible filters, uncomment the block below
+      and also {{> collapsibleFiltersMap }}, then comment out {{> verticalMap }}.
+      Do the reverse to use the regular verticalMap.
+    --}}
+    {{> collapsible-filters/page-setup }}
+    {{> templates/vertical-map/script/applyfiltersbutton }}
+    {{> templates/vertical-map/script/filterpaneltoggle }}
+    {{> templates/vertical-map/script/appliedfilters }}
+    {{> templates/vertical-map/script/verticalresultscount }}
+  
+    {{> templates/vertical-map/script/searchbar }}
+    {{> templates/vertical-map/script/spellcheck }}
+    {{> templates/vertical-map/script/navigation }}
+    {{!-- {{> templates/vertical-map/script/sortoptions }} --}}
+    {{!-- {{> templates/vertical-map/script/facets }} --}}
+    {{!-- {{> templates/vertical-map/script/filterbox }} --}}
+    {{> templates/vertical-map/script/verticalresults }}
+    {{> templates/vertical-map/script/pagination }}
+    {{!-- {{> templates/vertical-map/script/qasubmission }} --}}
+    {{> templates/vertical-map/script/map }}
+    {{> templates/vertical-map/script/locationbias }}
+  {{/script/core }}
+
+  {{!-- Choose either the collapsibleFiltersMap or verticalMap HTML --}}
+  {{> collapsibleFiltersMap}}
+  {{!-- {{> verticalMap}} --}}
+{{/layouts/html }}
+
+
+{{#*inline "collapsibleFiltersMap"}}
+  <div class="Answers AnswersVerticalMapFilters">
+    <div class="Answers-navWrapper">
+      <div class="Answers-container">
+        {{> templates/vertical-map/markup/searchbar }}
+        {{> templates/vertical-map/markup/navigation }}
       </div>
     </div>
-    <div class="Answers-footer">
-      {{> layouts/yext-logo }}
-      {{> templates/vertical-map/markup/locationbias }}
+    <div class="Answers-resultsWrapper">
+      <div class="Answers-resultsAndHeader" id="js-resultsAndHeader">
+        <div class="Answers-header" id="js-header">
+          {{> templates/vertical-map/markup/verticalresultscount }}
+          {{> templates/vertical-map/markup/appliedfilters }}
+          {{> templates/vertical-map/markup/filterpaneltoggle }}
+        </div>
+        <div class="Answers-resultsColumn" id="js-resultsColumn">
+          {{> templates/vertical-map/markup/spellcheck }}
+          <div class="Answers-results" id="js-resultsView">
+            {{> templates/vertical-map/markup/verticalresults }}
+            {{!-- {{> templates/vertical-map/markup/qasubmission }} --}}
+            {{> templates/vertical-map/markup/pagination }}
+            <div class="Answers-footer">
+              {{> layouts/yext-logo }}
+              {{> templates/vertical-map/markup/locationbias }}
+            </div>
+          </div>
+          <div class="Answers-filters" id="js-filtersView" style="display: none;">
+            {{!-- {{> templates/vertical-map/markup/sortoptions }} --}}
+            {{!-- {{> templates/vertical-map/markup/filterbox }} --}}
+            {{!-- {{> templates/vertical-map/markup/facets }} --}}
+            {{> templates/vertical-map/markup/applyfiltersbutton }}
+          </div>
+        </div>
+      </div>
+      {{> templates/vertical-map/markup/map }}
     </div>
   </div>
-{{/layouts/html }}
+{{/inline}}
+
+{{#*inline "verticalMap"}}
+  <div class="Answers AnswersVerticalMap">
+    <div class="Answers-navWrapper">
+      <div class="Answers-container">
+        {{> templates/vertical-map/markup/searchbar }}
+        {{> templates/vertical-map/markup/navigation }}
+      </div>
+    </div>
+    <div class="Answers-resultsWrapper">
+      <div class="Answers-resultsColumn">
+        {{> templates/vertical-map/markup/spellcheck }}
+        {{!-- {{> templates/vertical-map/markup/sortoptions }} --}}
+        {{!-- {{> templates/vertical-map/markup/facets }} --}}
+        {{!-- {{> templates/vertical-map/markup/filterbox }} --}}
+        {{> templates/vertical-map/markup/verticalresults }}
+        {{> templates/vertical-map/markup/pagination }}
+        {{!-- {{> templates/vertical-map/markup/qasubmission }} --}}
+      </div>
+      {{> templates/vertical-map/markup/map }}
+    </div>
+  </div>
+  <div class="Answers-footer">
+    {{> layouts/yext-logo }}
+    {{> templates/vertical-map/markup/locationbias }}
+  </div>
+{{/inline}}

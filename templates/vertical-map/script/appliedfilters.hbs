@@ -1,0 +1,12 @@
+ANSWERS.addComponent('AppliedFilters', {
+  container: '#js-answersAppliedFilters',
+  {{#if verticalKey}}
+    verticalKey: '{{{verticalKey}}}',
+  {{/if}}
+  ...{{{ json componentSettings.VerticalResults.appliedFilters }}},
+  ...{{{ json componentSettings.AppliedFilters }}},
+  onMount: function () {
+    const neededMarginTop = document.getElementById('js-header').getBoundingClientRect().height;
+    document.getElementById('js-resultsColumn').style.marginTop = `${neededMarginTop}px`;
+  }
+});
