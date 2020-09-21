@@ -1,3 +1,0 @@
-ANSWERS.addComponent("LocationBias", Object.assign({}, {
-  container: "#js-answersLocationBias",
-}, {{{ json componentSettings.LocationBias }}}));

@@ -1,10 +1,11 @@
 function hideFilters () {
   const filtersEl = document.getElementById('js-filtersView');
   const resultsEl = document.getElementById('js-resultsView');
-  const facetsApplyEl = document.getElementById('js-answersApplyFiltersButton');
+  const applyFiltersEl = document
+    .getElementById('js-answersApplyFiltersButton');
   filtersEl.style.display = 'none';
   resultsEl.style.display = '';
-  facetsApplyEl.style.display = 'none';
+  applyFiltersEl.style.display = 'none';
   scrollToTop();
   ANSWERS.core.globalStorage.set('hh-filter-panel', {
     panelIsDisplayed: false
@@ -24,13 +25,23 @@ function scrollToTop () {
   resultsColumnEl.scrollTop = 0;
 }
 
+function scrollDown (distance) {
+  const resultsColumnEl = document.getElementById('js-resultsColumn');
+  resultsColumnEl.scrollTop = resultsColumnEl.scrollTop + distance;
+  window.scroll({
+    top: window.scrollY + distance
+  });
+}
+
+
 function showFilters() {
   const filtersEl = document.getElementById('js-filtersView');
   const resultsEl = document.getElementById('js-resultsView');
-  const facetsApplyEl = document.getElementById('js-answersApplyFiltersButton');
+  const applyFiltersEl = document
+    .getElementById('js-answersApplyFiltersButton');
   filtersEl.style.display = '';
   resultsEl.style.display = 'none';
-  facetsApplyEl.style.display = '';
+  applyFiltersEl.style.display = '';
   scrollToTop();
   ANSWERS.core.globalStorage.set('hh-filter-panel', {
     panelIsDisplayed: true
@@ -66,3 +77,19 @@ function isMobile (opts) {
 
   return result
 }
+
+/**
+ * Gets the lifecycle methods for a component, using a specific hitchhiker
+ * component manager.
+ * The 'this' context of the individual methods is the SDK component instance.
+ */
+function getLifecycleMethods(hhComponentManager) {
+  return {
+    onCreate: function() {
+      hhComponentManager.onCreate && hhComponentManager.onCreate(this);
+    },
+    onMount: function() {
+      hhComponentManager.onMount && hhComponentManager.onMount(this);
+    }
+  }
+} 

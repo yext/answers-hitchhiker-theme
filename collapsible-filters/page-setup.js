@@ -1,3 +1,6 @@
+{{> collapsible-filters/js-helpers}}
+{{> collapsible-filters/components }}
+
 function hideFiltersOnSearchbarSearch () {
   let pendingQueryUpdate = false;
 
@@ -15,3 +18,7 @@ function hideFiltersOnSearchbarSearch () {
 }
 
 hideFiltersOnSearchbarSearch();
+
+const ComponentManagers = {};
+const IS_COLLAPSIBLE_FILTERS = true;
+{{> collapsible-filters/facets-manager}}

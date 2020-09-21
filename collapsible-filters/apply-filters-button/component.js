@@ -36,6 +36,6 @@ class ApplyFiltersButton extends ANSWERS.Component {
 }
 ANSWERS.registerTemplate(
   'collapsibleFilters/ApplyFiltersButton',
-  `{{{read 'collapsiblefilters/apply-filters-button/template' }}}`
+  `{{{read 'collapsible-filters/apply-filters-button/template' }}}`
 );
 ANSWERS.registerComponentType(ApplyFiltersButton);

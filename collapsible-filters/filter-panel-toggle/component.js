@@ -63,6 +63,6 @@ class FilterPanelToggle extends ANSWERS.Component {
 
 ANSWERS.registerTemplate(
   'collapsibleFilters/FilterPanelToggle',
-  `{{{read 'collapsiblefilters/filter-panel-toggle/template' }}}`
+  `{{{read 'collapsible-filters/filter-panel-toggle/template' }}}`
 );
 ANSWERS.registerComponentType(FilterPanelToggle);

@@ -1,6 +1,0 @@
-ANSWERS.addComponent("Pagination", Object.assign({}, {
-  container: "#js-answersPagination",
-  {{#if verticalKey}}
-    verticalKey: "{{{verticalKey}}}",
-  {{/if}}
-}, {{{ json componentSettings.Pagination }}}));
