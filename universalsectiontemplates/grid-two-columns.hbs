@@ -24,7 +24,7 @@
     {{#if iconIsBuiltIn}}
       <div data-component="IconComponent" data-opts='{ "iconName": "{{ _config.icon }}" }'></div>
     {{else}}
-      <div data-component="IconComponent" data-opts='{ "iconUrl": "{{ _config.icon }}" }'></div>
+      <div data-component="IconComponent" data-opts='{ "iconUrl": "{{#unless (matches _config.icon '//' )}}{{relativePath}}/{{/unless}}{{_config.icon}}" }'></div>
     {{/if}}
     <div class="HitchhikerResultsGridTwoColumns-titleLabel">{{_config.title}}</div>
   </div>
@@ -57,7 +57,8 @@
 {{#*inline "viewMore"}}
   {{#if _config.isUniversal}}
     <div class="HitchhikerResultsGridTwoColumns-viewMore">
-      <a class="HitchhikerResultsGridTwoColumns-viewMoreLink" href="{{ verticalURL }}">
+      <a class="HitchhikerResultsGridTwoColumns-viewMoreLink"
+        href="{{#unless (matches verticalURL '//' )}}{{relativePath}}/{{/unless}}{{verticalURL}}">
         <div class="HitchhikerResultsGridTwoColumns-viewMoreLabel">{{_config.viewMoreLabel}}</div>
         <div data-component="IconComponent" data-opts='{ "iconName": "chevron" }'></div>
       </a>
