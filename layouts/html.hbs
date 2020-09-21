@@ -33,7 +33,7 @@
     {{/if}}
     <meta property="og:type" content="website">
     {{#if global_config.logo}}
-      <meta property="og:image" content="../{{global_config.logo}}">
+      <meta property="og:image" content="{{global_config.logo}}">
     {{/if}}
     {{#if canonicalUrl}}
       <meta property="og:url" content="{{canonicalUrl}}">
@@ -51,7 +51,7 @@
     {{/if}}
 
     {{#if global_config.favicon}}
-      <link rel="shortcut icon" href="../{{global_config.favicon}}">
+      <link rel="shortcut icon" href="{{global_config.favicon}}">
     {{/if}}
     <script src="{{relativePath}}/bundle.js"></script>
     {{#if global_config.googleAnalyticsId}}
@@ -91,7 +91,10 @@
       }
       window.iFrameResizer = {
         onReady: function() {
-          window.parentIFrame.sendMessage(iframeGetSearchParams());
+          window.parentIFrame.sendMessage(JSON.stringify({
+            params: iframeGetSearchParams(),
+            replaceHistory: true
+          }));
         },
       };
     </script>

@@ -19,8 +19,11 @@
   --hh-answers-container-width-filters: 950px;
   --hh-color-gray-1: #dcdcdc;
   --hh-color-gray-2: #fafafa;
-  --hh-three-columns-width: 212px;
-  --hh-two-columns-width: 326px;
+  --hh-universal-grid-three-columns-width: 212px;
+  --hh-universal-grid-two-columns-width: 326px;
+  --hh-universal-section-title-text-color: var(--yxt-color-text-primary);
+  --hh-universal-section-title-background: var(--yxt-color-background-highlight);
+  --hh-universal-section-title-icon: var(--yxt-color-brand-primary);
 
   // common border variables
   --yxt-border-default: 1px solid var(--yxt-color-borders);

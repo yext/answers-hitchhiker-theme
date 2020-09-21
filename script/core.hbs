@@ -37,13 +37,18 @@
       templateBundle: TemplateBundle.default,
       ...injectedConfig,
       ...userConfig,
-      onStateChange: (params) => {
+      onStateChange: (objParams, stringParams, replaceHistory) => {
         if ('parentIFrame' in window) {
-          parentIFrame.sendMessage(iframeGetSearchParams());
+          parentIFrame.sendMessage(JSON.stringify({
+            params: iframeGetSearchParams(),
+            replaceHistory: replaceHistory
+          }));
         }
       },
       onReady: () => {
         {{> @partial-block }}
+
+        {{> script/on-ready}}
 
         {{#if global_config.conversionTrackingEnabled}}
           ANSWERS.setConversionsOptIn(true);
@@ -58,6 +63,7 @@
         });
       }
     });
+    {{> script/after-init}}
   }
 {{/babel}}
 </script>

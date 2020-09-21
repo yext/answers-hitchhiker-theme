@@ -29,7 +29,8 @@
     },
     **/
     "SearchBar": {
-      "placeholderText": "Search" // The placeholder text in the answers search bar
+      "placeholderText": "Search", // The placeholder text in the answers search bar
+      "allowEmptySearch": true // Allows users to submit an empty search in the searchbar
     },
     "VerticalResults": {
       "noResults": {

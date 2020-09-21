@@ -62,9 +62,8 @@
     }
 
     @include bpgte(lg) {
-      position: absolute;
-      top: calc(var(--yxt-base-spacing) * 2);
-      left: calc(-200px - 24px);
+      margin-left: calc(-200px - 24px);
+      margin-right: 24px;
       margin-bottom: 0;
 
       .Answers-facets,
