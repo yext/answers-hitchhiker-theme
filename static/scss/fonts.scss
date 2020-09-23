@@ -46,6 +46,7 @@ $font-weight-light: 300;
   src: url('../assets/fonts/opensans-regular-webfont.woff') format("woff");
   font-weight: $font-weight-normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face
@@ -54,6 +55,7 @@ $font-weight-light: 300;
   src: url('../assets/fonts/opensans-bold-webfont.woff') format("woff");
   font-weight: $font-weight-bold;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face
@@ -62,5 +64,6 @@ $font-weight-light: 300;
   src: url('../assets/fonts/opensans-semibold-webfont.woff') format("woff");
   font-weight: $font-weight-semibold;
   font-style: normal;
+  font-display: swap;
 }
 
