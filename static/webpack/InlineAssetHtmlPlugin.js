@@ -1,6 +1,7 @@
 'use strict'
 
 const jsdom = require('jsdom');
+const HtmlPlugin = require('html-webpack-plugin');
 
 /**
  * The InlineAssetHtmlPlugin will take HTML files added through the HtmlWebpackPlugin
@@ -9,13 +10,11 @@ const jsdom = require('jsdom');
  * It then replaces that tag with the content of the file from the webpack compilation.
  */
 class InlineAssetHtmlPlugin {
-  constructor(htmlWebpackPlugin) {
-    this.htmlWebpackPlugin = htmlWebpackPlugin;
-  }
+  constructor() {}
 
   apply(compiler) {
     compiler.hooks.compilation.tap('InlineAssetHtmlPlugin', compilation => {
-      const hooks = this.htmlWebpackPlugin.getHooks(compilation);
+      const hooks = HtmlPlugin.getHooks(compilation);
       hooks.beforeEmit.tap('InlineAssetHtmlPlugin', assets => {
         assets.html = this.getHtmlWithInlineAssets(assets.html, compilation.assets);
       });

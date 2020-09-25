@@ -40,7 +40,7 @@ module.exports = function () {
     plugins: [
       new MiniCssExtractPlugin({ filename: 'bundle.css' }),
       ...htmlPlugins,
-      new InlineAssetHtmlPlugin(HtmlPlugin),
+      new InlineAssetHtmlPlugin(),
       new webpack.EnvironmentPlugin(
         ['JAMBO_INJECTED_DATA']
       ),
