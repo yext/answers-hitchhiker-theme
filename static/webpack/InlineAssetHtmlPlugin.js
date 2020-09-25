@@ -22,12 +22,12 @@ class InlineAssetHtmlPlugin {
   }
 
   /**
-   * Returns the the html with script/link tags asset content inlined in the HTML if specified
-   * HTML elements  are only replaced with inlined versions if they have the data attribute
+   * Returns the the html with script/link tags asset content inlined in the HTML if specified.
+   * HTML elements are only replaced with inlined versions if they have the data attribute
    * "data-webpack-inline"
    * @param {String} html The html of the page to analyze tags and replace with inlined 
    * @param {Object<String, RawSource>} assetsMap Mapping from asset name to asset content,
-   *                                 provided by webpack compilation
+   *                                    provided by webpack compilation
    */
   getHtmlWithInlineAssets (html, assetsMap) {
     const dom = new jsdom.JSDOM(html);
