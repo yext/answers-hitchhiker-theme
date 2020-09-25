@@ -1,5 +1,7 @@
 'use strict'
 
+const jsdom = require('jsdom');
+
 /**
  * The InlineAssetHtmlPlugin will take HTML files added through the HtmlWebpackPlugin
  * and inline js and css assets into the HTML, saving a request to the desired asset.
@@ -29,22 +31,35 @@ class InlineAssetHtmlPlugin {
    *                                 provided by webpack compilation
    */
   getHtmlWithInlineAssets (html, assetsMap) {
-    const cssInlineRegExp = /<link rel="stylesheet" href="([^>]*\.css)" data-webpack-inline>/gmi;
-    const scriptInlineRegExp = /<script src="([^>]*\.js)" data-webpack-inline><\/script>/gmi;
-    let newHtml = html;
-    newHtml = newHtml.replace(scriptInlineRegExp, (match, p1) => {
-      if (assetsMap[p1]) {
-        return `<script>${assetsMap[p1].source()}</script>`;
+    const dom = new jsdom.JSDOM(html);
+    dom.window.document.querySelectorAll('script[data-webpack-inline]').forEach((scriptNode) => {
+      const fileContents = assetsMap[scriptNode.src];
+      if (!fileContents) {
+        console.error(`Unable to find desired inline asset '${scriptNode.src}' in webpack compilation`);
+        return;
       }
-      console.error("Unable to find desired inline script in webpack compilation");
+
+      const inlineScriptNode = dom.window.document.createElement('script');
+      inlineScriptNode.innerHTML = fileContents.source();
+      inlineScriptNode.dataset.fileName = scriptNode.src;
+      scriptNode.parentNode.insertBefore(inlineScriptNode, scriptNode.nextSibling);
+      scriptNode.remove();
     });
-    newHtml = newHtml.replace(cssInlineRegExp, (match, p1) => {
-      if (assetsMap[p1]) {
-        return `<style>${assetsMap[p1].source()}</style>`;
+
+    dom.window.document.querySelectorAll('link[data-webpack-inline]').forEach((linkNode) => {
+      const fileContents = assetsMap[linkNode.href];
+      if (!fileContents) {
+        console.error(`Unable to find desired inline asset '${linkNode.href}' in webpack compilation`);
+        return;
       }
-      console.error("Unable to find desired inline link in webpack compilation");
+
+      const styleNode = dom.window.document.createElement('style');
+      styleNode.innerHTML = fileContents.source();
+      styleNode.dataset.fileName = linkNode.href;
+      linkNode.parentNode.insertBefore(styleNode, linkNode.nextSibling);
+      linkNode.remove();
     });
-    return newHtml;
+    return dom.serialize();
   }
 }
 
