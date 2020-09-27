@@ -1,0 +1,36 @@
+$collapsible-filters-hover-color: #0c5ecb !default;
+
+.CollapsibleFilters {
+  &.AnswersVerticalMap {
+    @import "base.scss";
+
+    @media (min-width: $container-tablet-base) {
+      .Answers-resultsHeader {
+        top: 0;
+      }
+    }
+  }
+
+  &.AnswersVerticalStandard,
+  &.AnswersVerticalGrid {
+    @media (max-width: $container-tablet-base) {
+      // Styling for the collapsible filters panel, and the applied filters header
+      @import "base.scss";
+
+      .Answers-resultsWrapper {
+        padding-top: 0;
+      }
+
+      .yxt-SpellCheck {
+        padding-top: calc(var(--yxt-base-spacing) * 2);
+      }
+    }
+
+    @media (min-width: $container-tablet-base) {
+      .Answers-filterPanelToggle,
+      .Answers-viewResultsButton {
+        display: none;
+      }
+    }
+  }
+}
