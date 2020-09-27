@@ -5,6 +5,8 @@
       {{> templates/vertical-map/script/searchbar }}
       {{> templates/vertical-map/script/spellcheck }}
       {{> templates/vertical-map/script/navigation }}
+      {{> templates/vertical-map/script/verticalresultscount }}
+      {{> templates/vertical-map/script/appliedfilters }}
       {{!-- {{> templates/vertical-map/script/sortoptions }} --}}
       {{!-- {{> templates/vertical-map/script/facets }} --}}
       {{!-- {{> templates/vertical-map/script/filterbox }} --}}
@@ -27,6 +29,10 @@
           {{!-- {{> templates/vertical-map/markup/sortoptions }} --}}
           {{!-- {{> templates/vertical-map/markup/facets }} --}}
           {{!-- {{> templates/vertical-map/markup/filterbox }} --}}
+          <div class="Answers-resultsHeader js-answersResultsHeader">
+            {{> templates/vertical-map/markup/verticalresultscount }}
+            {{> templates/vertical-map/markup/appliedfilters }}
+          </div>
           {{> templates/vertical-map/markup/verticalresults }}
           {{> templates/vertical-map/markup/pagination }}
           {{!-- {{> templates/vertical-map/markup/qasubmission }} --}}

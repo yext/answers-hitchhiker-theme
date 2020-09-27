@@ -2,6 +2,8 @@
   <div>
     {{#> script/core }}
       {{> cards/all }}
+      {{> templates/vertical-grid/script/appliedfilters }}
+      {{> templates/vertical-grid/script/verticalresultscount }}
       {{> templates/vertical-grid/script/searchbar }}
       {{> templates/vertical-grid/script/spellcheck }}
       {{> templates/vertical-grid/script/navigation }}
@@ -29,6 +31,10 @@
             {{!-- {{> templates/vertical-grid/markup/filterbox }} --}}
             {{!-- {{> templates/vertical-grid/markup/facets }} --}}
           {{!-- </div> --}}
+          <div class="Answers-resultsHeader js-answersResultsHeader">
+            {{> templates/vertical-grid/markup/verticalresultscount }}
+            {{> templates/vertical-grid/markup/appliedfilters }}
+          </div>
           {{> templates/vertical-grid/markup/verticalresults }}
         </div>
         {{> templates/vertical-grid/markup/pagination }}
