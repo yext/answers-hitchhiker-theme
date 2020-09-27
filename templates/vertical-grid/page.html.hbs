@@ -1,47 +1,47 @@
 {{#> layouts/html }}
-  <div>
-    {{#> script/core }}
-      {{> cards/all }}
-      {{> templates/vertical-grid/script/appliedfilters }}
-      {{> templates/vertical-grid/script/verticalresultscount }}
-      {{> templates/vertical-grid/script/searchbar }}
-      {{> templates/vertical-grid/script/spellcheck }}
-      {{> templates/vertical-grid/script/navigation }}
-      {{> templates/vertical-grid/script/verticalresults }}
-      {{> templates/vertical-grid/script/pagination }}
-      {{> templates/vertical-grid/script/locationbias }}
-      {{!-- {{> templates/vertical-grid/script/sortoptions }} --}}
-      {{!-- {{> templates/vertical-grid/script/facets }} --}}
-      {{!-- {{> templates/vertical-grid/script/filterbox }} --}}
-      {{!-- {{> templates/vertical-grid/script/qasubmission }} --}}
-    {{/script/core}}
-    <div class="Answers AnswersVerticalGrid">
-      <div class="Answers-navWrapper">
-        <div class="Answers-container">
-          {{> templates/vertical-grid/markup/searchbar }}
-          {{> templates/vertical-grid/markup/navigation }}
-        </div>
+  {{#> script/core }}
+    {{> cards/all }}
+    {{!-- {{> templates/vertical-grid/collapsible-filters/page-setup }} --}}
+    {{> templates/vertical-grid/script/appliedfilters }}
+    {{> templates/vertical-grid/script/verticalresultscount }}
+    {{> templates/vertical-grid/script/searchbar }}
+    {{> templates/vertical-grid/script/spellcheck }}
+    {{> templates/vertical-grid/script/navigation }}
+    {{> templates/vertical-grid/script/verticalresults }}
+    {{> templates/vertical-grid/script/pagination }}
+    {{> templates/vertical-grid/script/locationbias }}
+    {{!-- {{> templates/vertical-grid/script/sortoptions }} --}}
+    {{!-- {{> templates/vertical-grid/script/facets }} --}}
+    {{!-- {{> templates/vertical-grid/script/filterbox }} --}}
+    {{!-- {{> templates/vertical-grid/script/qasubmission }} --}}
+  {{/script/core }}
+  <div class="Answers AnswersVerticalGrid CollapsibleFilters">
+    <div class="Answers-navWrapper">
+      <div class="Answers-container">
+        {{> templates/vertical-grid/markup/searchbar }}
+        {{> templates/vertical-grid/markup/navigation }}
       </div>
-      <div class="Answers-container Answers-resultsWrapper Hitchhiker-3-columns">
+    </div>
+    <div class="Answers-container Answers-resultsWrapper Hitchhiker-3-columns">
+      <!-- Uncomment the following div if you want to include filters, facets, or sort options  -->
+      {{!-- <div class="Answers-filtersWrapper js-answersFiltersWrapper"> --}}
+        {{!-- {{> templates/vertical-grid/markup/sortoptions }} --}}
+        {{!-- {{> templates/vertical-grid/markup/filterbox }} --}}
+        {{!-- {{> templates/vertical-grid/markup/facets }} --}}
+      {{!-- </div> --}}
+      <div class="Answers-resultsHeader js-answersResultsHeader">
+        {{> templates/vertical-grid/markup/verticalresultscount }}
+        {{> templates/vertical-grid/markup/appliedfilters }}
+        {{!-- {{> templates/vertical-grid/collapsible-filters/markup }} --}}
+      </div>
+      <div class="Answers-results js-answersResults">
         {{> templates/vertical-grid/markup/spellcheck }}
-        <div class="Answers-filtersAndResults">
-          <!-- Uncomment the following div if you want to include filters, facets, or sort options  -->
-          {{!-- <div class="Answers-filtersWrapper"> --}}
-            {{!-- {{> templates/vertical-grid/markup/sortoptions }} --}}
-            {{!-- {{> templates/vertical-grid/markup/filterbox }} --}}
-            {{!-- {{> templates/vertical-grid/markup/facets }} --}}
-          {{!-- </div> --}}
-          <div class="Answers-resultsHeader js-answersResultsHeader">
-            {{> templates/vertical-grid/markup/verticalresultscount }}
-            {{> templates/vertical-grid/markup/appliedfilters }}
-          </div>
-          {{> templates/vertical-grid/markup/verticalresults }}
-        </div>
+        {{> templates/vertical-grid/markup/verticalresults }}
         {{> templates/vertical-grid/markup/pagination }}
         {{!-- {{> templates/vertical-grid/markup/qasubmission }} --}}
       </div>
     </div>
-    <div class="Answers-footer">
+    <div class="Answers-footer js-answersFooter">
       {{> layouts/yext-logo }}
       {{> templates/vertical-grid/markup/locationbias }}
     </div>

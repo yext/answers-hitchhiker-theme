@@ -1,48 +1,53 @@
 {{#> layouts/html }}
-  <div>
-    {{#> script/core }}
-      {{> cards/all }}
-      {{> templates/vertical-map/script/searchbar }}
-      {{> templates/vertical-map/script/spellcheck }}
-      {{> templates/vertical-map/script/navigation }}
-      {{> templates/vertical-map/script/verticalresultscount }}
-      {{> templates/vertical-map/script/appliedfilters }}
-      {{!-- {{> templates/vertical-map/script/sortoptions }} --}}
-      {{!-- {{> templates/vertical-map/script/facets }} --}}
-      {{!-- {{> templates/vertical-map/script/filterbox }} --}}
-      {{> templates/vertical-map/script/verticalresults }}
-      {{> templates/vertical-map/script/pagination }}
-      {{!-- {{> templates/vertical-map/script/qasubmission }} --}}
-      {{> templates/vertical-map/script/map }}
-      {{> templates/vertical-map/script/locationbias }}
-    {{/script/core }}
-    <div class="Answers AnswersVerticalMap">
-      <div class="Answers-navWrapper">
-        <div class="Answers-container">
-          {{> templates/vertical-map/markup/searchbar }}
-          {{> templates/vertical-map/markup/navigation }}
-        </div>
+  {{#> script/core }}
+    {{> cards/all }}
+    {{!-- {{> templates/vertical-map/collapsible-filters/page-setup }} --}}
+    {{> templates/vertical-map/script/searchbar }}
+    {{> templates/vertical-map/script/spellcheck }}
+    {{> templates/vertical-map/script/navigation }}
+    {{> templates/vertical-map/script/verticalresultscount }}
+    {{> templates/vertical-map/script/appliedfilters }}
+    {{!-- {{> templates/vertical-map/script/sortoptions }} --}}
+    {{!-- {{> templates/vertical-map/script/facets }} --}}
+    {{!-- {{> templates/vertical-map/script/filterbox }} --}}
+    {{> templates/vertical-map/script/verticalresults }}
+    {{> templates/vertical-map/script/pagination }}
+    {{!-- {{> templates/vertical-map/script/qasubmission }} --}}
+    {{> templates/vertical-map/script/map }}
+    {{> templates/vertical-map/script/locationbias }}
+  {{/script/core }}
+  <div class="Answers AnswersVerticalMap CollapsibleFilters">
+    <div class="Answers-navWrapper">
+      <div class="Answers-container">
+        {{> templates/vertical-map/markup/searchbar }}
+        {{> templates/vertical-map/markup/navigation }}
       </div>
-      <div class="Answers-resultsWrapper">
-        <div class="Answers-resultsColumn">
-          {{> templates/vertical-map/markup/spellcheck }}
+    </div>
+    <div class="Answers-resultsWrapper">
+      <div class="Answers-resultsColumn">
+        <!-- Uncomment the following div if you want to include filters, facets, or sort options  -->
+        {{!-- <div class="Answers-filtersWrapper js-answersFiltersWrapper"> --}}
           {{!-- {{> templates/vertical-map/markup/sortoptions }} --}}
           {{!-- {{> templates/vertical-map/markup/facets }} --}}
           {{!-- {{> templates/vertical-map/markup/filterbox }} --}}
-          <div class="Answers-resultsHeader js-answersResultsHeader">
-            {{> templates/vertical-map/markup/verticalresultscount }}
-            {{> templates/vertical-map/markup/appliedfilters }}
-          </div>
+        {{!-- </div> --}}
+        <div class="Answers-resultsHeader js-answersResultsHeader">
+          {{> templates/vertical-map/markup/verticalresultscount }}
+          {{> templates/vertical-map/markup/appliedfilters }}
+          {{!-- {{> templates/vertical-map/collapsible-filters/markup }} --}}
+        </div>
+        <div class="Answers-results js-answersResults">
+          {{> templates/vertical-map/markup/spellcheck }}          
           {{> templates/vertical-map/markup/verticalresults }}
           {{> templates/vertical-map/markup/pagination }}
           {{!-- {{> templates/vertical-map/markup/qasubmission }} --}}
+          <div class="Answers-footer">
+            {{> layouts/yext-logo }}
+            {{> templates/vertical-map/markup/locationbias }}
+          </div>
         </div>
-        {{> templates/vertical-map/markup/map }}
       </div>
-    </div>
-    <div class="Answers-footer">
-      {{> layouts/yext-logo }}
-      {{> templates/vertical-map/markup/locationbias }}
+      {{> templates/vertical-map/markup/map }}
     </div>
   </div>
 {{/layouts/html }}
