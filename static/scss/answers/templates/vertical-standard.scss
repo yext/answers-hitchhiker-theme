@@ -62,6 +62,7 @@
     }
 
     @include bpgte(lg) {
+      position: absolute;
       margin-left: calc(-200px - 24px);
       margin-right: 24px;
       margin-bottom: 0;
