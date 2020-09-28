@@ -412,7 +412,7 @@ export default class Formatters {
    * @param {String} locale The locale for the time string
    * @param {boolean} isTwentyFourHourClock Use 24 hour vs 12 hour formatting for time string
    */
-  static openStatus(profile, locale = 'en-US', isTwentyFourHourClock = false) {
+  static openStatus(profile, locale, isTwentyFourHourClock = false) {
     if (!profile.hours) {
       return '';
     }
