@@ -32,13 +32,17 @@
       "placeholderText": "Search", // The placeholder text in the answers search bar
       "allowEmptySearch": true // Allows users to submit an empty search in the searchbar
     },
+    "AppliedFilters": {
+      "removable": true
+    },
     "VerticalResults": {
       "noResults": {
         "displayAllResults": true // Optional, whether to display all results in the vertical when no results are found.
       },
       "appliedFilters": {
-        "removable": true
-      }
+        "show": false // Whether to display the applied filters built into VerticalResults
+      },
+      "showResultCount": false // Whether to display the result count built into VerticalResults
     },
     "Pagination": {
       "noResults": {
