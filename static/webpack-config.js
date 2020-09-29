@@ -5,12 +5,12 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
 const RemovePlugin = require('remove-files-webpack-plugin');
 
-const jamboConfig = JSON.parse(fs.readFileSync('jambo.json'))
-const InlineAssetHtmlPlugin = require(
-  `./${jamboConfig.dirs.output}/static/webpack/InlineAssetHtmlPlugin`
-);
-
 module.exports = function () {
+  const jamboConfig = JSON.parse(fs.readFileSync('jambo.json'))
+  const InlineAssetHtmlPlugin = require(
+    `./${jamboConfig.dirs.output}/static/webpack/InlineAssetHtmlPlugin`
+  );
+
   const htmlPlugins = [];
   if (fs.existsSync(jamboConfig.dirs.output)) {
     fs.recurseSync(jamboConfig.dirs.output, ['**/*.html'], (filepath, relative) => {
