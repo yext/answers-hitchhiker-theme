@@ -39,10 +39,7 @@
       "noResults": {
         "displayAllResults": true // Optional, whether to display all results in the vertical when no results are found.
       },
-      "appliedFilters": {
-        "show": false // Whether to display the applied filters built into VerticalResults
-      },
-      "showResultCount": false // Whether to display the result count built into VerticalResults
+      "hideResultsHeader": true
     },
     "Pagination": {
       "noResults": {
