@@ -1,17 +1,10 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Hitchhiker-Theme\n"
-"mime-version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
-"POT-Creation-Date: 2020-08-04T20:43:15.907Z\n"
-"PO-Revision-Date: 2020-08-04T20:43:15.907Z\n"
-"Language: fr\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 
 #: cards/multilang-menuitem-standard/component.js:27
 msgid "[[calorieCount]] calories"
-msgstr "[[calorieCount]] calorías"
+msgstr "[[calorieCount]] calories"
 
 #: cards/multilang-menuitem-standard/component.js:23
 msgid "Allergens"
@@ -19,19 +12,23 @@ msgstr "Allergènes"
 
 #: cards/multilang-job-standard/component.js:33
 msgid "Apply Now"
-msgstr "Appliquer maintenant"
+msgstr "S'inscrire"
 
 #: cards/multilang-event-standard/component.js:42
 msgid "Directions"
-msgstr "Directions"
+msgstr "Itinéraires"
 
 #: cards/multilang-location-standard/component.js:41
 msgid "Get Directions"
-msgstr "Obtenir des directions"
+msgstr "Obtenir l'itinéraire"
 
 #: cards/multilang-menuitem-standard/component.js:38
 msgid "Order Now"
-msgstr "Commandez maintenant"
+msgstr "Commander"
+
+#: cards/multilang-location-standard/template.hbs:136
+msgid "Services:"
+msgstr "Services :"
 
 #: cards/multilang-event-standard/component.js:28
 #: cards/multilang-job-standard/component.js:29
@@ -43,7 +40,7 @@ msgstr "Commandez maintenant"
 #: cards/multilang-professional-standard/component.js:34
 #: cards/multilang-standard/component.js:29
 msgid "Show less"
-msgstr "Montrer moins"
+msgstr "Afficher moins"
 
 #: cards/multilang-event-standard/component.js:27
 #: cards/multilang-job-standard/component.js:28
@@ -55,23 +52,23 @@ msgstr "Montrer moins"
 #: cards/multilang-professional-standard/component.js:33
 #: cards/multilang-standard/component.js:28
 msgid "Show more"
-msgstr "Montre plus"
+msgstr "Afficher plus"
 
 #: directanswercards/multilang-allfields-standard/component.js:177
 msgid "Thank you for your feedback!"
-msgstr "Merci pour votre avis!"
+msgstr "Merci pour vos commentaires !"
 
 #: directanswercards/multilang-allfields-standard/component.js:179
 msgid "This answered my question"
-msgstr "Cela a répondu à ma question"
+msgstr "J'ai obtenu la réponse à ma question"
 
 #: directanswercards/multilang-allfields-standard/component.js:180
 msgid "This did not answer my question"
-msgstr "Cela n'a pas répondu à ma question"
+msgstr "Ma question reste sans réponse"
 
 #: directanswercards/multilang-allfields-standard/component.js:163
 msgid "View Details"
-msgstr "Voir les détails"
+msgstr "Afficher les détails"
 
 #: cards/multilang-menuitem-standard/component.js:48
 msgid "View Menu"
@@ -79,19 +76,19 @@ msgstr "Afficher le menu"
 
 #: directanswercards/multilang-allfields-standard/component.js:178
 msgid "Was this the answer you were looking for?"
-msgstr "Était-ce la réponse que vous recherchiez?"
+msgstr "Est-ce la réponse que vous recherchiez ?"
 
 #: cards/multilang-location-standard/component.js:33
 msgctxt "Call is a verb"
 msgid "Call"
-msgstr "Appelle"
+msgstr "Appel téléphonique"
 
 #: cards/multilang-event-standard/component.js:32
 msgctxt "RSVP is a verb"
 msgid "RSVP"
-msgstr "RSVP"
+msgstr "Réservation"
 
-#: templates/universal-standard/script/universalresults.js:74
+#: templates/universal-standard/script/universalresults.hbs:74
 msgctxt "View is a verb"
 msgid "View All"
-msgstr "Voir tout"
+msgstr "Tout afficher"
