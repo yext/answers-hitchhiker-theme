@@ -4,31 +4,31 @@ msgstr ""
 
 #: cards/multilang-menuitem-standard/component.js:27
 msgid "[[calorieCount]] calories"
-msgstr "[[calorieCount]] calorías"
+msgstr "[[calorieCount]] calorie"
 
 #: cards/multilang-menuitem-standard/component.js:23
 msgid "Allergens"
-msgstr "Alérgenos"
+msgstr "Allergeni"
 
 #: cards/multilang-job-standard/component.js:33
 msgid "Apply Now"
-msgstr "Solicitar ahora"
+msgstr "Richiedi subito"
 
 #: cards/multilang-event-standard/component.js:42
 msgid "Directions"
-msgstr "Direcciones"
+msgstr "Indicazioni stradali"
 
 #: cards/multilang-location-standard/component.js:41
 msgid "Get Directions"
-msgstr "Obtener direcciones"
+msgstr "Ottieni indicazioni"
 
 #: cards/multilang-menuitem-standard/component.js:38
 msgid "Order Now"
-msgstr "Pedir ahora"
+msgstr "Ordina ora"
 
 #: cards/multilang-location-standard/template.hbs:136
 msgid "Services:"
-msgstr "Servicios:"
+msgstr "Servizi:"
 
 #: cards/multilang-event-standard/component.js:28
 #: cards/multilang-job-standard/component.js:29
@@ -40,7 +40,7 @@ msgstr "Servicios:"
 #: cards/multilang-professional-standard/component.js:34
 #: cards/multilang-standard/component.js:29
 msgid "Show less"
-msgstr "Mostrar menos"
+msgstr "Mostra meno"
 
 #: cards/multilang-event-standard/component.js:27
 #: cards/multilang-job-standard/component.js:28
@@ -52,43 +52,43 @@ msgstr "Mostrar menos"
 #: cards/multilang-professional-standard/component.js:33
 #: cards/multilang-standard/component.js:28
 msgid "Show more"
-msgstr "Mostrar más"
+msgstr "Mostra altro"
 
 #: directanswercards/multilang-allfields-standard/component.js:177
 msgid "Thank you for your feedback!"
-msgstr "¡Gracias por tu comentario!"
+msgstr "Grazie per il tuo feedback!"
 
 #: directanswercards/multilang-allfields-standard/component.js:179
 msgid "This answered my question"
-msgstr "Esto ha respondido a mi pregunta"
+msgstr "La risposta è stata esauriente"
 
 #: directanswercards/multilang-allfields-standard/component.js:180
 msgid "This did not answer my question"
-msgstr "Esto no ha respondido a mi pregunta"
+msgstr "La risposta non è stata esauriente"
 
 #: directanswercards/multilang-allfields-standard/component.js:163
 msgid "View Details"
-msgstr "Ver detalles"
+msgstr "Visualizza dettagli"
 
 #: cards/multilang-menuitem-standard/component.js:48
 msgid "View Menu"
-msgstr "Mira el menú"
+msgstr "Visualizzare il menu"
 
 #: directanswercards/multilang-allfields-standard/component.js:178
 msgid "Was this the answer you were looking for?"
-msgstr "¿Era esta la respuesta que buscabas?"
+msgstr "È la risposta che ti aspettavi?"
 
 #: cards/multilang-location-standard/component.js:33
 msgctxt "Call is a verb"
 msgid "Call"
-msgstr "Llamar"
+msgstr "Chiama"
 
 #: cards/multilang-event-standard/component.js:32
 msgctxt "RSVP is a verb"
 msgid "RSVP"
-msgstr "Confirmar asistencia"
+msgstr "Dare conferma"
 
 #: templates/universal-standard/script/universalresults.hbs:74
 msgctxt "View is a verb"
 msgid "View All"
-msgstr "Ver todo"
+msgstr "Visualizza tutti"

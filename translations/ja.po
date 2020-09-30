@@ -4,31 +4,31 @@ msgstr ""
 
 #: cards/multilang-menuitem-standard/component.js:27
 msgid "[[calorieCount]] calories"
-msgstr "[[calorieCount]] calorías"
+msgstr "[[calorieCount]]カロリー"
 
 #: cards/multilang-menuitem-standard/component.js:23
 msgid "Allergens"
-msgstr "Alérgenos"
+msgstr "アレルゲン"
 
 #: cards/multilang-job-standard/component.js:33
 msgid "Apply Now"
-msgstr "Solicitar ahora"
+msgstr "今すぐ適用"
 
 #: cards/multilang-event-standard/component.js:42
 msgid "Directions"
-msgstr "Direcciones"
+msgstr "ルート"
 
 #: cards/multilang-location-standard/component.js:41
 msgid "Get Directions"
-msgstr "Obtener direcciones"
+msgstr "ルート検索"
 
 #: cards/multilang-menuitem-standard/component.js:38
 msgid "Order Now"
-msgstr "Pedir ahora"
+msgstr "今すぐ注文"
 
 #: cards/multilang-location-standard/template.hbs:136
 msgid "Services:"
-msgstr "Servicios:"
+msgstr "サービス："
 
 #: cards/multilang-event-standard/component.js:28
 #: cards/multilang-job-standard/component.js:29
@@ -40,7 +40,7 @@ msgstr "Servicios:"
 #: cards/multilang-professional-standard/component.js:34
 #: cards/multilang-standard/component.js:29
 msgid "Show less"
-msgstr "Mostrar menos"
+msgstr "表示数を減らす"
 
 #: cards/multilang-event-standard/component.js:27
 #: cards/multilang-job-standard/component.js:28
@@ -52,43 +52,43 @@ msgstr "Mostrar menos"
 #: cards/multilang-professional-standard/component.js:33
 #: cards/multilang-standard/component.js:28
 msgid "Show more"
-msgstr "Mostrar más"
+msgstr "さらに表示"
 
 #: directanswercards/multilang-allfields-standard/component.js:177
 msgid "Thank you for your feedback!"
-msgstr "¡Gracias por tu comentario!"
+msgstr "ご意見ありがとうございました!"
 
 #: directanswercards/multilang-allfields-standard/component.js:179
 msgid "This answered my question"
-msgstr "Esto ha respondido a mi pregunta"
+msgstr "この内容で疑問が解決した"
 
 #: directanswercards/multilang-allfields-standard/component.js:180
 msgid "This did not answer my question"
-msgstr "Esto no ha respondido a mi pregunta"
+msgstr "この内容で疑問が解決しなかった"
 
 #: directanswercards/multilang-allfields-standard/component.js:163
 msgid "View Details"
-msgstr "Ver detalles"
+msgstr "詳細を表示"
 
 #: cards/multilang-menuitem-standard/component.js:48
 msgid "View Menu"
-msgstr "Mira el menú"
+msgstr "メニューの表示"
 
 #: directanswercards/multilang-allfields-standard/component.js:178
 msgid "Was this the answer you were looking for?"
-msgstr "¿Era esta la respuesta que buscabas?"
+msgstr "これはあなたが探していた答えですか？"
 
 #: cards/multilang-location-standard/component.js:33
 msgctxt "Call is a verb"
 msgid "Call"
-msgstr "Llamar"
+msgstr "電話"
 
 #: cards/multilang-event-standard/component.js:32
 msgctxt "RSVP is a verb"
 msgid "RSVP"
-msgstr "Confirmar asistencia"
+msgstr "RSVP"
 
 #: templates/universal-standard/script/universalresults.hbs:74
 msgctxt "View is a verb"
 msgid "View All"
-msgstr "Ver todo"
+msgstr "すべて表示"
