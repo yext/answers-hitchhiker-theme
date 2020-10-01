@@ -850,5 +850,3 @@ export default class Formatters {
     return CtaFormatter.generateCTAFieldTypeLink(cta);
   }
 }
-
-global.Formatter = Formatters;
