@@ -6,7 +6,7 @@ ANSWERS.addComponent('FilterLink', {
     JsHelpers.verticalSearch({ useFacets: true });
   },
   onClickChangeFilters: () => {
-    pageInteractions.showFilters();
+    pageInteractions.expandFilters();
   },
   onClickClearSearch: () => {
     JsHelpers.clearSearch();
@@ -19,7 +19,7 @@ ANSWERS.addComponent('ViewResultsButton', {
   container: '#js-answersViewResultsButton',
   ...{{{ json componentSettings.ViewResultsButton }}},
   onClick: function () {
-    pageInteractions.hideFilters();
+    pageInteractions.collapseFilters();
     this.setState(this.getState());
   },
   onCreate() {

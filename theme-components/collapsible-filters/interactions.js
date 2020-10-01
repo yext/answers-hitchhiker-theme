@@ -15,7 +15,7 @@ class CollapsibleFiltersInteractions {
    * Register event listeners that will hide the filters after a search
    * made by the searchbar is completed.
    */
-  registerHideFiltersOnSearchbarSearch() {
+  registerCollapseFiltersOnSearchbarSearch() {
     let pendingQueryUpdate = false;
 
     ANSWERS.core.globalStorage.on('update', 'query', () => {
@@ -26,7 +26,7 @@ class CollapsibleFiltersInteractions {
       if (verticalResults.searchState !== 'search-complete' || !pendingQueryUpdate) {
         return;
       }
-      pageInteractions.hideFilters();
+      pageInteractions.collapseFilters();
       pendingQueryUpdate = false;
     });
   }
@@ -51,14 +51,14 @@ class CollapsibleFiltersInteractions {
   /**
    * Hide the filters view, and display the results view.
    */
-  hideFilters () {
+  collapseFilters () {
     this._toggleFilters(true);
   }
 
   /**
    * Hide the results view, and display the filters view.
    */
-  showFilters() {
+  expandFilters() {
     this._toggleFilters(false);
   }
 
@@ -73,17 +73,17 @@ class CollapsibleFiltersInteractions {
     }
   }
 
-  _toggleFilters(hideFilters) {
+  _toggleFilters(collapseFilters) {
     for (const el of this.filterEls) {
-      this.toggleInactiveClass(el, hideFilters);
+      this.toggleInactiveClass(el, collapseFilters);
     }
     for (const el of this.resultEls) {
-      this.toggleInactiveClass(el, !hideFilters);
+      this.toggleInactiveClass(el, !collapseFilters);
     }
-    this.toggleInactiveClass(this.viewResultsButton, hideFilters);
+    this.toggleInactiveClass(this.viewResultsButton, collapseFilters);
     JsHelpers.scrollToTop();
     ANSWERS.core.globalStorage.set('hh-filter-panel', {
-      panelIsDisplayed: !hideFilters
+      panelIsDisplayed: !collapseFilters
     });
   }
 }
