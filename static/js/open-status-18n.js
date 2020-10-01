@@ -3,16 +3,16 @@
  * @param {string} locale 
  */
 export default function provideOpenStatusTranslation (locale) {
+  const language = locale.substring(0,2);
   return {
-    ...provideTodaysMessageTranslation(locale),
-    ...provideDayTranslation(locale)
+    ...provideTodaysMessageTranslation(language),
+    ...provideDayTranslation(language)
   }
 }
 
-function provideTodaysMessageTranslation(locale) {
-  switch (locale) {
+function provideTodaysMessageTranslation(language) {
+  switch (language) {
     case 'fr':
-    case 'fr-fr':
       return {
         'Closed': 'Fermé',
         'Open 24 Hours': 'Ouvert 24h/24',
@@ -21,7 +21,6 @@ function provideTodaysMessageTranslation(locale) {
         'Closes at': 'Ferme à',
       }
     case 'de':
-    case 'de-de':
       return {
         'Closed': 'Geschlossen',
         'Open 24 Hours': '24 Stunden geöffnet',
@@ -30,7 +29,6 @@ function provideTodaysMessageTranslation(locale) {
         'Closes at': 'Schließt um',
       }
     case 'es':
-    case 'es-es':
       return {
         'Closed': 'Cerrado',
         'Open 24 Hours': 'Abierto las 24 horas',
@@ -39,7 +37,6 @@ function provideTodaysMessageTranslation(locale) {
         'Closes at': 'Cierra a las',
       }
     case 'it':
-    case 'it-it':
       return {
         'Closed': 'Chiuso',
         'Open 24 Hours': 'Aperto 24 ore su 24',
@@ -58,10 +55,9 @@ function provideTodaysMessageTranslation(locale) {
   }
 }
 
-function provideDayTranslation(locale) {
-  switch (locale) {
+function provideDayTranslation(language) {
+  switch (language) {
     case 'fr':
-    case 'fr-fr':
       return {
         'MONDAY': 'Lundi',
         'TUESDAY': 'Mardi',
@@ -72,7 +68,6 @@ function provideDayTranslation(locale) {
         'SUNDAY': 'Dimanche',
       }
     case 'de':
-    case 'de-de':
       return {
         'MONDAY': 'Montag',
         'TUESDAY': 'Dienstag',
@@ -83,7 +78,6 @@ function provideDayTranslation(locale) {
         'SUNDAY': 'Sonntag',
       }
     case 'es':
-    case 'es-es':
       return {
         'MONDAY': 'Lunes',
         'TUESDAY': 'Martes',
@@ -94,7 +88,6 @@ function provideDayTranslation(locale) {
         'SUNDAY': 'Domingo',
       }
     case 'it':
-    case 'it-it':
       return {
         'MONDAY': 'Lunedí',
         'TUESDAY': 'Martedí',
