@@ -2,6 +2,8 @@
   <div>
     {{#> script/core }}
       {{> cards/all }}
+      {{> templates/vertical-standard/script/appliedfilters }}
+      {{> templates/vertical-standard/script/verticalresultscount }}
       {{> templates/vertical-standard/script/searchbar }}
       {{> templates/vertical-standard/script/spellcheck }}
       {{> templates/vertical-standard/script/navigation }}
@@ -12,7 +14,7 @@
       {{!-- {{> templates/vertical-standard/script/facets }} --}}
       {{!-- {{> templates/vertical-standard/script/filterbox }} --}}
       {{!-- {{> templates/vertical-standard/script/qasubmission }} --}}
-    {{/script/core }}
+    {{/script/core}}
     <div class="Answers AnswersVerticalStandard">
       <div class="Answers-navWrapper">
         <div class="Answers-container">
@@ -22,18 +24,20 @@
       </div>
       <div class="Answers-container Answers-resultsWrapper">
         {{> templates/vertical-standard/markup/spellcheck }}
-        <div class="Answers-filtersAndResults">
-          <!-- Uncomment the following div if you want to include filters, facets, or sort options  -->
-          {{!-- <div class="Answers-filtersWrapper"> --}}
-            {{!-- {{> templates/vertical-standard/markup/sortoptions }} --}}
-            {{!-- {{> templates/vertical-standard/markup/filterbox }} --}}
-            {{!-- {{> templates/vertical-standard/markup/facets }} --}}
-          {{!-- </div> --}}
-          {{> templates/vertical-standard/markup/verticalresults }}
+        <!-- Uncomment the following div if you want to include filters, facets, or sort options  -->
+        {{!-- <div class="Answers-filtersWrapper"> --}}
+          {{!-- {{> templates/vertical-standard/markup/sortoptions }} --}}
+          {{!-- {{> templates/vertical-standard/markup/filterbox }} --}}
+          {{!-- {{> templates/vertical-standard/markup/facets }} --}}
+        {{!-- </div> --}}
+        <div class="Answers-resultsHeader js-answersResultsHeader">
+          {{> templates/vertical-standard/markup/verticalresultscount }}
+          {{> templates/vertical-standard/markup/appliedfilters }}
         </div>
-        {{> templates/vertical-standard/markup/pagination }}
-        {{!-- {{> templates/vertical-standard/markup/qasubmission }} --}}
+        {{> templates/vertical-standard/markup/verticalresults }}
       </div>
+      {{> templates/vertical-standard/markup/pagination }}
+      {{!-- {{> templates/vertical-standard/markup/qasubmission }} --}}
     </div>
     <div class="Answers-footer">
       {{> layouts/yext-logo }}
