@@ -30,8 +30,7 @@ class FilterLink extends ANSWERS.Component {
       ...data,
       isPanelDisplayed: data.isPanelDisplayed || this.getState('isPanelDisplayed'),
       isNoResults: verticalResults.resultsContext === 'no-results',
-      hasAppliedFilters: this.getAllFilterNodes().length > 0,
-      searchComplete: verticalResults.searchState === 'search-complete'
+      hasAppliedFilters: this.getAllFilterNodes().length > 0
     });
   }
 

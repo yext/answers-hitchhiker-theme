@@ -9,17 +9,15 @@
     </button>
   {{/if}}
 {{else}}
-  {{#if searchComplete}}
-    {{#if panelIsDisplayed}}
-      {{#if hasAppliedFilters}}
-        <button class="yxt-FilterLink js-resetFilters">
-          {{_config.resetFiltersText}}
-        </button>
-      {{/if}}
-    {{else}}
-      <button class="yxt-FilterLink js-changeFilters">
-        {{_config.changeFiltersText}}
+  {{#if panelIsDisplayed}}
+    {{#if hasAppliedFilters}}
+      <button class="yxt-FilterLink js-resetFilters">
+        {{_config.resetFiltersText}}
       </button>
     {{/if}}
+  {{else}}
+    <button class="yxt-FilterLink js-changeFilters">
+      {{_config.changeFiltersText}}
+    </button>
   {{/if}}
 {{/if}}
