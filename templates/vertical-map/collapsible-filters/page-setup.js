@@ -1,7 +1,3 @@
-// Register the theme components used in CollapsibleFilters
-{{> theme-components/collapsible-filters/view-results-button/component}}
-{{> theme-components/collapsible-filters/filter-link/component}}
-
 // Register the JsHelpers class which contains static helpers
 {{> theme-components/collapsible-filters/js-helpers}}
 
@@ -25,4 +21,10 @@ pageInteractions.registerCollapseFiltersOnSearchbarSearch();
 const ComponentDecorators = {};
 {{> theme-components/collapsible-filters/facets-decorator }}
 ComponentDecorators.Facets = new FacetsDecorator();
-{{> templates/vertical-map/collapsible-filters/script }}
+
+// Register the theme components used in CollapsibleFilters, and
+// add them to the page with ANSWERS.addComponent()
+{{> theme-components/collapsible-filters/view-results-button/component}}
+{{> templates/vertical-map/collapsible-filters/script/viewresultsbutton }}
+{{> theme-components/collapsible-filters/filter-link/component}}
+{{> templates/vertical-map/collapsible-filters/script/filterlink }}
