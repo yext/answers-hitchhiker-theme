@@ -12,7 +12,6 @@
   &.AnswersVerticalStandard,
   &.AnswersVerticalGrid {
     @media (max-width: $container-tablet-base) {
-      // Styling for the collapsible filters panel, and the applied filters header
       @import "base.scss";
 
       .Answers-resultsWrapper {
