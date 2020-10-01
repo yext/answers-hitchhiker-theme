@@ -5,6 +5,10 @@
     display: flex;
     flex-grow: 1;
     height: calc(100vh - var(--hh-nav-wrapper-height));
+
+    @include bplte(xs) {
+      height: auto;
+    }
   }
 
   &-verticalResults
