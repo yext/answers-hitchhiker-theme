@@ -43,6 +43,7 @@
     "core-js": "^3.6.5",
     "font-awesome": "^4.7.0",
     "iframe-resizer": "^4.1.1",
+    "is-mobile": "^2.2.2",
     "libphonenumber-js": "^1.7.51",
     "lodash.clonedeep": "^4.5.0",
     "remove-files-webpack-plugin": "^1.4.3"
