@@ -208,3 +208,13 @@ button
   background: none;
   cursor: pointer;
 }
+
+// Our css reset makes radio buttons look strange on ios safari
+@include bplte(xs) {
+  input[type="radio"] {
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(118, 118, 118);
+    border-radius: 50%;
+  }
+}

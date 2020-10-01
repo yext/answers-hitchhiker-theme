@@ -1,0 +1,11 @@
+.yxt-FilterLink {
+  color: var(--yxt-color-brand-primary);
+  font-size: 14px;
+
+  cursor: pointer;
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+    color: var(--hh-view-results-button-hover-color);
+  }
+}

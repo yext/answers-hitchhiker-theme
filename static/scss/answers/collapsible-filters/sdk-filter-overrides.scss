@@ -1,0 +1,94 @@
+.yxt-FilterOptions {
+  &-fieldSet {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  &-showToggle {
+    margin-bottom: 2px;
+    margin-top: 2px;
+  }
+
+  &-optionLabel::before {
+    background: white;
+  }
+
+  &-radioButtonInput {
+    margin-right: 10px;
+  }
+
+  &-radioButtonInput:focus {
+    outline: none;
+  }
+
+  &-options {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    padding-left: 4px;
+  }
+
+  &-option {
+    margin-top: 4px;
+  }
+}
+
+@media (max-width: $container-tablet-base) {
+  .yxt-SortOptions-option,
+  .yxt-FilterOptions-option {
+    margin: 8px 0px;
+  }
+}
+
+.yxt-SortOptions {
+  &-container {
+    padding-left: 4px;
+  }
+
+  &-fieldSet {
+    margin: 0;
+  }
+
+  &-option {
+    align-items: center;
+    margin-top: 4px;
+    margin-bottom: 0px;
+  }
+
+  &-options {
+    margin-top: 8px;
+    margin-bottom: 0px;
+  }
+
+  &-optionLabel {
+    margin-left: 10px;
+  }
+}
+
+.yxt-Facets-container {
+  width: 100%;
+  padding: 0;
+}
+
+.yxt-FilterBox {
+  &-titleContainer {
+    display: none;
+  }
+
+  &-container {
+    padding: 0;
+  }
+
+  &-filter {
+    padding-top: 8px;
+    margin-top: 0;
+    border-top: none;
+
+    @media (min-width: $container-tablet-base) {
+      margin-top: 4px;
+    }
+  }
+
+  &-apply {
+    margin: 0;
+  }
+}
