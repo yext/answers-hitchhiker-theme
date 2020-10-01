@@ -1,11 +1,11 @@
-if (typeof ComponentManagers !== 'undefined' && ComponentManagers.Facets) {
+if (typeof ComponentDecorators !== 'undefined' && ComponentDecorators.Facets) {
   ANSWERS.addComponent('Facets', {
     container: '#js-answersFacets',
     {{#if verticalKey}}
       verticalKey: '{{{verticalKey}}}',
     {{/if}}
     ...{{{ json componentSettings.Facets }}},
-    ...JsHelpers.getLifecycleMethods(ComponentManagers.Facets)
+    ...JsHelpers.getLifecycleMethods(ComponentDecorators.Facets)
   });
 } else {
   ANSWERS.addComponent('Facets', {

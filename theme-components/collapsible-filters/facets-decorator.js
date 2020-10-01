@@ -1,8 +1,8 @@
 /**
- * FacetsManager is a wrapper around a facets component, and provides
- * life cycle methods required for the collapsible-filters functionality.
+ * FacetsDecorator is a wrapper around a facets component, and provides
+ * life cycle methods required for collapsible-filters functionality.
  */
-class FacetsManager {
+class FacetsDecorator {
   constructor() {
     this.state = {
       previousTop: 0,

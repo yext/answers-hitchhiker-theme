@@ -13,7 +13,7 @@ JsHelpers.clearFacetsPersistentStorage();
 
 const IS_MOBILE = JsHelpers.isMobile();
 
-const ComponentManagers = {};
-{{> templates/vertical-standard/collapsible-filters/facets-manager }}
-ComponentManagers.Facets = new FacetsManager();
+const ComponentDecorators = {};
+{{> theme-components/collapsible-filters/facets-decorator }}
+ComponentDecorators.Facets = new FacetsDecorator();
 {{> templates/vertical-map/collapsible-filters/script }}

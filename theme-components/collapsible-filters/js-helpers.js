@@ -38,16 +38,16 @@ class JsHelpers {
 
   /**
    * Gets the lifecycle methods for a component, using a specific hitchhiker
-   * component manager.
+   * component decorator.
    * The 'this' context of each lifecycle method is the SDK component instance.
    */
-  static getLifecycleMethods(hhComponentManager) {
+  static getLifecycleMethods(hhComponentDecorator) {
     return {
       onCreate: function () {
-        hhComponentManager.onCreate && hhComponentManager.onCreate(this);
+        hhComponentDecorator.onCreate && hhComponentDecorator.onCreate(this);
       },
       onMount: function () {
-        hhComponentManager.onMount && hhComponentManager.onMount(this);
+        hhComponentDecorator.onMount && hhComponentDecorator.onMount(this);
       }
     }
   }
