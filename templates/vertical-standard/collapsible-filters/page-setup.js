@@ -5,9 +5,6 @@
 // of the Facets component. This is a temporary fix until the SDK is patched.
 JsHelpers.clearFacetsPersistentStorage();
 
-// Register the IS_MOBILE constant
-const IS_MOBILE = JsHelpers.isMobile();
-
 // Register the CollapsibleFiltersInteractions class, and instantiate an instance
 // of it, to be called within component config.
 {{> theme-components/collapsible-filters/interactions}}

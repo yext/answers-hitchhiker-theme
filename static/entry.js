@@ -9,3 +9,4 @@ import Formatters from './js/formatters';
 export { Formatters };
 export { getDefaultMapApiKey } from './js/default-map-api-key';
 export { isStaging } from './js/is-staging';
+export { isMobile }  from './js/is-mobile';

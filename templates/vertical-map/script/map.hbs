@@ -1,4 +1,4 @@
-if (typeof IS_MOBILE === 'undefined' || !IS_MOBILE) {
+if (!HitchhikerJS.isMobile()) {
   ANSWERS.addComponent('Map', Object.assign({},
   {
     container: '#js-answersMap',
