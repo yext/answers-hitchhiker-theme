@@ -10,29 +10,9 @@ class FacetsDecorator {
     };
   }
 
-  onCreate(component) {
-    this.disableFacetsWhileLoading(component);
-  }
-
   onMount(component) {
     this.recordFacetsStateOnClick(component);
     this.scrollToPreviousFacetGroup(component);
-  }
-
-  /**
-   * Registers event listeners that disable facets while vertical results
-   * are loading.
-   * @param {FacetsComponent} component 
-   */
-  disableFacetsWhileLoading(component) {
-    ANSWERS.core.globalStorage.on('update', 'vertical-results', data => {
-      const inputEls =
-        component._container.getElementsByClassName('js-yext-filter-option');
-      const disabled = data.searchState === 'search-loading';
-      for (const input of inputEls) {
-        input.disabled = disabled;
-      }
-    });
   }
 
   /**
