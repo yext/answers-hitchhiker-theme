@@ -111,12 +111,12 @@ export function _getProfileFieldAtKeyPath(profile, keypath) {
 }
 
 export function bigDate(profile, keyPath = 'time.start') {
-  const dateString = this._getProfileFieldAtKeyPath(profile, keyPath);
+  const dateString = _getProfileFieldAtKeyPath(profile, keyPath);
   if (!dateString) {
     return null;
   }
 
-  const date = this.betterTime(dateString);
+  const date = betterTime(dateString);
   const locale = document.documentElement.lang.replace('_', '-');
   const time = date.toLocaleString(locale, {
     hour: 'numeric',
@@ -162,8 +162,8 @@ export function dateRange(
   }
 
   const locale = document.documentElement.lang.replace('_', '-');
-  const start = this.betterTime(dateField.start);
-  const end = this.betterTime(dateField.end);
+  const start = betterTime(dateField.start);
+  const end = betterTime(dateField.end);
   const startString = start.toLocaleString(locale, dateFormatOptions);
   let endString = end.toLocaleString(locale, dateFormatOptions);
 
@@ -206,10 +206,10 @@ export function prettyPrintObject(obj) {
         return '';
       }
       if (Array.isArray(obj)) {
-        return obj.map(sub => this.prettyPrintObject(sub)).join('<br>');
+        return obj.map(sub => prettyPrintObject(sub)).join('<br>');
       }
       return Object.entries(obj)
-        .map(([_, val]) => this.prettyPrintObject(val)).join(', ');
+        .map(([_, val]) => prettyPrintObject(val)).join(', ');
     default:
       return '';
   }
@@ -393,13 +393,13 @@ export function openStatus(profile, locale = 'en-US', isTwentyFourHourClock = fa
     return '';
   }
 
-  const days = this._formatHoursForAnswers(profile.hours, profile.timeZoneUtcOffset);
+  const days = _formatHoursForAnswers(profile.hours, profile.timeZoneUtcOffset);
   if (days.length === 0) {
     return '';
   }
 
 
-  const { time, day } = this._calculateYextDayTime(new Date(), profile.timeZoneUtcOffset);
+  const { time, day } = _calculateYextDayTime(new Date(), profile.timeZoneUtcOffset);
 
   /**
    * @type {{days: Object[], time: number, day: string, dayIndex: number }}
@@ -408,31 +408,31 @@ export function openStatus(profile, locale = 'en-US', isTwentyFourHourClock = fa
     days: days,
     time: time,
     day: day,
-    dayIndex: this._dayToInt(day),
+    dayIndex: _dayToInt(day),
   };
 
-  hours.yextDays = this._prepareIntervals(hours);
-  let { status, nextTime, nextDay } = this._getStatus(hours);
+  hours.yextDays = _prepareIntervals(hours);
+  let { status, nextTime, nextDay } = _getStatus(hours);
   hours.nextTime =  nextTime;
   hours.nextDay = nextDay;
   hours.status = status;
 
-  return this._getTodaysMessage({ hoursToday: hours, isTwentyFourHourClock, locale: locale });
+  return _getTodaysMessage({ hoursToday: hours, isTwentyFourHourClock, locale: locale });
 }
 
 export function _prepareIntervals({ days }) { //days is a parsed json of hours.days
   let results = [];
   for (const { intervals, day, dailyHolidayHours } of days) { //iterate through each day within days
     if (dailyHolidayHours) { //prioritize holiday hours over intervals
-      results[this._dayToInt(day)] = {
+      results[_dayToInt(day)] = {
         dayName: day,
-        dayIndex: this._dayToInt(day),
+        dayIndex: _dayToInt(day),
         intervals: dailyHolidayHours.isRegularHours ? intervals : dailyHolidayHours.intervals,
       };
     } else {
-      results[this._dayToInt(day)] = {
+      results[_dayToInt(day)] = {
         dayName: day,
-        dayIndex: this._dayToInt(day),
+        dayIndex: _dayToInt(day),
         intervals: intervals,
       };
     }
@@ -449,25 +449,25 @@ export function _getNextInterval(yextDays, tomorrow) {
   for(let i = 0; i < 7; i++) {
     let index = (tomorrow + i) % 7;
     for (let interval of yextDays[index].intervals) {
-      return {status: "OPENSNEXT", nextTime: interval.start, nextDay: this._intToDay(index)};
+      return {status: "OPENSNEXT", nextTime: interval.start, nextDay: _intToDay(index)};
     }
   }
 }
 
 //the idea is to get the YextDay objects for yesterday and today. we ask yesterday
-//if it has an interval that overlaps into today (5pm - 3am) using this._isOpenYesterday.
+//if it has an interval that overlaps into today (5pm - 3am) using _isOpenYesterday.
 //we then ask today if it has an interval that is open at the current time using isOpen.
 //is isOpenYesterday(yesterday) is true, then we return CLOSESTODAY with the interval overlapping from yesterday.
 //if today.isOpen is true, we check if it is 24 hours, if not we return CLOSESTODAY at the interval returned from isOpen.
 //else the store is closed and either opens sometime later today or at the next open interval sometime later in the week
 export function _getStatus({ time, day, yextDays }) {
   const negMod = (n, m) => ((n % m) + m) % m; // JavaScript doesnt support modulo on negative numbers
-  let yesterday = this._dayToInt(day) - 1;
+  let yesterday = _dayToInt(day) - 1;
   yesterday = negMod(yesterday, 7);
-  let today = this._dayToInt(day);
-  let yesterdayIsOpen = this._isOpenYesterday(yextDays[yesterday].intervals, time);
-  let todayIsOpen = this._isOpen(yextDays[today].intervals, time);
-  let hasOpenIntervalToday = this._hasOpenIntervalToday(yextDays[today].intervals, time);
+  let today = _dayToInt(day);
+  let yesterdayIsOpen = _isOpenYesterday(yextDays[yesterday].intervals, time);
+  let todayIsOpen = _isOpen(yextDays[today].intervals, time);
+  let hasOpenIntervalToday = _hasOpenIntervalToday(yextDays[today].intervals, time);
 
   if (yesterdayIsOpen.isOpen) {
     //check if any hours from yesterday are valid
@@ -475,7 +475,7 @@ export function _getStatus({ time, day, yextDays }) {
     return { status: "CLOSESTODAY", nextTime: yesterdayIsOpen.interval.end, dayWithHours: yextDays[yesterday] };
   } else if (todayIsOpen.isOpen) {
     //check if open now
-    if (this._is24Hours(yextDays[today].intervals).is24) {
+    if (_is24Hours(yextDays[today].intervals).is24) {
       return { status: "OPEN24", dayWithHours: yextDays[today]};
     }
     //if not 24 hours, closes later today at the current intervals end time
@@ -485,7 +485,7 @@ export function _getStatus({ time, day, yextDays }) {
     return { status: "OPENSTODAY", nextTime: hasOpenIntervalToday.interval.start, dayWithHours: yextDays[today] };
   } else {
     //check if closed, get next available interval. if no intervals available return closed status without nextTime or nextDay
-    let nextInfo = this._getNextInterval(yextDays, today + 1);
+    let nextInfo = _getNextInterval(yextDays, today + 1);
     if (nextInfo) {
       nextInfo.dayWithHours = yextDays[today];
     }
@@ -546,7 +546,7 @@ export function _dayToInt(d) {
     case "FRIDAY": return 5;
     case "SATURDAY": return 6;
   }
-  throw "[this._dayToInt]: Invalid Day: " + d;
+  throw "[_dayToInt]: Invalid Day: " + d;
 }
 
 export function _intToDay(i) {
@@ -594,14 +594,14 @@ export function _formatHoursForAnswers(days, timezone) {
       delete formattedDays[day];
     } else {
       const currentDayName = day.toUpperCase();
-      const numberTimezone = this._convertTimezoneToNumber(timezone);
-      const userDateToEntityDate = this._getDateWithUTCOffset(numberTimezone);
-      const dayNameToDate = this._getNextDayOfWeek(userDateToEntityDate, daysOfWeek.indexOf(currentDayName));
+      const numberTimezone = _convertTimezoneToNumber(timezone);
+      const userDateToEntityDate = _getDateWithUTCOffset(numberTimezone);
+      const dayNameToDate = _getNextDayOfWeek(userDateToEntityDate, daysOfWeek.indexOf(currentDayName));
 
       for (let holiday of holidayHours) {
         let holidayDate = new Date(holiday.date + 'T00:00:00.000');
         if (dayNameToDate.toDateString() == holidayDate.toDateString()) {
-          holiday.intervals = this._formatIntervals(holiday.openIntervals);
+          holiday.intervals = _formatIntervals(holiday.openIntervals);
           formattedDays[day].dailyHolidayHours = holiday;
         }
       }
@@ -711,15 +711,15 @@ export function _calculateYextDayTime(now, timezoneUtcOffset) {
   const localUtcOffset = now.getTimezoneOffset() * 60 * 1000;
 
   // Get the entity's offset in millis
-  const entityUtcOffsetInHours = this._convertTimezoneToNumber(timezoneUtcOffset);
+  const entityUtcOffsetInHours = _convertTimezoneToNumber(timezoneUtcOffset);
   const entityUtcOffsetMillis = entityUtcOffsetInHours * 60 * 60 * 1000;
 
   // If a valid offset was found, set the today value to a new date that accounts for the entity & local UTC offsets
   if (entityUtcOffsetMillis !== 0) {
     now = new Date(now.valueOf() + entityUtcOffsetMillis + localUtcOffset);
   }
-  const time = this._getYextTime(now);
-  const day = this._getYextDay(now);
+  const time = _getYextTime(now);
+  const day = _getYextDay(now);
 
   return {time, day};
 }
@@ -755,12 +755,12 @@ export function _translate(text, translationData) {
 export function _getTodaysMessage({ hoursToday, isTwentyFourHourClock, locale }) {
   let time, day;
   const translationData = provideOpenStatusTranslation(locale);
-  const translate = text => this._translate(text, translationData);
+  const translate = text => _translate(text, translationData);
   switch (hoursToday.status) {
     case 'OPEN24':
       return `<span class="Hours-statusText">${translate('Open 24 Hours')}</span>`;
     case 'OPENSTODAY':
-      time = this._getTimeString(hoursToday.nextTime, isTwentyFourHourClock, locale);
+      time = _getTimeString(hoursToday.nextTime, isTwentyFourHourClock, locale);
       return `
           <span class="Hours-statusText">
             <span class="Hours-statusText--current">
@@ -770,7 +770,7 @@ export function _getTodaysMessage({ hoursToday, isTwentyFourHourClock, locale })
             </span>
           </span>`;
     case 'OPENSNEXT':
-      time = this._getTimeString(hoursToday.nextTime, isTwentyFourHourClock, locale);
+      time = _getTimeString(hoursToday.nextTime, isTwentyFourHourClock, locale);
       day = translate(hoursToday.nextDay);
       return `
           <span class="Hours-statusText">
@@ -785,7 +785,7 @@ export function _getTodaysMessage({ hoursToday, isTwentyFourHourClock, locale })
             ${day}
           </span>`;
     case 'CLOSESTODAY':
-      time = this._getTimeString(hoursToday.nextTime, isTwentyFourHourClock, locale);
+      time = _getTimeString(hoursToday.nextTime, isTwentyFourHourClock, locale);
       return `
           <span class="Hours-statusText">
             <span class="Hours-statusText--current">
@@ -796,7 +796,7 @@ export function _getTodaysMessage({ hoursToday, isTwentyFourHourClock, locale })
             ${time}
           </span>`;
     case 'CLOSESNEXT':
-      time = this._getTimeString(hoursToday.nextTime, isTwentyFourHourClock, locale);
+      time = _getTimeString(hoursToday.nextTime, isTwentyFourHourClock, locale);
       day = translate(hoursToday.nextDay);
       return `
           <span class="Hours-statusText">
