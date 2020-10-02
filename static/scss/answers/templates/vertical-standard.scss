@@ -6,8 +6,10 @@
 
   &-resultsWrapper
   {
+    display: flex;
     flex-grow: 1;
     padding-top: calc(var(--yxt-base-spacing) * 2);
+    flex-direction: column;
 
     .yxt-ResultsHeader {
       padding: 0 var(--yxt-results-header-spacing);

@@ -1,0 +1,78 @@
+@mixin CollapsibleFiltersOverrides {
+  .yxt-FilterOptions {
+    &-fieldSet {
+      margin: 0;
+    }
+  
+    &-optionLabel::before {
+      background: white;
+    }
+  
+    &-radioButtonInput {
+      margin-right: 10px;
+    }
+  
+    &-options {
+      margin-top: 4px;
+      margin-bottom: 4px;
+      padding-left: 4px;
+    }
+  
+    &-option {
+      margin-top: 4px;
+    }
+  }
+  
+  @media (max-width: $container-tablet-base) {
+    .yxt-SortOptions-option,
+    .yxt-FilterOptions-option {
+      margin: 8px 0px;
+    }
+  }
+  
+  .yxt-SortOptions {
+    &-container {
+      padding-left: 4px;
+    }
+  
+    &-fieldSet {
+      margin: 0;
+    }
+  
+    &-option {
+      align-items: center;
+      margin-top: 4px;
+      margin-bottom: 0px;
+    }
+  
+    &-options {
+      margin-top: 8px;
+      margin-bottom: 0px;
+    }
+  
+    &-optionLabel {
+      margin-left: 10px;
+    }
+  }
+  
+  .yxt-Facets-container {
+    width: 100%;
+    padding: 0;
+  }
+  
+  .yxt-FilterBox {
+    &-titleContainer {
+      display: none;
+    }
+  
+    &-filter {
+      margin-top: 8px;
+      border-top: none;
+  
+      @media (min-width: $container-tablet-base) {
+        margin-top: 12px;
+      }
+    }
+  }
+  
+}

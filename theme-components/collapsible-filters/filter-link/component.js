@@ -31,6 +31,7 @@ class FilterLink extends ANSWERS.Component {
       ...this.getState(),
       ...data,
       isPanelDisplayed: data.isPanelDisplayed || this.getState('isPanelDisplayed'),
+      searchComplete: verticalResults.searchState === 'search-complete',
       isNoResults: verticalResults.resultsContext === 'no-results',
       hasAppliedFilters: this.getAllFilterNodes().length > 0
     });

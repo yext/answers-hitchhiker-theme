@@ -1,0 +1,28 @@
+.Hitchhiker-ViewResultsButton {
+  width: 100%;
+  font-family: var(--yxt-font-family);
+  font-size: var(--yxt-font-size-md);
+  line-height: var(--yxt-line-height-xs);
+  font-weight: var(--yxt-font-weight-semibold);
+  font-style: normal;
+  color: var(--yxt-color-brand-white);
+  border: 0;
+  border-radius: 3px;
+  background: var(--yxt-color-brand-primary);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  cursor: pointer;
+
+  &:not(:disabled) {
+    &:hover,
+    &:focus {
+      background: padding-box var(--hh-view-results-button-hover-color);
+    }
+
+    &:focus {
+      border: var(--yxt-button-focus-border-size) double var(--hh-view-results-button-hover-color);
+    }
+  }
+}

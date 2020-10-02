@@ -1,0 +1,41 @@
+.CollapsibleFilters {
+  &.AnswersVerticalMap {
+    @include CollapsibleFilters;
+
+    .CollapsibleFilters-inactive {
+      display: none;
+    }
+
+    @media (min-width: $container-tablet-base) {
+      .Answers-resultsHeader {
+        top: 0;
+      }
+    }
+  }
+
+  &.AnswersVerticalStandard,
+  &.AnswersVerticalGrid {
+    @media (max-width: $container-tablet-base) {
+      @include CollapsibleFilters;
+
+      .CollapsibleFilters-inactive {
+        display: none;
+      }
+
+      .Answers-resultsWrapper {
+        padding-top: 0;
+      }
+
+      .yxt-SpellCheck {
+        padding-top: calc(var(--yxt-base-spacing) * 2);
+      }
+    }
+
+    @media (min-width: $container-tablet-base) {
+      .Answers-filterLink,
+      .Answers-viewResultsButton {
+        display: none;
+      }
+    }
+  }
+}

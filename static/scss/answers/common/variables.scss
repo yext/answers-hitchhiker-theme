@@ -26,3 +26,5 @@ $container-large-desktop-base: 1170px;
 $container-tablet: ($container-tablet-base + $grid-gutter-width);
 $container-desktop: ($container-desktop-base + $grid-gutter-width);
 $container-large-desktop: ($container-large-desktop-base + $grid-gutter-width);
+
+$nav-wrapper-z-index: 99;
