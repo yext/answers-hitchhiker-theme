@@ -1,4 +1,4 @@
-const DEFAULT_CONFIG = {
+const DEFAULT_FILTER_LINK_CONFIG = {
   changeFiltersText: 'sorts and filters',
   resetFiltersText: 'reset filters',
   clearSearchText: 'clear search',
@@ -14,7 +14,7 @@ const DEFAULT_CONFIG = {
  */
 class FilterLink extends ANSWERS.Component {
   constructor(config, systemConfig = {}) {
-    super({ ...DEFAULT_CONFIG, ...config }, systemConfig);
+    super({ ...DEFAULT_FILTER_LINK_CONFIG, ...config }, systemConfig);
     this.core.globalStorage.on('update', 'vertical-results', data => {
       if (data.searchState === 'search-complete') {
         this.setState();

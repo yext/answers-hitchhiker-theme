@@ -1,4 +1,4 @@
-const DEFAULT_CONFIG = {
+const DEFAULT_VIEW_RESULTS_BUTTON_CONFIG = {
   onClick: function() {}
 };
 
@@ -9,7 +9,7 @@ const DEFAULT_CONFIG = {
  */
 class ViewResultsButton extends ANSWERS.Component {
   constructor(config = {}, systemConfig = {}) {
-    super({ ...DEFAULT_CONFIG, ...config }, systemConfig);
+    super({ ...DEFAULT_VIEW_RESULTS_BUTTON_CONFIG, ...config }, systemConfig);
     this.core.globalStorage.on('update', 'vertical-results', data => {
       if (data.searchState === 'search-complete') {
         this.setState(data);
