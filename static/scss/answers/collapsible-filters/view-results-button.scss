@@ -16,8 +16,6 @@
   cursor: pointer;
 
   &:not(:disabled) {
-    cursor: pointer;
-
     &:hover,
     &:focus {
       background: padding-box var(--hh-view-results-button-hover-color);
