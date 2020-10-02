@@ -1,11 +1,8 @@
+// Overrides for SDK filter components
+@import "sdk-filter-overrides";
+
 @mixin CollapsibleFilters {
-  // Overrides for SDK filter components
-  @import "sdk-filter-overrides";
-
-  // Styling for Theme components
-  @import "filter-link";
-  @import "view-results-button";
-
+  @include CollapsibleFilterOverrides;
   .Answers {
     &-sortOptions {
       padding: 0;
