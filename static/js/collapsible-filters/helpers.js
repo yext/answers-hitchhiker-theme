@@ -7,7 +7,10 @@ export default class Helpers {
     ANSWERS.core.persistentStorage.set('query', '');
   }
 
-  static removeAllFilterNodes() {
+  /**
+   * Resets all filters in the SDK.
+   */
+  static resetAllFilters() {
     const filterNodes = ANSWERS.core.filterRegistry
       .getAllFilterNodes()
       .filter(fn => fn.getFilter().getFilterKey());

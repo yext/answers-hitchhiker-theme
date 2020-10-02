@@ -1,6 +1,15 @@
+const DEFAULT_CONFIG = {
+  onClick: function() {}
+};
+
+/**
+ * ViewResultsButton is a button, designed for CollapsibleFilters, that
+ * allows you to collapse the filters view. The implementation of what
+ * "collapse the filters view" means is passed in as the onClick config.
+ */
 class ViewResultsButton extends ANSWERS.Component {
   constructor(config = {}, systemConfig = {}) {
-    super(config, systemConfig);
+    super({ ...DEFAULT_CONFIG, ...config }, systemConfig);
     this.core.globalStorage.on('update', 'vertical-results', data => {
       if (data.searchState === 'search-complete') {
         this.setState(data);
@@ -11,9 +20,7 @@ class ViewResultsButton extends ANSWERS.Component {
   onMount () {
     const buttonEl = this._container.querySelector('.yxt-ViewResultsButton');
     buttonEl && buttonEl.addEventListener('click', () => {
-      if (typeof this._config.onClick === 'function') {
-        this._config.onClick.bind(this)();
-      }
+      this._config.onClick.bind(this)();
     });
   }
 

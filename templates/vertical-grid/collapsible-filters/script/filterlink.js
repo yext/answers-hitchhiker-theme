@@ -3,7 +3,7 @@ const { CollapsibleFilters } = require("../../../../static/entry");
 ANSWERS.addComponent('FilterLink', {
   container: '#js-answersFilterLink',
   onClickResetFilters: function() {
-    CollapsibleFilters.Helpers.removeAllFilterNodes();
+    CollapsibleFilters.Helpers.resetAllFilters();
     CollapsibleFilters.Helpers.verticalSearch({ useFacets: true });
   },
   onClickChangeFilters: () => {

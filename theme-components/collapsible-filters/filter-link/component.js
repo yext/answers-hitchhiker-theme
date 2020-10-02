@@ -1,9 +1,17 @@
 const DEFAULT_CONFIG = {
   changeFiltersText: 'sorts and filters',
   resetFiltersText: 'reset filters',
-  clearSearchText: 'clear search'
-}
+  clearSearchText: 'clear search',
+  onClickClearSearch: function() {},
+  onClickResetFilters: function() {},
+  onClickChangeFilters: function() {}
+};
 
+/**
+ * FilterLink is a button used for displaying different text depending on the
+ * collapsible filters state. The behavior on click is determined by config
+ * passed into the component.
+ */
 class FilterLink extends ANSWERS.Component {
   constructor(config, systemConfig = {}) {
     super({ ...DEFAULT_CONFIG, ...config }, systemConfig);
@@ -12,15 +20,9 @@ class FilterLink extends ANSWERS.Component {
         this.setState();
       }
     });
-    this.core.globalStorage.on('update', 'hh-filter-panel', data => {
-      this.setState(data);
-    });
-    this.onClickClearSearch = this._config.onClickClearSearch || function() {};
-    this.onClickClearSearch = this.onClickClearSearch.bind(this);
-    this.onClickResetFilters = this._config.onClickResetFilters || function() {};
-    this.onClickResetFilters = this.onClickResetFilters.bind(this);
-    this.onClickChangeFilters = this._config.onClickChangeFilters || function() {};
-    this.onClickChangeFilters = this.onClickChangeFilters.bind(this);
+    this.onClickClearSearch = this._config.onClickClearSearch.bind(this);
+    this.onClickResetFilters = this._config.onClickResetFilters.bind(this);
+    this.onClickChangeFilters = this._config.onClickChangeFilters.bind(this);
   }
 
   setState(data = {}) {

@@ -10,6 +10,10 @@ export default class FacetsDecorator {
     };
   }
 
+  /**
+   * The decoration given to the FacetsComponent's onMount.
+   * @param {FacetsComponent} component 
+   */
   onMount(component) {
     this.recordFacetsStateOnClick(component);
     this.scrollToPreviousFacetGroup(component);

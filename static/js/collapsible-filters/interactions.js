@@ -52,14 +52,14 @@ export default class Interactions {
    * Hide the filters view, and display the results view.
    */
   collapseFilters () {
-    this._toggleFilters(true);
+    this._toggleCollapsibleFilters(true);
   }
 
   /**
    * Hide the results view, and display the filters view.
    */
   expandFilters() {
-    this._toggleFilters(false);
+    this._toggleCollapsibleFilters(false);
   }
 
   toggleInactiveClass(el, isInactive) {
@@ -73,17 +73,21 @@ export default class Interactions {
     }
   }
 
-  _toggleFilters(collapseFilters) {
+  /**
+   * Either collapses or expands the collapsible filters panel.
+   * @param {boolean} shouldCollapseFilters 
+   */
+  _toggleCollapsibleFilters(shouldCollapseFilters) {
     for (const el of this.filterEls) {
-      this.toggleInactiveClass(el, collapseFilters);
+      this.toggleInactiveClass(el, shouldCollapseFilters);
     }
     for (const el of this.resultEls) {
-      this.toggleInactiveClass(el, !collapseFilters);
+      this.toggleInactiveClass(el, !shouldCollapseFilters);
     }
-    this.toggleInactiveClass(this.viewResultsButton, collapseFilters);
+    this.toggleInactiveClass(this.viewResultsButton, shouldCollapseFilters);
     this.scrollToTop();
-    ANSWERS.core.globalStorage.set('hh-filter-panel', {
-      panelIsDisplayed: !collapseFilters
+    ANSWERS.components.getActiveComponent('FilterLink').setState({
+      panelIsDisplayed: !shouldCollapseFilters
     });
   }
 
