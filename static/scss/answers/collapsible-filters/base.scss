@@ -26,10 +26,10 @@
   &-viewResultsButton {
     position: fixed;
     width: 50%;
-    bottom: 0;
-    background-color: var(--hh-answers-background-color);
-    padding: 4px 8px;
     left: 0;
+    bottom: 0;
+    padding: 4px 8px;
+    background-color: var(--hh-answers-background-color);
 
     @media (max-width: $container-tablet-base) {
       width: 100%;
@@ -37,9 +37,9 @@
   }
 
   &-filtersWrapper {
-    padding-top: var(--yxt-base-spacing-sm);
-    padding-left: var(--yxt-base-spacing);
-    padding-right: var(--yxt-base-spacing);
-    padding-bottom: calc(3 * var(--yxt-base-spacing));
+    margin-top: var(--yxt-base-spacing-sm);
+    margin-left: var(--yxt-base-spacing);
+    margin-right: var(--yxt-base-spacing);
+    margin-bottom: calc(3 * var(--yxt-base-spacing));
   }
 }
