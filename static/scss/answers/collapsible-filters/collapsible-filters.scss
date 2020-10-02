@@ -1,45 +1,47 @@
-// Overrides for SDK filter components
-@import "sdk-filter-overrides";
+@mixin CollapsibleFilters {
+  // Overrides for SDK filter components
+  @import "sdk-filter-overrides";
 
-// Styling for Theme components
-@import "filter-link";
-@import "view-results-button";
+  // Styling for Theme components
+  @import "filter-link";
+  @import "view-results-button";
 
-.Answers {
-  &-sortOptions {
-    padding: 0;
-  }
-
-  &-resultsHeader {
-    position: sticky;
-    top: var(--hh-nav-wrapper-height);
-    background: var(--hh-answers-background-color);
-    border-bottom: var(--yxt-border-default);
-    z-index: $nav-wrapper-z-index;
-  }
-
-  &-filterLink {
-    margin-left: auto;
-    margin-right: 14px;
-  }
-
-  &-viewResultsButton {
-    position: fixed;
-    width: 50%;
-    left: 0;
-    bottom: 0;
-    padding: 4px 8px;
-    background-color: var(--hh-answers-background-color);
-
-    @media (max-width: $container-tablet-base) {
-      width: 100%;
+  .Answers {
+    &-sortOptions {
+      padding: 0;
     }
-  }
 
-  &-filtersWrapper {
-    margin-top: var(--yxt-base-spacing-sm);
-    margin-left: var(--yxt-base-spacing);
-    margin-right: var(--yxt-base-spacing);
-    margin-bottom: calc(3 * var(--yxt-base-spacing));
+    &-resultsHeader {
+      position: sticky;
+      top: var(--hh-nav-wrapper-height);
+      background: var(--hh-answers-background-color);
+      border-bottom: var(--yxt-border-default);
+      z-index: $nav-wrapper-z-index;
+    }
+
+    &-filterLink {
+      margin-left: auto;
+      margin-right: 14px;
+    }
+
+    &-viewResultsButton {
+      position: fixed;
+      width: 50%;
+      left: 0;
+      bottom: 0;
+      padding: 4px 8px;
+      background-color: var(--hh-answers-background-color);
+
+      @media (max-width: $container-tablet-base) {
+        width: 100%;
+      }
+    }
+
+    &-filtersWrapper {
+      margin-top: var(--yxt-base-spacing-sm);
+      margin-left: var(--yxt-base-spacing);
+      margin-right: var(--yxt-base-spacing);
+      margin-bottom: calc(3 * var(--yxt-base-spacing));
+    }
   }
 }
