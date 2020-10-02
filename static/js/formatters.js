@@ -851,17 +851,11 @@ export default class Formatters {
     let time = new Date();
     time.setHours(Math.floor(yextTime / 100));
     time.setMinutes(yextTime % 100);
-
-    if (typeof isTwentyFourHourClock === 'undefined'){
-      return time.toLocaleString(locale, {
-        hour: 'numeric',
-        minute: 'numeric'
-      });
-    }
+    
     return time.toLocaleString(locale, {
       hour: 'numeric',
       minute: 'numeric',
-      hourCycle: isTwentyFourHourClock ? 'h24' : 'h12'
+      ...isTwentyFourHourClock && { hourCycle: isTwentyFourHourClock ? 'h24' : 'h12' }
     });
   }
 
