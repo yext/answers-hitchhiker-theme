@@ -18,7 +18,7 @@ class ViewResultsButton extends ANSWERS.Component {
   }
 
   onMount () {
-    const buttonEl = this._container.querySelector('.yxt-ViewResultsButton');
+    const buttonEl = this._container.querySelector('.Hitchhiker-ViewResultsButton');
     buttonEl && buttonEl.addEventListener('click', () => {
       this._config.onClick.bind(this)();
     });

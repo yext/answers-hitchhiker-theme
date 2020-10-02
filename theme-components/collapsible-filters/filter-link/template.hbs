@@ -1,23 +1,23 @@
 {{#if isNoResults}}
   {{#if hasAppliedFilters}}
-    <button class="yxt-FilterLink js-resetFilters">
+    <button class="Hitchhiker-FilterLink js-resetFilters">
       {{_config.resetFiltersText}}
     </button>
   {{else}}
-    <button class="yxt-FilterLink js-clearSearch">
+    <button class="Hitchhiker-FilterLink js-clearSearch">
       {{_config.clearSearchText}}
     </button>
   {{/if}}
 {{else}}
   {{#if panelIsDisplayed}}
     {{#if hasAppliedFilters}}
-      <button class="yxt-FilterLink js-resetFilters">
+      <button class="Hitchhiker-FilterLink js-resetFilters">
         {{_config.resetFiltersText}}
       </button>
     {{/if}}
   {{else}}
     {{#if searchComplete}}
-      <button class="yxt-FilterLink js-changeFilters">
+      <button class="Hitchhiker-FilterLink js-changeFilters">
         {{_config.changeFiltersText}}
       </button>
     {{/if}}
