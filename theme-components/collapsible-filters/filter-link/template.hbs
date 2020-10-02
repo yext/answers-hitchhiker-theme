@@ -16,8 +16,10 @@
       </button>
     {{/if}}
   {{else}}
-    <button class="yxt-FilterLink js-changeFilters">
-      {{_config.changeFiltersText}}
-    </button>
+    {{#if searchComplete}}
+      <button class="yxt-FilterLink js-changeFilters">
+        {{_config.changeFiltersText}}
+      </button>
+    {{/if}}
   {{/if}}
 {{/if}}
