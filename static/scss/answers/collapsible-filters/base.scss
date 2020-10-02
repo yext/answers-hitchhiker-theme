@@ -1,42 +1,44 @@
 // Overrides for SDK filter components
-@import 'sdk-filter-overrides';
+@import "sdk-filter-overrides";
 
 // Styling for Theme components
-@import 'filter-link';
-@import 'view-results-button';
+@import "filter-link";
+@import "view-results-button";
 
-.Answers-sortOptions {
-  padding: 0;
-}
-
-.Answers-resultsHeader {
-  position: sticky;
-  top: var(--hh-nav-wrapper-height);
-  background: var(--hh-answers-background-color);
-  border-bottom: var(--yxt-border-default);
-  z-index: $nav-wrapper-z-index;
-}
-
-.Answers-filterLink {
-  margin-left: auto;
-  margin-right: 14px;
-}
-
-.Answers-viewResultsButton {
-  position: fixed;
-  width: 50%;
-  bottom: 0;
-  background-color: var(--hh-answers-background-color);
-  padding: 4px 8px;
-  left: 0;
-
-  @media (max-width: $container-tablet-base) {
-    width: 100%;
+.Answers {
+  &-sortOptions {
+    padding: 0;
   }
-}
 
-.Answers-filtersWrapper {
-  padding-left: var(--yxt-base-spacing);
-  padding-right: var(--yxt-base-spacing);
-  padding-bottom: calc(3 * var(--yxt-base-spacing));
+  &-resultsHeader {
+    position: sticky;
+    top: var(--hh-nav-wrapper-height);
+    background: var(--hh-answers-background-color);
+    border-bottom: var(--yxt-border-default);
+    z-index: $nav-wrapper-z-index;
+  }
+
+  &-filterLink {
+    margin-left: auto;
+    margin-right: 14px;
+  }
+
+  &-viewResultsButton {
+    position: fixed;
+    width: 50%;
+    bottom: 0;
+    background-color: var(--hh-answers-background-color);
+    padding: 4px 8px;
+    left: 0;
+
+    @media (max-width: $container-tablet-base) {
+      width: 100%;
+    }
+  }
+
+  &-filtersWrapper {
+    padding-left: var(--yxt-base-spacing);
+    padding-right: var(--yxt-base-spacing);
+    padding-bottom: calc(3 * var(--yxt-base-spacing));
+  }
 }
