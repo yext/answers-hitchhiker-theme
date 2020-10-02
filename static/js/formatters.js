@@ -391,15 +391,16 @@ export default class Formatters {
    * Returns a string, a formatted representation of the open hours status
    * for the given profile.
    * @param {Object} profile The profile information of the entity
-   * @param {String} locale The locale for the time string
+   * @param {String} key Indicates which profile property to use for hours
    * @param {boolean} isTwentyFourHourClock Use 24 hour vs 12 hour formatting for time string
+   * @param {String} locale The locale for the time string
    */
-  static openStatus(profile, locale = 'en-US', isTwentyFourHourClock = false) {
-    if (!profile.hours) {
+  static openStatus(profile, key = 'hours', isTwentyFourHourClock = false, locale = 'en-US') {
+    if (!profile[key]) {
       return '';
     }
 
-    const days = this._formatHoursForAnswers(profile.hours, profile.timeZoneUtcOffset);
+    const days = this._formatHoursForAnswers(profile[key], profile.timeZoneUtcOffset);
     if (days.length === 0) {
       return '';
     }
