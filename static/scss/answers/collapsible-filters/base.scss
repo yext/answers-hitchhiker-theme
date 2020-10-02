@@ -36,7 +36,7 @@
   bottom: 0;
   z-index: 100;
   background-color: var(--hh-answers-background-color);
-  padding: 0px 8px var(--hh-view-results-button-padding-top);
+  padding: var(--hh-view-results-button-vertical-padding) 8px;
   left: 0;
 
   @media (max-width: $container-tablet-base) {
@@ -47,8 +47,5 @@
 .Answers-filtersWrapper {
   padding-left: 16px;
   padding-right: 16px;
-
-  @include bplte(xs) {
-    margin-bottom: calc(var(--hh-view-results-button-height) + var(--hh-view-results-button-padding-top));
-  }
+  padding-bottom: calc(var(--hh-view-results-button-height) + 2 * var(--hh-view-results-button-vertical-padding));
 }
