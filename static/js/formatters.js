@@ -412,7 +412,7 @@ export default class Formatters {
    * @param {String} locale The locale for the time string
    * @param {boolean} isTwentyFourHourClock Use 24 hour vs 12 hour formatting for time string
    */
-  static openStatus(profile, locale, isTwentyFourHourClock = false) {
+  static openStatus(profile, locale, isTwentyFourHourClock) {
     if (!profile.hours) {
       return '';
     }
@@ -846,16 +846,22 @@ export default class Formatters {
     }
   }
 
-  static _getTimeString(yextTime, twentyFourHourClock, locale = 'en-US') {
+  static _getTimeString(yextTime, isTwentyFourHourClock, locale = 'en-US') {
     let time = new Date();
     time.setHours(Math.floor(yextTime / 100));
     time.setMinutes(yextTime % 100);
 
-    return time.toLocaleString(locale, {
-      hour: 'numeric',
-      minute: 'numeric',
-      hourCycle: twentyFourHourClock ? 'h24' : 'h12'
-    });
+
+    return isTwentyFourHourClock
+      ? time.toLocaleString(locale, {
+          hour: 'numeric',
+          minute: 'numeric',
+          hourCycle: 'h24' 
+        })
+      : time.toLocaleString(locale, {
+          hour: 'numeric',
+          minute: 'numeric'
+        });
   }
 
   /**
