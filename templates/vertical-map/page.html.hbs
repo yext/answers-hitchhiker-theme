@@ -25,17 +25,17 @@
     </div>
     <div class="Answers-resultsWrapper">
       <div class="Answers-resultsColumn">
+        <div class="Answers-resultsHeader js-answersResultsHeader">
+          {{> templates/vertical-map/markup/verticalresultscount }}
+          {{> templates/vertical-map/markup/appliedfilters }}
+          {{!-- {{> templates/vertical-map/collapsible-filters/markup }} --}}
+        </div>
         <!-- Uncomment the following div if you want to include filters, facets, or sort options  -->
         {{!-- <div class="Answers-filtersWrapper js-answersFiltersWrapper"> --}}
           {{!-- {{> templates/vertical-map/markup/sortoptions }} --}}
           {{!-- {{> templates/vertical-map/markup/facets }} --}}
           {{!-- {{> templates/vertical-map/markup/filterbox }} --}}
         {{!-- </div> --}}
-        <div class="Answers-resultsHeader js-answersResultsHeader">
-          {{> templates/vertical-map/markup/verticalresultscount }}
-          {{> templates/vertical-map/markup/appliedfilters }}
-          {{!-- {{> templates/vertical-map/collapsible-filters/markup }} --}}
-        </div>
         <div class="Answers-results js-answersResults">
           {{> templates/vertical-map/markup/spellcheck }}          
           {{> templates/vertical-map/markup/verticalresults }}
