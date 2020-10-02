@@ -5,6 +5,10 @@
 @import 'filter-link';
 @import 'view-results-button';
 
+.Answers-sortOptions {
+  padding: 0;
+}
+
 .Answers-resultsHeader {
   position: sticky;
   top: var(--hh-nav-wrapper-height);
