@@ -1,10 +1,10 @@
 .CollapsibleFilters {
-  .CollapsibleFilters-inactive {
-    display: none;
-  }
-
   &.AnswersVerticalMap {
     @import "base.scss";
+
+    .CollapsibleFilters-inactive {
+      display: none;
+    }
 
     @media (min-width: $container-tablet-base) {
       .Answers-resultsHeader {
@@ -17,6 +17,10 @@
   &.AnswersVerticalGrid {
     @media (max-width: $container-tablet-base) {
       @import "base.scss";
+
+      .CollapsibleFilters-inactive {
+        display: none;
+      }
 
       .Answers-resultsWrapper {
         padding-top: 0;
