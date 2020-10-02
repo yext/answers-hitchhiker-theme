@@ -1,23 +1,23 @@
-// Register the JsHelpers class which contains static helpers
-{{> theme-components/collapsible-filters/js-helpers}}
+// For signaling collapsible filters specific behavior in components.
+const IS_COLLAPSIBLE_FILTERS = true;
 
-// We currently do not support Facets on load, despite the appearance
-// of the Facets component. This is a temporary fix until the SDK is patched.
-JsHelpers.clearFacetsPersistentStorage();
+// The SDK does not support Facets on load, however the Facets
+// component interacts with persistent storage in a way that suggests
+// that it does. This is a temporary fix until the SDK is patched.
+CollapsibleFilters.Helpers.clearFacetsPersistentStorage();
 
 // Register the CollapsibleFiltersInteractions class, and instantiate an instance
 // of it, to be called within component config.
-{{> theme-components/collapsible-filters/interactions}}
-const pageInteractions = new CollapsibleFiltersInteractions({
+const collapsibleFiltersInteractions = new CollapsibleFilters.Interactions({
   filterEls: document.querySelectorAll('.js-answersFiltersWrapper'),
   resultEls: document.querySelectorAll('.js-answersResults')
 });
 // When a search is made with the searchbar, collapse the filters.
-pageInteractions.registerCollapseFiltersOnSearchbarSearch();
+collapsibleFiltersInteractions.registerCollapseFiltersOnSearchbarSearch();
 
-const ComponentDecorators = {};
-{{> theme-components/collapsible-filters/facets-decorator }}
-ComponentDecorators.Facets = new FacetsDecorator();
+// Register an instance of CollapsibleFilters.FacetsDecorator,
+// to decorate the Facets component with
+const facetsDecorator = new CollapsibleFilters.FacetsDecorator();
 
 // Register the theme components used in CollapsibleFilters, and
 // add them to the page with ANSWERS.addComponent()

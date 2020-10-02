@@ -10,3 +10,7 @@ export { Formatters };
 export { getDefaultMapApiKey } from './js/default-map-api-key';
 export { isStaging } from './js/is-staging';
 export { isMobile }  from 'is-mobile';
+
+import CollapsibleFilters from './js/collapsible-filters';
+export { CollapsibleFilters };
+global.CollapsibleFilters = CollapsibleFilters;

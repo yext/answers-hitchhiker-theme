@@ -2,7 +2,7 @@
  * FacetsDecorator is a wrapper around a facets component, and provides
  * life cycle methods required for collapsible-filters functionality.
  */
-class FacetsDecorator {
+export default class FacetsDecorator {
   constructor() {
     this.state = {
       previousTop: 0,
@@ -45,8 +45,19 @@ class FacetsDecorator {
     if (facetGroupEl) {
       const downwardScrollNeeded =
         facetGroupEl.getBoundingClientRect().top - this.state.previousTop;
-      JsHelpers.scrollDown(downwardScrollNeeded);
+      this.scrollDown(downwardScrollNeeded);
       this.state.previousFacetLabel = null;
     }
+  }
+
+
+  /**
+   * Scroll the screen down a certain distance.
+   * @param {number} distance 
+   */
+  scrollDown (distance) {
+    window.scroll({
+      top: window.scrollY + distance
+    });
   }
 }

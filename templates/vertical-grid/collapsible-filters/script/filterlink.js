@@ -1,15 +1,17 @@
+const { CollapsibleFilters } = require("../../../../static/entry");
+
 ANSWERS.addComponent('FilterLink', {
   container: '#js-answersFilterLink',
-  ...{{{ json componentSettings.FilterLink }}},
   onClickResetFilters: function() {
-    JsHelpers.removeAllFilterNodes();
-    JsHelpers.verticalSearch({ useFacets: true });
+    CollapsibleFilters.Helpers.removeAllFilterNodes();
+    CollapsibleFilters.Helpers.verticalSearch({ useFacets: true });
   },
   onClickChangeFilters: () => {
-    pageInteractions.expandFilters();
+    collapsibleFiltersInteractions.expandFilters();
   },
   onClickClearSearch: () => {
-    JsHelpers.clearSearch();
-    pageInteractions.focusSearchBar();
-  }
+    CollapsibleFilters.Helpers.clearSearch();
+    collapsibleFiltersInteractions.focusSearchBar();
+  },
+  ...{{{ json componentSettings.FilterLink }}}
 });

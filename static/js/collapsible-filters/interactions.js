@@ -1,7 +1,7 @@
 /**
- * CollapsibleFiltersInteractions manages page interactions for collapsible filters.
+ * Interactions manages page interactions for collapsible filters.
  */
-class CollapsibleFiltersInteractions {
+export default class Interactions {
   constructor (domElements) {
     const { filterEls, resultEls } = domElements;
     this.filterEls = filterEls || [];
@@ -26,7 +26,7 @@ class CollapsibleFiltersInteractions {
       if (verticalResults.searchState !== 'search-complete' || !pendingQueryUpdate) {
         return;
       }
-      pageInteractions.collapseFilters();
+      this.collapseFilters();
       pendingQueryUpdate = false;
     });
   }
@@ -81,9 +81,18 @@ class CollapsibleFiltersInteractions {
       this.toggleInactiveClass(el, !collapseFilters);
     }
     this.toggleInactiveClass(this.viewResultsButton, collapseFilters);
-    JsHelpers.scrollToTop();
+    this.scrollToTop();
     ANSWERS.core.globalStorage.set('hh-filter-panel', {
       panelIsDisplayed: !collapseFilters
+    });
+  }
+
+  /**
+   * Scroll the screen to the top.
+   */
+  scrollToTop () {
+    window.scroll({
+      top: 0
     });
   }
 }
