@@ -410,9 +410,10 @@ export default class Formatters {
    * for the given profile.
    * @param {Object} profile The profile information of the entity
    * @param {String} locale The locale for the time string
-   * @param {boolean} isTwentyFourHourClock Use 24 hour vs 12 hour formatting for time string
+   * @param {boolean} forceTwentyFourHourClock Use 24 hour clock if true. If false,
+   *                  default based on locale
    */
-  static openStatus(profile, locale, isTwentyFourHourClock) {
+  static openStatus(profile, locale, forceTwentyFourHourClock) {
     if (!profile.hours) {
       return '';
     }
@@ -443,7 +444,7 @@ export default class Formatters {
     hours.nextDay = nextDay;
     hours.status = status;
 
-    return this._getTodaysMessage({ hoursToday: hours, isTwentyFourHourClock, locale: locale });
+    return this._getTodaysMessage({ hoursToday: hours, forceTwentyFourHourClock, locale: locale });
   }
 
   static _prepareIntervals({ days }) { //days is a parsed json of hours.days
@@ -778,7 +779,7 @@ export default class Formatters {
     return translationData[text];
   }
 
-  static _getTodaysMessage({ hoursToday, isTwentyFourHourClock, locale }) {
+  static _getTodaysMessage({ hoursToday, forceTwentyFourHourClock, locale }) {
     let time, day;
     const translationData = provideOpenStatusTranslation(locale);
     const translate = text => this._translate(text, translationData);
@@ -786,7 +787,7 @@ export default class Formatters {
       case 'OPEN24':
         return `<span class="Hours-statusText">${translate('Open 24 Hours')}</span>`;
       case 'OPENSTODAY':
-        time = this._getTimeString(hoursToday.nextTime, isTwentyFourHourClock, locale);
+        time = this._getTimeString(hoursToday.nextTime, forceTwentyFourHourClock, locale);
         return `
           <span class="Hours-statusText">
             <span class="Hours-statusText--current">
@@ -796,7 +797,7 @@ export default class Formatters {
             </span>
           </span>`;
       case 'OPENSNEXT':
-        time = this._getTimeString(hoursToday.nextTime, isTwentyFourHourClock, locale);
+        time = this._getTimeString(hoursToday.nextTime, forceTwentyFourHourClock, locale);
         day = translate(hoursToday.nextDay);
         return `
           <span class="Hours-statusText">
@@ -811,7 +812,7 @@ export default class Formatters {
             ${day}
           </span>`;
       case 'CLOSESTODAY':
-        time = this._getTimeString(hoursToday.nextTime, isTwentyFourHourClock, locale);
+        time = this._getTimeString(hoursToday.nextTime, forceTwentyFourHourClock, locale);
         return `
           <span class="Hours-statusText">
             <span class="Hours-statusText--current">
@@ -822,7 +823,7 @@ export default class Formatters {
             ${time}
           </span>`;
       case 'CLOSESNEXT':
-        time = this._getTimeString(hoursToday.nextTime, isTwentyFourHourClock, locale);
+        time = this._getTimeString(hoursToday.nextTime, forceTwentyFourHourClock, locale);
         day = translate(hoursToday.nextDay);
         return `
           <span class="Hours-statusText">
@@ -846,13 +847,13 @@ export default class Formatters {
     }
   }
 
-  static _getTimeString(yextTime, isTwentyFourHourClock, locale = 'en-US') {
+  static _getTimeString(yextTime, forceTwentyFourHourClock, locale = 'en-US') {
     let time = new Date();
     time.setHours(Math.floor(yextTime / 100));
     time.setMinutes(yextTime % 100);
 
 
-    return isTwentyFourHourClock
+    return forceTwentyFourHourClock
       ? time.toLocaleString(locale, {
           hour: 'numeric',
           minute: 'numeric',
