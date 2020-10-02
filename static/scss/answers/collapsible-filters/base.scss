@@ -23,7 +23,7 @@
   width: 50%;
   bottom: 0;
   background-color: var(--hh-answers-background-color);
-  padding: var(--hh-view-results-button-vertical-padding) 8px;
+  padding: 4px 8px;
   left: 0;
 
   @media (max-width: $container-tablet-base) {
@@ -34,5 +34,5 @@
 .Answers-filtersWrapper {
   padding-left: 16px;
   padding-right: 16px;
-  padding-bottom: calc(var(--hh-view-results-button-height) + 2 * var(--hh-view-results-button-vertical-padding));
+  padding-bottom: calc(var(--hh-view-results-button-height) + 8px);
 }
