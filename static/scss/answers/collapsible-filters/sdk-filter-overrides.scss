@@ -65,11 +65,11 @@
   }
 
   &-filter {
-    padding-top: 8px;
+    margin-top: 8px;
     border-top: none;
 
     @media (min-width: $container-tablet-base) {
-      margin-top: 4px;
+      margin-top: 12px;
     }
   }
 }

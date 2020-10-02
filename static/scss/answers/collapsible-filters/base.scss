@@ -37,6 +37,7 @@
   }
 
   &-filtersWrapper {
+    padding-top: var(--yxt-base-spacing-sm);
     padding-left: var(--yxt-base-spacing);
     padding-right: var(--yxt-base-spacing);
     padding-bottom: calc(3 * var(--yxt-base-spacing));
