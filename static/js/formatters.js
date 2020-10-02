@@ -410,10 +410,10 @@ export default class Formatters {
    * for the given profile.
    * @param {Object} profile The profile information of the entity
    * @param {String} locale The locale for the time string
-   * @param {boolean} forceTwentyFourHourClock Use 24 hour clock if true. If false,
-   *                  default based on locale
+   * @param {boolean} isTwentyFourHourClock Use 24 hour clock if true, 12 hour clock
+   *                  if false. Default based on locale if undefined.
    */
-  static openStatus(profile, locale, forceTwentyFourHourClock) {
+  static openStatus(profile, locale, isTwentyFourHourClock) {
     if (!profile.hours) {
       return '';
     }
@@ -444,7 +444,7 @@ export default class Formatters {
     hours.nextDay = nextDay;
     hours.status = status;
 
-    return this._getTodaysMessage({ hoursToday: hours, forceTwentyFourHourClock, locale: locale });
+    return this._getTodaysMessage({ hoursToday: hours, isTwentyFourHourClock, locale: locale });
   }
 
   static _prepareIntervals({ days }) { //days is a parsed json of hours.days
@@ -779,7 +779,7 @@ export default class Formatters {
     return translationData[text];
   }
 
-  static _getTodaysMessage({ hoursToday, forceTwentyFourHourClock, locale }) {
+  static _getTodaysMessage({ hoursToday, isTwentyFourHourClock, locale }) {
     let time, day;
     const translationData = provideOpenStatusTranslation(locale);
     const translate = text => this._translate(text, translationData);
@@ -787,7 +787,7 @@ export default class Formatters {
       case 'OPEN24':
         return `<span class="Hours-statusText">${translate('Open 24 Hours')}</span>`;
       case 'OPENSTODAY':
-        time = this._getTimeString(hoursToday.nextTime, forceTwentyFourHourClock, locale);
+        time = this._getTimeString(hoursToday.nextTime, isTwentyFourHourClock, locale);
         return `
           <span class="Hours-statusText">
             <span class="Hours-statusText--current">
@@ -797,7 +797,7 @@ export default class Formatters {
             </span>
           </span>`;
       case 'OPENSNEXT':
-        time = this._getTimeString(hoursToday.nextTime, forceTwentyFourHourClock, locale);
+        time = this._getTimeString(hoursToday.nextTime, isTwentyFourHourClock, locale);
         day = translate(hoursToday.nextDay);
         return `
           <span class="Hours-statusText">
@@ -812,7 +812,7 @@ export default class Formatters {
             ${day}
           </span>`;
       case 'CLOSESTODAY':
-        time = this._getTimeString(hoursToday.nextTime, forceTwentyFourHourClock, locale);
+        time = this._getTimeString(hoursToday.nextTime, isTwentyFourHourClock, locale);
         return `
           <span class="Hours-statusText">
             <span class="Hours-statusText--current">
@@ -823,7 +823,7 @@ export default class Formatters {
             ${time}
           </span>`;
       case 'CLOSESNEXT':
-        time = this._getTimeString(hoursToday.nextTime, forceTwentyFourHourClock, locale);
+        time = this._getTimeString(hoursToday.nextTime, isTwentyFourHourClock, locale);
         day = translate(hoursToday.nextDay);
         return `
           <span class="Hours-statusText">
@@ -847,22 +847,22 @@ export default class Formatters {
     }
   }
 
-  static _getTimeString(yextTime, forceTwentyFourHourClock, locale = 'en-US') {
+  static _getTimeString(yextTime, isTwentyFourHourClock, locale = 'en-US') {
     let time = new Date();
     time.setHours(Math.floor(yextTime / 100));
     time.setMinutes(yextTime % 100);
 
-
-    return forceTwentyFourHourClock
-      ? time.toLocaleString(locale, {
-          hour: 'numeric',
-          minute: 'numeric',
-          hourCycle: 'h24' 
-        })
-      : time.toLocaleString(locale, {
-          hour: 'numeric',
-          minute: 'numeric'
-        });
+    if (typeof isTwentyFourHourClock === 'undefined'){
+      return time.toLocaleString(locale, {
+        hour: 'numeric',
+        minute: 'numeric'
+      });
+    }
+    return time.toLocaleString(locale, {
+      hour: 'numeric',
+      minute: 'numeric',
+      hourCycle: isTwentyFourHourClock ? 'h24' : 'h12'
+    });
   }
 
   /**
