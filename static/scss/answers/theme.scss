@@ -47,7 +47,7 @@
     width: 100%;
     height: var(--hh-nav-wrapper-height);
     padding-top: var(--yxt-base-spacing);
-    z-index: 99;
+    z-index: $nav-wrapper-z-index;
   }
 
   &-footer

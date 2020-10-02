@@ -14,6 +14,7 @@
   top: var(--hh-nav-wrapper-height);
   background: var(--hh-answers-background-color);
   border-bottom: var(--yxt-border-default);
+  z-index: $nav-wrapper-z-index;
 }
 
 .Answers-filterLink {
@@ -25,7 +26,6 @@
   position: fixed;
   width: 50%;
   bottom: 0;
-  z-index: 100;
   background-color: var(--hh-answers-background-color);
   padding: var(--hh-view-results-button-vertical-padding) 8px;
   left: 0;
