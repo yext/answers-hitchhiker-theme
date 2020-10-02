@@ -1,11 +1,6 @@
 .Hitchhiker-FilterLink {
-  color: var(--yxt-color-brand-primary);
-  font-size: 14px;
+  @include Link;
 
+  font-size: var(--yxt-font-size-md);
   cursor: pointer;
-  &:hover,
-  &:focus {
-    text-decoration: underline;
-    color: var(--hh-view-results-button-hover-color);
-  }
 }
