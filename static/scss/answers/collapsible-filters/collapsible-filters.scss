@@ -1,41 +1,45 @@
-.CollapsibleFilters {
-  &.AnswersVerticalMap {
-    @import "base.scss";
+// Overrides for SDK filter components
+@import "sdk-filter-overrides";
 
-    .CollapsibleFilters-inactive {
-      display: none;
-    }
+// Styling for Theme components
+@import "filter-link";
+@import "view-results-button";
 
-    @media (min-width: $container-tablet-base) {
-      .Answers-resultsHeader {
-        top: 0;
-      }
+.Answers {
+  &-sortOptions {
+    padding: 0;
+  }
+
+  &-resultsHeader {
+    position: sticky;
+    top: var(--hh-nav-wrapper-height);
+    background: var(--hh-answers-background-color);
+    border-bottom: var(--yxt-border-default);
+    z-index: $nav-wrapper-z-index;
+  }
+
+  &-filterLink {
+    margin-left: auto;
+    margin-right: 14px;
+  }
+
+  &-viewResultsButton {
+    position: fixed;
+    width: 50%;
+    left: 0;
+    bottom: 0;
+    padding: 4px 8px;
+    background-color: var(--hh-answers-background-color);
+
+    @media (max-width: $container-tablet-base) {
+      width: 100%;
     }
   }
 
-  &.AnswersVerticalStandard,
-  &.AnswersVerticalGrid {
-    @media (max-width: $container-tablet-base) {
-      @import "base.scss";
-
-      .CollapsibleFilters-inactive {
-        display: none;
-      }
-
-      .Answers-resultsWrapper {
-        padding-top: 0;
-      }
-
-      .yxt-SpellCheck {
-        padding-top: calc(var(--yxt-base-spacing) * 2);
-      }
-    }
-
-    @media (min-width: $container-tablet-base) {
-      .Answers-filterLink,
-      .Answers-viewResultsButton {
-        display: none;
-      }
-    }
+  &-filtersWrapper {
+    margin-top: var(--yxt-base-spacing-sm);
+    margin-left: var(--yxt-base-spacing);
+    margin-right: var(--yxt-base-spacing);
+    margin-bottom: calc(3 * var(--yxt-base-spacing));
   }
 }
