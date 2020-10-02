@@ -1,4 +1,8 @@
 .CollapsibleFilters {
+  &-inactive {
+    display: none;
+  }
+
   &.AnswersVerticalMap {
     @import "base.scss";
 

@@ -5,10 +5,6 @@
 @import 'filter-link';
 @import 'view-results-button';
 
-.CollapsibleFilters-inactive {
-  display: none;
-}
-
 .Answers-resultsHeader {
   position: sticky;
   top: var(--hh-nav-wrapper-height);
