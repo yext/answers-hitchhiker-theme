@@ -11,7 +11,8 @@
   background: var(--yxt-color-brand-primary);
   letter-spacing: 0.5px;
   text-transform: uppercase;
-  height: var(--hh-view-results-button-height);
+  padding-top: 12px;
+  padding-bottom: 12px;
   cursor: pointer;
 
   &:not(:disabled) {
