@@ -14,7 +14,7 @@
         <div class="HitchhikerEventStandard-title">
           {{#if card.url}}
             <a class="HitchhikerEventStandard-titleLink"
-              href="{{card.url}}"
+              href="{{#unless (matches card.url '//' )}}{{relativePath}}/{{/unless}}{{card.url}}"
               data-eventtype="TITLE_CLICK"
               data-eventoptions='{{json card.titleEventOptions}}'
               target={{#if card.target}}"{{card.target}}"{{else}}"_top"{{/if}}>
@@ -88,7 +88,7 @@
 
 {{#*inline 'CTA'}}
   <a class="HitchhikerCTA js-HitchhikerCTA{{#if modifiers}} {{modifiers}}{{/if}}"
-    href="{{url}}"
+    href="{{#unless (matches url '//' )}}{{relativePath}}/{{/unless}}{{url}}"
     data-eventtype="{{eventType}}"
     data-eventoptions='{{json eventOptions}}'
     target={{#if target}}"{{target}}"{{else}}"_top"{{/if}}
@@ -96,7 +96,7 @@
     {{#if (any iconName iconUrl)}}
     <div class="HitchhikerCTA-iconWrapper">
       <div class="HitchhikerCTA-icon" data-component="IconComponent" data-opts='{
-        "iconUrl": "{{iconUrl}}",
+        "iconUrl": "{{#unless (matches iconUrl '//' )}}{{relativePath}}/{{/unless}}{{iconUrl}}",
         "iconName": "{{iconName}}"
       }'>
       </div>

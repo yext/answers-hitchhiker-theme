@@ -61,6 +61,11 @@
         ANSWERS.registerHelper('any', function (...args) {
           return args.filter(item => item).length > 1;
         });
+
+        ANSWERS.registerHelper('matches', function(str, regexPattern) {
+          const regex = new RegExp(regexPattern)
+          return str && str.match(regex);
+        });
       }
     });
     {{> script/after-init}}
