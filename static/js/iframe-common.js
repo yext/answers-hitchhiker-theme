@@ -4,6 +4,7 @@ export function generateIFrame(domain, queryParam, urlParam) {
   var isLocalHost = window.location.host.split(':')[0] === 'localhost';
   var containerEl = document.querySelector('#answers-container');
   var iframe = document.createElement('iframe');
+  var pathToIndex = containerEl.dataset.path;
   iframe.allow = 'geolocation';
 
   domain = domain || '';
@@ -14,14 +15,18 @@ export function generateIFrame(domain, queryParam, urlParam) {
     var paramString = window.location.search;
     paramString = paramString.substr(1, paramString.length);
 
+    // Decode ASCII forward slash to avod repeat encodings on page refreshes
+    paramString = paramString.replace("%2F", "/");
+
     // Parse the params out of the URL
     var params = paramString.split('&'),
                  verticalUrl;
     var referrerPageUrl = document.referrer.split('?')[0].split('#')[0];
 
-    // Default for localhost is index.html, empty o/w
-    if (isLocalHost) {
-      verticalUrl = 'index.html';
+    if (pathToIndex) {
+      verticalUrl = pathToIndex;
+    } else if (isLocalHost) {
+      verticalUrl = 'index.html'; // Default for localhost is index.html, empty o/w
     }
 
     // Don't include the verticalUrl or raw referrerPageUrl in the frame src
