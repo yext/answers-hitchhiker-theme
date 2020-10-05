@@ -22,7 +22,7 @@ import {
 
 /**
  * Contains some of the commonly used formatters for parsing pieces of profile
- * information. To remove a formatter from the bundle, uncomment the desired
+ * information. To remove a formatter from the bundle, comment the desired
  * line below.
  */
 const Formatters = {
