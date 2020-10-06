@@ -4,7 +4,7 @@
 @mixin CollapsibleFilters {
   @include CollapsibleFiltersOverrides;
 
-  .Answers { 
+  .Answers {
     &-sortOptions {
       padding: 0;
     }
