@@ -26,16 +26,17 @@
       <div class="Answers-resultsHeader js-answersResultsHeader">
         {{> templates/vertical-grid/markup/verticalresultscount }}
         {{> templates/vertical-grid/markup/appliedfilters }}
-        {{!-- {{> templates/vertical-grid/collapsible-filters/markup }} --}}
+        {{!-- {{> templates/vertical-grid/collapsible-filters/markup/filterlink }} --}}
       </div>
       <!-- Uncomment the following div if you want to include filters, facets, or sort options  -->
       {{!-- <div class="Answers-filtersWrapper js-answersFiltersWrapper CollapsibleFilters-inactive"> --}}
         {{!-- {{> templates/vertical-grid/markup/sortoptions }} --}}
-        {{!-- {{> templates/vertical-grid/markup/filterbox }} --}}
         {{!-- {{> templates/vertical-grid/markup/facets }} --}}
+        {{!-- {{> templates/vertical-grid/markup/filterbox }} --}}
+        {{!-- {{> templates/vertical-grid/collapsible-filters/markup/viewresultsbutton }} --}}
       {{!-- </div> --}}
       <div class="Answers-results js-answersResults">
-        {{> templates/vertical-grid/markup/spellcheck }}
+        {{> templates/vertical-grid/markup/spellcheck }}          
         {{> templates/vertical-grid/markup/verticalresults }}
         {{> templates/vertical-grid/markup/pagination }}
         {{!-- {{> templates/vertical-grid/markup/qasubmission }} --}}

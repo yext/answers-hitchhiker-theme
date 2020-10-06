@@ -7,6 +7,12 @@
     }
 
     @media (min-width: $container-tablet-base) {
+      margin-bottom: 0;
+
+      .CollapsibleFilters-inactive.Answers-footer {
+        display: none;
+      }
+
       .Answers-resultsHeader {
         top: 0;
       }

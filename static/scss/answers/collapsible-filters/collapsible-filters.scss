@@ -4,17 +4,20 @@
 @mixin CollapsibleFilters {
   @include CollapsibleFiltersOverrides;
 
-  .Answers {
+  .Answers { 
     &-sortOptions {
       padding: 0;
     }
 
+    &-resultsWrapper {
+      @media (min-width: $container-tablet-base) {
+        transform: translateZ(0);
+      }
+    }
+
     &-resultsHeader {
-      position: sticky;
-      top: var(--hh-nav-wrapper-height);
       background: var(--hh-answers-background-color);
       border-bottom: var(--yxt-border-default);
-      z-index: $nav-wrapper-z-index;
     }
 
     &-filterLink {
@@ -23,14 +26,16 @@
     }
 
     &-viewResultsButton {
-      position: fixed;
-      width: 50%;
+      position: absolute;
+      width: calc(50% - var(--yxt-base-spacing));
       left: 0;
       bottom: 0;
       padding: 4px 8px;
       background-color: var(--hh-answers-background-color);
+      z-index: $nav-wrapper-z-index;
 
       @media (max-width: $container-tablet-base) {
+        position: fixed;
         width: 100%;
       }
     }

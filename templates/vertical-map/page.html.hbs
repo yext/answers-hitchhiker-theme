@@ -28,26 +28,27 @@
         <div class="Answers-resultsHeader js-answersResultsHeader">
           {{> templates/vertical-map/markup/verticalresultscount }}
           {{> templates/vertical-map/markup/appliedfilters }}
-          {{!-- {{> templates/vertical-map/collapsible-filters/markup }} --}}
+          {{!-- {{> templates/vertical-map/collapsible-filters/markup/filterlink }} --}}
         </div>
         <!-- Uncomment the following div if you want to include filters, facets, or sort options  -->
         {{!-- <div class="Answers-filtersWrapper js-answersFiltersWrapper CollapsibleFilters-inactive"> --}}
           {{!-- {{> templates/vertical-map/markup/sortoptions }} --}}
           {{!-- {{> templates/vertical-map/markup/facets }} --}}
           {{!-- {{> templates/vertical-map/markup/filterbox }} --}}
+          {{!-- {{> templates/vertical-map/collapsible-filters/markup/viewresultsbutton }} --}}
         {{!-- </div> --}}
         <div class="Answers-results js-answersResults">
           {{> templates/vertical-map/markup/spellcheck }}          
           {{> templates/vertical-map/markup/verticalresults }}
           {{> templates/vertical-map/markup/pagination }}
           {{!-- {{> templates/vertical-map/markup/qasubmission }} --}}
-          <div class="Answers-footer">
-            {{> layouts/yext-logo }}
-            {{> templates/vertical-map/markup/locationbias }}
-          </div>
         </div>
       </div>
       {{> templates/vertical-map/markup/map }}
+    </div>
+    <div class="Answers-footer js-answersFooter">
+      {{> layouts/yext-logo }}
+      {{> templates/vertical-map/markup/locationbias }}
     </div>
   </div>
 {{/layouts/html }}
