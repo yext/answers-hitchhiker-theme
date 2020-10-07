@@ -2,6 +2,7 @@ import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import { components__address__i18n__addressForCountry } from './address-i18n.js'
 import CtaFormatter from '@yext/cta-formatter';
 import provideOpenStatusTranslation from './open-status-18n';
+import { getDistanceUnit } from './units-i18n';
 
 import clonedeep from 'lodash.clonedeep';
 
@@ -57,6 +58,23 @@ export function getDirectionsUrl(profile, key = 'address') {
   const rawQuery = `${addr.line1},${line2} ${addr.city},${region} ${addr.postalCode} ${addr.countryCode}`;
   const query = encodeURIComponent(rawQuery);
   return `https://www.google.com/maps/search/?api=1&query=${query}&output=classic`
+}
+
+export function toLocalizedDistance(profile, key = 'd_distance', displayUnits) {
+  const locale = _getDocumentLocale();
+  const distanceUnits = displayUnits || getDistanceUnit(locale);
+
+  if (distanceUnits === 'mi') {
+    return this.toMiles(profile);
+  } else if (distanceUnits === 'km') {
+    return this.toKilometers(profile);
+  }
+
+  return this.toMiles(profile);
+}
+
+export function _getDocumentLocale() {
+  return document.documentElement.lang.replace('_', '-');
 }
 
 export function toKilometers(profile, key = 'd_distance', displayUnits = 'km') {
@@ -117,7 +135,7 @@ export function bigDate(profile, keyPath = 'time.start') {
   }
 
   const date = betterTime(dateString);
-  const locale = document.documentElement.lang.replace('_', '-');
+  const locale = _getDocumentLocale();
   const time = date.toLocaleString(locale, {
     hour: 'numeric',
     minute: 'numeric',
@@ -161,7 +179,7 @@ export function dateRange(
     return null;
   }
 
-  const locale = document.documentElement.lang.replace('_', '-');
+  const locale = _getDocumentLocale();
   const start = betterTime(dateField.start);
   const end = betterTime(dateField.end);
   const startString = start.toLocaleString(locale, dateFormatOptions);
@@ -386,13 +404,16 @@ export function truncate(str, limit = 250, trailing = '...', sep = ' ') {
  * for the given profile.
  * @param {Object} profile The profile information of the entity
  * @param {String} key Indicates which profile property to use for hours
- * @param {boolean} isTwentyFourHourClock Use 24 hour vs 12 hour formatting for time string
+ * @param {boolean} isTwentyFourHourClock Use 24 hour clock if true, 12 hour clock
+ *                  if false. Default based on locale if undefined.
  * @param {String} locale The locale for the time string
  */
-export function openStatus(profile, key = 'hours', isTwentyFourHourClock = false, locale = 'en-US') {
+export function openStatus(profile, key = 'hours', isTwentyFourHourClock, locale) {
   if (!profile[key]) {
     return '';
   }
+
+  locale = locale || _getDocumentLocale();
 
   const days = _formatHoursForAnswers(profile[key], profile.timeZoneUtcOffset);
   if (days.length === 0) {
@@ -821,15 +842,15 @@ export function _getTodaysMessage({ hoursToday, isTwentyFourHourClock, locale })
   }
 }
 
-export function _getTimeString(yextTime, twentyFourHourClock, locale = 'en-US') {
+export function _getTimeString(yextTime, isTwentyFourHourClock, locale = 'en-US') {
   let time = new Date();
   time.setHours(Math.floor(yextTime / 100));
   time.setMinutes(yextTime % 100);
-
+  
   return time.toLocaleString(locale, {
     hour: 'numeric',
     minute: 'numeric',
-    hourCycle: twentyFourHourClock ? 'h24' : 'h12'
+    ...isTwentyFourHourClock && { hourCycle: isTwentyFourHourClock ? 'h24' : 'h12' }
   });
 }
 
