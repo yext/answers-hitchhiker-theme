@@ -8,7 +8,46 @@ export default class Interactions {
     this.resultEls = resultEls || [];
     this.viewResultsButton = document.getElementById('js-answersViewResultsButton');
     this.searchBarContainer = document.getElementById('js-answersSearchBar');
+    this.resultsColumn = document.querySelector('.js-answersResultsColumn');
+    this.resultsWrapper = document.querySelector('.js-answersResultsWrapper');
     this.inactiveCssClass = 'CollapsibleFilters-inactive';
+  }
+
+  /**
+   * This gives "position: sticky"-like behavior to CollapsibleFilters elements.
+   * It does so by toggling on/off the CollapsibleFilters-unstuck css class,
+   * which will (likely) just switch between position: absolute and position: fixed.
+   * 
+   * @param {HTMLElement} stickyElement 
+   */
+  stickify(stickyElement) {
+    this._updateStickyElement(stickyElement);
+    window.addEventListener('scroll', () => {
+      this._updateStickyElement(stickyElement);
+    });
+    window.addEventListener('resize', () => {
+      this._onResize(stickyElement);
+    });
+  }
+
+  _onResize(stickyElement) {
+    if (this.stickyResizeTimer) {
+      clearTimeout(this.stickyResizeTimer);
+    }
+    this.stickyResizeTimer = setTimeout(() => {
+      this._updateStickyElement(stickyElement);
+      this.stickyResizeTimer = undefined;
+    }, 200);
+  }
+
+  _updateStickyElement(stickyElement) {
+    const containerBottom = this.resultsWrapper.getBoundingClientRect().bottom;
+    const windowBottom = window.innerHeight;
+    if (containerBottom > windowBottom) {
+      stickyElement.classList.remove('CollapsibleFilters-unstuck');
+    } else {
+      stickyElement.classList.add('CollapsibleFilters-unstuck');
+    }
   }
 
   /**
@@ -98,5 +137,8 @@ export default class Interactions {
     window.scroll({
       top: 0
     });
+    if (this.resultsColumn) {
+      this.resultsColumn.scrollTop = 0;
+    }
   }
 }

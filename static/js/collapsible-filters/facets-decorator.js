@@ -61,7 +61,7 @@ export default class FacetsDecorator {
    */
   scrollDown (distance) {
     window.scroll({
-      top: window.scrollY + distance
+      top: window.pageYOffset + distance
     });
   }
 }

@@ -23,19 +23,19 @@
         {{> templates/vertical-map/markup/navigation }}
       </div>
     </div>
-    <div class="Answers-resultsWrapper">
-      <div class="Answers-resultsColumn">
-        <div class="Answers-resultsHeader js-answersResultsHeader">
+    <div class="Answers-resultsWrapper js-answersResultsWrapper">
+      <div class="Answers-resultsColumn js-answersResultsColumn">
+        <div class="Answers-resultsHeader">
           {{> templates/vertical-map/markup/verticalresultscount }}
           {{> templates/vertical-map/markup/appliedfilters }}
           {{!-- {{> templates/vertical-map/collapsible-filters/markup/filterlink }} --}}
+          {{!-- {{> templates/vertical-map/collapsible-filters/markup/viewresultsbutton }} --}}
         </div>
         <!-- Uncomment the following div if you want to include filters, facets, or sort options  -->
         {{!-- <div class="Answers-filtersWrapper js-answersFiltersWrapper CollapsibleFilters-inactive"> --}}
           {{!-- {{> templates/vertical-map/markup/sortoptions }} --}}
           {{!-- {{> templates/vertical-map/markup/facets }} --}}
           {{!-- {{> templates/vertical-map/markup/filterbox }} --}}
-          {{!-- {{> templates/vertical-map/collapsible-filters/markup/viewresultsbutton }} --}}
         {{!-- </div> --}}
         <div class="Answers-results js-answersResults">
           {{> templates/vertical-map/markup/spellcheck }}
