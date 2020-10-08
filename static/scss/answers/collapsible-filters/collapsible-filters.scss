@@ -24,12 +24,14 @@
       width: calc(50% - var(--yxt-base-spacing));
       left: 0;
       bottom: 0;
+      margin-left: 2px;
       padding: 4px 8px;
       background-color: var(--hh-answers-background-color);
       z-index: $nav-wrapper-z-index;
 
       @media (max-width: $container-tablet-base) {
         width: 100%;
+        margin-left: none;
       }
     }
 
