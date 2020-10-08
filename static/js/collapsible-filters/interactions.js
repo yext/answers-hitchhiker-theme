@@ -20,7 +20,6 @@ export default class Interactions {
    * @param {HTMLElement} stickyElement 
    */
   stickify(stickyElement) {
-    this._updateStickyElement(stickyElement);
     window.addEventListener('scroll', () => {
       this._updateStickyElement(stickyElement);
     });
