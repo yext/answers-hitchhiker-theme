@@ -15,8 +15,7 @@ export default class Interactions {
 
   /**
    * This gives "position: sticky"-like behavior to CollapsibleFilters elements.
-   * It does so by toggling on/off the CollapsibleFilters-unstuck css class,
-   * which will by default just switch between position: absolute and position: fixed.
+   * It does so by toggling on/off the CollapsibleFilters-unstuck css class.
    * 
    * @param {HTMLElement} stickyElement 
    */
