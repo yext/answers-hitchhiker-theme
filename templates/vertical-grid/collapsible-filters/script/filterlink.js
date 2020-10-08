@@ -1,5 +1,3 @@
-const { CollapsibleFilters } = require("../../../../static/entry");
-
 ANSWERS.addComponent('FilterLink', {
   container: '#js-answersFilterLink',
   onClickResetFilters: function() {

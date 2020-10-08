@@ -4,7 +4,7 @@ ANSWERS.addComponent('ViewResultsButton', {
     collapsibleFiltersInteractions.collapseFilters();
     this.setState(this.getState());
   },
-  onCreate() {
+  onCreate: function () {
     collapsibleFiltersInteractions.markAsInactive(this._container);
   },
   ...{{{ json componentSettings.ViewResultsButton }}}

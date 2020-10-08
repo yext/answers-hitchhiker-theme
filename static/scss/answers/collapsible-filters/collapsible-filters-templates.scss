@@ -1,41 +1,45 @@
-.CollapsibleFilters {
-  &.AnswersVerticalMap {
+.AnswersVerticalMap.CollapsibleFilters {
+  @include CollapsibleFilters;
+
+  .CollapsibleFilters {
+    &-inactive {
+      display: none;
+    }
+
+    @media (min-width: $container-tablet-base) {
+      &-inactive.Answers-footer {
+        display: flex;
+      }
+
+      &-unstuck {
+        position: absolute;
+      }
+    }
+  }
+}
+
+.AnswersVerticalStandard.CollapsibleFilters,
+.AnswersVerticalGrid.CollapsibleFilters {
+  @media (max-width: $container-tablet-base) {
     @include CollapsibleFilters;
 
     .CollapsibleFilters-inactive {
       display: none;
     }
 
-    @media (min-width: $container-tablet-base) {
-      .CollapsibleFilters-inactive.Answers-footer {
-        display: flex;
-      }
+    .Answers-resultsWrapper {
+      padding-top: 0;
+    }
+
+    .yxt-SpellCheck {
+      padding-top: calc(var(--yxt-base-spacing) * 2);
     }
   }
 
-  &.AnswersVerticalStandard,
-  &.AnswersVerticalGrid {
-    @media (max-width: $container-tablet-base) {
-      @include CollapsibleFilters;
-
-      .CollapsibleFilters-inactive {
-        display: none;
-      }
-
-      .Answers-resultsWrapper {
-        padding-top: 0;
-      }
-
-      .yxt-SpellCheck {
-        padding-top: calc(var(--yxt-base-spacing) * 2);
-      }
-    }
-
-    @media (min-width: $container-tablet-base) {
-      .Answers-filterLink,
-      .Answers-viewResultsButton {
-        display: none;
-      }
+  @media (min-width: $container-tablet-base) {
+    .Answers-filterLink,
+    .Answers-viewResultsButton {
+      display: none;
     }
   }
 }

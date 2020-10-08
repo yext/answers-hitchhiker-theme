@@ -8,7 +8,55 @@ export default class Interactions {
     this.resultEls = resultEls || [];
     this.viewResultsButton = document.getElementById('js-answersViewResultsButton');
     this.searchBarContainer = document.getElementById('js-answersSearchBar');
+    this.resultsColumn = document.querySelector('.js-answersResultsColumn');
+    this.resultsWrapper = document.querySelector('.js-answersResultsWrapper');
     this.inactiveCssClass = 'CollapsibleFilters-inactive';
+  }
+
+  /**
+   * This gives "position: sticky"-like behavior to CollapsibleFilters elements.
+   * It does so by toggling on/off the CollapsibleFilters-unstuck css class.
+   * 
+   * @param {HTMLElement} stickyElement 
+   */
+  stickify(stickyElement) {
+    window.addEventListener('scroll', () => {
+      this._updateStickyElement(stickyElement);
+    });
+    window.addEventListener('resize', () => {
+      this._onResize(stickyElement);
+    });
+  }
+
+  /**
+   * On window resize, update the given sticky element.
+   * @param {HTMLElement} stickyElement 
+   */
+  _onResize(stickyElement) {
+    if (this.stickyResizeTimer) {
+      clearTimeout(this.stickyResizeTimer);
+    }
+    const DEBOUNCE_TIMER = 200;
+    this.stickyResizeTimer = setTimeout(() => {
+      this._updateStickyElement(stickyElement);
+      this.stickyResizeTimer = undefined;
+    }, DEBOUNCE_TIMER);
+  }
+
+  /**
+   * If the user has scrolled past the results, give the sticky element
+   * the CollapsibleFilters-unstuck css class. Otherwise remove it.
+   * @param {HTMLElement} stickyElement 
+   */
+  _updateStickyElement(stickyElement) {
+    const containerBottom = this.resultsWrapper.getBoundingClientRect().bottom;
+    const windowBottom = window.innerHeight;
+    const hasScrolledPastResults = containerBottom > windowBottom;
+    if (hasScrolledPastResults) {
+      stickyElement.classList.remove('CollapsibleFilters-unstuck');
+    } else {
+      stickyElement.classList.add('CollapsibleFilters-unstuck');
+    }
   }
 
   /**
@@ -98,5 +146,8 @@ export default class Interactions {
     window.scroll({
       top: 0
     });
+    if (this.resultsColumn) {
+      this.resultsColumn.scrollTop = 0;
+    }
   }
 }
