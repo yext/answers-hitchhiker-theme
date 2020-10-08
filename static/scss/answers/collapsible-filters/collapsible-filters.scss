@@ -25,11 +25,13 @@
       left: 0;
       bottom: 0;
       padding: 4px 8px;
+      padding-left: 6px;
       background-color: var(--hh-answers-background-color);
       z-index: $nav-wrapper-z-index;
 
       @media (max-width: $container-tablet-base) {
         width: 100%;
+        padding-left: 4px;
       }
     }
 
