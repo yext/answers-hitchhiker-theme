@@ -16,7 +16,7 @@ export default class Interactions {
   /**
    * This gives "position: sticky"-like behavior to CollapsibleFilters elements.
    * It does so by toggling on/off the CollapsibleFilters-unstuck css class,
-   * which will (likely) just switch between position: absolute and position: fixed.
+   * which will by default just switch between position: absolute and position: fixed.
    * 
    * @param {HTMLElement} stickyElement 
    */
@@ -30,20 +30,31 @@ export default class Interactions {
     });
   }
 
+  /**
+   * On window resize, update the given sticky element.
+   * @param {HTMLElement} stickyElement 
+   */
   _onResize(stickyElement) {
     if (this.stickyResizeTimer) {
       clearTimeout(this.stickyResizeTimer);
     }
+    const DEBOUNCE_TIMER = 200;
     this.stickyResizeTimer = setTimeout(() => {
       this._updateStickyElement(stickyElement);
       this.stickyResizeTimer = undefined;
-    }, 200);
+    }, DEBOUNCE_TIMER);
   }
 
+  /**
+   * If the user has scrolled past the results, give the sticky element
+   * the CollapsibleFilters-unstuck css class. Otherwise remove it.
+   * @param {HTMLElement} stickyElement 
+   */
   _updateStickyElement(stickyElement) {
     const containerBottom = this.resultsWrapper.getBoundingClientRect().bottom;
     const windowBottom = window.innerHeight;
-    if (containerBottom > windowBottom) {
+    const hasScrolledPastResults = containerBottom > windowBottom;
+    if (hasScrolledPastResults) {
       stickyElement.classList.remove('CollapsibleFilters-unstuck');
     } else {
       stickyElement.classList.add('CollapsibleFilters-unstuck');
