@@ -1,6 +1,6 @@
 exports.Selectors = {
-  iframeWrapperId: 'YextAnswersOverlay-wrapper',
-  iframeId: 'YextAnswersOverlay-iframe',
+  IFRAME_CONTAINER_ID: 'YextAnswersOverlay-container',
+  IFRAME_ID: 'YextAnswersOverlay-iframe',
 };
 
 exports.InteractionTypes = {
@@ -10,5 +10,5 @@ exports.InteractionTypes = {
   EXPAND: 'expand',
   QUERY_SUBMITTED: 'querySubmitted',
   CLEAR_BUTTON_HIT: 'clearButtonHit',
-  TOGGLE: 'toggle',
+  TOGGLE_OVERLAY: 'toggle',
 };

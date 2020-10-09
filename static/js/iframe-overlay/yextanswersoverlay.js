@@ -1,7 +1,5 @@
-import OverlayConfig from "./overlayconfig";
-import InteractionDirector from "./interactiondirector";
-import ParentFrameObserver from "./parentframeobserver";
-import Overlay from "./overlay";
+import Overlay from './overlay';
+import OverlayConfig from './overlayconfig';
 
 /**
  * YextAnswersOverlay exposes an interface in order to create an iFrame'd overlay

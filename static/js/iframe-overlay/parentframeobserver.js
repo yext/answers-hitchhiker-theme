@@ -1,11 +1,11 @@
-import { InteractionTypes } from "./constants";
-import InteractionDirector from "./interactiondirector";
+import { InteractionTypes } from './constants';
+import InteractionDirector from './interactiondirector';
 
+/**
+ * ParentFrameObserver observes the parent frame and notifies its mediator whenever
+ * an interaction occurs that affects the Overlay.
+ */
 export default class ParentFrameObserver {
-  /**
-   *
-   * @param {OverlayConfig} config
-   */
   constructor(mediator, customButtonSelector) {
     /**
      * @type {InteractionDirector}
@@ -13,14 +13,14 @@ export default class ParentFrameObserver {
     this.mediator = mediator;
 
     /**
-     * @type {String}
+     * @type {Element}
      */
     this.customButtonEl = customButtonSelector &&
       document.querySelector(customButtonSelector);
   }
 
   /**
-   * Adds event listeners for elements in the parent frame that affect the overlay.
+   * Attaches event listeners to elements in the parent frame that affect the Overlay.
    */
   attach() {
     this.customButtonEl && this._initCustomButton();
@@ -29,8 +29,8 @@ export default class ParentFrameObserver {
 
   /**
    * Adds event listener to collapse the overlay on parent frame clicks that are outside
-   * the custom button element, if provided. (By definition, these click targets are
-   * are outside any child iFrames.)
+   * the custom button element, if provided. (By definition, these click events will not
+   * include clicks within any child iframes.)
    *
    * @param {Element} customButtonEl
    */
@@ -39,7 +39,7 @@ export default class ParentFrameObserver {
       const isButtonClick = this.customButtonEl && this.customButtonEl.contains(e.target);
 
       if (!isButtonClick) {
-        this.mediator.onParentFrameChanged(InteractionTypes.COLLAPSE);
+        this.mediator.onParentFrameInteraction(InteractionTypes.COLLAPSE);
       }
     });
   }
@@ -50,7 +50,7 @@ export default class ParentFrameObserver {
    */
   _initCustomButton() {
     this.customButtonEl.addEventListener('click', () => {
-      this.mediator.onParentFrameChanged(InteractionTypes.TOGGLE);
+      this.mediator.onParentFrameInteraction(InteractionTypes.TOGGLE_OVERLAY);
     });
   }
 }
