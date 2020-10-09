@@ -1,5 +1,7 @@
 import OverlayConfig from "./overlayconfig";
-import OverlayMediator from "./overlaymediator";
+import InteractionDirector from "./interactiondirector";
+import ParentFrameObserver from "./parentframeobserver";
+import Overlay from "./overlay";
 
 /**
  * YextAnswersOverlay exposes an interface in order to create an iFrame'd overlay
@@ -14,12 +16,7 @@ export default class YextAnswersOverlay {
   static init(config) {
     const parsedConfig = new OverlayConfig(config);
 
-    // TODO (agrow) inject overlay
-
-    // Set up communication between iframe and parent frame
-    const overlayMediator = new OverlayMediator(parsedConfig)
-      .init();
-
+    new Overlay(parsedConfig).create();
   }
 }
 

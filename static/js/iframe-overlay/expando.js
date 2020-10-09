@@ -40,13 +40,4 @@ export default class Expando {
   shrink() {
     // TODO (agrow) implement in a later PR
   }
-
-  /**
-   * Returns a boolean indicating whether the overlay is expanded
-   *
-   * @returns {boolean}
-   */
-  isExpanded() {
-    // TODO (agrow) implement in a later PR
-  }
 }
