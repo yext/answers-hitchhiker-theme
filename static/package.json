@@ -46,6 +46,10 @@
     "is-mobile": "^2.2.2",
     "libphonenumber-js": "^1.7.51",
     "lodash.clonedeep": "^4.5.0",
-    "remove-files-webpack-plugin": "^1.4.3"
+    "remove-files-webpack-plugin": "^1.4.3",
+    "comment-json": "^3.0.2",
+    "file-system": "^2.2.2",
+    "fs-extra": "^8.1.0",
+    "merge-options": "^2.0.0"
   }
 }
