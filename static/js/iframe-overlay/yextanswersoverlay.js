@@ -1,5 +1,5 @@
-import Overlay from './overlay';
-import OverlayConfig from './overlayconfig';
+import Overlay from './controllers/overlay';
+import OverlayConfig from './models/overlayconfig';
 
 /**
  * YextAnswersOverlay exposes an interface in order to create an iFrame'd overlay

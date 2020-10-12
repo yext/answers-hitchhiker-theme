@@ -1,7 +1,7 @@
 require('iframe-resizer');
 
 import InteractionDirector from './interactiondirector';
-import { InteractionTypes } from './constants';
+import { InteractionTypes } from '../constants';
 
 /**
  * IFrameObserver is responsible for observing its iframe, notifying its mediator when
