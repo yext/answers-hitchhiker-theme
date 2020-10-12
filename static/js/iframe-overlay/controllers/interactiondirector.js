@@ -1,5 +1,5 @@
-import Expando from './expando';
-import { InteractionTypes, Selectors } from './constants';
+import Expando from '../dom/expando';
+import { InteractionTypes, Selectors } from '../constants';
 
 /**
  * InteractionDirector is responsible encapsulating how the parent frame and child iframe

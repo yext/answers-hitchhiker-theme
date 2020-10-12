@@ -1,7 +1,7 @@
-import DomInjector from './dominjector';
+import DomInjector from '../dom/dominjector';
 import IFrameObserver from './iframeobserver';
 import InteractionDirector from './interactiondirector';
-import OverlayConfig from './overlayconfig';
+import OverlayConfig from '../models/overlayconfig';
 import ParentFrameObserver from './parentframeobserver';
 
 /**
