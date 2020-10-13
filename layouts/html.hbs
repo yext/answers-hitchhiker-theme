@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script>
+      {{#babel}}
+      {{> overlay/controllers/shape }}
+      {{/babel}}
+    </script>
     {{> layouts/headincludes }}
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -82,6 +87,7 @@
     {{/if}}
 
     <script>
+      {{#babel}}
       function iframeGetSearchParams() {
         let params = new URLSearchParams(window.location.search);
         let verticalUrl = window.location.pathname.substr(1)
@@ -97,7 +103,21 @@
             replaceHistory: true
           }));
         },
+        onMessage: function(message) {
+          switch(message.type) {
+            case 'overlayConfig':
+              // TODO (agrow) Initialize overlay from config
+              break;
+            case 'collapse':
+              window.collapseOverlay();
+              break;
+            case 'expand':
+              window.expandOverlay();
+              break;
+          }
+        }
       };
+    {{/babel}}
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.10/iframeResizer.contentWindow.min.js"></script>
 	</head>
