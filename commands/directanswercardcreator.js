@@ -40,7 +40,7 @@ class DirectAnswerCardCreator {
    * @param {Object<string, string} args The arguments, keyed by name 
    */
   execute(args) {
-    this.create(args.name, args.templateCardFolder);
+    this._create(args.name, args.templateCardFolder);
   }
   
   /**
@@ -54,7 +54,7 @@ class DirectAnswerCardCreator {
    * @param {string} templateCardFolder The folder of the existing card on which
    *                                    the new one will be based.
    */
-  create(cardName, templateCardFolder) {
+  _create(cardName, templateCardFolder) {
     const defaultTheme = this.config.defaultTheme;
     const themeCardsDir = 
         `${this.config.dirs.themes}/${defaultTheme}/${this._customCardsDir}`;
