@@ -4,8 +4,6 @@
     console.error('ERROR: no sdkVersion specified, please specify an sdkVersion in the global_config.');
   }
 </script>
-<link rel="stylesheet" type="text/css" href="https://assets.sitescdn.net/answers/v{{global_config.sdkVersion}}/answers.css">
-<link rel="stylesheet" type="text/css" href="bundle.css">
 <script src="https://assets.sitescdn.net/answers/v{{global_config.sdkVersion}}/{{#if global_config.locale}}{{#ifeq global_config.locale 'en'}}answerstemplates.compiled.min.js{{else}}{{global_config.locale}}-answerstemplates.compiled.min.js{{/ifeq}}{{else}}answerstemplates.compiled.min.js{{/if}}"></script>
 <script>
 {{#babel}}
