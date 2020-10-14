@@ -44,7 +44,7 @@ export default class DomInjector {
     const iframeEl = document.createElement('iframe');
     iframeEl.id = Selectors.IFRAME_ID;
     iframeEl.src = this.experienceUrl;
-    iframeEl.name = 'fromOverlay';
+    iframeEl.name = 'overlay';
     iframeContainerEl.appendChild(iframeEl);
   }
 
