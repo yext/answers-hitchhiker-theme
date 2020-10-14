@@ -4,6 +4,11 @@ const path = require('path');
 const UserError = require('./helpers/errors/usererror');
 const { ArgumentMetadata, ArgumentType } = require('./helpers/utils/argumentmetadata');
 
+/**
+ * DirectAnswerCardCreator represents the `directanswercard` custom jambo command.
+ * The command creates a new, custom direct answer card in the top-level
+ * 'directanswercards' directory of a jambo repo.
+ */
 class DirectAnswerCardCreator {
   constructor(jamboConfig) {
     this.config = jamboConfig;
@@ -31,7 +36,8 @@ class DirectAnswerCardCreator {
   args() {
     return {
       'name': new ArgumentMetadata(ArgumentType.STRING, 'name for the new direct answer card', true),
-      'templateCardFolder': new ArgumentMetadata(ArgumentType.STRING, 'folder of direct answer card to fork', true)};
+      'templateCardFolder': new ArgumentMetadata(ArgumentType.STRING, 'folder of direct answer card to fork', true)
+    };
   }
 
   /**
@@ -42,7 +48,7 @@ class DirectAnswerCardCreator {
   execute(args) {
     this._create(args.name, args.templateCardFolder);
   }
-  
+
   /**
    * Creates a new, custom direct answer card in the top-level 'directanswercards'
    * directory. This card will be based off either an existing custom card or one
@@ -56,31 +62,31 @@ class DirectAnswerCardCreator {
    */
   _create(cardName, templateCardFolder) {
     const defaultTheme = this.config.defaultTheme;
-    const themeCardsDir = 
-        `${this.config.dirs.themes}/${defaultTheme}/${this._customCardsDir}`;
+    const themeCardsDir =
+      `${this.config.dirs.themes}/${defaultTheme}/${this._customCardsDir}`;
 
     const cardFolderName = cardName.toLowerCase();
-    const isFolderInUse = 
-        fs.existsSync(`${themeCardsDir}/${cardFolderName}`) ||
-        fs.existsSync(`${this._customCardsDir}/${cardFolderName}`);
+    const isFolderInUse =
+      fs.existsSync(`${themeCardsDir}/${cardFolderName}`) ||
+      fs.existsSync(`${this._customCardsDir}/${cardFolderName}`);
     if (isFolderInUse) {
-        throw new UserError(`A folder with name ${cardFolderName} already exists`);
+      throw new UserError(`A folder with name ${cardFolderName} already exists`);
     }
 
     const cardFolder = `${this._customCardsDir}/${cardFolderName}`;
     if (fs.existsSync(templateCardFolder)) {
-        !fs.existsSync(this._customCardsDir) && this._createCustomCardsDir();
-        fs.copySync(templateCardFolder, cardFolder);
-        this._renameCardComponent(cardFolderName, cardFolder);
+      !fs.existsSync(this._customCardsDir) && this._createCustomCardsDir();
+      fs.copySync(templateCardFolder, cardFolder);
+      this._renameCardComponent(cardFolderName, cardFolder);
     } else {
-        throw new UserError(`The folder ${templateCardFolder} does not exist`);
+      throw new UserError(`The folder ${templateCardFolder} does not exist`);
     }
   }
 
   _renameCardComponent(customCardName, cardFolder) {
     const cardComponentPath = path.resolve(cardFolder, 'component.js');
     const originalComponent = fs.readFileSync(cardComponentPath).toString();
-    const renamedComponent = 
+    const renamedComponent =
       this._getRenamedCardComponent(originalComponent, customCardName);
     fs.writeFileSync(cardComponentPath, renamedComponent);
   }
@@ -97,7 +103,7 @@ class DirectAnswerCardCreator {
   _getRenamedCardComponent(content, customCardName) {
     const cardNameSuffix = 'Component';
     const registerComponentTypeRegex = /\([\w_]+Component\)/g;
-    const regexArray = [ ...content.matchAll(/componentName\s*=\s*'(.*)'/g) ];
+    const regexArray = [...content.matchAll(/componentName\s*=\s*'(.*)'/g)];
     if (regexArray.length === 0 || regexArray[0].length < 2) {
       return content;
     }
@@ -111,7 +117,7 @@ class DirectAnswerCardCreator {
       .replace(registerComponentTypeRegex, `(${customComponentClassName})`)
       .replace(new RegExp(originalComponentName, 'g'), customCardName)
       .replace(
-        /directanswercards[/_](.*)[/_]template/g, 
+        /directanswercards[/_](.*)[/_]template/g,
         `directanswercards/${customCardName}/template`);
   }
 
@@ -121,7 +127,7 @@ class DirectAnswerCardCreator {
    */
   _createCustomCardsDir() {
     fs.mkdirSync(this._customCardsDir);
-    addToPartials(this._customCardsDir);  
+    addToPartials(this._customCardsDir);
   }
 }
 

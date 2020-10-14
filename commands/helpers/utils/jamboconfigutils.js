@@ -13,7 +13,7 @@ const UserError = require('../errors/usererror');
  * 
  * @returns {Object} The parsed Jambo configuration, as an {@link Object}. 
  */
-exports.parseJamboConfig = function() {
+exports.parseJamboConfig = function () {
   try {
     let config = mergeOptions(
       {
@@ -40,14 +40,14 @@ exports.parseJamboConfig = function() {
  * 
  * @param {string} partialsPath The local path to the set of partials. 
  */
-exports.addToPartials = function(partialsPath) {
+exports.addToPartials = function (partialsPath) {
   const jamboConfig = parseJamboConfig();
   const existingPartials = jamboConfig.dirs.partials;
 
-  const shouldAddNewPartialsPath = 
-    !existingPartials.includes(partialsPath) && 
+  const shouldAddNewPartialsPath =
+    !existingPartials.includes(partialsPath) &&
     partialsPath.split(path.sep)[0] !== 'static';
-  
+
   if (shouldAddNewPartialsPath) {
     existingPartials.push(partialsPath);
     fs.writeFileSync('jambo.json', stringify(jamboConfig, null, 2));
