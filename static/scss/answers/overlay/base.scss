@@ -8,7 +8,7 @@
   to { opacity: 0; }
 }
 
-body.Overlay {
+.Overlay {
   background-color: transparent !important; // This MUST be true for the overlay
 
   .yxt-SearchBar-container {
