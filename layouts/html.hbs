@@ -91,6 +91,9 @@
 
     <script>
       {{#babel}}
+      {{> overlay/dom-manipulation/HeaderPanelInjector }}
+      {{> overlay/dom-manipulation/PromptInjector }}
+      {{> overlay/dom-manipulation/ButtonInjector }}
       {{> overlay/controllers/OverlayCreator }}
       function iframeGetSearchParams() {
         let params = new URLSearchParams(window.location.search);

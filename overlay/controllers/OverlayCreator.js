@@ -47,7 +47,9 @@ class OverlayCreator {
 
     window.collapseOverlay();
 
-    // TODO (agrow) update panel, button, and prompts based on config
+    new HeaderPanelInjector(this._panelConfig).inject();
+    new PromptInjector(this._prompts).inject();
+    new ButtonInjector(this._buttonConfig).inject();
 
     this._updateOverlayShape();
   }
