@@ -93,6 +93,17 @@ class HeaderPanelInjector {
     }
   }
 
+  /**
+   * Injects text into the first element matching the selector found in the header element
+   *
+   * @param {string} text
+   * @param {string} selector
+   */
+  _injectText(text, selector) {
+    const el = this.headerEl.querySelector(selector);
+    el && (el.innerText = text);
+  }
+
   // TODO (agrow) confirm its OK to use this "pimped JS" function
   /**
    * Shade, Blend and Convert a Web Color - Shade it darker or lighter, or blend it with a second
