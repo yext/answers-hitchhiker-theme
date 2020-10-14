@@ -35,12 +35,12 @@ export default class Expando {
     // TODO (agrow) inject CSS animations in a later PR
 
     this.collapse();
-    this._iframeWrapperEl.classList.add('visible');
-    this._iframeWrapperEl.classList.add('preload');
+    this._iframeWrapperEl.classList.add('yxt-Overlay--visible');
+    this._iframeWrapperEl.classList.add('yxt-Overlay--preload');
 
     setTimeout(() => {
-      this._iframeWrapperEl.classList.remove('initial');
-      this._iframeWrapperEl.classList.remove('preload');
+      this._iframeWrapperEl.classList.remove('yxt-Overlay--initial');
+      this._iframeWrapperEl.classList.remove('yxt-Overlay--preload');
     }, 800);
   }
 
@@ -53,9 +53,9 @@ export default class Expando {
     }
     this._iframeEl.scrolling = 'no';
     this._isExpanded = false;
-    this._iframeWrapperEl.classList.remove('reverse');
-    this._iframeWrapperEl.classList.add('collapsed');
-    this._iframeWrapperEl.classList.remove('expanded');
+    this._iframeWrapperEl.classList.remove('yxt-Overlay--reverse');
+    this._iframeWrapperEl.classList.add('yxt-Overlay--collapsed');
+    this._iframeWrapperEl.classList.remove('yxt-Overlay--expanded');
   }
 
   /**
@@ -67,24 +67,24 @@ export default class Expando {
     }
     this._iframeEl.scrolling = 'yes';
     this._isExpanded = true;
-    this._iframeWrapperEl.classList.remove('reverse');
-    this._iframeWrapperEl.classList.remove('collapsed');
-    this._iframeWrapperEl.classList.add('expanded');
+    this._iframeWrapperEl.classList.remove('yxt-Overlay--reverse');
+    this._iframeWrapperEl.classList.remove('yxt-Overlay--collapsed');
+    this._iframeWrapperEl.classList.add('yxt-Overlay--expanded');
   }
 
   /**
    * Makes the overlay grow to its larger size
    */
   grow() {
-    this._iframeWrapperEl.classList.remove('reverse');
-    this._iframeWrapperEl.classList.add('isTaller');
+    this._iframeWrapperEl.classList.remove('yxt-Overlay--reverse');
+    this._iframeWrapperEl.classList.add('yxt-Overlay--isTaller');
   }
 
   /**
    * Shrinks the overlay to its shorter size
    */
   shrink() {
-    this._iframeWrapperEl.classList.add('reverse');
-    this._iframeWrapperEl.classList.remove('isTaller');
+    this._iframeWrapperEl.classList.add('yxt-Overlay--reverse');
+    this._iframeWrapperEl.classList.remove('yxt-Overlay--isTaller');
   }
 }
