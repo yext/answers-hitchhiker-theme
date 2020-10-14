@@ -23,22 +23,14 @@ export default class YextAnswersOverlay {
    * Forces the Overlay to expand
    */
   expand() {
-    if (!this.overlayMediator) {
-      console.warn('Cannot expand AnswersOverlay until it has been initialized.');
-      return;
-    }
-    this.overlayMediator.forceExpand();
+    this._isInitialized() && this.overlayMediator.forceExpand();
   }
 
   /**
    * Forces the Overlay to collapse
    */
   collapse() {
-    if (!this.overlayMediator) {
-      console.warn('Cannot collapse AnswersOverlay until it has been initialized.');
-      return;
-    }
-    this.overlayMediator.forceCollapse();
+    this._isInitialized() && this.overlayMediator.forceCollapse();
   }
 
   /**
@@ -48,12 +40,17 @@ export default class YextAnswersOverlay {
    * @param {function} callback
    */
   on(actionType, callback) {
-    if (!this.overlayMediator) {
-      console.warn('Cannot add callback to AnswersOverlay until it has been initialized.');
-      return;
-    }
+    this._isInitialized() && this.overlayMediator.addCallback(actionType, callback);
+  }
 
-    this.overlayMediator.addCallback(actionType, callback);
+  /**
+   * Returns a boolean indicating whether the AnswersOverlay has been initialized.
+   *
+   * @private
+   * @returns {boolean}
+   */
+  _isInitialized() {
+    return !!this.overlayMediator;
   }
 }
 
