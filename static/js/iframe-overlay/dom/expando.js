@@ -1,8 +1,20 @@
+import { ActionTypes } from "../constants";
+
 /**
  * Expando is responsible for handling the resizing of the Overlay.
  */
 export default class Expando {
-  constructor() {}
+  constructor() {
+    /**
+     * @type {function}
+     */
+    this._expandCallback = function() {};
+
+    /**
+     * @type {function}
+     */
+    this._collapseCallback = function() {};
+  }
 
   /**
    * Shows the overlay button using the button size information provided.
@@ -18,6 +30,7 @@ export default class Expando {
    */
   collapse() {
     // TODO (agrow) implement in a later PR
+    this._collapseCallback();
   }
 
   /**
@@ -25,6 +38,7 @@ export default class Expando {
    */
   expand() {
     // TODO (agrow) implement in a later PR
+    this._expandCallback();
   }
 
   /**
@@ -39,5 +53,25 @@ export default class Expando {
    */
   shrink() {
     // TODO (agrow) implement in a later PR
+  }
+
+  /**
+   * Adds a callback to an action
+   *
+   * @param {ActionTypes} type
+   * @param {function} callback
+   */
+  addCallback(type, callback) {
+    switch (type) {
+      case ActionTypes.EXPAND:
+        this._expandCallback = callback;
+        break;
+      case ActionTypes.COLLAPSE:
+        this._collapseCallback = callback;
+        break;
+      default:
+        console.warn(`Callback type '${type}' not supported.`);
+        break;
+    }
   }
 }
