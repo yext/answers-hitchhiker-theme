@@ -91,6 +91,12 @@
 
     <script>
       {{#babel}}
+      if (window.isOverlay) {
+        {{> overlay/dom-manipulation/HeaderPanelInjector }}
+        {{> overlay/dom-manipulation/PromptInjector }}
+        {{> overlay/dom-manipulation/ButtonInjector }}
+        {{> overlay/controllers/OverlayCreator }}
+      }
       function iframeGetSearchParams() {
         let params = new URLSearchParams(window.location.search);
         let verticalUrl = window.location.pathname.substr(1)
@@ -103,7 +109,7 @@
       function onOverlayMessage(message) {
         switch(message.type) {
           case 'overlayConfig':
-            // TODO (agrow) Initialize overlay from config
+            new OverlayCreator(message.config).create();
             break;
           case 'collapse':
             window.collapseOverlay();
