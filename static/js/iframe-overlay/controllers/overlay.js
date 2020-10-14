@@ -19,6 +19,8 @@ export default class Overlay {
   /**
    * Creates the Overlay, adding the HTML elements and setting up any listeners on the
    * existing DOM, if needed.
+   *
+   * @returns {InteractionDirector}
    */
   create() {
     // Add Overlay to the DOM
@@ -31,6 +33,8 @@ export default class Overlay {
       hideDefaultButton: this.config.hideDefaultButton
     });
     this._attachObservers(mediator);
+
+    return mediator;
   }
 
   /**

@@ -68,13 +68,13 @@ export default class InteractionDirector {
   onParentFrameInteraction(type) {
     switch (type){
       case InteractionTypes.COLLAPSE:
-        this._forceCollapse();
+        this.forceCollapse();
         break;
       case InteractionTypes.TOGGLE_OVERLAY:
         if (this.isExpanded) {
-          this._forceCollapse();
+          this.forceCollapse();
         } else {
-          this._forceExpand();
+          this.forceExpand();
         }
         break;
       }
@@ -84,7 +84,7 @@ export default class InteractionDirector {
    * An external trigger forces the Overlay to collapse - affecting both the Overlay parts
    * in the child iFrame and the parts in the parent frame
    */
-  _forceCollapse() {
+  forceCollapse() {
     this._sendMessageToIFrame(InteractionTypes.COLLAPSE);
     this.expando.collapse();
   }
@@ -93,9 +93,19 @@ export default class InteractionDirector {
    * An external trigger forces the Overlay to expand - affecting both the Overlay parts
    * in the child iFrame and the parts in the parent frame
    */
-  _forceExpand() {
+  forceExpand() {
     this._sendMessageToIFrame(InteractionTypes.EXPAND);
     this.expando.expand();
+  }
+
+  /**
+   * Adds a callback to an interaction on the Overlay.
+   *
+   * @param {ActionTypes} type
+   * @param {function} callback
+   */
+  addCallback(type, callback) {
+    this.expando.addCallback(type, callback);
   }
 
   /**
