@@ -12,3 +12,8 @@ exports.InteractionTypes = {
   CLEAR_BUTTON_HIT: 'clearButtonHit',
   TOGGLE_OVERLAY: 'toggle',
 };
+
+exports.ActionTypes = {
+  COLLAPSE: 'collapse',
+  EXPAND: 'expand'
+};
