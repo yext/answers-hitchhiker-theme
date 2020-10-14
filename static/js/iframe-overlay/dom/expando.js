@@ -35,12 +35,12 @@ export default class Expando {
     // TODO (agrow) inject CSS animations in a later PR
 
     this.collapse();
-    this._iframeWrapperEl.classList.add('yxt-Overlay--visible');
-    this._iframeWrapperEl.classList.add('yxt-Overlay--preload');
+    this._iframeWrapperEl.classList.add('AnswersOverlay--visible');
+    this._iframeWrapperEl.classList.add('AnswersOverlay--preload');
 
     setTimeout(() => {
-      this._iframeWrapperEl.classList.remove('yxt-Overlay--initial');
-      this._iframeWrapperEl.classList.remove('yxt-Overlay--preload');
+      this._iframeWrapperEl.classList.remove('AnswersOverlay--initial');
+      this._iframeWrapperEl.classList.remove('AnswersOverlay--preload');
     }, 800);
   }
 
@@ -53,9 +53,9 @@ export default class Expando {
     }
     this._iframeEl.scrolling = 'no';
     this._isExpanded = false;
-    this._iframeWrapperEl.classList.remove('yxt-Overlay--reverse');
-    this._iframeWrapperEl.classList.add('yxt-Overlay--collapsed');
-    this._iframeWrapperEl.classList.remove('yxt-Overlay--expanded');
+    this._iframeWrapperEl.classList.remove('AnswersOverlay--reverse');
+    this._iframeWrapperEl.classList.add('AnswersOverlay--collapsed');
+    this._iframeWrapperEl.classList.remove('AnswersOverlay--expanded');
   }
 
   /**
@@ -67,24 +67,24 @@ export default class Expando {
     }
     this._iframeEl.scrolling = 'yes';
     this._isExpanded = true;
-    this._iframeWrapperEl.classList.remove('yxt-Overlay--reverse');
-    this._iframeWrapperEl.classList.remove('yxt-Overlay--collapsed');
-    this._iframeWrapperEl.classList.add('yxt-Overlay--expanded');
+    this._iframeWrapperEl.classList.remove('AnswersOverlay--reverse');
+    this._iframeWrapperEl.classList.remove('AnswersOverlay--collapsed');
+    this._iframeWrapperEl.classList.add('AnswersOverlay--expanded');
   }
 
   /**
    * Makes the overlay grow to its larger size
    */
   grow() {
-    this._iframeWrapperEl.classList.remove('yxt-Overlay--reverse');
-    this._iframeWrapperEl.classList.add('yxt-Overlay--isTaller');
+    this._iframeWrapperEl.classList.remove('AnswersOverlay--reverse');
+    this._iframeWrapperEl.classList.add('AnswersOverlay--isTaller');
   }
 
   /**
    * Shrinks the overlay to its shorter size
    */
   shrink() {
-    this._iframeWrapperEl.classList.add('yxt-Overlay--reverse');
-    this._iframeWrapperEl.classList.remove('yxt-Overlay--isTaller');
+    this._iframeWrapperEl.classList.add('AnswersOverlay--reverse');
+    this._iframeWrapperEl.classList.remove('AnswersOverlay--isTaller');
   }
 }
