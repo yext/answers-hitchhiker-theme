@@ -1,5 +1,5 @@
 const fs = require('fs-extra');
-const { addToPartials, parseJamboConfig } = require('./helpers/utils/jamboconfigutils');
+const { addToPartials } = require('./helpers/utils/jamboconfigutils');
 const path = require('path');
 const UserError = require('./helpers/errors/usererror');
 const { ArgumentMetadata, ArgumentType } = require('./helpers/utils/argumentmetadata');
@@ -131,5 +131,4 @@ class DirectAnswerCardCreator {
   }
 }
 
-const jamboConfig = fs.existsSync('jambo.json') && parseJamboConfig();
-module.exports = new DirectAnswerCardCreator(jamboConfig);
+module.exports = jamboConfig => new DirectAnswerCardCreator(jamboConfig);
