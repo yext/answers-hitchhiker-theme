@@ -63,7 +63,7 @@ export default class Expando {
     }
     this._iframeEl.scrolling = 'no';
     this._isExpanded = false;
-    this._iframeWrapperEl.classList.remove('AnswersOverlay--reverse');
+    this._iframeWrapperEl.classList.remove('AnswersOverlay--isSmaller');
     this._iframeWrapperEl.classList.add('AnswersOverlay--collapsed');
     this._iframeWrapperEl.classList.remove('AnswersOverlay--expanded');
 
@@ -79,7 +79,7 @@ export default class Expando {
     }
     this._iframeEl.scrolling = 'yes';
     this._isExpanded = true;
-    this._iframeWrapperEl.classList.remove('AnswersOverlay--reverse');
+    this._iframeWrapperEl.classList.remove('AnswersOverlay--isSmaller');
     this._iframeWrapperEl.classList.remove('AnswersOverlay--collapsed');
     this._iframeWrapperEl.classList.add('AnswersOverlay--expanded');
 
@@ -90,7 +90,7 @@ export default class Expando {
    * Makes the overlay grow to its larger size
    */
   grow() {
-    this._iframeWrapperEl.classList.remove('AnswersOverlay--reverse');
+    this._iframeWrapperEl.classList.remove('AnswersOverlay--isSmaller');
     this._iframeWrapperEl.classList.add('AnswersOverlay--isTaller');
   }
 
@@ -98,7 +98,7 @@ export default class Expando {
    * Shrinks the overlay to its shorter size
    */
   shrink() {
-    this._iframeWrapperEl.classList.add('AnswersOverlay--reverse');
+    this._iframeWrapperEl.classList.add('AnswersOverlay--isSmaller');
     this._iframeWrapperEl.classList.remove('AnswersOverlay--isTaller');
   }
 
