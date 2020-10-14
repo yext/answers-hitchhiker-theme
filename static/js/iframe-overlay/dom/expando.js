@@ -1,4 +1,4 @@
-import { Selectors } from '../constants';
+import { ActionTypes, Selectors } from '../constants';
 
 /**
  * Expando is responsible for handling the resizing of the Overlay.
@@ -24,6 +24,16 @@ export default class Expando {
      * @type {boolean}
      */
     this._isExpanded = true;
+
+    /**
+     * @type {function}
+     */
+    this._expandCallback = function() {};
+
+    /**
+     * @type {function}
+     */
+    this._collapseCallback = function() {};
   }
 
   /**
@@ -56,6 +66,8 @@ export default class Expando {
     this._iframeWrapperEl.classList.remove('AnswersOverlay--reverse');
     this._iframeWrapperEl.classList.add('AnswersOverlay--collapsed');
     this._iframeWrapperEl.classList.remove('AnswersOverlay--expanded');
+
+    this._collapseCallback();
   }
 
   /**
@@ -70,6 +82,8 @@ export default class Expando {
     this._iframeWrapperEl.classList.remove('AnswersOverlay--reverse');
     this._iframeWrapperEl.classList.remove('AnswersOverlay--collapsed');
     this._iframeWrapperEl.classList.add('AnswersOverlay--expanded');
+
+    this._expandCallback();
   }
 
   /**
@@ -86,5 +100,25 @@ export default class Expando {
   shrink() {
     this._iframeWrapperEl.classList.add('AnswersOverlay--reverse');
     this._iframeWrapperEl.classList.remove('AnswersOverlay--isTaller');
+  }
+
+  /**
+   * Adds a callback to an action
+   *
+   * @param {ActionTypes} type
+   * @param {function} callback
+   */
+  addCallback(type, callback) {
+    switch (type) {
+      case ActionTypes.EXPAND:
+        this._expandCallback = callback;
+        break;
+      case ActionTypes.COLLAPSE:
+        this._collapseCallback = callback;
+        break;
+      default:
+        console.warn(`Callback type '${type}' not supported.`);
+        break;
+    }
   }
 }
