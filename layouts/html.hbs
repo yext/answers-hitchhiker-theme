@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html class="YxtPage-doc">
   <head>
+    <script>
+      {{#babel}}
+      if (window.name == 'overlay') {
+        window.isOverlay = true;
+        {{> overlay/controllers/shape }}
+      }
+      {{/babel}}
+    </script>
     {{> layouts/headincludes }}
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -91,6 +99,7 @@
     {{/if}}
 
     <script>
+      {{#babel}}
       function iframeGetSearchParams() {
         let params = new URLSearchParams(window.location.search);
         let verticalUrl = window.location.pathname.substr(1)
@@ -99,6 +108,23 @@
         }
         return params.toString();
       }
+
+      function onOverlayMessage(message) {
+        switch(message.type) {
+          case 'overlayConfig':
+            // TODO (agrow) Initialize overlay from config
+            break;
+          case 'collapse':
+            window.collapseOverlay();
+            break;
+          case 'expand':
+            window.expandOverlay();
+            break;
+          default:
+            break;
+        }
+      }
+
       window.iFrameResizer = {
         onReady: function() {
           window.parentIFrame.sendMessage(JSON.stringify({
@@ -107,7 +133,9 @@
             pageTitle: document.title
           }));
         },
+        onMessage: window.isOverlay ? onOverlayMessage : function() {},
       };
+    {{/babel}}
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.10/iframeResizer.contentWindow.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://assets.sitescdn.net/answers/v{{global_config.sdkVersion}}/answers.css">
