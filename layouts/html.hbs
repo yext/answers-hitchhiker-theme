@@ -91,6 +91,7 @@
 
     <script>
       {{#babel}}
+      {{> overlay/controllers/OverlayCreator }}
       function iframeGetSearchParams() {
         let params = new URLSearchParams(window.location.search);
         let verticalUrl = window.location.pathname.substr(1)
@@ -103,7 +104,7 @@
       function onOverlayMessage(message) {
         switch(message.type) {
           case 'overlayConfig':
-            // TODO (agrow) Initialize overlay from config
+            new OverlayCreator(message.config).create();
             break;
           case 'collapse':
             window.collapseOverlay();
