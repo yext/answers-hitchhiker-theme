@@ -3,7 +3,10 @@
   <head>
     <script>
       {{#babel}}
-      {{> overlay/controllers/shape }}
+      if (window.name == 'overlay') {
+        window.isOverlay = true;
+        {{> overlay/controllers/shape }}
+      }
       {{/babel}}
     </script>
     {{> layouts/headincludes }}
@@ -96,6 +99,23 @@
         }
         return params.toString();
       }
+
+      function onOverlayMessage(message) {
+        switch(message.type) {
+          case 'overlayConfig':
+            // TODO (agrow) Initialize overlay from config
+            break;
+          case 'collapse':
+            window.collapseOverlay();
+            break;
+          case 'expand':
+            window.expandOverlay();
+            break;
+          default:
+            break;
+        }
+      }
+
       window.iFrameResizer = {
         onReady: function() {
           window.parentIFrame.sendMessage(JSON.stringify({
@@ -103,19 +123,7 @@
             replaceHistory: true
           }));
         },
-        onMessage: function(message) {
-          switch(message.type) {
-            case 'overlayConfig':
-              // TODO (agrow) Initialize overlay from config
-              break;
-            case 'collapse':
-              window.collapseOverlay();
-              break;
-            case 'expand':
-              window.expandOverlay();
-              break;
-          }
-        }
+        onMessage: window.isOverlay ? onOverlayMessage : function() {},
       };
     {{/babel}}
     </script>
