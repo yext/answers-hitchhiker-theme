@@ -1,7 +1,7 @@
 import DomInjector from '../dom/dominjector';
 import IFrameObserver from './iframeobserver';
-import InteractionDirector from './interactiondirector';
 import InjectedData from '../../models/InjectedData';
+import InteractionDirector from './interactiondirector';
 import OverlayConfig from '../models/overlayconfig';
 import ParentFrameObserver from './parentframeobserver';
 import { Selectors } from '../constants';
@@ -25,7 +25,7 @@ export default class Overlay {
    */
   create() {
     // Add Overlay to the DOM
-    const experienceUrl = new InjectedData().getDomain() + this.config.experiencePath;
+    const experienceUrl = this._getExperienceUrl();
     new DomInjector(experienceUrl, this.config.offset, this.config.button.alignment)
       .inject();
 
@@ -48,5 +48,18 @@ export default class Overlay {
       .attach();
     new ParentFrameObserver(mediator, this.config.customSelector)
       .attach();
+  }
+
+  /**
+   * Returns the experience URL with the referrer page URL set to the current URL
+   *
+   * @returns {string}
+   */
+  _getExperienceUrl() {
+    const referrerPageUrl = window.location.href.split('?')[0].split('#')[0];
+    const referrerPageUrlParam = '?referrerPageUrl=' + referrerPageUrl;
+    return new InjectedData().getDomain()
+      + this.config.experiencePath
+      + referrerPageUrlParam;
   }
 }
