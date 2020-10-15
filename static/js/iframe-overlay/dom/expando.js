@@ -18,7 +18,7 @@ export default class Expando {
     /**
      * @type {boolean}
      */
-    this._isExpanded = true;
+    this._isExpanded = false;
 
     /**
      * @type {boolean}
@@ -42,16 +42,19 @@ export default class Expando {
    * @param {Object} size
    */
   showButton(size) {
+    this._isExpanded = true;
     this._buttonWidth = size.width;
     this._buttonHeight = size.height;
     this._shorterHeight = `${size.totalHeight}px`;
 
+    this._addMediaQueryListener();
     this.shrink();
     this.collapse();
 
     setTimeout(() => {
-      this._iframeWrapperEl.classList.remove('initial');
-    }, 100);
+      this._iframeWrapperEl.style['z-index'] = '2147483639';
+      this._iframeWrapperEl.style['opacity'] = '1';
+    }, 250);
   }
 
   /**
@@ -95,7 +98,7 @@ export default class Expando {
     this._iframeWrapperEl.style['transition'] = `box-shadow ${AnimationStyling.SIZE_TIMING}`;
     this._iframeWrapperEl.style['transition-delay'] = AnimationStyling.SIZE_TIMING;
     this._iframeWrapperEl.style['box-shadow'] = AnimationStyling.BOX_SHADOW_NORMAL;
-    this._iframeWrapperEl.style['width'] = AnimationStyling.WIDTH_DESKTOP;
+    this._iframeWrapperEl.style['width'] = this._overlayWidth;
     this._iframeWrapperEl.style['height'] = this._isTaller
       ? AnimationStyling.HEIGHT_TALLER
       : this._shorterHeight;
@@ -113,7 +116,7 @@ export default class Expando {
     this._isTaller = true;
 
     this._iframeWrapperEl.style['transition'] = `${AnimationStyling.SIZE_TIMING} ease all`;
-    this._iframeWrapperEl.style['width'] = AnimationStyling.WIDTH_DESKTOP;
+    this._iframeWrapperEl.style['width'] = this._overlayWidth;
     this._iframeWrapperEl.style['height'] = AnimationStyling.HEIGHT_TALLER;
     this._iframeWrapperEl.style['box-shadow'] = AnimationStyling.BOX_SHADOW_NORMAL;
   }
@@ -128,7 +131,7 @@ export default class Expando {
     this._isTaller = false;
 
     this._iframeWrapperEl.style['transition'] = `${AnimationStyling.SIZE_TIMING} ease all`;
-    this._iframeWrapperEl.style['width'] = AnimationStyling.WIDTH_DESKTOP;
+    this._iframeWrapperEl.style['width'] = this._overlayWidth;
     this._iframeWrapperEl.style['height'] = this._shorterHeight;
     this._iframeWrapperEl.style['box-shadow'] = AnimationStyling.BOX_SHADOW_NORMAL;
   }
@@ -151,5 +154,29 @@ export default class Expando {
         console.warn(`Callback type '${type}' not supported.`);
         break;
     }
+  }
+
+  /**
+   * Updates the Overlay sizing values (if necessary) when the viewport size changes.
+   */
+  _addMediaQueryListener() {
+    const mediaQuery = window.matchMedia("(min-width: 767px)");
+    this._updateOverlayWidth(mediaQuery.matches);
+
+    mediaQuery.addListener((e) => {
+      this._updateOverlayWidth(e.matches);
+    });
+  }
+
+  /**
+   * Updates the Overlay width depending on whether the window size is mobile-sized or
+   * not
+   *
+   * @param {boolean} isMobile
+   */
+  _updateOverlayWidth(isMobile) {
+    this._overlayWidth = isMobile
+      ? AnimationStyling.WIDTH_MOBILE
+      : AnimationStyling.WIDTH_DESKTOP;
   }
 }
