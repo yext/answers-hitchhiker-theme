@@ -10,6 +10,7 @@
 
 .Overlay {
   background-color: transparent !important; // This MUST be true for the overlay
+  -ms-overflow-style: none; /* For IE11 */
 
   .yxt-SearchBar-container {
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
@@ -23,7 +24,7 @@
   }
 
   .Answers-overlaySuggestions.hidden {
-    display:none;
+    display: none;
   }
 
   &.shorter .Answers {
@@ -55,8 +56,12 @@
     }
   }
 
-  &.collapsed .AnswersPage {
-    animation: fadeOut 0.4s;
-    animation-fill-mode: forwards;
+  &.collapsed {
+    overflow: hidden;
+
+    .AnswersPage {
+      animation: fadeOut 0.4s;
+      animation-fill-mode: forwards;
+    }
   }
 }
