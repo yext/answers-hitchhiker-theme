@@ -11,8 +11,7 @@ class OverlayCreator {
       labelText: config.button.text,
       alignment: config.button.alignment,
       backgroundColor: config.button.backgroundColor,
-      foregroundColor: config.button.foregroundColor,
-      borderRadius: config.button.text ? '200px' : '50%'
+      foregroundColor: config.button.foregroundColor
     };
 
     /**
@@ -49,7 +48,8 @@ class OverlayCreator {
 
     new HeaderPanelInjector(this._panelConfig).inject();
     new PromptInjector(this._prompts).inject();
-    new ButtonInjector(this._buttonConfig).inject();
+    new ButtonInfuser(this._buttonConfig)
+      .infuse();
 
     this._updateOverlayShape();
   }
