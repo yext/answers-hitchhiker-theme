@@ -1,3 +1,5 @@
+import InjectedData from "../../models/InjectedData";
+
 /**
  * OverlayConfig represents the configuration required for the Overlay.
  */
@@ -8,7 +10,8 @@ export default class OverlayConfig {
      * to the domain for their Answers experience.
      * @type {String}
      */
-    this.experiencePath = config.experiencePath || 'index.html';
+    const experienceDomain = new InjectedData().getDomain();
+    this.experiencePath = experienceDomain + (config.experiencePath || 'index.html');
 
     /**
      * List of prompts, each prompt has the following properties:
