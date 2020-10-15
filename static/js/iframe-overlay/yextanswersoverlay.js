@@ -1,3 +1,4 @@
+import { ActionTypes } from './constants';
 import Overlay from './controllers/overlay';
 import OverlayConfig from './models/overlayconfig';
 
@@ -11,11 +12,46 @@ export default class YextAnswersOverlay {
    *
    * @param {Object} config
    */
-  static init(config) {
+  init(config) {
     const parsedConfig = new OverlayConfig(config);
 
-    new Overlay(parsedConfig).create();
+    this.overlayMediator = new Overlay(parsedConfig)
+      .create();
+  }
+
+  /**
+   * Forces the Overlay to expand
+   */
+  expand() {
+    this._isInitialized() && this.overlayMediator.forceExpand();
+  }
+
+  /**
+   * Forces the Overlay to collapse
+   */
+  collapse() {
+    this._isInitialized() && this.overlayMediator.forceCollapse();
+  }
+
+  /**
+   * This function can be used to add a callback to an action on the Overlay.
+   *
+   * @param {ActionTypes} actionType
+   * @param {function} callback
+   */
+  on(actionType, callback) {
+    this._isInitialized() && this.overlayMediator.addCallback(actionType, callback);
+  }
+
+  /**
+   * Returns a boolean indicating whether the AnswersOverlay has been initialized.
+   *
+   * @private
+   * @returns {boolean}
+   */
+  _isInitialized() {
+    return !!this.overlayMediator;
   }
 }
 
-global.YextAnswersOverlay = YextAnswersOverlay;
+global.YextAnswersOverlay = new YextAnswersOverlay();
