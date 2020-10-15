@@ -15,7 +15,7 @@
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
   }
 
-  .Overlay-page {
+  .AnswersPage {
     height: 100%;
     animation: fadeIn 0.4s;
     animation-delay: .15s;
@@ -55,7 +55,7 @@
     }
   }
 
-  &.collapsed .Overlay-page {
+  &.collapsed .AnswersPage {
     animation: fadeOut 0.4s;
     animation-fill-mode: forwards;
   }
