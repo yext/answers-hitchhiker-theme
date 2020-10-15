@@ -1,6 +1,7 @@
 import { ActionTypes } from './constants';
 import Overlay from './controllers/overlay';
 import OverlayConfig from './models/overlayconfig';
+import ConfigValidator from './validation/configvalidator';
 
 /**
  * YextAnswersOverlay exposes an interface in order to create an iFrame'd overlay
@@ -13,6 +14,7 @@ export default class YextAnswersOverlay {
    * @param {Object} config
    */
   init(config) {
+    new ConfigValidator(config).validate()
     const parsedConfig = new OverlayConfig(config);
 
     this.overlayMediator = new Overlay(parsedConfig)
