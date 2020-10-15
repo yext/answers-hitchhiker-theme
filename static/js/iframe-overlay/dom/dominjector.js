@@ -31,7 +31,14 @@ export default class DomInjector {
    * Injects the Overlay elements into the DOM.
    */
   inject() {
-    // Create iframe container
+    this._injectIFrameContainer();
+    this._injectIFrame();
+  }
+
+  /**
+   * Injects the iframe's container element into the DOM
+   */
+  _injectIFrameContainer() {
     const iframeContainerEl = document.createElement('div');
     iframeContainerEl.id = Selectors.IFRAME_CONTAINER_ID;
     iframeContainerEl.classList.add('initial');
@@ -48,8 +55,12 @@ export default class DomInjector {
     iframeContainerEl.style['overflow'] = 'hidden';
     iframeContainerEl.style['border-radius'] = '10px';
     document.body.appendChild(iframeContainerEl);
+  }
 
-    // Create iframe
+  /**
+   * Injects the iframe element into the DOM
+   */
+  _injectIFrame() {
     const iframeEl = document.createElement('iframe');
     iframeEl.id = Selectors.IFRAME_ID;
     iframeEl.src = this.experienceUrl;
