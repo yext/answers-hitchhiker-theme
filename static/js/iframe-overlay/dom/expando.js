@@ -4,12 +4,7 @@ import { ActionTypes, Selectors } from '../constants';
  * Expando is responsible for handling the resizing of the Overlay.
  */
 export default class Expando {
-  constructor(isRightAligned = true) {
-    /**
-     * @type {boolean}
-     */
-    this._isRightAligned = isRightAligned;
-
+  constructor() {
     /**
      * @type {Element}
      */
@@ -24,6 +19,11 @@ export default class Expando {
      * @type {boolean}
      */
     this._isExpanded = true;
+
+    /**
+     * @type {boolean}
+     */
+    this._isTaller = true;
 
     /**
      * @type {function}
@@ -41,17 +41,17 @@ export default class Expando {
    *
    * @param {Object} size
    */
-  showButton(size) {
-    // TODO (agrow) inject CSS animations in a later PR
+  init(size) {
+    this._buttonWidth = size.width;
+    this._buttonHeight = size.height;
+    this._shorterHeight = `${size.totalHeight}px`;
 
+    this.shrink();
     this.collapse();
-    this._iframeWrapperEl.classList.add('AnswersOverlay--visible');
-    this._iframeWrapperEl.classList.add('AnswersOverlay--preload');
 
     setTimeout(() => {
-      this._iframeWrapperEl.classList.remove('AnswersOverlay--initial');
-      this._iframeWrapperEl.classList.remove('AnswersOverlay--preload');
-    }, 800);
+      this._iframeWrapperEl.classList.remove('initial');
+    }, 100);
   }
 
   /**
@@ -61,11 +61,18 @@ export default class Expando {
     if (!this._isExpanded) {
       return;
     }
-    this._iframeEl.scrolling = 'no';
     this._isExpanded = false;
-    this._iframeWrapperEl.classList.remove('AnswersOverlay--isSmaller');
-    this._iframeWrapperEl.classList.add('AnswersOverlay--collapsed');
-    this._iframeWrapperEl.classList.remove('AnswersOverlay--expanded');
+
+    this._iframeEl.scrolling = 'no';
+    this._iframeEl.style['background-color'] = 'transparent';
+    this._iframeEl.style['transition'] = 'background-color .4s';
+    this._iframeEl.style['transition-delay'] = '0s';
+
+    this._iframeWrapperEl.style['transition'] = 'height .15s, width .15s';
+    this._iframeWrapperEl.style['transition-delay'] = '.4s';
+    this._iframeWrapperEl.style['width'] = this._buttonWidth;
+    this._iframeWrapperEl.style['height'] = this._buttonHeight;
+    this._iframeWrapperEl.style['box-shadow'] = '0 3px 10px 0 rgba(0,0,0,0)';
 
     this._collapseCallback();
   }
@@ -77,11 +84,24 @@ export default class Expando {
     if (this._isExpanded) {
       return;
     }
-    this._iframeEl.scrolling = 'yes';
     this._isExpanded = true;
-    this._iframeWrapperEl.classList.remove('AnswersOverlay--isSmaller');
-    this._iframeWrapperEl.classList.remove('AnswersOverlay--collapsed');
-    this._iframeWrapperEl.classList.add('AnswersOverlay--expanded');
+
+    this._iframeEl.scrolling = 'yes';
+    this._iframeEl.style['background-color'] = '#eeeff0';
+    this._iframeEl.style['transition'] = 'background-color .4s';
+    this._iframeEl.style['transition-delay'] = '.15s';
+
+    if (this._isTaller) {
+      this._iframeWrapperEl.style['transition'] = '.15s ease all';
+      this._iframeWrapperEl.style['width'] = '445px';
+      this._iframeWrapperEl.style['height'] = 'calc(100% - 32px)';
+      this._iframeWrapperEl.style['box-shadow'] = '0 3px 10px 0 rgba(0,0,0,0.4)';
+    } else {
+      this._iframeWrapperEl.style['transition'] = 'box-shadow .15s';
+      this._iframeWrapperEl.style['width'] = '445px';
+      this._iframeWrapperEl.style['height'] = this._shorterHeight;
+      this._iframeWrapperEl.style['box-shadow'] = '0 3px 10px 0 rgba(0,0,0,0.4)';
+    }
 
     this._expandCallback();
   }
@@ -90,16 +110,29 @@ export default class Expando {
    * Makes the overlay grow to its larger size
    */
   grow() {
-    this._iframeWrapperEl.classList.remove('AnswersOverlay--isSmaller');
-    this._iframeWrapperEl.classList.add('AnswersOverlay--isTaller');
+    if (this._isTaller) {
+      return;
+    }
+    this._isTaller = true;
+
+    this._iframeWrapperEl.style['transition'] = '.15s ease all';
+    this._iframeWrapperEl.style['width'] = '445px';
+    this._iframeWrapperEl.style['height'] = 'calc(100% - 32px)';
+    this._iframeWrapperEl.style['box-shadow'] = '0 3px 10px 0 rgba(0,0,0,0.4)';
   }
 
   /**
    * Shrinks the overlay to its shorter size
    */
   shrink() {
-    this._iframeWrapperEl.classList.add('AnswersOverlay--isSmaller');
-    this._iframeWrapperEl.classList.remove('AnswersOverlay--isTaller');
+    if (!this._isTaller) {
+      return;
+    }
+    this._isTaller = false;
+    this._iframeWrapperEl.style['transition'] = '.15s ease all';
+    this._iframeWrapperEl.style['width'] = '445px';
+    this._iframeWrapperEl.style['height'] = this._shorterHeight;
+    this._iframeWrapperEl.style['box-shadow'] = '0 3px 10px 0 rgba(0,0,0,0.4)';
   }
 
   /**
