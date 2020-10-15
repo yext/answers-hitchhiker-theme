@@ -21,7 +21,7 @@ class OverlayCreator {
     this._panelConfig = {
       heading: config.panel.header,
       subtitle: config.panel.subtitle,
-      icon: config.panel.icon,
+      imageUrl: config.panel.icon,
       backgroundColor: config.panel.backgroundColor,
       foregroundColor: config.panel.foregroundColor
     };
