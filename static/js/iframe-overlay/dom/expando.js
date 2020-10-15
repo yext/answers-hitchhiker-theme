@@ -1,4 +1,4 @@
-import { ActionTypes, Selectors } from '../constants';
+import { ActionTypes, AnimationStyling, Selectors } from '../constants';
 
 /**
  * Expando is responsible for handling the resizing of the Overlay.
@@ -65,14 +65,15 @@ export default class Expando {
 
     this._iframeEl.scrolling = 'no';
     this._iframeEl.style['background-color'] = 'transparent';
-    this._iframeEl.style['transition'] = 'background-color .4s';
+    this._iframeEl.style['transition'] = `background-color ${AnimationStyling.FADE_TIMING}`;
     this._iframeEl.style['transition-delay'] = '0s';
 
-    this._iframeWrapperEl.style['transition'] = 'height .15s, width .15s';
-    this._iframeWrapperEl.style['transition-delay'] = '.4s';
+    this._iframeWrapperEl.style['transition'] =
+      `height ${AnimationStyling.SIZE_TIMING}, width ${AnimationStyling.SIZE_TIMING}`;
+    this._iframeWrapperEl.style['transition-delay'] = AnimationStyling.FADE_TIMING;
     this._iframeWrapperEl.style['width'] = this._buttonWidth;
     this._iframeWrapperEl.style['height'] = this._buttonHeight;
-    this._iframeWrapperEl.style['box-shadow'] = '0 3px 10px 0 rgba(0,0,0,0)';
+    this._iframeWrapperEl.style['box-shadow'] = AnimationStyling.BOX_SHADOW_NONE;
 
     this._collapseCallback();
   }
@@ -87,23 +88,17 @@ export default class Expando {
     this._isExpanded = true;
 
     this._iframeEl.scrolling = 'yes';
-    this._iframeEl.style['background-color'] = '#eeeff0';
-    this._iframeEl.style['transition'] = 'background-color .4s';
-    this._iframeEl.style['transition-delay'] = '.15s';
+    this._iframeEl.style['transition'] = `background-color ${AnimationStyling.FADE_TIMING}`;
+    this._iframeEl.style['transition-delay'] = AnimationStyling.SIZE_TIMING;
+    this._iframeEl.style['background-color'] = AnimationStyling.BACKGROUND_COLOR_NORMAL;
 
-    if (this._isTaller) {
-      this._iframeWrapperEl.style['transition'] = 'box-shadow .15s';
-      this._iframeWrapperEl.style['transition-delay'] = '.1s';
-      this._iframeWrapperEl.style['width'] = '445px';
-      this._iframeWrapperEl.style['height'] = 'calc(100% - 32px)';
-      this._iframeWrapperEl.style['box-shadow'] = '0 3px 10px 0 rgba(0,0,0,0.4)';
-    } else {
-      this._iframeWrapperEl.style['transition'] = 'box-shadow .15s';
-      this._iframeWrapperEl.style['transition-delay'] = '.1s';
-      this._iframeWrapperEl.style['width'] = '445px';
-      this._iframeWrapperEl.style['height'] = this._shorterHeight;
-      this._iframeWrapperEl.style['box-shadow'] = '0 3px 10px 0 rgba(0,0,0,0.4)';
-    }
+    this._iframeWrapperEl.style['transition'] = `box-shadow ${AnimationStyling.SIZE_TIMING}`;
+    this._iframeWrapperEl.style['transition-delay'] = AnimationStyling.SIZE_TIMING;
+    this._iframeWrapperEl.style['box-shadow'] = AnimationStyling.BOX_SHADOW_NORMAL;
+    this._iframeWrapperEl.style['width'] = AnimationStyling.WIDTH_DESKTOP;
+    this._iframeWrapperEl.style['height'] = this._isTaller
+      ? AnimationStyling.HEIGHT_TALLER
+      : this._shorterHeight;
 
     this._expandCallback();
   }
@@ -117,10 +112,10 @@ export default class Expando {
     }
     this._isTaller = true;
 
-    this._iframeWrapperEl.style['transition'] = '.15s ease all';
-    this._iframeWrapperEl.style['width'] = '445px';
-    this._iframeWrapperEl.style['height'] = 'calc(100% - 32px)';
-    this._iframeWrapperEl.style['box-shadow'] = '0 3px 10px 0 rgba(0,0,0,0.4)';
+    this._iframeWrapperEl.style['transition'] = `${AnimationStyling.SIZE_TIMING} ease all`;
+    this._iframeWrapperEl.style['width'] = AnimationStyling.WIDTH_DESKTOP;
+    this._iframeWrapperEl.style['height'] = AnimationStyling.HEIGHT_TALLER;
+    this._iframeWrapperEl.style['box-shadow'] = AnimationStyling.BOX_SHADOW_NORMAL;
   }
 
   /**
@@ -132,10 +127,10 @@ export default class Expando {
     }
     this._isTaller = false;
 
-    this._iframeWrapperEl.style['transition'] = '.15s ease all';
-    this._iframeWrapperEl.style['width'] = '445px';
+    this._iframeWrapperEl.style['transition'] = `${AnimationStyling.SIZE_TIMING} ease all`;
+    this._iframeWrapperEl.style['width'] = AnimationStyling.WIDTH_DESKTOP;
     this._iframeWrapperEl.style['height'] = this._shorterHeight;
-    this._iframeWrapperEl.style['box-shadow'] = '0 3px 10px 0 rgba(0,0,0,0.4)';
+    this._iframeWrapperEl.style['box-shadow'] = AnimationStyling.BOX_SHADOW_NORMAL;
   }
 
   /**
