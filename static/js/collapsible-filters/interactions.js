@@ -11,6 +11,7 @@ export default class Interactions {
     this.resultsColumn = document.querySelector('.js-answersResultsColumn');
     this.resultsWrapper = document.querySelector('.js-answersResultsWrapper');
     this.inactiveCssClass = 'CollapsibleFilters-inactive';
+    this.stickyElements = [];
   }
 
   /**
@@ -20,6 +21,7 @@ export default class Interactions {
    * @param {HTMLElement} stickyElement 
    */
   stickify(stickyElement) {
+    this.stickyElements.push(stickyElement);
     window.addEventListener('scroll', () => {
       this._updateStickyElement(stickyElement);
     });
@@ -126,6 +128,9 @@ export default class Interactions {
    * @param {boolean} shouldCollapseFilters 
    */
   _toggleCollapsibleFilters(shouldCollapseFilters) {
+    for (const el of this.stickyElements) {
+      this._updateStickyElement(el);
+    }
     for (const el of this.filterEls) {
       this.toggleInactiveClass(el, shouldCollapseFilters);
     }
