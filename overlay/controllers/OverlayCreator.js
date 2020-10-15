@@ -47,7 +47,7 @@ class OverlayCreator {
 
     window.collapseOverlay();
 
-    new HeaderPanelInjector(this._panelConfig).inject();
+    new HeaderPanelInfuser(this._panelConfig).infuse();
     new PromptInjector(this._prompts).inject();
     new ButtonInjector(this._buttonConfig).inject();
 

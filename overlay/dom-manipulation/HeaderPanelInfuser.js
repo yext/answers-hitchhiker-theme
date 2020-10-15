@@ -1,8 +1,8 @@
 /**
- * This class is responsible for injecting any styling or text from the Overlay config
- * into the header panel.
+ * This class is responsible adding properties to the Header Panel as specified in the Overlay
+ * config.
  */
-class HeaderPanelInjector {
+class HeaderPanelInfuser {
   constructor(config = {}) {
     /**
      * @type {string}
@@ -36,34 +36,34 @@ class HeaderPanelInjector {
   }
 
   /**
-   * Injects the Header Panel HTML and styling from the config into the DOM.
+   * Adds properties dynamically into the Header Panel
    */
-  inject() {
-    this._injectHeadingText();
-    this._injectSubtitleText();
+  infuse() {
+    this._setHeadingText();
+    this._setSubtitleText();
     this._injectImage();
     this._applyConfigStyling();
   }
 
   /**
-   * Injects heading text into the existing panel heading element if heading text is
-   * present in the config.
+   * Sets heading text of the existing panel heading element if heading text and title element
+   * exist
    */
-  _injectHeadingText() {
-    this.heading && this._injectText(this.heading, '.js-OverlayHeader-title');
+  _setHeadingText() {
+    this.heading && this._setText(this.heading, '.js-OverlayHeader-title');
   }
 
   /**
-   * Injects subtitle text into the existing panel subtitle element if subtitle text is
-   * present in the config.
+   * Sets subtitle text of the existing panel subtitle element if subtitle text and subtitle element
+   * exist
    */
-  _injectSubtitleText() {
-    this.subtitle && this._injectText(this.subtitle, '.js-OverlayHeader-subtitle');
+  _setSubtitleText() {
+    this.subtitle && this._setText(this.subtitle, '.js-OverlayHeader-subtitle');
   }
 
   /**
-   * Injects an image into the existing image wrapper element in the panel if an imageUrl
-   * is present in the panel config.
+   * Injects an image into the existing the image wrapper element if an imageUrl is present in
+   * the panel config.
    */
   _injectImage() {
     if (!this.imageUrl) {
@@ -79,7 +79,7 @@ class HeaderPanelInjector {
   }
 
   /**
-   * Injects styling for the header from the config
+   * Applies styling for the header from the config
    */
   _applyConfigStyling() {
     if (this.backgroundColor) {
@@ -94,12 +94,12 @@ class HeaderPanelInjector {
   }
 
   /**
-   * Injects text into the first element matching the selector found in the header element
+   * Sets inner text of the first element matching the selector found in the header element
    *
    * @param {string} text
    * @param {string} selector
    */
-  _injectText(text, selector) {
+  _setText(text, selector) {
     const el = this.headerEl.querySelector(selector);
     el && (el.innerText = text);
   }
