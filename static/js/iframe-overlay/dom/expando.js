@@ -41,7 +41,7 @@ export default class Expando {
    *
    * @param {Object} size
    */
-  init(size) {
+  showButton(size) {
     this._buttonWidth = size.width;
     this._buttonHeight = size.height;
     this._shorterHeight = `${size.totalHeight}px`;
@@ -92,12 +92,14 @@ export default class Expando {
     this._iframeEl.style['transition-delay'] = '.15s';
 
     if (this._isTaller) {
-      this._iframeWrapperEl.style['transition'] = '.15s ease all';
+      this._iframeWrapperEl.style['transition'] = 'box-shadow .15s';
+      this._iframeWrapperEl.style['transition-delay'] = '.1s';
       this._iframeWrapperEl.style['width'] = '445px';
       this._iframeWrapperEl.style['height'] = 'calc(100% - 32px)';
       this._iframeWrapperEl.style['box-shadow'] = '0 3px 10px 0 rgba(0,0,0,0.4)';
     } else {
       this._iframeWrapperEl.style['transition'] = 'box-shadow .15s';
+      this._iframeWrapperEl.style['transition-delay'] = '.1s';
       this._iframeWrapperEl.style['width'] = '445px';
       this._iframeWrapperEl.style['height'] = this._shorterHeight;
       this._iframeWrapperEl.style['box-shadow'] = '0 3px 10px 0 rgba(0,0,0,0.4)';
@@ -129,6 +131,7 @@ export default class Expando {
       return;
     }
     this._isTaller = false;
+
     this._iframeWrapperEl.style['transition'] = '.15s ease all';
     this._iframeWrapperEl.style['width'] = '445px';
     this._iframeWrapperEl.style['height'] = this._shorterHeight;
