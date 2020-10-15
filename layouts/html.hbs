@@ -142,8 +142,11 @@
       height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <!-- End Google Tag Manager (noscript) -->
     {{/if}}
-    {{> layouts/header }}
-    {{> @partial-block }}
-    {{> layouts/footer }}
+    <div class="AnswersPage">
+      {{> layouts/header }}
+      {{> @partial-block }}
+      {{> layouts/footer }}
+    </div>
+    {{> overlay/markup/button }}
   </body>
 </html>
