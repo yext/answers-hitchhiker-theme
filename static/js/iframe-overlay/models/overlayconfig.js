@@ -10,8 +10,7 @@ export default class OverlayConfig {
      * to the domain for their Answers experience.
      * @type {String}
      */
-    const experienceDomain = new InjectedData().getDomain();
-    this.experiencePath = experienceDomain + (config.experiencePath || 'index.html');
+    this.experiencePath = config.experiencePath || 'index.html';
 
     /**
      * List of prompts, each prompt has the following properties:
