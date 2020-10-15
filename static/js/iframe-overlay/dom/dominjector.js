@@ -41,8 +41,8 @@ export default class DomInjector {
     iframeContainerEl.style[this.alignment] = '16px';
     iframeContainerEl.style['opacity'] = '0';
     iframeContainerEl.style['transform'] = `translate(${this.horizontalOffset}, ${this.verticalOffset})`;
-    iframeContainerEl.style['max-width'] = '100%';
-    iframeContainerEl.style['max-height'] = '100%';
+    iframeContainerEl.style['max-width'] = AnimationStyling.WIDTH_MOBILE;
+    iframeContainerEl.style['max-height'] = AnimationStyling.HEIGHT_TALLER;
     iframeContainerEl.style['height'] = AnimationStyling.HEIGHT_TALLER;
     iframeContainerEl.style['width'] = AnimationStyling.WIDTH_DESKTOP;
     iframeContainerEl.style['overflow'] = 'hidden';
