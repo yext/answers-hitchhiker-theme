@@ -93,9 +93,9 @@ class ButtonInfuser {
     // Event mimicking trigger clicks
     window.addEventListener('keyup', (e) => {
       const Keys = {
-        ESCAPE: 27,
+        ESCAPE: 'Escape',
       };
-      if (e.keyCode === Keys.ESCAPE) { // TODO (agrow) is keycode deprecated??
+      if (e.key === Keys.ESCAPE) {
         window.collapseOverlay();
         window.parentIFrame.sendMessage({
           type: 'collapse'
