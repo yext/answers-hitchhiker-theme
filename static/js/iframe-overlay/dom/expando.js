@@ -160,7 +160,7 @@ export default class Expando {
    * Updates the Overlay sizing values (if necessary) when the viewport size changes.
    */
   _addMediaQueryListener() {
-    const mediaQuery = window.matchMedia("(min-width: 767px)");
+    const mediaQuery = window.matchMedia("(max-width: 767px)");
     this._updateOverlayWidth(mediaQuery.matches);
 
     mediaQuery.addListener((e) => {
