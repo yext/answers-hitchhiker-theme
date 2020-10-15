@@ -60,6 +60,8 @@ export default class DomInjector {
 
   /**
    * Injects the iframe element into the DOM
+   *
+   * @param {Element} iframeContainerEl
    */
   _injectIFrame(iframeContainerEl) {
     const iframeEl = document.createElement('iframe');
