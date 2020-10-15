@@ -24,7 +24,9 @@ export default class Overlay {
    */
   create() {
     // Add Overlay to the DOM
-    new DomInjector(this.config.experiencePath, this.config.offset).inject();
+    new DomInjector(
+      this.config.experiencePath, this.config.offset, this.config.button.alignment)
+      .inject();
 
     const mediator = new InteractionDirector({
       button: this.config.button,

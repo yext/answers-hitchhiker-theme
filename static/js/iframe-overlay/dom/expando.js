@@ -23,6 +23,8 @@ export default class Expando {
    */
   showButton(size) {
     // TODO (agrow) implement in a later PR
+    this._iframeWrapperEl.style['z-index'] = '2147483639';
+    this._iframeWrapperEl.style['opacity'] = '1';
   }
 
   /**
