@@ -48,7 +48,8 @@ class OverlayCreator {
 
     new HeaderPanelInjector(this._panelConfig).inject();
     new PromptInjector(this._prompts).inject();
-    new ButtonInjector(this._buttonConfig).inject();
+    new ButtonInfuser(this._buttonConfig)
+      .infuse();
 
     this._updateOverlayShape();
   }

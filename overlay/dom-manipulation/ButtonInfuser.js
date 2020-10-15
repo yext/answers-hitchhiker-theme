@@ -1,8 +1,8 @@
 /**
- * This class is responsible for injecting any styling or text from the Overlay config
- * into the button.
+ * This class is responsible for adding properties and event listeners to the button as
+ * specified in the Overlay config.
  */
-class ButtonInjector {
+class ButtonInfuser {
   constructor(config = {}) {
     /**
      * @type {string}
@@ -31,9 +31,9 @@ class ButtonInjector {
   }
 
   /**
-   * Injects the button into the DOM.
+   * Adds properties and event listeners to the Overlay button
    */
-  inject() {
+  infuse() {
     this.buttonEl.style['display'] = 'block';
 
     this.labelText && this._injectLabelText();
