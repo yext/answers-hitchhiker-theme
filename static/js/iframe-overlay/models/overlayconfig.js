@@ -1,5 +1,3 @@
-import InjectedData from "../../models/InjectedData";
-
 /**
  * OverlayConfig represents the configuration required for the Overlay.
  */

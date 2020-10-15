@@ -17,7 +17,7 @@ export default class InjectedData {
    * @returns {string}
    */
   getDomain() {
-    const injectedPagesData = injectedData.pages || {};
+    const injectedPagesData = this.injectedData.pages || {};
     return isStaging(injectedPagesData.stagingDomains)
       ? this.getStagingDomain()
       : this.getProdDomain();
