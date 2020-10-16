@@ -51,7 +51,7 @@ export default class Expando {
     this._buttonWidth = this._convertPxToRem(size.width);
     this._buttonHeight = this._convertPxToRem(size.height);
 
-    const initialHeight = Math.max(AnimationStyling.OVERLAY_MIN_HEIGHT, size.totalHeight);
+    const initialHeight = Math.max(AnimationStyling.MIN_HEIGHT, size.totalHeight);
     this._shorterHeight = `${initialHeight}px`;
 
     this._addMediaQueryListener();
