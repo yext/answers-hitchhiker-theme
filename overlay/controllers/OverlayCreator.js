@@ -112,6 +112,6 @@ class OverlayCreator {
     const headerEl = document.querySelector('.OverlayHeader');
     return(answersContentEl && answersContentEl.getBoundingClientRect().height || 0) +
       ((headerEl && headerEl.getBoundingClientRect().height) || 0) +
-      window._getCollapsedOverlayHeight();
+      this._getCollapsedOverlayHeight();
   }
 }
