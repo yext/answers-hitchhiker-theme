@@ -23,8 +23,12 @@
     animation-fill-mode: backwards;
   }
 
-  .Answers-overlaySuggestions.hidden {
-    display: none;
+  .Answers-overlaySuggestions {
+    margin: var(--yxt-base-spacing);
+
+    .hidden {
+      display: none;
+    }
   }
 
   &.shorter .Answers {
