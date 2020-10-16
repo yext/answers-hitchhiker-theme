@@ -21,7 +21,7 @@ export default class InteractionDirector {
     /**
      * @type {Expando}
      */
-    this.expando = new Expando();
+    this.expando = new Expando(iframeConfig.iframeBackground);
 
     /**
      * @type {boolean}
