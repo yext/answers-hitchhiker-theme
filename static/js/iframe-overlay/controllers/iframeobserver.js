@@ -30,6 +30,7 @@ export default class IFrameObserver {
       sizeHeight: false,
       autoResize: false,
       scrolling: true,
+      heightCalculationMethod: 'lowestElement',
       onInit: () => {
         this.mediator.onIFrameInteraction(InteractionTypes.INIT);
       },
