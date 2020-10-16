@@ -58,7 +58,7 @@ export default class Overlay {
   _getExperienceUrl() {
     const referrerPageUrl = window.location.href.split('?')[0].split('#')[0];
     const referrerPageUrlParam = '?referrerPageUrl=' + referrerPageUrl;
-    return new InjectedData().getDomain()
+    return new InjectedData().getDomain() + '/'
       + this.config.experiencePath
       + referrerPageUrlParam;
   }
