@@ -1,4 +1,5 @@
 import { isStaging } from '../is-staging';
+import { DomainTypes } from './domaintypes';
 
 /**
  * InjectedData represents the data injected by Jambo
@@ -26,17 +27,10 @@ export default class InjectedData {
   /**
    * Returns the injected staging domain
    *
-   * @returns {string}
+   * @returns {boolean}
    */
   getStagingDomain() {
-    if (!this.injectedData.pages || !this.injectedData.pages.domains
-        || !this.injectedData.pages.domains.staging
-        || !this.injectedData.pages.domains.staging.domain) {
-      return '';
-    }
-    const isHttps = this.injectedData.pages.domains.staging.isHttps;
-    const protocol = isHttps ? 'https://' : 'http://';
-    return protocol + this.injectedData.pages.domains.staging.domain;
+    return this._getDomain(DomainTypes.STAGING)
   }
 
   /**
@@ -45,13 +39,31 @@ export default class InjectedData {
    * @returns {boolean}
    */
   getProdDomain() {
-    if (!this.injectedData.pages || !this.injectedData.pages.domains
-        || !this.injectedData.pages.domains.prod
-        || !this.injectedData.pages.domains.prod.domain) {
+    return this._getDomain(DomainTypes.PROD)
+  }
+
+  /**
+   * Returns the injected domain based on the given type
+   *
+   * @param {string} domainType
+   * @returns {string}
+   */
+  _getDomain(domainType) {
+    const injectedDomains = this._getInjectedPagesDomains();
+    if (!injectedDomains[domainType] || !injectedDomains[domainType].domain) {
       return '';
     }
-    const isHttps = this.injectedData.pages.domains.prod.isHttps;
+    const isHttps = injectedDomains[domainType].isHttps;
     const protocol = isHttps ? 'https://' : 'http://';
-    return protocol + injectedData.pages.domains.prod.domain;
+    return protocol + injectedDomains[domainType].domain;
+  }
+
+  /**
+   * Returns the injected pages domains object if present
+   *
+   * @returns {Object}
+   */
+  _getInjectedPagesDomains() {
+    return this.injectedData.pages && this.injectedData.pages.domains;
   }
 }
