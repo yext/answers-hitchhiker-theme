@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="2 1 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <title>466E0FF6-70E5-4CE4-860A-0A796B8FC849</title>
+  <defs>
+    <filter x="-1.8%" y="-20.8%" width="103.6%" height="141.7%" filterUnits="objectBoundingBox" id="filter-1">
+      <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+      <feGaussianBlur stdDeviation="1" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+      <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.15 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+      <feMerge>
+        <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+        <feMergeNode in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+  </defs>
+  <g id="FAB" stroke="none" stroke-width="1" fill-rule="evenodd">
+    <g id="0-Reference" transform="translate(-473.000000, -666.000000)">
+      <g id="minQS-Copy" transform="translate(68.000000, 435.000000)">
+        <g id="Elements/Buttons/②-Secondary/Normal-Copy" filter="url(#filter-1)" transform="translate(16.000000, 221.000000)">
+          <g id="Yext-Mag-Glass" transform="translate(391.000000, 11.000000)">
+            <path d="M10.077576,8.15686182 C8.29854076,8.15686182 6.85638226,6.71469827 6.85638226,4.93565683 C6.85638226,3.1566154 8.29854076,1.71445184 10.077576,1.71445184 C11.8566112,1.71445184 13.2987697,3.1566154 13.2987697,4.93565683 C13.2987697,6.71469827 11.8566112,8.15686182 10.077576,8.15686182 M10.0709682,0 C7.34874967,0 5.14193642,2.20682098 5.14193642,4.92904905 C5.14193642,5.98051998 5.47220536,6.95424529 6.03321014,7.75450141 L0,13.7876206 L1.21231561,15 L7.24552575,8.96676173 C8.04566,9.527828 9.01950096,9.8580981 10.0709682,9.8580981 C12.7931867,9.8580981 15,7.65127712 15,4.92904905 C15,2.20682098 12.7931867,0 10.0709682,0" id="Fill-4"></path>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

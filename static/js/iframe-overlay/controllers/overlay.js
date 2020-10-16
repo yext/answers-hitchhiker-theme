@@ -3,6 +3,7 @@ import IFrameObserver from './iframeobserver';
 import InteractionDirector from './interactiondirector';
 import OverlayConfig from '../models/overlayconfig';
 import ParentFrameObserver from './parentframeobserver';
+import { Selectors } from '../constants';
 
 /**
  * This class is responsible for creating and setting up the Overlay.
@@ -13,35 +14,38 @@ export default class Overlay {
      * @type {OverlayConfig}
      */
     this.config = config;
-
-    /**
-     * @type {InteractionDirector}
-     */
-    this.mediator = new InteractionDirector({
-      button: this.config.button,
-      panel: this.config.panel,
-      prompts: this.config.prompts,
-    });
   }
 
   /**
    * Creates the Overlay, adding the HTML elements and setting up any listeners on the
    * existing DOM, if needed.
+   *
+   * @returns {InteractionDirector}
    */
   create() {
     // Add Overlay to the DOM
-    new DomInjector().inject();
+    new DomInjector(
+      this.config.experiencePath, this.config.offset, this.config.button.alignment)
+      .inject();
 
-    this._attachObservers();
+    const mediator = new InteractionDirector({
+      button: this.config.button,
+      panel: this.config.panel,
+      prompts: this.config.prompts,
+      hideDefaultButton: this.config.hideDefaultButton
+    });
+    this._attachObservers(mediator);
+
+    return mediator;
   }
 
   /**
    * Sets up communication between iframe and parent frame.
    */
-  _attachObservers() {
-    new IFrameObserver(this.mediator, `#${Selectors.IFRAME_ID}`)
+  _attachObservers(mediator) {
+    new IFrameObserver(mediator, `#${Selectors.IFRAME_ID}`)
       .attach();
-    new ParentFrameObserver(this.mediator, this.config.customSelector)
+    new ParentFrameObserver(mediator, this.config.customSelector)
       .attach();
   }
 }
