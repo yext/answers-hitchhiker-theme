@@ -47,7 +47,7 @@ class DirectAnswerCardCreator {
    *                   all available direct answer cards
    */
   describe() {
-    const directAnswerCardPaths = this._getDirectAnswerCards();
+    const directAnswerCardPaths = this._getDirectAnswerCardPaths();
     return {
       displayName: 'Add Direct Answer Card',
       params: {
@@ -67,9 +67,9 @@ class DirectAnswerCardCreator {
   }
 
   /**
-   * @returns {Array<string>} the names of the available direct answer cards
+   * @returns {Array<string>} the paths of the available direct answer cards
    */
-  _getDirectAnswerCards() {
+  _getDirectAnswerCardPaths() {
     if (!this.defaultTheme || !this.themesDir) {
       return [];
     }

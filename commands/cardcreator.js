@@ -47,7 +47,7 @@ class CardCreator {
    *                   all available cards
    */
   describe() {
-    const cardPaths = this._getCards();
+    const cardPaths = this._getCardPaths();
     return {
       displayName: 'Add Card',
       params: {
@@ -67,9 +67,9 @@ class CardCreator {
   }
 
   /**
-   * @returns {Array<string>} the names of the available cards
+   * @returns {Array<string>} the paths of the available cards
    */
-  _getCards() {
+  _getCardPaths() {
     if (!this.defaultTheme || !this.themesDir) {
       return [];
     }
