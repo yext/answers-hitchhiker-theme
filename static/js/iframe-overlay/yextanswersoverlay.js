@@ -14,6 +14,11 @@ export default class YextAnswersOverlay {
    * @param {Object} config
    */
   init(config) {
+    if (this._isInitialized()) {
+      console.warn('AnswersOverlay has already been initialized on this page, exiting.');
+      return;
+    }
+
     new ConfigValidator(config).validate()
     const parsedConfig = new OverlayConfig(config);
 
@@ -56,4 +61,6 @@ export default class YextAnswersOverlay {
   }
 }
 
-global.YextAnswersOverlay = new YextAnswersOverlay();
+if (!global.YextAnswersOverlay) {
+  global.YextAnswersOverlay = new YextAnswersOverlay();
+}
