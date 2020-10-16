@@ -16,7 +16,7 @@ class PromptInjector {
   }
 
   /**
-   * Injects the prompts into the DOM.
+   * Inserts prompts and adds event listeners to handle prompt button interactions
    */
   inject() {
     if (!this.promptsWrapperEl || this.prompts.length <= 0) {
