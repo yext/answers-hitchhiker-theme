@@ -1,7 +1,9 @@
 .Overlay.shorter .OverlayHeader {
   display: flex;
   flex-direction: column;
-  padding: var(--yxt-base-spacing);
+  padding-top: var(--yxt-base-spacing);
+  padding-left: 20px;
+  padding-right: 20px;
   padding-bottom: 42px;
 
   &-title {
