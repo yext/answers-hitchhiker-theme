@@ -25,6 +25,5 @@ exports.AnimationStyling = {
   BOX_SHADOW_NONE: '0 3px 10px 0 rgba(0,0,0,0)',
   WIDTH_DESKTOP: '445px',
   WIDTH_MOBILE: 'calc(100% - 32px)',
-  HEIGHT_TALLER: 'calc(100% - 32px)',
-  BACKGROUND_COLOR_NORMAL: '#eeeff0',
+  HEIGHT_TALLER: 'calc(100% - 32px)'
 };

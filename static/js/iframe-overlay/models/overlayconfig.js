@@ -11,6 +11,12 @@ export default class OverlayConfig {
     this.experiencePath = config.experiencePath || 'index.html';
 
     /**
+     * The CSS rule for the background of the iframe
+     * @type {String}
+     */
+    this.iframeBackground = config.background || '#EEEFF0';
+
+    /**
      * List of prompts, each prompt has the following properties:
      * {
      *   text: "View all banks",     // Required
