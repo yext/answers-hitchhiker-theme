@@ -54,11 +54,15 @@ class OverlayCreator {
 
     this._updateOverlayShape();
 
+    const buttonEl = document.querySelector('.js-OverlayButton');
+    const buttonSize = buttonEl && buttonEl.getBoundingClientRect();
+    this._setButtonWidth(buttonSize.width);
+
     window.parentIFrame.sendMessage({
       type: 'buttonReady',
       detail: {
-        height: this._getCollapsedOverlayHeight(),
-        width: this._getCollapsedOverlayWidth(),
+        height: this._getCollapsedOverlayHeight(buttonSize.height),
+        width: this._getCollapsedOverlayWidth(buttonSize.width),
         totalHeight: this._getTotalHeight()
       }
     });
@@ -82,29 +86,41 @@ class OverlayCreator {
   }
 
   /**
+   * Sets the button width on the window
+   *
+   * @param {number} buttonWidth
+   */
+  _setButtonWidth(buttonWidth) {
+    window.buttonWidth = buttonWidth;
+  }
+
+  /**
    * Returns the height of the collapsed overlay, in pixels
+   *
+   * @param {number} buttonWidth
    * @returns {number}
    */
-  _getCollapsedOverlayHeight() {
+  _getCollapsedOverlayHeight(buttonHeight) {
     const verticalOffset = 16;
     const arbitraryNumberOfPixelsFromUX = 3;
-    return window.getOverlayButtonHeight() &&
-      (window.getOverlayButtonHeight() + verticalOffset + arbitraryNumberOfPixelsFromUX);
+    return buttonHeight > 0 && (buttonHeight + verticalOffset + arbitraryNumberOfPixelsFromUX);
   }
 
   /**
    * Returns the width of the collapsed overlay, in pixels
+   *
+   * @param {number} buttonWidth
    * @returns {number}
    */
-  _getCollapsedOverlayWidth() {
+  _getCollapsedOverlayWidth(buttonWidth) {
     const horizontalOffset = 16;
     const arbitraryNumberOfPixelsFromUX = 6;
-    return window.getOverlayButtonWidth() &&
-      (window.getOverlayButtonWidth() + horizontalOffset + arbitraryNumberOfPixelsFromUX);
+    return buttonWidth && (buttonWidth + horizontalOffset + arbitraryNumberOfPixelsFromUX);
   }
 
   /**
    * Returns the height of the page, in pixels
+   *
    * @returns {number}
    */
   _getTotalHeight() {

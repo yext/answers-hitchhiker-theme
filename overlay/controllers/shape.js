@@ -20,8 +20,8 @@ window.collapseOverlay = function () {
   const buttonEl = document.querySelector('.js-OverlayButton');
   if (buttonEl && buttonEl.classList.contains('js-OverlayButton-hideWhenCollapsed')) {
     buttonEl.style['display'] = 'none';
-  } else {
-    buttonEl && (buttonEl.style['width'] = `${window.getOverlayButtonWidth() / 16}rem`);
+  } else if (window.buttonWidth) {
+    buttonEl && (buttonEl.style['width'] = `${window.buttonWidth / 16}rem`);
   }
 
   const bodyEl = document.querySelector('body');
@@ -48,14 +48,4 @@ window.expandOverlay = function () {
     const inputEl = document.querySelector('.js-yext-query');
     inputEl && inputEl.focus();
   }
-}
-
-window.getOverlayButtonWidth = function () {
-  const buttonEl = document.querySelector('.js-OverlayButton');
-  return buttonEl && buttonEl.getBoundingClientRect().width;
-}
-
-window.getOverlayButtonHeight = function () {
-  const buttonEl = document.querySelector('.js-OverlayButton');
-  return buttonEl && buttonEl.getBoundingClientRect().height;
 }
