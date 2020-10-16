@@ -20,7 +20,7 @@ class OverlayCreator {
     this._panelConfig = {
       heading: config.panel.header,
       subtitle: config.panel.subtitle,
-      icon: config.panel.icon,
+      imageUrl: config.panel.icon,
       backgroundColor: config.panel.backgroundColor,
       foregroundColor: config.panel.foregroundColor
     };
@@ -46,7 +46,7 @@ class OverlayCreator {
 
     window.collapseOverlay();
 
-    new HeaderPanelInjector(this._panelConfig).inject();
+    new HeaderPanelInfuser(this._panelConfig).infuse();
     new PromptInjector(this._prompts).inject();
     new ButtonInfuser(this._buttonConfig)
       .infuse();
