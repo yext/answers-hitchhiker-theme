@@ -48,8 +48,8 @@ export default class Expando {
    */
   showButton(size) {
     this._isExpanded = true;
-    this._buttonWidth = this._convertPxToRem(size.width);
-    this._buttonHeight = this._convertPxToRem(size.height);
+    this._buttonWidth = `${size.width}px`;
+    this._buttonHeight = `${size.height}px`;
 
     const initialHeight = Math.max(AnimationStyling.MIN_HEIGHT, size.totalHeight);
     this._shorterHeight = `${initialHeight}px`;
@@ -194,21 +194,5 @@ export default class Expando {
     this._overlayWidth = isMobile
       ? AnimationStyling.WIDTH_MOBILE
       : AnimationStyling.WIDTH_DESKTOP;
-  }
-
-  /**
-   * Converts pixels to rem
-   *
-   * @param {number} px
-   * @returns {string}
-   */
-  _convertPxToRem(px) {
-    if (!px) {
-      return '0';
-    }
-
-    const remToPxRatio = (1 / 16);
-    const rem = px * remToPxRatio;
-    return `${rem}rem`;
   }
 }
