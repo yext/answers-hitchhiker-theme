@@ -56,3 +56,8 @@
 // Styling for CollapsibleFilters components
 @import "collapsible-filters/filter-link";
 @import "collapsible-filters/view-results-button";
+
+// Custom styling outside of the Answers experience
+@import "../yxt-page/page.scss";
+@import "../yxt-page/header.scss";
+@import "../yxt-page/footer.scss";

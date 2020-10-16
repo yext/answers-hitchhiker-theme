@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="YxtPage-doc">
   <head>
     {{> layouts/headincludes }}
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -54,7 +54,15 @@
     {{#if global_config.favicon}}
       <link rel="shortcut icon" href="{{global_config.favicon}}">
     {{/if}}
-    <script src="bundle.js"></script>
+    <script>
+      function onBundleLoad() {
+        {{> script/on-bundle-load}}
+      };
+      document.addEventListener('DOMContentLoaded', function () {
+        {{> script/on-document-load}}
+      });
+    </script>
+    <script src="bundle.js" onLoad="onBundleLoad()"></script>
     {{#if global_config.googleAnalyticsId}}
       <!-- Global site tag (gtag.js) - Google Analytics -->
       <script async src="https://www.googletagmanager.com/gtag/js?id={{global_config.googleAnalyticsId}}"></script>
@@ -103,7 +111,7 @@
     <link rel="stylesheet" type="text/css" href="https://assets.sitescdn.net/answers/v{{global_config.sdkVersion}}/answers.css">
     <link rel="stylesheet" type="text/css" href="bundle.css">
 	</head>
-  <body>
+  <body class="YxtPage-wrapper">
     {{#if global_config.googleTagManagerId}}
       <!-- Google Tag Manager (noscript) -->
       <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{global_config.googleTagManagerId}}{{#ifeq googleTagManagerId 'dataLayer'}}{{else}}&l={{global_config.googleTagManagerName}}{{/ifeq}}"
@@ -111,7 +119,9 @@
       <!-- End Google Tag Manager (noscript) -->
     {{/if}}
     {{> layouts/header }}
-    {{> @partial-block }}
+    <div class="YxtPage-content">
+      {{> @partial-block }}
+    </div>
     {{> layouts/footer }}
   </body>
 </html>
