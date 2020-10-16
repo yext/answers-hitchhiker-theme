@@ -13,7 +13,7 @@
     width: 100%;
     padding: calc(var(--yxt-base-spacing) / 2) var(--yxt-base-spacing);
     background-color: var(--yxt-color-brand-white);
-    border: 1px solid #AFAFAF;
+    border: 1px solid #afafaf;
     border-radius: 3px;
     box-shadow: 0 1px 2px 0 rgba(0,0,0,0.15);
     margin: 12px 0;
@@ -36,11 +36,10 @@
     height: 12px;
     width: 8px;
 
-
     svg {
       display: flex;
       flex-grow: 1;
-      fill: #AFAFAF;
+      fill: #afafaf;
     }
   }
 }

@@ -25,9 +25,6 @@ class PromptInjector {
 
     this._injectPrompts();
     this._attachEventListeners();
-
-    const parentEl = document.querySelector('.js-Answers-overlaySuggestions');
-    parentEl.classList.remove('hidden');
   }
 
   /**
@@ -39,9 +36,9 @@ class PromptInjector {
         continue;
       }
 
-      const promptEl = !prompt.url
-        ? this._createButtonEl()
-        : this._createLinkEl(prompt.url, prompt.target);
+      const promptEl = prompt.url
+        ? this._createLinkEl(prompt.url, prompt.target)
+        : this._createButtonEl();
 
       this.promptsWrapperEl.appendChild(promptEl);
       this._appendPromptText(promptEl, prompt.text);
@@ -53,7 +50,7 @@ class PromptInjector {
    * Attaches the Overlay event listeners to the prompt elements
    */
   _attachEventListeners() {
-    const promptLinkEls = document.querySelectorAll('.js-promptLink') || [];
+    const promptLinkEls = document.querySelectorAll('.js-OverlayPrompt-link');
     for (const promptLinkEl of promptLinkEls) {
       promptLinkEl.addEventListener('click', () => {
         window.parentIFrame.sendMessage({
@@ -62,7 +59,7 @@ class PromptInjector {
       })
     }
 
-    const promptButtonEls = document.querySelectorAll('.js-promptButton') || [];
+    const promptButtonEls = document.querySelectorAll('.js-OverlayPrompt-button');
     for (const promptButtonEl of promptButtonEls) {
       promptButtonEl.addEventListener('click', function() {
         ANSWERS.search(promptButtonEl.innerText);
@@ -84,19 +81,21 @@ class PromptInjector {
   _createButtonEl() {
     const promptEl = document.createElement('button');
     promptEl.classList.add('OverlayPrompt-button');
-    promptEl.classList.add('js-promptButton');
+    promptEl.classList.add('js-OverlayPrompt-button');
     return promptEl;
   }
 
   /**
    * Creates a prompt link element
    *
+   * @param {string} url The value for the href of the link
+   * @param {string} target The link target
    * @returns {Element}
    */
   _createLinkEl(url, target) {
     const promptEl = document.createElement('a');
     promptEl.classList.add('OverlayPrompt-button');
-    promptEl.classList.add('js-promptLink');
+    promptEl.classList.add('js-OverlayPrompt-link');
     promptEl.href = url;
     if (target) {
       promptEl.target = target;
