@@ -92,9 +92,10 @@
     <script>
       {{#babel}}
       if (window.isOverlay) {
-        {{> overlay/dom-manipulation/HeaderPanelInjector }}
+        {{> overlay/dom-manipulation/HeaderPanelInfuser }}
+        {{> overlay/dom-manipulation/ColorManipulator }}
         {{> overlay/dom-manipulation/PromptInjector }}
-        {{> overlay/dom-manipulation/ButtonInjector }}
+        {{> overlay/dom-manipulation/ButtonInfuser }}
         {{> overlay/controllers/OverlayCreator }}
       }
       function iframeGetSearchParams() {

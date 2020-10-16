@@ -17,6 +17,13 @@ window.growOverlay = function () {
 }
 
 window.collapseOverlay = function () {
+  const buttonEl = document.querySelector('.js-OverlayButton');
+  if (buttonEl && buttonEl.classList.contains('js-OverlayButton-hideWhenCollapsed')) {
+    buttonEl.style['display'] = 'none';
+  } else {
+    buttonEl && (buttonEl.style['width'] = `${window.getOverlayButtonWidth() / 16}rem`);
+  }
+
   const bodyEl = document.querySelector('body');
 
   if (bodyEl) {
@@ -26,6 +33,10 @@ window.collapseOverlay = function () {
 }
 
 window.expandOverlay = function () {
+  const buttonEl = document.querySelector('.js-OverlayButton');
+  buttonEl.style['display'] = 'block';
+  buttonEl && (buttonEl.style['width'] = '4rem');
+
   const bodyEl = document.querySelector('body');
 
   if (bodyEl) {
@@ -35,4 +46,14 @@ window.expandOverlay = function () {
     const inputEl = document.querySelector('.js-yext-query');
     inputEl && inputEl.focus();
   }
+}
+
+window.getOverlayButtonWidth = function () {
+  const buttonEl = document.querySelector('.js-OverlayButton');
+  return buttonEl && buttonEl.getBoundingClientRect().width;
+}
+
+window.getOverlayButtonHeight = function () {
+  const buttonEl = document.querySelector('.js-OverlayButton');
+  return buttonEl && buttonEl.getBoundingClientRect().height;
 }

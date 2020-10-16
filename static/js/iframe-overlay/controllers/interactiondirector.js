@@ -26,7 +26,7 @@ export default class InteractionDirector {
     /**
      * @type {boolean}
      */
-    this.isExpanded = false;
+    this.hasBeenInitialized = false;
   }
 
   /**
@@ -42,7 +42,10 @@ export default class InteractionDirector {
         this._sendConfigMessageToIFrame();
         break;
       case InteractionTypes.BUTTON_READY:
-        this.expando.showButton(details);
+        if (!this.hasBeenInitialized) {
+          this.expando.showButton(details);
+          this.hasBeenInitialized = true;
+        }
         break;
       case InteractionTypes.COLLAPSE:
         this.expando.collapse();
@@ -71,7 +74,7 @@ export default class InteractionDirector {
         this.forceCollapse();
         break;
       case InteractionTypes.TOGGLE_OVERLAY:
-        if (this.isExpanded) {
+        if (this.expando.isExpanded()) {
           this.forceCollapse();
         } else {
           this.forceExpand();
@@ -115,7 +118,7 @@ export default class InteractionDirector {
     this._sendMessageToIFrame('overlayConfig', {
       config: {
         ...this.iframeConfig,
-        isExpanded: this.isExpanded
+        isCollapsed: !this.hasBeenInitialized
       }
     });
   }

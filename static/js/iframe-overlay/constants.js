@@ -27,4 +27,5 @@ exports.AnimationStyling = {
   WIDTH_MOBILE: 'calc(100% - 32px)',
   HEIGHT_TALLER: 'calc(100% - 32px)',
   BACKGROUND_COLOR_NORMAL: '#eeeff0',
+  OVERLAY_MIN_HEIGHT: 525,
 };

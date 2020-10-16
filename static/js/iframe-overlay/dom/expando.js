@@ -43,9 +43,11 @@ export default class Expando {
    */
   showButton(size) {
     this._isExpanded = true;
-    this._buttonWidth = size.width;
-    this._buttonHeight = size.height;
-    this._shorterHeight = `${size.totalHeight}px`;
+    this._buttonWidth = this._convertPxToRem(size.width);
+    this._buttonHeight = this._convertPxToRem(size.height);
+
+    const initialHeight = Math.max(AnimationStyling.OVERLAY_MIN_HEIGHT, size.totalHeight);
+    this._shorterHeight = `${initialHeight}px`;
 
     this._addMediaQueryListener();
     this.shrink();
@@ -157,6 +159,15 @@ export default class Expando {
   }
 
   /**
+   * Returns a boolean indicating whether the Overlay is expanded
+   *
+   * @return {boolean}
+   */
+  isExpanded() {
+    return this._isExpanded;
+  }
+
+  /**
    * Updates the Overlay sizing values (if necessary) when the viewport size changes.
    */
   _addMediaQueryListener() {
@@ -178,5 +189,21 @@ export default class Expando {
     this._overlayWidth = isMobile
       ? AnimationStyling.WIDTH_MOBILE
       : AnimationStyling.WIDTH_DESKTOP;
+  }
+
+  /**
+   * Converts pixels to rem
+   *
+   * @param {number} px
+   * @returns {string}
+   */
+  _convertPxToRem(px) {
+    if (!px) {
+      return '0';
+    }
+
+    const remToPxRatio = (1 / 16);
+    const rem = px * remToPxRatio;
+    return `${rem}rem`;
   }
 }

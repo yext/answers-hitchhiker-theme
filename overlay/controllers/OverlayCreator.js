@@ -11,7 +11,8 @@ class OverlayCreator {
       labelText: config.button.text,
       alignment: config.button.alignment,
       backgroundColor: config.button.backgroundColor,
-      foregroundColor: config.button.foregroundColor
+      foregroundColor: config.button.foregroundColor,
+      hideWhenCollapsed: config.hideDefaultButton
     };
 
     /**
@@ -33,7 +34,7 @@ class OverlayCreator {
     /**
      * @type {boolean}
      */
-    this._isCollapsed = true; // TODO (agrow) get this value from config
+    this._isCollapsed = config.isCollapsed;
   }
 
   /**
@@ -52,6 +53,15 @@ class OverlayCreator {
       .infuse();
 
     this._updateOverlayShape();
+
+    window.parentIFrame.sendMessage({
+      type: 'buttonReady',
+      detail: {
+        height: this._getCollapsedOverlayHeight(),
+        width: this._getCollapsedOverlayWidth(),
+        totalHeight: this._getTotalHeight()
+      }
+    });
   }
 
   /**
@@ -60,11 +70,48 @@ class OverlayCreator {
    */
   _updateOverlayShape() {
     if (this._isCollapsed) {
+      const promptsEl = document.querySelector('.js-Answers-overlaySuggestions');
+      promptsEl && promptsEl.classList.remove('hidden');
+
       window.shrinkOverlay();
       window.collapseOverlay();
     } else {
       window.growOverlay();
       window.expandOverlay();
     }
+  }
+
+  /**
+   * Returns the height of the collapsed overlay, in pixels
+   * @returns {number}
+   */
+  _getCollapsedOverlayHeight() {
+    const verticalOffset = 16;
+    const arbitraryNumberOfPixelsFromUX = 3;
+    return window.getOverlayButtonHeight() &&
+      (window.getOverlayButtonHeight() + verticalOffset + arbitraryNumberOfPixelsFromUX);
+  }
+
+  /**
+   * Returns the width of the collapsed overlay, in pixels
+   * @returns {number}
+   */
+  _getCollapsedOverlayWidth() {
+    const horizontalOffset = 16;
+    const arbitraryNumberOfPixelsFromUX = 6;
+    return window.getOverlayButtonWidth() &&
+      (window.getOverlayButtonWidth() + horizontalOffset + arbitraryNumberOfPixelsFromUX);
+  }
+
+  /**
+   * Returns the height of the page, in pixels
+   * @returns {number}
+   */
+  _getTotalHeight() {
+    const answersContentEl = document.querySelector('.Answers');
+    const headerEl = document.querySelector('.OverlayHeader');
+    return(answersContentEl && answersContentEl.getBoundingClientRect().height || 0) +
+      ((headerEl && headerEl.getBoundingClientRect().height) || 0) +
+      window._getCollapsedOverlayHeight();
   }
 }
