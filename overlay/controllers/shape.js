@@ -34,8 +34,10 @@ window.collapseOverlay = function () {
 
 window.expandOverlay = function () {
   const buttonEl = document.querySelector('.js-OverlayButton');
-  buttonEl.style['display'] = 'block';
-  buttonEl && (buttonEl.style['width'] = '4rem');
+  if (buttonEl) {
+    buttonEl.style['display'] = 'block';
+    buttonEl.style['width'] = '4rem';
+  }
 
   const bodyEl = document.querySelector('body');
 
