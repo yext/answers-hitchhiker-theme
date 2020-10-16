@@ -49,7 +49,7 @@ export default class InjectedData {
    * @returns {string}
    */
   _getDomain(domainType) {
-    const injectedDomains = this._getInjectedPagesDomains();
+    const injectedDomains = this._getInjectedPagesDomains() || {};
     if (!injectedDomains[domainType] || !injectedDomains[domainType].domain) {
       return '';
     }
