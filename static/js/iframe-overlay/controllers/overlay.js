@@ -1,6 +1,7 @@
 import DomInjector from '../dom/dominjector';
 import IFrameObserver from './iframeobserver';
 import InteractionDirector from './interactiondirector';
+import InjectedData from '../../models/InjectedData';
 import OverlayConfig from '../models/overlayconfig';
 import ParentFrameObserver from './parentframeobserver';
 import { Selectors } from '../constants';
@@ -24,8 +25,8 @@ export default class Overlay {
    */
   create() {
     // Add Overlay to the DOM
-    new DomInjector(
-      this.config.experiencePath, this.config.offset, this.config.button.alignment)
+    const experienceUrl = new InjectedData().getDomain() + this.config.experiencePath;
+    new DomInjector(experienceUrl, this.config.offset, this.config.button.alignment)
       .inject();
 
     const mediator = new InteractionDirector({
