@@ -2,6 +2,7 @@
 @import "~font-awesome/scss/variables";
 
 // Core variables and mixins
+@import "overlay/module";
 @import "common/variables";
 @import 'answers-variables-default';
 @import '../answers-variables';
