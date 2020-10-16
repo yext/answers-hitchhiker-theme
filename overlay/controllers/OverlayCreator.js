@@ -114,7 +114,7 @@ class OverlayCreator {
    */
   _getCollapsedOverlayWidth(buttonWidth) {
     const horizontalOffset = 16;
-    const arbitraryNumberOfPixelsFromUX = 6;
+    const arbitraryNumberOfPixelsFromUX = 8;
     return buttonWidth && (buttonWidth + horizontalOffset + arbitraryNumberOfPixelsFromUX);
   }
 
