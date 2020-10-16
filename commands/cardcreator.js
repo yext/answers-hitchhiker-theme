@@ -12,6 +12,8 @@ const { ArgumentMetadata, ArgumentType } = require('./helpers/utils/argumentmeta
 class CardCreator {
   constructor(jamboConfig) {
     this.config = jamboConfig;
+    this.themesDir = jamboConfig.dirs && jamboConfig.dirs.themes;
+    this.defaultTheme = jamboConfig.defaultTheme;
     this._customCardsDir = 'cards';
   }
 
@@ -38,6 +40,43 @@ class CardCreator {
       'name': new ArgumentMetadata(ArgumentType.STRING, 'name for the new card', true),
       'templateCardFolder': new ArgumentMetadata(ArgumentType.STRING, 'folder of card to fork', true)
     };
+  }
+
+  /**
+   * @returns {Object} description of the card command, including paths to 
+   *                   all available cards
+   */
+  describe() {
+    const cardPaths = this._getCards();
+    return {
+      displayName: 'Add Card',
+      params: {
+        name: {
+          displayName: 'Card Name',
+          required: true,
+          type: 'string'
+        },
+        templateCardFolder: {
+          displayName: 'Template Card Folder',
+          required: true,
+          type: 'singleoption',
+          options: cardPaths
+        }
+      }
+    };
+  }
+
+  /**
+   * @returns {Array<string>} the names of the available cards
+   */
+  _getCards() {
+    if (!this.defaultTheme || !this.themesDir) {
+      return [];
+    }
+    const cardsDir = path.join(this.themesDir, this.defaultTheme, 'cards');
+    return fs.readdirSync(cardsDir, { withFileTypes: true })
+      .filter(dirent => !dirent.isFile())
+      .map(dirent => path.join(cardsDir, dirent.name));
   }
 
   /**
