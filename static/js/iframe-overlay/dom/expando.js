@@ -4,7 +4,7 @@ import { ActionTypes, AnimationStyling, Selectors } from '../constants';
  * Expando is responsible for handling the resizing of the Overlay.
  */
 export default class Expando {
-  constructor() {
+  constructor(iframeBackground) {
     /**
      * @type {Element}
      */
@@ -24,6 +24,11 @@ export default class Expando {
      * @type {boolean}
      */
     this._isTaller = true;
+
+    /**
+     * @type {string}
+     */
+    this._iframeBackground = iframeBackground;
 
     /**
      * @type {function}
@@ -67,7 +72,7 @@ export default class Expando {
     this._isExpanded = false;
 
     this._iframeEl.scrolling = 'no';
-    this._iframeEl.style['background-color'] = 'transparent';
+    this._iframeEl.style['background'] = 'transparent';
     this._iframeEl.style['transition'] = `background-color ${AnimationStyling.FADE_TIMING}`;
     this._iframeEl.style['transition-delay'] = '0s';
 
@@ -93,7 +98,7 @@ export default class Expando {
     this._iframeEl.scrolling = 'yes';
     this._iframeEl.style['transition'] = `background-color ${AnimationStyling.FADE_TIMING}`;
     this._iframeEl.style['transition-delay'] = AnimationStyling.SIZE_TIMING;
-    this._iframeEl.style['background-color'] = AnimationStyling.BACKGROUND_COLOR_NORMAL;
+    this._iframeEl.style['background'] = this._iframeBackground;
 
     this._iframeWrapperEl.style['transition'] = `box-shadow ${AnimationStyling.SIZE_TIMING}`;
     this._iframeWrapperEl.style['transition-delay'] = AnimationStyling.SIZE_TIMING;
