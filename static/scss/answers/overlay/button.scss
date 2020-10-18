@@ -20,8 +20,8 @@
   &-text {
     margin-left: var(--yxt-base-spacing);
     margin-right: var(--yxt-base-spacing);
-    font-size: 22px;
-    line-height: 28px;
+    font-size: var(--yxt-font-size-lg);
+    font-weight: var(--yxt-font-weight-bold);
   }
 
   &-icon {
