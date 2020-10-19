@@ -1,22 +1,17 @@
 const webpackConfig = require('./webpack-config');
 const { exec } = require("child_process");
+const jamboConfig = require('./jambo.json');
 
-module.exports = function(grunt) {
+const outputDir = jamboConfig.dirs.output;
+
+module.exports = function (grunt) {
   grunt.initConfig({
     webpack: {
       myConfig: webpackConfig
     },
-      watch: {
-        all: {
-          files: [
-            'cards/**/*.*',
-            'config/**/*.*',
-            'pages/**/*.*',
-            'static/**/*.*',
-            'partials/**/*.*',
-            'layouts/**/*.*',
-            'jambo.json'
-        ],
+    watch: {
+      all: {
+        files: ['**', '!**/node_modules/**', `!${outputDir}/**`],
         tasks: ['jambobuild', 'webpack',],
         options: {
           spawn: false,
