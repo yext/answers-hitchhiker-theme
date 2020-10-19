@@ -48,9 +48,11 @@ export default class Expando {
    */
   showButton(size) {
     this._isExpanded = true;
-    this._buttonWidth = size.width;
-    this._buttonHeight = size.height;
-    this._shorterHeight = `${size.totalHeight}px`;
+    this._buttonWidth = `${size.width}px`;
+    this._buttonHeight = `${size.height}px`;
+
+    const initialHeight = Math.max(AnimationStyling.MIN_HEIGHT, size.totalHeight);
+    this._shorterHeight = `${initialHeight}px`;
 
     this._addMediaQueryListener();
     this.shrink();
@@ -159,6 +161,15 @@ export default class Expando {
         console.warn(`Callback type '${type}' not supported.`);
         break;
     }
+  }
+
+  /**
+   * Returns a boolean indicating whether the Overlay is expanded
+   *
+   * @return {boolean}
+   */
+  isExpanded() {
+    return this._isExpanded;
   }
 
   /**

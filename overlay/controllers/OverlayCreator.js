@@ -11,7 +11,8 @@ class OverlayCreator {
       labelText: config.button.text,
       alignment: config.button.alignment,
       backgroundColor: config.button.backgroundColor,
-      foregroundColor: config.button.foregroundColor
+      foregroundColor: config.button.foregroundColor,
+      hideWhenCollapsed: config.hideDefaultButton
     };
 
     /**
@@ -33,7 +34,7 @@ class OverlayCreator {
     /**
      * @type {boolean}
      */
-    this._isCollapsed = true; // TODO (agrow) get this value from config
+    this._isCollapsed = config.isCollapsed;
   }
 
   /**
@@ -52,6 +53,19 @@ class OverlayCreator {
       .infuse();
 
     this._updateOverlayShape();
+
+    const buttonEl = document.querySelector('.js-OverlayButton');
+    const buttonSize = buttonEl && buttonEl.getBoundingClientRect();
+    this._setButtonWidth(buttonSize.width);
+
+    window.parentIFrame.sendMessage({
+      type: 'buttonReady',
+      detail: {
+        height: this._getCollapsedOverlayHeight(buttonSize.height),
+        width: this._getCollapsedOverlayWidth(buttonSize.width),
+        totalHeight: this._getTotalHeight()
+      }
+    });
   }
 
   /**
@@ -60,11 +74,60 @@ class OverlayCreator {
    */
   _updateOverlayShape() {
     if (this._isCollapsed) {
+      const promptsEl = document.querySelector('.js-Answers-overlaySuggestions');
+      promptsEl && promptsEl.classList.remove('hidden');
+
       window.shrinkOverlay();
       window.collapseOverlay();
     } else {
       window.growOverlay();
       window.expandOverlay();
     }
+  }
+
+  /**
+   * Sets the button width on the window
+   *
+   * @param {number} buttonWidth
+   */
+  _setButtonWidth(buttonWidth) {
+    window.buttonWidth = buttonWidth;
+  }
+
+  /**
+   * Returns the height of the collapsed overlay, in pixels
+   *
+   * @param {number} buttonWidth
+   * @returns {number}
+   */
+  _getCollapsedOverlayHeight(buttonHeight) {
+    const verticalOffset = 16;
+    const arbitraryNumberOfPixelsFromUX = 3;
+    return buttonHeight > 0 && (buttonHeight + verticalOffset + arbitraryNumberOfPixelsFromUX);
+  }
+
+  /**
+   * Returns the width of the collapsed overlay, in pixels
+   *
+   * @param {number} buttonWidth
+   * @returns {number}
+   */
+  _getCollapsedOverlayWidth(buttonWidth) {
+    const horizontalOffset = 16;
+    const arbitraryNumberOfPixelsFromUX = 8;
+    return buttonWidth && (buttonWidth + horizontalOffset + arbitraryNumberOfPixelsFromUX);
+  }
+
+  /**
+   * Returns the height of the page, in pixels
+   *
+   * @returns {number}
+   */
+  _getTotalHeight() {
+    const answersContentEl = document.querySelector('.Answers');
+    const headerEl = document.querySelector('.OverlayHeader');
+    return(answersContentEl && answersContentEl.getBoundingClientRect().height || 0) +
+      ((headerEl && headerEl.getBoundingClientRect().height) || 0) +
+      this._getCollapsedOverlayHeight();
   }
 }
