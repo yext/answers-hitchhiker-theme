@@ -111,17 +111,19 @@
     <link rel="stylesheet" type="text/css" href="https://assets.sitescdn.net/answers/v{{global_config.sdkVersion}}/answers.css">
     <link rel="stylesheet" type="text/css" href="bundle.css">
 	</head>
-  <body class="YxtPage-wrapper">
+  <body>
     {{#if global_config.googleTagManagerId}}
       <!-- Google Tag Manager (noscript) -->
       <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{global_config.googleTagManagerId}}{{#ifeq googleTagManagerId 'dataLayer'}}{{else}}&l={{global_config.googleTagManagerName}}{{/ifeq}}"
       height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <!-- End Google Tag Manager (noscript) -->
     {{/if}}
-    {{> layouts/header }}
-    <div class="YxtPage-content">
-      {{> @partial-block }}
+    <div class="YxtPage-wrapper">
+      {{> layouts/header }}
+      <div class="YxtPage-content">
+        {{> @partial-block }}
+      </div>
+      {{> layouts/footer }}
     </div>
-    {{> layouts/footer }}
   </body>
 </html>
