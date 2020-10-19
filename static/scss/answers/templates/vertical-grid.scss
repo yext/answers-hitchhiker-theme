@@ -89,14 +89,29 @@
         padding: 0 24px;
         width: 100%;
 
-        &:not(:last-child) {
-          padding-bottom: 12px;
-          border-bottom: var(--yxt-border-default);
-        }
-
         &:not(:first-child) {
           padding-top: 20px;
         }
+      }
+
+      .Answers-facets,
+      .Answers-filterBox {
+        &:not(:last-child) {
+          .yxt-FilterBox-container {
+            border-bottom: var(--yxt-border-default);
+            padding-bottom: 12px;
+          }
+        }
+      }
+
+      .Answers-sortOptions {
+        &:not(:last-child) {
+          .yxt-SortOptions-fieldSet {
+            border-bottom: var(--yxt-border-default);
+            padding-bottom: 12px;
+          }
+        }
+
       }
 
       .yxt-SortOptions-fieldSet {
