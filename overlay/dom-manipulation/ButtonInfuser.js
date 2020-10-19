@@ -25,6 +25,11 @@ class ButtonInfuser {
     this.foregroundColor = config.foregroundColor;
 
     /**
+     * @type {boolean}
+     */
+    this.hideWhenCollapsed = config.hideWhenCollapsed;
+
+    /**
      * @type {Element}
      */
     this.buttonEl = document.querySelector('.js-OverlayButton');
@@ -34,7 +39,11 @@ class ButtonInfuser {
    * Adds properties and event listeners to the Overlay button
    */
   infuse() {
-    this.buttonEl.style['display'] = 'block';
+    if (!this.hideWhenCollapsed) {
+      this.buttonEl.style['display'] = 'block';
+    } else {
+      this.buttonEl.classList.add('js-OverlayButton-hideWhenCollapsed');
+    }
 
     this.labelText && this._injectLabelText();
     this._applyConfigStyling();
