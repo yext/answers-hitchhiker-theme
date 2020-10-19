@@ -44,6 +44,14 @@ function provideTodaysMessageTranslation(language) {
         'Open Now': 'Aperto ora',
         'Closes at': 'Chiude alle',
       }
+    case 'ja': 
+      return {
+        'Closed': '休業',
+        'Open 24 Hours': '24時間営業',
+        'Opens at': '営業開始',
+        'Open Now': '現在営業中',
+        'Closes at': '営業終了',
+      }
     default:
       return {
         'Closed': 'Closed',
@@ -96,6 +104,16 @@ function provideDayTranslation(language) {
         'FRIDAY': 'Venerdí',
         'SATURDAY': 'Sabato',
         'SUNDAY': 'Domenica',
+      }
+    case 'ja': 
+      return {
+        'MONDAY': '月曜日',
+        'TUESDAY': '火曜日',
+        'WEDNESDAY': '水曜日',
+        'THURSDAY': '木曜日',
+        'FRIDAY': '金曜日',
+        'SATURDAY': '土曜日',
+        'SUNDAY': '日曜日',
       }
     default:
       return {
