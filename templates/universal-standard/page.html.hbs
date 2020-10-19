@@ -1,35 +1,33 @@
 {{#> layouts/html }}
-  <div>
-    {{#> script/core }}
-      {{> cards/all }}
-      {{> directanswercards/all }}
-      {{> templates/universal-standard/script/searchbar }}
-      {{> templates/universal-standard/script/spellcheck }}
-      {{> templates/universal-standard/script/navigation }}
-      {{> templates/universal-standard/script/directanswer }}
-      {{> templates/universal-standard/script/universalresults }}
-      {{> templates/universal-standard/script/locationbias }}
-      {{!-- {{> templates/universal-standard/script/qasubmission }} --}}
-    {{/script/core }}
-    <div class="Answers AnswersUniversalStandard">
-      <div class="Answers-navWrapper">
-        <div class="Answers-container">
-          {{> templates/universal-standard/markup/searchbar }}
-          {{> templates/universal-standard/markup/navigation }}
-        </div>
-      </div>
-      <div class="Answers-container Answers-resultsWrapper">
-        {{> templates/universal-standard/markup/spellcheck }}
-        {{> templates/universal-standard/markup/directanswer }}
-        <div class="Answers-filtersAndResults">
-          {{> templates/universal-standard/markup/universalresults }}
-        </div>
-        {{!-- {{> templates/universal-standard/markup/qasubmission }} --}}
+  {{#> script/core }}
+    {{> cards/all }}
+    {{> directanswercards/all }}
+    {{> templates/universal-standard/script/searchbar }}
+    {{> templates/universal-standard/script/spellcheck }}
+    {{> templates/universal-standard/script/navigation }}
+    {{> templates/universal-standard/script/directanswer }}
+    {{> templates/universal-standard/script/universalresults }}
+    {{> templates/universal-standard/script/locationbias }}
+    {{!-- {{> templates/universal-standard/script/qasubmission }} --}}
+  {{/script/core }}
+  <div class="Answers AnswersUniversalStandard">
+    <div class="Answers-navWrapper">
+      <div class="Answers-container">
+        {{> templates/universal-standard/markup/searchbar }}
+        {{> templates/universal-standard/markup/navigation }}
       </div>
     </div>
-    <div class="Answers-footer">
-      {{> layouts/yext-logo }}
-      {{> templates/universal-standard/markup/locationbias }}
+    <div class="Answers-container Answers-resultsWrapper">
+      {{> templates/universal-standard/markup/spellcheck }}
+      {{> templates/universal-standard/markup/directanswer }}
+      <div class="Answers-filtersAndResults">
+        {{> templates/universal-standard/markup/universalresults }}
+      </div>
+      {{!-- {{> templates/universal-standard/markup/qasubmission }} --}}
     </div>
+  </div>
+  <div class="Answers-footer">
+    {{> layouts/yext-logo }}
+    {{> templates/universal-standard/markup/locationbias }}
   </div>
 {{/layouts/html }}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="YxtPage-doc">
   <head>
     {{> layouts/headincludes }}
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -58,7 +58,15 @@
       <link rel="shortcut icon"
         href="{{#unless (matches global_config.favicon '//' )}}{{relativePath}}/{{/unless}}{{global_config.favicon}}" />
     {{/if}}
-    <script src="{{relativePath}}/bundle.js"></script>
+    <script>
+      function onBundleLoad() {
+        {{> script/on-bundle-load}}
+      };
+      document.addEventListener('DOMContentLoaded', function () {
+        {{> script/on-document-load}}
+      });
+    </script>
+    <script src="{{relativePath}}/bundle.js" onLoad="onBundleLoad()"></script>
     {{#if global_config.googleAnalyticsId}}
       <!-- Global site tag (gtag.js) - Google Analytics -->
       <script async src="https://www.googletagmanager.com/gtag/js?id={{global_config.googleAnalyticsId}}"></script>
@@ -114,8 +122,12 @@
       height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <!-- End Google Tag Manager (noscript) -->
     {{/if}}
-    {{> layouts/header }}
-    {{> @partial-block }}
-    {{> layouts/footer }}
+    <div class="YxtPage-wrapper">
+      {{> layouts/header }}
+      <div class="YxtPage-content">
+        {{> @partial-block }}
+      </div>
+      {{> layouts/footer }}
+    </div>
   </body>
 </html>
