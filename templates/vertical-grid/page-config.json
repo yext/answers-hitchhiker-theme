@@ -21,7 +21,6 @@
     **/
     /**
     "Facets": {
-      "title": "", // The title to display above the facets
       "expand": false, // Allow the user to expand and collapse the facets
       "showMore": false, // Display a link to see more facet options within a facet
       "searchOnChange": true // Will automatically run a search as facets are selected or unselected. Set to false to only trigger updates with an Apply button. 
