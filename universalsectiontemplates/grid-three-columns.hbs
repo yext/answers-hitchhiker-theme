@@ -57,7 +57,11 @@
 {{#*inline "viewMore"}}
   {{#if _config.isUniversal}}
     <div class="HitchhikerResultsGridThreeColumns-viewMore">
-      <a class="HitchhikerResultsGridThreeColumns-viewMoreLink" href="{{ verticalURL }}">
+      <a class="HitchhikerResultsGridThreeColumns-viewMoreLink" 
+         href="{{ verticalURL }}"
+         data-eventtype="VERTICAL_VIEW_ALL"
+         data-eventoptions='{{eventOptions}}'
+      >
         <div class="HitchhikerResultsGridThreeColumns-viewMoreLabel">{{_config.viewMoreLabel}}</div>
         <div data-component="IconComponent" data-opts='{ "iconName": "chevron" }'></div>
       </a>

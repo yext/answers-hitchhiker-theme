@@ -23,12 +23,17 @@ module.exports = function loader(source) {
   let matchNumber = 0;
   const imports = [];
   const regex = options.regex;
-  const getUrlImport = `var ___HTML_ASSET_LOADER_GET_SOURCE_FROM_IMPORT___ = require("html-loader/dist/runtime/getUrl.js")`;
+  const getUrlImport = `
+    var ___HTML_ASSET_LOADER_GET_SOURCE_FROM_IMPORT___ = function(relativePath, asset) {
+      const getHashedPath = require("html-loader/dist/runtime/getUrl.js");
+      return relativePath + getHashedPath(asset);
+    }`;
 
   source = source.replace(regex, function(match, group1) {
     const variableName = `___HTML_ASSET_LOADER_MATCH_${matchNumber}___`;
     const requirePath = loaderUtils.stringifyRequest(this, loaderUtils.urlToRequest(group1));
-    const importString = `var ${variableName} = ___HTML_ASSET_LOADER_GET_SOURCE_FROM_IMPORT___(require(${requirePath}));`;
+    const relativePath = requirePath.substring(1, requirePath.indexOf('static')); // TODO this is a hack
+    const importString = `var ${variableName} = ___HTML_ASSET_LOADER_GET_SOURCE_FROM_IMPORT___('${relativePath}', require(${requirePath}));`;
 
     matchNumber += 1;
     imports.push(importString);

@@ -34,11 +34,14 @@
     {{/if}}
     <meta property="og:type" content="website">
     {{#if global_config.logo}}
-      <meta property="og:image" content="{{global_config.logo}}">
+      <meta property="og:image"
+        content="{{#unless (matches global_config.logo '//' )}}{{relativePath}}/{{/unless}}{{global_config.logo}}" />
     {{/if}}
     {{#if canonicalUrl}}
-      <meta property="og:url" content="{{canonicalUrl}}">
-      <link rel="canonical" href="{{canonicalUrl}}" />
+      <meta property="og:url"
+        content="{{#unless (matches canonicalUrl '//' )}}{{relativePath}}/{{/unless}}{{canonicalUrl}}" />
+      <link rel="canonical"
+        href="{{#unless (matches canonicalUrl '//' )}}{{relativePath}}/{{/unless}}{{canonicalUrl}}" />
     {{else if env.JAMBO_INJECTED_DATA.pages.domains.prod.domain}}
       {{#with env.JAMBO_INJECTED_DATA.pages.domains.prod}}
         <meta property="og:url" content="{{#if isHttps}}https://{{else}}http://{{/if}}{{domain}}">
@@ -52,7 +55,8 @@
     {{/if}}
 
     {{#if global_config.favicon}}
-      <link rel="shortcut icon" href="{{global_config.favicon}}">
+      <link rel="shortcut icon"
+        href="{{#unless (matches global_config.favicon '//' )}}{{relativePath}}/{{/unless}}{{global_config.favicon}}" />
     {{/if}}
     <script>
       function onBundleLoad() {
@@ -62,7 +66,7 @@
         {{> script/on-document-load}}
       });
     </script>
-    <script src="bundle.js" onLoad="onBundleLoad()"></script>
+    <script src="{{relativePath}}/bundle.js" onLoad="onBundleLoad()"></script>
     {{#if global_config.googleAnalyticsId}}
       <!-- Global site tag (gtag.js) - Google Analytics -->
       <script async src="https://www.googletagmanager.com/gtag/js?id={{global_config.googleAnalyticsId}}"></script>
@@ -109,7 +113,7 @@
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.10/iframeResizer.contentWindow.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://assets.sitescdn.net/answers/v{{global_config.sdkVersion}}/answers.css">
-    <link rel="stylesheet" type="text/css" href="bundle.css">
+    <link rel="stylesheet" type="text/css" href="{{relativePath}}/bundle.css">
 	</head>
   <body>
     {{#if global_config.googleTagManagerId}}

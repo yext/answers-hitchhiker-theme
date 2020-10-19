@@ -2,7 +2,7 @@ BaseCard = typeof(BaseCard) !== 'undefined' ?
   BaseCard :
   {};
 
-BaseCard['{{componentName}}'] = class extends ANSWERS.Component {
+BaseCard["{{componentName}}"] = class extends ANSWERS.Component {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
     const data = config.data || {};
