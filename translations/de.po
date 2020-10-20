@@ -81,12 +81,12 @@ msgstr "Haben Sie nach dieser Antwort gesucht?"
 #: cards/multilang-location-standard/component.js:33
 msgctxt "Call is a verb"
 msgid "Call"
-msgstr "Anruf"
+msgstr "Anrufen"
 
 #: cards/multilang-event-standard/component.js:32
 msgctxt "RSVP is a verb"
 msgid "RSVP"
-msgstr "Rückmeldung"
+msgstr "Anmelden"
 
 #: templates/universal-standard/script/universalresults.hbs:74
 msgctxt "View is a verb"
