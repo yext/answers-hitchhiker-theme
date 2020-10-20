@@ -12,15 +12,15 @@ msgstr "Allergènes"
 
 #: cards/multilang-job-standard/component.js:33
 msgid "Apply Now"
-msgstr "S'inscrire"
+msgstr "Postuler"
 
 #: cards/multilang-event-standard/component.js:42
 msgid "Directions"
-msgstr "Itinéraires"
+msgstr "Itinéraire"
 
 #: cards/multilang-location-standard/component.js:41
 msgid "Get Directions"
-msgstr "Obtenir l'itinéraire"
+msgstr "M’y rendre"
 
 #: cards/multilang-menuitem-standard/component.js:38
 msgid "Order Now"
@@ -81,7 +81,7 @@ msgstr "Est-ce la réponse que vous recherchiez ?"
 #: cards/multilang-location-standard/component.js:33
 msgctxt "Call is a verb"
 msgid "Call"
-msgstr "Appel téléphonique"
+msgstr "Appeler"
 
 #: cards/multilang-event-standard/component.js:32
 msgctxt "RSVP is a verb"
