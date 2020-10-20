@@ -14,7 +14,7 @@ class financial_professional_locationCardComponent extends BaseCard['financial-p
   dataForRender(profile) {
     return {
       showOrdinal: true, // Whether to display the corresponding map pin number on the card
-      title: `${profile.name}`, // The header text of the card
+      title: profile.name, // The header text of the card
       // subtitle: '', // The sub-header text of the card
       url: profile.website || profile.landingPageUrl, // If the card title is a clickable link, set URL here
       target: '_top', // If the title's URL should open in a new tab, etc.
