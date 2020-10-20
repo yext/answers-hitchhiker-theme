@@ -98,8 +98,7 @@
       .Answers-filterBox {
         &:not(:last-child) {
           .yxt-FilterBox-container {
-            border-bottom: var(--yxt-border-default);
-            padding-bottom: 12px;
+            @include vertical_filter_group_bottom_border;
           }
         }
       }
@@ -107,11 +106,9 @@
       .Answers-sortOptions {
         &:not(:last-child) {
           .yxt-SortOptions-fieldSet {
-            border-bottom: var(--yxt-border-default);
-            padding-bottom: 12px;
+            @include vertical_filter_group_bottom_border;
           }
         }
-
       }
 
       .yxt-SortOptions-fieldSet {
