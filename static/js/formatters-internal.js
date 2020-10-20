@@ -210,14 +210,24 @@ export function snakeToTitle(snake) {
     .join(' ');
 }
 
-export function prettyPrintObject(obj) {
+/**
+ * This function pretty prints different kinds of values. Depending on the type,
+ * localization may be used. 
+ * 
+ * @param {?} obj The value to pretty print.
+ * @param {string} locale The current locale. 
+ * @returns {string} The pretty printed value.
+ */
+export function prettyPrintObject(obj, locale) {
+  locale = locale || _getDocumentLocale();
+
   switch (typeof obj) {
     case 'string':
     case 'number':
     case 'bigint':
-      return obj.toLocaleString();
+      return obj.toLocaleString(locale);
     case 'boolean':
-      return obj ? 'Yes' : 'No';
+      return _prettyPrintBoolean(obj, locale)
     case 'object':
       // check for null
       if (!obj) {
@@ -230,6 +240,32 @@ export function prettyPrintObject(obj) {
         .map(([_, val]) => prettyPrintObject(val)).join(', ');
     default:
       return '';
+  }
+}
+
+/**
+ * Prints the given boolean as a localized affirmative or negative string. For instance,
+ * in English, it would return either 'Yes' for True or 'No' for False.
+ * 
+ * @param {boolean} value The boolean value.
+ * @param {string} locale The locale indicating which language to use.
+ * @returns {string} The localized affirmative or negative.
+ */
+function _prettyPrintBoolean(value, locale) {
+  const language = locale.substring(0,2);
+  switch (language) {
+    case 'es':
+      return value ? 'Sí' : 'No';
+    case 'fr':
+      return value ? 'Oui' : 'Non';
+    case 'it': 
+      return value ? 'Sì' : 'No';
+    case 'de': 
+      return value ? 'Ja' : 'Nein';
+    case 'ja':
+      return value ? 'はい' : '番号';
+    default: 
+      return value ? 'Yes' : 'No';
   }
 }
 
