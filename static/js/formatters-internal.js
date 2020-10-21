@@ -65,32 +65,38 @@ export function toLocalizedDistance(profile, key = 'd_distance', displayUnits) {
   const distanceUnits = displayUnits || getDistanceUnit(locale);
 
   if (distanceUnits === 'mi') {
-    return this.toMiles(profile);
+    return this.toMiles(profile, undefined, undefined, locale);
   } else if (distanceUnits === 'km') {
-    return this.toKilometers(profile);
+    return this.toKilometers(profile, undefined, undefined, locale);
   }
 
-  return this.toMiles(profile);
+  return this.toMiles(profile, undefined, undefined, locale);
 }
 
 export function _getDocumentLocale() {
   return document.documentElement.lang.replace('_', '-');
 }
 
-export function toKilometers(profile, key = 'd_distance', displayUnits = 'km') {
+export function toKilometers(profile, key = 'd_distance', displayUnits = 'km', locale) {
   if (!profile[key]) {
     return '';
   }
+  locale = locale || _getDocumentLocale()
   const distanceInKilometers = profile[key] / 1000; // Convert meters to kilometers
-  return distanceInKilometers.toFixed(1) + ' ' + displayUnits;
+  return new Intl.NumberFormat(locale,
+    { style: 'decimal', maximumFractionDigits: 1, minimumFractionDigits: 1})
+    .format(distanceInKilometers) + ' ' + displayUnits;
 }
 
-export function toMiles(profile, key = 'd_distance', displayUnits = 'mi') {
+export function toMiles(profile, key = 'd_distance', displayUnits = 'mi', locale) {
   if (!profile[key]) {
     return '';
   }
+  locale = locale || _getDocumentLocale()
   const distanceInMiles = profile[key] / 1609.344; // Convert meters to miles
-  return distanceInMiles.toFixed(1) + ' ' + displayUnits;
+  return new Intl.NumberFormat(locale,
+    { style: 'decimal', maximumFractionDigits: 1, minimumFractionDigits: 1 })
+    .format(distanceInMiles) + ' ' + displayUnits;
 }
 
 export function isTodayHoliday(holidayItem, todayDate) {
