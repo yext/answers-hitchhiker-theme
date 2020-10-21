@@ -81,6 +81,7 @@ export function toKilometers({profile, key = 'd_distance', displayUnits = 'km', 
   if (!profile[key]) {
     return '';
   }
+  locale = locale || _getDocumentLocale()
   const distanceInKilometers = profile[key] / 1000; // Convert meters to kilometers
   return new Intl.NumberFormat(locale,
     { style: 'decimal', maximumFractionDigits: 1, minimumFractionDigits: 1})
@@ -91,6 +92,7 @@ export function toMiles({profile, key = 'd_distance', displayUnits = 'mi', local
   if (!profile[key]) {
     return '';
   }
+  locale = locale || _getDocumentLocale()
   const distanceInMiles = profile[key] / 1609.344; // Convert meters to miles
   return new Intl.NumberFormat(locale,
     { style: 'decimal', maximumFractionDigits: 1, minimumFractionDigits: 1 })
