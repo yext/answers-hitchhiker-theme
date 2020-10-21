@@ -9,7 +9,7 @@
     }
   },
   "urlFormat": {
-    "baseLocale": "{pageName}.{pageExt}",
-    "default": "{locale}/{pageName}.{pageExt}"
+    "baseLocale": "{locale}/{pageName}.{pageExt}",
+    "default": "{pageName}.{pageExt}"
   }
 }
