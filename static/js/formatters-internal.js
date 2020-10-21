@@ -65,19 +65,19 @@ export function toLocalizedDistance(profile, key = 'd_distance', displayUnits) {
   const distanceUnits = displayUnits || getDistanceUnit(locale);
 
   if (distanceUnits === 'mi') {
-    return this.toMiles({ profile: profile, locale: locale });
+    return this.toMiles(profile, undefined, undefined, locale);
   } else if (distanceUnits === 'km') {
-    return this.toKilometers({ profile: profile, locale: locale });
+    return this.toKilometers(profile, undefined, undefined, locale);
   }
 
-  return this.toMiles({ profile: profile, locale: locale });
+  return this.toMiles(profile, undefined, undefined, locale);
 }
 
 export function _getDocumentLocale() {
   return document.documentElement.lang.replace('_', '-');
 }
 
-export function toKilometers({profile, key = 'd_distance', displayUnits = 'km', locale}={}) {
+export function toKilometers(profile, key = 'd_distance', displayUnits = 'km', locale) {
   if (!profile[key]) {
     return '';
   }
@@ -88,7 +88,7 @@ export function toKilometers({profile, key = 'd_distance', displayUnits = 'km', 
     .format(distanceInKilometers) + ' ' + displayUnits;
 }
 
-export function toMiles({profile, key = 'd_distance', displayUnits = 'mi', locale}={}) {
+export function toMiles(profile, key = 'd_distance', displayUnits = 'mi', locale) {
   if (!profile[key]) {
     return '';
   }
