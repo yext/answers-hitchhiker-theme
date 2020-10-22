@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
 const RemovePlugin = require('remove-files-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = function () {
   const jamboConfig = JSON.parse(fs.readFileSync('jambo.json'))
@@ -24,6 +25,7 @@ module.exports = function () {
       'bundle': `./${jamboConfig.dirs.output}/static/entry.js`,
       'iframe': `./${jamboConfig.dirs.output}/static/js/iframe.js`,
       'answers': `./${jamboConfig.dirs.output}/static/js/iframe.js`,
+      'overlay-button': `./${jamboConfig.dirs.output}/static/js/iframe-overlay/button/entry.js`,
       'overlay': `./${jamboConfig.dirs.output}/static/js/iframe-overlay/yextanswersoverlay.js`,
       'iframe-prod': `./${jamboConfig.dirs.output}/static/js/iframe-prod.js`,
       'iframe-staging': `./${jamboConfig.dirs.output}/static/js/iframe-staging.js`,
@@ -35,7 +37,13 @@ module.exports = function () {
       libraryTarget: 'window'
     },
     plugins: [
-      new MiniCssExtractPlugin({ filename: 'bundle.css' }),
+      new MiniCssExtractPlugin({ filename: '[name].css' }),
+      new CopyPlugin({
+        patterns: [{
+          from: `./${jamboConfig.dirs.output}/static/js/iframe-overlay/button/button.html`,
+          to: 'overlay-button.html'
+        }],
+      }),
       ...htmlPlugins,
       new webpack.EnvironmentPlugin(
         ['JAMBO_INJECTED_DATA']
