@@ -92,3 +92,25 @@ msgstr "Réservation"
 msgctxt "View is a verb"
 msgid "View All"
 msgstr "Tout afficher"
+
+#: theme-components/collapsible-filters/filter-link/component.js:4
+msgid "clear search"
+msgstr "Réinitialiser la recherche"
+
+#: theme-components/collapsible-filters/view-results-button/template.hbs:3
+msgid "No results found."
+msgstr "Aucun résultat trouvé."
+
+#: theme-components/collapsible-filters/filter-link/component.js:3
+msgid "reset filters"
+msgstr "réinitialiser les filtres"
+
+#: theme-components/collapsible-filters/filter-link/component.js:2
+msgid "sorts and filters"
+msgstr "tris et filtres"
+
+#: theme-components/collapsible-filters/view-results-button/template.hbs:5
+msgid "View 1 Result"
+msgid_plural "View [[count]] Results"
+msgstr[0] "Afficher 1 résultat"
+msgstr[1] "Afficher [[count]] résultats"

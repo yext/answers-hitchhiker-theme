@@ -92,3 +92,25 @@ msgstr "Dare conferma"
 msgctxt "View is a verb"
 msgid "View All"
 msgstr "Visualizza tutti"
+
+#: theme-components/collapsible-filters/filter-link/component.js:4
+msgid "clear search"
+msgstr "Cancella ricerca"
+
+#: theme-components/collapsible-filters/view-results-button/template.hbs:3
+msgid "No results found."
+msgstr "Nessun risultato trovato."
+
+#: theme-components/collapsible-filters/filter-link/component.js:3
+msgid "reset filters"
+msgstr "ripristina filtri"
+
+#: theme-components/collapsible-filters/filter-link/component.js:2
+msgid "sorts and filters"
+msgstr "ordinamenti e filtri"
+
+#: theme-components/collapsible-filters/view-results-button/template.hbs:5
+msgid "View 1 Result"
+msgid_plural "View [[count]] Results"
+msgstr[0] "Visualizza 1 risultato"
+msgstr[1] "Visualizza [[count]] risultati"
