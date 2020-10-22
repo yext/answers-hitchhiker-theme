@@ -4,15 +4,20 @@ const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
 const RemovePlugin = require('remove-files-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = function () {
   const jamboConfig = JSON.parse(fs.readFileSync('jambo.json'))
   const htmlPlugins = [];
+
+  const htmlAssetPathToOutputFilename = {
+    'static/js/iframe-overlay/button/button.html': 'overlay-button.html'
+  };
   if (fs.existsSync(jamboConfig.dirs.output)) {
     fs.recurseSync(jamboConfig.dirs.output, ['**/*.html'], (filepath, relative) => {
+      const outputFilename = htmlAssetPathToOutputFilename[relative] || relative;
+
       htmlPlugins.push(new HtmlPlugin({
-        filename: relative,
+        filename: outputFilename,
         template: path.join(jamboConfig.dirs.output, relative),
         inject: false
       }));
@@ -38,12 +43,6 @@ module.exports = function () {
     },
     plugins: [
       new MiniCssExtractPlugin({ filename: '[name].css' }),
-      new CopyPlugin({
-        patterns: [{
-          from: `./${jamboConfig.dirs.output}/static/js/iframe-overlay/button/button.html`,
-          to: 'overlay-button.html'
-        }],
-      }),
       ...htmlPlugins,
       new webpack.EnvironmentPlugin(
         ['JAMBO_INJECTED_DATA']
