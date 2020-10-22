@@ -59,4 +59,4 @@ export default class OverlayButtonJS {
     });
   }
 }
-global.OverlayButtonJS = OverlayButtonJS;
+window.OverlayButtonJS = OverlayButtonJS;

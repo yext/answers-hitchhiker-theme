@@ -15,15 +15,15 @@
               foregroundColor: message.config.button.foregroundColor
             };
 
-            OverlayButtonJS.applyStyling(
+            window.OverlayButtonJS.applyStyling(
               buttonEl, config.backgroundColor, config.foregroundColor);
-            OverlayButtonJS.attachEventListeners(buttonEl);
+            window.OverlayButtonJS.attachEventListeners(buttonEl);
             break;
           case 'collapse':
-            OverlayButtonJS.collapseButton(buttonEl);
+            window.OverlayButtonJS.collapseButton(buttonEl);
             break;
           case 'expand':
-            OverlayButtonJS.expandButton(buttonEl);
+            window.OverlayButtonJS.expandButton(buttonEl);
             break;
           default:
             break;
@@ -32,7 +32,8 @@
     }
   </script>
   <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.10/iframeResizer.contentWindow.min.js"></script>
+    src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.10/iframeResizer.contentWindow.min.js">
+  </script>
 </head>
 
 <body>
