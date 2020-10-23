@@ -44,6 +44,7 @@
     left: 0;
     border-bottom: 1px solid #dcdcdc;
     background-color: var(--hh-answers-background-color);
+    min-height: 113px;
     width: 100%;
     padding-top: var(--yxt-base-spacing);
     z-index: $nav-wrapper-z-index;
