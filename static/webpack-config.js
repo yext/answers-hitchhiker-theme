@@ -12,10 +12,16 @@ module.exports = function () {
   );
 
   const htmlPlugins = [];
+
+  const htmlAssetPathToOutputFilename = {
+    'static/js/iframe-overlay/button/button.html': 'overlay-button.html'
+  };
   if (fs.existsSync(jamboConfig.dirs.output)) {
     fs.recurseSync(jamboConfig.dirs.output, ['**/*.html'], (filepath, relative) => {
+      const outputFilename = htmlAssetPathToOutputFilename[relative] || relative;
+
       htmlPlugins.push(new HtmlPlugin({
-        filename: relative,
+        filename: outputFilename,
         template: path.join(jamboConfig.dirs.output, relative),
         inject: false
       }));
@@ -28,6 +34,7 @@ module.exports = function () {
       'bundle': `./${jamboConfig.dirs.output}/static/entry.js`,
       'iframe': `./${jamboConfig.dirs.output}/static/js/iframe.js`,
       'answers': `./${jamboConfig.dirs.output}/static/js/iframe.js`,
+      'overlay-button': `./${jamboConfig.dirs.output}/static/js/iframe-overlay/button/entry.js`,
       'overlay': `./${jamboConfig.dirs.output}/static/js/iframe-overlay/yextanswersoverlay.js`,
       'iframe-prod': `./${jamboConfig.dirs.output}/static/js/iframe-prod.js`,
       'iframe-staging': `./${jamboConfig.dirs.output}/static/js/iframe-staging.js`,
@@ -39,7 +46,7 @@ module.exports = function () {
       libraryTarget: 'window'
     },
     plugins: [
-      new MiniCssExtractPlugin({ filename: 'bundle.css' }),
+      new MiniCssExtractPlugin({ filename: '[name].css' }),
       ...htmlPlugins,
       new InlineAssetHtmlPlugin(),
       new webpack.EnvironmentPlugin(
