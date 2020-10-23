@@ -36,6 +36,11 @@ export default class Expando {
     this._hideButtonWhenCollapsed = config.hideButtonWhenCollapsed;
 
     /**
+     * @type {string}
+     */
+    this._alignment = alignment;
+
+    /**
      * @type {boolean}
      */
     this._isExpanded = false;
@@ -201,10 +206,12 @@ export default class Expando {
    */
   _addMediaQueryListener() {
     const mediaQuery = window.matchMedia("(max-width: 767px)");
-    this._updateOverlayWidth(mediaQuery.matches);
+    this._updateCalculatedWidth(mediaQuery.matches);
+    this._updateOverlayContainerSpacing(mediaQuery.matches);
 
     mediaQuery.addListener((e) => {
-      this._updateOverlayWidth(e.matches);
+      this._updateCalculatedWidth(e.matches);
+      this._updateOverlayContainerSpacing(e.matches);
     });
   }
 
@@ -214,10 +221,30 @@ export default class Expando {
    *
    * @param {boolean} isMobile
    */
-  _updateOverlayWidth(isMobile) {
+  _updateCalculatedWidth(isMobile) {
     this._overlayWidth = isMobile
       ? AnimationStyling.WIDTH_MOBILE
       : AnimationStyling.WIDTH_DESKTOP;
+  }
+
+  /**
+   * Updates the Overlay container's width depending on whether the window size is mobile-sized
+   * or not
+   *
+   * @param {boolean} isMobile
+   */
+  _updateOverlayContainerSpacing(isMobile) {
+    if (isMobile) {
+      this._overlayContainerEl.style[this._alignment] = 0;
+      this._overlayContainerEl.style['bottom'] = 0;
+      this._overlayContainerEl.style['max-width'] = AnimationStyling.MAX_WIDTH_MOBILE;
+      this._overlayContainerEl.style['max-height'] = AnimationStyling.MAX_HEIGHT_MOBILE;
+    } else {
+      this._overlayContainerEl.style[this._alignment] = AnimationStyling.BASE_SPACING;
+      this._overlayContainerEl.style['bottom'] = AnimationStyling.BASE_SPACING;
+      this._overlayContainerEl.style['max-width'] = AnimationStyling.MAX_WIDTH_DESKTOP;
+      this._overlayContainerEl.style['max-height'] = AnimationStyling.MAX_HEIGHT_DESKTOP;
+    }
   }
 
   /**
