@@ -167,18 +167,23 @@ export default class Expando {
    */
   _addMediaQueryListener() {
     const mediaQuery = window.matchMedia("(max-width: 767px)");
-    if (mediaQuery.matches) {
-      this._stylist.applyMobileStyling();
-    } else {
-      this._stylist.applyDesktopStyling();
-    }
+    this._updateStyling(mediaQuery.matches);
 
     mediaQuery.addListener((e) => {
-      if (e.matches) {
-        this._stylist.applyMobileStyling();
-      } else {
-        this._stylist.applyDesktopStyling();
-      }
+      this._updateStyling(e.matches);
     });
+  }
+
+  /**
+   * Updates the styling depending on whether the Overlay is mobile or not
+   */
+  _updateStyling(isMobile) {
+    if (isMobile) {
+      this._shape.width = AnimationStyling.WIDTH_MOBILE;
+      this._stylist.applyMobileStyling();
+    } else {
+      this._shape.width = AnimationStyling.WIDTH_DESKTOP;
+      this._stylist.applyDesktopStyling();
+    }
   }
 }
