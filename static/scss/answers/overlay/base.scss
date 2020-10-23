@@ -1,33 +1,13 @@
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes fadeOut {
-  from { opacity: 1; }
-  to { opacity: 0; }
-}
-
 .Overlay {
-  background-color: transparent !important; // This MUST be true for the overlay
-  -ms-overflow-style: none; /* For IE11 */
-
   .yxt-SearchBar-container {
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
-  }
-
-  .AnswersPage {
-    height: 100%;
-    animation: fadeIn 0.4s;
-    animation-delay: .15s;
-    animation-fill-mode: backwards;
   }
 
   .Answers-overlaySuggestions {
     margin: var(--yxt-base-spacing);
     margin-top: calc(var(--yxt-base-spacing) / 2);
 
-    .hidden {
+    &.hidden {
       display: none;
     }
   }
@@ -45,6 +25,7 @@
     }
 
     &-navWrapper {
+      min-height: 0px;
       padding-top: 0;
       background-color: transparent;
       margin-top: -26px;
@@ -68,10 +49,5 @@
 
   &.collapsed {
     overflow: hidden;
-
-    .AnswersPage {
-      animation: fadeOut 0.4s;
-      animation-fill-mode: forwards;
-    }
   }
 }

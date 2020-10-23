@@ -78,8 +78,9 @@ export default class InteractionDirector {
    * Expands the Overlay
    */
   expand() {
+    const isMobile = !window.matchMedia("(min-width: 767px)").matches;
     this._sendMessageToIFrame(
-      new IFrameMessage(InteractionTypes.EXPAND), this._iframeEl);
+      new IFrameMessage(InteractionTypes.EXPAND, { isMobile: isMobile }), this._iframeEl);
     this._sendMessageToIFrame(
       new IFrameMessage(InteractionTypes.EXPAND), this._buttonFrameEl);
     this.expando.expand();
