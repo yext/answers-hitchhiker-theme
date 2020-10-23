@@ -32,7 +32,7 @@ window.expandOverlay = function (isMobile) {
     bodyEl.classList.remove('collapsed');
     bodyEl.classList.add('expanded');
 
-    if (!isMobile) {
+    if (bodyEl.classList.contains('shorter') && !isMobile) {
       const inputEl = document.querySelector('.js-yext-query');
       inputEl && inputEl.focus();
     }
