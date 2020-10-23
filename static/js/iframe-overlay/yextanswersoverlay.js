@@ -61,6 +61,6 @@ export default class YextAnswersOverlay {
   }
 }
 
-if (!global.YextAnswersOverlay) {
-  global.YextAnswersOverlay = new YextAnswersOverlay();
+if (!global.YxtAnswersOverlay) {
+  global.YxtAnswersOverlay = new YextAnswersOverlay();
 }
