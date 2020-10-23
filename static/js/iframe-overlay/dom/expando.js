@@ -6,44 +6,56 @@ import { ActionTypes, AnimationStyling, Selectors } from '../constants';
 export default class Expando {
   constructor(config) {
     /**
-     * @type {Element}
+     * The elements that are affected by the resizing in this class. These
+     * are of @type {Element}
      */
-    this._overlayContainerEl = document.querySelector(`#${Selectors.OVERLAY_CONTAINER_ID}`);
+    this._elements = {
+      overlayContainer: document.querySelector(`#${Selectors.OVERLAY_CONTAINER_ID}`),
+      iframeWrapper: document.querySelector(`#${Selectors.IFRAME_CONTAINER_ID}`),
+      iframe: config.iframeEl,
+      buttonFrame: config.buttonFrameEl,
+    };
 
     /**
-     * @type {Element}
+     * Specific styling in the animation is configurable; this object contains the
+     * animation styling properties that are not constant
      */
-    this._iframeWrapperEl = document.querySelector(`#${Selectors.IFRAME_CONTAINER_ID}`);
+    this._configurableStyling = {
+      /**
+       * @type {string}
+       */
+      iframeBackground: config.iframeBackground,
+      /**
+       * @type {boolean}
+       */
+      hideButtonWhenCollapsed: config.hideButtonWhenCollapsed,
+      /**
+       * @type {string}
+       */
+      alignment: config.alignment,
+    };
 
     /**
-     * @type {Element}
+     * Used to track the state of the Overlay shape
      */
-    this._iframeEl = config.iframeEl;
-
-    /**
-     * @type {Element}
-     */
-    this._buttonFrameEl = config.buttonFrameEl;
-
-    /**
-     * @type {string}
-     */
-    this._iframeBackground = config.iframeBackground;
-
-    /**
-     * @type {boolean}
-     */
-    this._hideButtonWhenCollapsed = config.hideButtonWhenCollapsed;
-
-    /**
-     * @type {boolean}
-     */
-    this._isExpanded = false;
-
-    /**
-     * @type {boolean}
-     */
-    this._isTaller = true;
+    this._shape = {
+      /**
+       * @type {boolean}
+       */
+      isExpanded: false,
+      /**
+       * @type {boolean}
+       */
+      isTaller: true,
+      /**
+       * @type {string}
+       */
+      width: AnimationStyling.WIDTH_DESKTOP,
+      /**
+       * @type {string}
+       */
+      minHeight: AnimationStyling.MIN_HEIGHT
+    };
 
     /**
      * @type {function}
@@ -62,16 +74,16 @@ export default class Expando {
    * @param {Object} size
    */
   showOverlay(size) {
-    this._isExpanded = true;
+    this._shape.isExpanded = true;
 
     const initialHeight = Math.max(AnimationStyling.MIN_HEIGHT, size.totalHeight);
-    this._shorterHeight = `${initialHeight}px`;
+    this._shape.minHeight = `${initialHeight}px`;
 
     this._addMediaQueryListener();
     this.shrink();
     this.collapse();
 
-    if (!this._hideButtonWhenCollapsed) {
+    if (!this._configurableStyling.hideButtonWhenCollapsed) {
       this._showButton();
     }
   }
@@ -80,28 +92,26 @@ export default class Expando {
    * Collapses the Overlay
    */
   collapse() {
-    if (!this._isExpanded) {
+    if (!this._shape.isExpanded) {
       return;
     }
-    this._isExpanded = false;
+    this._shape.isExpanded = false;
 
-    this._iframeEl.style['transition'] =
+    this._elements.iframe.style['transition'] =
       `opacity ${AnimationStyling.TRANSITION_TIMING}`;
-    this._iframeEl.style['background'] = 'transparent';
-    this._iframeEl.style['opacity'] = '0'; // For IE11
+    this._elements.iframe.style['background'] = 'transparent';
+    this._elements.iframe.style['opacity'] = '0'; // For IE11
 
-    this._iframeWrapperEl.style['transition'] =
+    this._elements.iframeWrapper.style['transition'] =
       `opacity ${AnimationStyling.TRANSITION_TIMING}`;
-    this._iframeWrapperEl.style['opacity'] = '0';
-    this._iframeWrapperEl.style['z-index'] = AnimationStyling.ZINDEX_HIDDEN;
-    this._iframeWrapperEl.style['pointer-events'] = 'none';
+    this._elements.iframeWrapper.style['opacity'] = '0';
+    this._elements.iframeWrapper.style['z-index'] = AnimationStyling.ZINDEX_HIDDEN;
+    this._elements.iframeWrapper.style['pointer-events'] = 'none';
 
-    this._overlayContainerEl.style['box-shadow'] = AnimationStyling.BOX_SHADOW_NONE;
+    this._elements.overlayContainer.style['box-shadow'] = AnimationStyling.BOX_SHADOW_NONE;
 
-    if (this._hideButtonWhenCollapsed) {
-      this._buttonFrameEl.style['opacity'] = '0';
-      this._buttonFrameEl.style['z-index'] = AnimationStyling.ZINDEX_HIDDEN;
-      this._buttonFrameEl.style['pointer-events'] = 'none';
+    if (this._configurableStyling.hideButtonWhenCollapsed) {
+      this._hideButton();
     }
     this._collapseCallback();
   }
@@ -110,31 +120,31 @@ export default class Expando {
    * Expands the overlay
    */
   expand() {
-    if (this._isExpanded) {
+    if (this._shape.isExpanded) {
       return;
     }
-    this._isExpanded = true;
+    this._shape.isExpanded = true;
 
-    if (this._hideButtonWhenCollapsed) {
+    if (this._configurableStyling.hideButtonWhenCollapsed) {
       this._showButton();
     }
 
-    this._iframeEl.style['background'] = this._iframeBackground;
-    this._iframeEl.style['opacity'] = '1'; // For IE11
-    this._iframeEl.style['transition'] = `opacity ${AnimationStyling.TRANSITION_TIMING}`;
+    this._elements.iframe.style['background'] = this._configurableStyling.iframeBackground;
+    this._elements.iframe.style['opacity'] = '1'; // For IE11
+    this._elements.iframe.style['transition'] = `opacity ${AnimationStyling.TRANSITION_TIMING}`;
 
-    this._iframeWrapperEl.style['pointer-events'] = 'all';
-    this._iframeWrapperEl.style['z-index'] = AnimationStyling.ZINDEX_ALMOST_FRONTMOST;
-    this._iframeWrapperEl.style['opacity'] = '1';
-    this._iframeWrapperEl.style['transition'] = `opacity ${AnimationStyling.TRANSITION_TIMING}`;
-    this._iframeWrapperEl.style['width'] = this._overlayWidth;
-    this._iframeWrapperEl.style['height'] = this._isTaller
+    this._elements.iframeWrapper.style['pointer-events'] = 'all';
+    this._elements.iframeWrapper.style['z-index'] = AnimationStyling.ZINDEX_ALMOST_FRONTMOST;
+    this._elements.iframeWrapper.style['opacity'] = '1';
+    this._elements.iframeWrapper.style['transition'] = `opacity ${AnimationStyling.TRANSITION_TIMING}`;
+    this._elements.iframeWrapper.style['width'] = this._shape.width;
+    this._elements.iframeWrapper.style['height'] = this._shape.isTaller
       ? AnimationStyling.CONTAINER_HEIGHT_TALLER
-      : this._shorterHeight;
+      : this._shape.minHeight;
 
-    this._overlayContainerEl.style['transition'] =
+    this._elements.overlayContainer.style['transition'] =
       `box-shadow ${AnimationStyling.TRANSITION_TIMING}`;
-    this._overlayContainerEl.style['box-shadow'] = AnimationStyling.BOX_SHADOW_NORMAL;
+    this._elements.overlayContainer.style['box-shadow'] = AnimationStyling.BOX_SHADOW_NORMAL;
 
     this._expandCallback();
   }
@@ -143,28 +153,28 @@ export default class Expando {
    * Makes the overlay grow to its larger size
    */
   grow() {
-    if (this._isTaller) {
+    if (this._shape.isTaller) {
       return;
     }
-    this._isTaller = true;
+    this._shape.isTaller = true;
 
-    this._iframeWrapperEl.style['transition'] = `${AnimationStyling.TRANSITION_TIMING} ease all`;
-    this._iframeWrapperEl.style['width'] = this._overlayWidth;
-    this._iframeWrapperEl.style['height'] = AnimationStyling.CONTAINER_HEIGHT_TALLER;
+    this._elements.iframeWrapper.style['transition'] = `${AnimationStyling.TRANSITION_TIMING} ease all`;
+    this._elements.iframeWrapper.style['width'] = this._shape.width;
+    this._elements.iframeWrapper.style['height'] = AnimationStyling.CONTAINER_HEIGHT_TALLER;
   }
 
   /**
    * Shrinks the overlay to its shorter size
    */
   shrink() {
-    if (!this._isTaller) {
+    if (!this._shape.isTaller) {
       return;
     }
-    this._isTaller = false;
+    this._shape.isTaller = false;
 
-    this._iframeWrapperEl.style['transition'] = `${AnimationStyling.TRANSITION_TIMING} ease all`;
-    this._iframeWrapperEl.style['width'] = this._overlayWidth;
-    this._iframeWrapperEl.style['height'] = this._shorterHeight;
+    this._elements.iframeWrapper.style['transition'] = `${AnimationStyling.TRANSITION_TIMING} ease all`;
+    this._elements.iframeWrapper.style['width'] = this._shape.width;
+    this._elements.iframeWrapper.style['height'] = this._shape.minHeight;
   }
 
   /**
@@ -193,7 +203,7 @@ export default class Expando {
    * @return {boolean}
    */
   isExpanded() {
-    return this._isExpanded;
+    return this._shape.isExpanded;
   }
 
   /**
@@ -215,7 +225,7 @@ export default class Expando {
    * @param {boolean} isMobile
    */
   _updateOverlayWidth(isMobile) {
-    this._overlayWidth = isMobile
+    this._shape.width = isMobile
       ? AnimationStyling.WIDTH_MOBILE
       : AnimationStyling.WIDTH_DESKTOP;
   }
@@ -224,8 +234,17 @@ export default class Expando {
    * Adds styling to display the button
    */
   _showButton() {
-    this._buttonFrameEl.style['z-index'] = AnimationStyling.ZINDEX_FRONTMOST;
-    this._buttonFrameEl.style['opacity'] = '1';
-    this._buttonFrameEl.style['pointer-events'] = 'all';
+    this._elements.buttonFrame.style['z-index'] = AnimationStyling.ZINDEX_FRONTMOST;
+    this._elements.buttonFrame.style['opacity'] = '1';
+    this._elements.buttonFrame.style['pointer-events'] = 'all';
+  }
+
+  /**
+   * Adds styling to hide the button
+   */
+  _hideButton() {
+    this._elements.buttonFrame.style['opacity'] = '0';
+    this._elements.buttonFrame.style['z-index'] = AnimationStyling.ZINDEX_HIDDEN;
+    this._elements.buttonFrame.style['pointer-events'] = 'none';
   }
 }
