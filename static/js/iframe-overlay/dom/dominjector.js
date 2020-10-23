@@ -111,7 +111,7 @@ export default class DomInjector {
   _injectButtonFrame(iframeContainerEl) {
     const iframeEl = document.createElement('iframe');
     iframeEl.id = Selectors.BUTTON_FRAME_ID;
-    iframeEl.src = this.domain + FilePaths.BUTTON_ASSET;
+    iframeEl.src = this._buildButtonFrameUrl();
     iframeEl.name = 'overlayButton';
     iframeEl.style['opacity'] = '0';
     iframeEl.style['z-index'] = AnimationStyling.ZINDEX_HIDDEN;
@@ -136,6 +136,13 @@ export default class DomInjector {
   _buildAnswersExperienceUrl() {
     const referrerPageUrl = window.location.href.split('?')[0].split('#')[0];
     const referrerPageUrlParam = '?referrerPageUrl=' + referrerPageUrl;
-    return this.domain + this.experiencePath + referrerPageUrlParam;
+    return this.domain + '/' + this.experiencePath + referrerPageUrlParam;
+  }
+
+  /**
+   * @returns {string} the source URL for the button iframe
+   */
+  _buildButtonFrameUrl() {
+    return this.domain + '/' + FilePaths.BUTTON_ASSET;
   }
 }

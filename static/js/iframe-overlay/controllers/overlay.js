@@ -25,7 +25,7 @@ export default class Overlay {
    */
   create() {
     // Add Overlay to the DOM
-    const domain = new InjectedData().getStagingDomain();
+    const domain = new InjectedData().getDomain();
     new DomInjector(domain, this.config.experiencePath, this.config.offset, this.config.alignment)
       .inject();
 
