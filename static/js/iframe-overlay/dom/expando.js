@@ -71,9 +71,9 @@ export default class Expando {
     this.shrink();
     this.collapse();
 
-    this._buttonFrameEl.style['z-index'] = AnimationStyling.ZINDEX_FRONTMOST;
-    this._buttonFrameEl.style['opacity'] = '1';
-    this._buttonFrameEl.style['pointer-events'] = 'all';
+    if (!this._hideButtonWhenCollapsed) {
+      this._showButton();
+    }
   }
 
   /**
@@ -98,6 +98,11 @@ export default class Expando {
 
     this._overlayContainerEl.style['box-shadow'] = AnimationStyling.BOX_SHADOW_NONE;
 
+    if (this._hideButtonWhenCollapsed) {
+      this._buttonFrameEl.style['opacity'] = '0';
+      this._buttonFrameEl.style['z-index'] = AnimationStyling.ZINDEX_HIDDEN;
+      this._buttonFrameEl.style['pointer-events'] = 'none';
+    }
     this._collapseCallback();
   }
 
@@ -109,6 +114,10 @@ export default class Expando {
       return;
     }
     this._isExpanded = true;
+
+    if (this._hideButtonWhenCollapsed) {
+      this._showButton();
+    }
 
     this._iframeEl.style['background'] = this._iframeBackground;
     this._iframeEl.style['opacity'] = '1'; // For IE11
@@ -209,5 +218,14 @@ export default class Expando {
     this._overlayWidth = isMobile
       ? AnimationStyling.WIDTH_MOBILE
       : AnimationStyling.WIDTH_DESKTOP;
+  }
+
+  /**
+   * Adds styling to display the button
+   */
+  _showButton() {
+    this._buttonFrameEl.style['z-index'] = AnimationStyling.ZINDEX_FRONTMOST;
+    this._buttonFrameEl.style['opacity'] = '1';
+    this._buttonFrameEl.style['pointer-events'] = 'all';
   }
 }
