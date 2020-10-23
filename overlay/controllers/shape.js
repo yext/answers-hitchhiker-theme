@@ -32,7 +32,9 @@ window.expandOverlay = function () {
     bodyEl.classList.remove('collapsed');
     bodyEl.classList.add('expanded');
 
-    const inputEl = document.querySelector('.js-yext-query');
-    inputEl && inputEl.focus();
+    if (bodyEl.classList.contains('shorter')) {
+      const inputEl = document.querySelector('.js-yext-query');
+      inputEl && inputEl.focus();
+    }
   }
 }
