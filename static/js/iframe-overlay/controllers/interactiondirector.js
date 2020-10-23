@@ -97,7 +97,8 @@ export default class InteractionDirector {
    * in the child iFrame and the parts in the parent frame
    */
   forceExpand() {
-    this._sendMessageToIFrame(InteractionTypes.EXPAND);
+    const isMobile = !window.matchMedia("(min-width: 767px)").matches;
+    this._sendMessageToIFrame(InteractionTypes.EXPAND, { isMobile: isMobile });
     this.expando.expand();
   }
 
