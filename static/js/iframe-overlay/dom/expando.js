@@ -85,7 +85,6 @@ export default class Expando {
     }
     this._isExpanded = false;
 
-    this._iframeEl.scrolling = 'no';
     this._iframeEl.style['transition'] =
       `opacity ${AnimationStyling.TRANSITION_TIMING}`;
     this._iframeEl.style['background'] = 'transparent';
@@ -111,7 +110,6 @@ export default class Expando {
     }
     this._isExpanded = true;
 
-    this._iframeEl.scrolling = 'yes';
     this._iframeEl.style['background'] = this._iframeBackground;
     this._iframeEl.style['opacity'] = '1'; // For IE11
     this._iframeEl.style['transition'] = `opacity ${AnimationStyling.TRANSITION_TIMING}`;

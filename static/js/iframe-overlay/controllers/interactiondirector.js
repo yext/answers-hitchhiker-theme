@@ -107,7 +107,7 @@ export default class InteractionDirector {
   }
 
   /**
-   * Sends a message to the iframe of the given type, with details (if provided).
+   * Sends a message to the iframe provided.
    *
    * @param {IFrameMessage} message
    * @param {Element} iframeEl
