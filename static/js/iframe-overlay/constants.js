@@ -1,8 +1,8 @@
 exports.Selectors = {
-  OVERLAY_CONTAINER_ID: 'YextAnswersOverlay',
-  IFRAME_CONTAINER_ID: 'YextAnswersOverlay-container',
-  IFRAME_ID: 'YextAnswersOverlay-iframe',
-  BUTTON_FRAME_ID: 'YextAnswersOverlay-buttonFrame',
+  OVERLAY_CONTAINER_ID: 'YxtAnswersOverlay',
+  IFRAME_CONTAINER_ID: 'YxtAnswersOverlay-container',
+  IFRAME_ID: 'YxtAnswersOverlay-iframe',
+  BUTTON_FRAME_ID: 'YxtAnswersOverlay-buttonFrame',
 };
 
 exports.InteractionTypes = {
