@@ -119,19 +119,6 @@ export default class Stylist {
   }
 
   /**
-   * Updates the styling depending on whether the Overlay is mobile or not
-   *
-   * @param {} isMobile
-   */
-  updateOnScreenResize(isMobile) {
-    if (isMobile) {
-      this.applyMobileStyling();
-    } else {
-      this.applyDesktopStyling();
-    }
-  }
-
-  /**
    * Applies mobile styling to the Overlay
    */
   applyMobileStyling() {
