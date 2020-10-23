@@ -8,11 +8,11 @@
       onMessage: function (message) {
         const buttonEl = document.querySelector('.js-OverlayButton');
         switch (message.type) {
-          case 'overlayConfig':
+          case 'config':
             const config = {
               labelText: '', // TODO (agrow) in a later PR, inject labelText
-              backgroundColor: message.config.button.backgroundColor,
-              foregroundColor: message.config.button.foregroundColor
+              backgroundColor: message.backgroundColor,
+              foregroundColor: message.foregroundColor
             };
 
             window.OverlayButtonJS.applyStyling(
