@@ -1,7 +1,8 @@
 .OverlayButton {
   position: fixed;
-  z-index: 2147483639;
-  bottom: var(--yxt-base-spacing);
+  left: 0;
+  right: 0;
+  bottom: 0;
   min-width: 64px;
   min-height: 64px;
   max-width: 100%;
@@ -49,17 +50,16 @@
       flex-grow: 1;
     }
   }
-}
 
-.collapsed .OverlayButton-displayWhenExpanded,
-.OverlayButton-displayWhenCollapsed {
-  display: none;
-}
+  &.collapsed &-displayWhenExpanded,
+  &-displayWhenCollapsed {
+    display: none;
+  }
 
-.OverlayButton-displayWhenExpanded,
-.collapsed .OverlayButton-displayWhenCollapsed {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  &-displayWhenExpanded,
+  &.collapsed &-displayWhenCollapsed {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
-
