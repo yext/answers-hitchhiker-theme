@@ -9,6 +9,7 @@
  * https://github.com/postcss/postcss/blob/master/docs/writing-a-plugin.md
  * 
  * @param {string} relativePath does not have a slash at the end, e.g. "../.."
+ * @returns {import('postcss').Plugin}
  */
 module.exports = (relativePath) => {
   const PROCESSED = Symbol('processed');
@@ -36,7 +37,7 @@ module.exports = (relativePath) => {
     /**
      * Transform all css key:value pairs that contain a "url()" attribute
      * Marks off processed nodes so they aren't revisited.
-     * @param {postcss.Declaration} decl https://postcss.org/api/#postcss-declaration
+     * @param {import('postcss').Declaration} decl https://postcss.org/api/#postcss-declaration
      */
     Declaration(decl) {
       if (!decl[PROCESSED] && decl.value.includes('url')) {
