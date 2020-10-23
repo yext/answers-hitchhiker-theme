@@ -119,7 +119,7 @@ export default class Expando {
       return;
     }
     this._shape.isTaller = true;
-    this._stylist.applyTallerStyling();
+    this._stylist.applyTallerStyling(this._shape.width);
   }
 
   /**
