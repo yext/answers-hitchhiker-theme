@@ -27,17 +27,17 @@ export default class YextAnswersOverlay {
   }
 
   /**
-   * Forces the Overlay to expand
+   * Expands the Overlay
    */
   expand() {
-    this._isInitialized() && this.overlayMediator.forceExpand();
+    this._isInitialized() && this.overlayMediator.expand();
   }
 
   /**
-   * Forces the Overlay to collapse
+   * Collapses the Overlay
    */
   collapse() {
-    this._isInitialized() && this.overlayMediator.forceCollapse();
+    this._isInitialized() && this.overlayMediator.collapse();
   }
 
   /**

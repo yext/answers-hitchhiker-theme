@@ -4,7 +4,7 @@ import InjectedData from '../../models/InjectedData';
 import InteractionDirector from './interactiondirector';
 import OverlayConfig from '../models/overlayconfig';
 import ParentFrameObserver from './parentframeobserver';
-import { Selectors } from '../constants';
+import { InteractionTypes, Selectors } from '../constants';
 
 /**
  * This class is responsible for creating and setting up the Overlay.
@@ -25,15 +25,14 @@ export default class Overlay {
    */
   create() {
     // Add Overlay to the DOM
-    const experienceUrl = this._getExperienceUrl();
-    new DomInjector(experienceUrl, this.config.offset, this.config.button.alignment)
+    const domain = new InjectedData().getStagingDomain();
+    new DomInjector(domain, this.config.experiencePath, this.config.offset, this.config.alignment)
       .inject();
 
     const mediator = new InteractionDirector({
-      button: this.config.button,
-      panel: this.config.panel,
-      prompts: this.config.prompts,
-      hideDefaultButton: this.config.hideDefaultButton,
+      iframeEl: document.querySelector(`#${Selectors.IFRAME_ID}`),
+      buttonFrameEl: document.querySelector(`#${Selectors.BUTTON_FRAME_ID}`),
+      hideButtonWhenCollapsed: this.config.hideDefaultButton,
       iframeBackground: this.config.iframeBackground
     });
     this._attachObservers(mediator);
@@ -45,22 +44,14 @@ export default class Overlay {
    * Sets up communication between iframe and parent frame.
    */
   _attachObservers(mediator) {
+    new IFrameObserver(mediator, `#${Selectors.BUTTON_FRAME_ID}`)
+      .attach(InteractionTypes.BUTTON_CONNECTED, this.config.button);
     new IFrameObserver(mediator, `#${Selectors.IFRAME_ID}`)
-      .attach();
+      .attach(InteractionTypes.IFRAME_CONNECTED, {
+        panel: this.config.panel,
+        prompts: this.config.prompts,
+      });
     new ParentFrameObserver(mediator, this.config.customSelector)
       .attach();
-  }
-
-  /**
-   * Returns the experience URL with the referrer page URL set to the current URL
-   *
-   * @returns {string}
-   */
-  _getExperienceUrl() {
-    const referrerPageUrl = window.location.href.split('?')[0].split('#')[0];
-    const referrerPageUrlParam = '?referrerPageUrl=' + referrerPageUrl;
-    return new InjectedData().getDomain() + '/'
-      + this.config.experiencePath
-      + referrerPageUrlParam;
   }
 }
