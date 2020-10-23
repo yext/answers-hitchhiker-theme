@@ -7,24 +7,7 @@ class OverlayCreator {
     /**
      * @type {Object}
      */
-    this._buttonConfig = {
-      labelText: config.button.text,
-      alignment: config.button.alignment,
-      backgroundColor: config.button.backgroundColor,
-      foregroundColor: config.button.foregroundColor,
-      hideWhenCollapsed: config.hideDefaultButton
-    };
-
-    /**
-     * @type {Object}
-     */
-    this._panelConfig = {
-      heading: config.panel.header,
-      subtitle: config.panel.subtitle,
-      imageUrl: config.panel.icon,
-      backgroundColor: config.panel.backgroundColor,
-      foregroundColor: config.panel.foregroundColor
-    };
+    this._panelConfig = config.panel;
 
     /**
      * @type {Array<Object>}
@@ -45,27 +28,22 @@ class OverlayCreator {
     const bodyEl = document.querySelector('body');
     bodyEl.classList.add('Overlay');
 
-    window.collapseOverlay();
-
     new HeaderPanelInfuser(this._panelConfig).infuse();
     new PromptInjector(this._prompts).inject();
-    new ButtonInfuser(this._buttonConfig)
-      .infuse();
 
     this._updateOverlayShape();
 
-    const buttonEl = document.querySelector('.js-OverlayButton');
-    const buttonSize = buttonEl && buttonEl.getBoundingClientRect();
-    this._setButtonWidth(buttonSize.width);
+    const promptsEl = document.querySelector('.js-Answers-overlaySuggestions');
+    promptsEl && promptsEl.classList.remove('hidden');
 
-    window.parentIFrame.sendMessage({
-      type: 'buttonReady',
-      detail: {
-        height: this._getCollapsedOverlayHeight(buttonSize.height),
-        width: this._getCollapsedOverlayWidth(buttonSize.width),
-        totalHeight: this._getTotalHeight()
-      }
-    });
+    if (this._isCollapsed) {
+      window.parentIFrame.sendMessage({
+        type: 'iframeReady',
+        detail: {
+          totalHeight: this._getTotalHeight()
+        }
+      });
+    }
   }
 
   /**
@@ -74,48 +52,12 @@ class OverlayCreator {
    */
   _updateOverlayShape() {
     if (this._isCollapsed) {
-      const promptsEl = document.querySelector('.js-Answers-overlaySuggestions');
-      promptsEl && promptsEl.classList.remove('hidden');
-
       window.shrinkOverlay();
       window.collapseOverlay();
     } else {
       window.growOverlay();
       window.expandOverlay();
     }
-  }
-
-  /**
-   * Sets the button width on the window
-   *
-   * @param {number} buttonWidth
-   */
-  _setButtonWidth(buttonWidth) {
-    window.buttonWidth = buttonWidth;
-  }
-
-  /**
-   * Returns the height of the collapsed overlay, in pixels
-   *
-   * @param {number} buttonWidth
-   * @returns {number}
-   */
-  _getCollapsedOverlayHeight(buttonHeight) {
-    const verticalOffset = 16;
-    const arbitraryNumberOfPixelsFromUX = 3;
-    return buttonHeight > 0 && (buttonHeight + verticalOffset + arbitraryNumberOfPixelsFromUX);
-  }
-
-  /**
-   * Returns the width of the collapsed overlay, in pixels
-   *
-   * @param {number} buttonWidth
-   * @returns {number}
-   */
-  _getCollapsedOverlayWidth(buttonWidth) {
-    const horizontalOffset = 16;
-    const arbitraryNumberOfPixelsFromUX = 8;
-    return buttonWidth && (buttonWidth + horizontalOffset + arbitraryNumberOfPixelsFromUX);
   }
 
   /**
@@ -127,7 +69,6 @@ class OverlayCreator {
     const answersContentEl = document.querySelector('.Answers');
     const headerEl = document.querySelector('.OverlayHeader');
     return(answersContentEl && answersContentEl.getBoundingClientRect().height || 0) +
-      ((headerEl && headerEl.getBoundingClientRect().height) || 0) +
-      this._getCollapsedOverlayHeight();
+      ((headerEl && headerEl.getBoundingClientRect().height) || 0);
   }
 }
