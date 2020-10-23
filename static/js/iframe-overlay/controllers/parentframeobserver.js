@@ -39,7 +39,7 @@ export default class ParentFrameObserver {
       const isButtonClick = this.customButtonEl && this.customButtonEl.contains(e.target);
 
       if (!isButtonClick) {
-        this.mediator.onParentFrameInteraction(InteractionTypes.COLLAPSE);
+        this.mediator.onInteraction(InteractionTypes.COLLAPSE);
       }
     });
   }
@@ -50,7 +50,7 @@ export default class ParentFrameObserver {
    */
   _initCustomButton() {
     this.customButtonEl.addEventListener('click', () => {
-      this.mediator.onParentFrameInteraction(InteractionTypes.TOGGLE_OVERLAY);
+      this.mediator.onInteraction(InteractionTypes.TOGGLE_OVERLAY);
     });
   }
 }
