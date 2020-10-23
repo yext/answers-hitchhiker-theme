@@ -1,4 +1,4 @@
-import { ActionTypes, AnimationStyling, Selectors } from '../constants';
+import { ActionTypes, AnimationStyling } from '../constants';
 import Stylist from './stylist';
 
 /**
