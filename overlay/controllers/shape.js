@@ -25,14 +25,16 @@ window.collapseOverlay = function () {
   }
 }
 
-window.expandOverlay = function () {
+window.expandOverlay = function (isMobile) {
   const bodyEl = document.querySelector('body');
 
   if (bodyEl) {
     bodyEl.classList.remove('collapsed');
     bodyEl.classList.add('expanded');
 
-    const inputEl = document.querySelector('.js-yext-query');
-    inputEl && inputEl.focus();
+    if (!isMobile) {
+      const inputEl = document.querySelector('.js-yext-query');
+      inputEl && inputEl.focus();
+    }
   }
 }
