@@ -1,5 +1,8 @@
 const jsdom = require('jsdom');
 const HtmlPlugin = require('html-webpack-plugin');
+const path = require('path');
+const postcss = require('postcss');
+const CssRelativeUrlTransformer = require('./CssRelativeUrlTransformer')
 
 /**
  * The InlineAssetHtmlPlugin will take HTML files added through the HtmlWebpackPlugin
@@ -22,8 +25,8 @@ class InlineAssetHtmlPlugin {
    * HTML elements are only replaced with inlined versions if they have the data attribute
    * "data-webpack-inline"
    * @param {String} html The html of the page to analyze tags and replace with inlined 
-   * @param {Object<String, RawSource>} assetsMap Mapping from asset name to asset content,
-   *                                              provided by webpack compilation
+   * @param {Object<String, Source>} assetsMap Mapping from asset name to asset content,
+   *                                           provided by webpack compilation
    */
   getHtmlWithInlineAssets (html, assetsMap) {
     const dom = new jsdom.JSDOM(html);
@@ -35,19 +38,15 @@ class InlineAssetHtmlPlugin {
   /**
    * Update data-webpack-inline scripts in the DOM with the inlined assets
    * @param {Object} dom The parsed DOM, transformed with inline assets
-   * @param {Object<String, RawSource>} assetsMap Mapping from asset name to asset content,
-   *                                              provided by webpack compilation
+   * @param {Object<String, Source>} assetsMap Mapping from asset name to asset content,
+   *                                           provided by webpack compilation
    */
   _inlineScripts (dom, assetsMap) {
     dom.window.document.querySelectorAll('script[data-webpack-inline]').forEach((scriptNode) => {
       const scriptSource = scriptNode.src;
-      const fileContents = assetsMap[scriptSource];
-      if (!fileContents) {
-        console.error(`Unable to find desired inline asset '${scriptNode.src}' in webpack compilation`);
-        return;
-      }
+      const fileContents = this._getAssetSource(scriptSource, assetsMap).source();
 
-      scriptNode.innerHTML = fileContents.source();
+      scriptNode.innerHTML = fileContents;
       scriptNode.dataset.fileName = scriptSource;
       scriptNode.removeAttribute('src');
     });
@@ -56,24 +55,54 @@ class InlineAssetHtmlPlugin {
   /**
    * Replace data-webpack-inline links in the DOM with the inlined assets in a style tag
    * @param {Object} dom The parsed DOM, transformed with inline assets
-   * @param {Object<String, RawSource>} assetsMap Mapping from asset name to asset content,
-   *                                              provided by webpack compilation
+   * @param {Object<String, Source>} assetsMap Mapping from asset name to asset content,
+   *                                           provided by webpack compilation
    */
   _inlineLinks (dom, assetsMap) {
     dom.window.document.querySelectorAll('link[data-webpack-inline]').forEach((linkNode) => {
-      const fileContents = assetsMap[linkNode.href];
-      if (!fileContents) {
-        console.error(`Unable to find desired inline asset '${linkNode.href}' in webpack compilation`);
-        return;
-      }
+      const rawContents = this._getAssetSource(linkNode.href, assetsMap).source();
+      const relativePath = path.dirname(linkNode.href);
+      const processedCss = this._updateCssUrls(rawContents, relativePath);
 
       const styleNode = dom.window.document.createElement('style');
-      styleNode.innerHTML = fileContents.source();
+      styleNode.innerHTML = processedCss;
       styleNode.dataset.fileName = linkNode.href;
       styleNode.dataset.webpackInline = '';
       linkNode.parentNode.insertBefore(styleNode, linkNode.nextSibling);
       linkNode.remove();
     });
+  }
+
+  /**
+   * Process css to correct relative urls.
+   * @param {string} cssContents the raw, unprocessed css
+   * @param {string} relativePath relative path to add to css url attributes, e.g. ../.. or ..
+   */
+  _updateCssUrls(cssContents, relativePath) {
+    if (relativePath === '.') {
+      return cssContents
+    }
+    const postcssPlugins = [ CssRelativeUrlTransformer(relativePath) ];
+    const processedCss = postcss(postcssPlugins).process(cssContents).css;
+    return processedCss;
+  }
+
+  /**
+   * Get the asset file contents for a particular url
+   * @param {string} url The src or href value of the asset
+   * @param {Object<String, Source>} assetsMap Mapping of asset name to asset content
+   * @returns {Source}
+   */
+  _getAssetSource(url, assetsMap) {
+    const assetName = path.basename(url);
+    const assetSource = assetsMap[assetName];
+    if (!assetSource) {
+      throw new Error(
+        `Unable to find inline asset '${assetName}' in webpack compilation.\n` +
+        `The following assets are available: \n${Object.keys(assetsMap).join('\n')}`
+      );
+    }
+    return assetSource;
   }
 }
 
