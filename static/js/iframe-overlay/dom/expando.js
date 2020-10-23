@@ -211,10 +211,12 @@ export default class Expando {
    */
   _addMediaQueryListener() {
     const mediaQuery = window.matchMedia("(max-width: 767px)");
-    this._updateOverlayWidth(mediaQuery.matches);
+    this._updateCalculatedWidth(mediaQuery.matches);
+    this._updateOverlayContainerSpacing(mediaQuery.matches);
 
     mediaQuery.addListener((e) => {
-      this._updateOverlayWidth(e.matches);
+      this._updateCalculatedWidth(e.matches);
+      this._updateOverlayContainerSpacing(e.matches);
     });
   }
 
@@ -224,10 +226,30 @@ export default class Expando {
    *
    * @param {boolean} isMobile
    */
-  _updateOverlayWidth(isMobile) {
+  _updateCalculatedWidth(isMobile) {
     this._shape.width = isMobile
       ? AnimationStyling.WIDTH_MOBILE
       : AnimationStyling.WIDTH_DESKTOP;
+  }
+
+  /**
+   * Updates the Overlay container's width depending on whether the window size is mobile-sized
+   * or not
+   *
+   * @param {boolean} isMobile
+   */
+  _updateOverlayContainerSpacing(isMobile) {
+    if (isMobile) {
+      this._elements.overlayContainer.style[this._alignment] = 0;
+      this._elements.overlayContainer.style['bottom'] = 0;
+      this._elements.overlayContainer.style['max-width'] = AnimationStyling.MAX_WIDTH_MOBILE;
+      this._elements.overlayContainer.style['max-height'] = AnimationStyling.MAX_HEIGHT_MOBILE;
+    } else {
+      this._elements.overlayContainer.style[this._alignment] = AnimationStyling.BASE_SPACING;
+      this._elements.overlayContainer.style['bottom'] = AnimationStyling.BASE_SPACING;
+      this._elements.overlayContainer.style['max-width'] = AnimationStyling.MAX_WIDTH_DESKTOP;
+      this._elements.overlayContainer.style['max-height'] = AnimationStyling.MAX_HEIGHT_DESKTOP;
+    }
   }
 
   /**
