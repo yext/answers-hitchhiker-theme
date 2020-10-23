@@ -62,10 +62,10 @@ class InlineAssetHtmlPlugin {
     dom.window.document.querySelectorAll('link[data-webpack-inline]').forEach((linkNode) => {
       const rawContents = this._getAssetSource(linkNode.href, assetsMap).source();
       const relativePath = path.dirname(linkNode.href);
-      const processedCss = this._updateCssUrls(rawContents, relativePath);
+      const transformedCss = this._transformCssUrls(rawContents, relativePath);
 
       const styleNode = dom.window.document.createElement('style');
-      styleNode.innerHTML = processedCss;
+      styleNode.innerHTML = transformedCss;
       styleNode.dataset.fileName = linkNode.href;
       styleNode.dataset.webpackInline = '';
       linkNode.parentNode.insertBefore(styleNode, linkNode.nextSibling);
@@ -74,11 +74,11 @@ class InlineAssetHtmlPlugin {
   }
 
   /**
-   * Process css to correct relative urls.
+   * Prepend css url() attributes with the given relative path.
    * @param {string} cssContents the raw, unprocessed css
    * @param {string} relativePath relative path to add to css url attributes, e.g. ../.. or ..
    */
-  _updateCssUrls(cssContents, relativePath) {
+  _transformCssUrls(cssContents, relativePath) {
     if (relativePath === '.') {
       return cssContents
     }
@@ -88,7 +88,7 @@ class InlineAssetHtmlPlugin {
   }
 
   /**
-   * Get the asset file contents for a particular url
+   * Get the webpack source for a particular asset url
    * @param {string} url The src or href value of the asset
    * @param {Object<String, Source>} assetsMap Mapping of asset name to asset content
    * @returns {Source}
