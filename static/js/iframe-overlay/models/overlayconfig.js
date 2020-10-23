@@ -60,6 +60,12 @@ export default class OverlayConfig {
     };
 
     /**
+     * Where to align the overlay, can be 'left' or 'right'
+     * @type {String}, either 'left' or 'right'
+     */
+    this.alignment = config.button.alignment === 'left' ? 'left' : 'right',
+
+    /**
      * Configuration for the button.
      */
     config.button = config.button || {};
@@ -69,12 +75,7 @@ export default class OverlayConfig {
        * Text to display; if populated, shows to the right of the icon.
        * @type {String}
        */
-      text: config.button.text || '',
-      /**
-       * Where to align the button, can be 'left' or 'right'
-       * @type {String}, either 'left' or 'right'
-       */
-      alignment: config.button.alignment === 'left' ? 'left' : 'right',
+      labelText: config.button.text || '',
       /**
        * The background color of the button, accepts hex or rgb.
        * @type {String}
@@ -97,7 +98,7 @@ export default class OverlayConfig {
        * The heading text for the panel of the overlay
        * @type {String}
        */
-      header: config.panel.header || '',
+      heading: config.panel.header || '',
       /**
        * The subtitle text for the panel of the overlay
        * @type {String}
@@ -107,7 +108,7 @@ export default class OverlayConfig {
        * The icon URL for the panel of the overlay
        * @type {String}
        */
-      icon: config.panel.icon || '',
+      imageUrl: config.panel.icon || '',
       /**
        * The background color of the panel, accepts hex or rgb.
        * @type {String}

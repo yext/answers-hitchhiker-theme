@@ -1,5 +1,6 @@
 import Expando from '../dom/expando';
-import { InteractionTypes, Selectors } from '../constants';
+import { InteractionTypes } from '../constants';
+import IFrameMessage from '../models/iframemessage';
 
 /**
  * InteractionDirector is responsible encapsulating how the parent frame and child iframe
@@ -7,51 +8,49 @@ import { InteractionTypes, Selectors } from '../constants';
  * each other explicitly and lets us vary their interaction independently.
  */
 export default class InteractionDirector {
-  constructor(iframeConfig) {
+  constructor(config) {
     /**
-     * @type {Object}
+     * @type {Element}
      */
-    this.iframeConfig = iframeConfig;
+    this._iframeEl = config.iframeEl;
 
     /**
      * @type {Element}
      */
-    this.iframeEl = document.querySelector(`#${Selectors.IFRAME_ID}`);
+    this._buttonFrameEl = config.buttonFrameEl;
 
     /**
      * @type {Expando}
      */
-    this.expando = new Expando(iframeConfig.iframeBackground);
-
-    /**
-     * @type {boolean}
-     */
-    this.hasBeenInitialized = false;
+    this.expando = new Expando(config);
   }
 
   /**
-   * Handles user interactions from the iframe, updating the relevant parts of the Overlay
-   * in the parent frame and/or child iframe.
+   * Handles user interactions from the iframe, parent frame, or button frame, updating the
+   * relevant parts of the Overlay in the iframe, parent frame, and/or button frame.
    *
    * @param {InteractionTypes} type
    * @param {Object} details
    */
-  onIFrameInteraction(type, details) {
+  onInteraction(type, details) {
     switch (type){
-      case InteractionTypes.INIT:
-        this._sendConfigMessageToIFrame();
+      case InteractionTypes.IFRAME_CONNECTED:
+        this._sendMessageToIFrame(new IFrameMessage('config', details), this._iframeEl);
         break;
-      case InteractionTypes.BUTTON_READY:
-        if (!this.hasBeenInitialized) {
-          this.expando.showButton(details);
-          this.hasBeenInitialized = true;
-        }
+      case InteractionTypes.BUTTON_CONNECTED:
+        this._sendMessageToIFrame(new IFrameMessage('config', details), this._buttonFrameEl);
+        break;
+      case InteractionTypes.IFRAME_READY:
+        this.expando.showOverlay(details);
         break;
       case InteractionTypes.COLLAPSE:
-        this.expando.collapse();
+        this.collapse();
         break;
       case InteractionTypes.EXPAND:
-        this.expando.expand();
+        this.expand();
+        break;
+      case InteractionTypes.TOGGLE_OVERLAY:
+        this._toggle();
         break;
       case InteractionTypes.QUERY_SUBMITTED:
         this.expando.grow();
@@ -59,46 +58,31 @@ export default class InteractionDirector {
       case InteractionTypes.CLEAR_BUTTON_HIT:
         this.expando.shrink();
         break;
+      default:
+        break;
     }
   }
 
   /**
-   * Handles user interactions from the parent frame, updating the relevant parts of the
-   * Overlay in the parent frame and/or child iframe.
-   *
-   * @param {InteractionTypes} type
+   * Collapses the Overlay
    */
-  onParentFrameInteraction(type) {
-    switch (type){
-      case InteractionTypes.COLLAPSE:
-        this.forceCollapse();
-        break;
-      case InteractionTypes.TOGGLE_OVERLAY:
-        if (this.expando.isExpanded()) {
-          this.forceCollapse();
-        } else {
-          this.forceExpand();
-        }
-        break;
-      }
-  }
-
-  /**
-   * An external trigger forces the Overlay to collapse - affecting both the Overlay parts
-   * in the child iFrame and the parts in the parent frame
-   */
-  forceCollapse() {
-    this._sendMessageToIFrame(InteractionTypes.COLLAPSE);
+  collapse() {
+    this._sendMessageToIFrame(
+      new IFrameMessage(InteractionTypes.COLLAPSE), this._iframeEl);
+    this._sendMessageToIFrame(
+      new IFrameMessage(InteractionTypes.COLLAPSE), this._buttonFrameEl);
     this.expando.collapse();
   }
 
   /**
-   * An external trigger forces the Overlay to expand - affecting both the Overlay parts
-   * in the child iFrame and the parts in the parent frame
+   * Expands the Overlay
    */
-  forceExpand() {
+  expand() {
     const isMobile = !window.matchMedia("(min-width: 767px)").matches;
-    this._sendMessageToIFrame(InteractionTypes.EXPAND, { isMobile: isMobile });
+    this._sendMessageToIFrame(
+      new IFrameMessage(InteractionTypes.EXPAND, { isMobile: isMobile }), this._iframeEl);
+    this._sendMessageToIFrame(
+      new IFrameMessage(InteractionTypes.EXPAND), this._buttonFrameEl);
     this.expando.expand();
   }
 
@@ -113,27 +97,26 @@ export default class InteractionDirector {
   }
 
   /**
-   * Sends the iFrame Overlay config message to the iFrame.
+   * Toggles the Overlay's expanded/collapsed state
    */
-  _sendConfigMessageToIFrame() {
-    this._sendMessageToIFrame('overlayConfig', {
-      config: {
-        ...this.iframeConfig,
-        isCollapsed: !this.hasBeenInitialized
-      }
-    });
+  _toggle() {
+    if (this.expando.isExpanded()) {
+      this.collapse();
+    } else {
+      this.expand();
+    }
   }
 
   /**
-   * Sends a message to the iframe of the given type, with details (if provided).
+   * Sends a message to the iframe provided.
    *
-   * @param {String} type
-   * @param {Object} details
+   * @param {IFrameMessage} message
+   * @param {Element} iframeEl
    */
-  _sendMessageToIFrame(type, details = {}) {
-    this.iframeEl.iFrameResizer.sendMessage({
-      type: type,
-      ...details
+  _sendMessageToIFrame(message, iframeEl) {
+    iframeEl.iFrameResizer.sendMessage({
+      type: message.getType(),
+      ...message.getDetails()
     });
   }
 }
