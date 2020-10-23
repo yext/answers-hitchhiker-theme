@@ -1,8 +1,7 @@
 import { AnimationStyling } from "../constants";
 
 /**
- * Stylist is responsible for injecting the elements for the Overlay into the
- * document.
+ * Stylist is responsible for applying styling to the Overlay to update its shape
  */
 export default class Stylist {
   constructor(config) {
@@ -92,6 +91,7 @@ export default class Stylist {
   /**
    * Styles the Overlay for its shorter state
    *
+   * @param {string} height
    * @param {string} width
    */
   applyShorterStyling(height, width) {
@@ -136,10 +136,10 @@ export default class Stylist {
    */
   applyMobileStyling() {
     this._iframeWrapperEl.style['width'] = AnimationStyling.WIDTH_MOBILE;
-    this.overlayContainerEl.style[this._alignment] = 0;
-    this.overlayContainerEl.style['bottom'] = 0;
-    this.overlayContainerEl.style['max-width'] = AnimationStyling.MAX_WIDTH_MOBILE;
-    this.overlayContainerEl.style['max-height'] = AnimationStyling.MAX_HEIGHT_MOBILE;
+    this._overlayContainerEl.style[this._alignment] = 0;
+    this._overlayContainerEl.style['bottom'] = 0;
+    this._overlayContainerEl.style['max-width'] = AnimationStyling.MAX_WIDTH_MOBILE;
+    this._overlayContainerEl.style['max-height'] = AnimationStyling.MAX_HEIGHT_MOBILE;
   }
 
   /**
@@ -147,9 +147,9 @@ export default class Stylist {
    */
   applyDesktopStyling() {
     this._iframeWrapperEl.style['width'] = AnimationStyling.WIDTH_DESKTOP;
-    this.overlayContainerEl.style[this._alignment] = AnimationStyling.BASE_SPACING;
-    this.overlayContainerEl.style['bottom'] = AnimationStyling.BASE_SPACING;
-    this.overlayContainerEl.style['max-width'] = AnimationStyling.MAX_WIDTH_DESKTOP;
-    this.overlayContainerEl.style['max-height'] = AnimationStyling.MAX_HEIGHT_DESKTOP;
+    this._overlayContainerEl.style[this._alignment] = AnimationStyling.BASE_SPACING;
+    this._overlayContainerEl.style['bottom'] = AnimationStyling.BASE_SPACING;
+    this._overlayContainerEl.style['max-width'] = AnimationStyling.MAX_WIDTH_DESKTOP;
+    this._overlayContainerEl.style['max-height'] = AnimationStyling.MAX_HEIGHT_DESKTOP;
   }
 }
