@@ -34,7 +34,8 @@ export default class Overlay {
       panel: this.config.panel,
       prompts: this.config.prompts,
       hideDefaultButton: this.config.hideDefaultButton,
-      iframeBackground: this.config.iframeBackground
+      iframeBackground: this.config.iframeBackground,
+      alignment: this.config.alignment
     });
     this._attachObservers(mediator);
 

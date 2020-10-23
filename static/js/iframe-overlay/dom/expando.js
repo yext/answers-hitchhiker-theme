@@ -4,7 +4,7 @@ import { ActionTypes, AnimationStyling, Selectors } from '../constants';
  * Expando is responsible for handling the resizing of the Overlay.
  */
 export default class Expando {
-  constructor(iframeBackground) {
+  constructor(iframeBackground, alignment) {
     /**
      * @type {Element}
      */
@@ -29,6 +29,11 @@ export default class Expando {
      * @type {string}
      */
     this._iframeBackground = iframeBackground;
+
+    /**
+     * @type {string}
+     */
+    this._alignment = alignment;
 
     /**
      * @type {function}
