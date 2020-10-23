@@ -40,4 +40,4 @@ exports.AnimationStyling = {
 
 exports.FilePaths = {
   BUTTON_ASSET: 'overlay-button.html'
-}
+};

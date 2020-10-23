@@ -64,8 +64,7 @@ export default class InteractionDirector {
   }
 
   /**
-   * An external trigger forces the Overlay to collapse - affecting both the Overlay parts
-   * in the child iFrame and the parts in the parent frame
+   * Collapses the Overlay
    */
   collapse() {
     this._sendMessageToIFrame(
@@ -76,8 +75,7 @@ export default class InteractionDirector {
   }
 
   /**
-   * An external trigger forces the Overlay to expand - affecting both the Overlay parts
-   * in the child iFrame and the parts in the parent frame
+   * Expands the Overlay
    */
   expand() {
     this._sendMessageToIFrame(
