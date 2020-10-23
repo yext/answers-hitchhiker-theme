@@ -12,15 +12,28 @@ class product_prominentimageCardComponent extends BaseCard['product-prominentima
    * @param profile profile of the entity in the card
    */
   dataForRender(profile) {
+    let price = '';
+    if (profile.c_price
+      && profile.c_price[0]
+      && profile.c_price[0].currency
+      && profile.c_price[0].value) {
+      price = `${profile.c_price[0].value}`;
+    }
+
+    let imageUrl;
+    if (profile.photoGallery && profile.photoGallery[0]) {
+      imageUrl = Formatter.image(profile.photoGallery[0]).url;
+    }
+
     return {
       title: profile.name, // The header text of the card
       url: profile.landingPageUrl, // If the card title is a clickable link, set URL here
       target: '_top', // If the title's URL should open in a new tab, etc.
       titleEventOptions: this.addDefaultEventOptions(),
-      subtitle: profile.c_price ? `$${profile.c_price}` : '', // The sub-header text of the card
-      image: Formatter.image(profile.c_photo).url, // The URL of the image to display on the card
+      subtitle: price, // The sub-header text of the card
+      image: imageUrl, // The URL of the image to display on the card
       altText: Formatter.image(profile.c_photo).alternateText,  // The alternate text for the image
-      details: profile.description, // The text in the body of the card
+      details: ANSWERS.formatRichText(profile.richTextDescription), // The text in the body of the card
       // If the card's details are longer than a certain character count, you can truncate the
       // text. A toggle will be supplied that can show or hide the truncated text.
       showMoreDetails: {

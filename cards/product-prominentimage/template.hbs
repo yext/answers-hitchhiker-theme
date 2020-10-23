@@ -54,11 +54,11 @@
 <div class="HitchhikerProductProminentImage-cardDetails">
   {{#if showExcessDetailsToggle}}
     <div class="HitchhikerProductProminentImage-detailsText js-HitchhikerCard-detailsText">
-      {{truncatedDetails}}
+      {{{truncatedDetails}}}
     </div>
   {{/if}}
   <div class="HitchhikerProductProminentImage-detailsText js-HitchhikerCard-detailsText{{#if showExcessDetailsToggle}} js-hidden{{/if}}">
-    {{card.details}}
+    {{{card.details}}}
   </div>
   {{#if showExcessDetailsToggle}}
   <button class="HitchhikerCard-detailsToggle js-HitchhikerCard-detailsToggle">

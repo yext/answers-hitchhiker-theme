@@ -13,19 +13,27 @@ class product_standardCardComponent extends BaseCard['product-standard'] {
    */
   dataForRender(profile) {
     let price = '';
-    if (profile.c_price) {
-      price = `$${profile.c_price}`;
+    if (profile.c_price
+      && profile.c_price[0]
+      && profile.c_price[0].currency
+      && profile.c_price[0].value) {
+      price = `${profile.c_price[0].value}`;
+    }
+
+    let imageUrl;
+    if (profile.photoGallery && profile.photoGallery[0]) {
+      imageUrl = Formatter.image(profile.photoGallery[0]).url;
     }
 
     return {
       title: profile.name, // The header text of the card
       url: profile.landingPageUrl, // If the card title is a clickable link, set URL here
       target: '_top', // If the title's URL should open in a new tab, etc.
-      image: Formatter.image(profile.c_photo).url, // The URL of the image to display on the card
+      image: imageUrl, // The URL of the image to display on the card
       altText: Formatter.image(profile.c_photo).alternateText, // The alt text of the image to display on the card
       titleEventOptions: this.addDefaultEventOptions(),
       subtitle: price, // The sub-header text of the card
-      details: profile.description, // The text in the body of the card
+      details: ANSWERS.formatRichText(profile.richTextDescription), // The text in the body of the card
       // If the card's details are longer than a certain character count, you can truncate the
       // text. A toggle will be supplied that can show or hide the truncated text.
       showMoreDetails: {
