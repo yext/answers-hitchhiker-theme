@@ -42,8 +42,7 @@ export default class ConfigValidator {
    * Throws errors or prints warnings if a custom selector is configured and invalid
    */
   _validateCustomSelector() {
-    const isConfiguredCorrectly = this.config.hideDefaultButton && !this.config.customSelector;
-    if (!isConfiguredCorrectly) {
+    if (this.config.hideDefaultButton && !this.config.customSelector) {
       console.warn('If hideDefaultButton is true, we recommend adding a custom selector.');
     }
   }
