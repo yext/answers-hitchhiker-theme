@@ -25,14 +25,14 @@ window.collapseOverlay = function () {
   }
 }
 
-window.expandOverlay = function () {
+window.expandOverlay = function (isMobile) {
   const bodyEl = document.querySelector('body');
 
   if (bodyEl) {
     bodyEl.classList.remove('collapsed');
     bodyEl.classList.add('expanded');
 
-    if (bodyEl.classList.contains('shorter')) {
+    if (bodyEl.classList.contains('shorter') && !isMobile) {
       const inputEl = document.querySelector('.js-yext-query');
       inputEl && inputEl.focus();
     }
