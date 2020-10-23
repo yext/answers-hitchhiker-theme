@@ -20,11 +20,6 @@ export default class IFrameObserver {
     this._iframeSelector = iframeSelector;
 
     /**
-     * @type {Element}
-     */
-    this._iframeEl = document.querySelector(iframeSelector);
-
-    /**
      * @type {boolean}
      */
     this._hasBeenInitialized = false;
@@ -35,7 +30,7 @@ export default class IFrameObserver {
    * is initialized.
    *
    * @param {InteractionTypes} initializationEventType
-   * @param {Object} config
+   * @param {Object} config configuration sent to the iframe when contact has been made
    */
   attach(initializationEventType, config = {}) {
     iFrameResize({

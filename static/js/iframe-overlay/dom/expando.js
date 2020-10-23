@@ -61,7 +61,7 @@ export default class Expando {
    *
    * @param {Object} size
    */
-  display(size) {
+  showOverlay(size) {
     this._isExpanded = true;
 
     const initialHeight = Math.max(AnimationStyling.MIN_HEIGHT, size.totalHeight);
@@ -86,6 +86,10 @@ export default class Expando {
     this._isExpanded = false;
 
     this._iframeEl.scrolling = 'no';
+    this._iframeEl.style['transition'] =
+      `opacity ${AnimationStyling.TRANSITION_TIMING}`;
+    this._iframeEl.style['background'] = 'transparent';
+    this._iframeEl.style['opacity'] = '0'; // For IE11
 
     this._iframeWrapperEl.style['transition'] =
       `opacity ${AnimationStyling.TRANSITION_TIMING}`;
@@ -109,15 +113,16 @@ export default class Expando {
 
     this._iframeEl.scrolling = 'yes';
     this._iframeEl.style['background'] = this._iframeBackground;
+    this._iframeEl.style['opacity'] = '1'; // For IE11
+    this._iframeEl.style['transition'] = `opacity ${AnimationStyling.TRANSITION_TIMING}`;
 
     this._iframeWrapperEl.style['pointer-events'] = 'all';
     this._iframeWrapperEl.style['z-index'] = AnimationStyling.ZINDEX_ALMOST_FRONTMOST;
     this._iframeWrapperEl.style['opacity'] = '1';
     this._iframeWrapperEl.style['transition'] = `opacity ${AnimationStyling.TRANSITION_TIMING}`;
-    this._iframeWrapperEl.style['transition-delay'] = '.1s';
     this._iframeWrapperEl.style['width'] = this._overlayWidth;
     this._iframeWrapperEl.style['height'] = this._isTaller
-      ? AnimationStyling.HEIGHT_TALLER
+      ? AnimationStyling.CONTAINER_HEIGHT_TALLER
       : this._shorterHeight;
 
     this._overlayContainerEl.style['transition'] =
@@ -138,7 +143,7 @@ export default class Expando {
 
     this._iframeWrapperEl.style['transition'] = `${AnimationStyling.TRANSITION_TIMING} ease all`;
     this._iframeWrapperEl.style['width'] = this._overlayWidth;
-    this._iframeWrapperEl.style['height'] = AnimationStyling.HEIGHT_TALLER;
+    this._iframeWrapperEl.style['height'] = AnimationStyling.CONTAINER_HEIGHT_TALLER;
   }
 
   /**

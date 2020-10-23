@@ -1,4 +1,4 @@
-import { AnimationStyling, Selectors } from '../constants';
+import { AnimationStyling, FilePaths, Selectors } from '../constants';
 
 /**
  * DomInjector is responsible for injecting the elements for the Overlay into the
@@ -111,7 +111,7 @@ export default class DomInjector {
   _injectButtonFrame(iframeContainerEl) {
     const iframeEl = document.createElement('iframe');
     iframeEl.id = Selectors.BUTTON_FRAME_ID;
-    iframeEl.src = this.domain + 'overlay-button.html';
+    iframeEl.src = this.domain + FilePaths.BUTTON_ASSET;
     iframeEl.name = 'overlayButton';
     iframeEl.style['opacity'] = '0';
     iframeEl.style['z-index'] = AnimationStyling.ZINDEX_HIDDEN;

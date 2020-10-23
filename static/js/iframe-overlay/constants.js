@@ -7,9 +7,8 @@ exports.Selectors = {
 
 exports.InteractionTypes = {
   INIT: 'init',
-  IFRAME_CONNECTED: 'initIFrame',
-  BUTTON_CONNECTED: 'initButton',
-  BUTTON_READY: 'buttonReady',
+  IFRAME_CONNECTED: 'iframeConnected',
+  BUTTON_CONNECTED: 'buttonConnected',
   IFRAME_READY: 'iframeReady',
   COLLAPSE: 'collapse',
   EXPAND: 'expand',
@@ -30,7 +29,7 @@ exports.AnimationStyling = {
   WIDTH_DESKTOP: '445px',
   WIDTH_MOBILE: 'calc(100% - 32px)',
   MIN_HEIGHT: 525,
-  HEIGHT_TALLER: '100vh',
+  CONTAINER_HEIGHT_TALLER: '100vh',
   MAX_HEIGHT_DESKTOP: 'calc(100% - 32px)',
   MAX_WIDTH_DESKTOP: 'calc(100% - 32px)',
   BASE_SPACING: '16px',
@@ -38,3 +37,7 @@ exports.AnimationStyling = {
   ZINDEX_FRONTMOST: '2147483647',
   ZINDEX_ALMOST_FRONTMOST: '2147483646',
 };
+
+exports.FilePaths = {
+  BUTTON_ASSET: 'overlay-button.html'
+}

@@ -41,7 +41,7 @@ export default class InteractionDirector {
         this._sendMessageToIFrame(new IFrameMessage('config', details), this._buttonFrameEl);
         break;
       case InteractionTypes.IFRAME_READY:
-        this.expando.display(details);
+        this.expando.showOverlay(details);
         break;
       case InteractionTypes.COLLAPSE:
         this.collapse();
