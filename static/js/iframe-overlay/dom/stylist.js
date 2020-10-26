@@ -34,15 +34,34 @@ export default class Stylist {
      * @type {string}
      */
     this._alignment = config.alignment;
+
+    /**
+     * @type {string}
+     */
+    this._currentWidth = AnimationStyling.WIDTH_DESKTOP;
+
+    /**
+     * @type {string}
+     */
+    this._minHeight = AnimationStyling.MIN_HEIGHT;
+  }
+
+  /**
+   * Sets the minimum height of the Overlay. If the minimum height provided is less than
+   * the minimum height lower bound, this function has no effect.
+   *
+   * @param {string} minHeight
+   */
+  setMinHeight(minHeight) {
+    this._minHeight = Math.max(this._minHeight, minHeight);
   }
 
   /**
    * Styles the Overlay for its expanded state
    *
-   * @param {string} height
-   * @param {string} width
+   * @param {boolean} isTaller
    */
-  applyExpandedStyling(height, width) {
+  applyExpandedStyling(isTaller) {
     this._iframeEl.style['background'] = this._iframeBackground;
     this._iframeEl.style['opacity'] = '1'; // For IE11
     this._iframeEl.style['transition'] = `opacity ${AnimationStyling.TRANSITION_TIMING}`;
@@ -51,8 +70,10 @@ export default class Stylist {
     this._iframeWrapperEl.style['z-index'] = AnimationStyling.ZINDEX_ALMOST_FRONTMOST;
     this._iframeWrapperEl.style['opacity'] = '1';
     this._iframeWrapperEl.style['transition'] = `opacity ${AnimationStyling.TRANSITION_TIMING}`;
-    this._iframeWrapperEl.style['width'] = width;
-    this._iframeWrapperEl.style['height'] = height;
+    this._iframeWrapperEl.style['width'] = this._currentWidth;
+    this._iframeWrapperEl.style['height'] = isTaller
+      ? AnimationStyling.CONTAINER_HEIGHT_TALLER
+      : this._minHeight;
 
     this._overlayContainerEl.style['transition'] =
       `box-shadow ${AnimationStyling.TRANSITION_TIMING}`;
@@ -79,25 +100,18 @@ export default class Stylist {
 
   /**
    * Styles the Overlay for its taller state
-   *
-   * @param {string} width
    */
-  applyTallerStyling(width) {
+  applyTallerStyling() {
     this._iframeWrapperEl.style['transition'] = `${AnimationStyling.TRANSITION_TIMING} ease all`;
-    this._iframeWrapperEl.style['width'] = width;
     this._iframeWrapperEl.style['height'] = AnimationStyling.CONTAINER_HEIGHT_TALLER;
   }
 
   /**
    * Styles the Overlay for its shorter state
-   *
-   * @param {string} height
-   * @param {string} width
    */
-  applyShorterStyling(height, width) {
+  applyShorterStyling() {
     this._iframeWrapperEl.style['transition'] = `${AnimationStyling.TRANSITION_TIMING} ease all`;
-    this._iframeWrapperEl.style['width'] = width;
-    this._iframeWrapperEl.style['height'] = height;
+    this._iframeWrapperEl.style['height'] = this._minHeight;
   }
 
   /**
@@ -122,7 +136,9 @@ export default class Stylist {
    * Applies mobile styling to the Overlay
    */
   applyMobileStyling() {
-    this._iframeWrapperEl.style['width'] = AnimationStyling.WIDTH_MOBILE;
+    this._currentWidth = AnimationStyling.WIDTH_MOBILE;
+
+    this._iframeWrapperEl.style['width'] = this._currentWidth;
     this._overlayContainerEl.style[this._alignment] = 0;
     this._overlayContainerEl.style['bottom'] = 0;
     this._overlayContainerEl.style['max-width'] = AnimationStyling.MAX_WIDTH_MOBILE;
@@ -133,7 +149,9 @@ export default class Stylist {
    * Applies desktop styling to the Overlay
    */
   applyDesktopStyling() {
-    this._iframeWrapperEl.style['width'] = AnimationStyling.WIDTH_DESKTOP;
+    this._currentWidth = AnimationStyling.WIDTH_DESKTOP;
+
+    this._iframeWrapperEl.style['width'] = this._currentWidth;
     this._overlayContainerEl.style[this._alignment] = AnimationStyling.BASE_SPACING;
     this._overlayContainerEl.style['bottom'] = AnimationStyling.BASE_SPACING;
     this._overlayContainerEl.style['max-width'] = AnimationStyling.MAX_WIDTH_DESKTOP;

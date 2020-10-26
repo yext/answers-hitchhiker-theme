@@ -22,26 +22,14 @@ export default class Expando {
     this._hideButtonWhenCollapsed = config.hideButtonWhenCollapsed;
 
     /**
-     * Used to track the state of the Overlay shape
+     * @type {boolean}
      */
-    this._shape = {
-      /**
-       * @type {boolean}
-       */
-      isExpanded: false,
-      /**
-       * @type {boolean}
-       */
-      isTaller: true,
-      /**
-       * @type {string}
-       */
-      width: AnimationStyling.WIDTH_DESKTOP,
-      /**
-       * @type {string}
-       */
-      minHeight: AnimationStyling.MIN_HEIGHT
-    };
+    this._isExpanded = true;
+
+    /**
+     * @type {boolean}
+     */
+    this._isTaller = true;
 
     /**
      * @type {function}
@@ -55,17 +43,15 @@ export default class Expando {
   }
 
   /**
-   * Shows the overlay button using the button size information provided.
+   * Begins showing the Overlay button and sets up the styling using the button
+   * size information provided.
    *
    * @param {Object} size
    */
-  showOverlay(size) {
-    this._shape.isExpanded = true;
-
-    const initialHeight = Math.max(AnimationStyling.MIN_HEIGHT, size.totalHeight);
-    this._shape.minHeight = `${initialHeight}px`;
-
+  start(size) {
+    this._stylist.setMinHeight(size.totalHeight);
     this._addMediaQueryListener();
+
     this.shrink();
     this.collapse();
 
@@ -78,10 +64,10 @@ export default class Expando {
    * Collapses the Overlay
    */
   collapse() {
-    if (!this._shape.isExpanded) {
+    if (!this._isExpanded) {
       return;
     }
-    this._shape.isExpanded = false;
+    this._isExpanded = false;
     this._stylist.applyCollapsedStyling();
 
     if (this._hideButtonWhenCollapsed) {
@@ -94,19 +80,15 @@ export default class Expando {
    * Expands the overlay
    */
   expand() {
-    if (this._shape.isExpanded) {
+    if (this._isExpanded) {
       return;
     }
-    this._shape.isExpanded = true;
+    this._isExpanded = true;
 
     if (this._hideButtonWhenCollapsed) {
       this._stylist.showButton();
     }
-
-    const height = this._shape.isTaller
-      ? AnimationStyling.CONTAINER_HEIGHT_TALLER
-      : this._shape.minHeight;
-    this._stylist.applyExpandedStyling(height, this._shape.width);
+    this._stylist.applyExpandedStyling(this._isTaller);
 
     this._expandCallback();
   }
@@ -115,22 +97,22 @@ export default class Expando {
    * Makes the overlay grow to its larger size
    */
   grow() {
-    if (this._shape.isTaller) {
+    if (this._isTaller) {
       return;
     }
-    this._shape.isTaller = true;
-    this._stylist.applyTallerStyling(this._shape.width);
+    this._isTaller = true;
+    this._stylist.applyTallerStyling();
   }
 
   /**
    * Shrinks the overlay to its shorter size
    */
   shrink() {
-    if (!this._shape.isTaller) {
+    if (!this._isTaller) {
       return;
     }
-    this._shape.isTaller = false;
-    this._stylist.applyShorterStyling(this._shape.minHeight, this._shape.width);
+    this._isTaller = false;
+    this._stylist.applyShorterStyling();
   }
 
   /**
@@ -159,7 +141,7 @@ export default class Expando {
    * @return {boolean}
    */
   isExpanded() {
-    return this._shape.isExpanded;
+    return this._isExpanded;
   }
 
   /**
@@ -179,10 +161,8 @@ export default class Expando {
    */
   _updateStyling(isMobile) {
     if (isMobile) {
-      this._shape.width = AnimationStyling.WIDTH_MOBILE;
       this._stylist.applyMobileStyling();
     } else {
-      this._shape.width = AnimationStyling.WIDTH_DESKTOP;
       this._stylist.applyDesktopStyling();
     }
   }
