@@ -25,12 +25,12 @@ const overlayConfig = {
     shouldHideOnEmptySearch: true
   }
 };
-const containsOverlaySuggestions = window.isOverlay && document.querySelector('.js-Answers-overlaySuggestions');
+const shouldAddOverlayConfig = window.isOverlay && document.querySelector('.js-Answers-overlaySuggestions');
 
 ANSWERS.addComponent('SearchBar', Object.assign({}, {
   container: '.js-answersSearch',
   {{#if verticalKey}}
     verticalKey: '{{{verticalKey}}}',
   {{/if}}
-  containsOverlaySuggestions ? ...overlayConfig : {},
+  shouldAddOverlayConfig ? ...overlayConfig : {},
 }, {{{ json componentSettings.SearchBar }}}));
