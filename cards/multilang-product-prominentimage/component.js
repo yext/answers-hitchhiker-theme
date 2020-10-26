@@ -39,7 +39,7 @@ class multilang_product_prominentimageCardComponent extends BaseCard['multilang-
       image: imageUrl, // The URL of the image to display on the card
       altText: Formatter.image(profile.c_photo).alternateText,  // The alternate text for the image
       details: ANSWERS.formatRichText(profile.richTextDescription), // The text in the body of the card
-      tag: tag, // The tag text for the card
+      //tag: tag, // The tag text for the card
       // If the card's details are longer than a certain character count, you can truncate the
       // text. A toggle will be supplied that can show or hide the truncated text.
       /*
