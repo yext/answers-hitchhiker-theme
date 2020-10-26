@@ -44,9 +44,10 @@ module.exports = (relativePath) => {
     Declaration(decl) {
       if (!decl[PROCESSED] && decl.value.includes('url')) {
         decl.value = transformRelativeCssUrls(decl.value);
-        decl[PROCESSED] = true
+        decl[PROCESSED] = true;
       }
     }
   }
-}
-module.exports.postcss = true
+};
+
+module.exports.postcss = true;

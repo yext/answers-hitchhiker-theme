@@ -2,7 +2,7 @@ const jsdom = require('jsdom');
 const HtmlPlugin = require('html-webpack-plugin');
 const path = require('path');
 const postcss = require('postcss');
-const CssRelativeUrlTransformer = require('./CssRelativeUrlTransformer')
+const CssRelativeUrlTransformer = require('./CssRelativeUrlTransformer');
 
 /**
  * The InlineAssetHtmlPlugin will take HTML files added through the HtmlWebpackPlugin
@@ -84,7 +84,7 @@ class InlineAssetHtmlPlugin {
    */
   _transformCssUrls(cssContents, relativePath) {
     if (relativePath === '.') {
-      return cssContents
+      return cssContents;
     }
     const postcssPlugins = [ CssRelativeUrlTransformer(relativePath) ];
     const processedCss = postcss(postcssPlugins).process(cssContents).css;
