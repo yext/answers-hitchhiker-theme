@@ -92,7 +92,8 @@ class InlineAssetHtmlPlugin {
   }
 
   /**
-   * Get the webpack source for a particular asset url
+   * Get the webpack source for a particular asset url, after stripping off
+   * the relative path.
    *
    * @param {string} url The src or href value of the asset
    * @param {Object<String, Source>} assetsMap Mapping of asset name to asset content
