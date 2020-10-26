@@ -72,7 +72,9 @@
   }
 
   &-pagination {
-    padding-top: calc(var(--yxt-base-spacing) / 2);
+    .yxt-Pagination {
+      padding-top: calc(var(--yxt-base-spacing) / 2);
+    }
   }
 
   &-resultsHeader {
