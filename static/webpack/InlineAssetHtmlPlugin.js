@@ -44,7 +44,7 @@ class InlineAssetHtmlPlugin {
   _inlineScripts (dom, assetsMap) {
     dom.window.document.querySelectorAll('script[data-webpack-inline]').forEach((scriptNode) => {
       const scriptSource = scriptNode.src;
-      const fileContents = this._getAssetSource(scriptSource, assetsMap).source();
+      const fileContents = this._getAssetContents(scriptSource, assetsMap);
 
       scriptNode.innerHTML = fileContents;
       scriptNode.dataset.fileName = scriptSource;
@@ -60,7 +60,7 @@ class InlineAssetHtmlPlugin {
    */
   _inlineLinks (dom, assetsMap) {
     dom.window.document.querySelectorAll('link[data-webpack-inline]').forEach((linkNode) => {
-      const rawContents = this._getAssetSource(linkNode.href, assetsMap).source();
+      const rawContents = this._getAssetContents(linkNode.href, assetsMap);
       const relativePath = path.dirname(linkNode.href);
       const transformedCss = this._transformCssUrls(rawContents, relativePath);
 
@@ -91,9 +91,9 @@ class InlineAssetHtmlPlugin {
    * Get the webpack source for a particular asset url
    * @param {string} url The src or href value of the asset
    * @param {Object<String, Source>} assetsMap Mapping of asset name to asset content
-   * @returns {Source}
+   * @returns {string}
    */
-  _getAssetSource(url, assetsMap) {
+  _getAssetContents(url, assetsMap) {
     const assetName = path.basename(url);
     const assetSource = assetsMap[assetName];
     if (!assetSource) {
@@ -102,7 +102,7 @@ class InlineAssetHtmlPlugin {
         `The following assets are available: \n${Object.keys(assetsMap).join('\n')}`
       );
     }
-    return assetSource;
+    return assetSource.source();
   }
 }
 
