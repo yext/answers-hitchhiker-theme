@@ -18,6 +18,7 @@ module.exports = (relativePath) => {
    * Checks whether a css url() is absolute.
    * 
    * @param {string} url
+   * @returns {boolean}
    */
   function isAbsoluteCssUrl(url) {
     return url.includes('//') || url.startsWith('/') || url.startsWith('#') || url.startsWith('data:');
