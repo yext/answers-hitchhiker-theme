@@ -63,7 +63,7 @@
         {{> script/on-document-load}}
       });
     </script>
-    <script data-webpack-inline src="{{relativePath}}/bundle.js" ></script>
+    <script src="{{relativePath}}/bundle.js" data-webpack-inline></script>
     {{#if global_config.googleAnalyticsId}}
       <!-- Global site tag (gtag.js) - Google Analytics -->
       <script async src="https://www.googletagmanager.com/gtag/js?id={{global_config.googleAnalyticsId}}"></script>
@@ -110,7 +110,7 @@
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.10/iframeResizer.contentWindow.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://assets.sitescdn.net/answers/v{{global_config.sdkVersion}}/answers.css">
-    <link rel="stylesheet" type="text/css" href="{{relativePath}}/bundle.css">
+    <link rel="stylesheet" type="text/css" href="{{relativePath}}/bundle.css" data-webpack-inline>
 	</head>
   <body>
     {{#if global_config.googleTagManagerId}}
