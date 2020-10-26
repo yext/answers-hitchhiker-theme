@@ -33,7 +33,7 @@ class multilang_product_standardCardComponent extends BaseCard['multilang-produc
       altText: Formatter.image(profile.c_photo).alternateText, // The alt text of the image to display on the card
       titleEventOptions: this.addDefaultEventOptions(),
       subtitle: price, // The sub-header text of the card
-      details: ANSWERS.formatRichText(profile.richTextDescription), // The text in the body of the card
+      details: profile.richTextDescription ? ANSWERS.formatRichText(profile.richTextDescription) : null, // The text in the body of the card
       // If the card's details are longer than a certain character count, you can truncate the
       // text. A toggle will be supplied that can show or hide the truncated text.
       // showMoreDetails: {
