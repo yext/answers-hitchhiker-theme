@@ -1,7 +1,8 @@
 const jsdom = require('jsdom');
 const HtmlPlugin = require('html-webpack-plugin');
 const path = require('path');
-const fs = require('fs');
+const postcss = require('postcss');
+const CssRelativeUrlTransformer = require('./CssRelativeUrlTransformer');
 
 /**
  * The InlineAssetHtmlPlugin will take HTML files added through the HtmlWebpackPlugin
@@ -14,26 +15,8 @@ class InlineAssetHtmlPlugin {
     compiler.hooks.compilation.tap('InlineAssetHtmlPlugin', compilation => {
       const hooks = HtmlPlugin.getHooks(compilation);
       hooks.beforeEmit.tap('InlineAssetHtmlPlugin', assets => {
-        const assetsMap = compilation.assets;
-        assets.html = this.getHtmlWithInlineAssets(assets.html, assetsMap);
-        const outputDir = compilation.options.output.path;
-        const relativeDir = path.dirname(assets.outputName);
-        const assetsDir = path.resolve(outputDir, relativeDir);
-        this._copyAssetsToOutputDir(assetsDir, assetsMap);
+        assets.html = this.getHtmlWithInlineAssets(assets.html, compilation.assets);
       });
-    });
-  }
-
-  /**
-   * Copies all assets to the given assetsDir directory.
-   * 
-   * @param {string} assetsDir
-   * @param {Object<String, Source>} assetsMap Mapping from asset name to asset content,
-   *                                           provided by webpack compilation
-   */
-  _copyAssetsToOutputDir(assetsDir, assetsMap) {
-    Object.entries(assetsMap).forEach(([fileName, fileSource]) => {
-      fs.writeFileSync(path.resolve(assetsDir, fileName), fileSource.source());
     });
   }
 
@@ -80,10 +63,12 @@ class InlineAssetHtmlPlugin {
    */
   _inlineLinks (dom, assetsMap) {
     dom.window.document.querySelectorAll('link[data-webpack-inline]').forEach((linkNode) => {
-      const fileContents = this._getAssetContents(linkNode.href, assetsMap);
+      const rawContents = this._getAssetContents(linkNode.href, assetsMap);
+      const relativePath = path.dirname(linkNode.href);
+      const transformedCss = this._transformCssUrls(rawContents, relativePath);
 
       const styleNode = dom.window.document.createElement('style');
-      styleNode.innerHTML = fileContents;
+      styleNode.innerHTML = transformedCss;
       styleNode.dataset.fileName = linkNode.href;
       styleNode.dataset.webpackInline = '';
       linkNode.parentNode.insertBefore(styleNode, linkNode.nextSibling);
@@ -92,8 +77,23 @@ class InlineAssetHtmlPlugin {
   }
 
   /**
+   * Prepend css url() attributes with the given relative path.
+   *
+   * @param {string} cssContents the raw, unprocessed css
+   * @param {string} relativePath relative path to add to css url attributes, e.g. ../.. or ..
+   */
+  _transformCssUrls(cssContents, relativePath) {
+    if (relativePath === '.') {
+      return cssContents;
+    }
+    const postcssPlugins = [ CssRelativeUrlTransformer(relativePath) ];
+    const processedCss = postcss(postcssPlugins).process(cssContents).css;
+    return processedCss;
+  }
+
+  /**
    * Get the webpack source for a particular asset url, after stripping off
-   * the relative path.
+   * the directory name.
    *
    * @param {string} url The src or href value of the asset
    * @param {Object<String, Source>} assetsMap Mapping of asset name to asset content
