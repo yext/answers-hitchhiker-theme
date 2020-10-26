@@ -16,6 +16,7 @@ module.exports = (relativePath) => {
 
   /**
    * For a given css value, prepend all url attributes with a relative path.
+   *
    * @param {string} cssValue the value half of a css key:value pair, something like
    *                          url(opensans-bold-webfont.woff) format("woff")
    * @returns {string}
@@ -37,6 +38,7 @@ module.exports = (relativePath) => {
     /**
      * Transform all css key:value pairs that contain a "url()" attribute
      * Marks off processed nodes so they aren't revisited.
+     *
      * @param {import('postcss').Declaration} decl https://postcss.org/api/#postcss-declaration
      */
     Declaration(decl) {

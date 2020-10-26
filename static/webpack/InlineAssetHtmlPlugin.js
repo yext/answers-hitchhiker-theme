@@ -24,6 +24,7 @@ class InlineAssetHtmlPlugin {
    * Returns the html with script/link tags asset content inlined in the HTML if specified.
    * HTML elements are only replaced with inlined versions if they have the data attribute
    * "data-webpack-inline"
+   *
    * @param {String} html The html of the page to analyze tags and replace with inlined 
    * @param {Object<String, Source>} assetsMap Mapping from asset name to asset content,
    *                                           provided by webpack compilation
@@ -37,6 +38,7 @@ class InlineAssetHtmlPlugin {
 
   /**
    * Update data-webpack-inline scripts in the DOM with the inlined assets
+   *
    * @param {Object} dom The parsed DOM, transformed with inline assets
    * @param {Object<String, Source>} assetsMap Mapping from asset name to asset content,
    *                                           provided by webpack compilation
@@ -54,6 +56,7 @@ class InlineAssetHtmlPlugin {
 
   /**
    * Replace data-webpack-inline links in the DOM with the inlined assets in a style tag
+   *
    * @param {Object} dom The parsed DOM, transformed with inline assets
    * @param {Object<String, Source>} assetsMap Mapping from asset name to asset content,
    *                                           provided by webpack compilation
@@ -75,6 +78,7 @@ class InlineAssetHtmlPlugin {
 
   /**
    * Prepend css url() attributes with the given relative path.
+   *
    * @param {string} cssContents the raw, unprocessed css
    * @param {string} relativePath relative path to add to css url attributes, e.g. ../.. or ..
    */
@@ -89,6 +93,7 @@ class InlineAssetHtmlPlugin {
 
   /**
    * Get the webpack source for a particular asset url
+   *
    * @param {string} url The src or href value of the asset
    * @param {Object<String, Source>} assetsMap Mapping of asset name to asset content
    * @returns {string}
