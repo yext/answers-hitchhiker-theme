@@ -1,7 +1,7 @@
 /**
  * CssRelativeUrlTransformer is a postcss plugin that, for all "url()" attributes 
  * which contain relative urls, prepends them with a given relativePath.
- * This is needed because url() attributes from an imported stylesheet or
+ * This is needed because url() attributes from an imported stylesheet are
  * relative to the stylesheet itself, while url() attributes that are inlined
  * are relative to the webpage's url.
  * 
