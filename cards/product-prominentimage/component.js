@@ -25,6 +25,11 @@ class product_prominentimageCardComponent extends BaseCard['product-prominentima
       imageUrl = Formatter.image(profile.photoGallery[0]).url;
     }
 
+    let tag;
+    if (profile.stockStatus && profile.stockStatus !== 'In Stock') {
+      tag = profile.stockStatus;
+    }
+
     return {
       title: profile.name, // The header text of the card
       url: profile.landingPageUrl, // If the card title is a clickable link, set URL here
@@ -34,6 +39,7 @@ class product_prominentimageCardComponent extends BaseCard['product-prominentima
       image: imageUrl, // The URL of the image to display on the card
       altText: Formatter.image(profile.c_photo).alternateText,  // The alternate text for the image
       details: ANSWERS.formatRichText(profile.richTextDescription), // The text in the body of the card
+      tag: tag, // The tag text for the card
       // If the card's details are longer than a certain character count, you can truncate the
       // text. A toggle will be supplied that can show or hide the truncated text.
       showMoreDetails: {
