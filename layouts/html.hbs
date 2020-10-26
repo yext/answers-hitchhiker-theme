@@ -59,14 +59,11 @@
         href="{{#unless (matches global_config.favicon '//' )}}{{relativePath}}/{{/unless}}{{global_config.favicon}}" />
     {{/if}}
     <script>
-      function onBundleLoad() {
-        {{> script/on-bundle-load}}
-      };
       document.addEventListener('DOMContentLoaded', function () {
         {{> script/on-document-load}}
       });
     </script>
-    <script src="{{relativePath}}/bundle.js" onLoad="onBundleLoad()"></script>
+    <script data-webpack-inline src="{{relativePath}}/bundle.js" ></script>
     {{#if global_config.googleAnalyticsId}}
       <!-- Global site tag (gtag.js) - Google Analytics -->
       <script async src="https://www.googletagmanager.com/gtag/js?id={{global_config.googleAnalyticsId}}"></script>
