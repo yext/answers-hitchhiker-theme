@@ -1,7 +1,7 @@
 const DEFAULT_FILTER_LINK_CONFIG = {
-  changeFiltersText: 'sorts and filters',
-  resetFiltersText: 'reset filters',
-  clearSearchText: 'clear search',
+  changeFiltersText: {{ translateJS phrase='sorts and filters' }},
+  resetFiltersText: {{ translateJS phrase='reset filters' }},
+  clearSearchText: {{ translateJS phrase='clear search' }},
   onClickClearSearch: function() {},
   onClickResetFilters: function() {},
   onClickChangeFilters: function() {}
