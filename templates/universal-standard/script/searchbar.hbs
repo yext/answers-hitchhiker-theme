@@ -1,3 +1,33 @@
+const overlayConfig = {
+  onSubmit: function (query) {
+    window.parentIFrame.sendMessage({
+      type: 'querySubmitted'
+    });
+
+    window.growOverlay();
+  },
+  onClearSearch: function () {
+    window.parentIFrame.sendMessage({
+      type: 'clearButtonHit'
+    });
+
+    window.shrinkOverlay();
+  },
+  autocomplete: {
+    onOpen: function() {
+      const overlaySuggestionsEl = document.querySelector('.js-Answers-overlaySuggestions');
+      overlaySuggestionsEl && overlaySuggestionsEl.classList.add('hidden');
+    },
+    onClose: function() {
+      const overlaySuggestionsEl = document.querySelector('.js-Answers-overlaySuggestions');
+      overlaySuggestionsEl && overlaySuggestionsEl.classList.remove('hidden');
+    },
+    shouldHideOnEmptySearch: true
+  }
+};
+const shouldAddOverlayConfig = window.isOverlay && document.querySelector('.js-Answers-overlaySuggestions');
+
 ANSWERS.addComponent("SearchBar", Object.assign({}, {
-    container: ".js-answersSearch",
+  container: ".js-answersSearch",
+  shouldAddOverlayConfig ? ...overlayConfig : {},
 }, {{{ json componentSettings.SearchBar }}}));
