@@ -53,7 +53,7 @@ export default class Stylist {
    * @param {string} minHeight
    */
   setMinHeight(minHeight) {
-    this._minHeight = Math.max(this._minHeight, minHeight);
+    this._minHeight = Math.max(AnimationStyling.MIN_HEIGHT, minHeight);
   }
 
   /**
