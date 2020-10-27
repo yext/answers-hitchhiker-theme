@@ -8,12 +8,14 @@ window.shrinkOverlay = function () {
 }
 
 window.growOverlay = function () {
+  {{#unless componentSettings.SearchBar.redirectUrl}}
   const bodyEl = document.querySelector('body');
 
   if (bodyEl) {
     bodyEl.classList.add('taller');
     bodyEl.classList.remove('shorter');
   }
+  {{/unless}}
 }
 
 window.collapseOverlay = function () {
