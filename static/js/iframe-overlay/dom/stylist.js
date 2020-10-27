@@ -47,13 +47,13 @@ export default class Stylist {
   }
 
   /**
-   * Sets the minimum height of the Overlay. If the minimum height provided is less than
-   * the minimum height lower bound, this function has no effect.
+   * Initializes the styling
    *
-   * @param {string} minHeight
+   * @param {number} minHeight
    */
-  setMinHeight(minHeight) {
-    this._minHeight = Math.max(AnimationStyling.MIN_HEIGHT, minHeight);
+  init(minHeight) {
+    this._setMinHeight(minHeight);
+    this._addMediaQueryListener();
   }
 
   /**
@@ -133,28 +133,47 @@ export default class Stylist {
   }
 
   /**
-   * Applies mobile styling to the Overlay
+   * Updates the Overlay sizing values (if necessary) when the viewport size changes.
    */
-  applyMobileStyling() {
-    this._currentWidth = AnimationStyling.WIDTH_MOBILE;
+  _addMediaQueryListener() {
+    const mediaQuery = window.matchMedia("(max-width: 767px)");
+    this._updateStyling(mediaQuery.matches);
 
-    this._iframeWrapperEl.style['width'] = this._currentWidth;
-    this._overlayContainerEl.style[this._alignment] = 0;
-    this._overlayContainerEl.style['bottom'] = 0;
-    this._overlayContainerEl.style['max-width'] = AnimationStyling.MAX_WIDTH_MOBILE;
-    this._overlayContainerEl.style['max-height'] = AnimationStyling.MAX_HEIGHT_MOBILE;
+    mediaQuery.addListener((e) => {
+      this._updateStyling(e.matches);
+    });
   }
 
   /**
-   * Applies desktop styling to the Overlay
+   * Updates the styling for the current screensize
+   *
+   * @param {boolean} isMobile
    */
-  applyDesktopStyling() {
-    this._currentWidth = AnimationStyling.WIDTH_DESKTOP;
+  _updateStyling(isMobile) {
+    if (isMobile) {
+      this._currentWidth = AnimationStyling.WIDTH_MOBILE;
+      this._iframeWrapperEl.style['width'] = this._currentWidth;
+      this._overlayContainerEl.style[this._alignment] = 0;
+      this._overlayContainerEl.style['bottom'] = 0;
+      this._overlayContainerEl.style['max-width'] = AnimationStyling.MAX_WIDTH_MOBILE;
+      this._overlayContainerEl.style['max-height'] = AnimationStyling.MAX_HEIGHT_MOBILE;
+    } else {
+      this._currentWidth = AnimationStyling.WIDTH_DESKTOP;
+      this._iframeWrapperEl.style['width'] = this._currentWidth;
+      this._overlayContainerEl.style[this._alignment] = AnimationStyling.BASE_SPACING;
+      this._overlayContainerEl.style['bottom'] = AnimationStyling.BASE_SPACING;
+      this._overlayContainerEl.style['max-width'] = AnimationStyling.MAX_WIDTH_DESKTOP;
+      this._overlayContainerEl.style['max-height'] = AnimationStyling.MAX_HEIGHT_DESKTOP;
+    }
+  }
 
-    this._iframeWrapperEl.style['width'] = this._currentWidth;
-    this._overlayContainerEl.style[this._alignment] = AnimationStyling.BASE_SPACING;
-    this._overlayContainerEl.style['bottom'] = AnimationStyling.BASE_SPACING;
-    this._overlayContainerEl.style['max-width'] = AnimationStyling.MAX_WIDTH_DESKTOP;
-    this._overlayContainerEl.style['max-height'] = AnimationStyling.MAX_HEIGHT_DESKTOP;
+  /**
+   * Sets the minimum height of the Overlay. If the minimum height provided is less than
+   * the minimum height lower bound, this function has no effect.
+   *
+   * @param {string} minHeight
+   */
+  _setMinHeight(minHeight) {
+    this._minHeight = Math.max(AnimationStyling.MIN_HEIGHT, minHeight);
   }
 }

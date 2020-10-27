@@ -49,8 +49,7 @@ export default class Expando {
    * @param {Object} size
    */
   start(size) {
-    this._stylist.setMinHeight(size.totalHeight);
-    this._addMediaQueryListener();
+    this._stylist.init(size.totalHeight);
 
     this.shrink();
     this.collapse();
@@ -142,28 +141,5 @@ export default class Expando {
    */
   isExpanded() {
     return this._isExpanded;
-  }
-
-  /**
-   * Updates the Overlay sizing values (if necessary) when the viewport size changes.
-   */
-  _addMediaQueryListener() {
-    const mediaQuery = window.matchMedia("(max-width: 767px)");
-    this._updateStyling(mediaQuery.matches);
-
-    mediaQuery.addListener((e) => {
-      this._updateStyling(e.matches);
-    });
-  }
-
-  /**
-   * Updates the styling depending on whether the Overlay is mobile or not
-   */
-  _updateStyling(isMobile) {
-    if (isMobile) {
-      this._stylist.applyMobileStyling();
-    } else {
-      this._stylist.applyDesktopStyling();
-    }
   }
 }
