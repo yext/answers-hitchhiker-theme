@@ -142,4 +142,13 @@ export default class Expando {
   isExpanded() {
     return this._isExpanded;
   }
+
+  /**
+   * Sets the size of the button
+   *
+   * @param {Object}
+   */
+  setButtonSize(size) {
+    this._stylist.setButtonSize(size);
+  }
 }
