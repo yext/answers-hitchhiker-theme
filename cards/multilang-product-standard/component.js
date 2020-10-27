@@ -20,7 +20,7 @@ class multilang_product_standardCardComponent extends BaseCard['multilang-produc
       price = `${profile.c_price[0].value}`;
     }
 
-    let imageUrl;
+    let imageUrl = '';
     if (profile.photoGallery && profile.photoGallery[0]) {
       imageUrl = Formatter.image(profile.photoGallery[0]).url;
     }

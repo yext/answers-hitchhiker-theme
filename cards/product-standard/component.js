@@ -17,10 +17,10 @@ class product_standardCardComponent extends BaseCard['product-standard'] {
       && profile.c_price[0]
       && profile.c_price[0].currency
       && profile.c_price[0].value) {
-      price = `${profile.c_price[0].value}`;
+      price = `$${profile.c_price[0].value}`;
     }
 
-    let imageUrl;
+    let imageUrl = '';
     if (profile.photoGallery && profile.photoGallery[0]) {
       imageUrl = Formatter.image(profile.photoGallery[0]).url;
     }

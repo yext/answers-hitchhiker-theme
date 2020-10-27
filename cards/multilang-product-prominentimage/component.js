@@ -20,12 +20,12 @@ class multilang_product_prominentimageCardComponent extends BaseCard['multilang-
       price = `${profile.c_price[0].value}`;
     }
 
-    let imageUrl;
+    let imageUrl = '';
     if (profile.photoGallery && profile.photoGallery[0]) {
       imageUrl = Formatter.image(profile.photoGallery[0]).url;
     }
 
-    let tag;
+    let tag = '';
     if (profile.stockStatus && profile.stockStatus !== 'In Stock') {
       tag = profile.stockStatus;
     }
