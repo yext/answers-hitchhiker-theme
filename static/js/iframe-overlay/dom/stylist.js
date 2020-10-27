@@ -138,12 +138,12 @@ export default class Stylist {
    */
   _addButtonHoverState() {
     this._buttonFrameEl.addEventListener('mouseover', function () {
-      this.style['transition'] = `0.18s ease all`;
+      this.style['transition'] = '0.18s ease all';
       this.style['box-shadow'] = AnimationStyling.BOX_SHADOW_ACTIVE;
     });
 
     this._buttonFrameEl.addEventListener('mouseout', function () {
-      this.style['transition'] = `0.18s ease all`;
+      this.style['transition'] = '0.18s ease all';
       this.style['box-shadow'] = AnimationStyling.BOX_SHADOW_NORMAL;
     });
   }
