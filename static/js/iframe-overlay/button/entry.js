@@ -2,7 +2,7 @@
 import 'core-js/stable';
 
 // Import all SCSS
-import Scss from '../../../scss/answers/overlay/button.scss';
+import Scss from '../../../scss/answers/overlay/button/_default.scss';
 
 // Import all JS assets
 import OverlayButtonJS from './button.js';
