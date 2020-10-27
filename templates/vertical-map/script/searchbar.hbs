@@ -1,17 +1,19 @@
 const overlayConfig = {
-  onSubmit: function (query) {
-    window.parentIFrame.sendMessage({
-      type: 'querySubmitted'
-    });
+  customHooks: {
+    onSubmit: function (query) {
+      window.parentIFrame.sendMessage({
+        type: 'querySubmitted'
+      });
 
-    window.growOverlay();
-  },
-  onClearSearch: function () {
-    window.parentIFrame.sendMessage({
-      type: 'clearButtonHit'
-    });
+      window.growOverlay();
+    },
+    onClearSearch: function () {
+      window.parentIFrame.sendMessage({
+        type: 'clearButtonHit'
+      });
 
-    window.shrinkOverlay();
+      window.shrinkOverlay();
+    }
   },
   autocomplete: {
     onOpen: function() {
@@ -32,5 +34,5 @@ ANSWERS.addComponent('SearchBar', Object.assign({}, {
   {{#if verticalKey}}
     verticalKey: '{{{verticalKey}}}',
   {{/if}}
-  shouldAddOverlayConfig ? ...overlayConfig : {},
+  ...(shouldAddOverlayConfig ? overlayConfig : {}),
 }, {{{ json componentSettings.SearchBar }}}));
