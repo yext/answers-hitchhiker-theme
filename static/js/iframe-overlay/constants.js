@@ -26,6 +26,7 @@ exports.AnimationStyling = {
   TRANSITION_TIMING: '.4s',
   BOX_SHADOW_NORMAL: '0 3px 10px 0 rgba(0,0,0,0.4)',
   BOX_SHADOW_NONE: '0 3px 10px 0 rgba(0,0,0,0)',
+  BOX_SHADOW_ACTIVE: '0 3px 10px 0 rgba(0,0,0,0.7)',
   WIDTH_DESKTOP: '445px',
   WIDTH_MOBILE: '100vw',
   MIN_HEIGHT: 525,

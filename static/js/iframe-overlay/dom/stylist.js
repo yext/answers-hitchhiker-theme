@@ -53,6 +53,7 @@ export default class Stylist {
    */
   init(minHeight) {
     this._setMinHeight(minHeight);
+    this._addButtonHoverState();
     this._addMediaQueryListener();
   }
 
@@ -130,6 +131,21 @@ export default class Stylist {
     this._buttonFrameEl.style['opacity'] = '0';
     this._buttonFrameEl.style['z-index'] = AnimationStyling.ZINDEX_HIDDEN;
     this._buttonFrameEl.style['pointer-events'] = 'none';
+  }
+
+  /**
+   * Adds a button hover state
+   */
+  _addButtonHoverState() {
+    this._buttonFrameEl.addEventListener('mouseover', function () {
+      this.style['transition'] = `0.18s ease all`;
+      this.style['box-shadow'] = AnimationStyling.BOX_SHADOW_ACTIVE;
+    });
+
+    this._buttonFrameEl.addEventListener('mouseout', function () {
+      this.style['transition'] = `0.18s ease all`;
+      this.style['box-shadow'] = AnimationStyling.BOX_SHADOW_NORMAL;
+    });
   }
 
   /**
