@@ -28,7 +28,7 @@ exports.AnimationStyling = {
   BOX_SHADOW_NONE: '0 3px 10px 0 rgba(0,0,0,0)',
   WIDTH_DESKTOP: '445px',
   WIDTH_MOBILE: '100vw',
-  MIN_HEIGHT: 525,
+  MIN_HEIGHT: 450,
   CONTAINER_HEIGHT_TALLER: '100vh',
   MAX_HEIGHT_DESKTOP: 'calc(100% - 32px)',
   MAX_WIDTH_DESKTOP: 'calc(100% - 32px)',
