@@ -39,6 +39,11 @@
     &-resultsWrapper {
       display: none;
     }
+
+    .yxt-AutoComplete {
+      max-height: 180px;
+      overflow-y: scroll;
+    }
   }
 
   &.taller {
