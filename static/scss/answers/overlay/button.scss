@@ -32,22 +32,140 @@
     width: 25px;
 
     svg {
-      @keyframes o-reverse-a0_o { 0% { opacity: 1; } 64.571% { opacity: 1; animation-timing-function: steps(1); } 71.429% { opacity: 0; } 100% { opacity: 0; } }
-      @keyframes o-reverse-a0_d { 0% { d: path('M16.5,23C16.5,23,22,17.5,22,17.5C22,17.5,26.4,13.1,26.4,13.1C26.4,13.1,24.3,11,24.3,11C24.3,11,24.3,11,24.3,11C24.3,11,16.5,18.8,16.5,18.8L8.7,11L6.6,13.1Z'); } 21.714% { d: path('M16.3,21.4C16.3,21.4,21.5,18.7,21.5,18.7C21.5,18.7,27.4,14.6,27.4,12.8C27.4,10.9,24.7,8.2,22.9,8.2C21.1,8.2,19.6,11.5,19.6,11.5C19.6,11.5,15.5,18,15.5,18L6.8,17.4L6.4,19.5Z'); } 42.857% { d: path('M16.2,19.8C16.2,19.8,19.6,19.8,21,19.8C24.7,19.8,28.5,16,28.5,12.4C28.5,8.8,25.1,5.4,21.5,5.4C17.9,5.4,14.9,8.3,14.9,12C14.9,13.4,14.5,17.3,14.5,17.3L4.9,23.8L6.1,25.8Z'); } 64.571% { d: path('M16.1,18.9C17.4,19.9,19,20.4,20.8,20.4C25.3,20.4,29,16.8,29,12.2C29,7.7,25.3,4,20.8,4C16.2,4,12.6,7.7,12.6,12.2C12.6,14,13.1,15.6,14.1,16.9L4,27L6,29Z'); } 100% { d: path('M16.1,18.9C17.4,19.9,19,20.4,20.8,20.4C25.3,20.4,29,16.8,29,12.2C29,7.7,25.3,4,20.8,4C16.2,4,12.6,7.7,12.6,12.2C12.6,14,13.1,15.6,14.1,16.9L4,27L6,29Z'); } }
-      @keyframes o-reverse-a1_o { 0% { opacity: 0; } 85.714% { opacity: 0; animation-timing-function: steps(1, start); } 93.143% { opacity: 1; animation-timing-function: steps(1); } 100% { opacity: 1; } }
-      @keyframes o-reverse-a2_o { 0% { opacity: 0; } 78.857% { opacity: 0; animation-timing-function: steps(1, start); } 85.714% { opacity: 1; animation-timing-function: steps(1); } 93.143% { opacity: 0; } 100% { opacity: 0; } }
-      @keyframes o-reverse-a3_o { 0% { opacity: 0; } 71.429% { opacity: 0; animation-timing-function: steps(1, start); } 78.857% { opacity: 1; animation-timing-function: steps(1); } 85.714% { opacity: 0; } 100% { opacity: 0; } }
-      @keyframes o-reverse-a4_o { 0% { opacity: 0; } 64.571% { opacity: 0; animation-timing-function: steps(1, start); } 71.429% { opacity: 1; animation-timing-function: steps(1); } 78.857% { opacity: 0; } 100% { opacity: 0; } }
+      @keyframes o-reverse-a0_o { 0% { opacity: 1; } 7.429% { opacity: 0; } 100% { opacity: 0; } }
+      @keyframes o-reverse-a1_o { 0% { opacity: 0; } 7.429% { opacity: 1; } 14.286% { opacity: 0; } 100% { opacity: 0; } }
+      @keyframes o-reverse-a2_o { 0% { opacity: 0; } 7.429% { opacity: 0; } 14.286% { opacity: 1; } 21.714% { opacity: 0; } 100% { opacity: 0; } }
+      @keyframes o-reverse-a3_o { 0% { opacity: 0; } 14.286% { opacity: 0; } 21.714% { opacity: 1; } 28.571% { opacity: 0; } 100% { opacity: 0; } }
+      @keyframes o-reverse-a4_o { 0% { opacity: 0; } 21.714% { opacity: 0; } 28.571% { opacity: 1; } 36% { opacity: 0; } 100% { opacity: 0; } }
+      @keyframes o-reverse-a5_o { 0% { opacity: 0; } 28.571% { opacity: 0; } 36% { opacity: 1; } 42.857% { opacity: 0; } 100% { opacity: 0; } }
+      @keyframes o-reverse-a6_o { 0% { opacity: 0; } 36% { opacity: 0; } 42.857% { opacity: 1; } 50.286% { opacity: 0; } 100% { opacity: 0; } }
+      @keyframes o-reverse-a7_o { 0% { opacity: 0; } 42.857% { opacity: 0; } 50.286% { opacity: 1; } 57.143% { opacity: 0; } 100% { opacity: 0; } }
+      @keyframes o-reverse-a8_o { 0% { opacity: 0; } 50.286% { opacity: 0; } 57.143% { opacity: 1; } 64.571% { opacity: 0; } 100% { opacity: 0; } }
+      @keyframes o-reverse-a9_o { 0% { opacity: 0; } 57.143% { opacity: 0; } 64.571% { opacity: 1; } 71.429% { opacity: 0; } 100% { opacity: 0; } }
+      @keyframes o-reverse-a10_o { 0% { opacity: 0; } 85.714% { opacity: 0; animation-timing-function: steps(1, start); } 93.143% { opacity: 1; animation-timing-function: steps(1); } 100% { opacity: 1; } }
+      @keyframes o-reverse-a11_o { 0% { opacity: 0; } 78.857% { opacity: 0; animation-timing-function: steps(1, start); } 85.714% { opacity: 1; animation-timing-function: steps(1); } 93.143% { opacity: 0; } 100% { opacity: 0; } }
+      @keyframes o-reverse-a12_o { 0% { opacity: 0; } 71.429% { opacity: 0; animation-timing-function: steps(1, start); } 78.857% { opacity: 1; animation-timing-function: steps(1); } 85.714% { opacity: 0; } 100% { opacity: 0; } }
+      @keyframes o-reverse-a13_o { 0% { opacity: 0; } 64.571% { opacity: 0; animation-timing-function: steps(1, start); } 71.429% { opacity: 1; animation-timing-function: steps(1); } 78.857% { opacity: 0; } 100% { opacity: 0; } }
 
-      @keyframes o-forward-a0_o { 0% { opacity: 0; } 28.571% { opacity: 0; animation-timing-function: steps(1, start); } 36% { opacity: 1; } 100% { opacity: 1; } }
-      @keyframes o-forward-a0_d { 0% { d: path('M16.1,18.9C17.4,19.9,19,20.4,20.8,20.4C25.3,20.4,29,16.8,29,12.2C29,7.7,25.3,4,20.8,4C16.2,4,12.6,7.7,12.6,12.2C12.6,14,13.1,15.6,14.1,16.9L4,27L6,29Z'); } 36% { d: path('M16.1,18.9C17.4,19.9,19,20.4,20.8,20.4C25.3,20.4,29,16.8,29,12.2C29,7.7,25.3,4,20.8,4C16.2,4,12.6,7.7,12.6,12.2C12.6,14,13.1,15.6,14.1,16.9L4,27L6,29Z'); } 57.143% { d: path('M16.2,19.8C16.2,19.8,19.6,19.8,21,19.8C24.7,19.8,28.5,16,28.5,12.4C28.5,8.8,25.1,5.4,21.5,5.4C17.9,5.4,14.9,8.3,14.9,12C14.9,13.4,14.5,17.3,14.5,17.3L4.9,23.8L6.1,25.8Z'); } 78.857% { d: path('M16.3,21.4C16.3,21.4,21.5,18.7,21.5,18.7C21.5,18.7,27.4,14.6,27.4,12.8C27.4,10.9,24.7,8.2,22.9,8.2C21.1,8.2,19.6,11.5,19.6,11.5C19.6,11.5,15.5,18,15.5,18L6.8,17.4L6.4,19.5Z'); } 100% { d: path('M16.5,23C16.5,23,22,17.5,22,17.5C22,17.5,26.4,13.1,26.4,13.1C26.4,13.1,24.3,11,24.3,11C24.3,11,24.3,11,24.3,11C24.3,11,16.5,18.8,16.5,18.8L8.7,11L6.6,13.1Z'); } }
-      @keyframes o-forward-a1_o { 0% { opacity: 1; animation-timing-function: steps(1, start); } 7.429% { opacity: 1; animation-timing-function: steps(1); } 14.286% { opacity: 0; } 100% { opacity: 0; } }
-      @keyframes o-forward-a2_o { 0% { opacity: 0; } 7.429% { opacity: 0; animation-timing-function: steps(1, start); } 14.286% { opacity: 1; animation-timing-function: steps(1); } 21.714% { opacity: 0; } 100% { opacity: 0; } }
-      @keyframes o-forward-a3_o { 0% { opacity: 0; } 14.286% { opacity: 0; animation-timing-function: steps(1, start); } 21.714% { opacity: 1; animation-timing-function: steps(1); } 28.571% { opacity: 0; } 100% { opacity: 0; } }
-      @keyframes o-forward-a4_o { 0% { opacity: 0; } 21.714% { opacity: 0; animation-timing-function: steps(1, start); } 28.571% { opacity: 1; animation-timing-function: steps(1); } 36% { opacity: 0; } 100% { opacity: 0; } }
+      @keyframes o-forward-a0_o { 0% { opacity: 0; } 93.143% { opacity: 0; } 100% { opacity: 1; } }
+      @keyframes o-forward-a1_o { 0% { opacity: 0; } 85.714% { opacity: 0; } 93.143% { opacity: 1; } 100% { opacity: 0; } }
+      @keyframes o-forward-a2_o { 0% { opacity: 0; } 78.857% { opacity: 0; } 85.714% { opacity: 1; } 93.143% { opacity: 0; } 100% { opacity: 0; } }
+      @keyframes o-forward-a3_o { 0% { opacity: 0; } 71.429% { opacity: 0; } 78.857% { opacity: 1; } 85.714% { opacity: 0; } 100% { opacity: 0; } }
+      @keyframes o-forward-a4_o { 0% { opacity: 0; } 64.571% { opacity: 0; } 71.429% { opacity: 1; } 78.857% { opacity: 0; } 100% { opacity: 0; } }
+      @keyframes o-forward-a5_o { 0% { opacity: 0; } 57.143% { opacity: 0; } 64.571% { opacity: 1; } 71.429% { opacity: 0; } 100% { opacity: 0; } }
+      @keyframes o-forward-a6_o { 0% { opacity: 0; } 50.286% { opacity: 0; } 57.143% { opacity: 1; } 64.571% { opacity: 0; } 100% { opacity: 0; } }
+      @keyframes o-forward-a7_o { 0% { opacity: 0; } 42.857% { opacity: 0; } 50.286% { opacity: 1; } 57.143% { opacity: 0; } 100% { opacity: 0; } }
+      @keyframes o-forward-a8_o { 0% { opacity: 0; } 36% { opacity: 0; } 42.857% { opacity: 1; } 50.286% { opacity: 0; } 100% { opacity: 0; } }
+      @keyframes o-forward-a9_o { 0% { opacity: 0; } 28.571% { opacity: 0; } 36% { opacity: 1; } 42.857% { opacity: 0; } 100% { opacity: 0; } }
+      @keyframes o-forward-a10_o { 0% { opacity: 1; animation-timing-function: steps(1, start); } 7.429% { opacity: 1; animation-timing-function: steps(1); } 14.286% { opacity: 0; } 100% { opacity: 0; } }
+      @keyframes o-forward-a11_o { 0% { opacity: 0; } 7.429% { opacity: 0; animation-timing-function: steps(1, start); } 14.286% { opacity: 1; animation-timing-function: steps(1); } 21.714% { opacity: 0; } 100% { opacity: 0; } }
+      @keyframes o-forward-a12_o { 0% { opacity: 0; } 14.286% { opacity: 0; animation-timing-function: steps(1, start); } 21.714% { opacity: 1; animation-timing-function: steps(1); } 28.571% { opacity: 0; } 100% { opacity: 0; } }
+      @keyframes o-forward-a13_o { 0% { opacity: 0; } 21.714% { opacity: 0; animation-timing-function: steps(1, start); } 28.571% { opacity: 1; animation-timing-function: steps(1); } 36% { opacity: 0; } 100% { opacity: 0; } }
 
       display: flex;
       flex-grow: 1;
+    }
+  }
+
+  &-displayWhenCollapsed {
+    svg > path {
+      animation-duration: 0.18s;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+
+      &:nth-of-type(1) {
+        animation-name: o-reverse-a0_o;
+      }
+      &:nth-of-type(2) {
+        animation-name: o-reverse-a1_o;
+      }
+      &:nth-of-type(3) {
+        animation-name: o-reverse-a2_o;
+      }
+      &:nth-of-type(4) {
+        animation-name: o-reverse-a3_o;
+      }
+      &:nth-of-type(5) {
+        animation-name: o-reverse-a4_o;
+      }
+      &:nth-of-type(6) {
+        animation-name: o-reverse-a5_o;
+      }
+      &:nth-of-type(7) {
+        animation-name: o-reverse-a6_o;
+      }
+      &:nth-of-type(8) {
+        animation-name: o-reverse-a7_o;
+      }
+      &:nth-of-type(9) {
+        animation-name: o-reverse-a8_o;
+      }
+      &:nth-of-type(10) {
+        animation-name: o-reverse-a9_o;
+      }
+      &:nth-of-type(11) {
+        animation-name: o-reverse-a10_o;
+      }
+      &:nth-of-type(12) {
+        animation-name: o-reverse-a11_o;
+      }
+      &:nth-of-type(13) {
+        animation-name: o-reverse-a12_o;
+      }
+      &:nth-of-type(14) {
+        animation-name: o-reverse-a13_o;
+      }
+    }
+  }
+
+  &-displayWhenExpanded {
+    svg > path {
+      animation-duration: 0.18s;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+
+      &:nth-of-type(1) {
+        animation-name: o-forward-a0_o;
+      }
+      &:nth-of-type(2) {
+        animation-name: o-forward-a1_o;
+      }
+      &:nth-of-type(3) {
+        animation-name: o-forward-a2_o;
+      }
+      &:nth-of-type(4) {
+        animation-name: o-forward-a3_o;
+      }
+      &:nth-of-type(5) {
+        animation-name: o-forward-a4_o;
+      }
+      &:nth-of-type(6) {
+        animation-name: o-forward-a5_o;
+      }
+      &:nth-of-type(7) {
+        animation-name: o-forward-a6_o;
+      }
+      &:nth-of-type(8) {
+        animation-name: o-forward-a7_o;
+      }
+      &:nth-of-type(9) {
+        animation-name: o-forward-a8_o;
+      }
+      &:nth-of-type(10) {
+        animation-name: o-forward-a9_o;
+      }
+      &:nth-of-type(11) {
+        animation-name: o-forward-a10_o;
+      }
+      &:nth-of-type(12) {
+        animation-name: o-forward-a11_o;
+      }
+      &:nth-of-type(13) {
+        animation-name: o-forward-a12_o;
+      }
+      &:nth-of-type(14) {
+        animation-name: o-forward-a13_o;
+      }
     }
   }
 
