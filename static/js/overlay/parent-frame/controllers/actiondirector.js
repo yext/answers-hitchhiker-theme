@@ -1,13 +1,14 @@
 import Expando from '../dom/expando';
-import { InteractionTypes } from '../../constants';
+import { ActionTypes } from '../../shared/constants';
 import IFrameMessage from '../models/iframemessage';
 
 /**
- * InteractionDirector is responsible encapsulating how the parent frame and child iframe
- * interact. It keeps the the ParentFrameObserver and IFrameObserver from referring to
- * each other explicitly and lets us vary their interaction independently.
+ * ActionDirector is responsible encapsulating how the frames: parent, experience
+ * iframe and button frame interact. It keeps the the ParentFrameObserver and
+ * IFrameObserver(s) from referring to each other explicitly and lets us vary their
+ * interactions independently.
  */
-export default class InteractionDirector {
+export default class ActionDirector {
   constructor(config) {
     /**
      * @type {Element}
@@ -29,33 +30,33 @@ export default class InteractionDirector {
    * Handles user interactions from the iframe, parent frame, or button frame, updating the
    * relevant parts of the Overlay in the iframe, parent frame, and/or button frame.
    *
-   * @param {InteractionTypes} type
+   * @param {ActionTypes} type
    * @param {Object} details
    */
   onInteraction(type, details) {
     switch (type){
-      case InteractionTypes.IFRAME_CONNECTED:
+      case ActionTypes.IFRAME_CONNECTED:
         this._sendMessageToIFrame(new IFrameMessage('config', details), this._iframeEl);
         break;
-      case InteractionTypes.BUTTON_CONNECTED:
+      case ActionTypes.BUTTON_CONNECTED:
         this._sendMessageToIFrame(new IFrameMessage('config', details), this._buttonFrameEl);
         break;
-      case InteractionTypes.IFRAME_READY:
+      case ActionTypes.IFRAME_READY:
         this.expando.start(details);
         break;
-      case InteractionTypes.COLLAPSE:
+      case ActionTypes.COLLAPSE:
         this.collapse();
         break;
-      case InteractionTypes.EXPAND:
+      case ActionTypes.EXPAND:
         this.expand();
         break;
-      case InteractionTypes.TOGGLE_OVERLAY:
+      case ActionTypes.TOGGLE_OVERLAY:
         this._toggle();
         break;
-      case InteractionTypes.QUERY_SUBMITTED:
+      case ActionTypes.QUERY_SUBMITTED:
         this.expando.grow();
         break;
-      case InteractionTypes.CLEAR_BUTTON_HIT:
+      case ActionTypes.CLEAR_BUTTON_HIT:
         this.expando.shrink();
         break;
       default:
@@ -68,9 +69,9 @@ export default class InteractionDirector {
    */
   collapse() {
     this._sendMessageToIFrame(
-      new IFrameMessage(InteractionTypes.COLLAPSE), this._iframeEl);
+      new IFrameMessage(ActionTypes.COLLAPSE), this._iframeEl);
     this._sendMessageToIFrame(
-      new IFrameMessage(InteractionTypes.COLLAPSE), this._buttonFrameEl);
+      new IFrameMessage(ActionTypes.COLLAPSE), this._buttonFrameEl);
     this.expando.collapse();
   }
 
@@ -80,16 +81,16 @@ export default class InteractionDirector {
   expand() {
     const isMobile = !window.matchMedia("(min-width: 767px)").matches;
     this._sendMessageToIFrame(
-      new IFrameMessage(InteractionTypes.EXPAND, { isMobile: isMobile }), this._iframeEl);
+      new IFrameMessage(ActionTypes.EXPAND, { isMobile: isMobile }), this._iframeEl);
     this._sendMessageToIFrame(
-      new IFrameMessage(InteractionTypes.EXPAND), this._buttonFrameEl);
+      new IFrameMessage(ActionTypes.EXPAND), this._buttonFrameEl);
     this.expando.expand();
   }
 
   /**
    * Adds a callback to an interaction on the Overlay.
    *
-   * @param {ActionTypes} type
+   * @param {ExternalActionTypes} type
    * @param {function} callback
    */
   addCallback(type, callback) {

@@ -1,7 +1,7 @@
 require('iframe-resizer');
 
-import InteractionDirector from './interactiondirector';
-import { InteractionTypes } from '../../constants';
+import ActionDirector from './actiondirector';
+import { ActionTypes } from '../../shared/constants';
 
 /**
  * IFrameObserver is responsible for observing its iframe, notifying its mediator when
@@ -10,7 +10,7 @@ import { InteractionTypes } from '../../constants';
 export default class IFrameObserver {
   constructor (mediator, iframeSelector) {
     /**
-     * @type {InteractionDirector}
+     * @type {ActionDirector}
      */
     this._mediator = mediator;
 
@@ -29,7 +29,7 @@ export default class IFrameObserver {
    * Observes the iframe and notifies the mediator when the iframe sends messages or
    * is initialized.
    *
-   * @param {InteractionTypes} initializationEventType
+   * @param {ActionTypes} initializationEventType
    * @param {Object} config configuration sent to the iframe when contact has been made
    */
   attach(initializationEventType, config = {}) {

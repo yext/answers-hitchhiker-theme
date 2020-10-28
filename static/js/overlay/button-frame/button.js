@@ -1,3 +1,5 @@
+import { ActionTypes } from '../shared/constants';
+
 export default class OverlayButtonJS {
   /**
    * Updates the button to its collapsed state
@@ -52,7 +54,9 @@ export default class OverlayButtonJS {
         OverlayButtonJS.collapseButton(buttonEl);
       }
 
-      const messageType = isCollapsed ? 'expand' : 'collapse';
+      const messageType = isCollapsed
+        ? ActionTypes.EXPAND
+        : ActionTypes.COLLAPSE;
       window.parentIFrame.sendMessage({
         type: messageType
       });

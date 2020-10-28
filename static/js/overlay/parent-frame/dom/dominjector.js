@@ -1,4 +1,4 @@
-import { AnimationStyling, FilePaths, Selectors } from '../../constants';
+import { AnimationStyling, FilePaths, Selectors } from '../../shared/constants';
 
 /**
  * DomInjector is responsible for injecting the elements for the Overlay into the
