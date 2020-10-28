@@ -6,7 +6,7 @@ const HtmlPlugin = require('html-webpack-plugin');
 const RemovePlugin = require('remove-files-webpack-plugin');
 
 module.exports = function () {
-  const jamboConfig = JSON.parse(fs.readFileSync('jambo.json'))
+  const jamboConfig = require('./jambo.json');
   const InlineAssetHtmlPlugin = require(
     `./${jamboConfig.dirs.output}/static/webpack/InlineAssetHtmlPlugin`
   );
