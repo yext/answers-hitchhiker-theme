@@ -1,0 +1,116 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#: cards/multilang-menuitem-standard/component.js:27
+msgid "[[calorieCount]] calories"
+msgstr "[[calorieCount]] Kalorien"
+
+#: cards/multilang-menuitem-standard/component.js:23
+msgid "Allergens"
+msgstr "Allergene"
+
+#: cards/multilang-job-standard/component.js:33
+msgid "Apply Now"
+msgstr "Jetzt bewerben"
+
+#: cards/multilang-event-standard/component.js:42
+msgid "Directions"
+msgstr "Wegbeschreibung"
+
+#: cards/multilang-location-standard/component.js:41
+msgid "Get Directions"
+msgstr "Wegbeschreibung"
+
+#: cards/multilang-menuitem-standard/component.js:38
+msgid "Order Now"
+msgstr "Jetzt bestellen"
+
+#: cards/multilang-location-standard/template.hbs:136
+msgid "Services:"
+msgstr "Services:"
+
+#: cards/multilang-event-standard/component.js:28
+#: cards/multilang-job-standard/component.js:29
+#: cards/multilang-link-standard/component.js:26
+#: cards/multilang-menuitem-standard/component.js:34
+#: cards/multilang-product-prominentimage/component.js:29
+#: cards/multilang-product-standard/component.js:34
+#: cards/multilang-professional-location/component.js:36
+#: cards/multilang-professional-standard/component.js:34
+#: cards/multilang-standard/component.js:29
+msgid "Show less"
+msgstr "Weniger anzeigen"
+
+#: cards/multilang-event-standard/component.js:27
+#: cards/multilang-job-standard/component.js:28
+#: cards/multilang-link-standard/component.js:25
+#: cards/multilang-menuitem-standard/component.js:33
+#: cards/multilang-product-prominentimage/component.js:28
+#: cards/multilang-product-standard/component.js:33
+#: cards/multilang-professional-location/component.js:35
+#: cards/multilang-professional-standard/component.js:33
+#: cards/multilang-standard/component.js:28
+msgid "Show more"
+msgstr "Mehr anzeigen"
+
+#: directanswercards/multilang-allfields-standard/component.js:177
+msgid "Thank you for your feedback!"
+msgstr "Vielen Dank für Ihr Feedback!"
+
+#: directanswercards/multilang-allfields-standard/component.js:179
+msgid "This answered my question"
+msgstr "Meine Frage wurde beantwortet"
+
+#: directanswercards/multilang-allfields-standard/component.js:180
+msgid "This did not answer my question"
+msgstr "Meine Frage wurde nicht beantwortet"
+
+#: directanswercards/multilang-allfields-standard/component.js:163
+msgid "View Details"
+msgstr "Details anzeigen"
+
+#: cards/multilang-menuitem-standard/component.js:48
+msgid "View Menu"
+msgstr "Speisekarte anzeigen"
+
+#: directanswercards/multilang-allfields-standard/component.js:178
+msgid "Was this the answer you were looking for?"
+msgstr "Haben Sie nach dieser Antwort gesucht?"
+
+#: cards/multilang-location-standard/component.js:33
+msgctxt "Call is a verb"
+msgid "Call"
+msgstr "Anrufen"
+
+#: cards/multilang-event-standard/component.js:32
+msgctxt "RSVP is a verb"
+msgid "RSVP"
+msgstr "Anmelden"
+
+#: templates/universal-standard/script/universalresults.hbs:74
+msgctxt "View is a verb"
+msgid "View All"
+msgstr "Alle anzeigen"
+
+#: theme-components/collapsible-filters/filter-link/component.js:4
+msgid "clear search"
+msgstr "Suche löschen"
+
+#: theme-components/collapsible-filters/view-results-button/template.hbs:3
+msgid "No results found."
+msgstr "Keine Ergebnisse gefunden."
+
+#: theme-components/collapsible-filters/filter-link/component.js:3
+msgid "reset filters"
+msgstr "Filter zurücksetzen"
+
+#: theme-components/collapsible-filters/filter-link/component.js:2
+msgid "sorts and filters"
+msgstr "Sortieren und Filter"
+
+#: theme-components/collapsible-filters/view-results-button/template.hbs:5
+msgid "View 1 Result"
+msgid_plural "View [[count]] Results"
+msgstr[0] "1 Ergebnis anzeigen"
+msgstr[1] "[[count]] Ergebnisse anzeigen"

@@ -3,16 +3,16 @@
  * @param {string} locale 
  */
 export default function provideOpenStatusTranslation (locale) {
+  const language = locale.substring(0,2);
   return {
-    ...provideTodaysMessageTranslation(locale),
-    ...provideDayTranslation(locale)
+    ...provideTodaysMessageTranslation(language),
+    ...provideDayTranslation(language)
   }
 }
 
-function provideTodaysMessageTranslation(locale) {
-  switch (locale) {
+function provideTodaysMessageTranslation(language) {
+  switch (language) {
     case 'fr':
-    case 'fr-fr':
       return {
         'Closed': 'Fermé',
         'Open 24 Hours': 'Ouvert 24h/24',
@@ -21,7 +21,6 @@ function provideTodaysMessageTranslation(locale) {
         'Closes at': 'Ferme à',
       }
     case 'de':
-    case 'de-de':
       return {
         'Closed': 'Geschlossen',
         'Open 24 Hours': '24 Stunden geöffnet',
@@ -30,7 +29,6 @@ function provideTodaysMessageTranslation(locale) {
         'Closes at': 'Schließt um',
       }
     case 'es':
-    case 'es-es':
       return {
         'Closed': 'Cerrado',
         'Open 24 Hours': 'Abierto las 24 horas',
@@ -39,13 +37,20 @@ function provideTodaysMessageTranslation(locale) {
         'Closes at': 'Cierra a las',
       }
     case 'it':
-    case 'it-it':
       return {
         'Closed': 'Chiuso',
         'Open 24 Hours': 'Aperto 24 ore su 24',
         'Opens at': 'Apre alle',
         'Open Now': 'Aperto ora',
         'Closes at': 'Chiude alle',
+      }
+    case 'ja': 
+      return {
+        'Closed': '休業',
+        'Open 24 Hours': '24時間営業',
+        'Opens at': '営業開始',
+        'Open Now': '現在営業中',
+        'Closes at': '営業終了',
       }
     default:
       return {
@@ -58,10 +63,9 @@ function provideTodaysMessageTranslation(locale) {
   }
 }
 
-function provideDayTranslation(locale) {
-  switch (locale) {
+function provideDayTranslation(language) {
+  switch (language) {
     case 'fr':
-    case 'fr-fr':
       return {
         'MONDAY': 'Lundi',
         'TUESDAY': 'Mardi',
@@ -72,7 +76,6 @@ function provideDayTranslation(locale) {
         'SUNDAY': 'Dimanche',
       }
     case 'de':
-    case 'de-de':
       return {
         'MONDAY': 'Montag',
         'TUESDAY': 'Dienstag',
@@ -83,7 +86,6 @@ function provideDayTranslation(locale) {
         'SUNDAY': 'Sonntag',
       }
     case 'es':
-    case 'es-es':
       return {
         'MONDAY': 'Lunes',
         'TUESDAY': 'Martes',
@@ -94,7 +96,6 @@ function provideDayTranslation(locale) {
         'SUNDAY': 'Domingo',
       }
     case 'it':
-    case 'it-it':
       return {
         'MONDAY': 'Lunedí',
         'TUESDAY': 'Martedí',
@@ -103,6 +104,16 @@ function provideDayTranslation(locale) {
         'FRIDAY': 'Venerdí',
         'SATURDAY': 'Sabato',
         'SUNDAY': 'Domenica',
+      }
+    case 'ja': 
+      return {
+        'MONDAY': '月曜日',
+        'TUESDAY': '火曜日',
+        'WEDNESDAY': '水曜日',
+        'THURSDAY': '木曜日',
+        'FRIDAY': '金曜日',
+        'SATURDAY': '土曜日',
+        'SUNDAY': '日曜日',
       }
     default:
       return {

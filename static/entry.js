@@ -17,3 +17,7 @@ export { isMobile }  from 'is-mobile';
 import CollapsibleFilters from './js/collapsible-filters';
 export { CollapsibleFilters };
 global.CollapsibleFilters = CollapsibleFilters;
+
+// Import custom modules which can be accessed from HitchhikerJS.CustomModules
+import * as CustomModules from './js/custom-modules';
+export { CustomModules };

@@ -1,7 +1,7 @@
 <button class="Hitchhiker-ViewResultsButton">
   {{#if isNoResults}}
-    No results found.
+    {{ translate phrase='No results found.' }}
   {{else}}
-    View  {{resultsCount}} {{#ifeq resultsCount 1}}Result{{else}}Results{{/ifeq}}
+    {{ translate phrase='View 1 Result' pluralForm='View [[resultsCount]] Results' resultsCount=resultsCount count=resultsCount }}
   {{/if}}
 </button>

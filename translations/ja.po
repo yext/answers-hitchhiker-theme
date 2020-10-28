@@ -1,0 +1,115 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#: cards/multilang-menuitem-standard/component.js:27
+msgid "[[calorieCount]] calories"
+msgstr "[[calorieCount]]カロリー"
+
+#: cards/multilang-menuitem-standard/component.js:23
+msgid "Allergens"
+msgstr "アレルゲン"
+
+#: cards/multilang-job-standard/component.js:33
+msgid "Apply Now"
+msgstr "今すぐ適用"
+
+#: cards/multilang-event-standard/component.js:42
+msgid "Directions"
+msgstr "ルート"
+
+#: cards/multilang-location-standard/component.js:41
+msgid "Get Directions"
+msgstr "ルート検索"
+
+#: cards/multilang-menuitem-standard/component.js:38
+msgid "Order Now"
+msgstr "今すぐ注文"
+
+#: cards/multilang-location-standard/template.hbs:136
+msgid "Services:"
+msgstr "サービス："
+
+#: cards/multilang-event-standard/component.js:28
+#: cards/multilang-job-standard/component.js:29
+#: cards/multilang-link-standard/component.js:26
+#: cards/multilang-menuitem-standard/component.js:34
+#: cards/multilang-product-prominentimage/component.js:29
+#: cards/multilang-product-standard/component.js:34
+#: cards/multilang-professional-location/component.js:36
+#: cards/multilang-professional-standard/component.js:34
+#: cards/multilang-standard/component.js:29
+msgid "Show less"
+msgstr "表示数を減らす"
+
+#: cards/multilang-event-standard/component.js:27
+#: cards/multilang-job-standard/component.js:28
+#: cards/multilang-link-standard/component.js:25
+#: cards/multilang-menuitem-standard/component.js:33
+#: cards/multilang-product-prominentimage/component.js:28
+#: cards/multilang-product-standard/component.js:33
+#: cards/multilang-professional-location/component.js:35
+#: cards/multilang-professional-standard/component.js:33
+#: cards/multilang-standard/component.js:28
+msgid "Show more"
+msgstr "さらに表示"
+
+#: directanswercards/multilang-allfields-standard/component.js:177
+msgid "Thank you for your feedback!"
+msgstr "ご意見ありがとうございました!"
+
+#: directanswercards/multilang-allfields-standard/component.js:179
+msgid "This answered my question"
+msgstr "この内容で疑問が解決した"
+
+#: directanswercards/multilang-allfields-standard/component.js:180
+msgid "This did not answer my question"
+msgstr "この内容で疑問が解決しなかった"
+
+#: directanswercards/multilang-allfields-standard/component.js:163
+msgid "View Details"
+msgstr "詳細を表示"
+
+#: cards/multilang-menuitem-standard/component.js:48
+msgid "View Menu"
+msgstr "メニューの表示"
+
+#: directanswercards/multilang-allfields-standard/component.js:178
+msgid "Was this the answer you were looking for?"
+msgstr "これはあなたが探していた答えですか？"
+
+#: cards/multilang-location-standard/component.js:33
+msgctxt "Call is a verb"
+msgid "Call"
+msgstr "電話"
+
+#: cards/multilang-event-standard/component.js:32
+msgctxt "RSVP is a verb"
+msgid "RSVP"
+msgstr "RSVP"
+
+#: templates/universal-standard/script/universalresults.hbs:74
+msgctxt "View is a verb"
+msgid "View All"
+msgstr "すべて表示"
+
+#: theme-components/collapsible-filters/filter-link/component.js:4
+msgid "clear search"
+msgstr "検索をクリア"
+
+#: theme-components/collapsible-filters/view-results-button/template.hbs:3
+msgid "No results found."
+msgstr "結果が見つかりませんでした。"
+
+#: theme-components/collapsible-filters/filter-link/component.js:3
+msgid "reset filters"
+msgstr "フィルタをリセット"
+
+#: theme-components/collapsible-filters/filter-link/component.js:2
+msgid "sorts and filters"
+msgstr "並べ替えとフィルタ"
+
+#: theme-components/collapsible-filters/view-results-button/template.hbs:5
+msgid "View 1 Result"
+msgid_plural "View [[count]] Results"
+msgstr[0] "[[count]]件の結果を表示"

@@ -1,9 +1,9 @@
 {
   "name": "answers-hitchhiker-theme",
-  "version": "1.15.1",
+  "version": "1.16.0",
   "description": "A starter answers theme for hitchhikers",
   "scripts": {
-    "test": "jest"
+    "test": "cross-env NODE_ICU_DATA=node_modules/full-icu jest --verbose"
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,8 @@
     "@babel/core": "^7.9.6",
     "@babel/preset-env": "^7.9.6",
     "babel-jest": "^25.5.1",
+    "cross-env": "^7.0.2",
+    "full-icu": "^1.3.1",
     "jest": "^25.5.2"
   },
   "jest": {

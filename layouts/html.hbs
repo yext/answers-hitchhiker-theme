@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="YxtPage-doc">
   <head>
     {{> layouts/headincludes }}
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -34,11 +34,14 @@
     {{/if}}
     <meta property="og:type" content="website">
     {{#if global_config.logo}}
-      <meta property="og:image" content="{{global_config.logo}}">
+      <meta property="og:image"
+        content="{{#unless (matches global_config.logo '//' )}}{{relativePath}}/{{/unless}}{{global_config.logo}}" />
     {{/if}}
     {{#if canonicalUrl}}
-      <meta property="og:url" content="{{canonicalUrl}}">
-      <link rel="canonical" href="{{canonicalUrl}}" />
+      <meta property="og:url"
+        content="{{#unless (matches canonicalUrl '//' )}}{{relativePath}}/{{/unless}}{{canonicalUrl}}" />
+      <link rel="canonical"
+        href="{{#unless (matches canonicalUrl '//' )}}{{relativePath}}/{{/unless}}{{canonicalUrl}}" />
     {{else if env.JAMBO_INJECTED_DATA.pages.domains.prod.domain}}
       {{#with env.JAMBO_INJECTED_DATA.pages.domains.prod}}
         <meta property="og:url" content="{{#if isHttps}}https://{{else}}http://{{/if}}{{domain}}">
@@ -52,9 +55,15 @@
     {{/if}}
 
     {{#if global_config.favicon}}
-      <link rel="shortcut icon" href="{{global_config.favicon}}">
+      <link rel="shortcut icon"
+        href="{{#unless (matches global_config.favicon '//' )}}{{relativePath}}/{{/unless}}{{global_config.favicon}}" />
     {{/if}}
-    <script src="bundle.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        {{> script/on-document-load}}
+      });
+    </script>
+    <script src="{{relativePath}}/bundle.js" data-webpack-inline></script>
     {{#if global_config.googleAnalyticsId}}
       <!-- Global site tag (gtag.js) - Google Analytics -->
       <script async src="https://www.googletagmanager.com/gtag/js?id={{global_config.googleAnalyticsId}}"></script>
@@ -100,7 +109,9 @@
       };
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.10/iframeResizer.contentWindow.min.js"></script>
-	</head>
+    <link rel="stylesheet" type="text/css" href="https://assets.sitescdn.net/answers/v{{global_config.sdkVersion}}/answers.css">
+    <link rel="stylesheet" type="text/css" href="{{relativePath}}/bundle.css" data-webpack-inline>
+  </head>
   <body>
     {{#if global_config.googleTagManagerId}}
       <!-- Google Tag Manager (noscript) -->
@@ -108,8 +119,12 @@
       height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <!-- End Google Tag Manager (noscript) -->
     {{/if}}
-    {{> layouts/header }}
-    {{> @partial-block }}
-    {{> layouts/footer }}
+    <div class="YxtPage-wrapper">
+      {{> layouts/header }}
+      <div class="YxtPage-content">
+        {{> @partial-block }}
+      </div>
+      {{> layouts/footer }}
+    </div>
   </body>
 </html>

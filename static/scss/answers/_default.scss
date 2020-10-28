@@ -44,6 +44,7 @@
 @import "cards/professional-standard";
 @import "cards/product-standard";
 @import "cards/professional-location";
+@import "cards/financial-professional-location";
 @import "directanswercards/allfields-standard";
 
 // HH files
@@ -56,3 +57,8 @@
 // Styling for CollapsibleFilters components
 @import "collapsible-filters/filter-link";
 @import "collapsible-filters/view-results-button";
+
+// Custom styling outside of the Answers experience
+@import "../page.scss";
+@import "../header.scss";
+@import "../footer.scss";

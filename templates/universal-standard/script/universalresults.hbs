@@ -1,12 +1,12 @@
-ANSWERS.addComponent('UniversalResults', Object.assign({}, {
-    container: '.js-answersUniversalResults',
+ANSWERS.addComponent("UniversalResults", Object.assign({}, {
+    container: ".js-answersUniversalResults",
     config: Object.assign({}, {
       {{!-- Map each Vertical config's verticalsToConfig --}}
       {{#each verticalConfigs}}
         {{#if verticalKey}}
-          '{{{verticalKey}}}': {
+          "{{{verticalKey}}}": {
             {{#with (lookup verticalsToConfig verticalKey)}}
-              {{> VerticalConfig verticalKey=../verticalKey urlWithoutExtension=@key }}
+              {{> VerticalConfig verticalKey=../verticalKey pageName=@key pagePath=../url relativePath=../../relativePath }}
             {{/with}}
           },
         {{/if}}
@@ -14,12 +14,12 @@ ANSWERS.addComponent('UniversalResults', Object.assign({}, {
     }, {
       {{!-- Map the Universal config's verticalsToConfig --}}
       {{#each verticalsToConfig}}
-        '{{@key}}': Object.assign(
+        "{{@key}}": Object.assign(
           {},
           { {{> VerticalConfig verticalKey=@key }} },
           {{#each ../verticalConfigs}}
             {{#ifeq verticalKey @../key}}
-              { {{> VerticalConfig @../this verticalKey=verticalKey urlWithoutExtension=@key }} },
+              { {{> VerticalConfig @../this verticalKey=verticalKey pageName=@key pagePath=../url relativePath=../../relativePath }} },
             {{/ifeq}}
           {{/each}}
         ),
@@ -29,38 +29,54 @@ ANSWERS.addComponent('UniversalResults', Object.assign({}, {
   {{{ json componentSettings.UniversalResults }}}
 ));
 
-{{#*inline 'VerticalConfig'}}
+{{#*inline "VerticalConfig"}}
   {{#if universalSectionTemplate}}
-    template: `{{{read (concat 'universalsectiontemplates/' universalSectionTemplate)}}}`,
+    template: `{{{read (concat "universalsectiontemplates/" universalSectionTemplate)}}}`,
   {{else}}
-    template: `{{{read 'universalsectiontemplates/standard'}}}`,
+    template: `{{{read "universalsectiontemplates/standard"}}}`,
   {{/if}}
-  modifier: '{{{verticalKey}}}',
-  {{#if urlWithoutExtension}}
-    url: '{{{urlWithoutExtension}}}.html',
+  modifier: "{{{verticalKey}}}",
+  {{#if url}}
+    url: "{{#unless (matches url '//' )}}{{relativePath}}/{{/unless}}{{{url}}}",
     verticalPages: [ // TODO remove this once the theme version does not support pre-v1.3 of the SDK
       {
-        verticalKey: '{{{verticalKey}}}',
-        url: '{{{urlWithoutExtension}}}.html',
+        verticalKey: "{{{verticalKey}}}",
+        url: "{{#unless (matches url '//' )}}{{relativePath}}/{{/unless}}{{{url}}}",
+      }
+    ],
+  {{else if pagePath}}
+    url: "{{#unless (matches pagePath '//' )}}{{relativePath}}/{{/unless}}{{{pagePath}}}",
+    verticalPages: [ // TODO remove this once the theme version does not support pre-v1.3 of the SDK
+      {
+        verticalKey: "{{{verticalKey}}}",
+        pageUrl: "{{#unless (matches pagePath '//' )}}{{relativePath}}/{{/unless}}{{{pagePath}}}",
+      }
+    ],
+  {{else if pageName}}
+    url: "{{#unless (matches pageName '//' )}}{{relativePath}}/{{/unless}}{{{pageName}}}.html",
+    verticalPages: [ // TODO remove this once the theme version does not support pre-v1.3 of the SDK
+      {
+        verticalKey: "{{{verticalKey}}}",
+        url: "{{#unless (matches pageName '//' )}}{{relativePath}}/{{/unless}}{{{pageName}}}.html",
       }
     ],
   {{/if}}
   {{#if cardType}}
     card: {
-      cardType: '{{{cardType}}}'
+      cardType: "{{{cardType}}}"
     },
   {{/if}}
-  sectionTitle: {{#if sectionTitle}}'{{{sectionTitle}}}'{{else}}{{#if label}}'{{{label}}}'{{else}}'{{{verticalKey}}}'{{/if}}{{/if}},
+  sectionTitle: {{#if sectionTitle}}"{{{sectionTitle}}}"{{else}}{{#if label}}"{{{label}}}"{{else}}"{{{verticalKey}}}"{{/if}}{{/if}},
   {{#if icon}}
-    sectionTitleIconName: '{{{icon}}}',
+    sectionTitleIconName: "{{{icon}}}",
   {{/if}}
-  {{#if iconUrl}}sectionTitleIconUrl: '{{{iconUrl}}}',{{/if}}
-  viewAllText: {{#if viewAllText}}'{{{viewAllText}}}'{{else}}'View All'{{/if}},
+  {{#if iconUrl}}sectionTitleIconUrl: "{{#unless (matches iconUrl '//' )}}{{relativePath}}/{{/unless}}{{{iconUrl}}}",{{/if}}
+  viewAllText: {{#if viewAllText}}"{{{viewAllText}}}"{{else}}{{ translateJS phrase='View All' context='View is a verb' }}{{/if}},
   {{#if viewMore}}viewMore: {{viewMore}},{{/if}}
   {{#if mapConfig}}
     includeMap: true,
     mapConfig: Object.assign({
-      apiKey: HitchhikerJS.getDefaultMapApiKey('{{ mapConfig.mapProvider }}')
+      apiKey: HitchhikerJS.getDefaultMapApiKey("{{ mapConfig.mapProvider }}")
     },
     {{{ json mapConfig }}},
     {{!-- This theme pin config must come after mapConfig in Object.assign --}}

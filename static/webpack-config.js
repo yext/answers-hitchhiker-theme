@@ -6,7 +6,11 @@ const HtmlPlugin = require('html-webpack-plugin');
 const RemovePlugin = require('remove-files-webpack-plugin');
 
 module.exports = function () {
-  const jamboConfig = JSON.parse(fs.readFileSync('jambo.json'))
+  const jamboConfig = require('./jambo.json');
+  const InlineAssetHtmlPlugin = require(
+    `./${jamboConfig.dirs.output}/static/webpack/InlineAssetHtmlPlugin`
+  );
+
   const htmlPlugins = [];
   if (fs.existsSync(jamboConfig.dirs.output)) {
     fs.recurseSync(jamboConfig.dirs.output, ['**/*.html'], (filepath, relative) => {
@@ -36,6 +40,7 @@ module.exports = function () {
     plugins: [
       new MiniCssExtractPlugin({ filename: 'bundle.css' }),
       ...htmlPlugins,
+      new InlineAssetHtmlPlugin(),
       new webpack.EnvironmentPlugin(
         ['JAMBO_INJECTED_DATA']
       ),

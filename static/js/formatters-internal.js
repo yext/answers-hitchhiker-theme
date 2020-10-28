@@ -2,6 +2,7 @@ import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import { components__address__i18n__addressForCountry } from './address-i18n.js'
 import CtaFormatter from '@yext/cta-formatter';
 import provideOpenStatusTranslation from './open-status-18n';
+import { getDistanceUnit } from './units-i18n';
 
 import clonedeep from 'lodash.clonedeep';
 
@@ -59,20 +60,43 @@ export function getDirectionsUrl(profile, key = 'address') {
   return `https://www.google.com/maps/search/?api=1&query=${query}&output=classic`
 }
 
-export function toKilometers(profile, key = 'd_distance', displayUnits = 'km') {
-  if (!profile[key]) {
-    return '';
+export function toLocalizedDistance(profile, key = 'd_distance', displayUnits) {
+  const locale = _getDocumentLocale();
+  const distanceUnits = displayUnits || getDistanceUnit(locale);
+
+  if (distanceUnits === 'mi') {
+    return this.toMiles(profile, undefined, undefined, locale);
+  } else if (distanceUnits === 'km') {
+    return this.toKilometers(profile, undefined, undefined, locale);
   }
-  const distanceInKilometers = profile[key] / 1000; // Convert meters to kilometers
-  return distanceInKilometers.toFixed(1) + ' ' + displayUnits;
+
+  return this.toMiles(profile, undefined, undefined, locale);
 }
 
-export function toMiles(profile, key = 'd_distance', displayUnits = 'mi') {
+export function _getDocumentLocale() {
+  return document.documentElement.lang.replace('_', '-');
+}
+
+export function toKilometers(profile, key = 'd_distance', displayUnits = 'km', locale) {
   if (!profile[key]) {
     return '';
   }
+  locale = locale || _getDocumentLocale()
+  const distanceInKilometers = profile[key] / 1000; // Convert meters to kilometers
+  return new Intl.NumberFormat(locale,
+    { style: 'decimal', maximumFractionDigits: 1, minimumFractionDigits: 1})
+    .format(distanceInKilometers) + ' ' + displayUnits;
+}
+
+export function toMiles(profile, key = 'd_distance', displayUnits = 'mi', locale) {
+  if (!profile[key]) {
+    return '';
+  }
+  locale = locale || _getDocumentLocale()
   const distanceInMiles = profile[key] / 1609.344; // Convert meters to miles
-  return distanceInMiles.toFixed(1) + ' ' + displayUnits;
+  return new Intl.NumberFormat(locale,
+    { style: 'decimal', maximumFractionDigits: 1, minimumFractionDigits: 1 })
+    .format(distanceInMiles) + ' ' + displayUnits;
 }
 
 export function isTodayHoliday(holidayItem, todayDate) {
@@ -117,7 +141,7 @@ export function bigDate(profile, keyPath = 'time.start') {
   }
 
   const date = betterTime(dateString);
-  const locale = document.documentElement.lang.replace('_', '-');
+  const locale = _getDocumentLocale();
   const time = date.toLocaleString(locale, {
     hour: 'numeric',
     minute: 'numeric',
@@ -161,7 +185,7 @@ export function dateRange(
     return null;
   }
 
-  const locale = document.documentElement.lang.replace('_', '-');
+  const locale = _getDocumentLocale();
   const start = betterTime(dateField.start);
   const end = betterTime(dateField.end);
   const startString = start.toLocaleString(locale, dateFormatOptions);
@@ -192,14 +216,24 @@ export function snakeToTitle(snake) {
     .join(' ');
 }
 
-export function prettyPrintObject(obj) {
+/**
+ * This function pretty prints different kinds of values. Depending on the type,
+ * localization may be used. 
+ * 
+ * @param {?} obj The value to pretty print.
+ * @param {string} locale The current locale. 
+ * @returns {string} The pretty printed value.
+ */
+export function prettyPrintObject(obj, locale) {
+  locale = locale || _getDocumentLocale();
+
   switch (typeof obj) {
     case 'string':
     case 'number':
     case 'bigint':
-      return obj.toLocaleString();
+      return obj.toLocaleString(locale);
     case 'boolean':
-      return obj ? 'Yes' : 'No';
+      return _prettyPrintBoolean(obj, locale)
     case 'object':
       // check for null
       if (!obj) {
@@ -212,6 +246,32 @@ export function prettyPrintObject(obj) {
         .map(([_, val]) => prettyPrintObject(val)).join(', ');
     default:
       return '';
+  }
+}
+
+/**
+ * Prints the given boolean as a localized affirmative or negative string. For instance,
+ * in English, it would return either 'Yes' for True or 'No' for False.
+ * 
+ * @param {boolean} value The boolean value.
+ * @param {string} locale The locale indicating which language to use.
+ * @returns {string} The localized affirmative or negative.
+ */
+function _prettyPrintBoolean(value, locale) {
+  const language = locale.substring(0,2);
+  switch (language) {
+    case 'es':
+      return value ? 'Sí' : 'No';
+    case 'fr':
+      return value ? 'Oui' : 'Non';
+    case 'it': 
+      return value ? 'Sì' : 'No';
+    case 'de': 
+      return value ? 'Ja' : 'Nein';
+    case 'ja':
+      return value ? 'はい' : '番号';
+    default: 
+      return value ? 'Yes' : 'No';
   }
 }
 
@@ -386,13 +446,16 @@ export function truncate(str, limit = 250, trailing = '...', sep = ' ') {
  * for the given profile.
  * @param {Object} profile The profile information of the entity
  * @param {String} key Indicates which profile property to use for hours
- * @param {boolean} isTwentyFourHourClock Use 24 hour vs 12 hour formatting for time string
+ * @param {boolean} isTwentyFourHourClock Use 24 hour clock if true, 12 hour clock
+ *                  if false. Default based on locale if undefined.
  * @param {String} locale The locale for the time string
  */
-export function openStatus(profile, key = 'hours', isTwentyFourHourClock = false, locale = 'en-US') {
+export function openStatus(profile, key = 'hours', isTwentyFourHourClock, locale) {
   if (!profile[key]) {
     return '';
   }
+
+  locale = locale || _getDocumentLocale();
 
   const days = _formatHoursForAnswers(profile[key], profile.timeZoneUtcOffset);
   if (days.length === 0) {
@@ -821,15 +884,15 @@ export function _getTodaysMessage({ hoursToday, isTwentyFourHourClock, locale })
   }
 }
 
-export function _getTimeString(yextTime, twentyFourHourClock, locale = 'en-US') {
+export function _getTimeString(yextTime, isTwentyFourHourClock, locale = 'en-US') {
   let time = new Date();
   time.setHours(Math.floor(yextTime / 100));
   time.setMinutes(yextTime % 100);
-
+  
   return time.toLocaleString(locale, {
     hour: 'numeric',
     minute: 'numeric',
-    hourCycle: twentyFourHourClock ? 'h24' : 'h12'
+    ...isTwentyFourHourClock && { hourCycle: isTwentyFourHourClock ? 'h24' : 'h12' }
   });
 }
 
