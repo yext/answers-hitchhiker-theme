@@ -27,4 +27,16 @@ export default class IFrameMessage {
   getDetails() {
     return this.details;
   }
+
+  /**
+   * Returns the IFrameMessage as a plain JS object
+   *
+   * @returns {Object}
+   */
+  toObject() {
+    return {
+      type: this.type,
+      ...this.details
+    };
+  }
 }

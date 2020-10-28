@@ -1,4 +1,5 @@
-import { AnimationStyling, Selectors } from '../../shared/constants';
+import { Selectors } from '../constants';
+import { AnimationStyling } from '../../shared/constants';
 
 /**
  * Stylist is responsible for applying styling to the Overlay to update its shape

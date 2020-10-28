@@ -117,9 +117,6 @@ export default class ActionDirector {
    * @param {Element} iframeEl
    */
   _sendMessageToIFrame(message, iframeEl) {
-    iframeEl.iFrameResizer.sendMessage({
-      type: message.getType(),
-      ...message.getDetails()
-    });
+    iframeEl.iFrameResizer.sendMessage(message.toObject());
   }
 }

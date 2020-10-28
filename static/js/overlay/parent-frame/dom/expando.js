@@ -1,4 +1,4 @@
-import { ExternalActionTypes } from '../../shared/constants';
+import { ExternalActionTypes } from '../constants';
 import Stylist from './stylist';
 
 /**
