@@ -1,4 +1,12 @@
-window.shrinkOverlay = function () {
+/**
+ * Shape updates the theme page styling to match the Overlay's outer shape
+ */
+export default class Shape {
+
+/**
+ * Updates the theme page's styling for the Overlay's smaller state
+ */
+shrinkOverlay() {
   const bodyEl = document.querySelector('body');
 
   if (bodyEl) {
@@ -7,7 +15,10 @@ window.shrinkOverlay = function () {
   }
 }
 
-window.growOverlay = function () {
+/**
+ * Updates the theme page's styling for the Overlay's larger state
+ */
+growOverlay() {
   const bodyEl = document.querySelector('body');
 
   if (bodyEl) {
@@ -16,7 +27,10 @@ window.growOverlay = function () {
   }
 }
 
-window.collapseOverlay = function () {
+/**
+ * Updates the theme page's styling for the Overlay's collapsed state
+ */
+collapseOverlay() {
   const bodyEl = document.querySelector('body');
 
   if (bodyEl) {
@@ -25,7 +39,12 @@ window.collapseOverlay = function () {
   }
 }
 
-window.expandOverlay = function (isMobile) {
+/**
+ * Updates the theme page's styling for the Overlay's expanded state
+ *
+ * @param {boolean} isMobile
+ */
+expandOverlay(isMobile) {
   const bodyEl = document.querySelector('body');
 
   if (bodyEl) {
@@ -37,4 +56,5 @@ window.expandOverlay = function (isMobile) {
       inputEl && inputEl.focus();
     }
   }
+}
 }
