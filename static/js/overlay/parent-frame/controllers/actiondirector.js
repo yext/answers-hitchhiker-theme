@@ -36,10 +36,12 @@ export default class ActionDirector {
   onInteraction(type, details) {
     switch (type){
       case ActionTypes.IFRAME_CONNECTED:
-        this._sendMessageToIFrame(new IFrameMessage('config', details), this._iframeEl);
+        this._sendMessageToIFrame(
+          new IFrameMessage(ActionTypes.CONFIG, details), this._iframeEl);
         break;
       case ActionTypes.BUTTON_CONNECTED:
-        this._sendMessageToIFrame(new IFrameMessage('config', details), this._buttonFrameEl);
+        this._sendMessageToIFrame(
+          new IFrameMessage(ActionTypes.CONFIG, details), this._buttonFrameEl);
         break;
       case ActionTypes.IFRAME_READY:
         this.expando.start(details);

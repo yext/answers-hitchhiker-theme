@@ -5,6 +5,7 @@
  */
 exports.ActionTypes = {
   INIT: 'init',
+  CONFIG: 'config',
   IFRAME_CONNECTED: 'iframeConnected',
   BUTTON_CONNECTED: 'buttonConnected',
   IFRAME_READY: 'iframeReady',

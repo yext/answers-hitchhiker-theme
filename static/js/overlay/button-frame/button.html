@@ -8,7 +8,7 @@
       onMessage: function (message) {
         const buttonEl = document.querySelector('.js-OverlayButton');
         switch (message.type) {
-          case 'config':
+          case window.ActionTypes.CONFIG:
             const config = {
               labelText: '', // TODO (agrow) in a later PR, inject labelText
               backgroundColor: message.backgroundColor,
@@ -19,10 +19,10 @@
               buttonEl, config.backgroundColor, config.foregroundColor);
             window.OverlayButtonJS.attachEventListeners(buttonEl);
             break;
-          case 'collapse':
+          case window.ActionTypes.COLLAPSE:
             window.OverlayButtonJS.collapseButton(buttonEl);
             break;
-          case 'expand':
+          case window.ActionTypes.EXPAND:
             window.OverlayButtonJS.expandButton(buttonEl);
             break;
           default:

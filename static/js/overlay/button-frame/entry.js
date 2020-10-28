@@ -8,3 +8,7 @@ import Scss from '../../../scss/answers/overlay/button/_default.scss';
 import OverlayButtonJS from './button.js';
 export { OverlayButtonJS };
 window.OverlayButtonJS = OverlayButtonJS;
+
+import ActionTypes from '../shared/constants.js';
+export { ActionTypes };
+window.ActionTypes = ActionTypes;
