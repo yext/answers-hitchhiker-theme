@@ -1,10 +1,10 @@
 import DomInjector from '../dom/dominjector';
 import IFrameObserver from './iframeobserver';
 import InjectedData from '../../../models/InjectedData';
-import InteractionDirector from './interactiondirector';
+import ActionDirector from './actiondirector';
 import OverlayConfig from '../models/overlayconfig';
 import ParentFrameObserver from './parentframeobserver';
-import { InteractionTypes, Selectors } from '../../constants';
+import { ActionTypes, Selectors } from '../../shared/constants';
 
 /**
  * This class is responsible for creating and setting up the Overlay.
@@ -21,7 +21,7 @@ export default class Overlay {
    * Creates the Overlay, adding the HTML elements and setting up any listeners on the
    * existing DOM, if needed.
    *
-   * @returns {InteractionDirector}
+   * @returns {ActionDirector}
    */
   create() {
     // Add Overlay to the DOM
@@ -29,7 +29,7 @@ export default class Overlay {
     new DomInjector(domain, this.config.experiencePath, this.config.offset, this.config.alignment)
       .inject();
 
-    const mediator = new InteractionDirector({
+    const mediator = new ActionDirector({
       iframeEl: document.querySelector(`#${Selectors.IFRAME_ID}`),
       buttonFrameEl: document.querySelector(`#${Selectors.BUTTON_FRAME_ID}`),
       hideButtonWhenCollapsed: this.config.hideDefaultButton,
@@ -46,9 +46,9 @@ export default class Overlay {
    */
   _attachObservers(mediator) {
     new IFrameObserver(mediator, `#${Selectors.BUTTON_FRAME_ID}`)
-      .attach(InteractionTypes.BUTTON_CONNECTED, this.config.button);
+      .attach(ActionTypes.BUTTON_CONNECTED, this.config.button);
     new IFrameObserver(mediator, `#${Selectors.IFRAME_ID}`)
-      .attach(InteractionTypes.IFRAME_CONNECTED, {
+      .attach(ActionTypes.IFRAME_CONNECTED, {
         panel: this.config.panel,
         prompts: this.config.prompts,
       });
