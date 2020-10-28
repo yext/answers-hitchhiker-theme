@@ -1,10 +1,10 @@
 import DomInjector from '../dom/dominjector';
 import IFrameObserver from './iframeobserver';
-import InjectedData from '../../models/InjectedData';
+import InjectedData from '../../../models/InjectedData';
 import InteractionDirector from './interactiondirector';
 import OverlayConfig from '../models/overlayconfig';
 import ParentFrameObserver from './parentframeobserver';
-import { InteractionTypes, Selectors } from '../constants';
+import { InteractionTypes, Selectors } from '../../constants';
 
 /**
  * This class is responsible for creating and setting up the Overlay.

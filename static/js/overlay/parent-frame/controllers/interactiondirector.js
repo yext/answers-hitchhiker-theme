@@ -1,5 +1,5 @@
 import Expando from '../dom/expando';
-import { InteractionTypes } from '../constants';
+import { InteractionTypes } from '../../constants';
 import IFrameMessage from '../models/iframemessage';
 
 /**

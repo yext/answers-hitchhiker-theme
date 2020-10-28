@@ -1,4 +1,4 @@
-import { InteractionTypes } from '../constants';
+import { InteractionTypes } from '../../constants';
 import InteractionDirector from './interactiondirector';
 
 /**
