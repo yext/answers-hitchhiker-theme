@@ -19,13 +19,13 @@ class PostUpgradeHandler {
       this.removeFromTheme('.git', '.gitignore', 'tests');
     }
 
-    const userDefinedGlobalConfigPath = 
+    const userGlobalConfigPath = 
       path.relative(process.cwd(), path.join(this.configDir, this.globalConfigFile));
     const themeGlobalConfigPath = 
       path.relative(process.cwd(), path.join(this.themeDir, this.globalConfigFile));
     if (fsExtra.pathExistsSync(themeGlobalConfigPath)) {
-      const mergedGlobalConfig = await this.mergeThemeGlobalConfig(userDefinedGlobalConfigPath, themeGlobalConfigPath);
-      fs.writeFileSync(userDefinedGlobalConfigPath, mergedGlobalConfig);
+      const mergedGlobalConfig = await this.mergeThemeGlobalConfig(userGlobalConfigPath, themeGlobalConfigPath);
+      fs.writeFileSync(userGlobalConfigPath, mergedGlobalConfig);
     }
 
     this.copyStaticFilesToTopLevel(
@@ -43,12 +43,13 @@ class PostUpgradeHandler {
 
   /**
    * Merges the theme's global_config with the user's current global_config.
-   * @param {string} userDefinedGlobalConfigPath The path to the user's current global config
+   * @param {string} userGlobalConfigPath The path to the user's current global config
    * @param {string} themeGlobalConfigPath The path to the global config in the theme
+   * @return {string} The comment-json merged global config
    */
-  async mergeThemeGlobalConfig(userDefinedGlobalConfigPath, themeGlobalConfigPath) {
+  async mergeThemeGlobalConfig(userGlobalConfigPath, themeGlobalConfigPath) {
     const updatedCommentJson = fs.readFileSync(themeGlobalConfigPath, 'utf-8');
-    const originalCommentJson = fs.readFileSync(userDefinedGlobalConfigPath, 'utf-8');
+    const originalCommentJson = fs.readFileSync(userGlobalConfigPath, 'utf-8');
     return mergeJson(updatedCommentJson, originalCommentJson);
   }
 
