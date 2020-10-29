@@ -15,7 +15,6 @@ export { isMobile }  from 'is-mobile';
 
 // Used to transfigure the page for the Overlay
 import Overlay from './js/overlay/answers-frame/overlay';
-export { Overlay };
 window.Overlay = new Overlay();
 
 // Import code used in Collapsible Filters, and give it the alias of window.CollapsibleFilters.
