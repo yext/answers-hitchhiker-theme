@@ -1,4 +1,4 @@
-import { ActionTypes } from '../constants';
+import { ExternalActionTypes } from '../constants';
 import Stylist from './stylist';
 
 /**
@@ -117,15 +117,15 @@ export default class Expando {
   /**
    * Adds a callback to an action
    *
-   * @param {ActionTypes} type
+   * @param {ExternalActionTypes} type
    * @param {function} callback
    */
   addCallback(type, callback) {
     switch (type) {
-      case ActionTypes.EXPAND:
+      case ExternalActionTypes.EXPAND:
         this._expandCallback = callback;
         break;
-      case ActionTypes.COLLAPSE:
+      case ExternalActionTypes.COLLAPSE:
         this._collapseCallback = callback;
         break;
       default:

@@ -116,13 +116,13 @@
       function onOverlayMessage(message) {
         switch(message.type) {
           case 'overlayConfig':
-            new OverlayCreator(message.config).create();
+            new OverlayCreator(message.details.config).create();
             break;
           case 'collapse':
             window.collapseOverlay();
             break;
           case 'expand':
-            window.expandOverlay(message.isMobile);
+            window.expandOverlay(message.details.isMobile);
             break;
           default:
             break;

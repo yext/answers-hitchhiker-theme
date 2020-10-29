@@ -1,5 +1,5 @@
-import { InteractionTypes } from '../constants';
-import InteractionDirector from './interactiondirector';
+import { ActionTypes } from '../../shared/constants';
+import ActionDirector from './actiondirector';
 
 /**
  * ParentFrameObserver observes the parent frame and notifies its mediator whenever
@@ -8,7 +8,7 @@ import InteractionDirector from './interactiondirector';
 export default class ParentFrameObserver {
   constructor(mediator, customButtonSelector) {
     /**
-     * @type {InteractionDirector}
+     * @type {ActionDirector}
      */
     this.mediator = mediator;
 
@@ -39,7 +39,7 @@ export default class ParentFrameObserver {
       const isButtonClick = this.customButtonEl && this.customButtonEl.contains(e.target);
 
       if (!isButtonClick) {
-        this.mediator.onInteraction(InteractionTypes.COLLAPSE);
+        this.mediator.onInteraction(ActionTypes.COLLAPSE);
       }
     });
   }
@@ -50,7 +50,7 @@ export default class ParentFrameObserver {
    */
   _initCustomButton() {
     this.customButtonEl.addEventListener('click', () => {
-      this.mediator.onInteraction(InteractionTypes.TOGGLE_OVERLAY);
+      this.mediator.onInteraction(ActionTypes.TOGGLE_OVERLAY);
     });
   }
 }
