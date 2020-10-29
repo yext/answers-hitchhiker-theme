@@ -1,18 +1,10 @@
 const overlayConfig = {
   customHooks: {
     onSubmit: function (query) {
-      window.parentIFrame.sendMessage({
-        type: 'querySubmitted'
-      });
-
-      window.growOverlay();
+      window.Overlay.grow();
     },
     onClearSearch: function () {
-      window.parentIFrame.sendMessage({
-        type: 'clearButtonHit'
-      });
-
-      window.shrinkOverlay();
+      window.Overlay.shrink();
     }
   },
   autocomplete: {

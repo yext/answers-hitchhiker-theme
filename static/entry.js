@@ -13,6 +13,10 @@ export { getDefaultMapApiKey } from './js/default-map-api-key';
 export { isStaging } from './js/is-staging';
 export { isMobile }  from 'is-mobile';
 
+// Used to transfigure the page for the Overlay
+import Overlay from './js/overlay/answers-frame/overlay';
+window.Overlay = new Overlay();
+
 // Import code used in Collapsible Filters, and give it the alias of window.CollapsibleFilters.
 import CollapsibleFilters from './js/collapsible-filters';
 export { CollapsibleFilters };
