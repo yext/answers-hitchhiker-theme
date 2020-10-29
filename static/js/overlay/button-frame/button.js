@@ -13,8 +13,8 @@ export default class OverlayButtonJS {
       case ActionTypes.CONFIG:
         const config = {
           labelText: '', // TODO (agrow) in a later PR, inject labelText
-          backgroundColor: message.backgroundColor,
-          foregroundColor: message.foregroundColor
+          backgroundColor: message.details.backgroundColor,
+          foregroundColor: message.details.foregroundColor
         };
 
         OverlayButtonJS.applyStyling(

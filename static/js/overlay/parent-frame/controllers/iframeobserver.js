@@ -56,7 +56,7 @@ export default class IFrameObserver {
           return;
         }
 
-        this._mediator.onInteraction(data.message.type, data.message.detail);
+        this._mediator.onInteraction(data.message.type, data.message.details);
       }
     }, this._iframeSelector);
   }

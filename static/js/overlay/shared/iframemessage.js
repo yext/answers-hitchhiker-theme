@@ -36,7 +36,7 @@ export default class IFrameMessage {
   toObject() {
     return {
       type: this.type,
-      ...this.details
+      details: this.details
     };
   }
 }
