@@ -13,7 +13,7 @@
   }
 
   &-text {
-    padding-left: 20px;
+    padding-left: var(--yxt-base-spacing);
     padding-right: 4px;
     font-size: var(--yxt-font-size-lg);
     font-weight: var(--yxt-font-weight-bold);
