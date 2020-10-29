@@ -17,15 +17,15 @@ export default class OverlayButtonJS {
           foregroundColor: message.foregroundColor
         };
 
-        OverlayButtonJS._applyStyling(
+        OverlayButtonJS.applyStyling(
           buttonEl, config.backgroundColor, config.foregroundColor);
-        OverlayButtonJS._attachEventListeners(buttonEl);
+        OverlayButtonJS.attachEventListeners(buttonEl);
         break;
       case ActionTypes.COLLAPSE:
-        OverlayButtonJS._collapseButton(buttonEl);
+        OverlayButtonJS.collapseButton(buttonEl);
         break;
       case ActionTypes.EXPAND:
-        OverlayButtonJS._expandButton(buttonEl);
+        OverlayButtonJS.expandButton(buttonEl);
         break;
       default:
         break;
@@ -37,7 +37,7 @@ export default class OverlayButtonJS {
    *
    * @param {Element} buttonEl
    */
-  static _collapseButton(buttonEl) {
+  static collapseButton(buttonEl) {
     buttonEl.classList.add('collapsed');
   }
 
@@ -46,7 +46,7 @@ export default class OverlayButtonJS {
    *
    * @param {Element} buttonEl
    */
-  static _expandButton(buttonEl) {
+  static expandButton(buttonEl) {
     buttonEl.classList.remove('collapsed');
   }
 
@@ -57,7 +57,7 @@ export default class OverlayButtonJS {
    * @param {string} backgroundColor
    * @param {string} foregroundColor
    */
-  static _applyStyling(buttonEl, backgroundColor, foregroundColor) {
+  static applyStyling(buttonEl, backgroundColor, foregroundColor) {
     // Add background color
     const bodyEl = document.querySelector('body');
     bodyEl && (bodyEl.style['background-color'] = backgroundColor);
@@ -76,20 +76,20 @@ export default class OverlayButtonJS {
    *
    * @param {Element} buttonEl
    */
-  static _attachEventListeners(buttonEl) {
-    buttonEl.addEventListener('click', () => {
+  static attachEventListeners(buttonEl) {
+    buttonEl.addEventListener('click', function () {
       const isCollapsed = buttonEl.classList.contains('collapsed');
       if (isCollapsed) {
-        OverlayButtonJS._expandButton(buttonEl);
+        OverlayButtonJS.expandButton(buttonEl);
       } else {
-        OverlayButtonJS._collapseButton(buttonEl);
+        OverlayButtonJS.collapseButton(buttonEl);
       }
 
       const messageType = isCollapsed
         ? ActionTypes.EXPAND
         : ActionTypes.COLLAPSE;
 
-      this._notifyParentFrame(new IFrameMessage(messageType));
+      OverlayButtonJS.notifyParentFrame(new IFrameMessage(messageType));
     });
   }
 
@@ -98,7 +98,7 @@ export default class OverlayButtonJS {
    *
    * @param {IFrameMessage} message
    */
-  _notifyParentFrame(message) {
+  static notifyParentFrame(message) {
     window.parentIFrame.sendMessage({
       type: message.getType(),
       ...message.getDetails()
