@@ -63,4 +63,5 @@ export default class YextAnswersOverlay {
 
 if (!global.YxtAnswersOverlay) {
   global.YxtAnswersOverlay = new YextAnswersOverlay();
+  global.YxtAnswersOverlay.init(window.YxtAnswersOverlaySettings);
 }
