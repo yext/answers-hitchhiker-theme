@@ -99,9 +99,6 @@ export default class OverlayButtonJS {
    * @param {IFrameMessage} message
    */
   static notifyParentFrame(message) {
-    window.parentIFrame.sendMessage({
-      type: message.getType(),
-      ...message.getDetails()
-    });
+    window.parentIFrame.sendMessage(message.toObject());
   }
 }
