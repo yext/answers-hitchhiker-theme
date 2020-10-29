@@ -5,7 +5,6 @@
       {{#babel}}
       if (window.name == 'overlay') {
         window.isOverlay = true;
-        {{> overlay/controllers/shape }}
       }
       {{/babel}}
     </script>
@@ -100,10 +99,6 @@
 
     <script>
       {{#babel}}
-      {{> overlay/dom-manipulation/HeaderPanelInfuser }}
-      {{> overlay/dom-manipulation/ColorManipulator }}
-      {{> overlay/dom-manipulation/PromptInjector }}
-      {{> overlay/controllers/OverlayCreator }}
       function iframeGetSearchParams() {
         let params = new URLSearchParams(window.location.search);
         let verticalUrl = window.location.pathname.substr(1)
@@ -111,22 +106,6 @@
           params.set('verticalUrl', verticalUrl);
         }
         return params.toString();
-      }
-
-      function onOverlayMessage(message) {
-        switch(message.type) {
-          case 'overlayConfig':
-            new OverlayCreator(message.details.config).create();
-            break;
-          case 'collapse':
-            window.collapseOverlay();
-            break;
-          case 'expand':
-            window.expandOverlay(message.details.isMobile);
-            break;
-          default:
-            break;
-        }
       }
 
       window.iFrameResizer = {
@@ -137,7 +116,7 @@
             pageTitle: document.title
           }));
         },
-        onMessage: window.isOverlay ? onOverlayMessage : function() {},
+        onMessage: window.isOverlay ? window.Overlay.onMessage : function() {},
       };
     {{/babel}}
     </script>

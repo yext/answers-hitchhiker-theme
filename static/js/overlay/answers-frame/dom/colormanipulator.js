@@ -1,4 +1,8 @@
-class ColorManipulator {
+/**
+ * ColorManipulator is a utility class responsible for manipulating HEX or
+ * RGB web colors
+ */
+export default class ColorManipulator {
   /**
    * Shades a color darker or lighter
    *

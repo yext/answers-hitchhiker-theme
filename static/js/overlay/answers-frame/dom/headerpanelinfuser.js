@@ -1,8 +1,10 @@
+import ColorManipulator from './colormanipulator';
+
 /**
- * This class is responsible adding properties to the Header Panel as specified in the Overlay
- * config.
+ * This class is responsible adding properties to the Header Panel as specified in
+ * the Overlay config.
  */
-class HeaderPanelInfuser {
+export default class HeaderPanelInfuser {
   constructor(config = {}) {
     /**
      * @type {string}
