@@ -5,30 +5,7 @@
   <script src="overlay-button.js"></script>
   <script>
     window.iFrameResizer = {
-      onMessage: function (message) {
-        const buttonEl = document.querySelector('.js-OverlayButton');
-        switch (message.type) {
-          case window.ActionTypes.CONFIG:
-            const config = {
-              labelText: '', // TODO (agrow) in a later PR, inject labelText
-              backgroundColor: message.backgroundColor,
-              foregroundColor: message.foregroundColor
-            };
-
-            window.OverlayButtonJS.applyStyling(
-              buttonEl, config.backgroundColor, config.foregroundColor);
-            window.OverlayButtonJS.attachEventListeners(buttonEl);
-            break;
-          case window.ActionTypes.COLLAPSE:
-            window.OverlayButtonJS.collapseButton(buttonEl);
-            break;
-          case window.ActionTypes.EXPAND:
-            window.OverlayButtonJS.expandButton(buttonEl);
-            break;
-          default:
-            break;
-        }
-      }
+      onMessage: window.OverlayButtonJS.onMessage
     }
   </script>
   <script

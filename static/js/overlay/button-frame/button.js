@@ -2,11 +2,41 @@ import { ActionTypes } from '../shared/constants';
 
 export default class OverlayButtonJS {
   /**
+   * Handles a message from the parent frame
+   *
+   * @param {Object} message
+   */
+  static onMessage (message) {
+    const buttonEl = document.querySelector('.js-OverlayButton');
+    switch (message.type) {
+      case ActionTypes.CONFIG:
+        const config = {
+          labelText: '', // TODO (agrow) in a later PR, inject labelText
+          backgroundColor: message.backgroundColor,
+          foregroundColor: message.foregroundColor
+        };
+
+        OverlayButtonJS._applyStyling(
+          buttonEl, config.backgroundColor, config.foregroundColor);
+        OverlayButtonJS._attachEventListeners(buttonEl);
+        break;
+      case ActionTypes.COLLAPSE:
+        OverlayButtonJS._collapseButton(buttonEl);
+        break;
+      case ActionTypes.EXPAND:
+        OverlayButtonJS._expandButton(buttonEl);
+        break;
+      default:
+        break;
+    }
+  }
+
+  /**
    * Updates the button to its collapsed state
    *
    * @param {Element} buttonEl
    */
-  static collapseButton(buttonEl) {
+  static _collapseButton(buttonEl) {
     buttonEl.classList.add('collapsed');
   }
 
@@ -15,7 +45,7 @@ export default class OverlayButtonJS {
    *
    * @param {Element} buttonEl
    */
-  static expandButton(buttonEl) {
+  static _expandButton(buttonEl) {
     buttonEl.classList.remove('collapsed');
   }
 
@@ -26,7 +56,7 @@ export default class OverlayButtonJS {
    * @param {string} backgroundColor
    * @param {string} foregroundColor
    */
-  static applyStyling(buttonEl, backgroundColor, foregroundColor) {
+  static _applyStyling(buttonEl, backgroundColor, foregroundColor) {
     // Add background color
     const bodyEl = document.querySelector('body');
     bodyEl && (bodyEl.style['background-color'] = backgroundColor);
@@ -45,13 +75,13 @@ export default class OverlayButtonJS {
    *
    * @param {Element} buttonEl
    */
-  static attachEventListeners(buttonEl) {
+  static _attachEventListeners(buttonEl) {
     buttonEl.addEventListener('click', function () {
       const isCollapsed = buttonEl.classList.contains('collapsed');
       if (isCollapsed) {
-        OverlayButtonJS.expandButton(buttonEl);
+        OverlayButtonJS._expandButton(buttonEl);
       } else {
-        OverlayButtonJS.collapseButton(buttonEl);
+        OverlayButtonJS._collapseButton(buttonEl);
       }
 
       const messageType = isCollapsed
