@@ -1,4 +1,5 @@
 import { ActionTypes } from '../shared/constants';
+import IFrameMessage from '../shared/iframemessage';
 
 export default class OverlayButtonJS {
   /**
@@ -76,7 +77,7 @@ export default class OverlayButtonJS {
    * @param {Element} buttonEl
    */
   static _attachEventListeners(buttonEl) {
-    buttonEl.addEventListener('click', function () {
+    buttonEl.addEventListener('click', () => {
       const isCollapsed = buttonEl.classList.contains('collapsed');
       if (isCollapsed) {
         OverlayButtonJS._expandButton(buttonEl);
@@ -87,9 +88,20 @@ export default class OverlayButtonJS {
       const messageType = isCollapsed
         ? ActionTypes.EXPAND
         : ActionTypes.COLLAPSE;
-      window.parentIFrame.sendMessage({
-        type: messageType
-      });
+
+      this._notifyParentFrame(new IFrameMessage(messageType));
+    });
+  }
+
+  /**
+   * Sends a message to the parent frame
+   *
+   * @param {IFrameMessage} message
+   */
+  _notifyParentFrame(message) {
+    window.parentIFrame.sendMessage({
+      type: message.getType(),
+      ...message.getDetails()
     });
   }
 }
