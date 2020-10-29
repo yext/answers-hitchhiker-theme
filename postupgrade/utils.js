@@ -1,6 +1,7 @@
 const fs = require('fs');
 const { parse, assign, stringify } = require('comment-json');
 const path = require('path');
+const simpleGit = require('simple-git/promise')();
 
 /**
  * Merges two comment-json files, with the original having higher priority.
@@ -52,3 +53,16 @@ function removeEmptyDirectoriesRecursively(dirpath) {
   }
 }
 exports.removeEmptyDirectoriesRecursively = removeEmptyDirectoriesRecursively;
+
+/**
+ * Returns whether the given file path is registered as a git submodule.
+ * @param {string} submodulePath
+ * @returns {boolean}
+ */
+async function isGitSubmodule(submodulePath) {
+  const submodulePaths = await simpleGit.subModule(['foreach', '--quiet', 'echo $sm_path']);
+  return !!submodulePaths
+    .split('\n')
+    .find(p => p === submodulePath)
+}
+exports.isGitSubmodule = isGitSubmodule;

@@ -1,0 +1,5 @@
+{
+  // Comment1
+  "one": "hi", // Inline comment
+  "onetwo": "hello"
+}
