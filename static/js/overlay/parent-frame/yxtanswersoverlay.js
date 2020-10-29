@@ -1,4 +1,4 @@
-import { ActionTypes } from './constants';
+import { ExternalActionTypes } from '../constants';
 import Overlay from './controllers/overlay';
 import OverlayConfig from './models/overlayconfig';
 import ConfigValidator from './validation/configvalidator';
@@ -43,7 +43,7 @@ export default class YextAnswersOverlay {
   /**
    * This function can be used to add a callback to an action on the Overlay.
    *
-   * @param {ActionTypes} actionType
+   * @param {ExternalActionTypes} actionType
    * @param {function} callback
    */
   on(actionType, callback) {

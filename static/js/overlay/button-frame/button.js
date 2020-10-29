@@ -1,4 +1,37 @@
+import { ActionTypes } from '../shared/constants';
+import IFrameMessage from '../shared/iframemessage';
+
 export default class OverlayButtonJS {
+  /**
+   * Handles a message from the parent frame
+   *
+   * @param {Object} message
+   */
+  static onMessage (message) {
+    const buttonEl = document.querySelector('.js-OverlayButton');
+    switch (message.type) {
+      case ActionTypes.CONFIG:
+        const config = {
+          labelText: '', // TODO (agrow) in a later PR, inject labelText
+          backgroundColor: message.details.backgroundColor,
+          foregroundColor: message.details.foregroundColor
+        };
+
+        OverlayButtonJS.applyStyling(
+          buttonEl, config.backgroundColor, config.foregroundColor);
+        OverlayButtonJS.attachEventListeners(buttonEl);
+        break;
+      case ActionTypes.COLLAPSE:
+        OverlayButtonJS.collapseButton(buttonEl);
+        break;
+      case ActionTypes.EXPAND:
+        OverlayButtonJS.expandButton(buttonEl);
+        break;
+      default:
+        break;
+    }
+  }
+
   /**
    * Updates the button to its collapsed state
    *
@@ -52,10 +85,20 @@ export default class OverlayButtonJS {
         OverlayButtonJS.collapseButton(buttonEl);
       }
 
-      const messageType = isCollapsed ? 'expand' : 'collapse';
-      window.parentIFrame.sendMessage({
-        type: messageType
-      });
+      const messageType = isCollapsed
+        ? ActionTypes.EXPAND
+        : ActionTypes.COLLAPSE;
+
+      OverlayButtonJS.notifyParentFrame(new IFrameMessage(messageType));
     });
+  }
+
+  /**
+   * Sends a message to the parent frame
+   *
+   * @param {IFrameMessage} message
+   */
+  static notifyParentFrame(message) {
+    window.parentIFrame.sendMessage(message.toObject());
   }
 }
