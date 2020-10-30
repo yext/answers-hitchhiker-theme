@@ -1,8 +1,17 @@
+import InjectedData from '../../../models/InjectedData';
+
 /**
  * OverlayConfig represents the configuration required for the Overlay.
  */
 export default class OverlayConfig {
   constructor(config = {}) {
+    /**
+     * The domain of the experience. This can be either the staging domain or the
+     * production domain.
+     * @type {String}
+     */
+    this.domain = config.domain || new InjectedData().getDomain();
+
     /**
      * The path to use for the experience. This is a relative path that will be appended
      * to the domain for their Answers experience.

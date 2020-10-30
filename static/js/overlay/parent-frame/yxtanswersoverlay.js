@@ -8,12 +8,7 @@ import ConfigValidator from './validation/configvalidator';
  * Answers experience on a page.
  */
 export default class YextAnswersOverlay {
-  /**
-   * Initializes the overlay, creating elements and displaying the Overlay on the page.
-   *
-   * @param {Object} config
-   */
-  init(config) {
+  constructor(config) {
     if (this._isInitialized()) {
       console.warn('AnswersOverlay has already been initialized on this page, exiting.');
       return;
@@ -62,5 +57,5 @@ export default class YextAnswersOverlay {
 }
 
 if (!global.YxtAnswersOverlay) {
-  global.YxtAnswersOverlay = new YextAnswersOverlay();
+  global.YxtAnswersOverlay = new YextAnswersOverlay(window.YxtAnswersOverlaySettings);
 }
