@@ -119,9 +119,10 @@ export default class DomInjector {
     iframeEl.style['position'] = 'absolute';
     iframeEl.style['bottom'] = AnimationStyling.BASE_SPACING;
     iframeEl.style[this.alignment] = AnimationStyling.BASE_SPACING;
-    iframeEl.style['width'] = '64px';
-    iframeEl.style['height'] = '64px';
-    iframeEl.style['min-height'] = '0px';
+    iframeEl.style['min-width'] = `${AnimationStyling.DEFAULT_BUTTON_SIZE}px`;
+    iframeEl.style['min-height'] = `${AnimationStyling.DEFAULT_BUTTON_SIZE}px`;
+    iframeEl.style['width'] = '100%';
+    iframeEl.style['height'] = '100%';
     iframeEl.style['border'] = 'none';
     iframeEl.style['margin'] = '0px';
     iframeEl.style['padding'] = '0px';
