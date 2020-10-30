@@ -54,9 +54,10 @@ export default class DomInjector {
     iframeContainerEl.style['position'] = 'fixed';
     iframeContainerEl.style['bottom'] = AnimationStyling.BASE_SPACING;
     iframeContainerEl.style[this.alignment] = AnimationStyling.BASE_SPACING;
+    iframeContainerEl.style['min-height'] = AnimationStyling.MIN_HEIGHT;
+    iframeContainerEl.style['min-width'] = AnimationStyling.WIDTH_DESKTOP;
     iframeContainerEl.style['max-width'] = AnimationStyling.MAX_WIDTH_DESKTOP;
     iframeContainerEl.style['max-height'] = AnimationStyling.MAX_HEIGHT_DESKTOP;
-    iframeContainerEl.style['min-height'] = AnimationStyling.MIN_HEIGHT;
     iframeContainerEl.style['pointer-events'] = 'none';
     iframeContainerEl.style['overflow'] = 'hidden';
     iframeContainerEl.style['border-radius'] = '10px';
