@@ -136,10 +136,10 @@ export default class OverlayButtonJS {
    * Sets the width of the label element, adding ellipsis if the calculated width is
    * larger than the maximum
    *
-   * @param {Element} element
+   * @param {Element} labelEl
    */
-  static _adjustLabelWidth(el) {
-    const width = el.getBoundingClientRect().width + AnimationStyling.BUTTON_SPACING;
+  static _adjustLabelWidth(labelEl) {
+    const width = labelEl.getBoundingClientRect().width + AnimationStyling.BUTTON_SPACING;
     labelEl.style['width'] = `${Math.min(width, AnimationStyling.MAX_LABEL_WIDTH)}px`;
     if (width > AnimationStyling.MAX_LABEL_WIDTH) {
       labelEl.style['overflow'] = 'hidden';

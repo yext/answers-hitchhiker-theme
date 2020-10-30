@@ -28,9 +28,9 @@ export default class MessageDirector {
     switch(message.type) {
       case ActionTypes.CONFIG:
         const pageDecorator = new PageDecorator(this._shape);
-        pageDecorator.decorate(message.details.config);
+        pageDecorator.decorate(message.details);
 
-        if (message.config.isCollapsed) {
+        if (message.details.isCollapsed) {
           this._notifyParentFrame(new IFrameMessage(ActionTypes.IFRAME_READY, {
             totalHeight: pageDecorator.getTotalHeight()
           }));
@@ -73,6 +73,6 @@ export default class MessageDirector {
    * @param {IFrameMessage} message
    */
   _notifyParentFrame(message) {
-    window.parentIFrame.sendMessage(message.toObject());
+    window.parentIFrame && window.parentIFrame.sendMessage(message.toObject());
   }
 }

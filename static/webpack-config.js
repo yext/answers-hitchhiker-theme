@@ -14,7 +14,7 @@ module.exports = function () {
   const htmlPlugins = [];
 
   const htmlAssetPathToOutputFilename = {
-    'static/js/iframe-overlay/button/button.html': 'overlay-button.html'
+    'static/js/overlay/button-frame/button.html': 'overlay-button.html'
   };
   if (fs.existsSync(jamboConfig.dirs.output)) {
     fs.recurseSync(jamboConfig.dirs.output, ['**/*.html'], (filepath, relative) => {
