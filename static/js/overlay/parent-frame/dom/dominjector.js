@@ -54,8 +54,6 @@ export default class DomInjector {
     iframeContainerEl.style['position'] = 'fixed';
     iframeContainerEl.style['bottom'] = AnimationStyling.BASE_SPACING;
     iframeContainerEl.style[this.alignment] = AnimationStyling.BASE_SPACING;
-    iframeContainerEl.style['min-height'] = AnimationStyling.MIN_HEIGHT;
-    iframeContainerEl.style['min-width'] = AnimationStyling.WIDTH_DESKTOP;
     iframeContainerEl.style['max-width'] = AnimationStyling.MAX_WIDTH_DESKTOP;
     iframeContainerEl.style['max-height'] = AnimationStyling.MAX_HEIGHT_DESKTOP;
     iframeContainerEl.style['pointer-events'] = 'none';
@@ -79,7 +77,7 @@ export default class DomInjector {
     }
     iframeContainerEl.style['max-width'] = '100%';
     iframeContainerEl.style['max-height'] = '100%';
-    iframeContainerEl.style['height'] = AnimationStyling.MIN_HEIGHT;
+    iframeContainerEl.style['height'] = `${AnimationStyling.MIN_HEIGHT}px`;
     iframeContainerEl.style['width'] = AnimationStyling.WIDTH_DESKTOP;
     wrapperEl.appendChild(iframeContainerEl);
     return iframeContainerEl;
