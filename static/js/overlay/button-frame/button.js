@@ -1,4 +1,4 @@
-import { ActionTypes } from '../shared/constants';
+import { ActionTypes, AnimationStyling } from '../shared/constants';
 import IFrameMessage from '../shared/iframemessage';
 
 export default class OverlayButtonJS {
@@ -12,14 +12,23 @@ export default class OverlayButtonJS {
     switch (message.type) {
       case ActionTypes.CONFIG:
         const config = {
-          labelText: '', // TODO (agrow) in a later PR, inject labelText
+          labelText: message.details.labelText,
           backgroundColor: message.details.backgroundColor,
           foregroundColor: message.details.foregroundColor
         };
 
+        OverlayButtonJS.insertText(
+          document.querySelector('.js-OverlayButton-displayWhenCollapsed'),
+          config.labelText);
         OverlayButtonJS.applyStyling(
           buttonEl, config.backgroundColor, config.foregroundColor);
         OverlayButtonJS.attachEventListeners(buttonEl);
+
+        const buttonSize = buttonEl.getBoundingClientRect();
+        OverlayButtonJS.notifyParentFrame(new IFrameMessage(ActionTypes.BUTTON_READY, {
+          height: buttonSize.height,
+          width: buttonSize.width
+        }));
         break;
       case ActionTypes.COLLAPSE:
         OverlayButtonJS.collapseButton(buttonEl);
@@ -69,7 +78,7 @@ export default class OverlayButtonJS {
     for (const buttonIconEl of buttonIconEls) {
       buttonIconEl.style.fill = foregroundColor;
     }
-  };
+  }
 
   /**
    * Attaches the Overlay event listeners to the button
@@ -91,6 +100,51 @@ export default class OverlayButtonJS {
 
       OverlayButtonJS.notifyParentFrame(new IFrameMessage(messageType));
     });
+  }
+
+  /**
+   * Inserts label text into the given container element
+   *
+   * @param {Element} el
+   * @param {string} labelText
+   */
+  static insertText(el, labelText) {
+    if (!el || !labelText) {
+      return;
+    }
+    const labelEl = this._injectLabelTextEl(el, labelText);
+    this._adjustLabelWidth(labelEl);
+  }
+
+  /**
+   * Injects label text into the given element
+   *
+   * @param {Element} containerEl
+   * @param {string} labelText
+   * @returns {Element} the label text element
+   */
+  static _injectLabelTextEl(containerEl, labelText) {
+    const labelEl = document.createElement('span');
+    labelEl.classList.add('OverlayButton-text');
+    labelEl.innerText = labelText;
+    containerEl.appendChild(labelEl);
+
+    return labelEl;
+  }
+
+  /**
+   * Sets the width of the label element, adding ellipsis if the calculated width is
+   * larger than the maximum
+   *
+   * @param {Element} element
+   */
+  static _adjustLabelWidth(el) {
+    const width = el.getBoundingClientRect().width + AnimationStyling.BUTTON_SPACING;
+    labelEl.style['width'] = `${Math.min(width, AnimationStyling.MAX_LABEL_WIDTH)}px`;
+    if (width > AnimationStyling.MAX_LABEL_WIDTH) {
+      labelEl.style['overflow'] = 'hidden';
+      labelEl.style['text-overflow'] = 'ellipsis';
+    }
   }
 
   /**

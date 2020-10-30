@@ -14,6 +14,7 @@ exports.ActionTypes = {
   QUERY_SUBMITTED: 'querySubmitted',
   CLEAR_BUTTON_HIT: 'clearButtonHit',
   TOGGLE_OVERLAY: 'toggle',
+  BUTTON_READY: 'buttonReady'
 };
 
 /**
@@ -36,6 +37,9 @@ exports.AnimationStyling = {
   ZINDEX_HIDDEN: '−2147483648',
   ZINDEX_FRONTMOST: '2147483647',
   ZINDEX_ALMOST_FRONTMOST: '2147483646',
-  BUTTON_HEIGHT: 65,
+  DEFAULT_BUTTON_SIZE: 65,
   PROMPTS_SPACING: 58,
+  MAX_BUTTON_WIDTH: 420,
+  MAX_LABEL_WIDTH: 360,
+  BUTTON_SPACING: 8
 };

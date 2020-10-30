@@ -1,8 +1,4 @@
 .OverlayButton {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
   min-width: 64px;
   min-height: 64px;
   max-width: 100%;
@@ -10,19 +6,18 @@
   font-family: var(--yxt-font-family);
   cursor: pointer;
   overflow: hidden;
-  transition: width .4s;
-  padding: var(--yxt-base-spacing);
-  box-shadow: 0 3px 10px 0 rgba(0,0,0,0.4);
+  padding: 20px;
 
   &:focus {
     outline: none;
   }
 
   &-text {
-    margin-left: var(--yxt-base-spacing);
-    margin-right: var(--yxt-base-spacing);
+    padding-left: var(--yxt-base-spacing);
+    padding-right: 4px;
     font-size: var(--yxt-font-size-lg);
     font-weight: var(--yxt-font-weight-bold);
+    white-space: nowrap;
   }
 
   &-icon {

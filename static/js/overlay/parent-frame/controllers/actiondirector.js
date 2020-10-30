@@ -43,6 +43,9 @@ export default class ActionDirector {
         this._sendMessageToIFrame(
           new IFrameMessage(ActionTypes.CONFIG, details), this._buttonFrameEl);
         break;
+      case ActionTypes.BUTTON_READY:
+        this.expando.setButtonSize(details);
+        break;
       case ActionTypes.IFRAME_READY:
         this.expando.start(details);
         break;

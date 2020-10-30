@@ -45,6 +45,16 @@ export default class Stylist {
      * @type {string}
      */
     this._minHeight = AnimationStyling.MIN_HEIGHT;
+
+    /**
+     * @type {string}
+     */
+    this._buttonHeight = AnimationStyling.DEFAULT_BUTTON_SIZE;
+
+    /**
+     * @type {string}
+     */
+    this._buttonWidth = AnimationStyling.DEFAULT_BUTTON_SIZE;
   }
 
   /**
@@ -80,6 +90,10 @@ export default class Stylist {
     this._overlayContainerEl.style['transition'] =
       `box-shadow ${AnimationStyling.TRANSITION_TIMING}`;
     this._overlayContainerEl.style['box-shadow'] = AnimationStyling.BOX_SHADOW_NORMAL;
+
+    this._buttonFrameEl.style['transition'] = `width ${AnimationStyling.TRANSITION_TIMING}`;
+    this._buttonFrameEl.style['height'] = `${AnimationStyling.DEFAULT_BUTTON_SIZE}px`;
+    this._buttonFrameEl.style['width'] = `${AnimationStyling.DEFAULT_BUTTON_SIZE}px`;
   }
 
   /**
@@ -98,6 +112,10 @@ export default class Stylist {
     this._iframeWrapperEl.style['pointer-events'] = 'none';
 
     this._overlayContainerEl.style['box-shadow'] = AnimationStyling.BOX_SHADOW_NONE;
+
+    this._buttonFrameEl.style['transition'] = `width ${AnimationStyling.TRANSITION_TIMING}`;
+    this._buttonFrameEl.style['height'] = `${this._buttonHeight}px`;
+    this._buttonFrameEl.style['width'] = `${this._buttonWidth}px`;
   }
 
   /**
@@ -135,16 +153,29 @@ export default class Stylist {
   }
 
   /**
+   * Sets the size of the button
+   *
+   * @param {Object}
+   */
+  setButtonSize({ height, width }) {
+    this._buttonHeight = height;
+    this._buttonWidth = Math.min(AnimationStyling.MAX_BUTTON_WIDTH, width);
+
+    this._buttonFrameEl.style['width'] = this._buttonWidth;
+    this._buttonFrameEl.style['height'] = this._buttonHeight;
+  }
+
+  /**
    * Adds a button hover state
    */
   _addButtonHoverState() {
     this._buttonFrameEl.addEventListener('mouseover', function () {
-      this.style['transition'] = '0.18s ease all';
+      this.style['transition'] = '0.18s box-shadow';
       this.style['box-shadow'] = AnimationStyling.BOX_SHADOW_ACTIVE;
     });
 
     this._buttonFrameEl.addEventListener('mouseout', function () {
-      this.style['transition'] = '0.18s ease all';
+      this.style['transition'] = '0.18s box-shadow';
       this.style['box-shadow'] = AnimationStyling.BOX_SHADOW_NORMAL;
     });
   }
