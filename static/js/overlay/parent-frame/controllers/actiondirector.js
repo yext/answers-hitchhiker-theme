@@ -1,6 +1,6 @@
 import Expando from '../dom/expando';
 import { ActionTypes } from '../../shared/constants';
-import IFrameMessage from '../models/iframemessage';
+import IFrameMessage from '../../shared/iframemessage';
 
 /**
  * ActionDirector is responsible encapsulating how the frames: parent, experience

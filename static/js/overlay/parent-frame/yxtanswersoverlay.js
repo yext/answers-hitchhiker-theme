@@ -1,4 +1,4 @@
-import { ExternalActionTypes } from '../constants';
+import { ExternalActionTypes } from './constants';
 import Overlay from './controllers/overlay';
 import OverlayConfig from './models/overlayconfig';
 import ConfigValidator from './validation/configvalidator';
