@@ -29,7 +29,8 @@ export default class Overlay {
       this.config.domain,
       this.config.experiencePath,
       this.config.offset,
-      this.config.alignment
+      this.config.alignment,
+      this.config.button.backgroundColor
     ).inject();
 
     const mediator = new ActionDirector({

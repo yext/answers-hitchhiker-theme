@@ -6,7 +6,7 @@ import { AnimationStyling } from '../../shared/constants';
  * document.
  */
 export default class DomInjector {
-  constructor(domain, experiencePath, offset, alignment) {
+  constructor(domain, experiencePath, offset, alignment, buttonBackgroundColor) {
     /**
      * @type {string}
      */
@@ -31,6 +31,11 @@ export default class DomInjector {
      * @type {string}
      */
     this.alignment = alignment;
+
+    /**
+     * @type {string}
+     */
+    this.buttonBackgroundColor = buttonBackgroundColor;
   }
 
   /**
@@ -51,6 +56,7 @@ export default class DomInjector {
     iframeContainerEl.style[this.alignment] = AnimationStyling.BASE_SPACING;
     iframeContainerEl.style['max-width'] = AnimationStyling.MAX_WIDTH_DESKTOP;
     iframeContainerEl.style['max-height'] = AnimationStyling.MAX_HEIGHT_DESKTOP;
+    iframeContainerEl.style['min-height'] = AnimationStyling.MIN_HEIGHT;
     iframeContainerEl.style['pointer-events'] = 'none';
     iframeContainerEl.style['overflow'] = 'hidden';
     iframeContainerEl.style['border-radius'] = '10px';
@@ -125,6 +131,7 @@ export default class DomInjector {
     iframeEl.style['height'] = '100%';
     iframeEl.style['border'] = 'none';
     iframeEl.style['margin'] = '0px';
+    iframeEl.style['background-color'] = this.buttonBackgroundColor;
     iframeEl.style['padding'] = '0px';
     iframeEl.style['border-radius'] = '200px';
     iframeEl.style['box-shadow'] = AnimationStyling.BOX_SHADOW_NORMAL;
