@@ -35,6 +35,7 @@
       templateBundle: TemplateBundle.default,
       ...injectedConfig,
       ...userConfig,
+      querySource: window.isOverlay ? 'OVERLAY' : 'STANDARD',
       onStateChange: (objParams, stringParams, replaceHistory) => {
         if ('parentIFrame' in window) {
           parentIFrame.sendMessage(JSON.stringify({
