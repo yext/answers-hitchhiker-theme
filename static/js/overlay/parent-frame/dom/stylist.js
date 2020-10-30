@@ -155,8 +155,7 @@ export default class Stylist {
   /**
    * Sets the size of the button
    *
-   * @param {number} height
-   * @param {number} width
+   * @param {Object}
    */
   setButtonSize({ height, width }) {
     this._buttonHeight = height;
