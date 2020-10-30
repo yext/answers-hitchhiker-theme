@@ -44,7 +44,7 @@ export default class PageDecorator {
    * @returns {number}
    */
   getTotalHeight() {
-    const SPACING = 8;
+    const buttonHeight = AnimationStyling.DEFAULT_BUTTON_SIZE + AnimationStyling.BUTTON_SPACING;
     const answersContentEl = document.querySelector('.Answers');
     const answersElSize = answersContentEl
       ? answersContentEl.getBoundingClientRect().height
@@ -58,6 +58,6 @@ export default class PageDecorator {
     const headerEl = document.querySelector('.OverlayHeader');
     const headerHeight = headerEl ? headerEl.getBoundingClientRect().height : 0;
 
-    return answersHeight + headerHeight + AnimationStyling.BUTTON_HEIGHT + SPACING;
+    return answersHeight + headerHeight + buttonHeight;
   }
 }

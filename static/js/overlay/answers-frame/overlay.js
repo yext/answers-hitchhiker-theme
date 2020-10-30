@@ -19,7 +19,7 @@ export default class Overlay {
     if (!message.type) {
       return;
     }
-    this._mediator.handleMessage(message);
+    new MessageDirector().handleMessage(message);
   }
 
   /**
