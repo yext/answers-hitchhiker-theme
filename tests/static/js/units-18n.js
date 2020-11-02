@@ -11,8 +11,8 @@ describe('getDistanceUnit', () => {
     expect(unit).toEqual('mi');
   });
 
-  it('An unkown language defaults to imperial units', () => {
+  it('An unkown language defaults to metric units', () => {
     const unit = getDistanceUnit('ye');
-    expect(unit).toEqual('mi');
+    expect(unit).toEqual('km');
   });
 });

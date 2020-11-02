@@ -24,16 +24,19 @@ const LOCALE_UNIT_MAP = {
     default: IMPERIAL
   },
   es: {
-    default: METRIC,
+    default: METRIC
   },
   fr: {
-    default: METRIC,
+    default: METRIC
   },
   de: {
-    default: METRIC,
+    default: METRIC
   },
   it: {
-    default: METRIC,
+    default: METRIC
+  },
+  ja: {
+    default: METRIC
   }
 };
 
@@ -58,12 +61,19 @@ function getUnitsForLocale(locale) {
   // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl
   // Optionally, we can use Intl.locale() but we would need to polyfill it for IE11
   const region = locale.substring(3,5); 
+  const unitSystemFallback = METRIC;
   
-  if (!(language in LOCALE_UNIT_MAP)) {
-    return Object.assign({}, IMPERIAL);
+  const isKnownLanguage = (language in LOCALE_UNIT_MAP);
+  if (!isKnownLanguage) {
+    return Object.assign({}, unitSystemFallback);
   }
 
-  if (!(region in LOCALE_UNIT_MAP[language])) {
+  const isKnownRegion = (region in LOCALE_UNIT_MAP[language]);
+  const isLanguageDefaultSpecified = ('default' in LOCALE_UNIT_MAP[language]);
+  if (!isKnownRegion) {
+    if (!isLanguageDefaultSpecified) {
+      return Object.assign({}, unitSystemFallback);
+    }
     return Object.assign({}, LOCALE_UNIT_MAP[language]['default']);
   }
 

@@ -44,5 +44,11 @@ describe('Formatters', () => {
       const distance = Formatters.toLocalizedDistance(profile);
       expect(distance).toEqual('10.000,0 km');
     });
+
+    it('Corectly formats distance for Japan display', () => {
+      document.documentElement.lang = 'ja';
+      const distance = Formatters.toLocalizedDistance(profile);
+      expect(distance).toEqual('10,000.0 km');
+    });
   })
 });
