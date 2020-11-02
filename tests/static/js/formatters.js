@@ -21,28 +21,34 @@ describe('Formatters', () => {
       expect(distance).toEqual('6,213.7 mi');
     });
 
-    it('Corectly formats distance for French display', () => {
+    it('Correctly formats distance for French display', () => {
       document.documentElement.lang = 'fr';
       const distance = Formatters.toLocalizedDistance(profile);
       expect(distance).toEqual('10 000,0 km');
     });
 
-    it('Corectly formats distance for Spanish display', () => {
+    it('Correctly formats distance for Spanish display', () => {
       document.documentElement.lang = 'es';
       const distance = Formatters.toLocalizedDistance(profile);
       expect(distance).toEqual('10.000,0 km');
     });
 
-    it('Corectly formats distance for Italian display', () => {
+    it('Correctly formats distance for Italian display', () => {
       document.documentElement.lang = 'it';
       const distance = Formatters.toLocalizedDistance(profile);
       expect(distance).toEqual('10.000,0 km');
     });
 
-    it('Corectly formats distance for German display', () => {
+    it('Correctly formats distance for German display', () => {
       document.documentElement.lang = 'de';
       const distance = Formatters.toLocalizedDistance(profile);
       expect(distance).toEqual('10.000,0 km');
+    });
+
+    it('Correctly formats distance for Japan display', () => {
+      document.documentElement.lang = 'ja';
+      const distance = Formatters.toLocalizedDistance(profile);
+      expect(distance).toEqual('10,000.0 km');
     });
   })
 });
