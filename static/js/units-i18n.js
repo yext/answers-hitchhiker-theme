@@ -17,13 +17,14 @@ const METRIC = {
  * to 'default'
  * @type {Object}
  */
-const LOCALE_UNIT_MAP = {
+export const LOCALE_UNIT_MAP = {
   en: {
     GB: METRIC,
     AU: METRIC,
     default: IMPERIAL
   },
   es: {
+    US: IMPERIAL,
     default: METRIC
   },
   fr: {
@@ -69,11 +70,7 @@ function getUnitsForLocale(locale) {
   }
 
   const isKnownRegion = (region in LOCALE_UNIT_MAP[language]);
-  const isLanguageDefaultSpecified = ('default' in LOCALE_UNIT_MAP[language]);
   if (!isKnownRegion) {
-    if (!isLanguageDefaultSpecified) {
-      return Object.assign({}, unitSystemFallback);
-    }
     return Object.assign({}, LOCALE_UNIT_MAP[language]['default']);
   }
 
