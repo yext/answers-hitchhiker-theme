@@ -23,7 +23,7 @@ class location_standardCardComponent extends BaseCard['location-standard'] {
       address: Formatter.address(profile), // The address for the card
       phone: Formatter.nationalizedPhoneDisplay(profile), // The phone number for the card
       phoneEventOptions: this.addDefaultEventOptions(), // The analytics event options for phone clicks
-      distance: Formatter.toMiles(profile), // Distance from the user’s or inputted location
+      distance: Formatter.toLocalizedDistance(profile), // Distance from the user’s or inputted location
       // details: profile.description, // The description for the card, displays below the address and phone
       // altText: '', // The alt-text of the displayed image
       // image: '', // The URL of the image to display on the card
