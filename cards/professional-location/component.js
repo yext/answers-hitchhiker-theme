@@ -36,7 +36,7 @@ class professional_locationCardComponent extends BaseCard['professional-location
         showLessText: 'Show less' // Label when toggle will hide truncated text
       },
       // Distance from the user’s or inputted location
-      distance: Formatter.toMiles(profile),
+      distance: Formatter.toLocalizedDistance(profile),
       // The primary CTA of the card
       CTA1: {
         label: profile.c_primaryCTA ? profile.c_primaryCTA.label : null, // The CTA's label
