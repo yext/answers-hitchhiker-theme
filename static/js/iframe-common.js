@@ -85,6 +85,8 @@ export function generateIFrame(domain, queryParam, urlParam) {
     onMessage: function(messageData) {
       const message = JSON.parse(messageData.message);
       const params = message.params;
+      const pageTitle = message.pageTitle;
+      pageTitle && (iframe.title = pageTitle);
       iframe.iFrameResizer.resize();
       var currLocation = window.location.href.split('?')[0];
       var newLocation = currLocation + '?' + params;

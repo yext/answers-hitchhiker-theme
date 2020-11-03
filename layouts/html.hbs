@@ -103,7 +103,8 @@
         onReady: function() {
           window.parentIFrame.sendMessage(JSON.stringify({
             params: iframeGetSearchParams(),
-            replaceHistory: true
+            replaceHistory: true,
+            pageTitle: document.title
           }));
         },
       };
