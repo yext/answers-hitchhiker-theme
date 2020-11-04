@@ -6,7 +6,7 @@ import { AnimationStyling } from '../../shared/constants';
  * document.
  */
 export default class DomInjector {
-  constructor(domain, experiencePath, offset, alignment) {
+  constructor(domain, experiencePath, offset, alignment, buttonBackgroundColor) {
     /**
      * @type {string}
      */
@@ -31,6 +31,11 @@ export default class DomInjector {
      * @type {string}
      */
     this.alignment = alignment;
+
+    /**
+     * @type {string}
+     */
+    this.buttonBackgroundColor = buttonBackgroundColor;
   }
 
   /**
@@ -72,7 +77,7 @@ export default class DomInjector {
     }
     iframeContainerEl.style['max-width'] = '100%';
     iframeContainerEl.style['max-height'] = '100%';
-    iframeContainerEl.style['height'] = AnimationStyling.MIN_HEIGHT;
+    iframeContainerEl.style['height'] = `${AnimationStyling.MIN_HEIGHT}px`;
     iframeContainerEl.style['width'] = AnimationStyling.WIDTH_DESKTOP;
     wrapperEl.appendChild(iframeContainerEl);
     return iframeContainerEl;
@@ -125,6 +130,7 @@ export default class DomInjector {
     iframeEl.style['height'] = '100%';
     iframeEl.style['border'] = 'none';
     iframeEl.style['margin'] = '0px';
+    iframeEl.style['background-color'] = this.buttonBackgroundColor;
     iframeEl.style['padding'] = '0px';
     iframeEl.style['border-radius'] = '200px';
     iframeEl.style['box-shadow'] = AnimationStyling.BOX_SHADOW_NORMAL;
