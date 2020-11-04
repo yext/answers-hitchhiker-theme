@@ -83,9 +83,9 @@ export default class Stylist {
     this._iframeWrapperEl.style['opacity'] = '1';
     this._iframeWrapperEl.style['transition'] = `opacity ${AnimationStyling.TRANSITION_TIMING}`;
     this._iframeWrapperEl.style['width'] = this._currentWidth;
-    this._iframeWrapperEl.style['height'] = isTaller
+    this._iframeWrapperEl.style['height'] = `${isTaller
       ? AnimationStyling.CONTAINER_HEIGHT_TALLER
-      : this._minHeight;
+      : this._minHeight}px`;
 
     this._overlayContainerEl.style['transition'] =
       `box-shadow ${AnimationStyling.TRANSITION_TIMING}`;
@@ -131,7 +131,7 @@ export default class Stylist {
    */
   applyShorterStyling() {
     this._iframeWrapperEl.style['transition'] = `${AnimationStyling.TRANSITION_TIMING} ease all`;
-    this._iframeWrapperEl.style['height'] = this._minHeight;
+    this._iframeWrapperEl.style['height'] = `${this._minHeight}px`;
   }
 
   /**
