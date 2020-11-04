@@ -137,6 +137,10 @@ $location-standard-ordinal-dimensions: calc(var(--hh-location-standard-base-spac
     }
   }
 
+  &-infoWrapper {
+    width: 100%;
+  }
+
   &-address
   {
     .c-AddressRow:last-child {
