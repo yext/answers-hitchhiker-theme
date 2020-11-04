@@ -8,16 +8,21 @@ verticalPages: [
     {{#ifeq ../verticalKey verticalKey}}isActive: true,{{/ifeq}}
     {{#if verticalKey}}
       {{#with (lookup verticalsToConfig verticalKey)}}
+        {{log ../verticalKey}}
+        {{log @key}}
         {{#if isFirst}}isFirst: {{isFirst}},{{/if}}
         {{#if icon}}icon: "{{{icon}}}",{{/if}}
-        label: "{{> verticalLabel label=label verticalKey=../verticalKey fallback=@key}}",
+        label: "{{> verticalLabel overridedLabel=label verticalKey=../verticalKey fallback=@key}}",
         url: "{{#if url}}{{{url}}}{{else if ../url}}{{../../relativePath}}/{{{../url}}}{{else}}{{{@key}}}.html{{/if}}",
       {{/with}}
     {{else}}
       {{#with (lookup verticalsToConfig "Universal")}}
+        {{log ../verticalKey}}
+        {{log @key}}
+        {{log ../../verticalConfigs}}
         {{#if isFirst}}isFirst: {{isFirst}},{{/if}}
         {{#if icon}}icon: "{{{icon}}}",{{/if}}
-        label: "{{> verticalLabel label=label verticalKey='' fallback=@key}}",
+        label: "{{> verticalLabel overridedLabel=label verticalKey='' fallback=@key}}",
         url: "{{#if url}}{{{url}}}{{else if ../url}}{{../../relativePath}}/{{{../url}}}{{else}}{{{@key}}}.html{{/if}}",
       {{/with}}
     {{/if}}
@@ -29,13 +34,13 @@ verticalPages: [
 {{!--
   Prints the vertical label according to specific logic
   Assumes @root has environment variables and global_config
-  @param label The hardcoded label from configuration
+  @param overridedLabel The hardcoded label from configuration in repo, meant to supercede defaults
   @param verticalKey The current vertical key, if it exists
   @param fallback The fallback for the label if all else doesn't exist
 --}}
 {{#*inline 'verticalLabel'}}
-  {{~#if label ~}}
-    {{{label}}}
+  {{~#if overridedLabel ~}}
+    {{{overridedLabel}}}
   {{~ else if
     (lookup
       (lookup 

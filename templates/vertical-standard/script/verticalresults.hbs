@@ -15,7 +15,7 @@ ANSWERS.addComponent("VerticalResults", Object.assign({}, {
         {{#if isFirst}}isFirst: {{isFirst}},{{/if}}
         {{#if icon}}icon: "{{{icon}}}",{{/if}}
         {{#if iconUrl}}iconUrl: "{{#unless (matches iconUrl '//' )}}{{relativePath}}/{{/unless}}{{{iconUrl}}}",{{/if}}
-        label: "{{> verticalLabel label=label verticalKey=../verticalKey fallback=@key}}",
+        label: "{{> verticalLabel overridedLabel=label verticalKey=../verticalKey fallback=@key}}",
         url: "{{#if url}}{{{url}}}{{else if ../url}}{{../../relativePath}}/{{{../url}}}{{else}}{{{@key}}}.html{{/if}}",
         {{/with}}
       }{{#unless @last}},{{/unless}}
@@ -24,7 +24,7 @@ ANSWERS.addComponent("VerticalResults", Object.assign({}, {
       {{#with (lookup verticalsToConfig "Universal")}}
         {{#if isFirst}}isFirst: {{isFirst}},{{/if}}
         {{#if icon}}icon: "{{{icon}}}",{{/if}}
-        label: "{{> verticalLabel label=label verticalKey='' fallback=@key}}",
+        label: "{{> verticalLabel overridedLabel=label verticalKey='' fallback=@key}}",
         url: "{{#if url}}{{{url}}}{{else if ../url}}{{../../relativePath}}/{{{../url}}}{{else}}{{{@key}}}.html{{/if}}",
       {{/with}}
       }{{#unless @last}},{{/unless}}
@@ -41,14 +41,14 @@ ANSWERS.addComponent("VerticalResults", Object.assign({}, {
 {{!--
   Prints the vertical label according to specific logic
   Assumes @root has environment variables and global_config
-  @param label The hardcoded label from configuration
+  @param overridedLabel The hardcoded label from configuration in repo, meant to supercede defaults
   @param verticalKey The current vertical key, if it exists
   @param fallback The fallback for the label if all else doesn't exist
 --}}
 {{#*inline 'verticalLabel'}}
-  {{~#if label ~}}
+  {{~#if overridedLabel ~}}
     {{~ log 'first' ~}}
-    {{{label}}}
+    {{{overridedLabel}}}
   {{~ else if
     (lookup
       (lookup 
