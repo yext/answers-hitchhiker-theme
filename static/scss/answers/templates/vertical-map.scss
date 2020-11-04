@@ -72,6 +72,14 @@
     }
   }
 
+  &-filtersWrapper
+  {
+    .yxt-FilterOptions-optionLabel::before
+    {
+      background-color: white;
+    }
+  }
+
   &-sortOptions
   {
     padding: 0 var(--yxt-base-spacing);
