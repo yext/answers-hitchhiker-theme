@@ -18,7 +18,6 @@ verticalPages: [
         {{#if isFirst}}isFirst: {{isFirst}},{{/if}}
         {{#if icon}}icon: "{{{icon}}}",{{/if}}
         label: {{#if label}}"{{{label}}}"{{else}}"{{{@key}}}"{{/if}},
-        label: "{{> verticalLabel overridedLabel=label verticalKey='' fallback=@key}}",
         url: "{{#if url}}{{{url}}}{{else if ../url}}{{../../relativePath}}/{{{../url}}}{{else}}{{{@key}}}.html{{/if}}",
       {{/with}}
     {{/if}}
