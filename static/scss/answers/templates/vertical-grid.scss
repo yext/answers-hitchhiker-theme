@@ -123,6 +123,10 @@
         margin: 0 12px;
       }
 
+      .yxt-FilterOptions-optionLabel::before {
+        background-color: white;
+      }
+
       .yxt-Facets-container {
         padding: 0;
         width: 100%;
