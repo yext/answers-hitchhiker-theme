@@ -47,7 +47,6 @@ ANSWERS.addComponent("VerticalResults", Object.assign({}, {
 --}}
 {{#*inline 'verticalLabel'}}
   {{~#if overridedLabel ~}}
-    {{~ log 'first' ~}}
     {{{overridedLabel}}}
   {{~ else if
     (lookup
@@ -60,7 +59,6 @@ ANSWERS.addComponent("VerticalResults", Object.assign({}, {
         verticalKey)
       'displayName')
   ~}}
-    {{~ log 'second' ~}}
     {{{lookup
       (lookup 
         (lookup 
@@ -71,10 +69,8 @@ ANSWERS.addComponent("VerticalResults", Object.assign({}, {
         verticalKey)
       'displayName'}}}
   {{~ else if verticalKey ~}}
-    {{~ log 'third' ~}}
     {{{verticalKey}}}
   {{~ else ~}}
-    {{~ log 'fourth' ~}}
     {{{fallback}}}
   {{~/if ~}}
 {{/inline}}

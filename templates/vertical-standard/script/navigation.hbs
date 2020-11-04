@@ -8,8 +8,6 @@ verticalPages: [
     {{#ifeq ../verticalKey verticalKey}}isActive: true,{{/ifeq}}
     {{#if verticalKey}}
       {{#with (lookup verticalsToConfig verticalKey)}}
-        {{log ../verticalKey}}
-        {{log @key}}
         {{#if isFirst}}isFirst: {{isFirst}},{{/if}}
         {{#if icon}}icon: "{{{icon}}}",{{/if}}
         label: "{{> verticalLabel overridedLabel=label verticalKey=../verticalKey fallback=@key}}",
@@ -17,9 +15,6 @@ verticalPages: [
       {{/with}}
     {{else}}
       {{#with (lookup verticalsToConfig "Universal")}}
-        {{log ../verticalKey}}
-        {{log @key}}
-        {{log ../../verticalConfigs}}
         {{#if isFirst}}isFirst: {{isFirst}},{{/if}}
         {{#if icon}}icon: "{{{icon}}}",{{/if}}
         label: "{{> verticalLabel overridedLabel=label verticalKey='' fallback=@key}}",
