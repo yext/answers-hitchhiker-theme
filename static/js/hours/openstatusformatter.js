@@ -1,17 +1,18 @@
 import provideOpenStatusTranslation from '../open-status-18n';
 import clonedeep from 'lodash.clonedeep';
 
-export default class HoursFormatter {
+export default class OpenStatusFormatter {
   /**
    * Returns a string, a formatted representation of the open hours status
-   * for the given profile.
+   * for the given hours field.
+   *
    * @param {Object} hoursField The profile field that contains the hours data
    * @param {String} timeZoneUtcOffset e.g. in EDT, GMT-0400, this value would be "-04:00"
    * @param {boolean} isTwentyFourHourClock Use 24 hour clock if true, 12 hour clock
    *                  if false. Default based on locale if undefined.
    * @param {String} locale The locale for the time string
    */
-  getOpenStatus({ hoursField, timeZoneUtcOffset, isTwentyFourHourClock, locale }) {
+  format({ hoursField, timeZoneUtcOffset, isTwentyFourHourClock, locale }) {
     const days = this._formatHoursForAnswers(hoursField, timeZoneUtcOffset);
     if (days.length === 0) {
       return '';

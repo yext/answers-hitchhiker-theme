@@ -1,10 +1,9 @@
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import { components__address__i18n__addressForCountry } from './address-i18n.js'
 import CtaFormatter from '@yext/cta-formatter';
-import provideOpenStatusTranslation from './open-status-18n';
 import { getDistanceUnit } from './units-i18n';
+import OpenStatusFormatter from './hours/openstatusformatter.js';
 
-import clonedeep from 'lodash.clonedeep';
 
 export function address(profile) {
   if (!profile.address) {
@@ -455,7 +454,7 @@ export function openStatus(profile, key = 'hours', isTwentyFourHourClock, locale
     return '';
   }
 
-  return new HoursFormatter().getOpenStatus({
+  return new OpenStatusFormatter().format({
     hoursField: profile[key],
     timeZoneUtcOffset: profile.timeZoneUtcOffset,
     isTwentyFourHourClock: isTwentyFourHourClock,
