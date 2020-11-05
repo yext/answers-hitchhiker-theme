@@ -171,6 +171,6 @@ class DirectAnswerCardCreator {
 }
 
 module.exports = {
-  obj: DirectAnswerCardCreator,
-  constructor: jamboConfig => new DirectAnswerCardCreator(jamboConfig)
+  clazz: DirectAnswerCardCreator,
+  factory: jamboConfig => new DirectAnswerCardCreator(jamboConfig)
 };

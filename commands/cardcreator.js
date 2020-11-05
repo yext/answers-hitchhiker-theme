@@ -166,6 +166,6 @@ class CardCreator {
   }
 }
 module.exports = { 
-  obj: CardCreator, 
-  constructor: jamboConfig => new CardCreator(jamboConfig)
+  clazz: CardCreator, 
+  factory: jamboConfig => new CardCreator(jamboConfig)
 };
