@@ -63,6 +63,8 @@ class multilang_faq_accordionCardComponent extends BaseCard['multilang-faq-accor
     const contentEl = this._container.querySelector(accordionContentSelector);
     let isExpanded = this._container.querySelector(`.${accordionExpandedClass}`);
     contentEl.style.height = `${isExpanded ? contentEl.scrollHeight : 0}px`;
+    const linkEls = contentEl.querySelectorAll('a');
+    this._setLinksInteractivity(linkEls, isExpanded);
 
     const cardEl = this._container.querySelector(accordionCardSelector);
 
@@ -72,6 +74,7 @@ class multilang_faq_accordionCardComponent extends BaseCard['multilang-faq-accor
       this.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
       contentEl.style.height = `${isExpanded ? contentEl.scrollHeight : 0}px`;
       contentEl.setAttribute('aria-hidden', isExpanded ? 'false' : 'true');
+      self._setLinksInteractivity(linkEls, isExpanded);
 
       if (self.analyticsReporter) {
         const event = new ANSWERS.AnalyticsEvent(isExpanded ? 'ROW_EXPAND' : 'ROW_COLLAPSE')
@@ -85,6 +88,20 @@ class multilang_faq_accordionCardComponent extends BaseCard['multilang-faq-accor
     });
 
     super.onMount();
+  }
+
+  /**
+   * Sets the interactivity of the link elements in a WCAG-compliant way based on
+   * whether the link is visible
+   *
+   * @param {Array<Element>} linkEls
+   * @param {boolean} isVisible
+   */
+  _setLinksInteractivity(linkEls, isVisible) {
+    for (const linkEl of linkEls) {
+      linkEl.setAttribute('aria-hidden', isVisible ? 'false' : 'true');
+      linkEl.setAttribute('tabindex', isVisible ? '0' : '-1');
+    }
   }
 
   /**
