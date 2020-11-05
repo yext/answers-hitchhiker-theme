@@ -165,7 +165,4 @@ class CardCreator {
     addToPartials(this._customCardsDir);
   }
 }
-module.exports = { 
-  clazz: CardCreator, 
-  factory: jamboConfig => new CardCreator(jamboConfig)
-};
+module.exports = CardCreator;
