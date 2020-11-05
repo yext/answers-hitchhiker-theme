@@ -1,5 +1,5 @@
 import clonedeep from 'lodash.clonedeep';
-import { OpenStatusTypes } from './constants';
+import { OpenStatusTypes } from './constants.js';
 
 /**
  * Responsible for transforming the hours data into the format required to determine the open

@@ -1,5 +1,5 @@
-import OpenStatusMessageFactory from './messagefactory';
-import OpenStatusTransformer from './transformer';
+import OpenStatusMessageFactory from './messagefactory.js';
+import OpenStatusTransformer from './transformer.js';
 
 export default class OpenStatusFormatter {
   /**

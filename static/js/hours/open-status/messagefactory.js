@@ -1,5 +1,5 @@
-import provideOpenStatusTranslation from '../../open-status-18n';
-import { OpenStatusTypes } from './constants';
+import provideOpenStatusTranslation from '../../open-status-18n.js';
+import { OpenStatusTypes } from './constants.js';
 
 /**
  * Responsible for forming a localized open status message based on the hours data
