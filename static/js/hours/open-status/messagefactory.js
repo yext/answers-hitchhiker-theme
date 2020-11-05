@@ -1,4 +1,5 @@
 import provideOpenStatusTranslation from '../../open-status-18n';
+import { OpenStatusTypes } from './constants';
 
 /**
  * Responsible for forming a localized open status message based on the hours data
@@ -18,9 +19,9 @@ export default class OpenStatusMessageFactory {
     const translationData = provideOpenStatusTranslation(locale);
     const translate = text => this._translate(text, translationData);
     switch (hoursToday.status) {
-      case 'OPEN24':
+      case OpenStatusTypes.OPEN_24_HOURS:
         return `<span class="Hours-statusText">${translate('Open 24 Hours')}</span>`;
-      case 'OPENSTODAY':
+      case OpenStatusTypes.OPENS_TODAY:
         time = this._getTimeString(hoursToday.nextTime, isTwentyFourHourClock, locale);
         return `
               <span class="Hours-statusText">
@@ -30,7 +31,7 @@ export default class OpenStatusMessageFactory {
                   ${time}
                 </span>
               </span>`;
-      case 'OPENSNEXT':
+      case OpenStatusTypes.OPENS_NEXT:
         time = this._getTimeString(hoursToday.nextTime, isTwentyFourHourClock, locale);
         day = translate(hoursToday.nextDay);
         return `
@@ -45,7 +46,7 @@ export default class OpenStatusMessageFactory {
               <span class="HoursInterval-day">
                 ${day}
               </span>`;
-      case 'CLOSESTODAY':
+      case OpenStatusTypes.CLOSES_TODAY:
         time = this._getTimeString(hoursToday.nextTime, isTwentyFourHourClock, locale);
         return `
               <span class="Hours-statusText">
@@ -56,7 +57,7 @@ export default class OpenStatusMessageFactory {
               <span class="HoursInterval-time">
                 ${time}
               </span>`;
-      case 'CLOSESNEXT':
+      case OpenStatusTypes.CLOSES_NEXT:
         time = this._getTimeString(hoursToday.nextTime, isTwentyFourHourClock, locale);
         day = translate(hoursToday.nextDay);
         return `
@@ -71,7 +72,7 @@ export default class OpenStatusMessageFactory {
               <span class="HoursInterval-day">
                 ${day}
               </span>`;
-      case 'CLOSED':
+      case OpenStatusTypes.CLOSED:
         return `
               <span class="Hours-statusText">
                 ${translate('Closed')}

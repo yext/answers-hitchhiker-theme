@@ -1,4 +1,5 @@
 import clonedeep from 'lodash.clonedeep';
+import { OpenStatusTypes } from './constants';
 
 /**
  * Responsible for transforming the hours data into the format required to determine the open
@@ -76,7 +77,7 @@ export default class OpenStatusTransformer {
     for (let i = 0; i < 7; i++) {
       let index = (tomorrow + i) % 7;
       for (let interval of yextDays[index].intervals) {
-        return { status: "OPENSNEXT", nextTime: interval.start, nextDay: this._intToDay(index) };
+        return { status: OpenStatusTypes.OPENS_NEXT, nextTime: interval.start, nextDay: this._intToDay(index) };
       }
     }
   }
@@ -99,24 +100,24 @@ export default class OpenStatusTransformer {
     if (yesterdayIsOpen.isOpen) {
       //check if any hours from yesterday are valid
       //dayWithHours is used to render the proper day on the hours table
-      return { status: "CLOSESTODAY", nextTime: yesterdayIsOpen.interval.end, dayWithHours: yextDays[yesterday] };
+      return { status: OpenStatusTypes.CLOSES_TODAY, nextTime: yesterdayIsOpen.interval.end, dayWithHours: yextDays[yesterday] };
     } else if (todayIsOpen.isOpen) {
       //check if open now
       if (this._is24Hours(yextDays[today].intervals).is24) {
-        return { status: "OPEN24", dayWithHours: yextDays[today] };
+        return { status: OpenStatusTypes.OPEN_24_HOURS, dayWithHours: yextDays[today] };
       }
       //if not 24 hours, closes later today at the current intervals end time
-      return { status: "CLOSESTODAY", nextTime: todayIsOpen.interval.end, dayWithHours: yextDays[today] };
+      return { status: OpenStatusTypes.CLOSES_TODAY, nextTime: todayIsOpen.interval.end, dayWithHours: yextDays[today] };
     } else if (hasOpenIntervalToday.hasOpen) {
       //check if closed and has an interval later today
-      return { status: "OPENSTODAY", nextTime: hasOpenIntervalToday.interval.start, dayWithHours: yextDays[today] };
+      return { status: OpenStatusTypes.OPENS_TODAY, nextTime: hasOpenIntervalToday.interval.start, dayWithHours: yextDays[today] };
     } else {
       //check if closed, get next available interval. if no intervals available return closed status without nextTime or nextDay
       let nextInfo = this._getNextInterval(yextDays, today + 1);
       if (nextInfo) {
         nextInfo.dayWithHours = yextDays[today];
       }
-      return nextInfo || { status: "CLOSED", dayWithHours: yextDays[today] };
+      return nextInfo || { status: OpenStatusTypes.CLOSED, dayWithHours: yextDays[today] };
     }
   }
 
