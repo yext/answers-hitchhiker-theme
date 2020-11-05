@@ -10,12 +10,12 @@ export default class OpenStatusTransformer {
     /**
      * @type {string}
      */
-    this.timeZoneUtcOffset = timeZoneUtcOffset;
+    this._timeZoneUtcOffset = timeZoneUtcOffset;
   }
 
   /**
    * Uses the UTC offset, current time, and hours data to determine if the user is within an
-   * open interval, when the current interval (open or closed) ends. Returns an hours object
+   * open interval, and when the current interval (open or closed) ends. Returns an hours object
    * indicating open status
    *
    * @param {Object} hoursField
@@ -205,7 +205,7 @@ export default class OpenStatusTransformer {
    * @returns {Object[]}
    */
   _formatHoursForAnswers(days) {
-    const timezone = this.timeZoneUtcOffset;
+    const timezone = this._timeZoneUtcOffset;
     const formattedDays = clonedeep(days);
     const daysOfWeek = [
       'SUNDAY',
@@ -343,7 +343,7 @@ export default class OpenStatusTransformer {
     const localUtcOffset = now.getTimezoneOffset() * 60 * 1000;
 
     // Get the entity's offset in millis
-    const entityUtcOffsetInHours = this._convertTimezoneToNumber(this.timeZoneUtcOffset);
+    const entityUtcOffsetInHours = this._convertTimezoneToNumber(this._timeZoneUtcOffset);
     const entityUtcOffsetMillis = entityUtcOffsetInHours * 60 * 60 * 1000;
 
     // If a valid offset was found, set the today value to a new date that accounts for the entity & local UTC offsets
