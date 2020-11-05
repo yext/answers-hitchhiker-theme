@@ -1,24 +1,32 @@
-import provideOpenStatusTranslation from '../open-status-18n';
 import clonedeep from 'lodash.clonedeep';
 
-export default class OpenStatusFormatter {
+/**
+ * Responsible for transforming the hours data into the format required to determine the open
+ * status message
+ */
+export default class OpenStatusTransformer {
+  constructor(timeZoneUtcOffset) {
+    /**
+     * @type {string}
+     */
+    this.timeZoneUtcOffset = timeZoneUtcOffset;
+  }
+
   /**
-   * Returns a string, a formatted representation of the open hours status
-   * for the given hours field.
+   * Uses the UTC offset, current time, and hours data to determine if the user is within an
+   * open interval, when the current interval (open or closed) ends. Returns an hours object
+   * indicating open status
    *
-   * @param {Object} hoursField The profile field that contains the hours data
-   * @param {String} timeZoneUtcOffset e.g. in EDT, GMT-0400, this value would be "-04:00"
-   * @param {boolean} isTwentyFourHourClock Use 24 hour clock if true, 12 hour clock
-   *                  if false. Default based on locale if undefined.
-   * @param {String} locale The locale for the time string
+   * @param {Object} hoursField
+   * @returns {Object}
    */
-  format({ hoursField, timeZoneUtcOffset, isTwentyFourHourClock, locale }) {
-    const days = this._formatHoursForAnswers(hoursField, timeZoneUtcOffset);
+  transform(hoursField) {
+    const days = this._formatHoursForAnswers(hoursField);
     if (days.length === 0) {
-      return '';
+      return;
     }
 
-    const { time, day } = this._calculateYextDayTime(new Date(), timeZoneUtcOffset);
+    const { time, day } = this._calculateYextDayTime(new Date());
 
     /**
      * @type {{days: Object[], time: number, day: string, dayIndex: number }}
@@ -36,7 +44,7 @@ export default class OpenStatusFormatter {
     hours.nextDay = nextDay;
     hours.status = status;
 
-    return this._getTodaysMessage({ hoursToday: hours, isTwentyFourHourClock, locale: locale });
+    return hours;
   }
 
   _prepareIntervals({ days }) { //days is a parsed json of hours.days
@@ -193,10 +201,10 @@ export default class OpenStatusFormatter {
    *     { date: '2020-7-30', isRegularHours: true }
    *   ]
    * }
-   * @param {string} timezone e.g. "-04:00"
    * @returns {Object[]}
    */
-  _formatHoursForAnswers(days, timezone) {
+  _formatHoursForAnswers(days) {
+    const timezone = this.timeZoneUtcOffset;
     const formattedDays = clonedeep(days);
     const daysOfWeek = [
       'SUNDAY',
@@ -244,7 +252,12 @@ export default class OpenStatusFormatter {
     return Object.values(formattedDays);
   }
 
-  // "-05:00 -> -5
+  /**
+   * Converts the timezoneUtcOffset to a number. For example: "-05:00 -> -5
+   *
+   * @param {string} timezoneUtcOffset e.g. in EDT, GMT-0400, this value would be "-04:00"
+   * @returns {number}
+   */
   _convertTimezoneToNumber(timezone) {
     if (!timezone) {
       return 0;
@@ -322,15 +335,14 @@ export default class OpenStatusFormatter {
    * pages to display as if the user was in the same timezone as the entity.
    *
    * @param {Date} now
-   * @param {string} timezoneUtcOffset e.g. in EDT, GMT-0400, this value would be "-04:00"
    * @returns {{ time: number, day: string }}
    */
-  _calculateYextDayTime(now, timezoneUtcOffset) {
+  _calculateYextDayTime(now) {
     // Get the UTC offset of the clients timezone (minutes converted to millis)
     const localUtcOffset = now.getTimezoneOffset() * 60 * 1000;
 
     // Get the entity's offset in millis
-    const entityUtcOffsetInHours = this._convertTimezoneToNumber(timezoneUtcOffset);
+    const entityUtcOffsetInHours = this._convertTimezoneToNumber(this.timeZoneUtcOffset);
     const entityUtcOffsetMillis = entityUtcOffsetInHours * 60 * 60 * 1000;
 
     // If a valid offset was found, set the today value to a new date that accounts for the entity & local UTC offsets
@@ -361,93 +373,5 @@ export default class OpenStatusFormatter {
       case 5: return "FRIDAY";
       case 6: return "SATURDAY";
     }
-  }
-
-  _translate(text, translationData) {
-    if (!translationData.hasOwnProperty(text)) {
-      console.error(`Could not translate "${text}".`);
-      return text;
-    }
-    return translationData[text];
-  }
-
-  _getTodaysMessage({ hoursToday, isTwentyFourHourClock, locale }) {
-    let time, day;
-    const translationData = provideOpenStatusTranslation(locale);
-    const translate = text => this._translate(text, translationData);
-    switch (hoursToday.status) {
-      case 'OPEN24':
-        return `<span class="Hours-statusText">${translate('Open 24 Hours')}</span>`;
-      case 'OPENSTODAY':
-        time = this._getTimeString(hoursToday.nextTime, isTwentyFourHourClock, locale);
-        return `
-              <span class="Hours-statusText">
-                <span class="Hours-statusText--current">
-                  ${translate('Closed')}
-                </span> · ${translate('Opens at')} <span class="HoursInterval-time">
-                  ${time}
-                </span>
-              </span>`;
-      case 'OPENSNEXT':
-        time = this._getTimeString(hoursToday.nextTime, isTwentyFourHourClock, locale);
-        day = translate(hoursToday.nextDay);
-        return `
-              <span class="Hours-statusText">
-                <span class="Hours-statusText--current">
-                  ${translate('Closed')}
-                </span> · ${translate('Opens at')}
-              </span>
-              <span class="HoursInterval-time">
-                ${time}
-              </span>
-              <span class="HoursInterval-day">
-                ${day}
-              </span>`;
-      case 'CLOSESTODAY':
-        time = this._getTimeString(hoursToday.nextTime, isTwentyFourHourClock, locale);
-        return `
-              <span class="Hours-statusText">
-                <span class="Hours-statusText--current">
-                  ${translate('Open Now')}
-                </span> · ${translate('Closes at')}
-              </span>
-              <span class="HoursInterval-time">
-                ${time}
-              </span>`;
-      case 'CLOSESNEXT':
-        time = this._getTimeString(hoursToday.nextTime, isTwentyFourHourClock, locale);
-        day = translate(hoursToday.nextDay);
-        return `
-              <span class="Hours-statusText">
-                <span class="Hours-statusText--current">
-                  ${translate('Open Now')}
-                </span> · ${translate('Closes at')}
-              </span>
-              <span class="HoursInterval-time">
-                ${time}
-              </span>
-              <span class="HoursInterval-day">
-                ${day}
-              </span>`;
-      case 'CLOSED':
-        return `
-              <span class="Hours-statusText">
-                ${translate('Closed')}
-              </span>`;
-      default:
-        return '';
-    }
-  }
-
-  _getTimeString(yextTime, isTwentyFourHourClock, locale = 'en-US') {
-    let time = new Date();
-    time.setHours(Math.floor(yextTime / 100));
-    time.setMinutes(yextTime % 100);
-
-    return time.toLocaleString(locale, {
-      hour: 'numeric',
-      minute: 'numeric',
-      ...isTwentyFourHourClock && { hourCycle: isTwentyFourHourClock ? 'h24' : 'h12' }
-    });
   }
 }

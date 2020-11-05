@@ -2,7 +2,7 @@ import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import { components__address__i18n__addressForCountry } from './address-i18n.js'
 import CtaFormatter from '@yext/cta-formatter';
 import { getDistanceUnit } from './units-i18n';
-import OpenStatusFormatter from './hours/openstatusformatter.js';
+import OpenStatusFormatter from './hours/open-status/formatter.js';
 
 
 export function address(profile) {
@@ -217,10 +217,10 @@ export function snakeToTitle(snake) {
 
 /**
  * This function pretty prints different kinds of values. Depending on the type,
- * localization may be used. 
- * 
+ * localization may be used.
+ *
  * @param {?} obj The value to pretty print.
- * @param {string} locale The current locale. 
+ * @param {string} locale The current locale.
  * @returns {string} The pretty printed value.
  */
 export function prettyPrintObject(obj, locale) {
@@ -251,7 +251,7 @@ export function prettyPrintObject(obj, locale) {
 /**
  * Prints the given boolean as a localized affirmative or negative string. For instance,
  * in English, it would return either 'Yes' for True or 'No' for False.
- * 
+ *
  * @param {boolean} value The boolean value.
  * @param {string} locale The locale indicating which language to use.
  * @returns {string} The localized affirmative or negative.
@@ -263,13 +263,13 @@ function _prettyPrintBoolean(value, locale) {
       return value ? 'Sí' : 'No';
     case 'fr':
       return value ? 'Oui' : 'Non';
-    case 'it': 
+    case 'it':
       return value ? 'Sì' : 'No';
-    case 'de': 
+    case 'de':
       return value ? 'Ja' : 'Nein';
     case 'ja':
       return value ? 'はい' : '番号';
-    default: 
+    default:
       return value ? 'Yes' : 'No';
   }
 }
@@ -454,7 +454,7 @@ export function openStatus(profile, key = 'hours', isTwentyFourHourClock, locale
     return '';
   }
 
-  return new OpenStatusFormatter().format({
+  return OpenStatusFormatter.format({
     hoursField: profile[key],
     timeZoneUtcOffset: profile.timeZoneUtcOffset,
     isTwentyFourHourClock: isTwentyFourHourClock,
