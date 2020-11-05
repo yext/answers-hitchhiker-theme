@@ -2,7 +2,8 @@ import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import { components__address__i18n__addressForCountry } from './address-i18n.js'
 import CtaFormatter from '@yext/cta-formatter';
 import { getDistanceUnit } from './units-i18n';
-import OpenStatusFormatter from './hours/open-status/formatter.js';
+import OpenStatusMessageFactory from './hours/open-status/messagefactory.js';
+import OpenStatusTransformer from './hours/open-status/transformer.js';
 
 
 export function address(profile) {
@@ -454,9 +455,14 @@ export function openStatus(profile, key = 'hours', isTwentyFourHourClock, locale
     return '';
   }
 
-  return OpenStatusFormatter.format({
-    hoursField: profile[key],
-    timeZoneUtcOffset: profile.timeZoneUtcOffset,
+  const hoursToday = new OpenStatusTransformer(profile.timeZoneUtcOffset)
+    .transform(profile[key]);
+  if (!hoursToday) {
+    return '';
+  }
+
+  return OpenStatusMessageFactory.create({
+    hoursToday: hoursToday,
     isTwentyFourHourClock: isTwentyFourHourClock,
     locale: locale || _getDocumentLocale()
   });
