@@ -1,4 +1,5 @@
 import clonedeep from 'lodash.clonedeep';
+import { DayNames } from '../constants.js';
 import { OpenStatusTypes } from './constants.js';
 
 /**
@@ -166,26 +167,26 @@ export default class OpenStatusTransformer {
 
   _dayToInt(d) {
     switch (d) {
-      case "SUNDAY": return 0;
-      case "MONDAY": return 1;
-      case "TUESDAY": return 2;
-      case "WEDNESDAY": return 3;
-      case "THURSDAY": return 4;
-      case "FRIDAY": return 5;
-      case "SATURDAY": return 6;
+      case DayNames.SUNDAY: return 0;
+      case DayNames.MONDAY: return 1;
+      case DayNames.TUESDAY: return 2;
+      case DayNames.WEDNESDAY: return 3;
+      case DayNames.THURSDAY: return 4;
+      case DayNames.FRIDAY: return 5;
+      case DayNames.SATURDAY: return 6;
     }
     throw "[_dayToInt]: Invalid Day: " + d;
   }
 
   _intToDay(i) {
     switch (i % 7) {
-      case 0: return "SUNDAY";
-      case 1: return "MONDAY";
-      case 2: return "TUESDAY";
-      case 3: return "WEDNESDAY";
-      case 4: return "THURSDAY";
-      case 5: return "FRIDAY";
-      case 6: return "SATURDAY";
+      case 0: return DayNames.SUNDAY;
+      case 1: return DayNames.MONDAY;
+      case 2: return DayNames.TUESDAY;
+      case 3: return DayNames.WEDNESDAY;
+      case 4: return DayNames.THURSDAY;
+      case 5: return DayNames.FRIDAY;
+      case 6: return DayNames.SATURDAY;
     }
   }
 
@@ -207,15 +208,7 @@ export default class OpenStatusTransformer {
   _formatHoursForAnswers(days) {
     const timezone = this._timeZoneUtcOffset;
     const formattedDays = clonedeep(days);
-    const daysOfWeek = [
-      'SUNDAY',
-      'MONDAY',
-      'TUESDAY',
-      'WEDNESDAY',
-      'THURSDAY',
-      'FRIDAY',
-      'SATURDAY',
-    ];
+    const daysOfWeek = Object.values(DayNames);
     const holidayHours = formattedDays.holidayHours || [];
     for (let day in formattedDays) {
       if (day === 'holidayHours' || day === 'reopenDate') {
@@ -366,13 +359,13 @@ export default class OpenStatusTransformer {
 
   _getYextDay(date) {
     switch (date.getDay() % 7) {
-      case 0: return "SUNDAY";
-      case 1: return "MONDAY";
-      case 2: return "TUESDAY";
-      case 3: return "WEDNESDAY";
-      case 4: return "THURSDAY";
-      case 5: return "FRIDAY";
-      case 6: return "SATURDAY";
+      case 0: return DayNames.SUNDAY;
+      case 1: return DayNames.MONDAY;
+      case 2: return DayNames.TUESDAY;
+      case 3: return DayNames.WEDNESDAY;
+      case 4: return DayNames.THURSDAY;
+      case 5: return DayNames.FRIDAY;
+      case 6: return DayNames.SATURDAY;
     }
   }
 }

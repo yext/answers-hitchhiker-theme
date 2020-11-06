@@ -1,6 +1,8 @@
+import { DayNames } from './hours/constants.js';
+
 /**
  * Provides translation data for the openStatus formatter.
- * @param {string} locale 
+ * @param {string} locale
  */
 export default function provideOpenStatusTranslation (locale) {
   const language = locale.substring(0,2);
@@ -44,7 +46,7 @@ function provideTodaysMessageTranslation(language) {
         'Open Now': 'Aperto ora',
         'Closes at': 'Chiude alle',
       }
-    case 'ja': 
+    case 'ja':
       return {
         'Closed': '休業',
         'Open 24 Hours': '24時間営業',
@@ -67,63 +69,63 @@ function provideDayTranslation(language) {
   switch (language) {
     case 'fr':
       return {
-        'MONDAY': 'Lundi',
-        'TUESDAY': 'Mardi',
-        'WEDNESDAY': 'Mercredi',
-        'THURSDAY': 'Jeudi',
-        'FRIDAY': 'Vendredi',
-        'SATURDAY': 'Samedi',
-        'SUNDAY': 'Dimanche',
+        [DayNames.MONDAY]: 'Lundi',
+        [DayNames.TUESDAY]: 'Mardi',
+        [DayNames.WEDNESDAY]: 'Mercredi',
+        [DayNames.THURSDAY]: 'Jeudi',
+        [DayNames.FRIDAY]: 'Vendredi',
+        [DayNames.SATURDAY]: 'Samedi',
+        [DayNames.SUNDAY]: 'Dimanche',
       }
     case 'de':
       return {
-        'MONDAY': 'Montag',
-        'TUESDAY': 'Dienstag',
-        'WEDNESDAY': 'Mittwoch',
-        'THURSDAY': 'Donnerstag',
-        'FRIDAY': 'Freitag',
-        'SATURDAY': 'Samstag',
-        'SUNDAY': 'Sonntag',
+        [DayNames.MONDAY]: 'Montag',
+        [DayNames.TUESDAY]: 'Dienstag',
+        [DayNames.WEDNESDAY]: 'Mittwoch',
+        [DayNames.THURSDAY]: 'Donnerstag',
+        [DayNames.FRIDAY]: 'Freitag',
+        [DayNames.SATURDAY]: 'Samstag',
+        [DayNames.SUNDAY]: 'Sonntag',
       }
     case 'es':
       return {
-        'MONDAY': 'Lunes',
-        'TUESDAY': 'Martes',
-        'WEDNESDAY': 'Miércoles',
-        'THURSDAY': 'Jueves',
-        'FRIDAY': 'Viernes',
-        'SATURDAY': 'Sabado',
-        'SUNDAY': 'Domingo',
+        [DayNames.MONDAY]: 'Lunes',
+        [DayNames.TUESDAY]: 'Martes',
+        [DayNames.WEDNESDAY]: 'Miércoles',
+        [DayNames.THURSDAY]: 'Jueves',
+        [DayNames.FRIDAY]: 'Viernes',
+        [DayNames.SATURDAY]: 'Sabado',
+        [DayNames.SUNDAY]: 'Domingo',
       }
     case 'it':
       return {
-        'MONDAY': 'Lunedí',
-        'TUESDAY': 'Martedí',
-        'WEDNESDAY': 'Mercoledí',
-        'THURSDAY': 'Giovedí',
-        'FRIDAY': 'Venerdí',
-        'SATURDAY': 'Sabato',
-        'SUNDAY': 'Domenica',
+        [DayNames.MONDAY]: 'Lunedí',
+        [DayNames.TUESDAY]: 'Martedí',
+        [DayNames.WEDNESDAY]: 'Mercoledí',
+        [DayNames.THURSDAY]: 'Giovedí',
+        [DayNames.FRIDAY]: 'Venerdí',
+        [DayNames.SATURDAY]: 'Sabato',
+        [DayNames.SUNDAY]: 'Domenica',
       }
-    case 'ja': 
+    case 'ja':
       return {
-        'MONDAY': '月曜日',
-        'TUESDAY': '火曜日',
-        'WEDNESDAY': '水曜日',
-        'THURSDAY': '木曜日',
-        'FRIDAY': '金曜日',
-        'SATURDAY': '土曜日',
-        'SUNDAY': '日曜日',
+        [DayNames.MONDAY]: '月曜日',
+        [DayNames.TUESDAY]: '火曜日',
+        [DayNames.WEDNESDAY]: '水曜日',
+        [DayNames.THURSDAY]: '木曜日',
+        [DayNames.FRIDAY]: '金曜日',
+        [DayNames.SATURDAY]: '土曜日',
+        [DayNames.SUNDAY]: '日曜日',
       }
     default:
       return {
-        'MONDAY': 'Monday',
-        'TUESDAY': 'Tuesday',
-        'WEDNESDAY': 'Wednesday',
-        'THURSDAY': 'Thursday',
-        'FRIDAY': 'Friday',
-        'SATURDAY': 'Saturday',
-        'SUNDAY': 'Sunday',
+        [DayNames.MONDAY]: 'Monday',
+        [DayNames.TUESDAY]: 'Tuesday',
+        [DayNames.WEDNESDAY]: 'Wednesday',
+        [DayNames.THURSDAY]: 'Thursday',
+        [DayNames.FRIDAY]: 'Friday',
+        [DayNames.SATURDAY]: 'Saturday',
+        [DayNames.SUNDAY]: 'Sunday',
       }
   }
 }
