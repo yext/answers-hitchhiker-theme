@@ -12,22 +12,20 @@ const { ArgumentMetadata, ArgumentType } = require('./helpers/utils/argumentmeta
 class CardCreator {
   constructor(jamboConfig) {
     this.config = jamboConfig;
-    this.themesDir = jamboConfig.dirs && jamboConfig.dirs.themes;
-    this.defaultTheme = jamboConfig.defaultTheme;
     this._customCardsDir = 'cards';
   }
 
   /**
    * @returns {string} the alias for the create card command.
    */
-  getAlias() {
+  static getAlias() {
     return 'card';
   }
 
   /**
    * @returns {string} a short description of the create card command.
    */
-  getShortDescription() {
+  static getShortDescription() {
     return 'add a new card for use in the site';
   }
 
@@ -35,7 +33,7 @@ class CardCreator {
    * @returns {Object<string, ArgumentMetadata>} description of each argument for 
    *                                             the create card command, keyed by name
    */
-  args() {
+  static args() {
     return {
       'name': new ArgumentMetadata(ArgumentType.STRING, 'name for the new card', true),
       'templateCardFolder': new ArgumentMetadata(ArgumentType.STRING, 'folder of card to fork', true)
@@ -46,8 +44,8 @@ class CardCreator {
    * @returns {Object} description of the card command, including paths to 
    *                   all available cards
    */
-  describe() {
-    const cardPaths = this._getCardPaths();
+  static describe(jamboConfig) {
+    const cardPaths = this._getCardPaths(jamboConfig);
     return {
       displayName: 'Add Card',
       params: {
@@ -69,11 +67,13 @@ class CardCreator {
   /**
    * @returns {Array<string>} the paths of the available cards
    */
-  _getCardPaths() {
-    if (!this.defaultTheme || !this.themesDir) {
+  static _getCardPaths(jamboConfig) {
+    const defaultTheme = jamboConfig.defaultTheme;
+    const themesDir = jamboConfig.dirs && jamboConfig.dirs.themes;
+    if (!defaultTheme || !themesDir) {
       return [];
     }
-    const cardsDir = path.join(this.themesDir, this.defaultTheme, 'cards');
+    const cardsDir = path.join(themesDir, defaultTheme, 'cards');
     return fs.readdirSync(cardsDir, { withFileTypes: true })
       .filter(dirent => !dirent.isFile())
       .map(dirent => path.join(cardsDir, dirent.name));
@@ -165,5 +165,4 @@ class CardCreator {
     addToPartials(this._customCardsDir);
   }
 }
-
-module.exports = jamboConfig => new CardCreator(jamboConfig);
+module.exports = CardCreator;
