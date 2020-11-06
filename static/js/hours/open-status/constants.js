@@ -6,3 +6,11 @@ exports.OpenStatusTypes = {
   CLOSES_NEXT: 'CLOSESNEXT',
   CLOSED: 'CLOSED'
 };
+
+exports.OpenStatusStrings = {
+  OPEN_24_HOURS: 'Open 24 Hours',
+  CLOSED: 'Closed',
+  OPENS_AT: 'Opens at',
+  OPEN_NOW: 'Open now',
+  CLOSES_AT: 'Closes at'
+};

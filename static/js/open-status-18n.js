@@ -1,4 +1,5 @@
 import { DayNames } from './hours/constants.js';
+import { OpenStatusStrings } from './hours/open-status/constants.js';
 
 /**
  * Provides translation data for the openStatus formatter.
@@ -16,51 +17,51 @@ function provideTodaysMessageTranslation(language) {
   switch (language) {
     case 'fr':
       return {
-        'Closed': 'Fermé',
-        'Open 24 Hours': 'Ouvert 24h/24',
-        'Opens at': 'Ouvre à',
-        'Open Now': 'Ouvert maintenant',
-        'Closes at': 'Ferme à',
+        [OpenStatusStrings.CLOSED]: 'Fermé',
+        [OpenStatusStrings.OPEN_24_HOURS]: 'Ouvert 24h/24',
+        [OpenStatusStrings.OPENS_AT]: 'Ouvre à',
+        [OpenStatusStrings.OPEN_NOW]: 'Ouvert maintenant',
+        [OpenStatusStrings.CLOSES_AT]: 'Ferme à',
       }
     case 'de':
       return {
-        'Closed': 'Geschlossen',
-        'Open 24 Hours': '24 Stunden geöffnet',
-        'Opens at': 'Öffnet um',
-        'Open Now': 'Jetzt geöffnet',
-        'Closes at': 'Schließt um',
+        [OpenStatusStrings.CLOSED]: 'Geschlossen',
+        [OpenStatusStrings.OPEN_24_HOURS]: '24 Stunden geöffnet',
+        [OpenStatusStrings.OPENS_AT]: 'Öffnet um',
+        [OpenStatusStrings.OPEN_NOW]: 'Jetzt geöffnet',
+        [OpenStatusStrings.CLOSES_AT]: 'Schließt um',
       }
     case 'es':
       return {
-        'Closed': 'Cerrado',
-        'Open 24 Hours': 'Abierto las 24 horas',
-        'Opens at': 'Abre a las',
-        'Open Now': 'Abierto ahora',
-        'Closes at': 'Cierra a las',
+        [OpenStatusStrings.CLOSED]: 'Cerrado',
+        [OpenStatusStrings.OPEN_24_HOURS]: 'Abierto las 24 horas',
+        [OpenStatusStrings.OPENS_AT]: 'Abre a las',
+        [OpenStatusStrings.OPEN_NOW]: 'Abierto ahora',
+        [OpenStatusStrings.CLOSES_AT]: 'Cierra a las',
       }
     case 'it':
       return {
-        'Closed': 'Chiuso',
-        'Open 24 Hours': 'Aperto 24 ore su 24',
-        'Opens at': 'Apre alle',
-        'Open Now': 'Aperto ora',
-        'Closes at': 'Chiude alle',
+        [OpenStatusStrings.CLOSED]: 'Chiuso',
+        [OpenStatusStrings.OPEN_24_HOURS]: 'Aperto 24 ore su 24',
+        [OpenStatusStrings.OPENS_AT]: 'Apre alle',
+        [OpenStatusStrings.OPEN_NOW]: 'Aperto ora',
+        [OpenStatusStrings.CLOSES_AT]: 'Chiude alle',
       }
     case 'ja':
       return {
-        'Closed': '休業',
-        'Open 24 Hours': '24時間営業',
-        'Opens at': '営業開始',
-        'Open Now': '現在営業中',
-        'Closes at': '営業終了',
+        [OpenStatusStrings.CLOSED]: '休業',
+        [OpenStatusStrings.OPEN_24_HOURS]: '24時間営業',
+        [OpenStatusStrings.OPENS_AT]: '営業開始',
+        [OpenStatusStrings.OPEN_NOW]: '現在営業中',
+        [OpenStatusStrings.CLOSES_AT]: '営業終了',
       }
     default:
       return {
-        'Closed': 'Closed',
-        'Open 24 Hours': 'Open 24 Hours',
-        'Opens at': 'Opens at',
-        'Open Now': 'Open Now',
-        'Closes at': 'Closes at',
+        [OpenStatusStrings.CLOSED]: 'Closed',
+        [OpenStatusStrings.OPEN_24_HOURS]: 'Open 24 Hours',
+        [OpenStatusStrings.OPENS_AT]: 'Opens at',
+        [OpenStatusStrings.OPEN_NOW]: 'Open Now',
+        [OpenStatusStrings.CLOSES_AT]: 'Closes at',
       }
   }
 }
