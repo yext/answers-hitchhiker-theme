@@ -44,10 +44,6 @@ export function emailLink(profile) {
 }
 
 export function getDirectionsUrl(profile, key = 'address') {
-  if (profile.googlePlaceId) {
-    return `https://www.google.com/maps/place/?q=place_id:${profile.googlePlaceId}`;
-  }
-
   const addr = profile[key];
   if (!addr) {
     return '';
@@ -57,7 +53,14 @@ export function getDirectionsUrl(profile, key = 'address') {
   const region = addr.region ? ` ${addr.region}` : ``;
   const rawQuery = `${addr.line1},${line2} ${addr.city},${region} ${addr.postalCode} ${addr.countryCode}`;
   const query = encodeURIComponent(rawQuery);
-  return `https://www.google.com/maps/search/?api=1&query=${query}&output=classic`
+
+  let url = `https://www.google.com/maps/search/?api=1&query=${query}&output=classic`;
+
+  if (profile.googlePlaceId) {
+    url += `&query_place_id=${profile.googlePlaceId}`;
+  }
+
+  return url;
 }
 
 export function toLocalizedDistance(profile, key = 'd_distance', displayUnits) {
