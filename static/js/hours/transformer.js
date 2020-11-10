@@ -9,8 +9,8 @@ import { OpenStatusTypes } from './open-status/constants.js';
 export default class HoursTransformer {
   /**
    * Uses the UTC offset, current time, and hours data to determine if the user is within an
-   * open interval, and when the current interval (open or closed) ends. Returns an hours object
-   * indicating open status and containing all the hours intervals for the week.
+   * open interval, and when the current interval (open or closed) ends. Returns a
+   * {@link Hours} object.
    *
    * @param {Object} hoursField
    * @param {string} timeZoneUtcOffset
