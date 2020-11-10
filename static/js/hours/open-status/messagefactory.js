@@ -31,7 +31,7 @@ export default class OpenStatusMessageFactory {
                 ${this._localizer.getTranslation(OpenStatusStrings.OPEN_24_HOURS)}
               </span>`;
       case OpenStatusTypes.OPENS_TODAY:
-        time = this._localizer.getTimeString(nextTime);
+        time = this._localizer.getLocalizedTime(nextTime);
         return `
               <span class="Hours-statusText">
                 <span class="Hours-statusText--current">
@@ -41,7 +41,7 @@ export default class OpenStatusMessageFactory {
                 </span>
               </span>`;
       case OpenStatusTypes.OPENS_NEXT:
-        time = this._localizer.getTimeString(nextTime);
+        time = this._localizer.getLocalizedTime(nextTime);
         day = this._localizer.getTranslation(nextDay);
         return `
               <span class="Hours-statusText">
@@ -56,7 +56,7 @@ export default class OpenStatusMessageFactory {
                 ${day}
               </span>`;
       case OpenStatusTypes.CLOSES_TODAY:
-        time = this._localizer.getTimeString(nextTime);
+        time = this._localizer.getLocalizedTime(nextTime);
         return `
               <span class="Hours-statusText">
                 <span class="Hours-statusText--current">
@@ -67,7 +67,7 @@ export default class OpenStatusMessageFactory {
                 ${time}
               </span>`;
       case OpenStatusTypes.CLOSES_NEXT:
-        time = this._localizer.getTimeString(nextTime);
+        time = this._localizer.getLocalizedTime(nextTime);
         day = this._localizer.getTranslation(nextDay);
         return `
               <span class="Hours-statusText">

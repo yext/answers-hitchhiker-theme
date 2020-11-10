@@ -39,12 +39,12 @@ export default class HoursStringsLocalizer {
   }
 
   /**
-   * Returns a localized string for the given time
+   * Returns a string for the given time, formatted for the current locale
    *
    * @param {number} yextTime A time between 0 and 2359 in 24-hour format
    * @returns {string}
    */
-  getTimeString(yextTime) {
+  getLocalizedTime(yextTime) {
     let time = new Date();
     time.setHours(Math.floor(yextTime / 100));
     time.setMinutes(yextTime % 100);
