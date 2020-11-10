@@ -1,4 +1,4 @@
-exports.OpenStatusTypes = {
+export const OpenStatusTypes = {
   OPEN_24_HOURS: 'OPEN24',
   OPENS_TODAY: 'OPENSTODAY',
   OPENS_NEXT: 'OPENSNEXT',
@@ -7,7 +7,7 @@ exports.OpenStatusTypes = {
   CLOSED: 'CLOSED'
 };
 
-exports.OpenStatusStrings = {
+export const OpenStatusStrings = {
   OPEN_24_HOURS: 'Open 24 Hours',
   CLOSED: 'Closed',
   OPENS_AT: 'Opens at',

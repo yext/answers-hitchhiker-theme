@@ -1,4 +1,4 @@
-exports.DayNames = {
+export const DayNames = {
   SUNDAY: 'SUNDAY',
   MONDAY: 'MONDAY',
   TUESDAY: 'TUESDAY',
