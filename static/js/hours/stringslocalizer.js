@@ -1,9 +1,10 @@
 import provideOpenStatusTranslation from '../open-status-18n';
 
 /**
- * HoursLocalizer is responsible for returning localized hours strings for the current locale
+ * HoursStringsLocalizer is responsible for returning localized hours strings for
+ * the current locale
  */
-export default class HoursLocalizer {
+export default class HoursStringsLocalizer {
   constructor(locale, isTwentyFourHourClock) {
     /**
      * @type {string}

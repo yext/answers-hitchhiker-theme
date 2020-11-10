@@ -1,4 +1,4 @@
-import HoursLocalizer from '../localizer.js';
+import HoursStringsLocalizer from '../stringslocalizer.js';
 import { OpenStatusStrings, OpenStatusTypes } from './constants.js';
 import { DayNames } from '../constants.js';
 
@@ -9,7 +9,7 @@ import { DayNames } from '../constants.js';
 export default class OpenStatusMessageFactory {
   constructor(localizer) {
     /**
-     * @type {HoursLocalizer}
+     * @type {HoursStringsLocalizer}
      */
     this._localizer = localizer;
   }

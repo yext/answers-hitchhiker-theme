@@ -4,7 +4,7 @@ import CtaFormatter from '@yext/cta-formatter';
 import { getDistanceUnit } from './units-i18n';
 import OpenStatusMessageFactory from './hours/open-status/messagefactory.js';
 import HoursTransformer from './hours/transformer.js';
-import HoursLocalizer from './hours/localizer.js';
+import HoursStringsLocalizer from './hours/stringslocalizer.js';
 
 
 export function address(profile) {
@@ -464,7 +464,8 @@ export function openStatus(profile, key = 'hours', isTwentyFourHourClock, locale
     return '';
   }
 
-  const hoursLocalizer = new HoursLocalizer(locale || _getDocumentLocale(), isTwentyFourHourClock);
+  const hoursLocalizer = new HoursStringsLocalizer(
+    locale || _getDocumentLocale(), isTwentyFourHourClock);
   return new OpenStatusMessageFactory(hoursLocalizer)
     .create(hoursToday.openStatus);
 }
