@@ -26,7 +26,7 @@ class product_prominentimage_clickableCardComponent
       url: cardUrl, // If the card a clickable link, set URL here
       target: '_top', // If the card URL should open in a new tab, etc.
       titleEventOptions: this.addDefaultEventOptions(),
-      subtitle: profile.c_price ? `$${profile.c_price}` : '', // The sub-header text of the card UNDO
+      subtitle: profile.c_price ? `$${profile.c_price}` : '', // The sub-header text of the card
       image: Formatter.image(profile.c_photo).url, // The URL of the image to display on the card
       altText: Formatter.image(profile.c_photo).alternateText,  // The alternate text for the image
       details: profile.description, // The text in the body of the card
