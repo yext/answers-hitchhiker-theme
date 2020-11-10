@@ -1,5 +1,5 @@
 import provideOpenStatusTranslation from '../../open-status-18n.js';
-import { OpenStatusTypes } from './constants.js';
+import { OpenStatusStrings, OpenStatusTypes } from './constants.js';
 
 /**
  * Responsible for forming a localized open status message based on the hours data
@@ -20,14 +20,14 @@ export default class OpenStatusMessageFactory {
     const translate = text => this._translate(text, translationData);
     switch (hoursToday.status) {
       case OpenStatusTypes.OPEN_24_HOURS:
-        return `<span class="Hours-statusText">${translate('Open 24 Hours')}</span>`;
+        return `<span class="Hours-statusText">${translate(OpenStatusStrings.OPEN_24_HOURS)}</span>`;
       case OpenStatusTypes.OPENS_TODAY:
         time = this._getTimeString(hoursToday.nextTime, isTwentyFourHourClock, locale);
         return `
               <span class="Hours-statusText">
                 <span class="Hours-statusText--current">
-                  ${translate('Closed')}
-                </span> · ${translate('Opens at')} <span class="HoursInterval-time">
+                  ${translate(OpenStatusStrings.CLOSED)}
+                </span> · ${OpenStatusStrings.OPENS_AT} <span class="HoursInterval-time">
                   ${time}
                 </span>
               </span>`;
@@ -37,8 +37,8 @@ export default class OpenStatusMessageFactory {
         return `
               <span class="Hours-statusText">
                 <span class="Hours-statusText--current">
-                  ${translate('Closed')}
-                </span> · ${translate('Opens at')}
+                ${translate(OpenStatusStrings.CLOSED)}
+                </span> · ${translate(OpenStatusStrings.OPENS_AT)}
               </span>
               <span class="HoursInterval-time">
                 ${time}
@@ -51,8 +51,8 @@ export default class OpenStatusMessageFactory {
         return `
               <span class="Hours-statusText">
                 <span class="Hours-statusText--current">
-                  ${translate('Open Now')}
-                </span> · ${translate('Closes at')}
+                  ${translate(OpenStatusStrings.OPEN_NOW)}
+                </span> · ${translate(OpenStatusStrings.CLOSES_AT)}
               </span>
               <span class="HoursInterval-time">
                 ${time}
@@ -63,8 +63,8 @@ export default class OpenStatusMessageFactory {
         return `
               <span class="Hours-statusText">
                 <span class="Hours-statusText--current">
-                  ${translate('Open Now')}
-                </span> · ${translate('Closes at')}
+                ${translate(OpenStatusStrings.OPEN_NOW)}
+                </span> · ${translate(OpenStatusStrings.CLOSES_AT)}
               </span>
               <span class="HoursInterval-time">
                 ${time}
@@ -75,7 +75,7 @@ export default class OpenStatusMessageFactory {
       case OpenStatusTypes.CLOSED:
         return `
               <span class="Hours-statusText">
-                ${translate('Closed')}
+                ${translate(OpenStatusStrings.CLOSED)}
               </span>`;
       default:
         return '';
