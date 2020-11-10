@@ -1,55 +1,41 @@
 import clonedeep from 'lodash.clonedeep';
-import { DayNames } from '../constants.js';
-import { OpenStatusTypes } from './constants.js';
+import { DayNames } from './constants.js';
+import Hours from './models/hours.js';
+import { OpenStatusTypes } from './open-status/constants.js';
 
 /**
- * Responsible for transforming the hours data into the format required to determine the open
- * status message
+ * Responsible for transforming the hours data into the format expected by our hours formatters
  */
-export default class OpenStatusTransformer {
-  constructor(timeZoneUtcOffset) {
-    /**
-     * @type {string}
-     */
-    this._timeZoneUtcOffset = timeZoneUtcOffset;
-  }
-
+export default class HoursTransformer {
   /**
    * Uses the UTC offset, current time, and hours data to determine if the user is within an
    * open interval, and when the current interval (open or closed) ends. Returns an hours object
-   * indicating open status
+   * indicating open status and containing all the hours intervals for the week.
    *
    * @param {Object} hoursField
-   * @returns {Object}
+   * @param {string} timeZoneUtcOffset
+   * @returns {Hours}
    */
-  transform(hoursField) {
-    const days = this._formatHoursForAnswers(hoursField);
+  static transform(hoursField, timeZoneUtcOffset) {
+    const days = this._formatHoursForAnswers(hoursField, timeZoneUtcOffset);
     if (days.length === 0) {
       return;
     }
 
-    const { time, day } = this._calculateYextDayTime(new Date());
+    const { time, day } = this._calculateYextDayTime(new Date(), timeZoneUtcOffset);
 
-    /**
-     * @type {{days: Object[], time: number, day: string, dayIndex: number }}
-     */
-    let hours = {
+    return new Hours({
       days: days,
-      time: time,
-      day: day,
-      dayIndex: this._dayToInt(day),
-    };
-
-    hours.yextDays = this._prepareIntervals(hours);
-    let { status, nextTime, nextDay } = this._getStatus(hours);
-    hours.nextTime = nextTime;
-    hours.nextDay = nextDay;
-    hours.status = status;
-
-    return hours;
+      today: {
+        time: time,
+        day: day,
+        dayIndex: this._dayToInt(day),
+      },
+      openStatus: this._getStatus(time, day, days)
+    });
   }
 
-  _prepareIntervals({ days }) { //days is a parsed json of hours.days
+  static _prepareIntervals(days) { //days is a parsed json of hours.days
     let results = [];
     for (const { intervals, day, dailyHolidayHours } of days) { //iterate through each day within days
       if (dailyHolidayHours) { //prioritize holiday hours over intervals
@@ -74,7 +60,7 @@ export default class OpenStatusTransformer {
   }
 
   //return the next valid interval in the week
-  _getNextInterval(yextDays, tomorrow) {
+  static _getNextInterval(yextDays, tomorrow) {
     for (let i = 0; i < 7; i++) {
       let index = (tomorrow + i) % 7;
       for (let interval of yextDays[index].intervals) {
@@ -89,7 +75,8 @@ export default class OpenStatusTransformer {
   //is isOpenYesterday(yesterday) is true, then we return CLOSESTODAY with the interval overlapping from yesterday.
   //if today.isOpen is true, we check if it is 24 hours, if not we return CLOSESTODAY at the interval returned from isOpen.
   //else the store is closed and either opens sometime later today or at the next open interval sometime later in the week
-  _getStatus({ time, day, yextDays }) {
+  static _getStatus(time, day, days) {
+    const yextDays = this._prepareIntervals(days);
     const negMod = (n, m) => ((n % m) + m) % m; // JavaScript doesnt support modulo on negative numbers
     let yesterday = this._dayToInt(day) - 1;
     yesterday = negMod(yesterday, 7);
@@ -123,7 +110,7 @@ export default class OpenStatusTransformer {
   }
 
   //check if today has a 24 hr interval
-  _is24Hours(intervals) {
+  static _is24Hours(intervals) {
     for (let interval of intervals) {
       if (interval.start == 0 && interval.end == 2359) {
         return { is24: true, interval };
@@ -134,7 +121,7 @@ export default class OpenStatusTransformer {
 
   //given current time, check status with context: today
   //return boolean with open status and current interval
-  _isOpen(intervals, time) {
+  static _isOpen(intervals, time) {
     for (let interval of intervals) {
       if ((interval.start <= time && time < interval.end) || (interval.start <= time && interval.end <= interval.start) || (interval.start == 0 && interval.end == 2359)) {
         return { isOpen: true, interval };
@@ -144,7 +131,7 @@ export default class OpenStatusTransformer {
   }
 
   //given time, check if there is an interval today that the location opens
-  _hasOpenIntervalToday(intervals, time) {
+  static _hasOpenIntervalToday(intervals, time) {
     for (let interval of intervals) {
       if (time < interval.start) {
         return { hasOpen: true, interval };
@@ -156,7 +143,7 @@ export default class OpenStatusTransformer {
   //given current time, check status with context: yesterday
   //for example: if today is Tuesday and it is 2am and Monday had an interval open from 12pm-3am, Monday.isOpenYesterday will return true
   //return boolean with open status and current interval
-  _isOpenYesterday(intervals, time) {
+  static _isOpenYesterday(intervals, time) {
     for (let interval of intervals) {
       if (time < interval.end && interval.end <= interval.start) {
         return { isOpen: true, interval };
@@ -165,7 +152,7 @@ export default class OpenStatusTransformer {
     return { isOpen: false };
   }
 
-  _dayToInt(d) {
+  static _dayToInt(d) {
     switch (d) {
       case DayNames.SUNDAY: return 0;
       case DayNames.MONDAY: return 1;
@@ -178,7 +165,7 @@ export default class OpenStatusTransformer {
     throw "[_dayToInt]: Invalid Day: " + d;
   }
 
-  _intToDay(i) {
+  static _intToDay(i) {
     switch (i % 7) {
       case 0: return DayNames.SUNDAY;
       case 1: return DayNames.MONDAY;
@@ -203,10 +190,10 @@ export default class OpenStatusTransformer {
    *     { date: '2020-7-30', isRegularHours: true }
    *   ]
    * }
+   * @param {string} timezone
    * @returns {Object[]}
    */
-  _formatHoursForAnswers(days) {
-    const timezone = this._timeZoneUtcOffset;
+  static _formatHoursForAnswers(days, timezone) {
     const formattedDays = clonedeep(days);
     const daysOfWeek = Object.values(DayNames);
     const holidayHours = formattedDays.holidayHours || [];
@@ -252,7 +239,7 @@ export default class OpenStatusTransformer {
    * @param {string} timezoneUtcOffset e.g. in EDT, GMT-0400, this value would be "-04:00"
    * @returns {number}
    */
-  _convertTimezoneToNumber(timezone) {
+  static _convertTimezoneToNumber(timezone) {
     if (!timezone) {
       return 0;
     }
@@ -266,7 +253,7 @@ export default class OpenStatusTransformer {
     return num;
   }
 
-  _getDateWithUTCOffset(inputTzOffset) {
+  static _getDateWithUTCOffset(inputTzOffset) {
     var now = new Date(); // get the current time
 
     var currentTzOffset = -now.getTimezoneOffset() / 60 // in hours, i.e. -4 in NY
@@ -279,7 +266,7 @@ export default class OpenStatusTransformer {
     return outputDate;
   }
 
-  _getNextDayOfWeek(date, dayOfWeek) {
+  static _getNextDayOfWeek(date, dayOfWeek) {
     const resultDate = new Date(date.getTime());
     resultDate.setDate(date.getDate() + (7 + dayOfWeek - date.getDay()) % 7);
     return resultDate;
@@ -293,7 +280,7 @@ export default class OpenStatusTransformer {
    * @param {string} intervals[].end end time like "17:00"
    * @returns {Object[]}
    */
-  _formatIntervals(intervals) {
+  static _formatIntervals(intervals) {
     if (!intervals) {
       return [];
     }
@@ -329,14 +316,15 @@ export default class OpenStatusTransformer {
    * pages to display as if the user was in the same timezone as the entity.
    *
    * @param {Date} now
+   * @param {string} timeZoneUtcOffset
    * @returns {{ time: number, day: string }}
    */
-  _calculateYextDayTime(now) {
+  static _calculateYextDayTime(now, timeZoneUtcOffset) {
     // Get the UTC offset of the clients timezone (minutes converted to millis)
     const localUtcOffset = now.getTimezoneOffset() * 60 * 1000;
 
     // Get the entity's offset in millis
-    const entityUtcOffsetInHours = this._convertTimezoneToNumber(this._timeZoneUtcOffset);
+    const entityUtcOffsetInHours = this._convertTimezoneToNumber(timeZoneUtcOffset);
     const entityUtcOffsetMillis = entityUtcOffsetInHours * 60 * 60 * 1000;
 
     // If a valid offset was found, set the today value to a new date that accounts for the entity & local UTC offsets
@@ -353,11 +341,11 @@ export default class OpenStatusTransformer {
    * @param {Date} date
    * @returns {number} a number like 1425, which represents 02:25 PM
    */
-  _getYextTime(date) {
+  static _getYextTime(date) {
     return date.getHours() * 100 + date.getMinutes();
   }
 
-  _getYextDay(date) {
+  static _getYextDay(date) {
     switch (date.getDay() % 7) {
       case 0: return DayNames.SUNDAY;
       case 1: return DayNames.MONDAY;

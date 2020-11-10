@@ -3,7 +3,8 @@ import { components__address__i18n__addressForCountry } from './address-i18n.js'
 import CtaFormatter from '@yext/cta-formatter';
 import { getDistanceUnit } from './units-i18n';
 import OpenStatusMessageFactory from './hours/open-status/messagefactory.js';
-import OpenStatusTransformer from './hours/open-status/transformer.js';
+import HoursTransformer from './hours/transformer.js';
+import HoursLocalizer from './hours/localizer.js';
 
 
 export function address(profile) {
@@ -458,17 +459,14 @@ export function openStatus(profile, key = 'hours', isTwentyFourHourClock, locale
     return '';
   }
 
-  const hoursToday = new OpenStatusTransformer(profile.timeZoneUtcOffset)
-    .transform(profile[key]);
+  const hoursToday = HoursTransformer.transform(profile[key], profile.timeZoneUtcOffset);
   if (!hoursToday) {
     return '';
   }
 
-  return OpenStatusMessageFactory.create({
-    hoursToday: hoursToday,
-    isTwentyFourHourClock: isTwentyFourHourClock,
-    locale: locale || _getDocumentLocale()
-  });
+  const hoursLocalizer = new HoursLocalizer(locale || _getDocumentLocale(), isTwentyFourHourClock);
+  return new OpenStatusMessageFactory(hoursLocalizer)
+    .create(hoursToday.openStatus);
 }
 
 /**
