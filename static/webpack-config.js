@@ -43,7 +43,8 @@ module.exports = function () {
       filename: '[name].js',
       path: path.resolve(__dirname, jamboConfig.dirs.output),
       library: 'HitchhikerJS',
-      libraryTarget: 'window'
+      libraryTarget: 'window',
+      publicPath: ''
     },
     plugins: [
       new MiniCssExtractPlugin({ filename: '[name].css' }),
@@ -68,7 +69,7 @@ module.exports = function () {
             /node_modules\//
           ],
           loader: 'babel-loader',
-          query: {
+          options: {
             presets: [
               '@babel/preset-env',
             ],
@@ -99,7 +100,10 @@ module.exports = function () {
         },
         {
           test: /\.(png|ico|gif|jpe?g|svg|webp|eot|otf|ttf|woff2?)$/,
-          loader: 'file-loader?name=[name].[contenthash].[ext]',
+          loader: 'file-loader',
+          options: {
+            name: '[name].[contenthash].[ext]'
+          }
         },
         {
           test: /\.html$/i,
