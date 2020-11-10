@@ -40,7 +40,7 @@ export default class HoursLocalizer {
   /**
    * Returns a localized string for the given time
    *
-   * @param {number} yextTime A number in 24-hour time describing a time
+   * @param {number} yextTime A time between 0 and 2359 in 24-hour format
    * @returns {string}
    */
   getTimeString(yextTime) {

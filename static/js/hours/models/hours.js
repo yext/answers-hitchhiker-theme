@@ -1,5 +1,5 @@
 /**
- * Hours represents the hours
+ * This class represents the hours object that is expected by hours formatters.
  */
 export default class Hours {
   constructor(config = {}) {
