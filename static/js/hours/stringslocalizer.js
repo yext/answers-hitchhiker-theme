@@ -1,4 +1,5 @@
-import provideOpenStatusTranslation from '../open-status-18n';
+import { provideOpenStatusTranslation, provideTableHeadersTranslation } from '../open-status-18n';
+import provideHoursStringsTranslations from '../open-status-18n';
 
 /**
  * HoursStringsLocalizer is responsible for returning localized hours strings for
@@ -19,7 +20,10 @@ export default class HoursStringsLocalizer {
     /**
      * @type {Object<string, string>} translationData
      */
-    this._translationData = provideOpenStatusTranslation(locale);
+    this._translationData = {
+      ...provideOpenStatusTranslation(locale),
+      ...provideTableHeadersTranslation(locale)
+    }
   }
 
   /**

@@ -22,7 +22,7 @@ export default class Hours {
       /**
        * @type {number}
        */
-      dayIndex: config.today.dayIndex,
+      dayNumber: config.today.dayNumber,
     };
 
     this.openStatus = {

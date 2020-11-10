@@ -1,7 +1,7 @@
 /**
  * The Formatters are a combination of the internal formatters like
  * directions/address formatting and the custom formatters defined by the user.
- * The custom formatters always take precedence if it exists in both internal and 
+ * The custom formatters always take precedence if it exists in both internal and
  * custom formatters.
  */
 
@@ -25,6 +25,7 @@ import {
   image,
   truncate,
   openStatus,
+  hoursTable,
   generateCTAFieldTypeLink
 } from './formatters-internal.js';
 import * as CustomFormatters from './formatters-custom.js';
@@ -54,6 +55,7 @@ let Formatters = {
   image,
   truncate,
   openStatus,
+  hoursTable,
   generateCTAFieldTypeLink
 };
 Formatters = Object.assign(Formatters, CustomFormatters);

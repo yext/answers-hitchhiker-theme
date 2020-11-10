@@ -5,6 +5,7 @@ import { getDistanceUnit } from './units-i18n';
 import OpenStatusMessageFactory from './hours/open-status/messagefactory.js';
 import HoursTransformer from './hours/transformer.js';
 import HoursStringsLocalizer from './hours/stringslocalizer.js';
+import HoursTableBuilder from './hours/table/builder.js';
 
 
 export function address(profile) {
@@ -468,6 +469,36 @@ export function openStatus(profile, key = 'hours', isTwentyFourHourClock, locale
     locale || _getDocumentLocale(), isTwentyFourHourClock);
   return new OpenStatusMessageFactory(hoursLocalizer)
     .create(hoursToday.openStatus);
+}
+
+/**
+ * Returns a markup string, a formatted hours table for the given field on the profile.
+ *
+ * @param {Object} profile The profile information of the entity
+ * @param {Object} opts
+ * {
+ *   isTwentyFourHourClock {@link boolean} Use 24 hour clock if true, 12 hour clock if
+ *                                         false. Default based on locale if undefined.
+ *   disableOpenStatus: {@link boolean} If specified, displays the hours intervals
+ *                                      rather than the open status string for today
+ *   showTodayFirst: {@link boolean} If this is not specified, we will default to Monday first
+ * }
+ * @param {String} key Indicates which profile property to use for hours
+ * @param {String} locale The locale for the time string
+ */
+export function hoursTable(profile, opts = {}, key = 'hours', locale) {
+    if (!profile[key]) {
+      return '';
+    }
+
+    const hoursToday = HoursTransformer.transform(profile[key], profile.timeZoneUtcOffset);
+    if (!hoursToday) {
+      return '';
+    }
+
+    const hoursLocalizer = new HoursStringsLocalizer(
+      locale || _getDocumentLocale(), opts.isTwentyFourHourClock);
+    return new HoursTableBuilder(hoursLocalizer).build(hoursToday, opts);
 }
 
 /**

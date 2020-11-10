@@ -1,0 +1,17 @@
+.c-hours-details-row-intervals {
+  display: flex;
+  flex-direction: column;
+}
+
+.c-hours-details-row:not(:first-child) .c-hours-details-row-day {
+  margin-top: 4px;
+}
+
+.c-hours-details-row-day {
+  padding-right: 10px;
+}
+
+.c-hours-details-row.is-today {
+  font-weight: var(--yxt-font-weight-semibold);
+}
+

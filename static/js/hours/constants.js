@@ -7,3 +7,8 @@ export const DayNames = {
   FRIDAY: 'FRIDAY',
   SATURDAY: 'SATURDAY'
 };
+
+export const TableHeaders = {
+  DAY_OF_WEEK: 'Day of the Week',
+  HOURS: 'Hours'
+};
