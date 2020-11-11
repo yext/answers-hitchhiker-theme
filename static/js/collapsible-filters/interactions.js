@@ -67,8 +67,8 @@ export default class Interactions {
     const windowTopToIFrameTop = offsetTop - scrollTop;
     const stickyButtonBottom = this.resultsWrapper.getBoundingClientRect().bottom;
     const stickyButtonBottomInParent = windowTopToIFrameTop + stickyButtonBottom;
-    const hasScrolledPastResults = stickyButtonBottomInParent > windowHeight;
-    if (hasScrolledPastResults) {
+    const hasScrolledPastResultsButton = stickyButtonBottomInParent > windowHeight;
+    if (hasScrolledPastResultsButton) {
       const iFrameTopToButton = windowHeight - windowTopToIFrameTop - this.stickyButton.offsetHeight - 10;
       this.stickyButton.style.top = `${iFrameTopToButton}px`;
       this.stickyButton.style.bottom = 'auto';
@@ -76,7 +76,7 @@ export default class Interactions {
       this.stickyButton.style.top = '';
       this.stickyButton.style.bottom = '';
     }
-    this._updateStickyButtonClassName(hasScrolledPastResults);
+    this._updateStickyButtonClassName(hasScrolledPastResultsButton);
   }
 
   /**
@@ -86,12 +86,12 @@ export default class Interactions {
   _updateStickyButton() {
     const stickyButtonBottom = this.resultsWrapper.getBoundingClientRect().bottom;
     const windowBottom = window.innerHeight;
-    const hasScrolledPastResults = stickyButtonBottom > windowBottom;
-    this._updateStickyButtonClassName(hasScrolledPastResults);
+    const hasScrolledPastResultsButton = stickyButtonBottom > windowBottom;
+    this._updateStickyButtonClassName(hasScrolledPastResultsButton);
   }
 
-  _updateStickyButtonClassName(hasScrolledPastResults) {
-    if (hasScrolledPastResults) {
+  _updateStickyButtonClassName(hasScrolledPastResultsButton) {
+    if (hasScrolledPastResultsButton) {
       this.stickyButton.classList.remove('CollapsibleFilters-unstuck');
     } else {
       this.stickyButton.classList.add('CollapsibleFilters-unstuck');
