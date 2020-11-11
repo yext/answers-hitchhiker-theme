@@ -18,7 +18,7 @@ export default class HoursTableBuilder {
    * @param {Object} config
    * {
    *   disableOpenStatus: boolean
-   *   showDayFirst: boolean // TODO ?? do we want this?
+   *   showTodayFirst: boolean
    * }
    * @returns {string}
    */
@@ -72,24 +72,24 @@ export default class HoursTableBuilder {
    * @returns {string}
    */
   _buildTableRow(day, hours, config) {
-    const isToday = day.day == hours.today.day;
+    const isCurrentDayOfWeek = day.day == hours.today.day;
 
-    let classList = '';
+    let classes = '';
     if (day.dailyHolidayHours) {
-      classList += ' is-holiday';
+      classes += ' is-holiday';
     }
 
-    if (isToday) {
-      classList += ' is-today';
+    if (isCurrentDayOfWeek) {
+      classes += ' is-today';
     }
 
     const hoursIntervals = day.dailyHolidayHours && day.dailyHolidayHours.isRegularHours
       ? day.intervals || []
       : ((day.dailyHolidayHours && day.dailyHolidayHours.intervals) || day.intervals || []);
-    const openStatusMessage = isToday && !config.disableOpenStatus &&
+    const openStatusMessage = isCurrentDayOfWeek && !config.disableOpenStatus &&
       new OpenStatusMessageFactory(this._localizer).create(hours.openStatus);
     return `
-      <tr class="c-hours-details-row${classList}">
+      <tr class="c-hours-details-row${classes}">
         <td class="c-hours-details-row-day">
             ${this._localizer.getTranslation(day.day)}
         </td>

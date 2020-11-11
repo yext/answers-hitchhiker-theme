@@ -460,19 +460,19 @@ export function openStatus(profile, key = 'hours', isTwentyFourHourClock, locale
     return '';
   }
 
-  const hoursToday = HoursTransformer.transform(profile[key], profile.timeZoneUtcOffset);
-  if (!hoursToday) {
+  const hours = HoursTransformer.transform(profile[key], profile.timeZoneUtcOffset);
+  if (!hours) {
     return '';
   }
 
   const hoursLocalizer = new HoursStringsLocalizer(
     locale || _getDocumentLocale(), isTwentyFourHourClock);
   return new OpenStatusMessageFactory(hoursLocalizer)
-    .create(hoursToday.openStatus);
+    .create(hours.openStatus);
 }
 
 /**
- * Returns a markup string, a formatted hours table for the given field on the profile.
+ * Returns the markup for a formatted hours table for the given field on the profile.
  *
  * @param {Object} profile The profile information of the entity
  * @param {Object} opts
@@ -491,14 +491,14 @@ export function hoursTable(profile, opts = {}, key = 'hours', locale) {
       return '';
     }
 
-    const hoursToday = HoursTransformer.transform(profile[key], profile.timeZoneUtcOffset);
-    if (!hoursToday) {
+    const hours = HoursTransformer.transform(profile[key], profile.timeZoneUtcOffset);
+    if (!hours) {
       return '';
     }
 
     const hoursLocalizer = new HoursStringsLocalizer(
       locale || _getDocumentLocale(), opts.isTwentyFourHourClock);
-    return new HoursTableBuilder(hoursLocalizer).build(hoursToday, opts);
+    return new HoursTableBuilder(hoursLocalizer).build(hours, opts);
 }
 
 /**
