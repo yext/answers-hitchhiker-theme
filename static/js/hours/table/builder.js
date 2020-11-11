@@ -83,9 +83,10 @@ export default class HoursTableBuilder {
       classes += ' is-today';
     }
 
-    const hoursIntervals = day.dailyHolidayHours && day.dailyHolidayHours.isRegularHours
-      ? day.intervals || []
-      : ((day.dailyHolidayHours && day.dailyHolidayHours.intervals) || day.intervals || []);
+    const holidayHours = day.dailyHolidayHours || {};
+    const hoursIntervals = holidayHours.isRegularHours && holidayHours.intervals
+      ? day.intervals
+      : holidayHours.intervals;
     const shouldShowOpenStatusMessage = isCurrentDayOfWeek
       && !config.disableOpenStatus
       && hoursIntervals.length === 1;
