@@ -30,6 +30,7 @@ module.exports = function () {
 
   return {
     mode: 'production',
+    target: ['web', 'es5'],
     entry: {
       'bundle': `./${jamboConfig.dirs.output}/static/entry.js`,
       'iframe': `./${jamboConfig.dirs.output}/static/js/iframe.js`,
