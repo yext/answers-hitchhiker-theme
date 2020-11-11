@@ -33,12 +33,21 @@ export default class Interactions {
         this._updateStickyButton();
       });
       window.addEventListener('resize', () => {
-        this._debouncedStickyUpdate();
+        this._debouncedStickyUpdate(200);
       });
     }
   }
 
-  _debouncedStickyUpdate(DEBOUNCE_TIMER = 200) {
+  /**
+   * Recalculate the sticky position again after a timeout.
+   *
+   * Debouncing the sticky update with a timer of 0 lets the page sync up before
+   * updating the sticky position again, by pushing the update to the end of
+   * the execution block.
+   *
+   * @param {number} DEBOUNCE_TIMER 
+   */
+  _debouncedStickyUpdate(DEBOUNCE_TIMER) {
     if (this.stickyResizeTimer) {
       clearTimeout(this.stickyResizeTimer);
     }
@@ -52,6 +61,10 @@ export default class Interactions {
     }, DEBOUNCE_TIMER);
   }
 
+  /**
+   * If the page is in an IFrame, will update the view results button to be sticky
+   * with regards to the parent frame instead of the IFrame.
+   */
   _updateStickyButtonInIFrame() {
     const { offsetTop, windowHeight, scrollTop } = this.parentPageInfo;
     const windowTopToIFrameTop = offsetTop - scrollTop;
@@ -156,7 +169,7 @@ export default class Interactions {
    */
   _toggleCollapsibleFilters(shouldCollapseFilters) {
     if (this.stickyButton) {
-      this._debouncedStickyUpdate();
+      this._debouncedStickyUpdate(0);
     }
     for (const el of this.filterEls) {
       this.toggleInactiveClass(el, shouldCollapseFilters);

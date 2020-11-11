@@ -93,9 +93,6 @@ export function generateIFrame(domain, queryParam, urlParam) {
       if (window.location.href !== newLocation) {
         history.replaceState({query: params}, window.document.title, newLocation);
       }
-    },
-    onResized: function(opts) {
-      console.log('on resize', opts);
     }
   }, '#answers-frame');
 }
