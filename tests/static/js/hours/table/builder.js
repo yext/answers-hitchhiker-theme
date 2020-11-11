@@ -1,10 +1,44 @@
-import HoursTableBuilder from '../../../../../static/js/hours/table/builder.js';
-import { DayNames, TableHeaders } from '../../../../../static/js/hours/constants';
-import Hours from '../../../../../static/js/hours/models/hours';
-import { OpenStatusStrings, OpenStatusTypes } from '../../../../../static/js/hours/open-status/constants.js';
-
+import HoursTableBuilder from 'static/js/hours/table/builder.js';
+import { DayNames, TableHeaders } from 'static/js/hours/constants';
+import Hours from 'static/js/hours/models/hours';
+import { OpenStatusStrings, OpenStatusTypes } from 'static/js/hours/open-status/constants.js';
 
 describe('HoursTableBuilder properly builds hours table', () => {
+  /**
+   * A mock implementation of {@link HoursStringsLocalizer}
+   */
+  const localizer = {
+    getLocalizedTime: (yextTime) => {
+      let time = new Date();
+      time.setHours(Math.floor(yextTime / 100));
+      time.setMinutes(yextTime % 100);
+
+      return time.toLocaleString('en', {
+        hour: 'numeric',
+        minute: 'numeric'
+      });
+    },
+    getTranslation: (str) => {
+      const translations = {
+        [DayNames.MONDAY]: 'Monday',
+        [DayNames.TUESDAY]: 'Tuesday',
+        [DayNames.WEDNESDAY]: 'Wednesday',
+        [DayNames.THURSDAY]: 'Thursday',
+        [DayNames.FRIDAY]: 'Friday',
+        [DayNames.SATURDAY]: 'Saturday',
+        [DayNames.SUNDAY]: 'Sunday',
+        [TableHeaders.DAY_OF_WEEK]: 'Day of the Week',
+        [TableHeaders.HOURS]: 'Hours',
+        [OpenStatusStrings.CLOSED]: 'Closed',
+        [OpenStatusStrings.OPEN_24_HOURS]: 'Open 24 Hours',
+        [OpenStatusStrings.OPENS_AT]: 'Opens at',
+        [OpenStatusStrings.OPEN_NOW]: 'Open Now',
+        [OpenStatusStrings.CLOSES_AT]: 'Closes at',
+      }
+      return translations[str];
+    }
+  };
+
   const days = [
     {
       day: DayNames.MONDAY,
@@ -54,37 +88,6 @@ describe('HoursTableBuilder properly builds hours table', () => {
       intervals: []
     }
   ];
-  const localizer = {
-    getLocalizedTime: (yextTime) => {
-      let time = new Date();
-      time.setHours(Math.floor(yextTime / 100));
-      time.setMinutes(yextTime % 100);
-
-      return time.toLocaleString('en', {
-        hour: 'numeric',
-        minute: 'numeric'
-      });
-    },
-    getTranslation: (str) => {
-      const translations = {
-        [DayNames.MONDAY]: 'Monday',
-        [DayNames.TUESDAY]: 'Tuesday',
-        [DayNames.WEDNESDAY]: 'Wednesday',
-        [DayNames.THURSDAY]: 'Thursday',
-        [DayNames.FRIDAY]: 'Friday',
-        [DayNames.SATURDAY]: 'Saturday',
-        [DayNames.SUNDAY]: 'Sunday',
-        [TableHeaders.DAY_OF_WEEK]: 'Day of the Week',
-        [TableHeaders.HOURS]: 'Hours',
-        [OpenStatusStrings.CLOSED]: 'Closed',
-        [OpenStatusStrings.OPEN_24_HOURS]: 'Open 24 Hours',
-        [OpenStatusStrings.OPENS_AT]: 'Opens at',
-        [OpenStatusStrings.OPEN_NOW]: 'Open Now',
-        [OpenStatusStrings.CLOSES_AT]: 'Closes at',
-      }
-      return translations[str];
-    }
-  }
 
   it('works with default config options', () => {
     const hoursTable = new HoursTableBuilder(localizer).build(new Hours({
