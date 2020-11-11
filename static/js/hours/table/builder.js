@@ -84,9 +84,9 @@ export default class HoursTableBuilder {
     }
 
     const holidayHours = day.dailyHolidayHours || {};
-    const hoursIntervals = holidayHours.isRegularHours && holidayHours.intervals
-      ? day.intervals
-      : holidayHours.intervals;
+    const hoursIntervals = !holidayHours.isRegularHours && holidayHours.intervals
+      ? holidayHours.intervals
+      : day.intervals;
     const shouldShowOpenStatusMessage = isCurrentDayOfWeek
       && !config.disableOpenStatus
       && hoursIntervals.length === 1;
