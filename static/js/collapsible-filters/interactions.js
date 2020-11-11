@@ -16,57 +16,57 @@ export default class Interactions {
     this.stickifyViewResultsButton();
   }
 
-  _registerIFrameResizeStickyListener() {
-    this.parentIFrame.getPageInfo(parentPageInfo => {
-      const { offsetTop, windowHeight, scrollTop } = parentPageInfo;
-      const windowTopToIFrameTop = offsetTop - scrollTop;
-      const stickyButtonBottom = this.resultsWrapper.getBoundingClientRect().bottom;
-      const stickyButtonBottomInParent = windowTopToIFrameTop + stickyButtonBottom;
-      const hasScrolledPastResults = stickyButtonBottomInParent > windowHeight;
-      if (hasScrolledPastResults) {
-        const iFrameTopToButton = windowHeight - windowTopToIFrameTop - this.stickyButton.offsetHeight - 10;
-        this.stickyButton.style.top = `${iFrameTopToButton}px`;
-        this.stickyButton.style.bottom = 'auto';
-      } else {
-        this.stickyButton.style.top = '';
-        this.stickyButton.style.bottom = '';
-      }
-      this._updateStickyButtonClassName(hasScrolledPastResults);
-    })
-  }
-
-
   /**
    * This gives "position: sticky"-like behavior to the view results button.
    * It does so by toggling on/off the CollapsibleFilters-unstuck css class.
    * If within an iframe, will use iframe-resizer to observe scrolling/resizing,
-   * otherwise will register its own listeners.
+   * outside of the iframe, otherwise it will register its own listeners.
    */
   stickifyViewResultsButton() {
     if (this.parentIFrame) {
-      this._registerIFrameResizeStickyListener();
+      this.parentIFrame.getPageInfo(parentPageInfo => {
+        this.parentPageInfo = parentPageInfo;
+        this._debouncedStickyUpdate(0);
+      })
     } else {
       window.addEventListener('scroll', () => {
         this._updateStickyButton();
       });
       window.addEventListener('resize', () => {
-        this._onResize();
+        this._debouncedStickyUpdate();
       });
     }
   }
 
-  /**
-   * On window resize, update the given sticky element. 
-   */
-  _onResize() {
+  _debouncedStickyUpdate(DEBOUNCE_TIMER = 200) {
     if (this.stickyResizeTimer) {
       clearTimeout(this.stickyResizeTimer);
     }
-    const DEBOUNCE_TIMER = 200;
     this.stickyResizeTimer = setTimeout(() => {
-      this._updateStickyButton();
+      if (this.parentIFrame) {
+        this._updateStickyButtonInIFrame();
+      } else {
+        this._updateStickyButton();
+      }
       this.stickyResizeTimer = undefined;
     }, DEBOUNCE_TIMER);
+  }
+
+  _updateStickyButtonInIFrame() {
+    const { offsetTop, windowHeight, scrollTop } = this.parentPageInfo;
+    const windowTopToIFrameTop = offsetTop - scrollTop;
+    const stickyButtonBottom = this.resultsWrapper.getBoundingClientRect().bottom;
+    const stickyButtonBottomInParent = windowTopToIFrameTop + stickyButtonBottom;
+    const hasScrolledPastResults = stickyButtonBottomInParent > windowHeight;
+    if (hasScrolledPastResults) {
+      const iFrameTopToButton = windowHeight - windowTopToIFrameTop - this.stickyButton.offsetHeight - 10;
+      this.stickyButton.style.top = `${iFrameTopToButton}px`;
+      this.stickyButton.style.bottom = 'auto';
+    } else {
+      this.stickyButton.style.top = '';
+      this.stickyButton.style.bottom = '';
+    }
+    this._updateStickyButtonClassName(hasScrolledPastResults);
   }
 
   /**
@@ -129,7 +129,6 @@ export default class Interactions {
    * Hide the filters view, and display the results view.
    */
   collapseFilters() {
-    console.log('collapse');
     this._toggleCollapsibleFilters(true);
   }
 
@@ -137,7 +136,6 @@ export default class Interactions {
    * Hide the results view, and display the filters view.
    */
   expandFilters() {
-    console.log('expand');
     this._toggleCollapsibleFilters(false);
   }
 
@@ -157,8 +155,8 @@ export default class Interactions {
    * @param {boolean} shouldCollapseFilters 
    */
   _toggleCollapsibleFilters(shouldCollapseFilters) {
-    if (!this._parentIFrame) {
-      this._updateStickyButton();
+    if (this.stickyButton) {
+      this._debouncedStickyUpdate();
     }
     for (const el of this.filterEls) {
       this.toggleInactiveClass(el, shouldCollapseFilters);
