@@ -499,7 +499,7 @@ export function hoursList(profile, opts = {}, key = 'hours', locale) {
     }
 
     const firstDayInList = opts.firstDayInList && opts.firstDayInList.toUpperCase();
-    const isDayValid = Object.keys(DayNames).includes(firstDayInList);
+    const isDayValid = Object.values(DayNames).includes(firstDayInList);
     if (firstDayInList && !isDayValid) {
       console.warn(`Invalid day: "${opts.firstDayInList}" provided as "firstDayInList" for the hoursList formatter`);
     }
