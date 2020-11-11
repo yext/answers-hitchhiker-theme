@@ -69,7 +69,7 @@ export default class HoursTableBuilder {
    */
   _getSortedDaysStartingFrom(days, startingIndex) {
     if (startingIndex === undefined || startingIndex === null || startingIndex < 0) {
-      startingIndex = 0;
+      return days;
     }
 
     const partA = days.slice(startingIndex);
