@@ -50,31 +50,12 @@ export default class HoursTableBuilder {
   _buildTableBodyContent(hours, config) {
     let tableBodyHTML = '';
 
-    const startingIndex = hours.getIndexForDay(config.firstDayInList || hours.today.day);
-
-    const sortedDays = this._getSortedDaysStartingFrom(hours.days, startingIndex);
+    const sortedDays = hours.getSortedDaysStartingFrom(config.firstDayInList || hours.today.day);
     for (const day of sortedDays) {
       tableBodyHTML += this._buildTableRow(day, hours, config.disableOpenStatus);
     }
 
     return tableBodyHTML;
-  }
-
-  /**
-   * Returns an array of days beginning with the day at the startingIndex provided
-   *
-   * @param {Object[]} days
-   * @param {number} startingIndex
-   * @returns {Object[]} sortedDays
-   */
-  _getSortedDaysStartingFrom(days, startingIndex) {
-    if (startingIndex === undefined || startingIndex === null || startingIndex < 0) {
-      return days;
-    }
-
-    const partA = days.slice(startingIndex);
-    const partB = days.slice(0, startingIndex);
-    return partA.concat(partB);
   }
 
   /**
