@@ -91,7 +91,7 @@ export default class HoursTableBuilder {
     return `
       <tr class="c-hours-details-row${classes}">
         <td class="c-hours-details-row-day">
-            ${this._localizer.getTranslation(day.day)}
+          ${this._localizer.getTranslation(day.day)}
         </td>
         <td class="c-hours-details-row-intervals">
           ${(hoursIntervals.length == 0
@@ -109,37 +109,32 @@ export default class HoursTableBuilder {
    * @returns {string}
    */
   _buildIntervalsForDay(hoursIntervals, openStatusMessage) {
+    const shouldShowOpenStatusMessage = hoursIntervals.length === 1 && openStatusMessage;
     let intervalsHTML = '';
     for (const interval of hoursIntervals) {
       intervalsHTML += `
         <span class="c-hours-details-row-intervals-instance">
-          ${this._getIntervalHTML(
-            interval.start, interval.end, (hoursIntervals.length === 1 && openStatusMessage))}
+          ${(shouldShowOpenStatusMessage
+            ? `<span class="c-hours-details-row-intervals-instance-open">
+                ${openStatusMessage}
+              </span>`
+            : this._getIntervalHTML(interval.start, interval.end))}
         </span>`;
     }
     return intervalsHTML;
   }
 
   /**
-   * Returns the markup for an hours interval with the given start and end time. Prefers
-   * an openStatusMessage, if provided.
+   * Returns the markup for an hours interval with the given start and end time.
    *
    * @param {number} startTime
    * @param {number} endTime
-   * @param {string} openStatusMessage
    * @returns {string}
    */
-  _getIntervalHTML(startTime, endTime, openStatusMessage) {
+  _getIntervalHTML(startTime, endTime) {
     const isOpenAllDay = startTime == 0 && endTime == 2359;
     if (isOpenAllDay) {
       return this._localizer.getTranslation(OpenStatusStrings.OPEN_24_HOURS);
-    }
-
-    if (openStatusMessage) {
-      return `
-        <span class="c-hours-details-row-intervals-instance-open">
-          ${openStatusMessage}
-        </span>`;
     }
 
     return `
