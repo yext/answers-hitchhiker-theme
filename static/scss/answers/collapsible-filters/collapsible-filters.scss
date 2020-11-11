@@ -27,6 +27,7 @@
       padding: 4px 8px;
       background-color: var(--hh-answers-background-color);
       z-index: $nav-wrapper-z-index;
+      transition: all 0.3s ease-out;
 
       @media (max-width: $container-tablet-base) {
         width: 100%;
