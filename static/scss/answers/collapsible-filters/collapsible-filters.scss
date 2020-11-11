@@ -21,17 +21,16 @@
 
     &-viewResultsButton {
       position: fixed;
-      width: 50%;
+      width: 100%;
       left: 0;
       bottom: 0;
       padding: 4px 8px;
       background-color: var(--hh-answers-background-color);
       z-index: $nav-wrapper-z-index;
-      transition: all 0.3s ease-out;
+      transition: top 0.4s ease-out;
 
-      @media (max-width: $container-tablet-base) {
-        width: 100%;
-        margin-left: none;
+      @include bpgte(sm) {
+        width: 50%;
       }
     }
 
