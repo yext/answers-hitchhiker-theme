@@ -64,7 +64,7 @@ export default class HoursTableBuilder {
    * Returns an array of days beginning with the day at the startingIndex provided
    *
    * @param {Object[]} days
-   * @param {number} dayName
+   * @param {number} startingIndex
    * @returns {Object[]} sortedDays
    */
   _getSortedDaysStartingFrom(days, startingIndex) {
@@ -82,10 +82,10 @@ export default class HoursTableBuilder {
    *
    * @param {Object} day
    * @param {Hours} hours
-   * @param {boolean} disableOpenStatus
+   * @param {boolean} shouldDisableOpenStatus
    * @returns {string}
    */
-  _buildTableRow(day, hours, disableOpenStatus) {
+  _buildTableRow(day, hours, shouldDisableOpenStatus) {
     const isCurrentDayOfWeek = day.day == hours.today.day;
 
     let classes = '';
@@ -102,7 +102,7 @@ export default class HoursTableBuilder {
       ? holidayHours.intervals
       : day.intervals;
     const shouldShowOpenStatusMessage = isCurrentDayOfWeek
-      && !disableOpenStatus
+      && !shouldDisableOpenStatus
       && hoursIntervals.length === 1;
 
     return `
