@@ -39,7 +39,7 @@ export default class Hours {
   }
 
   /**
-   * Returns the index of the day in this.days
+   * Returns the index of the day in this.days, or -1 if not found
    *
    * @param {DayName} dayName
    */
@@ -49,5 +49,6 @@ export default class Hours {
         return i;
       }
     }
+    return -1;
   }
 }

@@ -68,6 +68,10 @@ export default class HoursTableBuilder {
    * @returns {Object[]} sortedDays
    */
   _getSortedDaysStartingFrom(days, startingIndex) {
+    if (startingIndex === undefined || startingIndex === null || startingIndex < 0) {
+      startingIndex = 0;
+    }
+
     const partA = days.slice(startingIndex);
     const partB = days.slice(0, startingIndex);
     return partA.concat(partB);
