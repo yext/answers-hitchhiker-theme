@@ -2,45 +2,69 @@
  * Interactions manages page interactions for collapsible filters.
  */
 export default class Interactions {
-  constructor (domElements) {
+  constructor(domElements) {
     const { filterEls, resultEls } = domElements;
     this.filterEls = filterEls || [];
     this.resultEls = resultEls || [];
     this.viewResultsButton = document.getElementById('js-answersViewResultsButton');
     this.searchBarContainer = document.getElementById('js-answersSearchBar');
     this.resultsColumn = document.querySelector('.js-answersResultsColumn');
-    this.resultsWrapper = document.querySelector('.js-answersResultsWrapper');
     this.inactiveCssClass = 'CollapsibleFilters-inactive';
-    this.stickyElements = [];
+    this.resultsWrapper = document.querySelector('.js-answersResultsWrapper');
+    this.stickyButton = document.getElementById('js-answersViewResultsButton');
+    this.parentIFrame = ('parentIFrame' in window) && parentIFrame;
+    this.stickifyViewResultsButton();
   }
 
+  _registerIFrameResizeStickyListener() {
+    this.parentIFrame.getPageInfo(parentPageInfo => {
+      const { offsetTop, windowHeight, scrollTop } = parentPageInfo;
+      const windowTopToIFrameTop = offsetTop - scrollTop;
+      const stickyButtonBottom = this.resultsWrapper.getBoundingClientRect().bottom;
+      const stickyButtonBottomInParent = windowTopToIFrameTop + stickyButtonBottom;
+      const hasScrolledPastResults = stickyButtonBottomInParent > windowHeight;
+      if (hasScrolledPastResults) {
+        const iFrameTopToButton = windowHeight - windowTopToIFrameTop - this.stickyButton.offsetHeight - 10;
+        this.stickyButton.style.top = `${iFrameTopToButton}px`;
+        this.stickyButton.style.bottom = 'auto';
+      } else {
+        this.stickyButton.style.top = '';
+        this.stickyButton.style.bottom = '';
+      }
+      this._updateStickyButtonClassName(hasScrolledPastResults);
+    })
+  }
+
+
   /**
-   * This gives "position: sticky"-like behavior to CollapsibleFilters elements.
+   * This gives "position: sticky"-like behavior to the view results button.
    * It does so by toggling on/off the CollapsibleFilters-unstuck css class.
-   * 
-   * @param {HTMLElement} stickyElement 
+   * If within an iframe, will use iframe-resizer to observe scrolling/resizing,
+   * otherwise will register its own listeners.
    */
-  stickify(stickyElement) {
-    this.stickyElements.push(stickyElement);
-    window.addEventListener('scroll', () => {
-      this._updateStickyElement(stickyElement);
-    });
-    window.addEventListener('resize', () => {
-      this._onResize(stickyElement);
-    });
+  stickifyViewResultsButton() {
+    if (this.parentIFrame) {
+      this._registerIFrameResizeStickyListener();
+    } else {
+      window.addEventListener('scroll', () => {
+        this._updateStickyButton();
+      });
+      window.addEventListener('resize', () => {
+        this._onResize();
+      });
+    }
   }
 
   /**
-   * On window resize, update the given sticky element.
-   * @param {HTMLElement} stickyElement 
+   * On window resize, update the given sticky element. 
    */
-  _onResize(stickyElement) {
+  _onResize() {
     if (this.stickyResizeTimer) {
       clearTimeout(this.stickyResizeTimer);
     }
     const DEBOUNCE_TIMER = 200;
     this.stickyResizeTimer = setTimeout(() => {
-      this._updateStickyElement(stickyElement);
+      this._updateStickyButton();
       this.stickyResizeTimer = undefined;
     }, DEBOUNCE_TIMER);
   }
@@ -48,16 +72,19 @@ export default class Interactions {
   /**
    * If the user has scrolled past the results, give the sticky element
    * the CollapsibleFilters-unstuck css class. Otherwise remove it.
-   * @param {HTMLElement} stickyElement 
    */
-  _updateStickyElement(stickyElement) {
-    const containerBottom = this.resultsWrapper.getBoundingClientRect().bottom;
+  _updateStickyButton() {
+    const stickyButtonBottom = this.resultsWrapper.getBoundingClientRect().bottom;
     const windowBottom = window.innerHeight;
-    const hasScrolledPastResults = containerBottom > windowBottom;
+    const hasScrolledPastResults = stickyButtonBottom > windowBottom;
+    this._updateStickyButtonClassName(hasScrolledPastResults);
+  }
+
+  _updateStickyButtonClassName(hasScrolledPastResults) {
     if (hasScrolledPastResults) {
-      stickyElement.classList.remove('CollapsibleFilters-unstuck');
+      this.stickyButton.classList.remove('CollapsibleFilters-unstuck');
     } else {
-      stickyElement.classList.add('CollapsibleFilters-unstuck');
+      this.stickyButton.classList.add('CollapsibleFilters-unstuck');
     }
   }
 
@@ -85,7 +112,7 @@ export default class Interactions {
    * Focus the search bar input, if one exists.
    */
   focusSearchBar() {
-    const searchInputEl = this.searchBarContainer && 
+    const searchInputEl = this.searchBarContainer &&
       this.searchBarContainer.querySelector('.js-yext-query');
     searchInputEl && searchInputEl.focus();
   }
@@ -101,7 +128,8 @@ export default class Interactions {
   /**
    * Hide the filters view, and display the results view.
    */
-  collapseFilters () {
+  collapseFilters() {
+    console.log('collapse');
     this._toggleCollapsibleFilters(true);
   }
 
@@ -109,6 +137,7 @@ export default class Interactions {
    * Hide the results view, and display the filters view.
    */
   expandFilters() {
+    console.log('expand');
     this._toggleCollapsibleFilters(false);
   }
 
@@ -128,8 +157,8 @@ export default class Interactions {
    * @param {boolean} shouldCollapseFilters 
    */
   _toggleCollapsibleFilters(shouldCollapseFilters) {
-    for (const el of this.stickyElements) {
-      this._updateStickyElement(el);
+    if (!this._parentIFrame) {
+      this._updateStickyButton();
     }
     for (const el of this.filterEls) {
       this.toggleInactiveClass(el, shouldCollapseFilters);
@@ -147,7 +176,7 @@ export default class Interactions {
   /**
    * Scroll the screen to the top.
    */
-  scrollToTop () {
+  scrollToTop() {
     window.scroll({
       top: 0
     });
