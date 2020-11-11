@@ -86,39 +86,53 @@ export default class HoursTableBuilder {
     const hoursIntervals = day.dailyHolidayHours && day.dailyHolidayHours.isRegularHours
       ? day.intervals || []
       : ((day.dailyHolidayHours && day.dailyHolidayHours.intervals) || day.intervals || []);
-    const openStatusMessage = isCurrentDayOfWeek && !config.disableOpenStatus &&
-      new OpenStatusMessageFactory(this._localizer).create(hours.openStatus);
+    const shouldShowOpenStatusMessage = isCurrentDayOfWeek
+      && !config.disableOpenStatus
+      && hoursIntervals.length === 1;
+
     return `
       <tr class="c-hours-details-row${classes}">
         <td class="c-hours-details-row-day">
           ${this._localizer.getTranslation(day.day)}
         </td>
         <td class="c-hours-details-row-intervals">
-          ${(hoursIntervals.length == 0
-              ? this._localizer.getTranslation(OpenStatusStrings.CLOSED)
-              : this._buildIntervalsForDay(hoursIntervals, openStatusMessage))}
+          ${(shouldShowOpenStatusMessage
+              ? this._buildOpenStatusHTML(hours.openStatus)
+              : this._buildIntervalsForDay(hoursIntervals))}
         </td>
       </tr>`;
+  }
+
+  /**
+   * Returns the markup for the open status
+   *
+   * @param {Object} openStatus
+   */
+  _buildOpenStatusHTML(openStatus) {
+    return `
+      <span class="c-hours-details-row-intervals-instance">
+        <span class="c-hours-details-row-intervals-instance-open">
+            ${new OpenStatusMessageFactory(this._localizer).create(openStatus)}
+        </span>
+      </span>`;
   }
 
   /**
    * Returns the markup for all hours intervals specified
    *
    * @param {Object[]} hoursIntervals
-   * @param {string} openStatusMessage
    * @returns {string}
    */
-  _buildIntervalsForDay(hoursIntervals, openStatusMessage) {
-    const shouldShowOpenStatusMessage = hoursIntervals.length === 1 && openStatusMessage;
+  _buildIntervalsForDay(hoursIntervals) {
+    if (hoursIntervals.length === 0) {
+      return this._localizer.getTranslation(OpenStatusStrings.CLOSED);
+    }
+
     let intervalsHTML = '';
     for (const interval of hoursIntervals) {
       intervalsHTML += `
         <span class="c-hours-details-row-intervals-instance">
-          ${(shouldShowOpenStatusMessage
-            ? `<span class="c-hours-details-row-intervals-instance-open">
-                ${openStatusMessage}
-              </span>`
-            : this._getIntervalHTML(interval.start, interval.end))}
+          ${this._getIntervalHTML(interval.start, interval.end)}
         </span>`;
     }
     return intervalsHTML;
