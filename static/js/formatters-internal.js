@@ -473,21 +473,22 @@ export function openStatus(profile, key = 'hours', isTwentyFourHourClock, locale
 }
 
 /**
- * Returns the markup for a formatted hours table for the given field on the profile.
+ * Returns the markup for a formatted hours list for the given field on the profile.
  *
  * @param {Object} profile The profile information of the entity
  * @param {Object} opts
  * {
  *   isTwentyFourHourClock {@link boolean} Use 24 hour clock if true, 12 hour clock if
  *                                         false. Default based on locale if undefined.
- *   disableOpenStatus: {@link boolean} If specified, displays the hours intervals
+ *   disableOpenStatus: {@link boolean}   If specified, displays the hours intervals
  *                                      rather than the open status string for today
- *   showTodayFirst: {@link boolean} If this is not specified, we will default to Monday first
+ *   firstDayInList: {@link string} A day name in English, e.g. "SUNDAY", this day will be
+ *                                  displayed first in the list
  * }
  * @param {String} key Indicates which profile property to use for hours
  * @param {String} locale The locale for the time string
  */
-export function hoursTable(profile, opts = {}, key = 'hours', locale) {
+export function hoursList(profile, opts = {}, key = 'hours', locale) {
     if (!profile[key]) {
       return '';
     }
