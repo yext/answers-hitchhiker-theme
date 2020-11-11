@@ -1,5 +1,5 @@
-import { provideOpenStatusTranslation, provideTableHeadersTranslation } from '../open-status-18n';
-import provideHoursStringsTranslations from '../open-status-18n';
+import provideOpenStatusTranslation from '../open-status-18n';
+import provideTableHeadersTranslation from './table/table-strings-i18n';
 
 /**
  * HoursStringsLocalizer is responsible for returning localized hours strings for
