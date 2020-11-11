@@ -1,17 +1,17 @@
-.c-hours-details-row-intervals {
-  display: flex;
-  flex-direction: column;
-}
+.c-hours-details-row {
+  padding-top: 5px;
+  padding-bottom: 5px;
 
-.c-hours-details-row:not(:first-child) .c-hours-details-row-day {
-  margin-top: 4px;
-}
+  &.is-today {
+    font-weight: var(--yxt-font-weight-semibold);
+  }
 
-.c-hours-details-row-day {
-  padding-right: 10px;
-}
+  &-day {
+    padding-right: 10px;
+  }
 
-.c-hours-details-row.is-today {
-  font-weight: var(--yxt-font-weight-semibold);
+  &-intervals {
+    display: flex;
+    flex-direction: column;
+  }
 }
-
