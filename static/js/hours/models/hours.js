@@ -41,7 +41,7 @@ export default class Hours {
   /**
    * Returns an array of the days beginning with the dayName provided
    *
-   * @param {DayName} startingIndex
+   * @param {DayName} dayName
    * @returns {Object[]} sortedDays
    */
   getSortedDaysStartingFrom(dayName) {
