@@ -29,7 +29,6 @@ export default class HoursTransformer {
       today: {
         time: time,
         day: day,
-        dayNumber: this._dayToInt(day),
       },
       openStatus: this._getStatus(time, day, days)
     });

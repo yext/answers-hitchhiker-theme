@@ -6,6 +6,7 @@ import OpenStatusMessageFactory from './hours/open-status/messagefactory.js';
 import HoursTransformer from './hours/transformer.js';
 import HoursStringsLocalizer from './hours/stringslocalizer.js';
 import HoursTableBuilder from './hours/table/builder.js';
+import { DayNames } from './hours/constants.js';
 
 
 export function address(profile) {
@@ -496,9 +497,19 @@ export function hoursTable(profile, opts = {}, key = 'hours', locale) {
       return '';
     }
 
+    const firstDayInList = opts.firstDayInList && opts.firstDayInList.toUpperCase();
+    const isDayValid = Object.keys(DayNames).includes(firstDayInList);
+    if (!isDayValid) {
+      console.warn(`Invalid day: "${opts.firstDayInList}" provided as "firstDayInList" for the hoursList formatter`);
+    }
+    const standardizedOpts = {
+      disableOpenStatus: opts.disableOpenStatus || false,
+      firstDayInList: isDayValid && firstDayInList
+    };
+
     const hoursLocalizer = new HoursStringsLocalizer(
       locale || _getDocumentLocale(), opts.isTwentyFourHourClock);
-    return new HoursTableBuilder(hoursLocalizer).build(hours, opts);
+    return new HoursTableBuilder(hoursLocalizer).build(hours, standardizedOpts);
 }
 
 /**

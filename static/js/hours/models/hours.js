@@ -18,11 +18,6 @@ export default class Hours {
        * @type {DayNames}
        */
       day: config.today.day,
-
-      /**
-       * @type {number}
-       */
-      dayNumber: config.today.dayNumber,
     };
 
     this.openStatus = {
@@ -40,6 +35,19 @@ export default class Hours {
        * @type {number}
        */
       nextTime: config.openStatus.nextTime,
+    }
+  }
+
+  /**
+   * Returns the index of the day in this.days
+   *
+   * @param {DayName} dayName
+   */
+  getIndexForDay(dayName) {
+    for (let i = 0; i < this.days.length; i++) {
+      if (this.days[i].day == dayName) {
+        return i;
+      }
     }
   }
 }

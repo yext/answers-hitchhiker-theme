@@ -1,7 +1,8 @@
 import { OpenStatusStrings } from '../open-status/constants';
 import OpenStatusMessageFactory from '../open-status/messagefactory';
+import Hours from '../models/hours';
 import HoursStringsLocalizer from '../stringslocalizer';
-import { TableHeaders } from '../constants';
+import { DayNames, TableHeaders } from '../constants';
 
 export default class HoursTableBuilder {
   constructor(localizer) {
@@ -18,7 +19,7 @@ export default class HoursTableBuilder {
    * @param {Object} config
    * {
    *   disableOpenStatus: boolean
-   *   showTodayFirst: boolean
+   *   firstDayInList: {@link DayName}
    * }
    * @returns {string}
    */
@@ -49,18 +50,27 @@ export default class HoursTableBuilder {
   _buildTableBodyContent(hours, config) {
     let tableBodyHTML = '';
 
-    // Iterate through days in order, either starting at Monday or today
-    const startingDayIndex = config.showTodayFirst
-      ? (hours.today.dayNumber > 0 ? (hours.today.dayNumber - 1) : 6)
-      : 0;
-    for (let i = startingDayIndex; i < hours.days.length; i++) {
-      tableBodyHTML += this._buildTableRow(hours.days[i], hours, config);
-    }
-    for (let i = 0; i < startingDayIndex; i++) {
-      tableBodyHTML += this._buildTableRow(hours.days[i], hours, config);
+    const startingIndex = hours.getIndexForDay(config.firstDayInList || hours.today.day);
+
+    const sortedDays = this._getSortedDaysStartingFrom(hours.days, startingIndex);
+    for (const day of sortedDays) {
+      tableBodyHTML += this._buildTableRow(day, hours, config);
     }
 
     return tableBodyHTML;
+  }
+
+  /**
+   * Returns an array of days beginning with the day at the startingIndex provided
+   *
+   * @param {Object[]} days
+   * @param {number} dayName
+   * @returns {Object[]} sortedDays
+   */
+  _getSortedDaysStartingFrom(days, startingIndex) {
+    const partA = days.slice(startingIndex);
+    const partB = days.slice(0, startingIndex);
+    return partA.concat(partB);
   }
 
   /**
