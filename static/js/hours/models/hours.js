@@ -18,11 +18,6 @@ export default class Hours {
        * @type {DayNames}
        */
       day: config.today.day,
-
-      /**
-       * @type {number}
-       */
-      dayIndex: config.today.dayIndex,
     };
 
     this.openStatus = {
@@ -41,5 +36,36 @@ export default class Hours {
        */
       nextTime: config.openStatus.nextTime,
     }
+  }
+
+  /**
+   * Returns an array of the days beginning with the dayName provided
+   *
+   * @param {DayName} dayName
+   * @returns {Object[]} sortedDays
+   */
+  getSortedDaysStartingFrom(dayName) {
+    const startingIndex = this._getIndexForDay(dayName);
+    if (startingIndex < 0) {
+      return this.days;
+    }
+
+    const partA = this.days.slice(startingIndex);
+    const partB = this.days.slice(0, startingIndex);
+    return partA.concat(partB);
+  }
+
+  /**
+   * Returns the index of the day in this.days, or -1 if not found
+   *
+   * @param {DayName} dayName
+   */
+  _getIndexForDay(dayName) {
+    for (let i = 0; i < this.days.length; i++) {
+      if (this.days[i].day == dayName) {
+        return i;
+      }
+    }
+    return -1;
   }
 }

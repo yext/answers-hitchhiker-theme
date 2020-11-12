@@ -5,6 +5,8 @@ import { getDistanceUnit } from './units-i18n';
 import OpenStatusMessageFactory from './hours/open-status/messagefactory.js';
 import HoursTransformer from './hours/transformer.js';
 import HoursStringsLocalizer from './hours/stringslocalizer.js';
+import HoursTableBuilder from './hours/table/builder.js';
+import { DayNames } from './hours/constants.js';
 
 
 export function address(profile) {
@@ -459,15 +461,56 @@ export function openStatus(profile, key = 'hours', isTwentyFourHourClock, locale
     return '';
   }
 
-  const hoursToday = HoursTransformer.transform(profile[key], profile.timeZoneUtcOffset);
-  if (!hoursToday) {
+  const hours = HoursTransformer.transform(profile[key], profile.timeZoneUtcOffset);
+  if (!hours) {
     return '';
   }
 
   const hoursLocalizer = new HoursStringsLocalizer(
     locale || _getDocumentLocale(), isTwentyFourHourClock);
   return new OpenStatusMessageFactory(hoursLocalizer)
-    .create(hoursToday.openStatus);
+    .create(hours.openStatus);
+}
+
+/**
+ * Returns the markup for a formatted hours list for the given field on the profile.
+ *
+ * @param {Object} profile The profile information of the entity
+ * @param {Object} opts
+ * {
+ *   isTwentyFourHourClock {@link boolean} Use 24 hour clock if true, 12 hour clock if
+ *                                         false. Default based on locale if undefined.
+ *   disableOpenStatus: {@link boolean}   If specified, displays the hours intervals
+ *                                      rather than the open status string for today
+ *   firstDayInList: {@link string} A day name in English, e.g. "SUNDAY", this day will be
+ *                                  displayed first in the list
+ * }
+ * @param {String} key Indicates which profile property to use for hours
+ * @param {String} locale The locale for the time string
+ */
+export function hoursList(profile, opts = {}, key = 'hours', locale) {
+    if (!profile[key]) {
+      return '';
+    }
+
+    const hours = HoursTransformer.transform(profile[key], profile.timeZoneUtcOffset);
+    if (!hours) {
+      return '';
+    }
+
+    const firstDayInList = opts.firstDayInList && opts.firstDayInList.toUpperCase();
+    const isDayValid = Object.values(DayNames).includes(firstDayInList);
+    if (firstDayInList && !isDayValid) {
+      console.warn(`Invalid day: "${opts.firstDayInList}" provided as "firstDayInList" for the hoursList formatter`);
+    }
+    const standardizedOpts = {
+      disableOpenStatus: opts.disableOpenStatus || false,
+      firstDayInList: isDayValid && firstDayInList
+    };
+
+    const hoursLocalizer = new HoursStringsLocalizer(
+      locale || _getDocumentLocale(), opts.isTwentyFourHourClock);
+    return new HoursTableBuilder(hoursLocalizer).build(hours, standardizedOpts);
 }
 
 /**
