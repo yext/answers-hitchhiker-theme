@@ -54,15 +54,10 @@ describe('Formatters', () => {
 
   describe('image formatter', () => {
     const img = {
-      url: 'https://a.mktgcdn.com/p/6190x3480.jpg',
-      width: 6190,
-      height: 3480,
+      url: 'https://a.mktgcdn.com/p/1024x768.jpg',
+      width: 1024,
+      height: 768,
       thumbnails: [
-        {
-          url: 'https://a.mktgcdn.com/p/6190x3480.jpg',
-          width: 6190,
-          height: 3480
-        },
         {
           url: 'https://a.mktgcdn.com/p/619x348.jpg',
           width: 619,
@@ -74,10 +69,10 @@ describe('Formatters', () => {
           height: 337
         },
         {
-          url: 'https://a.mktgcdn.com/p/6000x3370.jpg',
-          width: 6000,
-          height: 3370
-        },
+          url: 'https://a.mktgcdn.com/p/196x110.jpg',
+          width: 196,
+          height: 110
+        }
       ]
     }
 
