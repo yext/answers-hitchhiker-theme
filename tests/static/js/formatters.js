@@ -51,4 +51,49 @@ describe('Formatters', () => {
       expect(distance).toEqual('10,000.0 km');
     });
   })
+
+  describe('image formatter', () => {
+    const img = {
+      url: 'https://a.mktgcdn.com/p/6190x3480.jpg',
+      width: 6190,
+      height: 3480,
+      thumbnails: [
+        {
+          url: 'https://a.mktgcdn.com/p/6190x3480.jpg',
+          width: 6190,
+          height: 3480
+        },
+        {
+          url: 'https://a.mktgcdn.com/p/619x348.jpg',
+          width: 619,
+          height: 348
+        },
+        {
+          url: 'https://a.mktgcdn.com/p/600x337.jpg',
+          width: 600,
+          height: 337
+        },
+        {
+          url: 'https://a.mktgcdn.com/p/6000x3370.jpg',
+          width: 6000,
+          height: 3370
+        },
+      ]
+    }
+
+    it('By default chooses the smallest image with width >= 200', () => {
+      const imageUrl = Formatters.image(img).url;
+      expect(imageUrl).toEqual('https://a.mktgcdn.com/p/600x337.jpg');
+    });
+
+    it('Can restrict the dimensions by width', () => {
+      const imageUrl = Formatters.image(img, '601x').url;
+      expect(imageUrl).toEqual('https://a.mktgcdn.com/p/619x348.jpg');
+    });
+
+    it('Can restrict the dimensions by height', () => {
+      const imageUrl = Formatters.image(img, 'x338').url;
+      expect(imageUrl).toEqual('https://a.mktgcdn.com/p/619x348.jpg');
+    });
+  });
 });
