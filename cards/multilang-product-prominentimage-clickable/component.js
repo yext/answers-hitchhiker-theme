@@ -21,15 +21,34 @@ class multilang_product_prominentimage_clickableCardComponent
       cardUrl = profile.landingPageUrl;
     }
 
+    let price = '';
+    if (profile.c_price
+      && profile.c_price[0]
+      && profile.c_price[0].currency
+      && profile.c_price[0].value) {
+      price = `$${profile.c_price[0].value}`;
+    }
+
+    let imageUrl = '';
+    if (profile.photoGallery && profile.photoGallery[0]) {
+      imageUrl = Formatter.image(profile.photoGallery[0]).url;
+    }
+
+    let tag = '';
+    if (profile.stockStatus && profile.stockStatus !== 'In Stock') {
+      tag = profile.stockStatus;
+    }
+
     return {
       title: profile.name, // The header text of the card
       url: cardUrl, // If the card is a clickable link, set URL here
       target: '_top', // If the card URL should open in a new tab, etc.
       titleEventOptions: this.addDefaultEventOptions(),
-      subtitle: profile.c_price ? `$${profile.c_price}` : '', // The sub-header text of the card
-      image: Formatter.image(profile.c_photo).url, // The URL of the image to display on the card
+      subtitle: price, // The sub-header text of the card
+      image: imageUrl, // The URL of the image to display on the card
       altText: Formatter.image(profile.c_photo).alternateText,  // The alternate text for the image
-      details: profile.description, // The text in the body of the card
+      details: profile.richTextDescription ? ANSWERS.formatRichText(profile.richTextDescription, 'richTextDescription', '_top') : null, // The text in the body of the card, Warning: cannot contain links
+      //tag: tag, // The tag text for the card
     };
   }
 
