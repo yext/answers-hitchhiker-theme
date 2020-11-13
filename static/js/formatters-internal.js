@@ -523,3 +523,21 @@ export function generateCTAFieldTypeLink(cta) {
   }
   return CtaFormatter.generateCTAFieldTypeLink(cta);
 }
+
+/**
+ * Returns a localized price string for the given price field
+ * @param {Object} fieldValue The field from LiveAPI, has a value and a currencyCode
+ * @param {string} locale The locale to use for formatting, falls back to document locale or 'en'
+ * @return {string} The price with correct currency formatting according to locale, if any errors
+ *                  returns the price value without formatting
+ */
+export function price(fieldValue, locale) {
+  const localeForFormatting = locale || _getDocumentLocale() || 'en';
+  const price = fieldValue.value && parseInt(fieldValue.value);
+  const currencyCode = fieldValue.currencyCode;
+  if (!price || isNaN(price) || !currencyCode) {
+    console.warn(`No price or currency code in the price fieldValue object: ${fieldValue}`);
+    return fieldValue.value;
+  }
+  return price.toLocaleString(localeForFormatting, { style: 'currency', currency: currencyCode });
+}
