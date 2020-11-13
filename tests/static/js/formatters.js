@@ -82,26 +82,29 @@ describe('Formatters', () => {
     });
 
     it('Returns value when no price or currency code', () => {
-      console.warn = jest.fn();
+      const consoleWarn = jest.spyOn(console, 'warn')
+        .mockImplementation(() => {});
 
       let price = Formatters.price({});
       expect(price).toEqual(undefined);
-      expect(console.warn).toHaveBeenCalled();
+      expect(consoleWarn).toHaveBeenCalled();
 
       price = Formatters.price({currencyCode: 'USD'});
       expect(price).toEqual(undefined);
-      expect(console.warn).toHaveBeenCalled();
+      expect(consoleWarn).toHaveBeenCalled();
 
       price = Formatters.price({value: '100'});
       expect(price).toEqual('100');
-      expect(console.warn).toHaveBeenCalled();
+      expect(consoleWarn).toHaveBeenCalled();
     });
 
     it('Returns value when non-number price', () => {
-      console.warn = jest.fn();
+      const consoleWarn = jest.spyOn(console, 'warn')
+        .mockImplementation(() => {});
+
       const price = Formatters.price({value: 'String', currencyCode: 'USD'});
       expect(price).toEqual('String');
-      expect(console.warn).toHaveBeenCalled();
+      expect(consoleWarn).toHaveBeenCalled();
     });
   });
 });
