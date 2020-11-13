@@ -21,8 +21,10 @@ class product_standardCardComponent extends BaseCard['product-standard'] {
     }
 
     let imageUrl = '';
+    let alternateText = '';
     if (profile.photoGallery && profile.photoGallery[0]) {
       imageUrl = Formatter.image(profile.photoGallery[0]).url;
+      alternateText = Formatter.image(profile.photoGallery[0]).alternateText;
     }
 
     return {
@@ -30,7 +32,7 @@ class product_standardCardComponent extends BaseCard['product-standard'] {
       url: profile.landingPageUrl, // If the card title is a clickable link, set URL here
       target: '_top', // If the title's URL should open in a new tab, etc.
       image: imageUrl, // The URL of the image to display on the card
-      altText: Formatter.image(profile.c_photo).alternateText, // The alt text of the image to display on the card
+      altText: alternateText,  // The alternate text for the image
       titleEventOptions: this.addDefaultEventOptions(),
       subtitle: price, // The sub-header text of the card
       details: profile.richTextDescription ? ANSWERS.formatRichText(profile.richTextDescription, 'richTextDescription', '_top') : null, // The text in the body of the card

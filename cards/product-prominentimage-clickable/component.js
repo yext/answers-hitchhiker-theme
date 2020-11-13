@@ -30,8 +30,10 @@ class product_prominentimage_clickableCardComponent
     }
 
     let imageUrl = '';
+    let alternateText = '';
     if (profile.photoGallery && profile.photoGallery[0]) {
       imageUrl = Formatter.image(profile.photoGallery[0]).url;
+      alternateText = Formatter.image(profile.photoGallery[0]).alternateText;
     }
 
     let tag = '';
@@ -46,7 +48,7 @@ class product_prominentimage_clickableCardComponent
       titleEventOptions: this.addDefaultEventOptions(),
       subtitle: price, // The sub-header text of the card
       image: imageUrl, // The URL of the image to display on the card
-      altText: Formatter.image(profile.c_photo).alternateText,  // The alternate text for the image
+      altText: alternateText,  // The alternate text for the image
       details: profile.richTextDescription ? ANSWERS.formatRichText(profile.richTextDescription, 'richTextDescription', '_top') : null, // The text in the body of the card, Warning: cannot contain links
       //tag: tag, // The tag text for the card
     };
