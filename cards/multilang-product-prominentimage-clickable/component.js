@@ -26,7 +26,7 @@ class multilang_product_prominentimage_clickableCardComponent
       && profile.c_price[0]
       && profile.c_price[0].currency
       && profile.c_price[0].value) {
-      price = `${profile.c_price[0].value}`;
+      price = profile.c_price[0].value;
     }
 
     let imageUrl = '';

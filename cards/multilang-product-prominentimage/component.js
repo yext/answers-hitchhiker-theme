@@ -17,7 +17,7 @@ class multilang_product_prominentimageCardComponent extends BaseCard['multilang-
       && profile.c_price[0]
       && profile.c_price[0].currency
       && profile.c_price[0].value) {
-      price = `${profile.c_price[0].value}`;
+      price = profile.c_price[0].value;
     }
 
     let imageUrl = '';
@@ -39,6 +39,7 @@ class multilang_product_prominentimageCardComponent extends BaseCard['multilang-
       // tag: profile.stockStatus ? profile.stockStatus : '', // The tag text for the card
       // If the card's details are longer than a certain character count, you can truncate the
       // text. A toggle will be supplied that can show or hide the truncated text.
+      // Note: If you are using rich text for the details, you should not enable this feature.
       // showMoreDetails: {
       //   showMoreLimit: 350, // Character count limit
       //   showMoreText: {{ translateJS phrase='Show more' }}, // Label when toggle will show truncated text
