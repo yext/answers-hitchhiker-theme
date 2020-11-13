@@ -324,15 +324,16 @@ export function image(simpleOrComplexImage = {}, size = '200x', atLeastAsLarge =
     }
 
     if (image.width != undefined && image.height != undefined && image.url != undefined) {
-      image.thumbnails.unshift({
+      image.thumbnails.push({
         'width': image.width,
         'height': image.height,
         'url': image.url
       });
     }
 
-    let height, index;
-    let width = (height = -1);
+    let index;
+    let height = -1;
+    let width = -1;
     let desiredDims = desiredSize.split('x');
 
     if (desiredDims[0] !== '') {
@@ -351,29 +352,23 @@ export function image(simpleOrComplexImage = {}, size = '200x', atLeastAsLarge =
 
     let widthOk = width === -1;
     let heightOk = height === -1;
-
     if (atLeastAsLarge) {
-      index = image.thumbnails.length - 1;
-
-      while (index >= 0) {
-        if (!(image.thumbnails[index].width && image.thumbnails[index].height)) {
-          return image.thumbnails[index].url;
-        }
-
-        widthOk = width > 0 ? (image.thumbnails[index].width >= width) : widthOk;
-        heightOk = height > 0 ? (image.thumbnails[index].height >= height) : heightOk;
-
-        if (heightOk && widthOk) {
-          break;
-        }
-
-        index--;
-      }
-
-      // if we exhausted the list
-      if (index <= 0) {
-        index = 0;
-      }
+      const smallestValidThumbnail = image.thumbnails
+        .reduce((storedThumbnail, currentThumbnail) => {
+          if (!currentThumbnail.width || !currentThumbnail.height) {
+            return storedThumbnail;
+          }
+          widthOk = width > 0 ? (currentThumbnail.width >= width) : widthOk;
+          heightOk = height > 0 ? (currentThumbnail.height >= height) : heightOk;
+          if (!heightOk || !widthOk) {
+            return storedThumbnail
+          }
+          if (currentThumbnail.width < storedThumbnail.width) {
+            return currentThumbnail;
+          }
+          return storedThumbnail;
+        }, image.thumbnails[0]);
+      return smallestValidThumbnail.url;
     } else {
       index = 0;
 
