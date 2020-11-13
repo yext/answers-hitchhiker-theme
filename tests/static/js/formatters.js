@@ -86,11 +86,11 @@ describe('Formatters', () => {
         .mockImplementation();
 
       let price = Formatters.price({});
-      expect(price).toEqual(undefined);
+      expect(price).toBeUndefined();
       expect(consoleWarn).toHaveBeenCalled();
 
       price = Formatters.price({currencyCode: 'USD'});
-      expect(price).toEqual(undefined);
+      expect(price).toBeUndefined();
       expect(consoleWarn).toHaveBeenCalled();
 
       price = Formatters.price({value: '100'});
