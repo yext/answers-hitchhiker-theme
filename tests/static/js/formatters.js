@@ -83,7 +83,7 @@ describe('Formatters', () => {
 
     it('Returns value when no price or currency code', () => {
       const consoleWarn = jest.spyOn(console, 'warn')
-        .mockImplementation(() => {});
+        .mockImplementation();
 
       let price = Formatters.price({});
       expect(price).toEqual(undefined);
@@ -100,7 +100,7 @@ describe('Formatters', () => {
 
     it('Returns value when non-number price', () => {
       const consoleWarn = jest.spyOn(console, 'warn')
-        .mockImplementation(() => {});
+        .mockImplementation();
 
       const price = Formatters.price({value: 'String', currencyCode: 'USD'});
       expect(price).toEqual('String');
