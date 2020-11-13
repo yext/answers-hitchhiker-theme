@@ -12,14 +12,6 @@ class multilang_product_prominentimageCardComponent extends BaseCard['multilang-
    * @param profile profile of the entity in the card
    */
   dataForRender(profile) {
-    let price = '';
-    if (profile.c_price
-      && profile.c_price[0]
-      && profile.c_price[0].currency
-      && profile.c_price[0].value) {
-      price = profile.c_price[0].value;
-    }
-
     let imageUrl = '';
     let alternateText = '';
     if (profile.photoGallery && profile.photoGallery[0]) {
@@ -32,7 +24,7 @@ class multilang_product_prominentimageCardComponent extends BaseCard['multilang-
       url: profile.landingPageUrl, // If the card title is a clickable link, set URL here
       target: '_top', // If the title's URL should open in a new tab, etc.
       titleEventOptions: this.addDefaultEventOptions(),
-      subtitle: price, // The sub-header text of the card
+      subtitle: profile.price && profile.price.value ? profile.price.value : '', // The sub-header text of the card
       image: imageUrl, // The URL of the image to display on the card
       altText: alternateText,  // The alternate text for the image
       details: profile.richTextDescription ? ANSWERS.formatRichText(profile.richTextDescription, 'richTextDescription', '_top') : null, // The text in the body of the card
