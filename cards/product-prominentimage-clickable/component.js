@@ -21,15 +21,23 @@ class product_prominentimage_clickableCardComponent
       cardUrl = profile.landingPageUrl;
     }
 
+    let imageUrl = '';
+    let alternateText = '';
+    if (profile.photoGallery && profile.photoGallery[0]) {
+      imageUrl = Formatter.image(profile.photoGallery[0]).url;
+      alternateText = Formatter.image(profile.photoGallery[0]).alternateText;
+    }
+
     return {
       title: profile.name, // The header text of the card
-      url: cardUrl, // If the card a clickable link, set URL here
+      url: cardUrl, // If the card is a clickable link, set URL here
       target: '_top', // If the card URL should open in a new tab, etc.
       titleEventOptions: this.addDefaultEventOptions(),
-      subtitle: profile.c_price ? `$${profile.c_price}` : '', // The sub-header text of the card
-      image: Formatter.image(profile.c_photo).url, // The URL of the image to display on the card
-      altText: Formatter.image(profile.c_photo).alternateText,  // The alternate text for the image
-      details: profile.description, // The text in the body of the card
+      subtitle: profile.price && profile.price.value ? `$${profile.price.value}` : '', // The sub-header text of the card
+      image: imageUrl, // The URL of the image to display on the card
+      altText: alternateText,  // The alternate text for the image
+      details: profile.richTextDescription ? ANSWERS.formatRichText(profile.richTextDescription, 'richTextDescription', '_top') : null, // The text in the body of the card, Warning: cannot contain links
+      // tag: profile.stockStatus ? profile.stockStatus : '', // The tag text for the card
     };
   }
 

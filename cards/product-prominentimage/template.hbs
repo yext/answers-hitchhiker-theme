@@ -11,9 +11,20 @@
 </div>
 
 {{#*inline 'image'}}
-{{#if card.image}}
-<div class="HitchhikerProductProminentImage-imgWrapper">
-  <img class="HitchhikerProductProminentImage-img" src="{{#unless (matches card.image '//' )}}{{relativePath}}/{{/unless}}{{card.image}}" alt="{{#if card.altText}}{{card.altText}}{{/if}}" />
+{{#if card.tag}}
+<div class="HitchhikerProductProminentImage-imageAndTagWrapper">
+  <div class="HitchhikerProductProminentImage-tagWrapper">
+    <div class="HitchhikerProductProminentImage-tag">
+      {{card.tag}}
+    </div>
+  </div>
+{{/if}}
+  {{#if card.image}}
+  <div class="HitchhikerProductProminentImage-imgWrapper">
+    <img class="HitchhikerProductProminentImage-img" src="{{#unless (matches card.image '//' )}}{{relativePath}}/{{/unless}}{{card.image}}" alt="{{#if card.altText}}{{card.altText}}{{/if}}" />
+  </div>
+  {{/if}}
+{{#if card.tag}}
 </div>
 {{/if}}
 {{/inline}}
@@ -54,11 +65,11 @@
 <div class="HitchhikerProductProminentImage-cardDetails">
   {{#if showExcessDetailsToggle}}
     <div class="HitchhikerProductProminentImage-detailsText js-HitchhikerCard-detailsText">
-      {{truncatedDetails}}
+      {{{truncatedDetails}}}
     </div>
   {{/if}}
   <div class="HitchhikerProductProminentImage-detailsText js-HitchhikerCard-detailsText{{#if showExcessDetailsToggle}} js-hidden{{/if}}">
-    {{card.details}}
+    {{{card.details}}}
   </div>
   {{#if showExcessDetailsToggle}}
   <button class="HitchhikerCard-detailsToggle js-HitchhikerCard-detailsToggle">
