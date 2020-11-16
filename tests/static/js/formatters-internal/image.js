@@ -44,6 +44,11 @@ describe('image formatter', () => {
       const imageUrl = Formatters.image(img, '99999x99999').url;
       expect(imageUrl).toEqual('');
     });
+
+    it('return "" when no dimensions given', () => {
+      const imageUrl = Formatters.image(img, 'x').url;
+      expect(imageUrl).toEqual('');
+    });
   });
 
   describe('when choosing the biggest image at most as large as', () => {
@@ -59,6 +64,11 @@ describe('image formatter', () => {
 
     it('returns "" when no image fits the dimensions', () => {
       const imageUrl = Formatters.image(img, '-1x-1', false).url;
+      expect(imageUrl).toEqual('');
+    });
+
+    it('return "" when no dimensions given', () => {
+      const imageUrl = Formatters.image(img, 'x', false).url;
       expect(imageUrl).toEqual('');
     });
   });
