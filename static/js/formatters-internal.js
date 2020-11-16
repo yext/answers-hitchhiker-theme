@@ -324,7 +324,7 @@ export function image(simpleOrComplexImage = {}, size = '200x', atLeastAsLarge =
     }
 
     if (image.width != undefined && image.height != undefined && image.url != undefined) {
-      image.thumbnails.unshift({
+      image.thumbnails.push({
         'width': image.width,
         'height': image.height,
         'url': image.url
@@ -351,8 +351,8 @@ export function image(simpleOrComplexImage = {}, size = '200x', atLeastAsLarge =
       .filter(thumb => thumb.width && thumb.height)
       .sort((a, b) => b.width - a.width);
     return atLeastAsLarge
-      ? _getSmallestThumbnailOverThresholdIfPossible(thumbnails, desiredWidth, desiredHeight)
-      : _getLargestThumbnailUnderThresholdIfPossible(thumbnails, desiredWidth, desiredHeight);
+      ? _getSmallestThumbnailOverThreshold(thumbnails, desiredWidth, desiredHeight)
+      : _getLargestThumbnailUnderThreshold(thumbnails, desiredWidth, desiredHeight);
   }
 
   const result = imageBySizeEntity(img, size, atLeastAsLarge);
@@ -378,7 +378,7 @@ export function image(simpleOrComplexImage = {}, size = '200x', atLeastAsLarge =
  * @param {number|undefined} minHeight 
  * @returns {string}
  */
-function _getSmallestThumbnailOverThresholdIfPossible(thumbnails, minWidth, minHeight) {
+function _getSmallestThumbnailOverThreshold(thumbnails, minWidth, minHeight) {
   let index = thumbnails.length - 1;
   while (index > 0) {
     const thumb = thumbnails[index];
@@ -404,7 +404,7 @@ function _getSmallestThumbnailOverThresholdIfPossible(thumbnails, minWidth, minH
  * @param {number|undefined} maxHeight 
  * @returns {string}
  */
-function _getLargestThumbnailUnderThresholdIfPossible(thumbnails, maxWidth, maxHeight) {
+function _getLargestThumbnailUnderThreshold(thumbnails, maxWidth, maxHeight) {
   let index = 0;
   while (index < thumbnails.length) {
     const thumb = thumbnails[index];
