@@ -14,8 +14,8 @@ ANSWERS.addComponent("VerticalResults", Object.assign({}, {
         {{#with (lookup verticalsToConfig verticalKey)}}
         {{#if isFirst}}isFirst: {{isFirst}},{{/if}}
         {{#if icon}}icon: "{{{icon}}}",{{/if}}
-        {{#if iconUrl}}iconUrl: "{{#unless (matches iconUrl '//' )}}{{relativePath}}/{{/unless}}{{{iconUrl}}}",{{/if}}
-        label:
+        {{#if iconUrl}}iconUrl: "{{#unless (isAbsoluteUrl iconUrl)}}{{relativePath}}/{{/unless}}{{{iconUrl}}}",{{/if}}
+        label: 
         {{#if label}}"{{{label}}}"{{else}}{{#if ../verticalKey}}"{{{../verticalKey}}}"{{else}}"{{{@key}}}"{{/if}}{{/if}},
         url: "{{#if url}}{{{url}}}{{else if ../url}}{{../../relativePath}}/{{{../url}}}{{else}}{{{@key}}}.html{{/if}}",
         {{/with}}
