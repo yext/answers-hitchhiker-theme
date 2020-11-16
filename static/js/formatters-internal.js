@@ -373,7 +373,7 @@ export function image(simpleOrComplexImage = {}, size = '200x', atLeastAsLarge =
  * @returns {string}
  */
 function _getSmallestThumbnailOverThreshold(thumbnails, minWidth, minHeight) {
-  const thumbsAtLeastAsLarge = thumbnails.filter(thumb => {
+  const thumbnailsOverThreshold = thumbnails.filter(thumb => {
     if (minWidth) {
       return thumb.width >= minWidth;
     } else if (minHeight) {
@@ -381,15 +381,15 @@ function _getSmallestThumbnailOverThreshold(thumbnails, minWidth, minHeight) {
     }
     return false;
   });
-  if (thumbsAtLeastAsLarge.length === 0) {
+  if (thumbnailsOverThreshold.length === 0) {
     return '';
   }
-  const smallestValidThumb = thumbsAtLeastAsLarge
+  const smallestValidThumb = thumbnailsOverThreshold
     .reduce((storedThumb, currentThumb) => {
       return currentThumb.width < storedThumb.width
         ? currentThumb
         : storedThumb
-    }, thumbsAtLeastAsLarge[0]);
+    }, thumbnailsOverThreshold[0]);
   return smallestValidThumb.url;
 }
 
@@ -403,7 +403,7 @@ function _getSmallestThumbnailOverThreshold(thumbnails, minWidth, minHeight) {
  * @returns {string}
  */
 function _getBiggestThumbnailUnderThreshold(thumbnails, maxWidth, maxHeight) {
-  const thumbsAtMostAsLarge = thumbnails.filter(thumb => {
+  const thumbnailsUnderThreshold = thumbnails.filter(thumb => {
     if (maxWidth) {
       return thumb.width <= maxWidth;
     } else if (maxHeight) {
@@ -411,15 +411,15 @@ function _getBiggestThumbnailUnderThreshold(thumbnails, maxWidth, maxHeight) {
     }
     return false;
   });
-  if (thumbsAtMostAsLarge.length === 0) {
+  if (thumbnailsUnderThreshold.length === 0) {
     return '';
   }
-  const biggestValidThumb = thumbsAtMostAsLarge
+  const biggestValidThumb = thumbnailsUnderThreshold
     .reduce((storedThumb, currentThumb) => {
       return currentThumb.width > storedThumb.width
         ? currentThumb
         : storedThumb
-    }, thumbsAtMostAsLarge[0]);
+    }, thumbnailsUnderThreshold[0]);
   return biggestValidThumb.url;
 }
 
