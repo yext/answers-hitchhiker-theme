@@ -349,8 +349,8 @@ export function image(simpleOrComplexImage = {}, size = '200x', atLeastAsLarge =
     }
     const thumbnails = image.thumbnails.filter(thumb => thumb.width && thumb.height);
     return atLeastAsLarge
-      ? _getSmallestThumbAtLeastAsLargeAs(thumbnails, desiredWidth, desiredHeight)
-      : _getBiggestThumbAtMostAsLargeAs(thumbnails, desiredWidth, desiredHeight);
+      ? _getSmallestThumbnailOverThreshold(thumbnails, desiredWidth, desiredHeight)
+      : _getBiggestThumbnailUnderThreshold(thumbnails, desiredWidth, desiredHeight);
   }
 
   const result = imageBySizeEntity(img, size, atLeastAsLarge);
@@ -365,12 +365,14 @@ export function image(simpleOrComplexImage = {}, size = '200x', atLeastAsLarge =
 }
 
 /**
+ * This method assumes all thumbnails have the same aspect ratio.
+ *
  * @param {Array<{{url: string, width: number, height: number}}>} thumbnails 
  * @param {number|undefined} minWidth 
  * @param {number|undefined} minHeight 
  * @returns {string}
  */
-function _getSmallestThumbAtLeastAsLargeAs(thumbnails, minWidth, minHeight) {
+function _getSmallestThumbnailOverThreshold(thumbnails, minWidth, minHeight) {
   const thumbsAtLeastAsLarge = thumbnails.filter(thumb => {
     if (minWidth) {
       return thumb.width >= minWidth;
@@ -393,12 +395,14 @@ function _getSmallestThumbAtLeastAsLargeAs(thumbnails, minWidth, minHeight) {
 
 
 /**
+ * This method assumes all thumbnails have the same aspect ratio.
+ *
  * @param {Array<{{url: string, width: number, height: number}}>} thumbnails 
  * @param {number|undefined} maxWidth 
  * @param {number|undefined} maxHeight 
  * @returns {string}
  */
-function _getBiggestThumbAtMostAsLargeAs(thumbnails, maxWidth, maxHeight) {
+function _getBiggestThumbnailUnderThreshold(thumbnails, maxWidth, maxHeight) {
   const thumbsAtMostAsLarge = thumbnails.filter(thumb => {
     if (maxWidth) {
       return thumb.width <= maxWidth;
