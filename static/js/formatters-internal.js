@@ -331,77 +331,28 @@ export function image(simpleOrComplexImage = {}, size = '200x', atLeastAsLarge =
       });
     }
 
-    let height, index;
-    let width = (height = -1);
+    let desiredWidth, desiredHeight;
     let desiredDims = desiredSize.split('x');
 
     if (desiredDims[0] !== '') {
-      width = Number.parseInt(desiredDims[0]);
-      if (Number.isNaN(width)) {
+      desiredWidth = Number.parseInt(desiredDims[0]);
+      if (Number.isNaN(desiredWidth)) {
         throw new Error("Invalid width specified");
       }
     }
 
     if (desiredDims[1] !== '') {
-      height = Number.parseInt(desiredDims[1]);
-      if (Number.isNaN(height)) {
+      desiredHeight = Number.parseInt(desiredDims[1]);
+      if (Number.isNaN(desiredHeight)) {
         throw new Error("Invalid height specified");
       }
     }
-
-    let widthOk = width === -1;
-    let heightOk = height === -1;
-
-    if (atLeastAsLarge) {
-      index = image.thumbnails.length - 1;
-
-      while (index >= 0) {
-        if (!(image.thumbnails[index].width && image.thumbnails[index].height)) {
-          return image.thumbnails[index].url;
-        }
-
-        widthOk = width > 0 ? (image.thumbnails[index].width >= width) : widthOk;
-        heightOk = height > 0 ? (image.thumbnails[index].height >= height) : heightOk;
-
-        if (heightOk && widthOk) {
-          break;
-        }
-
-        index--;
-      }
-
-      // if we exhausted the list
-      if (index <= 0) {
-        index = 0;
-      }
-    } else {
-      index = 0;
-
-      while (index < image.thumbnails.length) {
-        if (!(image.thumbnails[index].width && image.thumbnails[index].height)) {
-          return image.thumbnails[index].url;
-        }
-
-        if (width > 0) {
-          widthOk = image.thumbnails[index].width <= width;
-        }
-
-        if (height > 0) {
-          heightOk = image.thumbnails[index].height <= height;
-        }
-
-        if (heightOk && widthOk) { break; }
-
-        index++;
-      }
-
-      // if we exhausted the list
-      if (index >= image.thumbnails.length) {
-        index = image.thumbnails.length - 1;
-      }
-    }
-
-    return image.thumbnails[index].url;
+    const thumbnails = image.thumbnails
+      .filter(thumb => thumb.width && thumb.height)
+      .sort((a, b) => b.width - a.width);
+    return atLeastAsLarge
+      ? _getSmallestThumbnailOverThreshold(thumbnails, desiredWidth, desiredHeight)
+      : _getLargestThumbnailUnderThreshold(thumbnails, desiredWidth, desiredHeight);
   }
 
   const result = imageBySizeEntity(img, size, atLeastAsLarge);
@@ -413,6 +364,58 @@ export function image(simpleOrComplexImage = {}, size = '200x', atLeastAsLarge =
       url: result.replace('http://', 'https://')
     }
   );
+}
+
+/**
+ * Gets the smallest thumbnail that is over the min width and min height.
+ * If no thumbnails are over the given thresholds, will return the closest one.
+ *
+ * This method assumes all thumbnails have the same aspect ratio, and that
+ * thumbnails are sorted in descending size.
+ *
+ * @param {Array<{{url: string, width: number, height: number}}>} thumbnails 
+ * @param {number|undefined} minWidth 
+ * @param {number|undefined} minHeight 
+ * @returns {string}
+ */
+function _getSmallestThumbnailOverThreshold(thumbnails, minWidth, minHeight) {
+  let index = thumbnails.length - 1;
+  while (index > 0) {
+    const thumb = thumbnails[index];
+    const widthOverThreshold = minWidth ? thumb.width >= minWidth : true;
+    const heightOverThreshold = minHeight ? thumb.height >= minHeight : true;
+    if (widthOverThreshold && heightOverThreshold) {
+      return thumb.url
+    }
+    index--;
+  }
+  return thumbnails[0].url;
+}
+
+/**
+ * Gets the largest thumbnail that is under the max width and max height.
+ * If no thumbnails are under the given thresholds, will return the closest one.
+ * 
+ * This method assumes all thumbnails have the same aspect ratio, and that
+ * thumbnails are sorted in descending size.
+ *
+ * @param {Array<{{url: string, width: number, height: number}}>} thumbnails 
+ * @param {number|undefined} maxWidth 
+ * @param {number|undefined} maxHeight 
+ * @returns {string}
+ */
+function _getLargestThumbnailUnderThreshold(thumbnails, maxWidth, maxHeight) {
+  let index = 0;
+  while (index < thumbnails.length) {
+    const thumb = thumbnails[index];
+    const widthOverThreshold = maxWidth ? thumb.width <= maxWidth : true;
+    const heightOverThreshold = maxHeight ? thumb.height <= maxHeight : true;
+    if (widthOverThreshold && heightOverThreshold) {
+      return thumb.url
+    }
+    index++;
+  }
+  return thumbnails[thumbnails.length - 1].url;
 }
 
 /**
