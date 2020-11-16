@@ -347,12 +347,12 @@ export function image(simpleOrComplexImage = {}, size = '200x', atLeastAsLarge =
         throw new Error("Invalid height specified");
       }
     }
-    const thumbnailsAscending = image.thumbnails
+    const thumbnails = image.thumbnails
       .filter(thumb => thumb.width && thumb.height)
       .sort((a, b) => b.width - a.width);
     return atLeastAsLarge
-      ? _getSmallestThumbnailOverThresholdIfPossible(thumbnailsAscending, desiredWidth, desiredHeight)
-      : _getLargestThumbnailUnderThresholdIfPossible(thumbnailsAscending, desiredWidth, desiredHeight);
+      ? _getSmallestThumbnailOverThresholdIfPossible(thumbnails, desiredWidth, desiredHeight)
+      : _getLargestThumbnailUnderThresholdIfPossible(thumbnails, desiredWidth, desiredHeight);
   }
 
   const result = imageBySizeEntity(img, size, atLeastAsLarge);
