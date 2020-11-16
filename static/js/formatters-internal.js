@@ -287,7 +287,6 @@ export function joinList(list, separator) {
   }
   return list.join(separator);
 }
-
 /*
  * Given object with url and alternateText, changes url to use https
  */
@@ -331,72 +330,26 @@ export function image(simpleOrComplexImage = {}, size = '200x', atLeastAsLarge =
       });
     }
 
-    let index;
-    let height = -1;
-    let width = -1;
+    let desiredWidth, desiredHeight;
     let desiredDims = desiredSize.split('x');
 
     if (desiredDims[0] !== '') {
-      width = Number.parseInt(desiredDims[0]);
-      if (Number.isNaN(width)) {
+      desiredWidth = Number.parseInt(desiredDims[0]);
+      if (Number.isNaN(desiredWidth)) {
         throw new Error("Invalid width specified");
       }
     }
 
     if (desiredDims[1] !== '') {
-      height = Number.parseInt(desiredDims[1]);
-      if (Number.isNaN(height)) {
+      desiredHeight = Number.parseInt(desiredDims[1]);
+      if (Number.isNaN(desiredHeight)) {
         throw new Error("Invalid height specified");
       }
     }
-
-    let widthOk = width === -1;
-    let heightOk = height === -1;
-    if (atLeastAsLarge) {
-      const smallestValidThumbnail = image.thumbnails
-        .reduce((storedThumbnail, currentThumbnail) => {
-          if (!currentThumbnail.width || !currentThumbnail.height) {
-            return storedThumbnail;
-          }
-          widthOk = width > 0 ? (currentThumbnail.width >= width) : widthOk;
-          heightOk = height > 0 ? (currentThumbnail.height >= height) : heightOk;
-          if (!heightOk || !widthOk) {
-            return storedThumbnail
-          }
-          if (currentThumbnail.width < storedThumbnail.width) {
-            return currentThumbnail;
-          }
-          return storedThumbnail;
-        }, image.thumbnails[0]);
-      return smallestValidThumbnail.url;
-    } else {
-      index = 0;
-
-      while (index < image.thumbnails.length) {
-        if (!(image.thumbnails[index].width && image.thumbnails[index].height)) {
-          return image.thumbnails[index].url;
-        }
-
-        if (width > 0) {
-          widthOk = image.thumbnails[index].width <= width;
-        }
-
-        if (height > 0) {
-          heightOk = image.thumbnails[index].height <= height;
-        }
-
-        if (heightOk && widthOk) { break; }
-
-        index++;
-      }
-
-      // if we exhausted the list
-      if (index >= image.thumbnails.length) {
-        index = image.thumbnails.length - 1;
-      }
-    }
-
-    return image.thumbnails[index].url;
+    const thumbnails = image.thumbnails.filter(thumb => thumb.width && thumb.height);
+    return atLeastAsLarge
+      ? _getSmallestThumbAtLeastAsLargeAs(thumbnails, desiredWidth, desiredHeight)
+      : _getBiggestThumbAtMostAsLargeAs(thumbnails, desiredWidth, desiredHeight);
   }
 
   const result = imageBySizeEntity(img, size, atLeastAsLarge);
@@ -408,6 +361,61 @@ export function image(simpleOrComplexImage = {}, size = '200x', atLeastAsLarge =
       url: result.replace('http://', 'https://')
     }
   );
+}
+
+/**
+ * @param {Array<{{url: string, width: number, height: number}}>} thumbnails 
+ * @param {number|undefined} minWidth 
+ * @param {number|undefined} minHeight 
+ * @returns {string}
+ */
+function _getSmallestThumbAtLeastAsLargeAs(thumbnails, minWidth, minHeight) {
+  const thumbsAtLeastAsLarge = thumbnails.filter(thumb => {
+    if (minWidth) {
+      return thumb.width >= minWidth;
+    } else if (minHeight) {
+      return thumb.height >= minHeight;
+    }
+    return false;
+  });
+  if (thumbsAtLeastAsLarge.length === 0) {
+    return '';
+  }
+  const smallestValidThumb = thumbsAtLeastAsLarge
+    .reduce((storedThumb, currentThumb) => {
+      return currentThumb.width < storedThumb.width
+        ? currentThumb
+        : storedThumb
+    }, thumbsAtLeastAsLarge[0]);
+  return smallestValidThumb.url;
+}
+
+
+/**
+ * @param {Array<{{url: string, width: number, height: number}}>} thumbnails 
+ * @param {number|undefined} maxWidth 
+ * @param {number|undefined} maxHeight 
+ * @returns {string}
+ */
+function _getBiggestThumbAtMostAsLargeAs(thumbnails, maxWidth, maxHeight) {
+  const thumbsAtMostAsLarge = thumbnails.filter(thumb => {
+    if (maxWidth) {
+      return thumb.width <= maxWidth;
+    } else if (maxHeight) {
+      return thumb.height <= maxHeight;
+    }
+    return false;
+  });
+  if (thumbsAtMostAsLarge.length === 0) {
+    return '';
+  }
+  const biggestValidThumb = thumbsAtMostAsLarge
+    .reduce((storedThumb, currentThumb) => {
+      return currentThumb.width > storedThumb.width
+        ? currentThumb
+        : storedThumb
+    }, thumbsAtMostAsLarge[0]);
+  return biggestValidThumb.url;
 }
 
 /**
