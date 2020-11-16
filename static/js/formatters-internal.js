@@ -367,6 +367,9 @@ export function image(simpleOrComplexImage = {}, size = '200x', atLeastAsLarge =
 }
 
 /**
+ * Gets the smallest thumbnail that is over the min width and min height.
+ * If no thumbnails are over the given thresholds, will return the closest one.
+ *
  * This method assumes all thumbnails have the same aspect ratio, and that
  * thumbnails are sorted in descending size.
  *
@@ -390,6 +393,9 @@ function _getSmallestThumbnailOverThresholdIfPossible(thumbnails, minWidth, minH
 }
 
 /**
+ * Gets the largest thumbnail that is under the max width and max height.
+ * If no thumbnails are under the given thresholds, will return the closest one.
+ * 
  * This method assumes all thumbnails have the same aspect ratio, and that
  * thumbnails are sorted in descending size.
  *
