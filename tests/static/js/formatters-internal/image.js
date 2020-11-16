@@ -24,7 +24,7 @@ describe('image formatter', () => {
     ]
   }
 
-  describe('when choosing the smallest image at least as large as', () => {
+  describe('when choosing the smallest image over threshold', () => {
     it('By default chooses the smallest image with width >= 200', () => {
       const imageUrl = Formatters.image(img).url;
       expect(imageUrl).toEqual('https://a.mktgcdn.com/p/600x337.jpg');
@@ -55,7 +55,7 @@ describe('image formatter', () => {
       expect(imageUrl).toEqual('https://a.mktgcdn.com/p/619x348.jpg');
     });
 
-    it('return the largest image when no image fits the dimensions', () => {
+    it('return the largest image when no image is over threshold', () => {
       const imageUrl = Formatters.image(img, '99999x99999').url;
       expect(imageUrl).toEqual('https://a.mktgcdn.com/p/1024x768.jpg');
     });
@@ -66,7 +66,7 @@ describe('image formatter', () => {
     });
   });
 
-  describe('when choosing the biggest image at most as large as', () => {
+  describe('when choosing the biggest image under threshold', () => {
     it('Can restrict the dimensions by width', () => {
       const imageUrl = Formatters.image(img, '601x', false).url;
       expect(imageUrl).toEqual('https://a.mktgcdn.com/p/600x337.jpg');
@@ -87,7 +87,7 @@ describe('image formatter', () => {
       expect(imageUrl).toEqual('https://a.mktgcdn.com/p/600x337.jpg');
     });
 
-    it('returns the smallest image when no image fits the dimensions', () => {
+    it('returns the smallest image when no image is under threshold', () => {
       const imageUrl = Formatters.image(img, '-1x-1', false).url;
       expect(imageUrl).toEqual('https://a.mktgcdn.com/p/196x110.jpg');
     });
