@@ -374,12 +374,9 @@ export function image(simpleOrComplexImage = {}, size = '200x', atLeastAsLarge =
  */
 function _getSmallestThumbnailOverThreshold(thumbnails, minWidth, minHeight) {
   const thumbnailsOverThreshold = thumbnails.filter(thumb => {
-    if (minWidth) {
-      return thumb.width >= minWidth;
-    } else if (minHeight) {
-      return thumb.height >= minHeight;
-    }
-    return false;
+    const widthOverThreshold = minWidth ? thumb.width >= minWidth : true;
+    const heightOverThreshold = minHeight ? thumb.height >= minHeight : true;
+    return widthOverThreshold && heightOverThreshold;
   });
   if (thumbnailsOverThreshold.length === 0) {
     return '';
@@ -403,12 +400,9 @@ function _getSmallestThumbnailOverThreshold(thumbnails, minWidth, minHeight) {
  */
 function _getBiggestThumbnailUnderThreshold(thumbnails, maxWidth, maxHeight) {
   const thumbnailsUnderThreshold = thumbnails.filter(thumb => {
-    if (maxWidth) {
-      return thumb.width <= maxWidth;
-    } else if (maxHeight) {
-      return thumb.height <= maxHeight;
-    }
-    return false;
+    const widthUnderThreshold = maxWidth ? thumb.width <= maxWidth : true;
+    const heightUnderThreshold = maxHeight ? thumb.height <= maxHeight : true;
+    return widthUnderThreshold && heightUnderThreshold;
   });
   if (thumbnailsUnderThreshold.length === 0) {
     return '';
