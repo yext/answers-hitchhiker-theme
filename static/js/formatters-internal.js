@@ -287,6 +287,7 @@ export function joinList(list, separator) {
   }
   return list.join(separator);
 }
+
 /*
  * Given object with url and alternateText, changes url to use https
  */
