@@ -393,7 +393,6 @@ function _getSmallestThumbnailOverThreshold(thumbnails, minWidth, minHeight) {
   return smallestValidThumb.url;
 }
 
-
 /**
  * This method assumes all thumbnails have the same aspect ratio.
  *
