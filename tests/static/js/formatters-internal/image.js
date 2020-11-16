@@ -55,9 +55,9 @@ describe('image formatter', () => {
       expect(imageUrl).toEqual('https://a.mktgcdn.com/p/619x348.jpg');
     });
 
-    it('return "" when no image fits the dimensions', () => {
+    it('return the largest image when no image fits the dimensions', () => {
       const imageUrl = Formatters.image(img, '99999x99999').url;
-      expect(imageUrl).toEqual('');
+      expect(imageUrl).toEqual('https://a.mktgcdn.com/p/1024x768.jpg');
     });
 
     it('returns the smallest image when no dimensions given', () => {
@@ -87,9 +87,9 @@ describe('image formatter', () => {
       expect(imageUrl).toEqual('https://a.mktgcdn.com/p/600x337.jpg');
     });
 
-    it('returns "" when no image fits the dimensions', () => {
+    it('returns the smallest image when no image fits the dimensions', () => {
       const imageUrl = Formatters.image(img, '-1x-1', false).url;
-      expect(imageUrl).toEqual('');
+      expect(imageUrl).toEqual('https://a.mktgcdn.com/p/196x110.jpg');
     });
 
     it('return the largest image when no dimensions given', () => {

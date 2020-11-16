@@ -324,7 +324,7 @@ export function image(simpleOrComplexImage = {}, size = '200x', atLeastAsLarge =
     }
 
     if (image.width != undefined && image.height != undefined && image.url != undefined) {
-      image.thumbnails.push({
+      image.thumbnails.unshift({
         'width': image.width,
         'height': image.height,
         'url': image.url
@@ -347,10 +347,12 @@ export function image(simpleOrComplexImage = {}, size = '200x', atLeastAsLarge =
         throw new Error("Invalid height specified");
       }
     }
-    const thumbnails = image.thumbnails.filter(thumb => thumb.width && thumb.height);
+    const thumbnailsAscending = image.thumbnails
+      .filter(thumb => thumb.width && thumb.height)
+      .sort((a, b) => b.width - a.width);
     return atLeastAsLarge
-      ? _getSmallestThumbnailOverThreshold(thumbnails, desiredWidth, desiredHeight)
-      : _getBiggestThumbnailUnderThreshold(thumbnails, desiredWidth, desiredHeight);
+      ? _getSmallestThumbnailOverThresholdIfPossible(thumbnailsAscending, desiredWidth, desiredHeight)
+      : _getLargestThumbnailUnderThresholdIfPossible(thumbnailsAscending, desiredWidth, desiredHeight);
   }
 
   const result = imageBySizeEntity(img, size, atLeastAsLarge);
@@ -365,55 +367,49 @@ export function image(simpleOrComplexImage = {}, size = '200x', atLeastAsLarge =
 }
 
 /**
- * This method assumes all thumbnails have the same aspect ratio.
+ * This method assumes all thumbnails have the same aspect ratio, and that
+ * thumbnails are sorted in descending size.
  *
  * @param {Array<{{url: string, width: number, height: number}}>} thumbnails 
  * @param {number|undefined} minWidth 
  * @param {number|undefined} minHeight 
  * @returns {string}
  */
-function _getSmallestThumbnailOverThreshold(thumbnails, minWidth, minHeight) {
-  const thumbnailsOverThreshold = thumbnails.filter(thumb => {
+function _getSmallestThumbnailOverThresholdIfPossible(thumbnails, minWidth, minHeight) {
+  let index = thumbnails.length - 1;
+  while (index > 0) {
+    const thumb = thumbnails[index];
     const widthOverThreshold = minWidth ? thumb.width >= minWidth : true;
     const heightOverThreshold = minHeight ? thumb.height >= minHeight : true;
-    return widthOverThreshold && heightOverThreshold;
-  });
-  if (thumbnailsOverThreshold.length === 0) {
-    return '';
+    if (widthOverThreshold && heightOverThreshold) {
+      return thumb.url
+    }
+    index--;
   }
-  const smallestValidThumb = thumbnailsOverThreshold
-    .reduce((storedThumb, currentThumb) => {
-      return currentThumb.width < storedThumb.width
-        ? currentThumb
-        : storedThumb
-    }, thumbnailsOverThreshold[0]);
-  return smallestValidThumb.url;
+  return thumbnails[0].url;
 }
 
 /**
- * This method assumes all thumbnails have the same aspect ratio.
+ * This method assumes all thumbnails have the same aspect ratio, and that
+ * thumbnails are sorted in descending size.
  *
  * @param {Array<{{url: string, width: number, height: number}}>} thumbnails 
  * @param {number|undefined} maxWidth 
  * @param {number|undefined} maxHeight 
  * @returns {string}
  */
-function _getBiggestThumbnailUnderThreshold(thumbnails, maxWidth, maxHeight) {
-  const thumbnailsUnderThreshold = thumbnails.filter(thumb => {
-    const widthUnderThreshold = maxWidth ? thumb.width <= maxWidth : true;
-    const heightUnderThreshold = maxHeight ? thumb.height <= maxHeight : true;
-    return widthUnderThreshold && heightUnderThreshold;
-  });
-  if (thumbnailsUnderThreshold.length === 0) {
-    return '';
+function _getLargestThumbnailUnderThresholdIfPossible(thumbnails, maxWidth, maxHeight) {
+  let index = 0;
+  while (index < thumbnails.length) {
+    const thumb = thumbnails[index];
+    const widthOverThreshold = maxWidth ? thumb.width <= maxWidth : true;
+    const heightOverThreshold = maxHeight ? thumb.height <= maxHeight : true;
+    if (widthOverThreshold && heightOverThreshold) {
+      return thumb.url
+    }
+    index++;
   }
-  const biggestValidThumb = thumbnailsUnderThreshold
-    .reduce((storedThumb, currentThumb) => {
-      return currentThumb.width > storedThumb.width
-        ? currentThumb
-        : storedThumb
-    }, thumbnailsUnderThreshold[0]);
-  return biggestValidThumb.url;
+  return thumbnails[thumbnails.length - 1].url;
 }
 
 /**
