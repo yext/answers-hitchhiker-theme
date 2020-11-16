@@ -26,7 +26,8 @@ import {
   truncate,
   openStatus,
   hoursList,
-  generateCTAFieldTypeLink
+  generateCTAFieldTypeLink,
+  price
 } from './formatters-internal.js';
 import * as CustomFormatters from './formatters-custom.js';
 
@@ -56,7 +57,8 @@ let Formatters = {
   truncate,
   openStatus,
   hoursList,
-  generateCTAFieldTypeLink
+  generateCTAFieldTypeLink,
+  price
 };
 Formatters = Object.assign(Formatters, CustomFormatters);
 

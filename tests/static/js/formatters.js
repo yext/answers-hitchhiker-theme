@@ -51,4 +51,60 @@ describe('Formatters', () => {
       expect(distance).toEqual('10,000.0 km');
     });
   })
+
+  describe('price', () => {
+    const priceField = {
+      value: '100',
+      currencyCode: 'USD'
+    };
+    it('Formats a price in USD', () => {
+      const price = Formatters.price(priceField, 'en');
+      expect(price).toEqual('$100.00');
+    });
+    it('Formats a price in USD with no provided locale', () => {
+      const price = Formatters.price(priceField);
+      expect(price).toEqual('$100.00');
+    });
+    it('Formats a price in USD with a non-en locale', () => {
+      const price = Formatters.price(priceField, 'fr');
+      expect(price).toEqual('100,00 $US');
+    });
+
+    it('Formats a price in EUR', () => {
+      priceField.currencyCode = 'EUR';
+      const price = Formatters.price(priceField);
+      expect(price).toEqual('€100.00');
+    });
+    it('Formats a price in EUR with a non-en locale', () => {
+      priceField.currencyCode = 'EUR';
+      const price = Formatters.price(priceField, 'fr');
+      expect(price).toEqual('100,00 €');
+    });
+
+    it('Returns value when no price or currency code', () => {
+      const consoleWarn = jest.spyOn(console, 'warn')
+        .mockImplementation();
+
+      let price = Formatters.price({});
+      expect(price).toBeUndefined();
+      expect(consoleWarn).toHaveBeenCalled();
+
+      price = Formatters.price({currencyCode: 'USD'});
+      expect(price).toBeUndefined();
+      expect(consoleWarn).toHaveBeenCalled();
+
+      price = Formatters.price({value: '100'});
+      expect(price).toEqual('100');
+      expect(consoleWarn).toHaveBeenCalled();
+    });
+
+    it('Returns value when non-number price', () => {
+      const consoleWarn = jest.spyOn(console, 'warn')
+        .mockImplementation();
+
+      const price = Formatters.price({value: 'String', currencyCode: 'USD'});
+      expect(price).toEqual('String');
+      expect(consoleWarn).toHaveBeenCalled();
+    });
+  });
 });
