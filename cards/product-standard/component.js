@@ -26,7 +26,7 @@ class product_standardCardComponent extends BaseCard['product-standard'] {
       image: imageUrl, // The URL of the image to display on the card
       altText: alternateText,  // The alternate text for the image
       titleEventOptions: this.addDefaultEventOptions(),
-      subtitle: profile.price && profile.price.value ? `$${profile.price.value}` : '', // The sub-header text of the card
+      subtitle: Formatter.price(profile.price), // The sub-header text of the card
       details: profile.richTextDescription ? ANSWERS.formatRichText(profile.richTextDescription, 'richTextDescription', '_top') : null, // The text in the body of the card
       // If the card's details are longer than a certain character count, you can truncate the
       // text. A toggle will be supplied that can show or hide the truncated text.
