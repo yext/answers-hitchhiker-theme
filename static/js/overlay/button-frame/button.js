@@ -27,7 +27,7 @@ export default class OverlayButtonJS {
         const buttonSize = buttonEl.getBoundingClientRect();
         OverlayButtonJS.notifyParentFrame(new IFrameMessage(ActionTypes.BUTTON_READY, {
           height: buttonSize.height,
-          width: buttonSize.width
+          width: config.labelText ? buttonSize.width : AnimationStyling.DEFAULT_BUTTON_SIZE
         }));
         break;
       case ActionTypes.COLLAPSE:
