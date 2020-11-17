@@ -55,7 +55,7 @@ describe('Formatters', () => {
   describe('price', () => {
     const priceField = {
       value: '100',
-      currencyCode: 'USD'
+      currencyCode: 'USD-US Dollar'
     };
     it('Formats a price in USD', () => {
       const price = Formatters.price(priceField, 'en');
@@ -71,12 +71,12 @@ describe('Formatters', () => {
     });
 
     it('Formats a price in EUR', () => {
-      priceField.currencyCode = 'EUR';
+      priceField.currencyCode = 'EUR-Euro';
       const price = Formatters.price(priceField);
       expect(price).toEqual('€100.00');
     });
     it('Formats a price in EUR with a non-en locale', () => {
-      priceField.currencyCode = 'EUR';
+      priceField.currencyCode = 'EUR-Euro';
       const price = Formatters.price(priceField, 'fr');
       expect(price).toEqual('100,00 €');
     });
@@ -89,7 +89,7 @@ describe('Formatters', () => {
       expect(price).toBeUndefined();
       expect(consoleWarn).toHaveBeenCalled();
 
-      price = Formatters.price({currencyCode: 'USD'});
+      price = Formatters.price({currencyCode: 'USD-US Dollar'});
       expect(price).toBeUndefined();
       expect(consoleWarn).toHaveBeenCalled();
 
@@ -102,7 +102,7 @@ describe('Formatters', () => {
       const consoleWarn = jest.spyOn(console, 'warn')
         .mockImplementation();
 
-      const price = Formatters.price({value: 'String', currencyCode: 'USD'});
+      const price = Formatters.price({value: 'String', currencyCode: 'USD-US Dollar'});
       expect(price).toEqual('String');
       expect(consoleWarn).toHaveBeenCalled();
     });

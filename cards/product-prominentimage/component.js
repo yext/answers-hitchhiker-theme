@@ -24,7 +24,7 @@ class product_prominentimageCardComponent extends BaseCard['product-prominentima
       url: profile.landingPageUrl, // If the card title is a clickable link, set URL here
       target: '_top', // If the title's URL should open in a new tab, etc.
       titleEventOptions: this.addDefaultEventOptions(),
-      subtitle: profile.price && profile.price.value ? `$${profile.price.value}` : '', // The sub-header text of the card
+      subtitle: Formatter.price(profile.price), // The sub-header text of the card
       image: imageUrl, // The URL of the image to display on the card
       altText: alternateText,  // The alternate text for the image
       details: profile.richTextDescription ? ANSWERS.formatRichText(profile.richTextDescription, 'richTextDescription', '_top') : null, // The text in the body of the card
