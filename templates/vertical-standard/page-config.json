@@ -8,7 +8,7 @@
     /**
      "search": {
        "verticalKey": "<REPLACE ME>", // The vertical key from your search configuration
-       "defaultInitialSearch": "" // Enter a default search term
+       "defaultInitialSearch": "" // Enter a default search term. Leave blank to show all results on load (recommended). 
      }
     **/
   },  
