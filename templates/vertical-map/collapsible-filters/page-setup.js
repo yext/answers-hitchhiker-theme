@@ -12,8 +12,13 @@ const collapsibleFiltersInteractions = new CollapsibleFilters.Interactions({
   filterEls: document.querySelectorAll('.js-answersFiltersWrapper'),
   resultEls: document.querySelectorAll('.js-answersResults,.js-answersFooter') 
 });
+
 // When a search is made with the searchbar, collapse the filters.
 collapsibleFiltersInteractions.registerCollapseFiltersOnSearchbarSearch();
+
+// The vertical-map page template uses Collapsible Filters on a desktop width,
+// so the view results button needs sticky behavior
+collapsibleFiltersInteractions.stickifyViewResultsButton();
 
 // Register an instance of CollapsibleFilters.FacetsDecorator,
 // to decorate the Facets component with
