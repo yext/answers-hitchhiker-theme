@@ -10,10 +10,9 @@ export default class Interactions {
     this.searchBarContainer = document.getElementById('js-answersSearchBar');
     this.resultsColumn = document.querySelector('.js-answersResultsColumn');
     this.inactiveCssClass = 'CollapsibleFilters-inactive';
-    this.resultsWrapper = document.querySelector('.js-answersResultsWrapper');
-    this.stickyButton = document.getElementById('js-answersViewResultsButton');
+    this.resultsWrapper = document.querySelector('.js-answersResultsWrapper')
+      || document.querySelector('.Answers-resultsWrapper');
     this.parentIFrame = ('parentIFrame' in window) && parentIFrame;
-    this.stickifyViewResultsButton();
   }
 
   /**
@@ -23,6 +22,7 @@ export default class Interactions {
    * outside of the iframe, otherwise it will register its own listeners.
    */
   stickifyViewResultsButton() {
+    this.stickyButton = document.getElementById('js-answersViewResultsButton');
     if (this.parentIFrame) {
       this.parentIFrame.getPageInfo(parentPageInfo => {
         this.parentPageInfo = parentPageInfo;
