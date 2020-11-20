@@ -28,9 +28,9 @@ module.exports = function loader(source) {
   const imports = [];
   const regex = options.regex;
   const getUrlImport = `
-    var ___HTML_ASSET_LOADER_GET_SOURCE_FROM_IMPORT___ = function(staticAssetPath) {
+    var ___HTML_ASSET_LOADER_GET_SOURCE_FROM_IMPORT___ = function(staticAssetModule) {
       const getHashedPath = require("html-loader/dist/runtime/getUrl.js");
-      return '/' + getHashedPath(staticAssetPath);
+      return '/' + getHashedPath(staticAssetModule);
     }`;
 
   source = source.replace(regex, function(match, group1) {
