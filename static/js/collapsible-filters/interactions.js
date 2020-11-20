@@ -12,7 +12,6 @@ export default class Interactions {
     this.inactiveCssClass = 'CollapsibleFilters-inactive';
     this.resultsWrapper = document.querySelector('.js-answersResultsWrapper')
       || document.querySelector('.Answers-resultsWrapper');
-    this.parentIFrame = ('parentIFrame' in window) && parentIFrame;
   }
 
   /**
@@ -23,19 +22,19 @@ export default class Interactions {
    */
   stickifyViewResultsButton() {
     this.stickyButton = document.getElementById('js-answersViewResultsButton');
-    if (this.parentIFrame) {
+    window.iframeLoaded.then(() => {
+      this.parentIFrame = window.parentIFrame;
       this.parentIFrame.getPageInfo(parentPageInfo => {
         this.parentPageInfo = parentPageInfo;
         this._updateStickyButtonInIFrame();
       })
-    } else {
-      window.addEventListener('scroll', () => {
-        this._updateStickyButton();
-      });
-      window.addEventListener('resize', () => {
-        this._debouncedStickyUpdate();
-      });
-    }
+    });
+    window.addEventListener('scroll', () => {
+      this._updateStickyButton();
+    });
+    window.addEventListener('resize', () => {
+      this._debouncedStickyUpdate();
+    });
   }
 
   /**

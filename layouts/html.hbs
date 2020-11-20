@@ -107,17 +107,19 @@
         }
         return params.toString();
       }
-
-      window.iFrameResizer = {
-        onReady: function() {
-          window.parentIFrame.sendMessage(JSON.stringify({
-            params: iframeGetSearchParams(),
-            replaceHistory: true,
-            pageTitle: document.title
-          }));
-        },
-        onMessage: window.isOverlay ? window.Overlay.onMessage : function() {},
-      };
+      window.iframeLoaded = new Promise(resolve => {
+        window.iFrameResizer = {
+          onReady: function() {
+            window.parentIFrame.sendMessage(JSON.stringify({
+              params: iframeGetSearchParams(),
+              replaceHistory: true,
+              pageTitle: document.title
+            }));
+            resolve();
+          },
+          onMessage: window.isOverlay ? window.Overlay.onMessage : function() {},
+        };
+      })
     {{/babel}}
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.10/iframeResizer.contentWindow.min.js"></script>
