@@ -1,7 +1,6 @@
 {{> cards/card_component componentName='product-prominentimage-clickable' }}
 
-class product_prominentimage_clickableCardComponent
-  extends BaseCard['product-prominentimage-clickable'] {
+class product_prominentimage_clickableCardComponent extends BaseCard['product-prominentimage-clickable'] {
 
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
