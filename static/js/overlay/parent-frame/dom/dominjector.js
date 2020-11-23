@@ -52,6 +52,7 @@ export default class DomInjector {
     const iframeContainerEl = document.createElement('div');
     iframeContainerEl.id = Selectors.OVERLAY_CONTAINER_ID;
     iframeContainerEl.style['position'] = 'fixed';
+    iframeContainerEl.style['z-index'] = AnimationStyling.ZINDEX_FRONTMOST;
     iframeContainerEl.style['bottom'] = AnimationStyling.BASE_SPACING;
     iframeContainerEl.style[this.alignment] = AnimationStyling.BASE_SPACING;
     iframeContainerEl.style['max-width'] = AnimationStyling.MAX_WIDTH_DESKTOP;
