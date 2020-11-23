@@ -534,10 +534,7 @@ export function generateCTAFieldTypeLink(cta) {
  * @return {string} The price with correct currency formatting according to locale, if any errors
  *                  returns the price value without formatting
  */
-export function price(fieldValue, locale) {
-  if (!fieldValue) {
-    return '';
-  }
+export function price(fieldValue = {}, locale) {
   const localeForFormatting = locale || _getDocumentLocale() || 'en';
   const price = fieldValue.value && parseInt(fieldValue.value);
   const currencyCode = fieldValue.currencyCode && fieldValue.currencyCode.split('-')[0];
