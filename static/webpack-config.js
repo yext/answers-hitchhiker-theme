@@ -51,9 +51,9 @@ module.exports = function () {
       new MiniCssExtractPlugin({ filename: '[name].css' }),
       ...htmlPlugins,
       new InlineAssetHtmlPlugin(),
-      new webpack.EnvironmentPlugin(
-        ['JAMBO_INJECTED_DATA']
-      ),
+      new webpack.EnvironmentPlugin({
+        JAMBO_INJECTED_DATA: null
+      }),
       new RemovePlugin({
         after: {
           root: `${jamboConfig.dirs.output}`,
