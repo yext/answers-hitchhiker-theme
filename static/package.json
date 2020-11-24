@@ -44,6 +44,7 @@
   "dependencies": {
     "bootstrap-sass": "^3.4.1",
     "core-js": "^3.6.5",
+    "css-vars-ponyfill": "^2.3.1",
     "font-awesome": "^4.7.0",
     "iframe-resizer": "^4.1.1",
     "is-mobile": "^2.2.2",
