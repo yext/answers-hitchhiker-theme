@@ -19,7 +19,7 @@
 </div>
 
 {{#*inline 'image'}}
-{{#if card.tag}}
+{{#if (all card.image card.tag) }}
 <div class="HitchhikerProductProminentImage-imageAndTagWrapper">
   <div class="HitchhikerProductProminentImage-tagWrapper">
     <div class="HitchhikerProductProminentImage-tag">
@@ -32,7 +32,7 @@
     <img class="HitchhikerProductProminentImage-img" src="{{#unless (isAbsoluteUrl card.image)}}{{relativePath}}/{{/unless}}{{card.image}}" alt="{{#if card.altText}}{{card.altText}}{{/if}}" />
   </div>
   {{/if}}
-{{#if card.tag}}
+{{#if (all card.image card.tag) }}
 </div>
 {{/if}}
 {{/inline}}
