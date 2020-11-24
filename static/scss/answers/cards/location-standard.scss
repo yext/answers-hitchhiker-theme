@@ -130,11 +130,11 @@ $location-standard-ordinal-dimensions: calc(var(--hh-location-standard-base-spac
   &-core
   {
     margin-top: calc(var(--hh-location-standard-base-spacing) / 2);
-    min-width: 150px;
+    min-width: 160px;
 
     @media (min-width: $breakpoint-mobile-max)
     {
-      max-width: 25%;
+      max-width: 33%;
       margin-right: calc(var(--hh-location-standard-base-spacing) * 2);
     }
   }
