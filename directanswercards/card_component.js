@@ -27,7 +27,8 @@ BaseDirectAnswerCard["{{componentName}}"] = class extends ANSWERS.Component {
       ...cardData,
       feedbackSubmitted: data.feedbackSubmitted,
       isArray: Array.isArray(this.answer.value),
-      cardName: `{{componentName}}`
+      cardName: `{{componentName}}`,
+      relativePath: `{{relativePath}}`
     });
   }
 
