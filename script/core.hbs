@@ -64,6 +64,15 @@
           const regex = new RegExp(regexPattern)
           return str && str.match(regex);
         });
+
+        /**
+         * Determine whether a URL is absolute or not.
+         * Common examples: "mailto:slapshot@gmail.com", "//yext.com", "https://yext.com"
+         */
+        ANSWERS.registerHelper('isAbsoluteUrl', function(str) {
+          const absoluteURLRegex = /^(\/|[a-zA-Z]+:)/;
+          return str && str.match(absoluteURLRegex);
+        });
       }
     });
     {{> script/after-init}}

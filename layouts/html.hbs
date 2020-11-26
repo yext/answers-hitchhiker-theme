@@ -35,13 +35,13 @@
     <meta property="og:type" content="website">
     {{#if global_config.logo}}
       <meta property="og:image"
-        content="{{#unless (matches global_config.logo '//' )}}{{relativePath}}/{{/unless}}{{global_config.logo}}" />
+        content="{{#unless (isAbsoluteUrl global_config.logo)}}{{relativePath}}/{{/unless}}{{global_config.logo}}" />
     {{/if}}
     {{#if canonicalUrl}}
       <meta property="og:url"
-        content="{{#unless (matches canonicalUrl '//' )}}{{relativePath}}/{{/unless}}{{canonicalUrl}}" />
+        content="{{#unless (isAbsoluteUrl canonicalUrl)}}{{relativePath}}/{{/unless}}{{canonicalUrl}}" />
       <link rel="canonical"
-        href="{{#unless (matches canonicalUrl '//' )}}{{relativePath}}/{{/unless}}{{canonicalUrl}}" />
+        href="{{#unless (isAbsoluteUrl canonicalUrl)}}{{relativePath}}/{{/unless}}{{canonicalUrl}}" />
     {{else if env.JAMBO_INJECTED_DATA.pages.domains.prod.domain}}
       {{#with env.JAMBO_INJECTED_DATA.pages.domains.prod}}
         <meta property="og:url" content="{{#if isHttps}}https://{{else}}http://{{/if}}{{domain}}">
@@ -56,7 +56,7 @@
 
     {{#if global_config.favicon}}
       <link rel="shortcut icon"
-        href="{{#unless (matches global_config.favicon '//' )}}{{relativePath}}/{{/unless}}{{global_config.favicon}}" />
+        href="{{#unless (isAbsoluteUrl global_config.favicon)}}{{relativePath}}/{{/unless}}{{global_config.favicon}}" />
     {{/if}}
     <script>
       document.addEventListener('DOMContentLoaded', function () {
