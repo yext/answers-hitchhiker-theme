@@ -56,7 +56,8 @@ BaseCard["{{componentName}}"] = class extends ANSWERS.Component {
       card: cardData,
       showExcessDetailsToggle: showExcessDetailsToggle,
       truncatedDetails: truncatedDetails,
-      cardName: `{{componentName}}`
+      cardName: `{{componentName}}`,
+      relativePath: `{{relativePath}}`
     });
   }
 
