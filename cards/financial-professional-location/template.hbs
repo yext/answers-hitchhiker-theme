@@ -24,7 +24,9 @@
 {{#*inline 'image'}}
 {{#if card.image}}
 <div class="HitchhikerFinancialProfessionalLocation-imgWrapper">
-  <img class="HitchhikerFinancialProfessionalLocation-img" src="{{card.image}}" alt="{{#if card.altText}}{{card.altText}}{{/if}}" />
+  <img class="HitchhikerFinancialProfessionalLocation-img"
+  src="{{#unless (matches card.image '^(\/|[a-zA-Z]+:)')}}{{relativePath}}/{{/unless}}{{card.image}}"
+  alt="{{#if card.altText}}{{card.altText}}{{/if}}" />
 </div>
 {{/if}}
 {{/inline}}
@@ -41,7 +43,8 @@
 {{#if card.title}}
 <div class="HitchhikerFinancialProfessionalLocation-title">
   {{#if card.url}}
-  <a class="HitchhikerFinancialProfessionalLocation-titleLink js-HitchhikerFinancialProfessionalLocation-titleLink" href="{{card.url}}"
+  <a class="HitchhikerFinancialProfessionalLocation-titleLink js-HitchhikerFinancialProfessionalLocation-titleLink"
+    href="{{#unless (matches card.url '^(\/|[a-zA-Z]+:)')}}{{relativePath}}/{{/unless}}{{card.url}}"
     data-eventtype="TITLE_CLICK" data-eventoptions='{{json card.titleEventOptions}}'
     target={{#if card.target}}"{{card.target}}"{{else}}"_top" rel="noopener noreferrer nofollow" {{/if}}>
     {{card.title}}
@@ -159,7 +162,7 @@
 {{#if (all url label)}}
 <div class="HitchhikerFinancialProfessionalLocation-{{ctaName}}">
   <a class="HitchhikerCTA js-HitchhikerCTA{{#if modifiers}} {{modifiers}}{{/if}}"
-    href="{{url}}"
+    href="{{#unless (matches url '^(\/|[a-zA-Z]+:)')}}{{relativePath}}/{{/unless}}{{url}}"
     data-eventtype="{{eventType}}"
     data-eventoptions='{{json eventOptions}}'
     target="{{#if target}}{{target}}{{else}}_top{{/if}}"
