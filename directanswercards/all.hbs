@@ -1,4 +1,4 @@
 let BaseDirectAnswerCard = {};
 {{#partialPattern '^directanswercards/(.*)/component'}}
-  {{> (lookup . 'key') }}
+  {{> (lookup . 'key') relativePath=../relativePath }}
 {{/partialPattern}}
