@@ -31,8 +31,8 @@ module.exports = function (grunt) {
     grunt.log.writeln('Processing task...');
     // And some async stuff.
     exec('npx jambo build', (error, stdout, stderr) => {
-      stdout && console.log(`${stdout}`);
-      stderr && console.log(`${stderr}`);
+      stdout && console.log(stdout);
+      stderr && console.error(stderr);
 
       if (error) {
         done(false); // exit with non-zero code
