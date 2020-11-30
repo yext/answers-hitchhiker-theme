@@ -88,7 +88,7 @@ export default class OverlayConfig {
        * The foreground color of the button, accepts hex or rgb.
        * @type {String}
        */
-      foregroundColor: config.button.color.foreground || '#FFFFFF',
+      foregroundColor: config.button.color.text || '#FFFFFF',
     };
 
     /**
@@ -127,7 +127,7 @@ export default class OverlayConfig {
        * The foreground color of the panel, accepts hex or rgb.
        * @type {String}
        */
-      foregroundColor: config.panel.color.foreground || '#FFFFFF',
+      foregroundColor: config.panel.color.text || '#FFFFFF',
     };
   }
 }
