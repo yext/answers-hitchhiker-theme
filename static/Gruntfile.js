@@ -37,8 +37,8 @@ module.exports = function (grunt) {
         return;
       }
 
-      stdout && console.log(stdout);
       stderr && console.error(stderr);
+      stdout && console.log(stdout);
       done();
     });
   });
