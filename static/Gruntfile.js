@@ -36,11 +36,6 @@ module.exports = function (grunt) {
         done(false);
         return;
       }
-      if (stderr) {
-        console.log(`stderr: ${stderr}`);
-        done(false);
-        return;
-      }
       console.log(`${stdout}`);
       done();
     });
