@@ -31,14 +31,14 @@ module.exports = function (grunt) {
     grunt.log.writeln('Processing task...');
     // And some async stuff.
     exec('npx jambo build', (error, stdout, stderr) => {
-      stdout && console.log(stdout);
-      stderr && console.error(stderr);
-
       if (error) {
-        done(false); // exit with non-zero code
+        console.log(error.message);
+        done(false);	
         return;
       }
 
+      stdout && console.log(stdout);
+      stderr && console.error(stderr);
       done();
     });
   });
