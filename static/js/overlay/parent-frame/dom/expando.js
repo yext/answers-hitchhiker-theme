@@ -19,7 +19,7 @@ export default class Expando {
     /**
      * @type {boolean}
      */
-    this._hideButtonWhenCollapsed = config.hideButtonWhenCollapsed;
+    this._shouldShowButton = config.shouldShowButton;
 
     /**
      * @type {boolean}
@@ -54,7 +54,7 @@ export default class Expando {
     this.shrink();
     this.collapse();
 
-    if (!this._hideButtonWhenCollapsed) {
+    if (this._shouldShowButton) {
       this._stylist.showButton();
     }
   }
@@ -68,10 +68,6 @@ export default class Expando {
     }
     this._isExpanded = false;
     this._stylist.applyCollapsedStyling();
-
-    if (this._hideButtonWhenCollapsed) {
-      this._stylist.hideButton();
-    }
     this._collapseCallback();
   }
 
@@ -83,10 +79,6 @@ export default class Expando {
       return;
     }
     this._isExpanded = true;
-
-    if (this._hideButtonWhenCollapsed) {
-      this._stylist.showButton();
-    }
     this._stylist.applyExpandedStyling(this._isTaller);
 
     this._expandCallback();
