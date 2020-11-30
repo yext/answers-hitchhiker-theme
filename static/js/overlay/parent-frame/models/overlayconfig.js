@@ -69,12 +69,6 @@ export default class OverlayConfig {
     };
 
     /**
-     * Where to align the overlay, can be 'left' or 'right'
-     * @type {String}, either 'left' or 'right'
-     */
-    this.alignment = config.button.alignment === 'left' ? 'left' : 'right',
-
-    /**
      * Configuration for the button.
      */
     config.button = config.button || {};
@@ -96,6 +90,12 @@ export default class OverlayConfig {
        */
       foregroundColor: config.button.color.foreground || '#FFFFFF',
     };
+
+    /**
+     * Where to align the overlay, can be 'left' or 'right'
+     * @type {String}, either 'left' or 'right'
+     */
+    this.alignment = config.button.alignment === 'left' ? 'left' : 'right',
 
     /**
      * Configuration for the panel.
