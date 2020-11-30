@@ -107,7 +107,10 @@
         }
         return params.toString();
       }
-
+      let iframeLoadedResolve;
+      window.iframeLoaded = new Promise(resolve => {
+        iframeLoadedResolve = resolve;
+      });
       window.iFrameResizer = {
         onReady: function() {
           window.parentIFrame.sendMessage(JSON.stringify({
@@ -115,6 +118,7 @@
             replaceHistory: true,
             pageTitle: document.title
           }));
+          iframeLoadedResolve();
         },
         onMessage: window.isOverlay ? window.Overlay.onMessage : function() {},
       };

@@ -12,7 +12,8 @@ export default class Interactions {
     this.inactiveCssClass = 'CollapsibleFilters-inactive';
     this.resultsWrapper = document.querySelector('.js-answersResultsWrapper')
       || document.querySelector('.Answers-resultsWrapper');
-    this.parentIFrame = ('parentIFrame' in window) && parentIFrame;
+    this._updateStickyButton = this._updateStickyButton.bind(this);
+    this._debouncedStickyUpdate = this._debouncedStickyUpdate.bind(this);
   }
 
   /**
@@ -23,25 +24,23 @@ export default class Interactions {
    */
   stickifyViewResultsButton() {
     this.stickyButton = document.getElementById('js-answersViewResultsButton');
-    if (this.parentIFrame) {
+    window.addEventListener('scroll', this._updateStickyButton);
+    window.addEventListener('resize', this._debouncedStickyUpdate);
+    window.iframeLoaded.then(() => {
+      this.parentIFrame = window.parentIFrame;
       this.parentIFrame.getPageInfo(parentPageInfo => {
         this.parentPageInfo = parentPageInfo;
         this._updateStickyButtonInIFrame();
-      })
-    } else {
-      window.addEventListener('scroll', () => {
-        this._updateStickyButton();
       });
-      window.addEventListener('resize', () => {
-        this._debouncedStickyUpdate();
-      });
-    }
+      window.removeEventListener('scroll', this._updateStickyButton);
+      window.removeEventListener('resize', this._debouncedStickyUpdate);
+    });
   }
 
   /**
    * Recalculate the sticky position again after a timeout. Additional updates
    * made before the timout will only extend the timeout rather than queuing
-   * additional updates.
+   * additional updates. Handles both iframe and non-iframe cases.
    */
   _debouncedStickyUpdate() {
     const DEBOUNCE_TIMER = 200;
@@ -80,8 +79,9 @@ export default class Interactions {
   }
 
   /**
-   * If the user has scrolled past the results, give the sticky element
-   * the CollapsibleFilters-unstuck css class. Otherwise remove it.
+   * If the user has scrolled past the results, position the sticky button absolutely
+   * on the page. Otherwise, fix it to the bottom of the screen. This is for when the
+   * page is not using an IFrame.
    */
   _updateStickyButton() {
     const stickyButtonBottom = this.resultsWrapper.getBoundingClientRect().bottom;
