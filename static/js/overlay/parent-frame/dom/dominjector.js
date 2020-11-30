@@ -57,6 +57,9 @@ export default class DomInjector {
     iframeContainerEl.style[this.alignment] = AnimationStyling.BASE_SPACING;
     iframeContainerEl.style['max-width'] = AnimationStyling.MAX_WIDTH_DESKTOP;
     iframeContainerEl.style['max-height'] = AnimationStyling.MAX_HEIGHT_DESKTOP;
+    if (this.horizontalOffset || this.verticalOffset) {
+      iframeContainerEl.style['transform'] = `translate(${this.horizontalOffset}, ${this.verticalOffset})`;
+    }
     iframeContainerEl.style['pointer-events'] = 'none';
     iframeContainerEl.style['overflow'] = 'hidden';
     iframeContainerEl.style['border-radius'] = '10px';
@@ -73,9 +76,6 @@ export default class DomInjector {
     iframeContainerEl.classList.add('initial');
     iframeContainerEl.style['z-index'] = AnimationStyling.ZINDEX_HIDDEN;
     iframeContainerEl.style['opacity'] = '0';
-    if (this.horizontalOffset || this.verticalOffset) {
-      iframeContainerEl.style['transform'] = `translate(${this.horizontalOffset}, ${this.verticalOffset})`;
-    }
     iframeContainerEl.style['max-width'] = '100%';
     iframeContainerEl.style['max-height'] = '100%';
     iframeContainerEl.style['height'] = `${AnimationStyling.MIN_HEIGHT}px`;
