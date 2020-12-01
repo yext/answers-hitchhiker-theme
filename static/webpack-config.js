@@ -40,6 +40,11 @@ module.exports = function () {
       'iframe-prod': `./${jamboConfig.dirs.output}/static/js/iframe-prod.js`,
       'iframe-staging': `./${jamboConfig.dirs.output}/static/js/iframe-staging.js`,
     },
+    resolve: {
+      alias: {
+        static: path.resolve(__dirname, jamboConfig.dirs.output, 'static'),
+      }
+    },
     output: {
       filename: '[name].js',
       path: path.resolve(__dirname, jamboConfig.dirs.output),
@@ -51,9 +56,9 @@ module.exports = function () {
       new MiniCssExtractPlugin({ filename: '[name].css' }),
       ...htmlPlugins,
       new InlineAssetHtmlPlugin(),
-      new webpack.EnvironmentPlugin(
-        ['JAMBO_INJECTED_DATA']
-      ),
+      new webpack.EnvironmentPlugin({
+        JAMBO_INJECTED_DATA: null
+      }),
       new RemovePlugin({
         after: {
           root: `${jamboConfig.dirs.output}`,

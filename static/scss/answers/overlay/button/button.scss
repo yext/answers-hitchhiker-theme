@@ -1,12 +1,10 @@
 .OverlayButton {
-  min-width: 64px;
-  min-height: 64px;
-  max-width: 100%;
-  max-height: 100%;
+  display: flex;
   font-family: var(--yxt-font-family);
   cursor: pointer;
   overflow: hidden;
   padding: 20px;
+  border: none;
 
   &:focus {
     outline: none;

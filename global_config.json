@@ -1,5 +1,5 @@
 {
-  "sdkVersion": "1.6", // The version of the Answers SDK to use
+  "sdkVersion": "1.7", // The version of the Answers SDK to use
   // "apiKey": "<REPLACE ME>", // The answers api key found on the experiences page. This will be provided automatically by the Yext CI system
   // "experienceVersion": "<REPLACE ME>", // the Answers Experience version to use for API requests. This will be provided automatically by the Yext CI system
   // "businessId": "<REPLACE ME>", // The business ID of the account. This will be provided automatically by the Yext CI system

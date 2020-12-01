@@ -69,12 +69,6 @@ export default class OverlayConfig {
     };
 
     /**
-     * Where to align the overlay, can be 'left' or 'right'
-     * @type {String}, either 'left' or 'right'
-     */
-    this.alignment = config.button.alignment === 'left' ? 'left' : 'right',
-
-    /**
      * Configuration for the button.
      */
     config.button = config.button || {};
@@ -94,8 +88,14 @@ export default class OverlayConfig {
        * The foreground color of the button, accepts hex or rgb.
        * @type {String}
        */
-      foregroundColor: config.button.color.foreground || '#FFFFFF',
+      foregroundColor: config.button.color.text || '#FFFFFF',
     };
+
+    /**
+     * Where to align the overlay, can be 'left' or 'right'
+     * @type {String}, either 'left' or 'right'
+     */
+    this.alignment = config.button.alignment === 'left' ? 'left' : 'right',
 
     /**
      * Configuration for the panel.
@@ -127,7 +127,7 @@ export default class OverlayConfig {
        * The foreground color of the panel, accepts hex or rgb.
        * @type {String}
        */
-      foregroundColor: config.panel.color.foreground || '#FFFFFF',
+      foregroundColor: config.panel.color.text || '#FFFFFF',
     };
   }
 }

@@ -1,7 +1,7 @@
 <div class="HitchhikerProductProminentImage {{cardName}}">
   {{#if card.url}}
   <a class="HitchhikerProductProminentImageClickable-link"
-     href="{{#unless (isAbsoluteUrl card.url)}}{{relativePath}}/{{/unless}}{{card.url}}"
+     href="{{#unless (isNonRelativeUrl card.url)}}{{@root.relativePath}}/{{/unless}}{{card.url}}"
      target={{#if card.target}}"{{card.target}}"{{else}}"_top"{{/if}}
      data-eventtype="TITLE_CLICK"
      data-eventoptions='{{json card.titleEventOptions}}'
@@ -29,7 +29,7 @@
 {{/if}}
   {{#if card.image}}
   <div class="HitchhikerProductProminentImage-imgWrapper">
-    <img class="HitchhikerProductProminentImage-img" src="{{#unless (isAbsoluteUrl card.image)}}{{relativePath}}/{{/unless}}{{card.image}}" alt="{{#if card.altText}}{{card.altText}}{{/if}}" />
+    <img class="HitchhikerProductProminentImage-img" src="{{#unless (isNonRelativeUrl card.image)}}{{@root.relativePath}}/{{/unless}}{{card.image}}" alt="{{#if card.altText}}{{card.altText}}{{/if}}" />
   </div>
   {{/if}}
 {{#if card.tag}}

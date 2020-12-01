@@ -144,15 +144,6 @@ export default class Stylist {
   }
 
   /**
-   * Adds styling to hide the button
-   */
-  hideButton() {
-    this._buttonFrameEl.style['opacity'] = '0';
-    this._buttonFrameEl.style['z-index'] = AnimationStyling.ZINDEX_HIDDEN;
-    this._buttonFrameEl.style['pointer-events'] = 'none';
-  }
-
-  /**
    * Sets the size of the button
    *
    * @param {Object}

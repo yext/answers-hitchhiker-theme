@@ -36,7 +36,7 @@ export default class Overlay {
     const mediator = new ActionDirector({
       iframeEl: document.querySelector(`#${Selectors.IFRAME_ID}`),
       buttonFrameEl: document.querySelector(`#${Selectors.BUTTON_FRAME_ID}`),
-      hideButtonWhenCollapsed: this.config.hideDefaultButton,
+      shouldShowButton: !this.config.hideDefaultButton,
       iframeBackground: this.config.iframeBackground,
       alignment: this.config.alignment
     });
