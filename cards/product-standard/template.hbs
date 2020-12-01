@@ -95,7 +95,7 @@
     {{#if (any iconName iconUrl)}}
     <div class="HitchhikerCTA-iconWrapper">
       <div class="HitchhikerCTA-icon" data-component="IconComponent"
-        data-opts='{"iconName": "{{iconName}}", "iconUrl": "{{iconUrl}}"}'>
+        data-opts='{"iconName": "{{iconName}}", "iconUrl": "{{#if iconUrl}}{{#unless (isAbsoluteUrl iconUrl)}}{{relativePath}}/{{/unless}}{{iconUrl}}{{/if}}"}'>
       </div>
     </div>
     {{/if}}
