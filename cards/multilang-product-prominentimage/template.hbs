@@ -21,7 +21,7 @@
 {{/if}}
   {{#if card.image}}
   <div class="HitchhikerProductProminentImage-imgWrapper">
-    <img class="HitchhikerProductProminentImage-img" src="{{#unless (isAbsoluteUrl card.image)}}{{@root.relativePath}}/{{/unless}}{{card.image}}" alt="{{#if card.altText}}{{card.altText}}{{/if}}" />
+    <img class="HitchhikerProductProminentImage-img" src="{{#unless (isNonRelativeUrl card.image)}}{{@root.relativePath}}/{{/unless}}{{card.image}}" alt="{{#if card.altText}}{{card.altText}}{{/if}}" />
   </div>
   {{/if}}
 {{#if card.tag}}
@@ -34,7 +34,7 @@
 <div class="HitchhikerProductProminentImage-title">
   {{#if card.url}}
   <a class="HitchhikerProductProminentImage-titleLink"
-    href="{{#unless (isAbsoluteUrl card.url)}}{{@root.relativePath}}/{{/unless}}{{card.url}}"
+    href="{{#unless (isNonRelativeUrl card.url)}}{{@root.relativePath}}/{{/unless}}{{card.url}}"
     target={{#if card.target}}"{{card.target}}"{{else}}"_top"{{/if}}
     data-eventtype="TITLE_CLICK"
     data-eventoptions='{{json card.titleEventOptions}}'>
@@ -100,7 +100,7 @@
 {{#if (all url label)}}
 <div class="HitchhikerProductProminentImage-{{ctaName}}">
   <a class="HitchhikerCTA js-HitchhikerCTA{{#if modifiers}} {{modifiers}}{{/if}}"
-    href="{{#unless (isAbsoluteUrl url)}}{{@root.relativePath}}/{{/unless}}{{url}}"
+    href="{{#unless (isNonRelativeUrl url)}}{{@root.relativePath}}/{{/unless}}{{url}}"
     data-eventtype="{{eventType}}"
     data-eventoptions='{{json eventOptions}}'
     target="{{#if target}}{{target}}{{else}}_top{{/if}}"
@@ -109,7 +109,7 @@
     <div class="HitchhikerCTA-iconWrapper">
       <div class="HitchhikerCTA-icon"
         data-component="IconComponent"
-        data-opts='{"iconName": "{{iconName}}","iconUrl": "{{#if iconUrl}}{{#unless (isAbsoluteUrl iconUrl)}}{{@root.relativePath}}/{{/unless}}{{iconUrl}}{{/if}}"}'>
+        data-opts='{"iconName": "{{iconName}}","iconUrl": "{{#if iconUrl}}{{#unless (isNonRelativeUrl iconUrl)}}{{@root.relativePath}}/{{/unless}}{{iconUrl}}{{/if}}"}'>
       </div>
     </div>
     {{/if}}
