@@ -37,27 +37,27 @@ ANSWERS.addComponent("UniversalResults", Object.assign({}, {
   {{/if}}
   modifier: "{{{verticalKey}}}",
   {{#if url}}
-    url: "{{#unless (matches url '^(\/|[a-zA-Z]+:)')}}{{relativePath}}/{{/unless}}{{{url}}}",
+    url: "{{#unless (isNonRelativeUrl url)}}{{relativePath}}/{{/unless}}{{{url}}}",
     verticalPages: [ // TODO remove this once the theme version does not support pre-v1.3 of the SDK
       {
         verticalKey: "{{{verticalKey}}}",
-        url: "{{#unless (matches url '^(\/|[a-zA-Z]+:)')}}{{relativePath}}/{{/unless}}{{{url}}}",
+        url: "{{#unless (isNonRelativeUrl url)}}{{relativePath}}/{{/unless}}{{{url}}}",
       }
     ],
   {{else if pagePath}}
-    url: "{{#unless (matches pagePath '^(\/|[a-zA-Z]+:)')}}{{relativePath}}/{{/unless}}{{{pagePath}}}",
+    url: "{{#unless (isNonRelativeUrl pagePath)}}{{relativePath}}/{{/unless}}{{{pagePath}}}",
     verticalPages: [ // TODO remove this once the theme version does not support pre-v1.3 of the SDK
       {
         verticalKey: "{{{verticalKey}}}",
-        pageUrl: "{{#unless (matches pagePath '^(\/|[a-zA-Z]+:)')}}{{relativePath}}/{{/unless}}{{{pagePath}}}",
+        pageUrl: "{{#unless (isNonRelativeUrl pagePath)}}{{relativePath}}/{{/unless}}{{{pagePath}}}",
       }
     ],
   {{else if pageName}}
-    url: "{{#unless (matches pageName '^(\/|[a-zA-Z]+:)')}}{{relativePath}}/{{/unless}}{{{pageName}}}.html",
+    url: "{{#unless (isNonRelativeUrl pageName)}}{{relativePath}}/{{/unless}}{{{pageName}}}.html",
     verticalPages: [ // TODO remove this once the theme version does not support pre-v1.3 of the SDK
       {
         verticalKey: "{{{verticalKey}}}",
-        url: "{{#unless (matches pageName '^(\/|[a-zA-Z]+:)')}}{{relativePath}}/{{/unless}}{{{pageName}}}.html",
+        url: "{{#unless (isNonRelativeUrl pageName)}}{{relativePath}}/{{/unless}}{{{pageName}}}.html",
       }
     ],
   {{/if}}
@@ -66,11 +66,11 @@ ANSWERS.addComponent("UniversalResults", Object.assign({}, {
       cardType: "{{{cardType}}}"
     },
   {{/if}}
-  sectionTitle: {{#if sectionTitle}}"{{{sectionTitle}}}"{{else}}{{#if label}}"{{{label}}}"{{else}}"{{{verticalKey}}}"{{/if}}{{/if}},
+  sectionTitle: {{#if sectionTitle}}"{{{sectionTitle}}}"{{else}}"{{> verticalLabel overridedLabel=label verticalKey=verticalKey fallback=verticalKey}}"{{/if}},
   {{#if icon}}
     sectionTitleIconName: "{{{icon}}}",
   {{/if}}
-  {{#if iconUrl}}sectionTitleIconUrl: "{{#unless (matches iconUrl '^(\/|[a-zA-Z]+:)')}}{{relativePath}}/{{/unless}}{{{iconUrl}}}",{{/if}}
+  {{#if iconUrl}}sectionTitleIconUrl: "{{#unless (isNonRelativeUrl iconUrl)}}{{relativePath}}/{{/unless}}{{{iconUrl}}}",{{/if}}
   viewAllText: {{#if viewAllText}}"{{{viewAllText}}}"{{else}}{{ translateJS phrase='View All' context='View is a verb' }}{{/if}},
   {{#if viewMore}}viewMore: {{viewMore}},{{/if}}
   {{#if mapConfig}}
@@ -97,4 +97,41 @@ ANSWERS.addComponent("UniversalResults", Object.assign({}, {
       });
     },
   {{/if}}
+{{/inline}}
+
+{{!--
+  Prints the vertical label according to specific logic
+  Assumes @root has environment variables and global_config
+  @param overridedLabel The hardcoded label from configuration in repo, meant to supercede defaults
+  @param verticalKey The current vertical key, if it exists
+  @param fallback The fallback for the label if all else doesn't exist
+--}}
+{{#*inline 'verticalLabel'}}
+  {{~#if overridedLabel ~}}
+    {{{overridedLabel}}}
+  {{~ else if
+    (lookup
+      (lookup 
+        (lookup 
+          (lookup
+            @root.env.JAMBO_INJECTED_DATA.answers.experiences
+            @root.global_config.experienceKey)
+          'verticals')
+        verticalKey)
+      'displayName')
+  ~}}
+    {{{lookup
+      (lookup 
+        (lookup 
+          (lookup
+            @root.env.JAMBO_INJECTED_DATA.answers.experiences
+            @root.global_config.experienceKey)
+          'verticals')
+        verticalKey)
+      'displayName'}}}
+  {{~ else if verticalKey ~}}
+    {{{verticalKey}}}
+  {{~ else ~}}
+    {{{fallback}}}
+  {{~/if ~}}
 {{/inline}}

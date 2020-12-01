@@ -6,7 +6,6 @@ ANSWERS.addComponent('ViewResultsButton', {
   },
   onCreate: function () {
     collapsibleFiltersInteractions.markAsInactive(this._container);
-    collapsibleFiltersInteractions.stickify(this._container);
   },
   ...{{{ json componentSettings.ViewResultsButton }}}
 });

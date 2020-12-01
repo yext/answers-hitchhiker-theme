@@ -12,22 +12,20 @@ const { ArgumentMetadata, ArgumentType } = require('./helpers/utils/argumentmeta
 class DirectAnswerCardCreator {
   constructor(jamboConfig) {
     this.config = jamboConfig;
-    this.themesDir = jamboConfig.dirs && jamboConfig.dirs.themes;
-    this.defaultTheme = jamboConfig.defaultTheme;
     this._customCardsDir = 'directanswercards';
   }
 
   /**
    * @returns {string} the alias for the create direct answer card command.
    */
-  getAlias() {
+  static getAlias() {
     return 'directanswercard';
   }
 
   /**
    * @returns {string} a short description of the create direct answer card command.
    */
-  getShortDescription() {
+  static getShortDescription() {
     return 'add a new direct answer card for use in the site';
   }
 
@@ -35,7 +33,7 @@ class DirectAnswerCardCreator {
    * @returns {Object<string, ArgumentMetadata>} description of each argument for 
    *                                             the create direct answer card command, keyed by name
    */
-  args() {
+  static args() {
     return {
       'name': new ArgumentMetadata(ArgumentType.STRING, 'name for the new direct answer card', true),
       'templateCardFolder': new ArgumentMetadata(ArgumentType.STRING, 'folder of direct answer card to fork', true)
@@ -46,8 +44,8 @@ class DirectAnswerCardCreator {
    * @returns {Object} description of the direct answer card command, including paths to 
    *                   all available direct answer cards
    */
-  describe() {
-    const directAnswerCardPaths = this._getDirectAnswerCardPaths();
+  static describe(jamboConfig) {
+    const directAnswerCardPaths = this._getDirectAnswerCardPaths(jamboConfig);
     return {
       displayName: 'Add Direct Answer Card',
       params: {
@@ -69,11 +67,13 @@ class DirectAnswerCardCreator {
   /**
    * @returns {Array<string>} the paths of the available direct answer cards
    */
-  _getDirectAnswerCardPaths() {
-    if (!this.defaultTheme || !this.themesDir) {
+  static _getDirectAnswerCardPaths(jamboConfig) {
+    const defaultTheme = jamboConfig.defaultTheme;
+    const themesDir = jamboConfig.dirs && jamboConfig.dirs.themes;
+    if (!defaultTheme || !themesDir) {
       return [];
     }
-    const daCardsDir = path.join(this.themesDir, this.defaultTheme, 'directanswercards');
+    const daCardsDir = path.join(themesDir, defaultTheme, 'directanswercards');
     return fs.readdirSync(daCardsDir, { withFileTypes: true })
       .filter(dirent => !dirent.isFile())
       .map(dirent => path.join(daCardsDir, dirent.name));
@@ -170,4 +170,4 @@ class DirectAnswerCardCreator {
   }
 }
 
-module.exports = jamboConfig => new DirectAnswerCardCreator(jamboConfig);
+module.exports = DirectAnswerCardCreator;

@@ -13,7 +13,7 @@
 <div class="HitchhikerLinkStandard-title">
   {{#if card.url}}
   <a class="HitchhikerLinkStandard-titleLink js-HitchhikerLinkStandard-titleLink"
-     href="{{#unless (matches card.url '^(\/|[a-zA-Z]+:)')}}{{relativePath}}/{{/unless}}{{card.url}}"
+     href="{{#unless (isNonRelativeUrl card.url)}}{{@root.relativePath}}/{{/unless}}{{card.url}}"
      data-eventtype="TITLE_CLICK"
      data-eventoptions='{{json card.titleEventOptions}}'
      target={{#if card.target}}"{{card.target}}"{{else}}"_top"{{/if}}>

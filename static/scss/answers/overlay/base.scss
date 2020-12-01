@@ -1,0 +1,54 @@
+.Overlay {
+  .yxt-SearchBar-container {
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+  }
+
+  .Answers-overlaySuggestions {
+    margin: var(--yxt-base-spacing);
+    margin-top: calc(var(--yxt-base-spacing) / 2);
+
+    &.hidden {
+      display: none;
+    }
+  }
+
+  .Answers-locationBias {
+    padding-left: 88px;
+    padding-right: 88px;
+  }
+
+  &.shorter .Answers {
+    min-height: 0px;
+
+    &-footer {
+      display: none;
+    }
+
+    &-navWrapper {
+      min-height: 0px;
+      padding-top: 0;
+      background-color: transparent;
+      margin-top: -26px;
+      border: none;
+    }
+
+    &-nav {
+      display: none;
+    }
+
+    &-resultsWrapper {
+      display: none;
+    }
+
+    .yxt-AutoComplete {
+      max-height: 180px;
+      overflow-y: scroll;
+    }
+  }
+
+  &.taller {
+    .Answers-overlaySuggestions {
+      display: none;
+    }
+  }
+}

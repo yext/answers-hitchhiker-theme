@@ -1,0 +1,46 @@
+.OverlayPrompt {
+  &-button {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--yxt-color-text-secondary);
+    font-size: var(--yxt-font-size-md-lg);
+    font-weight: var(--yxt-font-weight-normal);
+    line-height: var(--yxt-line-height-md-sm);
+    letter-spacing: 1px;
+    text-align: left;
+    width: 100%;
+    padding: calc(var(--yxt-base-spacing) / 2) var(--yxt-base-spacing);
+    background-color: var(--yxt-color-brand-white);
+    border: 1px solid #afafaf;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.15);
+    margin: 12px 0;
+
+    &:hover,
+    &:active,
+    &:focus {
+      border: 1px solid #c3c3c3;
+      color: var(--yxt-color-text-primary);
+      outline: none;
+
+      svg {
+        fill: var(--yxt-color-text-primary);
+      }
+    }
+  }
+
+  &-buttonIcon {
+    display: flex;
+    flex-shrink: 0;
+    height: 12px;
+    width: 8px;
+
+    svg {
+      display: flex;
+      flex-grow: 1;
+      fill: #afafaf;
+    }
+  }
+}

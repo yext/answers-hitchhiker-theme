@@ -2,6 +2,7 @@
 @import "~font-awesome/scss/variables";
 
 // Core variables and mixins
+@import "overlay/module";
 @import "common/variables";
 @import 'answers-variables-default';
 @import '../answers-variables';
@@ -10,6 +11,7 @@
 @import "common/mixins";
 @import "common/base";
 @import "module";
+@import "formatters/hours-table";
 
 // Utility styling
 @import "utils";
@@ -45,6 +47,7 @@
 @import "cards/product-standard";
 @import "cards/professional-location";
 @import "cards/financial-professional-location";
+@import "cards/product-prominentimage-clickable";
 @import "directanswercards/allfields-standard";
 
 // HH files

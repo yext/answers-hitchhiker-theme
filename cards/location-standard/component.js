@@ -23,14 +23,14 @@ class location_standardCardComponent extends BaseCard['location-standard'] {
       address: Formatter.address(profile), // The address for the card
       phone: Formatter.nationalizedPhoneDisplay(profile), // The phone number for the card
       phoneEventOptions: this.addDefaultEventOptions(), // The analytics event options for phone clicks
-      distance: Formatter.toMiles(profile), // Distance from the user’s or inputted location
+      distance: Formatter.toLocalizedDistance(profile), // Distance from the user’s or inputted location
       // details: profile.description, // The description for the card, displays below the address and phone
       // altText: '', // The alt-text of the displayed image
       // image: '', // The URL of the image to display on the card
       showOrdinal: true, // If the ordinal should be displayed on the card
       CTA1: { // The primary call to action for the card
-        iconName: 'phone', // The icon to use for the CTA
         label: 'Call', // The label of the CTA
+        iconName: 'phone', // The icon to use for the CTA
         url: Formatter.phoneLink(profile), // The URL a user will be directed to when clicking
         target: '_top', // If the URL will be opened in a new tab, etc.
         eventType: 'TAP_TO_CALL', // Type of Analytics event fired when clicking the CTA

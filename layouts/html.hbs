@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html class="YxtPage-doc">
   <head>
+    <script>
+      {{#babel}}
+      if (window.name == 'overlay') {
+        window.isOverlay = true;
+      }
+      {{/babel}}
+    </script>
     {{> layouts/headincludes }}
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -35,13 +42,13 @@
     <meta property="og:type" content="website">
     {{#if global_config.logo}}
       <meta property="og:image"
-        content="{{#unless (matches global_config.logo '^(\/|[a-zA-Z]+:)')}}{{relativePath}}/{{/unless}}{{global_config.logo}}" />
+        content="{{#unless (isNonRelativeUrl global_config.logo)}}{{relativePath}}/{{/unless}}{{global_config.logo}}" />
     {{/if}}
     {{#if canonicalUrl}}
       <meta property="og:url"
-        content="{{#unless (matches canonicalUrl '^(\/|[a-zA-Z]+:)')}}{{relativePath}}/{{/unless}}{{canonicalUrl}}" />
+        content="{{#unless (isNonRelativeUrl canonicalUrl)}}{{relativePath}}/{{/unless}}{{canonicalUrl}}" />
       <link rel="canonical"
-        href="{{#unless (matches canonicalUrl '^(\/|[a-zA-Z]+:)')}}{{relativePath}}/{{/unless}}{{canonicalUrl}}" />
+        href="{{#unless (isNonRelativeUrl canonicalUrl)}}{{relativePath}}/{{/unless}}{{canonicalUrl}}" />
     {{else if env.JAMBO_INJECTED_DATA.pages.domains.prod.domain}}
       {{#with env.JAMBO_INJECTED_DATA.pages.domains.prod}}
         <meta property="og:url" content="{{#if isHttps}}https://{{else}}http://{{/if}}{{domain}}">
@@ -56,7 +63,7 @@
 
     {{#if global_config.favicon}}
       <link rel="shortcut icon"
-        href="{{#unless (matches global_config.favicon '^(\/|[a-zA-Z]+:)')}}{{relativePath}}/{{/unless}}{{global_config.favicon}}" />
+        href="{{#unless (isNonRelativeUrl global_config.favicon)}}{{relativePath}}/{{/unless}}{{global_config.favicon}}" />
     {{/if}}
     <script>
       document.addEventListener('DOMContentLoaded', function () {
@@ -91,6 +98,7 @@
     {{/if}}
 
     <script>
+      {{#babel}}
       function iframeGetSearchParams() {
         let params = new URLSearchParams(window.location.search);
         let verticalUrl = window.location.pathname.substr(1)
@@ -99,14 +107,22 @@
         }
         return params.toString();
       }
+      let iframeLoadedResolve;
+      window.iframeLoaded = new Promise(resolve => {
+        iframeLoadedResolve = resolve;
+      });
       window.iFrameResizer = {
         onReady: function() {
           window.parentIFrame.sendMessage(JSON.stringify({
             params: iframeGetSearchParams(),
-            replaceHistory: true
+            replaceHistory: true,
+            pageTitle: document.title
           }));
+          iframeLoadedResolve();
         },
+        onMessage: window.isOverlay ? window.Overlay.onMessage : function() {},
       };
+    {{/babel}}
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.10/iframeResizer.contentWindow.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://assets.sitescdn.net/answers/v{{global_config.sdkVersion}}/answers.css">
@@ -120,6 +136,7 @@
       <!-- End Google Tag Manager (noscript) -->
     {{/if}}
     <div class="YxtPage-wrapper">
+      {{> overlay/markup/overlay-header }}
       {{> layouts/header }}
       <div class="YxtPage-content">
         {{> @partial-block }}

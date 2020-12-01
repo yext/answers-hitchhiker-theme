@@ -1,4 +1,4 @@
-import { getDistanceUnit } from 'static/js/units-i18n.js';
+import { LOCALE_UNIT_MAP, getDistanceUnit } from 'static/js/units-i18n.js';
 
 describe('getDistanceUnit', () => {
   it('A known locale works', () => {
@@ -11,8 +11,16 @@ describe('getDistanceUnit', () => {
     expect(unit).toEqual('mi');
   });
 
-  it('An unkown language defaults to imperial units', () => {
+  it('An unkown language defaults to metric units', () => {
     const unit = getDistanceUnit('ye');
-    expect(unit).toEqual('mi');
+    expect(unit).toEqual('km');
+  });
+});
+
+describe('unit map', () => {
+  it('All languages must have a default unit', () => {
+    Object.entries(LOCALE_UNIT_MAP).forEach(([languageMap, regionMap]) => {
+      expect('default' in regionMap).toBeTruthy();
+    });
   });
 });

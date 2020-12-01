@@ -4,7 +4,7 @@
     console.error('ERROR: no sdkVersion specified, please specify an sdkVersion in the global_config.');
   }
 </script>
-<script src="https://assets.sitescdn.net/answers/v{{global_config.sdkVersion}}/{{#if params.sdkLocaleOverride}}{{#unless (eq params.sdkLocaleOverride 'en')}}{{params.sdkLocaleOverride}}-{{/unless}}{{else if global_config.locale}}{{#unless (eq global_config.locale 'en')}}{{global_config.locale}}-{{/unless}}{{/if}}answerstemplates.compiled.min.js"></script>
+<script src="https://assets.sitescdn.net/answers/v{{global_config.sdkVersion}}/{{#if params.sdkLocaleOverride}}{{#unless (eq params.sdkLocaleOverride 'en')}}{{params.sdkLocaleOverride}}-{{/unless}}{{else if global_config.locale}}{{#unless (eq global_config.locale 'en')}}{{global_config.locale}}-{{/unless}}{{/if}}answerstemplates.compiled.min.js" defer></script>
 <script>
 {{#babel}}
   function initAnswers() {
@@ -35,6 +35,7 @@
       templateBundle: TemplateBundle.default,
       ...injectedConfig,
       ...userConfig,
+      querySource: window.isOverlay ? 'OVERLAY' : 'STANDARD',
       onStateChange: (objParams, stringParams, replaceHistory) => {
         if ('parentIFrame' in window) {
           parentIFrame.sendMessage(JSON.stringify({
@@ -64,10 +65,19 @@
           const regex = new RegExp(regexPattern)
           return str && str.match(regex);
         });
+
+        /**
+         * Determine whether a URL is absolute or not.
+         * Common examples: "mailto:slapshot@gmail.com", "//yext.com", "https://yext.com"
+         */
+        ANSWERS.registerHelper('isNonRelativeUrl', function(str) {
+          const absoluteURLRegex = /^(\/|[a-zA-Z]+:)/;
+          return str && str.match(absoluteURLRegex);
+        });
       }
     });
     {{> script/after-init}}
   }
 {{/babel}}
 </script>
-<script src="https://assets.sitescdn.net/answers/v{{global_config.sdkVersion}}/{{#if params.sdkLocaleOverride}}{{#unless (eq params.sdkLocaleOverride 'en')}}{{params.sdkLocaleOverride}}-{{/unless}}{{else if global_config.locale}}{{#unless (eq global_config.locale 'en')}}{{global_config.locale}}-{{/unless}}{{/if}}answers.min.js" onload="initAnswers()" async></script>
+<script src="https://assets.sitescdn.net/answers/v{{global_config.sdkVersion}}/{{#if params.sdkLocaleOverride}}{{#unless (eq params.sdkLocaleOverride 'en')}}{{params.sdkLocaleOverride}}-{{/unless}}{{else if global_config.locale}}{{#unless (eq global_config.locale 'en')}}{{global_config.locale}}-{{/unless}}{{/if}}answers.min.js" onload="initAnswers()" defer></script>

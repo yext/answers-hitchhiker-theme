@@ -12,27 +12,30 @@ class product_standardCardComponent extends BaseCard['product-standard'] {
    * @param profile profile of the entity in the card
    */
   dataForRender(profile) {
-    let price = '';
-    if (profile.c_price) {
-      price = `$${profile.c_price}`;
+    let imageUrl = '';
+    let alternateText = '';
+    if (profile.photoGallery && profile.photoGallery[0]) {
+      imageUrl = Formatter.image(profile.photoGallery[0]).url;
+      alternateText = Formatter.image(profile.photoGallery[0]).alternateText;
     }
 
     return {
       title: profile.name, // The header text of the card
       url: profile.landingPageUrl, // If the card title is a clickable link, set URL here
       target: '_top', // If the title's URL should open in a new tab, etc.
-      image: Formatter.image(profile.c_photo).url, // The URL of the image to display on the card
-      altText: Formatter.image(profile.c_photo).alternateText, // The alt text of the image to display on the card
+      image: imageUrl, // The URL of the image to display on the card
+      altText: alternateText,  // The alternate text for the image
       titleEventOptions: this.addDefaultEventOptions(),
-      subtitle: price, // The sub-header text of the card
-      details: profile.description, // The text in the body of the card
+      subtitle: Formatter.price(profile.price), // The sub-header text of the card
+      details: profile.richTextDescription ? ANSWERS.formatRichText(profile.richTextDescription, 'richTextDescription', '_top') : null, // The text in the body of the card
       // If the card's details are longer than a certain character count, you can truncate the
       // text. A toggle will be supplied that can show or hide the truncated text.
-      showMoreDetails: {
-        showMoreLimit: 350, // Character count limit
-        showMoreText: 'Show more', // Label when toggle will show truncated text
-        showLessText: 'Show less' // Label when toggle will hide truncated text
-      },
+      // Note: If you are using rich text for the details, you should not enable this feature.
+      // showMoreDetails: {
+      //   showMoreLimit: 350, // Character count limit
+      //   showMoreText: 'Show more', // Label when toggle will show truncated text
+      //   showLessText: 'Show less' // Label when toggle will hide truncated text
+      // },
       // The primary CTA of the card
       CTA1: {
         label: profile.c_primaryCTA ? profile.c_primaryCTA.label : null, // The CTA's label

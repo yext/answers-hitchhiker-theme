@@ -15,7 +15,7 @@
 {{#*inline 'image'}}
 {{#if card.image}}
 <div class="HitchhikerJobStandard-imgWrapper">
-  <img class="HitchhikerJobStandard-img" src="{{#unless (matches card.image '^(\/|[a-zA-Z]+:)')}}{{relativePath}}/{{/unless}}{{card.image}}" alt="{{#if card.altText}}{{card.altText}}{{/if}}"/>
+  <img class="HitchhikerJobStandard-img" src="{{#unless (isNonRelativeUrl card.image)}}{{@root.relativePath}}/{{/unless}}{{card.image}}" alt="{{#if card.altText}}{{card.altText}}{{/if}}"/>
 </div>
 {{/if}}
 {{/inline}}
@@ -25,7 +25,7 @@
 <div class="HitchhikerJobStandard-title">
   {{#if card.url}}
   <a class="HitchhikerJobStandard-titleLink js-HitchhikerJobStandard-titleLink"
-     href="{{#unless (matches card.url '^(\/|[a-zA-Z]+:)')}}{{relativePath}}/{{/unless}}{{card.url}}"
+     href="{{#unless (isNonRelativeUrl card.url)}}{{@root.relativePath}}/{{/unless}}{{card.url}}"
      data-eventtype="TITLE_CLICK"
      data-eventoptions='{{json card.titleEventOptions}}'
      target={{#if card.target}}"{{card.target}}"{{else}}"_top"{{/if}}>
@@ -90,14 +90,14 @@
 {{#*inline 'CTA'}}
 {{#if (all url label)}}
 <div class="HitchhikerJobStandard-{{ctaName}}">
-  <a class="HitchhikerCTA js-HitchhikerCTA{{#if modifiers}} {{modifiers}}{{/if}}" href="{{#unless (matches url '^(\/|[a-zA-Z]+:)')}}{{relativePath}}/{{/unless}}{{url}}"
+  <a class="HitchhikerCTA js-HitchhikerCTA{{#if modifiers}} {{modifiers}}{{/if}}" href="{{#unless (isNonRelativeUrl url)}}{{@root.relativePath}}/{{/unless}}{{url}}"
     data-eventtype="{{eventType}}" data-eventoptions='{{json eventOptions}}'
     target="{{#if target}}{{target}}{{else}}_top{{/if}}"
     {{#if ariaLabel}}aria-label="{{ariaLabel}}"{{/if}}>
     {{#if (any iconName iconUrl)}}
     <div class="HitchhikerCTA-iconWrapper">
       <div class="HitchhikerCTA-icon" data-component="IconComponent" data-opts='{
-        "iconUrl": "{{#if iconUrl}}{{#unless (matches iconUrl '^(\/|[a-zA-Z]+:)')}}{{relativePath}}/{{/unless}}{{iconUrl}}{{/if}}",
+        "iconUrl": "{{#if iconUrl}}{{#unless (isNonRelativeUrl iconUrl)}}{{@root.relativePath}}/{{/unless}}{{iconUrl}}{{/if}}",
         "iconName": "{{iconName}}"
       }'></div>
     </div>

@@ -21,6 +21,31 @@
     width: 100%;
   }
 
+  &-imageAndTagWrapper
+  {
+    position: relative;
+    align-items: flex-start;
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  &-tagWrapper
+  {
+    width: 100%;
+  }
+
+  &-tag
+  {
+    position: absolute;
+    top: var(--yxt-base-spacing);
+    left: var(--yxt-base-spacing);
+    background-color: var(--hh-product-tag-background-color);
+    color: var(--hh-product-tag-text-color);
+    text-transform: uppercase;
+    padding: 4px 8px;
+    max-width: 75%;
+  }
+
   &-imgWrapper
   {
     display: flex;

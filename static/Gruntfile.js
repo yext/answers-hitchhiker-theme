@@ -32,11 +32,13 @@ module.exports = function (grunt) {
     // And some async stuff.
     exec('npx jambo build', (error, stdout, stderr) => {
       if (error) {
-        console.log(`error: ${error.message}`);
+        console.log(error.message);
         done(false);
         return;
       }
-      console.log(`${stdout}`);
+
+      stderr && console.error(stderr);
+      stdout && console.log(stdout);
       done();
     });
   });

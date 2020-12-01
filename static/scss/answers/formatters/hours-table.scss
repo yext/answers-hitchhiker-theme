@@ -1,0 +1,18 @@
+.c-hours-details-row {
+  padding-top: 5px;
+  padding-bottom: 5px;
+
+  &.is-today {
+    font-weight: var(--yxt-font-weight-semibold);
+  }
+
+  &-day {
+    padding-right: 10px;
+    vertical-align: top;
+  }
+
+  &-intervals {
+    display: flex;
+    flex-direction: column;
+  }
+}

@@ -1,10 +1,13 @@
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import { components__address__i18n__addressForCountry } from './address-i18n.js'
 import CtaFormatter from '@yext/cta-formatter';
-import provideOpenStatusTranslation from './open-status-18n';
 import { getDistanceUnit } from './units-i18n';
+import OpenStatusMessageFactory from './hours/open-status/messagefactory.js';
+import HoursTransformer from './hours/transformer.js';
+import HoursStringsLocalizer from './hours/stringslocalizer.js';
+import HoursTableBuilder from './hours/table/builder.js';
+import { DayNames } from './hours/constants.js';
 
-import clonedeep from 'lodash.clonedeep';
 
 export function address(profile) {
   if (!profile.address) {
@@ -44,10 +47,6 @@ export function emailLink(profile) {
 }
 
 export function getDirectionsUrl(profile, key = 'address') {
-  if (profile.googlePlaceId) {
-    return `https://www.google.com/maps/place/?q=place_id:${profile.googlePlaceId}`;
-  }
-
   const addr = profile[key];
   if (!addr) {
     return '';
@@ -57,7 +56,14 @@ export function getDirectionsUrl(profile, key = 'address') {
   const region = addr.region ? ` ${addr.region}` : ``;
   const rawQuery = `${addr.line1},${line2} ${addr.city},${region} ${addr.postalCode} ${addr.countryCode}`;
   const query = encodeURIComponent(rawQuery);
-  return `https://www.google.com/maps/search/?api=1&query=${query}&output=classic`
+
+  let url = `https://www.google.com/maps/search/?api=1&query=${query}&output=classic`;
+
+  if (profile.googlePlaceId) {
+    url += `&query_place_id=${profile.googlePlaceId}`;
+  }
+
+  return url;
 }
 
 export function toLocalizedDistance(profile, key = 'd_distance', displayUnits) {
@@ -218,10 +224,10 @@ export function snakeToTitle(snake) {
 
 /**
  * This function pretty prints different kinds of values. Depending on the type,
- * localization may be used. 
- * 
+ * localization may be used.
+ *
  * @param {?} obj The value to pretty print.
- * @param {string} locale The current locale. 
+ * @param {string} locale The current locale.
  * @returns {string} The pretty printed value.
  */
 export function prettyPrintObject(obj, locale) {
@@ -252,7 +258,7 @@ export function prettyPrintObject(obj, locale) {
 /**
  * Prints the given boolean as a localized affirmative or negative string. For instance,
  * in English, it would return either 'Yes' for True or 'No' for False.
- * 
+ *
  * @param {boolean} value The boolean value.
  * @param {string} locale The locale indicating which language to use.
  * @returns {string} The localized affirmative or negative.
@@ -264,13 +270,13 @@ function _prettyPrintBoolean(value, locale) {
       return value ? 'Sí' : 'No';
     case 'fr':
       return value ? 'Oui' : 'Non';
-    case 'it': 
+    case 'it':
       return value ? 'Sì' : 'No';
-    case 'de': 
+    case 'de':
       return value ? 'Ja' : 'Nein';
     case 'ja':
       return value ? 'はい' : '番号';
-    default: 
+    default:
       return value ? 'Yes' : 'No';
   }
 }
@@ -325,77 +331,28 @@ export function image(simpleOrComplexImage = {}, size = '200x', atLeastAsLarge =
       });
     }
 
-    let height, index;
-    let width = (height = -1);
+    let desiredWidth, desiredHeight;
     let desiredDims = desiredSize.split('x');
 
     if (desiredDims[0] !== '') {
-      width = Number.parseInt(desiredDims[0]);
-      if (Number.isNaN(width)) {
+      desiredWidth = Number.parseInt(desiredDims[0]);
+      if (Number.isNaN(desiredWidth)) {
         throw new Error("Invalid width specified");
       }
     }
 
     if (desiredDims[1] !== '') {
-      height = Number.parseInt(desiredDims[1]);
-      if (Number.isNaN(height)) {
+      desiredHeight = Number.parseInt(desiredDims[1]);
+      if (Number.isNaN(desiredHeight)) {
         throw new Error("Invalid height specified");
       }
     }
-
-    let widthOk = width === -1;
-    let heightOk = height === -1;
-
-    if (atLeastAsLarge) {
-      index = image.thumbnails.length - 1;
-
-      while (index >= 0) {
-        if (!(image.thumbnails[index].width && image.thumbnails[index].height)) {
-          return image.thumbnails[index].url;
-        }
-
-        widthOk = width > 0 ? (image.thumbnails[index].width >= width) : widthOk;
-        heightOk = height > 0 ? (image.thumbnails[index].height >= height) : heightOk;
-
-        if (heightOk && widthOk) {
-          break;
-        }
-
-        index--;
-      }
-
-      // if we exhausted the list
-      if (index <= 0) {
-        index = 0;
-      }
-    } else {
-      index = 0;
-
-      while (index < image.thumbnails.length) {
-        if (!(image.thumbnails[index].width && image.thumbnails[index].height)) {
-          return image.thumbnails[index].url;
-        }
-
-        if (width > 0) {
-          widthOk = image.thumbnails[index].width <= width;
-        }
-
-        if (height > 0) {
-          heightOk = image.thumbnails[index].height <= height;
-        }
-
-        if (heightOk && widthOk) { break; }
-
-        index++;
-      }
-
-      // if we exhausted the list
-      if (index >= image.thumbnails.length) {
-        index = image.thumbnails.length - 1;
-      }
-    }
-
-    return image.thumbnails[index].url;
+    const thumbnails = image.thumbnails
+      .filter(thumb => thumb.width && thumb.height)
+      .sort((a, b) => b.width - a.width);
+    return atLeastAsLarge
+      ? _getSmallestThumbnailOverThreshold(thumbnails, desiredWidth, desiredHeight)
+      : _getLargestThumbnailUnderThreshold(thumbnails, desiredWidth, desiredHeight);
   }
 
   const result = imageBySizeEntity(img, size, atLeastAsLarge);
@@ -407,6 +364,58 @@ export function image(simpleOrComplexImage = {}, size = '200x', atLeastAsLarge =
       url: result.replace('http://', 'https://')
     }
   );
+}
+
+/**
+ * Gets the smallest thumbnail that is over the min width and min height.
+ * If no thumbnails are over the given thresholds, will return the closest one.
+ *
+ * This method assumes all thumbnails have the same aspect ratio, and that
+ * thumbnails are sorted in descending size.
+ *
+ * @param {Array<{{url: string, width: number, height: number}}>} thumbnails 
+ * @param {number|undefined} minWidth 
+ * @param {number|undefined} minHeight 
+ * @returns {string}
+ */
+function _getSmallestThumbnailOverThreshold(thumbnails, minWidth, minHeight) {
+  let index = thumbnails.length - 1;
+  while (index > 0) {
+    const thumb = thumbnails[index];
+    const widthOverThreshold = minWidth ? thumb.width >= minWidth : true;
+    const heightOverThreshold = minHeight ? thumb.height >= minHeight : true;
+    if (widthOverThreshold && heightOverThreshold) {
+      return thumb.url
+    }
+    index--;
+  }
+  return thumbnails[0].url;
+}
+
+/**
+ * Gets the largest thumbnail that is under the max width and max height.
+ * If no thumbnails are under the given thresholds, will return the closest one.
+ * 
+ * This method assumes all thumbnails have the same aspect ratio, and that
+ * thumbnails are sorted in descending size.
+ *
+ * @param {Array<{{url: string, width: number, height: number}}>} thumbnails 
+ * @param {number|undefined} maxWidth 
+ * @param {number|undefined} maxHeight 
+ * @returns {string}
+ */
+function _getLargestThumbnailUnderThreshold(thumbnails, maxWidth, maxHeight) {
+  let index = 0;
+  while (index < thumbnails.length) {
+    const thumb = thumbnails[index];
+    const widthOverThreshold = maxWidth ? thumb.width <= maxWidth : true;
+    const heightOverThreshold = maxHeight ? thumb.height <= maxHeight : true;
+    if (widthOverThreshold && heightOverThreshold) {
+      return thumb.url
+    }
+    index++;
+  }
+  return thumbnails[thumbnails.length - 1].url;
 }
 
 /**
@@ -455,445 +464,56 @@ export function openStatus(profile, key = 'hours', isTwentyFourHourClock, locale
     return '';
   }
 
-  locale = locale || _getDocumentLocale();
-
-  const days = _formatHoursForAnswers(profile[key], profile.timeZoneUtcOffset);
-  if (days.length === 0) {
+  const hours = HoursTransformer.transform(profile[key], profile.timeZoneUtcOffset);
+  if (!hours) {
     return '';
   }
 
-
-  const { time, day } = _calculateYextDayTime(new Date(), profile.timeZoneUtcOffset);
-
-  /**
-   * @type {{days: Object[], time: number, day: string, dayIndex: number }}
-   */
-  let hours = {
-    days: days,
-    time: time,
-    day: day,
-    dayIndex: _dayToInt(day),
-  };
-
-  hours.yextDays = _prepareIntervals(hours);
-  let { status, nextTime, nextDay } = _getStatus(hours);
-  hours.nextTime =  nextTime;
-  hours.nextDay = nextDay;
-  hours.status = status;
-
-  return _getTodaysMessage({ hoursToday: hours, isTwentyFourHourClock, locale: locale });
-}
-
-export function _prepareIntervals({ days }) { //days is a parsed json of hours.days
-  let results = [];
-  for (const { intervals, day, dailyHolidayHours } of days) { //iterate through each day within days
-    if (dailyHolidayHours) { //prioritize holiday hours over intervals
-      results[_dayToInt(day)] = {
-        dayName: day,
-        dayIndex: _dayToInt(day),
-        intervals: dailyHolidayHours.isRegularHours ? intervals : dailyHolidayHours.intervals,
-      };
-    } else {
-      results[_dayToInt(day)] = {
-        dayName: day,
-        dayIndex: _dayToInt(day),
-        intervals: intervals,
-      };
-    }
-  }
-  results = results.sort((a, b) => {
-    return a.dayIndex - b.dayIndex || a.start - b.start; //sort by day then by time
-  });
-
-  return results;
-}
-
-//return the next valid interval in the week
-export function _getNextInterval(yextDays, tomorrow) {
-  for(let i = 0; i < 7; i++) {
-    let index = (tomorrow + i) % 7;
-    for (let interval of yextDays[index].intervals) {
-      return {status: "OPENSNEXT", nextTime: interval.start, nextDay: _intToDay(index)};
-    }
-  }
-}
-
-//the idea is to get the YextDay objects for yesterday and today. we ask yesterday
-//if it has an interval that overlaps into today (5pm - 3am) using _isOpenYesterday.
-//we then ask today if it has an interval that is open at the current time using isOpen.
-//is isOpenYesterday(yesterday) is true, then we return CLOSESTODAY with the interval overlapping from yesterday.
-//if today.isOpen is true, we check if it is 24 hours, if not we return CLOSESTODAY at the interval returned from isOpen.
-//else the store is closed and either opens sometime later today or at the next open interval sometime later in the week
-export function _getStatus({ time, day, yextDays }) {
-  const negMod = (n, m) => ((n % m) + m) % m; // JavaScript doesnt support modulo on negative numbers
-  let yesterday = _dayToInt(day) - 1;
-  yesterday = negMod(yesterday, 7);
-  let today = _dayToInt(day);
-  let yesterdayIsOpen = _isOpenYesterday(yextDays[yesterday].intervals, time);
-  let todayIsOpen = _isOpen(yextDays[today].intervals, time);
-  let hasOpenIntervalToday = _hasOpenIntervalToday(yextDays[today].intervals, time);
-
-  if (yesterdayIsOpen.isOpen) {
-    //check if any hours from yesterday are valid
-    //dayWithHours is used to render the proper day on the hours table
-    return { status: "CLOSESTODAY", nextTime: yesterdayIsOpen.interval.end, dayWithHours: yextDays[yesterday] };
-  } else if (todayIsOpen.isOpen) {
-    //check if open now
-    if (_is24Hours(yextDays[today].intervals).is24) {
-      return { status: "OPEN24", dayWithHours: yextDays[today]};
-    }
-    //if not 24 hours, closes later today at the current intervals end time
-    return { status: "CLOSESTODAY", nextTime: todayIsOpen.interval.end, dayWithHours: yextDays[today] };
-  } else if (hasOpenIntervalToday.hasOpen) {
-    //check if closed and has an interval later today
-    return { status: "OPENSTODAY", nextTime: hasOpenIntervalToday.interval.start, dayWithHours: yextDays[today] };
-  } else {
-    //check if closed, get next available interval. if no intervals available return closed status without nextTime or nextDay
-    let nextInfo = _getNextInterval(yextDays, today + 1);
-    if (nextInfo) {
-      nextInfo.dayWithHours = yextDays[today];
-    }
-    return nextInfo || { status: "CLOSED", dayWithHours: yextDays[today] };
-  }
-}
-
-//check if today has a 24 hr interval
-export function _is24Hours(intervals) {
-  for (let interval of intervals) {
-    if(interval.start == 0 && interval.end == 2359) {
-      return {is24: true, interval};
-    }
-  }
-  return {is24: false};
-}
-
-//given current time, check status with context: today
-//return boolean with open status and current interval
-export function _isOpen(intervals, time) {
-  for (let interval of intervals) {
-    if ((interval.start <= time && time < interval.end) || (interval.start <= time && interval.end <= interval.start) || (interval.start == 0 && interval.end == 2359)) {
-      return {isOpen: true, interval};
-    }
-  }
-  return {isOpen: false};
-}
-
-//given time, check if there is an interval today that the location opens
-export function _hasOpenIntervalToday(intervals, time) {
-  for (let interval of intervals) {
-    if (time < interval.start) {
-      return {hasOpen: true, interval};
-    }
-  }
-  return {hasOpen: false};
-}
-
-//given current time, check status with context: yesterday
-//for example: if today is Tuesday and it is 2am and Monday had an interval open from 12pm-3am, Monday.isOpenYesterday will return true
-//return boolean with open status and current interval
-export function _isOpenYesterday(intervals, time) {
-  for (let interval of intervals) {
-    if (time < interval.end && interval.end <= interval.start) {
-      return {isOpen: true, interval};
-    }
-  }
-  return {isOpen: false};
-}
-
-export function _dayToInt(d) {
-  switch (d) {
-    case "SUNDAY": return 0;
-    case "MONDAY": return 1;
-    case "TUESDAY": return 2;
-    case "WEDNESDAY": return 3;
-    case "THURSDAY": return 4;
-    case "FRIDAY": return 5;
-    case "SATURDAY": return 6;
-  }
-  throw "[_dayToInt]: Invalid Day: " + d;
-}
-
-export function _intToDay(i) {
-  switch (i % 7) {
-    case 0: return "SUNDAY";
-    case 1: return "MONDAY";
-    case 2: return "TUESDAY";
-    case 3: return "WEDNESDAY";
-    case 4: return "THURSDAY";
-    case 5: return "FRIDAY";
-    case 6: return "SATURDAY";
-  }
+  const hoursLocalizer = new HoursStringsLocalizer(
+    locale || _getDocumentLocale(), isTwentyFourHourClock);
+  return new OpenStatusMessageFactory(hoursLocalizer)
+    .create(hours.openStatus);
 }
 
 /**
- * @param {Object} days e.g. 
- * { 
- *   monday: {
- *     isClosed: false,
- *     openIntervals: [{ start: '01:00', end: '02:00' }]
- *   },
- *   holidayHours: [
- *     { date: '2020-7-28', openIntervals: [{ start: '01:00', end: '02:00' }] },
- *     { date: '2020-7-29', isClosed: true },
- *     { date: '2020-7-30', isRegularHours: true }
- *   ]
+ * Returns the markup for a formatted hours list for the given field on the profile.
+ *
+ * @param {Object} profile The profile information of the entity
+ * @param {Object} opts
+ * {
+ *   isTwentyFourHourClock {@link boolean} Use 24 hour clock if true, 12 hour clock if
+ *                                         false. Default based on locale if undefined.
+ *   disableOpenStatus: {@link boolean}   If specified, displays the hours intervals
+ *                                      rather than the open status string for today
+ *   firstDayInList: {@link string} A day name in English, e.g. "SUNDAY", this day will be
+ *                                  displayed first in the list
  * }
- * @param {string} timezone e.g. "-04:00"
- * @returns {Object[]}
+ * @param {String} key Indicates which profile property to use for hours
+ * @param {String} locale The locale for the time string
  */
-export function _formatHoursForAnswers(days, timezone) {
-  const formattedDays = clonedeep(days);
-  const daysOfWeek = [
-    'SUNDAY',
-    'MONDAY',
-    'TUESDAY',
-    'WEDNESDAY',
-    'THURSDAY',
-    'FRIDAY',
-    'SATURDAY',
-  ];
-  const holidayHours = formattedDays.holidayHours || [];
-  for (let day in formattedDays) {
-    if (day === 'holidayHours' || day === 'reopenDate') {
-      delete formattedDays[day];
-    } else {
-      const currentDayName = day.toUpperCase();
-      const numberTimezone = _convertTimezoneToNumber(timezone);
-      const userDateToEntityDate = _getDateWithUTCOffset(numberTimezone);
-      const dayNameToDate = _getNextDayOfWeek(userDateToEntityDate, daysOfWeek.indexOf(currentDayName));
-
-      for (let holiday of holidayHours) {
-        let holidayDate = new Date(holiday.date + 'T00:00:00.000');
-        if (dayNameToDate.toDateString() == holidayDate.toDateString()) {
-          holiday.intervals = _formatIntervals(holiday.openIntervals);
-          formattedDays[day].dailyHolidayHours = holiday;
-        }
-      }
-
-      formattedDays[day].day = day.toUpperCase();
-
-      let intervals = formattedDays[day].openIntervals;
-      if (intervals) {
-        for (let interval of intervals) {
-          for (let period in interval) {
-            interval[period] = parseInt(interval[period].replace(':', ''));
-          }
-        }
-      } else {
-        formattedDays[day].openIntervals = [];
-      }
-      formattedDays[day].intervals = formattedDays[day].openIntervals;
-    }
-  }
-
-  return Object.values(formattedDays);
-}
-
-// "-05:00 -> -5
-export function _convertTimezoneToNumber(timezone) {
-  if (!timezone) {
-    return 0;
-  }
-  let num = 0;
-  let tzs = timezone.split(':');
-  if (tzs.length < 2) {
-    return 0;
-  }
-  num += parseInt(tzs[0]);
-  num += parseInt(tzs[1]) / 60;
-  return num;
-}
-
-export function _getDateWithUTCOffset(inputTzOffset) {
-  var now = new Date(); // get the current time
-
-  var currentTzOffset = -now.getTimezoneOffset() / 60 // in hours, i.e. -4 in NY
-  var deltaTzOffset = inputTzOffset - currentTzOffset; // timezone diff
-
-  var nowTimestamp = now.getTime(); // get the number of milliseconds since unix epoch
-  var deltaTzOffsetMilli = deltaTzOffset * 1000 * 60 * 60; // convert hours to milliseconds (tzOffsetMilli*1000*60*60)
-  var outputDate = new Date(nowTimestamp + deltaTzOffsetMilli) // your new Date object with the timezone offset applied.
-
-  return outputDate;
-}
-
-export function _getNextDayOfWeek(date, dayOfWeek) {
-  const resultDate = new Date(date.getTime());
-  resultDate.setDate(date.getDate() + (7 + dayOfWeek - date.getDay()) % 7);
-  return resultDate;
-}
-
-/**
- * Returns the hours intervals array with hours parsed into a number 
- * e.g. "09:00" turning into 900.
- * @param {Object[]} intervals
- * @param {string} intervals[].start start time like "09:00"
- * @param {string} intervals[].end end time like "17:00"
- * @returns {Object[]}
- */
-export function _formatIntervals(intervals) {
-  if (!intervals) {
-    return [];
-  }
-  let formatted = Array.from(intervals);
-  for (let interval of formatted) {
-    for (let period in interval) {
-      interval[period] = parseInt(interval[period].replace(':', ''));
-    }
-  }
-  return formatted;
-}
-
-/**
- * Calculates a yext time and date using utc offset
- * If no valid utc offset is provided, time and date will
- * be based off of clients local time.
- *
- * Example
- *
- * Users local time in EDT (now): Fri Jun 21 2019 14:21:10 GMT-0400
- * Their localUtcOffset will be +4 hours (for user offset, +/- is flipped)
- *
- * They are viewing a store in germany, CEST/GMT+2
- * For this date, the timezoneUtcOffset will be +2 hours (for entity offset, +/- is normal)
- *
- * Adding this together:
- * now + utcOffset + localUtcOffset -> now + 2 hours + 4 hours
- * now = Fri Jun 21 2019 20:21:10 GMT-0400
- *
- * This is technically incorrect, as users local time is not 8PM EDT,
- * its 2PM EDT/8PM CEST, but because our components do not consider
- * timezones at all, this converted date will allow the entity
- * pages to display as if the user was in the same timezone as the entity.
- *
- * @param {Date} now
- * @param {string} timezoneUtcOffset e.g. in EDT, GMT-0400, this value would be "-04:00"
- * @returns {{ time: number, day: string }}
- */
-export function _calculateYextDayTime(now, timezoneUtcOffset) {
-  // Get the UTC offset of the clients timezone (minutes converted to millis)
-  const localUtcOffset = now.getTimezoneOffset() * 60 * 1000;
-
-  // Get the entity's offset in millis
-  const entityUtcOffsetInHours = _convertTimezoneToNumber(timezoneUtcOffset);
-  const entityUtcOffsetMillis = entityUtcOffsetInHours * 60 * 60 * 1000;
-
-  // If a valid offset was found, set the today value to a new date that accounts for the entity & local UTC offsets
-  if (entityUtcOffsetMillis !== 0) {
-    now = new Date(now.valueOf() + entityUtcOffsetMillis + localUtcOffset);
-  }
-  const time = _getYextTime(now);
-  const day = _getYextDay(now);
-
-  return {time, day};
-}
-
-/**
- * @param {Date} date
- * @returns {number} a number like 1425, which represents 02:25 PM
- */
-export function _getYextTime(date) {
-  return date.getHours() * 100 + date.getMinutes();
-}
-
-export function _getYextDay(date) {
-  switch (date.getDay() % 7) {
-    case 0: return "SUNDAY";
-    case 1: return "MONDAY";
-    case 2: return "TUESDAY";
-    case 3: return "WEDNESDAY";
-    case 4: return "THURSDAY";
-    case 5: return "FRIDAY";
-    case 6: return "SATURDAY";
-  }
-}
-
-export function _translate(text, translationData) {
-  if (!translationData.hasOwnProperty(text)) {
-    console.error(`Could not translate "${text}".`);
-    return text;
-  }
-  return translationData[text];
-}
-
-export function _getTodaysMessage({ hoursToday, isTwentyFourHourClock, locale }) {
-  let time, day;
-  const translationData = provideOpenStatusTranslation(locale);
-  const translate = text => _translate(text, translationData);
-  switch (hoursToday.status) {
-    case 'OPEN24':
-      return `<span class="Hours-statusText">${translate('Open 24 Hours')}</span>`;
-    case 'OPENSTODAY':
-      time = _getTimeString(hoursToday.nextTime, isTwentyFourHourClock, locale);
-      return `
-          <span class="Hours-statusText">
-            <span class="Hours-statusText--current">
-              ${translate('Closed')}
-            </span> · ${translate('Opens at')} <span class="HoursInterval-time">
-              ${time}
-            </span>
-          </span>`;
-    case 'OPENSNEXT':
-      time = _getTimeString(hoursToday.nextTime, isTwentyFourHourClock, locale);
-      day = translate(hoursToday.nextDay);
-      return `
-          <span class="Hours-statusText">
-            <span class="Hours-statusText--current">
-              ${translate('Closed')}
-            </span> · ${translate('Opens at')}
-          </span>
-          <span class="HoursInterval-time">
-            ${time}
-          </span>
-          <span class="HoursInterval-day">
-            ${day}
-          </span>`;
-    case 'CLOSESTODAY':
-      time = _getTimeString(hoursToday.nextTime, isTwentyFourHourClock, locale);
-      return `
-          <span class="Hours-statusText">
-            <span class="Hours-statusText--current">
-              ${translate('Open Now')}
-            </span> · ${translate('Closes at')}
-          </span>
-          <span class="HoursInterval-time">
-            ${time}
-          </span>`;
-    case 'CLOSESNEXT':
-      time = _getTimeString(hoursToday.nextTime, isTwentyFourHourClock, locale);
-      day = translate(hoursToday.nextDay);
-      return `
-          <span class="Hours-statusText">
-            <span class="Hours-statusText--current">
-              ${translate('Open Now')}
-            </span> · ${translate('Closes at')}
-          </span>
-          <span class="HoursInterval-time">
-            ${time}
-          </span>
-          <span class="HoursInterval-day">
-            ${day}
-          </span>`;
-    case 'CLOSED':
-      return `
-          <span class="Hours-statusText">
-            ${translate('Closed')}
-          </span>`;
-    default:
+export function hoursList(profile, opts = {}, key = 'hours', locale) {
+    if (!profile[key]) {
       return '';
-  }
-}
+    }
 
-export function _getTimeString(yextTime, isTwentyFourHourClock, locale = 'en-US') {
-  let time = new Date();
-  time.setHours(Math.floor(yextTime / 100));
-  time.setMinutes(yextTime % 100);
-  
-  return time.toLocaleString(locale, {
-    hour: 'numeric',
-    minute: 'numeric',
-    ...isTwentyFourHourClock && { hourCycle: isTwentyFourHourClock ? 'h24' : 'h12' }
-  });
+    const hours = HoursTransformer.transform(profile[key], profile.timeZoneUtcOffset);
+    if (!hours) {
+      return '';
+    }
+
+    const firstDayInList = opts.firstDayInList && opts.firstDayInList.toUpperCase();
+    const isDayValid = Object.values(DayNames).includes(firstDayInList);
+    if (firstDayInList && !isDayValid) {
+      console.warn(`Invalid day: "${opts.firstDayInList}" provided as "firstDayInList" for the hoursList formatter`);
+    }
+    const standardizedOpts = {
+      disableOpenStatus: opts.disableOpenStatus || false,
+      firstDayInList: isDayValid && firstDayInList
+    };
+
+    const hoursLocalizer = new HoursStringsLocalizer(
+      locale || _getDocumentLocale(), opts.isTwentyFourHourClock);
+    return new HoursTableBuilder(hoursLocalizer).build(hours, standardizedOpts);
 }
 
 /**
@@ -905,4 +525,22 @@ export function generateCTAFieldTypeLink(cta) {
     return null;
   }
   return CtaFormatter.generateCTAFieldTypeLink(cta);
+}
+
+/**
+ * Returns a localized price string for the given price field
+ * @param {Object} fieldValue The field from LiveAPI, has a value and a currencyCode
+ * @param {string} locale The locale to use for formatting, falls back to document locale or 'en'
+ * @return {string} The price with correct currency formatting according to locale, if any errors
+ *                  returns the price value without formatting
+ */
+export function price(fieldValue = {}, locale) {
+  const localeForFormatting = locale || _getDocumentLocale() || 'en';
+  const price = fieldValue.value && parseInt(fieldValue.value);
+  const currencyCode = fieldValue.currencyCode && fieldValue.currencyCode.split('-')[0];
+  if (!price || isNaN(price) || !currencyCode) {
+    console.warn(`No price or currency code in the price fieldValue object: ${fieldValue}`);
+    return fieldValue.value;
+  }
+  return price.toLocaleString(localeForFormatting, { style: 'currency', currency: currencyCode });
 }
