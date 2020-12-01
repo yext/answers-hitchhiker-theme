@@ -133,7 +133,6 @@ $location-standard-ordinal-dimensions: calc(var(--hh-location-standard-base-spac
 
     @media (min-width: $breakpoint-mobile-max)
     {
-      width: 200px;
       padding-right: calc(var(--hh-location-standard-base-spacing) * 2);
     }
   }
