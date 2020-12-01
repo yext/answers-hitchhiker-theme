@@ -35,8 +35,9 @@ module.exports = function loader(source) {
 
   source = source.replace(regex, function(match, group1) {
     const variableName = `___HTML_ASSET_LOADER_MATCH_${matchNumber}___`;
-    const relativePath = group1.slice(0, group1.indexOf('static/'));
-    const staticAssetPath = group1;
+    const sliceIndex = group1.indexOf('static/');
+    const relativePath = group1.slice(0, sliceIndex);
+    const staticAssetPath = group1.slice(sliceIndex);
     const importString =
       `var ${variableName} = ___HTML_ASSET_LOADER_GET_SOURCE_FROM_IMPORT___('${relativePath}', require('${staticAssetPath}'));`;
 
