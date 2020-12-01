@@ -40,11 +40,6 @@ module.exports = function () {
       'iframe-prod': `./${jamboConfig.dirs.output}/static/js/iframe-prod.js`,
       'iframe-staging': `./${jamboConfig.dirs.output}/static/js/iframe-staging.js`,
     },
-    resolve: {
-      alias: {
-        static: path.resolve(__dirname, jamboConfig.dirs.output, 'static'),
-      }
-    },
     output: {
       filename: '[name].js',
       path: path.resolve(__dirname, jamboConfig.dirs.output),
