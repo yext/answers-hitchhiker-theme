@@ -149,7 +149,9 @@
 {{#if card.title}}
 <div class="HitchhikerLocationStandard-title">
   {{#if card.titleUrl}}
-  <a class="HitchhikerLocationStandard-titleLink js-Hitchhiker-title" href="{{card.titleUrl}}" data-eventtype="TITLE_CLICK"
+  <a class="HitchhikerLocationStandard-titleLink js-Hitchhiker-title"
+    href="{{#unless (isAbsoluteUrl card.titleUrl)}}{{relativePath}}/{{/unless}}{{card.titleUrl}}"
+    data-eventtype="TITLE_CLICK"
     data-eventoptions='{{json card.titleEventOptions}}'
     target={{#if card.target}}"{{card.target}}"{{else}}"_top"{{/if}}>
     {{{card.title}}}
