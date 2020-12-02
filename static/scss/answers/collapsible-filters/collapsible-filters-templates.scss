@@ -1,4 +1,8 @@
+// Overrides for SDK filter components
+@import "sdk-filter-overrides";
+
 .AnswersVerticalMap.CollapsibleFilters {
+  @include CollapsibleFiltersOverrides;
   @include CollapsibleFilters;
 
   .Answers-viewResultsButton {
@@ -28,6 +32,14 @@
 
 .AnswersVerticalStandard.CollapsibleFilters,
 .AnswersVerticalGrid.CollapsibleFilters {
+  @include CollapsibleFiltersOverrides;
+
+  .Answers-facets,
+  .Answers-filterBox,
+  .Answers-sortOptions {
+    padding: 0;
+  }
+
   @include bplte(md) {
     @include CollapsibleFilters;
 

@@ -1,9 +1,4 @@
-// Overrides for SDK filter components
-@import "sdk-filter-overrides";
-
 @mixin CollapsibleFilters {
-  @include CollapsibleFiltersOverrides;
-
   .Answers {
     &-sortOptions {
       padding: 0;
