@@ -21,19 +21,28 @@ export default class Interactions {
    * It does so by toggling on/off the CollapsibleFilters-unstuck css class.
    * If within an iframe, will use iframe-resizer to observe scrolling/resizing,
    * outside of the iframe, otherwise it will register its own listeners.
+   * 
+   * Setting iframeOnly to true will only register the listeners needed for iframed
+   * experiences, and skip the listeners needed for non-iframe pages.
+   * This is an optimization for cases when additional sticky support is not needed
+   * for non-iframe experiences, since scroll/resize listeners are fairly expensive.
    */
-  stickifyViewResultsButton() {
+  stickifyViewResultsButton(iframeOnly=false) {
     this.stickyButton = document.getElementById('js-answersViewResultsButton');
-    window.addEventListener('scroll', this._updateStickyButton);
-    window.addEventListener('resize', this._debouncedStickyUpdate);
+    if (!iframeOnly) {
+      window.addEventListener('scroll', this._updateStickyButton);
+      window.addEventListener('resize', this._debouncedStickyUpdate);
+    }
     window.iframeLoaded.then(() => {
       this.parentIFrame = window.parentIFrame;
       this.parentIFrame.getPageInfo(parentPageInfo => {
         this.parentPageInfo = parentPageInfo;
         this._updateStickyButtonInIFrame();
       });
-      window.removeEventListener('scroll', this._updateStickyButton);
-      window.removeEventListener('resize', this._debouncedStickyUpdate);
+      if (!iframeOnly) {
+        window.removeEventListener('scroll', this._updateStickyButton);
+        window.removeEventListener('resize', this._debouncedStickyUpdate);
+      }
     });
   }
 
