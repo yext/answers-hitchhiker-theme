@@ -16,7 +16,7 @@ const collapsibleFiltersInteractions = new CollapsibleFilters.Interactions({
 // When a search is made with the searchbar, collapse the filters.
 collapsibleFiltersInteractions.registerCollapseFiltersOnSearchbarSearch();
 
-// Make the view results button sticky, but only for iframed experiences
+// Make the view results button sticky
 collapsibleFiltersInteractions.stickifyViewResultsButton(true);
 
 // Register an instance of CollapsibleFilters.FacetsDecorator,
