@@ -22,18 +22,22 @@ export default class Interactions {
    * If within an iframe, will use iframe-resizer to observe scrolling/resizing,
    * outside of the iframe, otherwise it will register its own listeners.
    */
-  stickifyViewResultsButton() {
+  stickifyViewResultsButton(iframeOnly=false) {
     this.stickyButton = document.getElementById('js-answersViewResultsButton');
-    window.addEventListener('scroll', this._updateStickyButton);
-    window.addEventListener('resize', this._debouncedStickyUpdate);
+    if (!iframeOnly) {
+      window.addEventListener('scroll', this._updateStickyButton);
+      window.addEventListener('resize', this._debouncedStickyUpdate);
+    }
     window.iframeLoaded.then(() => {
       this.parentIFrame = window.parentIFrame;
       this.parentIFrame.getPageInfo(parentPageInfo => {
         this.parentPageInfo = parentPageInfo;
         this._updateStickyButtonInIFrame();
       });
-      window.removeEventListener('scroll', this._updateStickyButton);
-      window.removeEventListener('resize', this._debouncedStickyUpdate);
+      if (!iframeOnly) {
+        window.removeEventListener('scroll', this._updateStickyButton);
+        window.removeEventListener('resize', this._debouncedStickyUpdate);
+      }
     });
   }
 
