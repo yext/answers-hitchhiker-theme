@@ -21,6 +21,10 @@ export default class Interactions {
    * It does so by toggling on/off the CollapsibleFilters-unstuck css class.
    * If within an iframe, will use iframe-resizer to observe scrolling/resizing,
    * outside of the iframe, otherwise it will register its own listeners.
+   * 
+   * Setting iframeOnly to true will only register the listeners needed for iframed
+   * experiences. This is for cases when additional support is needed for sticky
+   * behavior ONLY when the experience is in an iframe.
    */
   stickifyViewResultsButton(iframeOnly=false) {
     this.stickyButton = document.getElementById('js-answersViewResultsButton');
