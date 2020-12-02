@@ -1,12 +1,20 @@
 .AnswersVerticalMap.CollapsibleFilters {
   @include CollapsibleFilters;
 
+  .Answers-viewResultsButton {
+    left: 0;
+
+    @include bpgte(sm) {
+      width: 50%;
+    }
+  }
+
   .CollapsibleFilters {
     &-inactive {
       display: none;
     }
 
-    @media (min-width: $container-tablet-base) {
+    @include bpgte(sm) {
       &-inactive.Answers-footer {
         display: flex;
       }
@@ -20,7 +28,7 @@
 
 .AnswersVerticalStandard.CollapsibleFilters,
 .AnswersVerticalGrid.CollapsibleFilters {
-  @media (max-width: $container-tablet-base) {
+  @include bplte(md) {
     @include CollapsibleFilters;
 
     .CollapsibleFilters-inactive {
@@ -34,9 +42,18 @@
     .yxt-SpellCheck {
       padding-top: calc(var(--yxt-base-spacing) * 2);
     }
+
+    .Answers-viewResultsButton {
+      max-width: 700px;
+
+      @include bplte(xs) {
+        max-width: $breakpoint-mobile-max;
+        left: 0;
+      }
+    }
   }
 
-  @media (min-width: $container-tablet-base) {
+  @include bpgte(lg) {
     .Answers-filterLink,
     .Answers-viewResultsButton {
       display: none;
