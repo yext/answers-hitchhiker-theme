@@ -106,6 +106,14 @@ input
   text-decoration: none;
 }
 
+/* Default radio button styling for ios */
+input[type='radio']
+{
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 50%;
+}
+
 /* HTML5 display-role reset for older browsers */
 article,
 aside,
