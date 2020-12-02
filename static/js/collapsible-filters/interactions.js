@@ -23,8 +23,9 @@ export default class Interactions {
    * outside of the iframe, otherwise it will register its own listeners.
    * 
    * Setting iframeOnly to true will only register the listeners needed for iframed
-   * experiences. This is for cases when additional support is needed for sticky
-   * behavior ONLY when the experience is in an iframe.
+   * experiences, and skip the listeners needed for non-iframe pages.
+   * This is an optimization for cases when additional sticky support is not needed
+   * for non-iframe experiences, since scroll/resize listeners are fairly expensive.
    */
   stickifyViewResultsButton(iframeOnly=false) {
     this.stickyButton = document.getElementById('js-answersViewResultsButton');
