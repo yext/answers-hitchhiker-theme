@@ -12,21 +12,41 @@ $location-standard-ordinal-dimensions: calc(var(--hh-location-standard-base-spac
   {
     &-content
     {
-      display: flex;
       flex-direction: column;
 
       @include bpgte(lg)
       {
         flex-direction: row;
-        justify-content: space-between;
       }
     }
 
     &-infoCol
     {
+      width: 100%;
+
       @media (min-width: $breakpoint-mobile-max)
       {
         width: 350px;
+      }
+    }
+
+    &-contactInfo
+    {
+      flex-direction: column;
+
+      @include bpgte(lg)
+      {
+        flex-direction: row;
+      }
+    }
+
+    &-ctasWrapper
+    {
+      margin-left: 0;
+
+      @include bpgte(lg)
+      {
+        margin-left: calc(var(--hh-location-standard-base-spacing) / 2);
       }
     }
   }
@@ -166,6 +186,8 @@ $location-standard-ordinal-dimensions: calc(var(--hh-location-standard-base-spac
 
   &-infoCol
   {
+    width: 100%;
+
     @media (min-width: $breakpoint-mobile-max)
     {
       width: 320px;
