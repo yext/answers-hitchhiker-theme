@@ -6,6 +6,32 @@ $location-standard-ordinal-dimensions: calc(var(--hh-location-standard-base-spac
   --hh-location-standard-ordinal-dimensions: #{$location-standard-ordinal-dimensions};
 }
 
+.AnswersVerticalMap
+{
+  .HitchhikerLocationStandard
+  {
+    &-content
+    {
+      display: flex;
+      flex-direction: column;
+
+      @include bpgte(lg)
+      {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+
+    &-infoCol
+    {
+      @media (min-width: $breakpoint-mobile-max)
+      {
+        width: 350px;
+      }
+    }
+  }
+}
+
 .HitchhikerLocationStandard
 {
   display: flex;
@@ -86,7 +112,7 @@ $location-standard-ordinal-dimensions: calc(var(--hh-location-standard-base-spac
     display: flex;
     flex-direction: column;
 
-    @media (min-width: $screen-md-max)
+    @media (min-width: $breakpoint-mobile-max)
     {
       flex-direction: row;
       justify-content: space-between;
@@ -142,7 +168,7 @@ $location-standard-ordinal-dimensions: calc(var(--hh-location-standard-base-spac
   {
     @media (min-width: $breakpoint-mobile-max)
     {
-      width: 350px;
+      width: 320px;
     }
   }
 
