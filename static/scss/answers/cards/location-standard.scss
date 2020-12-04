@@ -6,6 +6,52 @@ $location-standard-ordinal-dimensions: calc(var(--hh-location-standard-base-spac
   --hh-location-standard-ordinal-dimensions: #{$location-standard-ordinal-dimensions};
 }
 
+.AnswersVerticalMap
+{
+  .HitchhikerLocationStandard
+  {
+    &-content
+    {
+      flex-direction: column;
+
+      @media (min-width: $screen-lg-min)
+      {
+        flex-direction: row;
+      }
+    }
+
+    &-infoCol
+    {
+      width: 100%;
+
+      @media (min-width: $breakpoint-mobile-max)
+      {
+        width: 350px;
+      }
+    }
+
+    &-contactInfo
+    {
+      flex-direction: column;
+
+      @media (min-width: $screen-lg-min)
+      {
+        flex-direction: row;
+      }
+    }
+
+    &-ctasWrapper
+    {
+      margin-left: 0;
+
+      @media (min-width: $screen-lg-min)
+      {
+        margin-left: calc(var(--hh-location-standard-base-spacing) / 2);
+      }
+    }
+  }
+}
+
 .HitchhikerLocationStandard
 {
   display: flex;
@@ -133,7 +179,18 @@ $location-standard-ordinal-dimensions: calc(var(--hh-location-standard-base-spac
 
     @media (min-width: $breakpoint-mobile-max)
     {
+      width: 200px;
       padding-right: calc(var(--hh-location-standard-base-spacing) * 2);
+    }
+  }
+
+  &-infoCol
+  {
+    width: 100%;
+
+    @media (min-width: $breakpoint-mobile-max)
+    {
+      width: 320px;
     }
   }
 
