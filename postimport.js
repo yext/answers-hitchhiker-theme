@@ -8,7 +8,7 @@ const themeName = 'answers-hitchhiker-theme';
 const themeDir = path.join('themes', themeName);
 copyTopLevelStaticFiles(themeDir);
 // npm install needed for things like comment-json
-spawnSync('npm', ['install'], { stdio: 'inherit'} );
+spawnSync('npm', ['install'], { stdio: 'inherit' });
 
 const { assign, stringify } = require('comment-json');
 
@@ -34,7 +34,7 @@ function copyTopLevelStaticFiles(themeDir) {
     'webpack-config.js',
   ];
   const themeStaticDir = path.join(themeDir, 'static');
-  syncContents(themeStaticDir, '', packageJsonFiles)
+  syncContents(themeStaticDir, '', packageJsonFiles);
 }
 
 /**
@@ -73,7 +73,7 @@ function copyStaticFiles(themeDir) {
     !fs.existsSync(dir) && fs.mkdirSync(dir);
   });
   const themeStaticDir = path.join(themeDir, 'static');
-  syncContents(themeStaticDir, 'static', scssFiles)
+  syncContents(themeStaticDir, 'static', scssFiles);
 }
 
 /**
@@ -86,7 +86,7 @@ function jamboOverrideLayoutFiles() {
     'layouts/header.hbs',
     'layouts/footer.hbs',
     'layouts/headincludes.hbs',
-  ]
+  ];
   files.forEach(filePath => {
     spawnSync('npx', ['jambo', 'override', '--path', filePath], { stdio: 'inherit' })
   });
