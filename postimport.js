@@ -9,6 +9,7 @@ const themeDir = path.join('themes', themeName);
 copyPackageJsonFiles(themeDir);
 // npm install needed for things like comment-json
 console.log('running npm install');
+throw new Error('REE')
 spawnSyncWithIO('npm', ['install']);
 
 const { assign, stringify } = require('comment-json');
