@@ -8,7 +8,6 @@ const themeName = 'answers-hitchhiker-theme';
 const themeDir = path.join('themes', themeName);
 copyTopLevelStaticFiles(themeDir);
 // npm install needed for things like comment-json
-console.log('running npm install');
 spawnSync('npm', ['install'], { stdio: 'inherit'} );
 
 const { assign, stringify } = require('comment-json');
