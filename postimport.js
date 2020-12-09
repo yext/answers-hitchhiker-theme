@@ -6,10 +6,10 @@ const jamboConfig = require('../../jambo.json');
 
 const themeName = 'answers-hitchhiker-theme';
 const themeDir = path.join('themes', themeName);
-copyPackageJsonFiles(themeDir);
+copyTopLevelStaticFiles(themeDir);
 // npm install needed for things like comment-json
 console.log('running npm install');
-spawnSyncWithIO('npm', ['install']);
+spawnSync('npm', ['install'], { stdio: 'inherit'} );
 
 const { assign, stringify } = require('comment-json');
 
@@ -20,14 +20,19 @@ updateDefaultTheme(jamboConfig, themeName);
 jamboOverrideLayoutFiles();
 
 /**
- * Copies over static scss, js, and top-level files.
+ * Copies over top-level files from the theme's static folder
+ * into the root directory.
+ * For example will copy themes/answers-hitchhiker-theme/static/package.json
+ * to package.json
  * 
  * @param {string} themeDir path to the theme
  */
-function copyPackageJsonFiles(themeDir) {
+function copyTopLevelStaticFiles(themeDir) {
   const packageJsonFiles = [
     'package.json',
     'package-lock.json',
+    'Gruntfile.js',
+    'webpack-config.js',
   ];
   const themeStaticDir = path.join(themeDir, 'static');
   syncContents(themeStaticDir, '', packageJsonFiles)
@@ -49,6 +54,8 @@ function copyConfigFiles(themeDir, configDir) {
 
 /**
  * Copies over static scss, js, and top-level files.
+ * e.g. will copy themes/answers-hitchhiker-theme/static/scss/answers.scss
+ * into static/scss/answers.scss
  * 
  * @param {string} themeDir path to the theme
  */
@@ -61,8 +68,6 @@ function copyStaticFiles(themeDir) {
     'scss/footer.scss',
     'scss/page.scss',
     'js/formatters-custom.js',
-    'Gruntfile.js',
-    'webpack-config.js',
   ];
   const requiredDirs = ['static', 'static/scss', 'static/js']
   requiredDirs.forEach(dir => {
@@ -84,7 +89,7 @@ function jamboOverrideLayoutFiles() {
     'layouts/headincludes.hbs',
   ]
   files.forEach(filePath => {
-    spawnSyncWithIO('npx', ['jambo', 'override', '--path', filePath])
+    spawnSync('npx', ['jambo', 'override', '--path', filePath], { stdio: 'inherit' })
   });
 }
 
@@ -121,22 +126,5 @@ function syncContents(srcFolder, destFolder, fileNames) {
 function copyFileIfExists(srcPath, destPath) {
   if (fs.existsSync(srcPath)) {
     fs.copyFileSync(srcPath, destPath);
-  }
-}
-
-/**
- * Call nodejs spawnSync, and handle stdout and stderr.
- *
- * @param {string} command 
- * @param {Array<string>} args arguments to pass to the command
- */
-function spawnSyncWithIO(command, args) {
-  const { stdout, stderr, error } = spawnSync(command, args);
-  const stdoutString = stdout.toString().trim();
-  stdoutString && console.log(stdoutString);
-  const stderrString = stderr.toString().trim();
-  stderrString && console.error(stderrString);
-  if (error) {
-    throw error;
   }
 }
