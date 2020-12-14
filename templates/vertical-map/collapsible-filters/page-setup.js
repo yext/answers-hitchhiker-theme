@@ -16,8 +16,7 @@ const collapsibleFiltersInteractions = new CollapsibleFilters.Interactions({
 // When a search is made with the searchbar, collapse the filters.
 collapsibleFiltersInteractions.registerCollapseFiltersOnSearchbarSearch();
 
-// The vertical-map page template uses Collapsible Filters on a desktop width,
-// so the view results button needs sticky behavior
+// Make the view results button sticky
 collapsibleFiltersInteractions.stickifyViewResultsButton();
 
 // Register an instance of CollapsibleFilters.FacetsDecorator,

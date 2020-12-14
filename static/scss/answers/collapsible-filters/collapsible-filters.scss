@@ -1,9 +1,4 @@
-// Overrides for SDK filter components
-@import "sdk-filter-overrides";
-
 @mixin CollapsibleFilters {
-  @include CollapsibleFiltersOverrides;
-
   .Answers {
     &-sortOptions {
       padding: 0;
@@ -22,16 +17,11 @@
     &-viewResultsButton {
       position: fixed;
       width: 100%;
-      left: 0;
       bottom: 0;
       padding: 4px 8px;
       background-color: var(--hh-answers-background-color);
       z-index: $nav-wrapper-z-index;
       transition: top 0.4s ease-out;
-
-      @include bpgte(sm) {
-        width: 50%;
-      }
     }
 
     &-filtersWrapper {

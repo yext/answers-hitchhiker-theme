@@ -36,6 +36,12 @@ BaseCard["{{componentName}}"] = class extends ANSWERS.Component {
     }
 
     let cardData = this.dataForRender(profile);
+    if (cardData.url && cardData.titleEventOptions) {
+      const { url, titleEventOptions } = cardData;
+      const updatedEventOptions = Object.assign({}, titleEventOptions, { url });
+      cardData.titleEventOptions = updatedEventOptions;
+    }
+    
     let { details, showMoreDetails } = cardData;
 
     const cardDetails = details || '';
@@ -49,6 +55,7 @@ BaseCard["{{componentName}}"] = class extends ANSWERS.Component {
     let truncatedDetails = showExcessDetailsToggle
       ? `${cardDetails.substring(0, showMoreLimit)}...`
       : '';
+    
     this.validateDataForRender(cardData);
 
     return super.setState({
