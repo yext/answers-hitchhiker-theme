@@ -4,7 +4,6 @@ const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
 const RemovePlugin = require('remove-files-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = function () {
   const jamboConfig = require('./jambo.json');
@@ -59,14 +58,6 @@ module.exports = function () {
       new InlineAssetHtmlPlugin(),
       new webpack.EnvironmentPlugin({
         JAMBO_INJECTED_DATA: null
-      }),
-      new CopyPlugin({
-        patterns: [
-          {
-            from: path.resolve(__dirname, jamboConfig.dirs.output, 'static', 'robots.txt'),
-            to: path.resolve(__dirname, jamboConfig.dirs.output)
-          }
-        ]
       }),
       new RemovePlugin({
         after: {
@@ -125,9 +116,6 @@ module.exports = function () {
           use: [
             {
               loader: path.resolve(__dirname, `./${jamboConfig.dirs.output}/static/webpack/html-asset-loader.js`),
-              options: {
-                regex: /\\"([./]*static\/assets\/[^"]*)\\"/g
-              }
             },
             {
               loader: 'html-loader',
