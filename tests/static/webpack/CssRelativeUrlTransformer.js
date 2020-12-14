@@ -1,5 +1,5 @@
 import CssRelativeUrlTransformer from '../../../static/webpack/CssRelativeUrlTransformer';
-import postcss from 'postcss'
+import postcss from 'postcss';
 
 function transformCss(cssContents, relativePath) {
   const postcssPlugins = [ CssRelativeUrlTransformer(relativePath) ];
@@ -20,8 +20,8 @@ describe('when relativePath = ".."', () => {
         font-family: "Open Sans";
         src: url(../opensans-regular-webfont.6b75153a018f7f12125b5a57823f4bdd.woff) format("woff");
       }`;
-    const processedCss = transformCss(originalCss, '..')
-    expect(expectedCss).toEqual(processedCss)
+    const processedCss = transformCss(originalCss, '..');
+    expect(expectedCss).toEqual(processedCss);
   });
 
   it('can transform url with single quotes', () => {
@@ -36,8 +36,8 @@ describe('when relativePath = ".."', () => {
         font-family: "Open Sans";
         src: url('../opensans-regular-webfont.6b75153a018f7f12125b5a57823f4bdd.woff') format("woff");
       }`;
-    const processedCss = transformCss(originalCss, '..')
-    expect(expectedCss).toEqual(processedCss)
+    const processedCss = transformCss(originalCss, '..');
+    expect(expectedCss).toEqual(processedCss);
   });
 
   it('can transform url with double quotes', () => {
@@ -52,7 +52,7 @@ describe('when relativePath = ".."', () => {
         font-family: "Open Sans";
         src: url("../opensans-regular-webfont.6b75153a018f7f12125b5a57823f4bdd.woff") format("woff");
       }`;
-    const processedCss = transformCss(originalCss, '..')
-    expect(expectedCss).toEqual(processedCss)
+    const processedCss = transformCss(originalCss, '..');
+    expect(expectedCss).toEqual(processedCss);
   });
 });
