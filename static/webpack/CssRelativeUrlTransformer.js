@@ -37,7 +37,7 @@ module.exports = (relativePath) => {
       if (isAbsoluteCssUrl(url)) {
         return match;
       }
-      return match.replace(url, `${relativePath}/${url})`);
+      return match.replace(url, `${relativePath}/${url}`);
     });
   }
 
