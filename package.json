@@ -25,6 +25,7 @@
     "libphonenumber-js": "^1.9.6",
     "loader-utils": "^2.0.0",
     "lodash.clonedeep": "^4.5.0",
+    "postcss": "^8.2.1",
     "simple-git": "^2.24.0",
     "underscore.string": "^3.3.5"
   },
