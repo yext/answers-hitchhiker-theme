@@ -26,24 +26,26 @@ module.exports = function loader(source) {
 
   let matchNumber = 0;
   const imports = [];
-  const regex = options.regex;
+  const regex = options.regex || /(["'][^\\"']*)(static\/assets\/[^\\"']*)/g;
   const getUrlImport = `
-    var ___HTML_ASSET_LOADER_GET_SOURCE_FROM_IMPORT___ = function(relativePath, staticAssetModule) {
+    var ___HTML_ASSET_LOADER_GET_SOURCE_FROM_IMPORT___ = function(staticAssetModule) {
       const getHashedPath = require("html-loader/dist/runtime/getUrl.js");
-      return relativePath + getHashedPath(staticAssetModule);
+      return getHashedPath(staticAssetModule);
     }`;
 
-  source = source.replace(regex, function(match, group1) {
+  /**
+   * @param {string} match the full regex match
+   * @param {string} prefix the prefix to the static asset path, including the quote, if one exists
+   * @param {string} staticAssetPath the static asset path
+   */
+  source = source.replace(regex, function(match, prefix, staticAssetPath) {
     const variableName = `___HTML_ASSET_LOADER_MATCH_${matchNumber}___`;
-    const sliceIndex = group1.indexOf('static/');
-    const relativePath = group1.slice(0, sliceIndex);
-    const staticAssetPath = group1.slice(sliceIndex);
     const importString =
-      `var ${variableName} = ___HTML_ASSET_LOADER_GET_SOURCE_FROM_IMPORT___('${relativePath}', require('${staticAssetPath}'));`;
+      `var ${variableName} = ___HTML_ASSET_LOADER_GET_SOURCE_FROM_IMPORT___(require('${staticAssetPath}'));`;
 
     matchNumber += 1;
     imports.push(importString);
-    return `\\"" + ${variableName} + "\\"`;
+    return `${prefix}" + ${variableName} + "`;
   });
 
   return getUrlImport + '\n' + imports.join('\n') + '\n' + source;
