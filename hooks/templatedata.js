@@ -8,7 +8,7 @@
  * @param {Object} globalConfig global_config.json
  * @param {Object} pageNameToConfig object of page names to config objects
  * @param {Object} env contains environment variables e.g. env.JAMBO_INJECTED_DATA
- * @returns {Object} the additional params to add to the template data
+ * @returns {Object} the template data sent to the page
  */
 module.exports = function({
   pageConfig,
@@ -18,7 +18,7 @@ module.exports = function({
   pageNameToConfig,
   env
 }) {
-  const data = {
+  const templateData = {
     ...pageConfig,
     verticalConfigs: pageNameToConfig,
     global_config: globalConfig,
@@ -26,5 +26,5 @@ module.exports = function({
     params,
     env
   };
-  return data;
+  return templateData;
 }
