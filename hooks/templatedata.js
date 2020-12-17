@@ -22,7 +22,9 @@ module.exports = function (pageMetadata, siteLevelAttributes, pageNameToConfig) 
     global_config: getLocalizedGlobalConfig(globalConfig, currentLocaleConfig, locale),
     params: currentLocaleConfig.params || {},
     relativePath,
-    env
+    env: {
+      JAMBO_INJECTED_DATA: env.JAMBO_INJECTED_DATA
+    }
   };
   return templateData;
 }
