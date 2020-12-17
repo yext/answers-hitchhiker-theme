@@ -7,7 +7,7 @@ const RemovePlugin = require('remove-files-webpack-plugin');
 
 module.exports = function () {
   const isProduction = 'IS_DEVELOPMENT_PREVIEW' in process.env ?
-    process.env.IS_DEVELOPMENT_PREVIEW :
+    process.env.IS_DEVELOPMENT_PREVIEW !== 'true':
     true;
 
   const jamboConfig = require('./jambo.json');
