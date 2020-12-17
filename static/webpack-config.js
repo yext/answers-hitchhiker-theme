@@ -6,9 +6,9 @@ const HtmlPlugin = require('html-webpack-plugin');
 const RemovePlugin = require('remove-files-webpack-plugin');
 
 module.exports = function () {
-  const isProduction = 'IS_DEVELOPMENT_PREVIEW' in process.env ?
-    process.env.IS_DEVELOPMENT_PREVIEW !== 'true':
-    true;
+  const isDevelopment = 'IS_DEVELOPMENT_PREVIEW' in process.env ?
+    process.env.IS_DEVELOPMENT_PREVIEW === 'true':
+    false;
 
   const jamboConfig = require('./jambo.json');
   const InlineAssetHtmlPlugin = require(
@@ -47,12 +47,10 @@ module.exports = function () {
     })
   ];
 
-  let mode;
-  if (isProduction) {
+  let mode = 'development';
+  if (!isDevelopment) {
     plugins.push(new InlineAssetHtmlPlugin());
     mode = 'production';
-  } else {
-    mode = 'development';
   }
 
   return {
