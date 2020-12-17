@@ -2,11 +2,19 @@
 {
   border-bottom: 0;
   width: 100%;
-  margin-top: var(--yxt-base-spacing);
+  margin-top: 30px;
+
+  @media (min-width: $breakpoint-mobile-min) {
+    margin-top: 48px;
+  }
 
   & + &
   {
-    margin-top: var(--yxt-base-spacing);
+    margin-top: 30px;
+
+    @media (min-width: $breakpoint-mobile-min) {
+      margin-top: 48px;
+    }
   }
 
   &-left
@@ -19,19 +27,6 @@
   {
     display: flex;
     margin-right: calc(var(--yxt-base-spacing) / 2);
-  }
-
-  &-title
-  {
-    @include Text(
-      var(--yxt-font-size-md-lg),
-      var(--yxt-line-height-lg),
-      var(--yxt-font-weight-bold),
-      $color: var(--hh-universal-section-title-text-color)
-    );
-    margin: 0;
-
-    text-transform: uppercase;
   }
 
   &-titleBar
@@ -69,6 +64,7 @@
     border-right: var(--yxt-border-default);
     border-left: var(--yxt-border-default);
     border-bottom: var(--yxt-border-default);
+    border-radius: 0 0 var(--yxt-border-radius) var(--yxt-border-radius);
   }
 
   &-viewMore svg
@@ -154,7 +150,16 @@
 
   &-title
   {
+    @include Text(
+      var(--yxt-font-size-md-lg),
+      var(--yxt-line-height-lg),
+      var(--yxt-font-weight-bold),
+      $color: var(--hh-universal-section-title-text-color)
+    );
+    margin: 0;
+    text-transform: uppercase;
     border: var(--yxt-border-default);
+    border-radius: var(--yxt-border-radius) var(--yxt-border-radius) 0 0;
     display: flex;
     padding: calc(var(--yxt-base-spacing) / 2) var(--yxt-base-spacing);
     align-items: center;
@@ -163,7 +168,7 @@
 
   &-title .Icon
   {
-    margin-right: calc(var(--yxt-base-spacing) / 2);
+    display: none;
   }
 
   &-title svg, &-title img

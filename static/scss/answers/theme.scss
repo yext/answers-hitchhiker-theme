@@ -13,12 +13,8 @@
   {
     margin-left: auto;
     margin-right: auto;
-    width: 100%;
-
-    @include bpgte(sm)
-    {
-      width: var(--hh-answers-container-width);
-    }
+    width: var(--hh-answers-container-width);
+    max-width: var(--hh-answers-container-max-width);
   }
 
   &-search,
@@ -31,10 +27,30 @@
     }
   }
 
+  &-search
+  {
+    .yxt-SearchBar-container
+    {
+      border-radius: var(--yxt-border-radius);
+    }
+  }
+
   &-nav
   {
     position: relative;
-    padding-top: 10px;
+    padding-top: 32px;
+
+    .yxt-Nav-container {
+      border-bottom: 0.5px solid var(--yxt-color-borders);
+
+      .yxt-Nav-item {
+        margin-bottom: 0px;
+      }
+
+      .yxt-Nav-item.is-active {
+        border-bottom-width: .185rem;
+      }
+    }
   }
 
   &-navWrapper
@@ -42,7 +58,6 @@
     position: sticky;
     top: 0;
     left: 0;
-    border-bottom: 1px solid #dcdcdc;
     background-color: var(--hh-answers-background-color);
     width: 100%;
     padding-top: var(--yxt-base-spacing);
