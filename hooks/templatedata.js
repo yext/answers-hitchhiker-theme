@@ -2,29 +2,49 @@
  * Returns the data after performing the given template data hook 
  * transformation on it.
  *
- * @param {Object} pageConfig the configuration for the current page
- * @param {string} relativePath the relativePath for the current page
- * @param {Object} params the params Object for the current locale, e.g. localeConfig.en.params
- * @param {Object} globalConfig global_config.json
- * @param {Object} pageNameToConfig object of page names to config objects
- * @param {Object} env contains environment variables e.g. env.JAMBO_INJECTED_DATA
- * @returns {Object} the template data sent to the page
+ * @param {string} pageMetadata.relativePath relativePath from the page to the output dir
+ * @param {string} pageMetadata.pageName name of the page being build
+ 
+ * @param {Object} siteLevelAttributes.globalConfig global_config.json
+ * @param {Object} siteLevelAttributes.currentLocaleConfig the chunk of locale config for the current locale
+ * @param {string} siteLevelAttributes.locale the current locale
+ * @param {Object} siteLevelAttributes.env all environment variables, like JAMBO_INJECTED_DATA
+ * 
+ * @param {Object} pageNameToConfig object of pageName to pageConfig
  */
-module.exports = function({
-  pageConfig,
-  relativePath,
-  params,
-  globalConfig,
-  pageNameToConfig,
-  env
-}) {
+module.exports = function (pageMetadata, siteLevelAttributes, pageNameToConfig) {
+  const { relativePath, pageName } = pageMetadata;
+  const { globalConfig, currentLocaleConfig, locale, env } = siteLevelAttributes;
+  const currentPageConfig = pageNameToConfig[pageName];
   const templateData = {
-    ...pageConfig,
+    ...currentPageConfig,
     verticalConfigs: pageNameToConfig,
-    global_config: globalConfig,
+    global_config: getLocalizedGlobalConfig(globalConfig, currentLocaleConfig, locale),
+    params: currentLocaleConfig.params || {},
     relativePath,
-    params,
     env
   };
   return templateData;
+}
+
+/**
+ * Gets the global config, with experienceKey and locale added
+ * to it from the currentLocaleConfig.
+ * 
+ * @param {Object} globalConfig 
+ * @param {string} currentLocaleConfig chunk of locale config for the current locale
+ * @param {string} locale the current locale
+ */
+function getLocalizedGlobalConfig(globalConfig, currentLocaleConfig, locale) {
+  const localizedGlobalConfig = {
+    ...globalConfig
+  };
+  const { experienceKey } = currentLocaleConfig;
+  if (experienceKey) {
+    localizedGlobalConfig.experienceKey = experienceKey;
+  }
+  if (locale) {
+    localizedGlobalConfig.locale = locale;
+  }
+  return localizedGlobalConfig;
 }
