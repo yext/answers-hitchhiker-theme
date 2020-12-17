@@ -33,18 +33,25 @@
     {
       border-radius: var(--yxt-border-radius);
     }
+
+    .yxt-SearchBar-form
+    {
+      height: 52px;
+    }
   }
 
   &-nav
   {
     position: relative;
-    padding-top: 32px;
+    padding-top: 28px;
 
     .yxt-Nav-container {
       border-bottom: 0.5px solid var(--yxt-color-borders);
 
       .yxt-Nav-item {
         margin-bottom: 0px;
+        padding-left: 20px;
+        padding-right: 20px;
       }
 
       .yxt-Nav-item.is-active {
