@@ -157,7 +157,6 @@
       $color: var(--hh-universal-section-title-text-color)
     );
     margin: 0;
-    text-transform: uppercase;
     border: var(--yxt-border-default);
     border-radius: var(--yxt-border-radius) var(--yxt-border-radius) 0 0;
     display: flex;
@@ -180,12 +179,11 @@
 
   &-titleLabel
   {
-    text-transform: uppercase;
     @include Text(
       $color: var(--hh-universal-section-title-text-color),
-      $weight: var(--yxt-font-weight-semibold),
+      $weight: var(--yxt-font-weight-normal),
       $line-height: var(--yxt-line-height-lg),
-      $size: var(--yxt-font-size-md-lg),
+      $size: var(--yxt-font-size-xlg),
     );
   }
 

@@ -15,6 +15,7 @@
     margin-right: auto;
     width: var(--hh-answers-container-width);
     max-width: var(--hh-answers-container-max-width);
+    font-weight: var(--yxt-font-weight-light);
   }
 
   &-search,
@@ -38,6 +39,13 @@
     {
       height: 52px;
     }
+
+    .yxt-SearchBar-input
+    {
+      font-size: var(--yxt-font-size-lg);
+      padding-left: var(--yxt-base-spacing);
+      padding-right: var(--yxt-base-spacing);
+    }
   }
 
   &-nav
@@ -50,8 +58,9 @@
 
       .yxt-Nav-item {
         margin-bottom: 0px;
-        padding-left: 20px;
-        padding-right: 20px;
+        padding-left: var(--yxt-base-spacing);
+        padding-right: var(--yxt-base-spacing);
+        letter-spacing: 1.1px;
       }
 
       .yxt-Nav-item.is-active {
