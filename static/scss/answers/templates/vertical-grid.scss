@@ -152,6 +152,17 @@
     &-verticalResults
     {
       width: 100%;
+
+      .yxt-AlternativeVerticals
+      {
+        border-radius: var(--yxt-border-radius);
+        overflow: hidden;
+      }
+
+      .yxt-Results-alternativeVerticals
+      {
+        padding: calc(var(--yxt-base-spacing) / 4);
+      }
     }
 
     &-verticalResultsWrapper

@@ -18,8 +18,7 @@
     align-items: center;
     cursor: pointer;
     width: 100%;
-    padding: calc(var(--yxt-base-spacing) / 2) var(--yxt-base-spacing);
-    padding-bottom: 10px;
+    padding: calc(var(--yxt-base-spacing) * .75) var(--yxt-base-spacing);
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     text-align: left;
 
