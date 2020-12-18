@@ -1,6 +1,5 @@
 /**
- * Returns the data after performing the given template data hook 
- * transformation on it.
+ * Formats the data sent to the handlebars templates during Jambo builds.
  *
  * @param {string} pageMetadata.relativePath relativePath from the page to the output dir
  * @param {string} pageMetadata.pageName name of the page being build
