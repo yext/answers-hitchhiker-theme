@@ -15,7 +15,7 @@
     margin-right: auto;
     width: var(--hh-answers-container-width);
     max-width: var(--hh-answers-container-max-width);
-    font-weight: var(--yxt-font-weight-light);
+    
   }
 
   &-search,
@@ -115,9 +115,14 @@
     .yxt-AppliedFilters,
     .yxt-VerticalResultsCount,
     .Hitchhiker-FilterLink {
-      margin-top: calc(var(--yxt-base-spacing) / 2.5);
-      margin-bottom: calc(var(--yxt-base-spacing) / 2.5);
+      margin-top: calc(var(--yxt-base-spacing) / 2);
+      margin-bottom: calc(var(--yxt-base-spacing) / 4);
     }
+  }
+
+  &-results
+  {
+    font-weight: var(--yxt-font-weight-light);
   }
 
   &-verticalResultsCount {
