@@ -89,7 +89,7 @@
     margin-right: calc(var(--yxt-base-spacing) / 2);
     @include Text(
       $color: var(--yxt-color-brand-primary),
-      $weight: var(--yxt-font-weight-semibold),
+      $weight: var(--yxt-font-weight-normal),
       $line-height: var(--yxt-line-height-lg),
       $size: var(--yxt-font-size-md)
     );
