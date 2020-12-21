@@ -84,7 +84,7 @@
   &-secondaryCTA
   {
     display: flex;
-    margin-top: var(--yxt-base-spacing) / 2;
+    margin-top: calc(var(--yxt-base-spacing) / 2);
   }
 
   .js-hidden
