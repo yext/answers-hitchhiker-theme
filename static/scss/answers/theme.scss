@@ -110,13 +110,13 @@
 
   &-resultsHeader {
     display: flex;
-    padding-left: 8px;
+    padding-left: var(--yxt-base-spacing);
 
     .yxt-AppliedFilters,
     .yxt-VerticalResultsCount,
     .Hitchhiker-FilterLink {
-      margin-top: 8px;
-      margin-bottom: 4px;
+      margin-top: calc(var(--yxt-base-spacing) / 2.5);
+      margin-bottom: calc(var(--yxt-base-spacing) / 2.5);
     }
   }
 
