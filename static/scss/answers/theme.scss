@@ -120,12 +120,30 @@
     }
   }
 
-  &-results
-  {
+  &-results {
     font-weight: var(--yxt-font-weight-light);
   }
 
   &-verticalResultsCount {
     margin-right: var(--yxt-base-spacing-sm);
+  }
+
+  &-qaSubmission {
+    .yxt-QuestionSubmission {
+      border-radius: var(--yxt-border-radius);
+      overflow: hidden;
+    }
+
+    .yxt-QuestionSubmission-titleIconWrapper {
+      display: none;
+    }
+
+    .yxt-QuestionSubmission-title {
+      text-transform: none;
+    }
+
+    .yxt-QuestionSubmission-formLabel {
+      font-weight: var(--yxt-font-weight-semibold)
+    }
   }
 }
