@@ -71,6 +71,7 @@
     position: sticky;
     top: 0;
     left: 0;
+    border-bottom: 1px solid #dcdcdc;
     background-color: var(--hh-answers-background-color);
     width: 100%;
     padding-top: var(--yxt-base-spacing);
@@ -107,6 +108,7 @@
 
   &-resultsHeader {
     display: flex;
+    padding-left: 8px;
 
     .yxt-AppliedFilters,
     .yxt-VerticalResultsCount,
