@@ -37,8 +37,9 @@
   {
     .yxt-SpellCheck
     {
-      margin-top: var(--yxt-base-spacing);
-      margin-bottom: var(--yxt-base-spacing);
+      margin-top: calc(var(--yxt-base-spacing) * 1.5);
+      margin-bottom: calc(var(--yxt-base-spacing) * 0.2);
+      margin-left: var(--yxt-base-spacing);
     }
   }
 }
