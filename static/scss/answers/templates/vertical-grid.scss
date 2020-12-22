@@ -133,7 +133,7 @@
         width: 100%;
       }
 
-      @include bpgte(lg) {
+      @media (min-width: 1500px) {
         position: absolute;
         margin-left: calc(-200px - 24px);
         margin-right: 24px;
@@ -174,7 +174,9 @@
     {
       .yxt-SpellCheck
       {
-        margin-bottom: calc(2*var(--yxt-base-spacing));
+        margin-top: calc(var(--yxt-base-spacing) / 2);
+        margin-bottom: var(--yxt-base-spacing);
+        margin-left: var(--yxt-base-spacing);
       }
     }
   }

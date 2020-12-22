@@ -40,7 +40,7 @@
     padding: 0;
   }
 
-  @include bplte(md) {
+  @media (max-width: 1499px) {
     @include CollapsibleFilters;
 
     .CollapsibleFilters-inactive {
@@ -52,11 +52,11 @@
     }
 
     .yxt-SpellCheck {
-      padding-top: calc(var(--yxt-base-spacing) * 2);
+      padding-top: calc(var(--yxt-base-spacing) * 0.5);
     }
 
     .Answers-viewResultsButton {
-      max-width: 700px;
+      max-width: var(--hh-answers-container-max-width);
       left: 50%;
       transform: translateX(-50%);
 
@@ -68,7 +68,7 @@
     }
   }
 
-  @include bpgte(lg) {
+  @media (min-width: 1500px) {
     .Answers-filterLink,
     .Answers-viewResultsButton {
       display: none;
