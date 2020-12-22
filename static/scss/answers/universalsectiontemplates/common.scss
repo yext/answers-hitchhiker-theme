@@ -248,10 +248,10 @@
   background-color: var(--yxt-color-background-highlight);
 
   @media (min-width: $breakpoint-mobile-min) {
-    padding-top: calc(var(--yxt-base-spacing) * .75);
-    padding-right: calc(var(--yxt-base-spacing) * .75);
-    padding-bottom: calc(var(--yxt-base-spacing) * .75);
-    padding-left: calc(var(--yxt-base-spacing) * .75);
+    padding-top: calc(var(--yxt-base-spacing) * 3/4);
+    padding-right: calc(var(--yxt-base-spacing) * 3/4);
+    padding-bottom: calc(var(--yxt-base-spacing) * 3/4);
+    padding-left: calc(var(--yxt-base-spacing) * 3/4);
 
     border-left: var(--yxt-border-default);
     border-right: var(--yxt-border-default);

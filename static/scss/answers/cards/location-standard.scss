@@ -59,7 +59,7 @@ $location-standard-ordinal-dimensions: calc(var(--hh-location-standard-base-spac
   font-weight: var(--yxt-font-weight-normal);
   line-height: var(--yxt-line-height-md);
   background-color: var(--yxt-color-brand-white);
-  padding: var(--hh-location-standard-base-spacing);
+  padding: calc(var(--yxt-base-spacing) * 3/4) var(--yxt-base-spacing);
   width: 100%;
   height: 100%;
 
