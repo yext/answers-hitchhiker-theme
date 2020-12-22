@@ -21,13 +21,6 @@
     margin-right: calc(var(--yxt-base-spacing) / 2);
   }
 
-  &-title
-  {
-    margin: 0;
-
-    text-transform: uppercase;
-  }
-
   &-titleBar
   {
     border: var(--yxt-border-default);
@@ -154,6 +147,7 @@
       var(--yxt-font-weight-bold),
       $color: var(--hh-universal-section-title-text-color)
     );
+    margin: 0;
     border: var(--yxt-border-default);
     display: flex;
     padding: calc(var(--yxt-base-spacing) / 2) var(--yxt-base-spacing);
