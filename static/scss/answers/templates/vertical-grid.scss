@@ -164,7 +164,7 @@
 
       .yxt-Results-alternativeVerticals
       {
-
+        padding: calc(var(--yxt-base-spacing) / 4);
       }
     }
 
@@ -177,7 +177,9 @@
     {
       .yxt-SpellCheck
       {
-        margin-bottom: calc(2*var(--yxt-base-spacing));
+        margin-top: calc(var(--yxt-base-spacing) / 2);
+        margin-bottom: var(--yxt-base-spacing);
+        margin-left: var(--yxt-base-spacing);
       }
     }
   }

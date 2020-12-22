@@ -111,7 +111,7 @@
 
     .yxt-Results-items .yxt-Card
     {
-
+      margin-bottom: 0;
     }
 
     .yxt-Results-items .yxt-Card:first-child
@@ -134,7 +134,9 @@
   {
     .yxt-SpellCheck
     {
-      margin-bottom: calc(2*var(--yxt-base-spacing));
+      margin-top: calc(var(--yxt-base-spacing) * .5);
+      margin-bottom: calc(var(--yxt-base-spacing) * .5);
+      margin-left: var(--yxt-base-spacing);
     }
   }
 }

@@ -2,11 +2,19 @@
 {
   border-bottom: 0;
   width: 100%;
-  margin-top: var(--yxt-base-spacing);
+  margin-top: calc(var(--yxt-base-spacing) * 1.5);
+
+  @media (min-width: $breakpoint-mobile-min) {
+    margin-top: calc(var(--yxt-base-spacing) * 2.35);
+  }
 
   & + &
   {
-    margin-top: var(--yxt-base-spacing);
+    margin-top: calc(var(--yxt-base-spacing) * 1.5);
+
+    @media (min-width: $breakpoint-mobile-min) {
+      margin-top: calc(var(--yxt-base-spacing) * 2.35);
+    }
   }
 
   &-left
@@ -182,6 +190,17 @@
       $line-height: var(--yxt-line-height-lg),
       $size: var(--yxt-font-size-md-lg),
     );
+  }
+
+  .yxt-ResultsHeader
+  {
+    padding-left: var(--yxt-base-spacing);
+    padding-right: var(--yxt-base-spacing);
+
+    &-filterValue
+    {
+      margin-bottom: .5rem;
+    }
   }
 
   &-Card {
