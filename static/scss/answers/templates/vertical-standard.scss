@@ -102,6 +102,8 @@
 
     .yxt-AlternativeVerticals
     {
+      border-radius: var(--yxt-border-radius);
+      overflow: hidden;
 
       &-universalLink
       {
@@ -111,17 +113,23 @@
 
     .yxt-Results-items .yxt-Card
     {
-
+      border-top: 0;
     }
 
     .yxt-Results-items .yxt-Card:first-child
     {
-
+      border-top: var(--yxt-border-default);
+      border-top-left-radius: var(--yxt-border-radius);
+      border-top-right-radius: var(--yxt-border-radius);
+      overflow: hidden;
     }
 
     .yxt-Results-items .yxt-Card:last-child
     {
-
+      border-bottom: var(--yxt-border-default);
+      border-bottom-left-radius: var(--yxt-border-radius);
+      border-bottom-right-radius: var(--yxt-border-radius);
+      overflow: hidden;
     }
   }
 

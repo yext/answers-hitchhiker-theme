@@ -35,7 +35,7 @@
   {
     .yxt-SearchBar-container
     {
-      
+      border-radius: var(--yxt-border-radius);
     }
 
     .yxt-SearchBar-form
@@ -55,13 +55,14 @@
     padding-top: 10px;
 
     .yxt-Nav-container {
+      border-bottom: .0625rem solid var(--yxt-color-borders);
 
       .yxt-Nav-item {
 
       }
 
       .yxt-Nav-item.is-active {
-
+        border-bottom-width: .185rem;
       }
     }
   }
@@ -71,7 +72,6 @@
     position: sticky;
     top: 0;
     left: 0;
-    border-bottom: 1px solid #dcdcdc;
     background-color: var(--hh-answers-background-color);
     width: 100%;
     padding-top: var(--yxt-base-spacing);
@@ -128,7 +128,8 @@
 
   &-qaSubmission {
     .yxt-QuestionSubmission {
-      
+      border-radius: var(--yxt-border-radius);
+      overflow: hidden;
     }
 
     .yxt-QuestionSubmission-titleIconWrapper {

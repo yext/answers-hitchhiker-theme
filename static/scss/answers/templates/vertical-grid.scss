@@ -155,6 +155,8 @@
 
       .yxt-AlternativeVerticals
       {
+        border-radius: var(--yxt-border-radius);
+        overflow: hidden;
 
         &-universalLink
         {
