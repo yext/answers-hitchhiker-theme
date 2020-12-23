@@ -1,6 +1,8 @@
 // These variables are not meant to be changed by the HH. They are the default values for the theme.
 // Variable overrides should be in the answers-variables.scss file.
 
+$container-max-width: 1000px;
+
 :root {
   // control colors throughout the theme and SDK
   --yxt-color-brand-primary: #0f70f0;
@@ -15,7 +17,7 @@
 
   // theme specific variables
   --hh-answers-container-width: 100%;
-  --hh-answers-container-max-width: 1000px;
+  --hh-answers-container-max-width: #{$container-max-width};
   --hh-answers-container-width-filters: 950px;
   --hh-color-gray-1: #dcdcdc;
   --hh-color-gray-2: #fafafa;
@@ -53,3 +55,6 @@ $breakpoint-mobile-min: 768px;
 
 $breakpoint-mobile-sm-max: 575px;
 $breakpoint-mobile-sm-min: 576px;
+
+$breakpoint-collapsed-filters: $container-max-width + 499px;
+$breakpoint-expanded-filters: $container-max-width + 500px;

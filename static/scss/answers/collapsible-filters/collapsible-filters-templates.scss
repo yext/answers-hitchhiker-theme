@@ -40,7 +40,7 @@
     padding: 0;
   }
 
-  @media (max-width: 1499px) {
+  @media (max-width: #{$breakpoint-collapsed-filters}) {
     @include CollapsibleFilters;
 
     .CollapsibleFilters-inactive {
@@ -68,7 +68,7 @@
     }
   }
 
-  @media (min-width: 1500px) {
+  @media (min-width: #{$breakpoint-expanded-filters}) {
     .Answers-filterLink,
     .Answers-viewResultsButton {
       display: none;

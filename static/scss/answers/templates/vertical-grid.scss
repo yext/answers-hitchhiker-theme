@@ -133,7 +133,7 @@
         width: 100%;
       }
 
-      @media (min-width: 1500px) {
+      @media (min-width: #{$breakpoint-expanded-filters}) {
         position: absolute;
         margin-left: calc(-200px - 24px);
         margin-right: 24px;
