@@ -1,0 +1,26 @@
+{
+  "pageTitle": "Search", // !!!REPLACE THIS VALUE!!! The contents of the title tag and meta open graph tag for title
+  // "metaDescription": "", // The meta tag for open graph description
+  // "canonicalUrl": "", // The link tag for canonical URL as well as the meta tag for open graph url
+  // "keywords": "", // The meta tag for keywords
+  "componentSettings": {
+    /**
+    "QASubmission": {
+      "entityId": "", // Set the ID of the entity to use for Q&A submissions, must be of entity type "Organization"
+      "privacyPolicyUrl": "" // The fully qualified URL to the privacy policy
+    },
+    **/
+    "DirectAnswer": {
+      "defaultCard": "allfields-standard"
+    },
+    "SearchBar": {
+      "placeholderText": "Search" // The placeholder text in the answers search bar
+    }
+  },
+  "verticalsToConfig": {
+    "Universal": {
+      "isFirst": "true", // Indicates that this should always appear first in the navigation bar
+      "label": "All" // The name of the universal tab in the navigation bar
+    }
+  }
+}

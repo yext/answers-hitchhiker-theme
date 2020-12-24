@@ -1,0 +1,68 @@
+{
+  "verticalKey": "events", // The vertical key from your search configuration
+  "pageTitle": "Events", // !!!REPLACE THIS VALUE!!! The contents of the title tag and meta open graph tag for title
+  // "metaDescription": "", // The meta tag for open graph description
+  // "canonicalUrl": "", // The link tag for canonical URL as well as the meta tag for open graph url
+  // "keywords": "", // The meta tag for keywords
+  "pageSettings": {
+    /**
+     "search": {
+       "verticalKey": "<REPLACE ME>", // The vertical key from your search configuration
+       "defaultInitialSearch": "" // Enter a default search term
+     }
+    **/
+  },
+  "componentSettings": {
+    /**
+    "QASubmission": {
+      "entityId": "", // Set the ID of the entity to use for Q&A submissions, must be of entity type "Organization"
+      "privacyPolicyUrl": "" // The fully qualified URL to the privacy policy
+    },
+    **/
+    /**
+    "Facets": {
+      "expand": false, // Allow the user to expand and collapse the facets
+      "showMore": false, // Display a link to see more facet options within a facet
+      "searchOnChange": true // Will automatically run a search as facets are selected or unselected. Set to false to only trigger updates with an Apply button. 
+      // Additional options are available in the documentation
+    },
+    **/
+    /**
+    "FilterLink": {
+      "changeFiltersText": "sorts and filters", // Text that displays by default
+      "resetFiltersText": "reset filters", // Text when filters are applied
+      "clearSearchText": "clear search" // Text when there are no results, conducts an empty search
+    },
+    **/
+    "AppliedFilters": {
+      "removable": true
+    },
+    "VerticalResults": {
+      "noResults": {
+        "displayAllResults": true // Optional, whether to display all results in the vertical when no results are found.
+      },
+      "hideResultsHeader": true
+    },
+    "SearchBar": {
+      "placeholderText": "Search", // The placeholder text in the answers search bar
+      "allowEmptySearch": true // Allows users to submit an empty search in the searchbar
+    },
+    "Pagination": {
+      "noResults": {
+        "visible": true
+      }
+    }
+  },
+  // Configuration used to define the look and feel of the vertical, both on this page and, by default,
+  // on the universal page.
+  "verticalsToConfig": {
+    "events": { // The vertical key from your search configuration
+      "label": "Events", // The name of the vertical in the section header and the navigation bar
+      // "verticalLimit": 15, // The result count limit for vertical search
+      // "universalLimit": 5, // The result count limit for universal search
+      "cardType": "event-standard", // The name of the card to use - e.g. accordion, location, customcard
+      "icon": "star", // The icon to use on the card for this vertical
+      "universalSectionTemplate": "standard"
+    }
+  }
+}
