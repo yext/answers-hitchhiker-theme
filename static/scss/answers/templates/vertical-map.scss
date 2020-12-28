@@ -7,6 +7,12 @@
     border-left: none;
     border-right: none;
     border-top: none;
+    overflow: hidden;
+  }
+
+  .yxt-AlternativeVerticals-universalLink
+  {
+    font-weight: var(--yxt-font-weight-normal);
   }
 }
 
@@ -35,6 +41,7 @@
   {
     padding-top: 0;
     width: 100%;
+    border-top: var(--yxt-border-default);
 
     &--withFilters
     {
@@ -108,8 +115,8 @@
     {
       margin-left: var(--yxt-base-spacing);
       margin-right: var(--yxt-base-spacing);
-      margin-top: calc(2*var(--yxt-base-spacing));
-      margin-bottom: calc(2*var(--yxt-base-spacing));
+      margin-top: calc(var(--yxt-base-spacing) * 1.5);
+      margin-bottom: calc(var(--yxt-base-spacing) * 1.5);
     }
   }
 }

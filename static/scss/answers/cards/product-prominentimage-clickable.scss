@@ -39,7 +39,7 @@
   &-body
   {
     width: 100%;
-    padding: var(--yxt-base-spacing);
+    padding: calc(var(--yxt-base-spacing) * 3/4) var(--yxt-base-spacing);
   }
 
   &-contentWrapper
