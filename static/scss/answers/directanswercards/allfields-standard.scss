@@ -1,5 +1,7 @@
 .HitchhikerAllFieldsStandard
 {
+  margin-top: calc(var(--yxt-base-spacing) * 2.35);
+
   &-title
   {
     padding-top: calc(var(--yxt-base-spacing) / 2);
@@ -43,11 +45,6 @@
     display: flex;
     margin-right: calc(var(--yxt-base-spacing) / 2);
     height: 18px;
-  }
-
-  &-entityName
-  {
-    text-transform: uppercase;
   }
 
   &-iconWrapper

@@ -16,17 +16,6 @@
     }
   }
 
-  &-filtersAndResults
-  {
-    display: flex;
-    flex-direction: column;
-
-    @include bpgte(lg)
-    {
-      flex-direction: row;
-    }
-  }
-
   &-filtersWrapper {
     margin-bottom: 20px;
 
@@ -80,7 +69,7 @@
       width: 100%;
     }
 
-    @include bpgte(lg) {
+    @media (min-width: #{$breakpoint-expanded-filters}) {
       position: absolute;
       margin-left: calc(-200px - 24px);
       margin-right: 24px;
@@ -107,13 +96,14 @@
 
       &-universalLink
       {
-
+        font-weight: var(--yxt-font-weight-normal);
       }
     }
 
     .yxt-Results-items .yxt-Card
     {
       border-top: 0;
+      margin-bottom: 0;
     }
 
     .yxt-Results-items .yxt-Card:first-child
@@ -142,7 +132,9 @@
   {
     .yxt-SpellCheck
     {
-      margin-bottom: calc(2*var(--yxt-base-spacing));
+      margin-top: calc(var(--yxt-base-spacing) / 2);
+      margin-bottom: calc(var(--yxt-base-spacing) / 2);
+      margin-left: var(--yxt-base-spacing);
     }
   }
 }

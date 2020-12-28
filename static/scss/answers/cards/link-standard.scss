@@ -4,7 +4,7 @@
   font-size: var(--yxt-font-size-md);
   line-height: var(--yxt-line-height-md);
   background-color: var(--yxt-color-brand-white);
-  padding: var(--yxt-base-spacing);
+  padding: calc(var(--yxt-base-spacing) * 3/4) var(--yxt-base-spacing);
   width: 100%;
   height: 100%;
 
@@ -29,7 +29,7 @@
 
   &-title
   {
-    font-size: var(--yxt-font-size-lg);
+    font-size: var(--yxt-font-size-md-lg);
     line-height: var(--yxt-line-height-lg);
     font-weight: var(--yxt-font-weight-semibold);
   }
@@ -56,7 +56,7 @@
 
   &-cardDetails
   {
-    margin-top: calc(var(--yxt-base-spacing) / 2);
+    margin-top: calc(var(--yxt-base-spacing) / 4);
   }
 
   &-detailsText
