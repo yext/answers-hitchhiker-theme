@@ -16,17 +16,6 @@
     }
   }
 
-  &-filtersAndResults
-  {
-    display: flex;
-    flex-direction: column;
-
-    @include bpgte(lg)
-    {
-      flex-direction: row;
-    }
-  }
-
   &-filtersWrapper {
     margin-bottom: 20px;
 
@@ -80,7 +69,7 @@
       width: 100%;
     }
 
-    @include bpgte(lg) {
+    @media (min-width: #{$breakpoint-expanded-filters}) {
       position: absolute;
       margin-left: calc(-200px - 24px);
       margin-right: 24px;
