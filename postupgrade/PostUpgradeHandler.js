@@ -16,7 +16,7 @@ class PostUpgradeHandler {
 
   async handlePostUpgrade() {
     if (!isGitSubmodule(this.themeDir)) {
-      this.removeFromTheme('.git', '.gitignore', 'tests');
+      this.removeFromTheme('.git', '.gitignore', 'tests', 'testing');
     }
 
     const userGlobalConfigPath = 
