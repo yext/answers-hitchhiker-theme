@@ -16,7 +16,7 @@
     &--universal
     {
       @media (min-width: $breakpoint-mobile-min) {
-        margin: 8px;
+        margin: var(--hh-universal-grid-margin);
         flex-basis: var(--hh-universal-grid-two-columns-width);
         max-width: var(--hh-universal-grid-two-columns-width);
         border: var(--yxt-border-default);
