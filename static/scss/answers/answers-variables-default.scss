@@ -5,7 +5,7 @@ $container-width: 1000px;
 
 :root {
   // control colors throughout the theme and SDK
-  --yxt-color-brand-primary: #0f70f0;
+  --yxt-color-brand-primary: #5387d7;
   --yxt-color-brand-hover: var(--yxt-color-text-secondary);
   --yxt-color-brand-white: #fff;
   --yxt-color-text-primary: #212121;
@@ -13,7 +13,7 @@ $container-width: 1000px;
   --yxt-color-link-primary: var(--yxt-color-brand-primary);
   --yxt-color-borders: #d8d8d8;
   --yxt-color-error: #940000;
-  --yxt-color-background-highlight: #fafafa;
+  --yxt-color-background-highlight: white;
 
   // theme specific variables
   --hh-answers-background-color: white;
@@ -30,7 +30,7 @@ $container-width: 1000px;
   --hh-universal-section-title-text-color: var(--yxt-color-text-primary);
   --hh-universal-section-title-background: var(--yxt-color-background-highlight);
   --hh-universal-section-title-icon: var(--yxt-color-brand-primary);
-  --hh-view-results-button-hover-color: #0c5ecb;
+  --hh-view-results-button-hover-color: #4a7ac1;
 
   // common border variables
   --yxt-border-default: 1px solid var(--yxt-color-borders);
@@ -46,7 +46,7 @@ $container-width: 1000px;
   --yxt-searchbar-button-background-color-base: white;
   --yxt-searchbar-button-background-color-hover: white;
   --yxt-searchbar-button-background-color-active: white;
-  --yxt-searchbar-button-text-color-hover: #0f70f0;
+  --yxt-searchbar-button-text-color-hover: var(--yxt-color-brand-primary);
   --yxt-filter-options-options-max-height: none;
   --yxt-alternative-verticals-emphasized-font-weight: var(--yxt-font-weight-normal);
 }
