@@ -47,6 +47,7 @@
     {
       padding-left: var(--yxt-base-spacing);
       padding-right: var(--yxt-base-spacing);
+      font-size: var(--yxt-font-size-lg);
     }
   }
 
@@ -62,6 +63,7 @@
         padding-left: var(--yxt-base-spacing);
         padding-right: var(--yxt-base-spacing);
         padding-bottom: calc(var(--yxt-base-spacing) * 0.2);
+        letter-spacing: 1.1px;
       }
 
       .yxt-Nav-item.is-active {
@@ -123,7 +125,7 @@
   }
 
   &-results {
-    
+    font-weight: var(--yxt-font-weight-light);
   }
 
   &-verticalResultsCount {
@@ -140,11 +142,11 @@
     }
 
     .yxt-QuestionSubmission-title {
-      
+      text-transform: none;
     }
 
     .yxt-QuestionSubmission-formLabel {
-      
+      font-weight: var(--yxt-font-weight-semibold)
     }
   }
 }

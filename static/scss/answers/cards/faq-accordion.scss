@@ -39,7 +39,7 @@
   &-title
   {
     @include Text(
-      $size: var(--yxt-base-spacing),
+      $size: var(--yxt-font-size-md-lg),
       $color: var(--yxt-color-brand-primary),
       $line-height: var(--yxt-line-height-lg),
       $weight: var(--yxt-font-weight-semibold),
