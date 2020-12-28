@@ -134,8 +134,8 @@
   {
     .yxt-SpellCheck
     {
-      margin-top: calc(var(--yxt-base-spacing) * .5);
-      margin-bottom: calc(var(--yxt-base-spacing) * .5);
+      margin-top: calc(var(--yxt-base-spacing) / 2);
+      margin-bottom: calc(var(--yxt-base-spacing) / 2);
       margin-left: var(--yxt-base-spacing);
     }
   }
