@@ -44,7 +44,7 @@
     ],
     "testPathIgnorePatterns": [
       "/fixtures/",
-      "/testing-site/"
+      "/site/"
     ]
   }
 }
