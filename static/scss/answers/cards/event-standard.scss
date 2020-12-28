@@ -1,7 +1,7 @@
 .HitchhikerEventStandard
 {
   background-color: var(--yxt-color-brand-white);
-  padding: var(--yxt-base-spacing);
+  padding: calc(var(--yxt-base-spacing) * 3/4) var(--yxt-base-spacing);
   display: flex;
   font-size: .875rem;
   width: 100%;
