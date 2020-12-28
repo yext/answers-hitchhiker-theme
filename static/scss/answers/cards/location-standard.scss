@@ -56,6 +56,7 @@ $location-standard-ordinal-dimensions: calc(var(--hh-location-standard-base-spac
 {
   display: flex;
   font-size: var(--yxt-font-size-md);
+  font-weight: var(--yxt-font-weight-normal);
   line-height: var(--yxt-line-height-md);
   background-color: var(--yxt-color-brand-white);
   padding: var(--hh-location-standard-base-spacing);
@@ -98,7 +99,7 @@ $location-standard-ordinal-dimensions: calc(var(--hh-location-standard-base-spac
 
   &-title
   {
-    font-size: 1.125rem;
+    font-size: var(--yxt-font-size-lg);
     line-height: 1.5;
     font-weight: 600;
   }

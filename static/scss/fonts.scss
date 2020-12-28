@@ -21,13 +21,13 @@ $font-weight-light: 300;
   --yxt-font-weight-normal: #{$font-weight-normal};
   --yxt-font-weight-light: #{$font-weight-light};
 
-  --yxt-font-size-xs: 10px;
-  --yxt-font-size-sm: 12px;
-  --yxt-font-size-md: 14px;
-  --yxt-font-size-md-lg: 16px;
-  --yxt-font-size-lg: 18px;
-  --yxt-font-size-xlg: 20px;
-  --yxt-font-size-xxlg: 40px;
+  --yxt-font-size-xs: 12px;
+  --yxt-font-size-sm: 14px;
+  --yxt-font-size-md: 16px;
+  --yxt-font-size-md-lg: 18px;
+  --yxt-font-size-lg: 20px;
+  --yxt-font-size-xlg: 22px;
+  --yxt-font-size-xxlg: 42px;
 
   --yxt-line-height-xs: 1;
   --yxt-line-height-sm: 1.2;
@@ -37,9 +37,48 @@ $font-weight-light: 300;
   --yxt-line-height-xlg: 5/3;
   --yxt-line-height-xxlg: 1.7;
 
-  --yxt-font-family: "Open Sans",system-ui,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+  --yxt-autocomplete-text-font-size: var(--yxt-font-size-md-lg);
+
+  --yxt-font-family: "Source Sans Pro","Open Sans",system-ui,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
 }
 
+@font-face
+{
+  font-family: "Source Sans Pro";
+  src: url('../assets/fonts/source-sans-pro-v14-latin-300.woff') format("woff");
+  font-weight: $font-weight-light;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face
+{
+  font-family: "Source Sans Pro";
+  src: url('../assets/fonts/source-sans-pro-v14-latin-regular.woff') format("woff");
+  font-weight: $font-weight-normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face
+{
+  font-family: "Source Sans Pro";
+  src: url('../assets/fonts/source-sans-pro-v14-latin-600.woff') format("woff");
+  font-weight: $font-weight-semibold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face
+{
+  font-family: "Source Sans Pro";
+  src: url('../assets/fonts/source-sans-pro-v14-latin-700.woff') format("woff");
+  font-weight: $font-weight-bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+/*
 @font-face
 {
   font-family: "Open Sans";
@@ -66,4 +105,4 @@ $font-weight-light: 300;
   font-style: normal;
   font-display: swap;
 }
-
+*/

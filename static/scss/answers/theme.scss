@@ -45,7 +45,7 @@
 
     .yxt-SearchBar-input
     {
-      
+      font-size: var(--yxt-font-size-lg);
     }
   }
 
@@ -57,7 +57,7 @@
     .yxt-Nav-container {
 
       .yxt-Nav-item {
-
+        letter-spacing: 1.1px;
       }
 
       .yxt-Nav-item.is-active {
@@ -119,7 +119,7 @@
   }
 
   &-results {
-    
+    font-weight: var(--yxt-font-weight-light);
   }
 
   &-verticalResultsCount {
@@ -136,11 +136,11 @@
     }
 
     .yxt-QuestionSubmission-title {
-      
+      text-transform: none;
     }
 
     .yxt-QuestionSubmission-formLabel {
-      
+      font-weight: var(--yxt-font-weight-semibold)
     }
   }
 }
