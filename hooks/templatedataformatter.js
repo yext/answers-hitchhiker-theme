@@ -10,6 +10,7 @@
  * @param {Object} siteLevelAttributes.env all environment variables, like JAMBO_INJECTED_DATA
  * 
  * @param {Object} pageNameToConfig object of pageName to pageConfig
+ * @returns {Object}
  */
 module.exports = function (pageMetadata, siteLevelAttributes, pageNameToConfig) {
   const { relativePath, pageName } = pageMetadata;
@@ -30,11 +31,12 @@ module.exports = function (pageMetadata, siteLevelAttributes, pageNameToConfig) 
 
 /**
  * Gets the global config, with experienceKey and locale added
- * to it from the currentLocaleConfig.
+ * to it.
  * 
  * @param {Object} globalConfig 
- * @param {string} currentLocaleConfig chunk of locale config for the current locale
+ * @param {Object} currentLocaleConfig chunk of locale config for the current locale
  * @param {string} locale the current locale
+ * @returns {Object}
  */
 function getLocalizedGlobalConfig(globalConfig, currentLocaleConfig, locale) {
   const localizedGlobalConfig = {
