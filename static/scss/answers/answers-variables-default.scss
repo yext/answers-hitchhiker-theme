@@ -11,7 +11,7 @@ $container-width: 1000px;
   --yxt-color-text-primary: #212121;
   --yxt-color-text-secondary: #757575;
   --yxt-color-link-primary: var(--yxt-color-brand-primary);
-  --yxt-color-borders: #dcdcdc;
+  --yxt-color-borders: #d8d8d8;
   --yxt-color-error: #940000;
   --yxt-color-background-highlight: #fafafa;
 
@@ -34,6 +34,7 @@ $container-width: 1000px;
 
   // common border variables
   --yxt-border-default: 1px solid var(--yxt-color-borders);
+  --yxt-border-radius: 5px;
 
   // spacing variable, used in padding/margins across the site
   --yxt-base-spacing: 20px;
