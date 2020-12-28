@@ -16,17 +16,6 @@
     }
   }
 
-  &-filtersAndResults
-  {
-    display: flex;
-    flex-direction: column;
-
-    @include bpgte(lg)
-    {
-      flex-direction: row;
-    }
-  }
-
   &-filtersWrapper {
     margin-bottom: 20px;
 
