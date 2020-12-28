@@ -40,11 +40,13 @@
 
     .yxt-SearchBar-form
     {
-      
+      height: 53px;
     }
 
     .yxt-SearchBar-input
     {
+      padding-left: var(--yxt-base-spacing);
+      padding-right: var(--yxt-base-spacing);
       font-size: var(--yxt-font-size-lg);
     }
   }
@@ -52,11 +54,15 @@
   &-nav
   {
     position: relative;
-    padding-top: 10px;
+    padding-top: 28px;
 
     .yxt-Nav-container {
 
       .yxt-Nav-item {
+        margin-bottom: 0px;
+        padding-left: var(--yxt-base-spacing);
+        padding-right: var(--yxt-base-spacing);
+        padding-bottom: calc(var(--yxt-base-spacing) * 0.2);
         letter-spacing: 1.1px;
       }
 
@@ -108,13 +114,13 @@
 
   &-resultsHeader {
     display: flex;
-    padding-left: 8px;
+    padding-left: var(--yxt-base-spacing);
 
     .yxt-AppliedFilters,
     .yxt-VerticalResultsCount,
     .Hitchhiker-FilterLink {
-      margin-top: 8px;
-      margin-bottom: 4px;
+      margin-top: calc(var(--yxt-base-spacing) / 2);
+      margin-bottom: calc(var(--yxt-base-spacing) / 4);
     }
   }
 
