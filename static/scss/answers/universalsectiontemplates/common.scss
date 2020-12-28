@@ -64,6 +64,8 @@
     border-right: var(--yxt-border-default);
     border-left: var(--yxt-border-default);
     border-bottom: var(--yxt-border-default);
+    border-bottom-left-radius: var(--yxt-border-radius);
+    border-bottom-right-radius: var(--yxt-border-radius);
   }
 
   &-viewMore svg
@@ -157,6 +159,8 @@
     );
     margin: 0;
     border: var(--yxt-border-default);
+    border-top-left-radius: var(--yxt-border-radius);
+    border-top-right-radius: var(--yxt-border-radius);
     display: flex;
     padding: calc(var(--yxt-base-spacing) / 2) var(--yxt-base-spacing);
     align-items: center;

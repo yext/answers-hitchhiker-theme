@@ -12,6 +12,8 @@
     align-items: center;
     background-color: var(--yxt-direct-answer-title-background-color);
     border: var(--yxt-direct-answer-border);
+    border-top-left-radius: var(--yxt-border-radius);
+    border-top-right-radius: var(--yxt-border-radius);
     @include Text(
       $color: var(--yxt-direct-answer-title-color)
     )
@@ -98,6 +100,8 @@
     padding-top: 8px;
     padding-bottom: 8px;
     border: var(--yxt-direct-answer-border);
+    border-bottom-left-radius: var(--yxt-border-radius);
+    border-bottom-right-radius: var(--yxt-border-radius);
   }
 
   &-footerText
