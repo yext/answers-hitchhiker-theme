@@ -6,4 +6,4 @@ set_working_dir_to_testing_site () {
 }
 
 set_working_dir_to_testing_site
-jambo build && grunt webpack
+npx jambo build && grunt webpack
