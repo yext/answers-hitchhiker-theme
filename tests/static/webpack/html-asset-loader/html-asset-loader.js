@@ -1,4 +1,4 @@
-import HtmlAssetLoader from '../../../../../static/webpack/html-asset-loader';
+import HtmlAssetLoader from '../../../../static/webpack/html-asset-loader';
 const fs = require('fs');
 const path = require('path');
 
