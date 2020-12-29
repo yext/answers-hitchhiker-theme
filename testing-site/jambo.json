@@ -1,6 +1,6 @@
 {
   "dirs": {
-    "themes": "../../../",
+    "themes": "../../",
     "config": "config",
     "output": "public",
     "pages": "pages",

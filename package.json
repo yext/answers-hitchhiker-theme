@@ -4,8 +4,8 @@
   "description": "A starter answers theme for hitchhikers",
   "scripts": {
     "test": "cross-env NODE_ICU_DATA=node_modules/full-icu jest --verbose",
-    "build": "./testing/site/scripts/build.sh",
-    "serve": "npx serve -p 5042 testing/site/public"
+    "build": "./testing-site/scripts/build.sh",
+    "serve": "npx serve -p 5042 testing-site/public"
   },
   "repository": {
     "type": "git",
@@ -40,11 +40,11 @@
       "<rootDir>"
     ],
     "testMatch": [
-      "<rootDir>/testing/**/*.js"
+      "<rootDir>/tests/**/*.js"
     ],
     "testPathIgnorePatterns": [
       "/fixtures/",
-      "/site/"
+      "/testing-site/"
     ]
   }
 }
