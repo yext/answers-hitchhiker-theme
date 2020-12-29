@@ -1,7 +1,4 @@
 const PercyScript = require('@percy/script');
-const { ServerResponse } = require('http');
-const httpServer = require('http-server');
-const path = require('path');
 const { waitTillHTMLRendered } = require('./utils');
 
 const PORT = 5042;
