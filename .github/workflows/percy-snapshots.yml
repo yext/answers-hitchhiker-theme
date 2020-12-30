@@ -20,11 +20,11 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
-    - run: npm run setup
-    - run: npm run build
+    - run: npm run setup-test-site
+    - run: npm run build-test-site
     - name: Percy snapshots
       uses: percy/exec-action@v0.3.1
       with:
-        command: npm run serve & sleep 5 && npx percy exec -- node testing/percy/snapshots.js
+        command: npm run serve-test-site & sleep 5 && npx percy exec -- node tests/percy/snapshots.js
       env:
         PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}

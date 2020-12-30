@@ -1,25 +1,27 @@
+/**
+ * Waits until the content of the page stops changing.
+ * 
+ * This methods polls the html content length and waits until the value is the same for three
+ * consecutive samples before returning.
+ * 
+ * @param {Puppeteer.Page} page 
+ */
 exports.waitTillHTMLRendered = async (page) => {
-  const timeout = 30000;
-  const checkDurationMsecs = 500;
-  const minStableIterations = 3;
-  const maxChecks = timeout / checkDurationMsecs;
+  const pollingIntervalMsecs = 750;
+  const minNumStableIntervals = 3;
 
-  let lastHTMLSize = 0;
-  let numChecks = 0;
-  let numStableIterations = 0;
+  let previousHTMLSize = 0;
+  let numStableIntervals = 0;
+  let isHTMLStabilized = false;
 
-  let isFullyRendered = false;
-  let isMaxChecksReached = false;
+  while (!isHTMLStabilized) {
+    await page.waitForTimeout(pollingIntervalMsecs);
 
-  while (!isFullyRendered && !isMaxChecksReached) {
-    await page.waitForTimeout(checkDurationMsecs);
+    const currentHTMLSize = (await page.content()).length;
 
-    let currentHTMLSize = (await page.content()).length;
+    numStableIntervals = (currentHTMLSize === previousHTMLSize) ? numStableIntervals + 1 : 0
+    isHTMLStabilized = (numStableIntervals >= minNumStableIntervals && currentHTMLSize > 0);
 
-    numStableIterations = (currentHTMLSize === lastHTMLSize) ? numStableIterations + 1 : 0
-    isFullyRendered = (numStableIterations >= minStableIterations && currentHTMLSize > 0);
-    isMaxChecksReached = (numChecks >= maxChecks);
-
-    lastHTMLSize = currentHTMLSize;
+    previousHTMLSize = currentHTMLSize;
   }
 };

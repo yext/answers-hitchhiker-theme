@@ -5,7 +5,7 @@ const PORT = 5042;
 const TEST_URL = `http://localhost:${PORT}`;
 
 const captureHomepage = async (page, percySnapshot) => {
-  await page.goto(`${TEST_URL}`);
+  await page.goto(TEST_URL);
   await waitTillHTMLRendered(page)
   await percySnapshot('homepage');
 }
