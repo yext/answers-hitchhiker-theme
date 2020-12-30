@@ -84,7 +84,7 @@ export function generateIFrame(domain, queryParam, urlParam) {
     checkOrigin: false,
     onMessage: function(messageData) {
       const message = JSON.parse(messageData.message);
-      if (message.message === "paginate") {
+      if (message.action === "paginate") {
         const iframeOffsetTop = iframe.offsetTop;
         document.documentElement.scrollTop = iframeOffsetTop;
         document.body.scrollTop = iframeOffsetTop; // For Safari
