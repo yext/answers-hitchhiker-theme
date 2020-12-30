@@ -1,12 +1,12 @@
 {
   "name": "answers-hitchhiker-theme",
-  "version": "1.18.0",
+  "version": "1.18.1",
   "description": "A starter answers theme for hitchhikers",
   "scripts": {
     "test": "cross-env NODE_ICU_DATA=node_modules/full-icu jest --verbose",
-    "setup": "./testing-site/scripts/setup.sh",
-    "build": "./testing-site/scripts/build.sh",
-    "serve": "npx serve -p 5042 testing-site/public"
+    "setup-test-site": "./test-site/scripts/setup.sh",
+    "build-test-site": "./test-site/scripts/build.sh",
+    "serve-test-site": "serve -p 5042 test-site/public"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,8 @@
     "libphonenumber-js": "^1.9.6",
     "loader-utils": "^2.0.0",
     "lodash.clonedeep": "^4.5.0",
+    "serve": "^11.3.2",
+    "postcss": "^8.2.1",
     "simple-git": "^2.24.0",
     "underscore.string": "^3.3.5"
   },
@@ -47,7 +49,7 @@
     "testPathIgnorePatterns": [
       "/fixtures/",
       "/percy/",
-      "/testing-site/"
+      "/test-site/"
     ]
   }
 }
