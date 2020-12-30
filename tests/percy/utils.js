@@ -16,7 +16,6 @@ exports.waitTillHTMLRendered = async (page) => {
 
   while (!isHTMLStabilized) {
     await page.waitForTimeout(pollingIntervalMsecs);
-
     const currentHTMLSize = (await page.content()).length;
 
     if (currentHTMLSize === previousHTMLSize) {
@@ -26,7 +25,6 @@ exports.waitTillHTMLRendered = async (page) => {
     }
 
     isHTMLStabilized = (numStableIntervals >= minNumStableIntervals && currentHTMLSize > 0);
-
     previousHTMLSize = currentHTMLSize;
   }
 };
