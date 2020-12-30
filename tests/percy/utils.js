@@ -19,7 +19,12 @@ exports.waitTillHTMLRendered = async (page) => {
 
     const currentHTMLSize = (await page.content()).length;
 
-    numStableIntervals = (currentHTMLSize === previousHTMLSize) ? numStableIntervals + 1 : 0
+    if (currentHTMLSize === previousHTMLSize) {
+      numStableIntervals++;
+    } else {
+      numStableIntervals = 0;
+    }
+
     isHTMLStabilized = (numStableIntervals >= minNumStableIntervals && currentHTMLSize > 0);
 
     previousHTMLSize = currentHTMLSize;
