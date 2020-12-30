@@ -2,6 +2,8 @@ ANSWERS.addComponent("Pagination", Object.assign({}, {
   container: "#js-answersPagination",
   onPaginate: (newPageNumber, oldPageNumber, totalPages) => {
     window.parentIFrame.sendMessage('{"message": "paginate"}');
+    const resultsColumn = document.querySelector(".Answers-resultsColumn");
+    resultsColumn.scrollTop = 0;
   },
   {{#if verticalKey}}
     verticalKey: "{{{verticalKey}}}",
