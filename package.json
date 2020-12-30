@@ -6,7 +6,7 @@
     "test": "cross-env NODE_ICU_DATA=node_modules/full-icu jest --verbose",
     "setup": "./testing-site/scripts/setup.sh",
     "build": "./testing-site/scripts/build.sh",
-    "serve": "npx serve -p 5042 testing-site/public"
+    "serve": "serve -p 5042 testing-site/public"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
     "libphonenumber-js": "^1.9.6",
     "loader-utils": "^2.0.0",
     "lodash.clonedeep": "^4.5.0",
+    "serve": "^11.3.2",
     "simple-git": "^2.24.0",
     "underscore.string": "^3.3.5"
   },
