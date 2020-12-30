@@ -1,7 +1,12 @@
 ANSWERS.addComponent("Pagination", Object.assign({}, {
   container: ".js-answersPagination",
   onPaginate: (newPageNumber, oldPageNumber, totalPages) => {
-    window.parentIFrame.sendMessage('{"message": "paginate"}');
+    if (window.parentIFrame) {
+      window.parentIFrame.sendMessage('{"message": "paginate"}');
+    } else {
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0; // Safari
+    }
   },
   {{#if verticalKey}}
     verticalKey: "{{{verticalKey}}}",
