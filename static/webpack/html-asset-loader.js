@@ -1,6 +1,6 @@
 const loaderUtils = require('loader-utils');
 
-/*
+/**
  * This webpack loader finds all instances of `\"./static/assets/images/<filename>\"` in an
  * HTML source, adds it as an import at the top of the file, and replaces its usages with
  * the import. This allows webpack to use the file-loader to return a correct relative path
