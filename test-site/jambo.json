@@ -1,0 +1,11 @@
+{
+  "dirs": {
+    "themes": "../../",
+    "config": "config",
+    "output": "public",
+    "pages": "pages",
+    "partials": [],
+    "preservedFiles": []
+  },
+  "defaultTheme": "answers-hitchhiker-theme"
+}
