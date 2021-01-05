@@ -14,4 +14,4 @@ copy_static_files_into_working_dir () {
 
 set_working_dir_to_test_site
 copy_static_files_into_working_dir
-jambo build && grunt webpack
+npx jambo build && grunt webpack
