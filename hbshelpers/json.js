@@ -4,6 +4,6 @@
  * @param {Object} context 
  * @returns {string}
  */
-module.exports = function(context) {
+module.exports = function json(context) {
   return JSON.stringify(context || {});
 };

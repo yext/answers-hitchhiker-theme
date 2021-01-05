@@ -7,6 +7,6 @@
  * @param {import('handlebars').HelperOptions} options
  * @returns {import('handlebars').TemplateDelegate}
  */
-module.exports = function(arg1, arg2, options) {
+module.exports = function ifeq(arg1, arg2, options) {
   return (arg1 === arg2) ? options.fn(this) : options.inverse(this);
 }

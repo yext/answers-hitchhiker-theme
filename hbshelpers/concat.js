@@ -1,10 +1,10 @@
 /**
  * Concatenates two strings.
  * 
- * @param {string} prefix 
- * @param {string} id 
+ * @param {string} str1
+ * @param {string} str2
  * @returns {string}
  */
-module.exports = function(prefix, id) {
-  return (prefix + id);
+module.exports = function concat(str1, str2) {
+  return (str1 + str2);
 }
