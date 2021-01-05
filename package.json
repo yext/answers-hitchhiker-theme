@@ -48,8 +48,7 @@
     ],
     "testPathIgnorePatterns": [
       "/fixtures/",
-      "/percy/",
-      "/test-site/"
+      "/percy/"
     ]
   }
 }
