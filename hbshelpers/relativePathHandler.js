@@ -8,7 +8,7 @@ const isNonRelativeUrl = require('./isNonRelativeUrl');
  * @param {import('handlebars').HelperOptions} options
  * @returns {string}
  */
-module.exports = function(options) {
+module.exports = function relativePathHandler(options) {
   const { relativePath, url } = options.hash || {};
   if (isNonRelativeUrl(url) || !relativePath) {
     return url;
