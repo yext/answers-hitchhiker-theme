@@ -71,6 +71,6 @@ class product_standardCardComponent extends BaseCard['product-standard'] {
 
 ANSWERS.registerTemplate(
   'cards/product-standard',
-  `{{{read 'cards/product-standard/template' }}}`
+  `{{#minifyRuntimeTemplate}}{{{read 'cards/product-standard/template' }}}{{/minifyRuntimeTemplate}}`
 );
 ANSWERS.registerComponentType(product_standardCardComponent);

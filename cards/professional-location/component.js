@@ -72,6 +72,6 @@ class professional_locationCardComponent extends BaseCard['professional-location
 
 ANSWERS.registerTemplate(
   'cards/professional-location',
-  `{{{read 'cards/professional-location/template' }}}`
+  `{{#minifyRuntimeTemplate}}{{{read 'cards/professional-location/template' }}}{{/minifyRuntimeTemplate}}`
 );
 ANSWERS.registerComponentType(professional_locationCardComponent);

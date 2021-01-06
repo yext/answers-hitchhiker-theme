@@ -72,6 +72,6 @@ class product_prominentimageCardComponent extends BaseCard['product-prominentima
 
 ANSWERS.registerTemplate(
   'cards/product-prominentimage',
-  `{{{read 'cards/product-prominentimage/template' }}}`
+  `{{#minifyRuntimeTemplate}}{{{read 'cards/product-prominentimage/template' }}}{{/minifyRuntimeTemplate}}`
 );
 ANSWERS.registerComponentType(product_prominentimageCardComponent);

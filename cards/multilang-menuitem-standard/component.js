@@ -68,6 +68,6 @@ class multilang_menuitem_standardCardComponent extends BaseCard['multilang-menui
 
 ANSWERS.registerTemplate(
   'cards/multilang-menuitem-standard',
-  `{{{read 'cards/multilang-menuitem-standard/template' }}}`
+  `{{#minifyRuntimeTemplate}}{{{read 'cards/multilang-menuitem-standard/template' }}}{{/minifyRuntimeTemplate}}`
 );
 ANSWERS.registerComponentType(multilang_menuitem_standardCardComponent);

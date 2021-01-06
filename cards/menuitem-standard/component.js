@@ -68,6 +68,6 @@ class menuitem_standardCardComponent extends BaseCard['menuitem-standard'] {
 
 ANSWERS.registerTemplate(
   'cards/menuitem-standard',
-  `{{{read 'cards/menuitem-standard/template' }}}`
+  `{{#minifyRuntimeTemplate}}{{{read 'cards/menuitem-standard/template' }}}{{/minifyRuntimeTemplate}}`
 );
 ANSWERS.registerComponentType(menuitem_standardCardComponent);

@@ -68,6 +68,6 @@ class professional_standardCardComponent extends BaseCard['professional-standard
 
 ANSWERS.registerTemplate(
   'cards/professional-standard',
-  `{{{read 'cards/professional-standard/template' }}}`
+  `{{#minifyRuntimeTemplate}}{{{read 'cards/professional-standard/template' }}}{{/minifyRuntimeTemplate}}`
 );
 ANSWERS.registerComponentType(professional_standardCardComponent);

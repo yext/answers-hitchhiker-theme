@@ -41,6 +41,6 @@ class link_standardCardComponent extends BaseCard['link-standard'] {
 
 ANSWERS.registerTemplate(
   'cards/link-standard',
-  `{{{read 'cards/link-standard/template' }}}`
+  `{{#minifyRuntimeTemplate}}{{{read 'cards/link-standard/template' }}}{{/minifyRuntimeTemplate}}`
 );
 ANSWERS.registerComponentType(link_standardCardComponent);

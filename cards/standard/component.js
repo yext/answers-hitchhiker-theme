@@ -63,6 +63,6 @@ class standardCardComponent extends BaseCard['standard'] {
 
 ANSWERS.registerTemplate(
   'cards/standard',
-  `{{{read 'cards/standard/template' }}}`
+  `{{#minifyRuntimeTemplate}}{{{read 'cards/standard/template' }}}{{/minifyRuntimeTemplate}}`
 );
 ANSWERS.registerComponentType(standardCardComponent);

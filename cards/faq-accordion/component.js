@@ -116,6 +116,6 @@ class faq_accordionCardComponent extends BaseCard['faq-accordion'] {
 
 ANSWERS.registerTemplate(
   'cards/faq-accordion',
-  `{{{read 'cards/faq-accordion/template' }}}`
+  `{{#minifyRuntimeTemplate}}{{{read 'cards/faq-accordion/template' }}}{{/minifyRuntimeTemplate}}`
 );
 ANSWERS.registerComponentType(faq_accordionCardComponent);

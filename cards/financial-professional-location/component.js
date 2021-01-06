@@ -72,6 +72,6 @@ class financial_professional_locationCardComponent extends BaseCard['financial-p
 
 ANSWERS.registerTemplate(
   'cards/financial-professional-location',
-  `{{{read 'cards/financial-professional-location/template' }}}`
+  `{{#minifyRuntimeTemplate}}{{{read 'cards/financial-professional-location/template' }}}{{/minifyRuntimeTemplate}}`
 );
 ANSWERS.registerComponentType(financial_professional_locationCardComponent);

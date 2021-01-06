@@ -116,6 +116,6 @@ class multilang_faq_accordionCardComponent extends BaseCard['multilang-faq-accor
 
 ANSWERS.registerTemplate(
   'cards/multilang-faq-accordion',
-  `{{{read 'cards/multilang-faq-accordion/template' }}}`
+  `{{#minifyRuntimeTemplate}}{{{read 'cards/multilang-faq-accordion/template' }}}{{/minifyRuntimeTemplate}}`
 );
 ANSWERS.registerComponentType(multilang_faq_accordionCardComponent);

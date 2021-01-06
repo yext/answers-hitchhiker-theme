@@ -72,6 +72,6 @@ class multilang_product_prominentimageCardComponent extends BaseCard['multilang-
 
 ANSWERS.registerTemplate(
   'cards/multilang-product-prominentimage',
-  `{{{read 'cards/multilang-product-prominentimage/template' }}}`
+  `{{#minifyRuntimeTemplate}}{{{read 'cards/multilang-product-prominentimage/template' }}}{{/minifyRuntimeTemplate}}`
 );
 ANSWERS.registerComponentType(multilang_product_prominentimageCardComponent);
