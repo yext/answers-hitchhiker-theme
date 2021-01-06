@@ -1,6 +1,6 @@
 /**
- * Determines whether a URL is a non relative url.
- * Common examples: "mailto:slapshot@gmail.com", "//yext.com", "https://yext.com",
+ * Determines whether a URL is a non-relative url.
+ * Common non-relative xamples: "mailto:slapshot@gmail.com", "//yext.com", "https://yext.com",
  * "/my-img.svg"
  * 
  * @param {string} str the url to test
