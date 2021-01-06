@@ -4,7 +4,7 @@
  * 
  * @param {string} pageUrl The page's URL.
  * @param {Object} pageNamesToConfig A map of page configurations, keyed by page name.
- * @param {Object} opt The block.
+ * @param {import('handlebars').HelperOptions} opt The block.
  * @returns {string} The concatenated result string.
  */
 module.exports = function(pageUrl, pageNamesToConfig, opt) {
