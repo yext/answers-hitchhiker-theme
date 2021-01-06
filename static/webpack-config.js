@@ -55,6 +55,10 @@ module.exports = function () {
 
   return {
     mode,
+    performance: {
+      maxAssetSize: 1536000,
+      maxEntrypointSize: 1024000
+    },
     target: ['web', 'es5'],
     entry: {
       'bundle': `./${jamboConfig.dirs.output}/static/entry.js`,
