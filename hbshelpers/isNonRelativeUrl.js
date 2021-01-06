@@ -1,5 +1,5 @@
 /**
- * Determine whether a URL is a relative url or not.
+ * Determines whether a URL is a non relative url.
  * Common examples: "mailto:slapshot@gmail.com", "//yext.com", "https://yext.com",
  * "/my-img.svg"
  * 
