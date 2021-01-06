@@ -70,7 +70,7 @@ for (const pageTemplate of pageTemplates) {
       expect(verticalPage.url).toEqual('../../vtc.html');
     });
   
-    it('defaults to {{pageName}}.html without relativePath', () => {
+    it('defaults to {{pageName}}.html', () => {
       const templateData = {
         relativePath: '../..',
         verticalConfigs: {
@@ -138,7 +138,7 @@ for (const pageTemplate of pageTemplates) {
         expect(verticalPage.url).toEqual('../../index-page-vtc.html');
       });
   
-      it('defaults to {{pageName}}.html without relativePath', () => {
+      it('defaults to {{pageName}}.html', () => {
         const templateData = {
           relativePath: '../..',
           verticalConfigs: {

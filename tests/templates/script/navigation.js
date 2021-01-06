@@ -62,7 +62,7 @@ for (const pageTemplate of pageTemplates) {
       expect(verticalPage.url).toEqual('../../top-level.html');
     });
 
-    it('will default url to {{pageName}}.html without relativePath', () => {
+    it('will default url to {{pageName}}.html', () => {
       const templateData = {
         relativePath: '../..',
         verticalConfigs: {

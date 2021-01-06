@@ -79,7 +79,7 @@ describe('uses relativePath correctly', () => {
     expect(peopleConfig.url).toEqual('../../page-path.html');
   });
 
-  it('will default url to {{pageName}}.html without relativePath', () => {
+  it('will default url to {{pageName}}.html', () => {
     const templateData = {
       relativePath: '../..',
       verticalConfigs: {
