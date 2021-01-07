@@ -41,6 +41,6 @@ class link_standardCardComponent extends BaseCard['link-standard'] {
 
 ANSWERS.registerTemplate(
   'cards/link-standard',
-  `{{{read 'cards/link-standard/template' }}}`
+  {{{stringifyPartial (read 'cards/link-standard/template') }}}
 );
 ANSWERS.registerComponentType(link_standardCardComponent);

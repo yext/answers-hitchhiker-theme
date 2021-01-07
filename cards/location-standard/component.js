@@ -61,6 +61,6 @@ class location_standardCardComponent extends BaseCard['location-standard'] {
 
 ANSWERS.registerTemplate(
   'cards/location-standard',
-  `{{{read 'cards/location-standard/template' }}}`
+  {{{stringifyPartial (read 'cards/location-standard/template') }}}
 );
 ANSWERS.registerComponentType(location_standardCardComponent);

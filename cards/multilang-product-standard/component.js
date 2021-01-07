@@ -71,6 +71,6 @@ class multilang_product_standardCardComponent extends BaseCard['multilang-produc
 
 ANSWERS.registerTemplate(
   'cards/multilang-product-standard',
-  `{{{read 'cards/multilang-product-standard/template' }}}`
+  {{{stringifyPartial (read 'cards/multilang-product-standard/template') }}}
 );
 ANSWERS.registerComponentType(multilang_product_standardCardComponent);

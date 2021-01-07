@@ -72,6 +72,6 @@ class multilang_professional_locationCardComponent extends BaseCard['multilang-p
 
 ANSWERS.registerTemplate(
   'cards/multilang-professional-location',
-  `{{{read 'cards/multilang-professional-location/template' }}}`
+  {{{stringifyPartial (read 'cards/multilang-professional-location/template') }}}
 );
 ANSWERS.registerComponentType(multilang_professional_locationCardComponent);
