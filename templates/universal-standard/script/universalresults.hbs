@@ -37,27 +37,27 @@ ANSWERS.addComponent("UniversalResults", Object.assign({}, {
   {{/if}}
   modifier: "{{{verticalKey}}}",
   {{#if url}}
-    url: "{{#unless (isNonRelativeUrl url)}}{{relativePath}}/{{/unless}}{{{url}}}",
+    url: "{{{relativePathHandler url=url relativePath=relativePath}}}",
     verticalPages: [ // TODO remove this once the theme version does not support pre-v1.3 of the SDK
       {
         verticalKey: "{{{verticalKey}}}",
-        url: "{{#unless (isNonRelativeUrl url)}}{{relativePath}}/{{/unless}}{{{url}}}",
+        url: "{{{relativePathHandler url=url relativePath=relativePath}}}",
       }
     ],
   {{else if pagePath}}
-    url: "{{#unless (isNonRelativeUrl pagePath)}}{{relativePath}}/{{/unless}}{{{pagePath}}}",
+    url: "{{{relativePathHandler url=pagePath relativePath=relativePath}}}",
     verticalPages: [ // TODO remove this once the theme version does not support pre-v1.3 of the SDK
       {
         verticalKey: "{{{verticalKey}}}",
-        pageUrl: "{{#unless (isNonRelativeUrl pagePath)}}{{relativePath}}/{{/unless}}{{{pagePath}}}",
+        pageUrl: "{{{relativePathHandler url=pagePath relativePath=relativePath}}}",
       }
     ],
   {{else if pageName}}
-    url: "{{#unless (isNonRelativeUrl pageName)}}{{relativePath}}/{{/unless}}{{{pageName}}}.html",
+    url: "{{{pageName}}}.html",
     verticalPages: [ // TODO remove this once the theme version does not support pre-v1.3 of the SDK
       {
         verticalKey: "{{{verticalKey}}}",
-        url: "{{#unless (isNonRelativeUrl pageName)}}{{relativePath}}/{{/unless}}{{{pageName}}}.html",
+        url: "{{{pageName}}}.html",
       }
     ],
   {{/if}}
@@ -70,7 +70,7 @@ ANSWERS.addComponent("UniversalResults", Object.assign({}, {
   {{#if icon}}
     sectionTitleIconName: "{{{icon}}}",
   {{/if}}
-  {{#if iconUrl}}sectionTitleIconUrl: "{{#unless (isNonRelativeUrl iconUrl)}}{{relativePath}}/{{/unless}}{{{iconUrl}}}",{{/if}}
+  {{#if iconUrl}}sectionTitleIconUrl: "{{{relativePathHandler url=iconUrl relativePath=relativePath}}}",{{/if}}
   viewAllText: {{#if viewAllText}}"{{{viewAllText}}}"{{else}}{{ translateJS phrase='View All' context='View is a verb' }}{{/if}},
   {{#if viewMore}}viewMore: {{viewMore}},{{/if}}
   {{#if mapConfig}}
