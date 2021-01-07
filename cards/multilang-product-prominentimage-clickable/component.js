@@ -53,6 +53,6 @@ class multilang_product_prominentimage_clickableCardComponent
 
 ANSWERS.registerTemplate(
   'cards/multilang-product-prominentimage-clickable',
-  `{{#minifyRuntimeTemplate}}{{{read 'cards/multilang-product-prominentimage-clickable/template' }}}{{/minifyRuntimeTemplate}}`
+  {{{stringifyPartial (read 'cards/multilang-product-prominentimage-clickable/template') }}}
 );
 ANSWERS.registerComponentType(multilang_product_prominentimage_clickableCardComponent);

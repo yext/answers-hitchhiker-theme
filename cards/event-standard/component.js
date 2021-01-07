@@ -62,6 +62,6 @@ class event_standardCardComponent extends BaseCard['event-standard'] {
 
 ANSWERS.registerTemplate(
   'cards/event-standard',
-  `{{#minifyRuntimeTemplate}}{{{read 'cards/event-standard/template' }}}{{/minifyRuntimeTemplate}}`
+  {{{stringifyPartial (read 'cards/event-standard/template') }}}
 );
 ANSWERS.registerComponentType(event_standardCardComponent);

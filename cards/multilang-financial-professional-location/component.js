@@ -72,6 +72,6 @@ class multilang_financial_professional_locationCardComponent extends BaseCard['m
 
 ANSWERS.registerTemplate(
   'cards/multilang-financial-professional-location',
-  `{{#minifyRuntimeTemplate}}{{{read 'cards/multilang-financial-professional-location/template' }}}{{/minifyRuntimeTemplate}}`
+  {{{stringifyPartial (read 'cards/multilang-financial-professional-location/template') }}}
 );
 ANSWERS.registerComponentType(multilang_financial_professional_locationCardComponent);

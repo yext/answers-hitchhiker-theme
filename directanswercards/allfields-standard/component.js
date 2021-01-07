@@ -196,6 +196,6 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
 
 ANSWERS.registerTemplate(
   'directanswercards/allfields-standard',
-  `{{#minifyRuntimeTemplate}}{{{read 'directanswercards/allfields-standard/template' }}}{{/minifyRuntimeTemplate}}`
+  {{{stringifyPartial (read 'directanswercards/allfields-standard/template') }}}
 );
 ANSWERS.registerComponentType(allfields_standardComponent);

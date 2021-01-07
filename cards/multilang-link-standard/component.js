@@ -41,6 +41,6 @@ class multilang_link_standardCardComponent extends BaseCard['multilang-link-stan
 
 ANSWERS.registerTemplate(
   'cards/multilang-link-standard',
-  `{{#minifyRuntimeTemplate}}{{{read 'cards/multilang-link-standard/template' }}}{{/minifyRuntimeTemplate}}`
+  {{{stringifyPartial (read 'cards/multilang-link-standard/template') }}}
 );
 ANSWERS.registerComponentType(multilang_link_standardCardComponent);

@@ -63,6 +63,6 @@ class multilang_standardCardComponent extends BaseCard['multilang-standard'] {
 
 ANSWERS.registerTemplate(
   'cards/multilang-standard',
-  `{{#minifyRuntimeTemplate}}{{{read 'cards/multilang-standard/template' }}}{{/minifyRuntimeTemplate}}`
+  {{{stringifyPartial (read 'cards/multilang-standard/template') }}}
 );
 ANSWERS.registerComponentType(multilang_standardCardComponent);

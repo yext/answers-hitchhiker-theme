@@ -61,6 +61,6 @@ class multilang_location_standardCardComponent extends BaseCard['multilang-locat
 
 ANSWERS.registerTemplate(
   'cards/multilang-location-standard',
-  `{{#minifyRuntimeTemplate}}{{{read 'cards/multilang-location-standard/template' }}}{{/minifyRuntimeTemplate}}`
+  {{{stringifyPartial (read 'cards/multilang-location-standard/template') }}}
 );
 ANSWERS.registerComponentType(multilang_location_standardCardComponent);

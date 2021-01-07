@@ -43,6 +43,6 @@ class ViewResultsButton extends ANSWERS.Component {
 }
 ANSWERS.registerTemplate(
   'collapsibleFilters/ViewResultsButton',
-  `{{#minifyRuntimeTemplate}}{{{read 'theme-components/collapsible-filters/view-results-button/template' }}}{{/minifyRuntimeTemplate}}`
+  {{{stringifyPartial (read 'theme-components/collapsible-filters/view-results-button/template') }}}
 );
 ANSWERS.registerComponentType(ViewResultsButton);

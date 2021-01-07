@@ -53,6 +53,6 @@ class multilang_job_standardCardComponent extends BaseCard['multilang-job-standa
 
 ANSWERS.registerTemplate(
   'cards/multilang-job-standard',
-  `{{#minifyRuntimeTemplate}}{{{read 'cards/multilang-job-standard/template' }}}{{/minifyRuntimeTemplate}}`
+  {{{stringifyPartial (read 'cards/multilang-job-standard/template') }}}
 );
 ANSWERS.registerComponentType(multilang_job_standardCardComponent);
