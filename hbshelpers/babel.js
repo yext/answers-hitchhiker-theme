@@ -1,7 +1,7 @@
 const { transformSync } = require('@babel/core');
 
 /**
- * Babel-ifies the given code, using the config below.
+ * Babel-ifies the enclosed code, using the config below.
  * 
  * @param {import('handlebars').HelperOptions} options 
  * @returns {string|null}
