@@ -7,7 +7,7 @@
  * @param {import('handlebars').HelperOptions} opt The block.
  * @returns {string} The concatenated result string.
  */
-module.exports = function(pageUrl, pageNamesToConfig, opt) {
+module.exports = function getCardPartials(pageUrl, pageNamesToConfig, opt) {
   const pageConfig = Object.values(pageNamesToConfig)
     .find(pageConfig => pageConfig.url === pageUrl);
   const verticalsToConfig = pageConfig.verticalsToConfig;
