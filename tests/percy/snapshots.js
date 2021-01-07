@@ -1,41 +1,54 @@
 const PercyScript = require('@percy/script');
+const HttpServer = require('./server');
 const { waitTillHTMLRendered } = require('./utils');
 
 const PORT = 5042;
-const TEST_URL = `http://localhost:${PORT}`;
+const TEST_SITE = `http://localhost:${PORT}`;
 
-const captureHomepage = async (page, percySnapshot) => {
-  await page.goto(TEST_URL);
+
+PercyScript.run(async (page, percySnapshot) => {
+  const server = new HttpServer({
+    dir: 'test-site/public',
+    port: PORT
+  })
+
+  server.start();
+
+  await captureHomepage(page, percySnapshot);
+  await captureUniversalSearch(page, percySnapshot);
+  await captureVerticalSearch(page, percySnapshot);
+  await captureVerticalGridSearch(page, percySnapshot);
+  await captureVerticalMapSearch(page, percySnapshot);
+
+  server.shutdown();
+});
+
+async function captureHomepage (page, percySnapshot) {
+  await page.goto(TEST_SITE);
   await waitTillHTMLRendered(page)
   await percySnapshot('homepage');
 }
 
-const captureUniversalSearch = async (page, percySnapshot) => {
-  await page.goto(`${TEST_URL}/?query=a`);
+async function captureUniversalSearch (page, percySnapshot) {
+  await page.goto(`${TEST_SITE}/?query=a`);
   await waitTillHTMLRendered(page)
   await percySnapshot('universal-search');
 }
 
-const captureVerticalSearch = async (page, percySnapshot) => {
-  await page.goto(`${TEST_URL}/events?query=a`);
+async function captureVerticalSearch (page, percySnapshot) {
+  await page.goto(`${TEST_SITE}/events?query=a`);
   await waitTillHTMLRendered(page)
   await percySnapshot('vertical-search');
 }
 
-const captureVerticalGridSearch = async (page, percySnapshot) => {
-  await page.goto(`${TEST_URL}/people?query=a`);
+async function captureVerticalGridSearch (page, percySnapshot) {
+  await page.goto(`${TEST_SITE}/people?query=a`);
   await waitTillHTMLRendered(page)
   await percySnapshot('vertical-grid-search');
 }
 
-const captureVerticalMapSearch = async (page, percySnapshot) => {
-  await page.goto(`${TEST_URL}/locations?query=a`);
+async function captureVerticalMapSearch (page, percySnapshot) {
+  await page.goto(`${TEST_SITE}/locations?query=a`);
   await waitTillHTMLRendered(page)
   await percySnapshot('vertical-map-search');
 }
-
-PercyScript.run(captureHomepage);
-PercyScript.run(captureUniversalSearch);
-PercyScript.run(captureVerticalSearch);
-PercyScript.run(captureVerticalGridSearch);
-PercyScript.run(captureVerticalMapSearch);

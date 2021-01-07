@@ -6,7 +6,7 @@
  * 
  * @param {Puppeteer.Page} page 
  */
-exports.waitTillHTMLRendered = async (page) => {
+module.exports.waitTillHTMLRendered = async function (page) {
   const pollingIntervalMsecs = 750;
   const minNumStableIntervals = 3;
 
