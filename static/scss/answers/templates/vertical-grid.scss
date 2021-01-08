@@ -64,6 +64,11 @@
       padding-top: calc(var(--yxt-base-spacing) * 1.5);
       flex-direction: column;
 
+      @media (max-width: $breakpoint-mobile-max)
+      {
+        padding-top: calc(var(--yxt-base-spacing) * 0.5)
+      }
+
       .yxt-ResultsHeader {
         padding: 0 var(--yxt-results-header-spacing);
       }
