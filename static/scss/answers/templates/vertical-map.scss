@@ -8,11 +8,22 @@
     border-right: none;
     border-top: none;
     overflow: hidden;
-  }
 
-  .yxt-AlternativeVerticals-universalLink
-  {
-    font-weight: var(--yxt-font-weight-normal);
+    &-verticalIconWrapper
+    {
+      display: none;
+    }
+
+    &-suggestionLink
+    {
+      font-size: var(--yxt-font-size-md-lg);
+    }
+
+    &-universalLink,
+    &-noResultsInfo
+    {
+      font-weight: var(--yxt-font-weight-normal);
+    }
   }
 }
 
