@@ -16,7 +16,10 @@
 
     &-suggestionLink
     {
-      font-size: var(--yxt-font-size-md-lg);
+      @media (min-width: 47.9375rem)
+      {
+        font-size: var(--yxt-font-size-md-lg);
+      }
     }
 
     &-universalLink,
