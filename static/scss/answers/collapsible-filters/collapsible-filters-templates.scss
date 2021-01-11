@@ -5,6 +5,10 @@
   @include CollapsibleFiltersOverrides;
   @include CollapsibleFilters;
 
+  .Answers-resultsHeader {
+    border-bottom: var(--yxt-border-default);
+  }
+
   .Answers-viewResultsButton {
     left: 0;
 
@@ -45,10 +49,6 @@
 
     .CollapsibleFilters-inactive {
       display: none;
-    }
-
-    .Answers-resultsWrapper {
-      padding-top: 0;
     }
 
     .yxt-SpellCheck {
