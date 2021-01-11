@@ -5,6 +5,10 @@
   @include CollapsibleFiltersOverrides;
   @include CollapsibleFilters;
 
+  .Answers-resultsHeader {
+    border-bottom: var(--yxt-border-default);
+  }
+
   .Answers-viewResultsButton {
     left: 0;
 
@@ -40,23 +44,19 @@
     padding: 0;
   }
 
-  @include bplte(md) {
+  @media (max-width: #{$breakpoint-collapsed-filters}) {
     @include CollapsibleFilters;
 
     .CollapsibleFilters-inactive {
       display: none;
     }
 
-    .Answers-resultsWrapper {
-      padding-top: 0;
-    }
-
     .yxt-SpellCheck {
-      padding-top: calc(var(--yxt-base-spacing) * 2);
+      padding-top: calc(var(--yxt-base-spacing) / 2);
     }
 
     .Answers-viewResultsButton {
-      max-width: 700px;
+      max-width: var(--hh-answers-container-width);
       left: 50%;
       transform: translateX(-50%);
 
@@ -68,7 +68,7 @@
     }
   }
 
-  @include bpgte(lg) {
+  @media (min-width: #{$breakpoint-expanded-filters}) {
     .Answers-filterLink,
     .Answers-viewResultsButton {
       display: none;

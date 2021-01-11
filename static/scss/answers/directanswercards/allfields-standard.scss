@@ -1,5 +1,11 @@
 .HitchhikerAllFieldsStandard
 {
+  margin-top: calc(var(--yxt-base-spacing) * 1.5);
+
+  @media (min-width: $breakpoint-mobile-min) {
+    margin-top: calc(var(--yxt-base-spacing) * 2.35);
+  }
+
   &-title
   {
     padding-top: calc(var(--yxt-base-spacing) / 2);
@@ -10,6 +16,8 @@
     align-items: center;
     background-color: var(--yxt-direct-answer-title-background-color);
     border: var(--yxt-direct-answer-border);
+    border-top-left-radius: var(--yxt-border-radius);
+    border-top-right-radius: var(--yxt-border-radius);
     @include Text(
       $color: var(--yxt-direct-answer-title-color)
     )
@@ -41,11 +49,6 @@
     display: flex;
     margin-right: calc(var(--yxt-base-spacing) / 2);
     height: 18px;
-  }
-
-  &-entityName
-  {
-    text-transform: uppercase;
   }
 
   &-iconWrapper
@@ -101,6 +104,8 @@
     padding-top: 8px;
     padding-bottom: 8px;
     border: var(--yxt-direct-answer-border);
+    border-bottom-left-radius: var(--yxt-border-radius);
+    border-bottom-right-radius: var(--yxt-border-radius);
   }
 
   &-footerText

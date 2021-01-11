@@ -18,8 +18,7 @@
     align-items: center;
     cursor: pointer;
     width: 100%;
-    padding: calc(var(--yxt-base-spacing) / 2) var(--yxt-base-spacing);
-    padding-bottom: 10px;
+    padding: calc(var(--yxt-base-spacing) * 3/4) var(--yxt-base-spacing);
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     text-align: left;
 
@@ -40,7 +39,7 @@
   &-title
   {
     @include Text(
-      $size: var(--yxt-base-spacing),
+      $size: var(--yxt-font-size-md-lg),
       $color: var(--yxt-color-brand-primary),
       $line-height: var(--yxt-line-height-lg),
       $weight: var(--yxt-font-weight-semibold),
@@ -110,7 +109,11 @@
     padding-bottom: calc(var(--yxt-base-spacing) / 2);
   }
 
-  &-primaryCTA,
+  &-primaryCTA
+  {
+    display: flex;
+  }
+  
   &-secondaryCTA
   {
     display: flex;
