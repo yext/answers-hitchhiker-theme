@@ -7,26 +7,6 @@
     border-left: none;
     border-right: none;
     border-top: none;
-    overflow: hidden;
-
-    &-verticalIconWrapper
-    {
-      display: none;
-    }
-
-    &-suggestionLink
-    {
-      @media (min-width: 47.9375rem)
-      {
-        font-size: var(--yxt-font-size-md-lg);
-      }
-    }
-
-    &-universalLink,
-    &-noResultsInfo
-    {
-      font-weight: var(--yxt-font-weight-normal);
-    }
   }
 }
 
