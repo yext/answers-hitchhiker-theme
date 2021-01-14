@@ -176,4 +176,9 @@
       font-weight: var(--yxt-font-weight-normal);
     }
   }
+
+  .yxt-FilterOptions-optionLabel,
+  .yxt-SortOptions-optionLabel {
+    font-size: var(--yxt-filters-and-sorts-font-size);
+  }
 }
