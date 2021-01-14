@@ -28,15 +28,18 @@ module.exports = function getCardPartials(pageUrl, pageNamesToConfig, opt) {
 }
 
 /**
- * Returns all the cardTypes specified in the provided vertical configs.
+ * Returns all the cardTypes specified in the provided vertical configs. Note that the
+ * types will be de-duped.
  * 
  * @param {Array<Object>} verticalConfigs An array of vertical configs.
- * @returns {Array<string>} The referenced cardTypes.
+ * @returns {Set<string>} The referenced cardTypes.
  */
 function getCardTypes(verticalConfigs) {
-  return verticalConfigs
+  const rawCardTypes = verticalConfigs
     .filter(verticalConfig => verticalConfig.cardType)
     .map(verticalConfig => verticalConfig.cardType);
+
+  return new Set(rawCardTypes);
 }
 
 /**
@@ -44,7 +47,7 @@ function getCardTypes(verticalConfigs) {
  * partial is passed to the provided block. The block's output is then concatenated
  * to a string.
  * 
- * @param {Array<string>} cardTypes The cardTypes. 
+ * @param {Set<string>} cardTypes The cardTypes. 
  * @param {Object} opt The block.
  * @returns {string} The concatenated string of block results.
  */
