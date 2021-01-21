@@ -1,0 +1,54 @@
+{{#> layouts/html }}
+  {{#> script/core }}
+    {{> cards/all }}
+    {{> templates/vertical-grid/collapsible-filters/page-setup }}
+    {{> templates/vertical-grid/script/appliedfilters }}
+    {{> templates/vertical-grid/script/verticalresultscount }}
+    {{> templates/vertical-grid/script/searchbar }}
+    {{> templates/vertical-grid/script/spellcheck }}
+    {{> templates/vertical-grid/script/navigation }}
+    {{> templates/vertical-grid/script/verticalresults }}
+    {{> templates/vertical-grid/script/pagination }}
+    {{> templates/vertical-grid/script/locationbias }}
+    {{> templates/vertical-grid/script/sortoptions }}
+    {{> templates/vertical-grid/script/facets }}
+    {{!-- {{> templates/vertical-grid/script/filterbox }} --}}
+    {{!-- {{> templates/vertical-grid/script/qasubmission }} --}}
+  {{/script/core }}
+  <div class="Answers AnswersVerticalGrid CollapsibleFilters">
+    <div class="Answers-navWrapper">
+      <div class="Answers-container">
+        {{> templates/vertical-grid/markup/searchbar }}
+        {{> templates/vertical-grid/markup/navigation }}
+      </div>
+    </div>
+    <!-- Uncomment the following if you want to include an overlay on the page -->
+    <!-- The overlay should be used on at most one page of your site, e.g. if you use uncomment the
+    partial for a location page, you should not use it on any other page.  -->
+    {{!-- {{> layouts/overlay-suggestions }} --}}
+    <div class="Answers-container Answers-resultsWrapper Hitchhiker-3-columns">
+      <div class="Answers-resultsHeader">
+        {{> templates/vertical-grid/markup/verticalresultscount }}
+        {{> templates/vertical-grid/markup/appliedfilters }}
+        {{> templates/vertical-grid/collapsible-filters/markup/filterlink }}
+        {{> templates/vertical-grid/collapsible-filters/markup/viewresultsbutton }}
+      </div>
+      <!-- Uncomment the following div if you want to include filters, facets, or sort options  -->
+      <div class="Answers-filtersWrapper js-answersFiltersWrapper CollapsibleFilters-inactive">
+        {{> templates/vertical-grid/markup/sortoptions }}
+        {{!-- {{> templates/vertical-grid/markup/filterbox }} --}}
+        {{> templates/vertical-grid/markup/facets }}
+      </div>
+      <div class="Answers-results js-answersResults">
+        {{> templates/vertical-grid/markup/spellcheck }}
+        {{> templates/vertical-grid/markup/verticalresults }}
+        {{> templates/vertical-grid/markup/pagination }}
+        {{!-- {{> templates/vertical-grid/markup/qasubmission }} --}}
+      </div>
+    </div>
+    <div class="Answers-footer js-answersFooter">
+      {{> layouts/yext-logo }}
+      {{> templates/vertical-grid/markup/locationbias }}
+    </div>
+  </div>
+{{/layouts/html }}

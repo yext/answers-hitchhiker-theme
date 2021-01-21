@@ -2,11 +2,19 @@
 {
   border-bottom: 0;
   width: 100%;
-  margin-top: var(--yxt-base-spacing);
+  margin-top: calc(var(--yxt-base-spacing) * 1.5);
+
+  @media (min-width: $breakpoint-mobile-min) {
+    margin-top: calc(var(--yxt-base-spacing) * 2.35);
+  }
 
   & + &
   {
-    margin-top: var(--yxt-base-spacing);
+    margin-top: calc(var(--yxt-base-spacing) * 1.5);
+
+    @media (min-width: $breakpoint-mobile-min) {
+      margin-top: calc(var(--yxt-base-spacing) * 2.35);
+    }
   }
 
   &-left
@@ -19,19 +27,6 @@
   {
     display: flex;
     margin-right: calc(var(--yxt-base-spacing) / 2);
-  }
-
-  &-title
-  {
-    @include Text(
-      var(--yxt-font-size-md-lg),
-      var(--yxt-line-height-lg),
-      var(--yxt-font-weight-bold),
-      $color: var(--hh-universal-section-title-text-color)
-    );
-    margin: 0;
-
-    text-transform: uppercase;
   }
 
   &-titleBar
@@ -69,6 +64,8 @@
     border-right: var(--yxt-border-default);
     border-left: var(--yxt-border-default);
     border-bottom: var(--yxt-border-default);
+    border-bottom-left-radius: var(--yxt-border-radius);
+    border-bottom-right-radius: var(--yxt-border-radius);
   }
 
   &-viewMore svg
@@ -93,7 +90,7 @@
     margin-right: calc(var(--yxt-base-spacing) / 2);
     @include Text(
       $color: var(--yxt-color-brand-primary),
-      $weight: var(--yxt-font-weight-semibold),
+      $weight: var(--yxt-font-weight-normal),
       $line-height: var(--yxt-line-height-lg),
       $size: var(--yxt-font-size-md)
     );
@@ -154,10 +151,19 @@
 
   &-title
   {
+    @include Text(
+      var(--yxt-font-size-md-lg),
+      var(--yxt-line-height-lg),
+      var(--yxt-font-weight-bold),
+      $color: var(--hh-universal-section-title-text-color)
+    );
+    margin: 0;
     border: var(--yxt-border-default);
+    border-top-left-radius: var(--yxt-border-radius);
+    border-top-right-radius: var(--yxt-border-radius);
     display: flex;
     padding: calc(var(--yxt-base-spacing) / 2) var(--yxt-base-spacing);
-    align-items: center;
+    align-items: flex-end;
     background-color: var(--hh-universal-section-title-background);
   }
 
@@ -175,13 +181,23 @@
 
   &-titleLabel
   {
-    text-transform: uppercase;
     @include Text(
       $color: var(--hh-universal-section-title-text-color),
-      $weight: var(--yxt-font-weight-semibold),
+      $weight: var(--yxt-font-weight-normal),
       $line-height: var(--yxt-line-height-lg),
-      $size: var(--yxt-font-size-md-lg),
+      $size: var(--yxt-font-size-xlg),
     );
+  }
+
+  .yxt-ResultsHeader
+  {
+    padding-left: var(--yxt-base-spacing);
+    padding-right: var(--yxt-base-spacing);
+
+    &-filterValue
+    {
+      margin-bottom: .5rem;
+    }
   }
 
   &-Card {
@@ -234,10 +250,7 @@
   background-color: var(--yxt-color-background-highlight);
 
   @media (min-width: $breakpoint-mobile-min) {
-    padding-top: calc(var(--yxt-base-spacing) / 2);
-    padding-right: 7px; // offset border
-    padding-bottom: calc(var(--yxt-base-spacing) / 2);
-    padding-left: 7px;
+    padding: calc(var(--yxt-base-spacing) * 3/4);
 
     border-left: var(--yxt-border-default);
     border-right: var(--yxt-border-default);

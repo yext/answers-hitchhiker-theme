@@ -1,0 +1,12 @@
+{
+  "sdkVersion": "1.7", // The version of the Answers SDK to use
+  "apiKey": "2d8c550071a64ea23e263118a2b0680b", // The answers api key found on the experiences page. This will be provided automatically by the Yext CI system
+  // "experienceVersion": "<REPLACE ME>", // the Answers Experience version to use for API requests. This will be provided automatically by the Yext CI system
+  // "businessId": "<REPLACE ME>", // The business ID of the account. This will be provided automatically by the Yext CI system
+  "logo": "", // The link to the logo for open graph meta tag - og:image.
+  "favicon": "",
+  "googleTagManagerName": "dataLayer", // The name of your Google Tag Manager data layer
+  "googleTagManagerId": "", // The container id associated with your Google Tag Manager container
+  "googleAnalyticsId": "", // The tracking Id associated with your Google Analytics account
+  "conversionTrackingEnabled": true // Whether or not conversion tracking is enabled for all pages
+}

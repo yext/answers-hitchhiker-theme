@@ -6,6 +6,10 @@ const HtmlPlugin = require('html-webpack-plugin');
 const RemovePlugin = require('remove-files-webpack-plugin');
 
 module.exports = function () {
+  const isDevelopment = 'IS_DEVELOPMENT_PREVIEW' in process.env ?
+    process.env.IS_DEVELOPMENT_PREVIEW === 'true':
+    false;
+
   const jamboConfig = require('./jambo.json');
   const InlineAssetHtmlPlugin = require(
     `./${jamboConfig.dirs.output}/static/webpack/InlineAssetHtmlPlugin`
@@ -28,8 +32,33 @@ module.exports = function () {
     });
   }
 
+  const plugins = [
+    new MiniCssExtractPlugin({ filename: '[name].css' }),
+    ...htmlPlugins,
+    new webpack.EnvironmentPlugin({
+      JAMBO_INJECTED_DATA: null
+    }),
+    new RemovePlugin({
+      after: {
+        root: `${jamboConfig.dirs.output}`,
+        include: ['static'],
+        log: true
+      }
+    })
+  ];
+
+  let mode = 'development';
+  if (!isDevelopment) {
+    plugins.push(new InlineAssetHtmlPlugin());
+    mode = 'production';
+  }
+
   return {
-    mode: 'production',
+    mode,
+    performance: {
+      maxAssetSize: 1536000,
+      maxEntrypointSize: 1024000
+    },
     target: ['web', 'es5'],
     entry: {
       'bundle': `./${jamboConfig.dirs.output}/static/entry.js`,
@@ -52,21 +81,7 @@ module.exports = function () {
       libraryTarget: 'window',
       publicPath: ''
     },
-    plugins: [
-      new MiniCssExtractPlugin({ filename: '[name].css' }),
-      ...htmlPlugins,
-      new InlineAssetHtmlPlugin(),
-      new webpack.EnvironmentPlugin({
-        JAMBO_INJECTED_DATA: null
-      }),
-      new RemovePlugin({
-        after: {
-          root: `${jamboConfig.dirs.output}`,
-          include: ['static'],
-          log: true
-        }
-      })
-    ],
+    plugins,
     module: {
       rules: [
         {

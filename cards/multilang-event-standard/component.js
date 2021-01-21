@@ -62,6 +62,6 @@ class multilang_event_standardCardComponent extends BaseCard['multilang-event-st
 
 ANSWERS.registerTemplate(
   'cards/multilang-event-standard',
-  `{{{read 'cards/multilang-event-standard/template' }}}`
+  {{{stringifyPartial (read 'cards/multilang-event-standard/template') }}}
 );
 ANSWERS.registerComponentType(multilang_event_standardCardComponent);

@@ -61,6 +61,6 @@ class FilterLink extends ANSWERS.Component {
 
 ANSWERS.registerTemplate(
   'collapsibleFilters/FilterLink',
-  `{{{read 'theme-components/collapsible-filters/filter-link/template' }}}`
+  {{{stringifyPartial (read 'theme-components/collapsible-filters/filter-link/template') }}}
 );
 ANSWERS.registerComponentType(FilterLink);

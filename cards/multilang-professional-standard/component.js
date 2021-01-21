@@ -68,6 +68,6 @@ class multilang_professional_standardCardComponent extends BaseCard['multilang-p
 
 ANSWERS.registerTemplate(
   'cards/multilang-professional-standard',
-  `{{{read 'cards/multilang-professional-standard/template' }}}`
+  {{{stringifyPartial (read 'cards/multilang-professional-standard/template') }}}
 );
 ANSWERS.registerComponentType(multilang_professional_standardCardComponent);

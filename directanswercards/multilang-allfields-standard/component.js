@@ -193,6 +193,6 @@ class multilang_allfields_standardComponent extends BaseDirectAnswerCard['multil
 
 ANSWERS.registerTemplate(
   'directanswercards/multilang-allfields-standard',
-  `{{{read 'directanswercards/multilang-allfields-standard/template' }}}`
+  {{{stringifyPartial (read 'directanswercards/multilang-allfields-standard/template') }}}
 );
 ANSWERS.registerComponentType(multilang_allfields_standardComponent);

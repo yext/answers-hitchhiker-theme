@@ -1,4 +1,4 @@
 let BaseCard = {};
-{{#partialPattern '^cards/(.*)/component'}}
-  {{> (lookup . 'key') relativePath=../relativePath }}
-{{/partialPattern}}
+{{#getCardPartials url verticalConfigs }}
+  {{> (lookup . 'cardPartial') relativePath=../relativePath }}
+{{/getCardPartials}}

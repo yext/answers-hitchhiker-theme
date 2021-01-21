@@ -52,6 +52,6 @@ class product_prominentimage_clickableCardComponent extends BaseCard['product-pr
 
 ANSWERS.registerTemplate(
   'cards/product-prominentimage-clickable',
-  `{{{read 'cards/product-prominentimage-clickable/template' }}}`
+  {{{stringifyPartial (read 'cards/product-prominentimage-clickable/template') }}}
 );
 ANSWERS.registerComponentType(product_prominentimage_clickableCardComponent);

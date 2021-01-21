@@ -53,6 +53,6 @@ class job_standardCardComponent extends BaseCard['job-standard'] {
 
 ANSWERS.registerTemplate(
   'cards/job-standard',
-  `{{{read 'cards/job-standard/template' }}}`
+  {{{stringifyPartial (read 'cards/job-standard/template') }}}
 );
 ANSWERS.registerComponentType(job_standardCardComponent);

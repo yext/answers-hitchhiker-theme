@@ -10,8 +10,11 @@
 
   &-body
   {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    padding: var(--yxt-base-spacing);
+    padding: calc(var(--yxt-base-spacing) * 3/4) var(--yxt-base-spacing);
   }
 
   &-contentWrapper
@@ -19,6 +22,8 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    height: 100%;
+    justify-content: space-between;
   }
 
   &-imageAndTagWrapper
