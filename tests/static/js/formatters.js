@@ -148,8 +148,6 @@ describe('Formatters', () => {
      ];
       const actual = Formatters.highlightField(plainText, matchedSubstrings);
 
-      console.log(matchedSubstrings);
-
       const expected = 
         'How does <mark>mask</mark> <mark>wearing</mark> prevent <mark>COVID-19</mark>';
       expect(actual).toEqual(expected);
