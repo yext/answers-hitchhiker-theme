@@ -556,22 +556,16 @@ export function price(fieldValue = {}, locale) {
 export function highlightField(fieldValue, matchedSubstrings) {
   let highlightedString = fieldValue;
 
-  // We must first sort the matchedSubstrings by increasing offset. 
+  // We must first sort the matchedSubstrings by decreasing offset. 
   const sortedMatches = matchedSubstrings.slice()
-    .sort((match1, match2) => match1.offset - match2.offset);
+    .sort((match1, match2) => match2.offset - match1.offset);
   
-  let offsetCorrection = 0;
   sortedMatches.forEach(match => {
     const { offset, length } = match;
-    const correctedOffset = offset + offsetCorrection;
     highlightedString = 
-      highlightedString.substr(0, correctedOffset) +
+      highlightedString.substr(0, offset) +
       `<mark>${fieldValue.substr(offset, length)}</mark>`+
-      highlightedString.substr(correctedOffset + length);
-
-    // We must increment the correction by the character length
-    // of the wrapping HTML tags.
-    offsetCorrection += 13;
+      highlightedString.substr(offset + length);
   });
 
   return highlightedString;
