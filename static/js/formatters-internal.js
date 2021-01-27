@@ -544,3 +544,29 @@ export function price(fieldValue = {}, locale) {
   }
   return price.toLocaleString(localeForFormatting, { style: 'currency', currency: currencyCode });
 }
+
+/**
+ * Highlights snippets of the provided fieldValue according to the matched substrings.
+ * Each match will be wrapped in <mark> tags.
+ * 
+ * @param {string} fieldValue The plain, un-highlighted text.
+ * @param {Array<Object>} matchedSubstrings The list of matched substrings to
+ *                                          highlight.
+ */
+export function highlightField(fieldValue, matchedSubstrings) {
+  let highlightedString = fieldValue;
+
+  // We must first sort the matchedSubstrings by decreasing offset. 
+  const sortedMatches = matchedSubstrings.slice()
+    .sort((match1, match2) => match2.offset - match1.offset);
+  
+  sortedMatches.forEach(match => {
+    const { offset, length } = match;
+    highlightedString = 
+      highlightedString.substr(0, offset) +
+      `<mark>${fieldValue.substr(offset, length)}</mark>`+
+      highlightedString.substr(offset + length);
+  });
+
+  return highlightedString;
+}

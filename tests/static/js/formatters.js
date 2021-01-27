@@ -107,4 +107,50 @@ describe('Formatters', () => {
       expect(consoleWarn).toHaveBeenCalled();
     });
   });
+
+  describe('highlightField', () => {
+    it('Behaves correctly when there are no matchedSubstrings', () => {
+      const plainText = 'No more straws';
+      const actual = Formatters.highlightField(plainText, []);
+
+      expect(actual).toEqual(plainText);
+    });
+
+    it('Highlights single substring correctly', () => {
+      const plainText = 'No more straws';
+      const matchedSubstrings = [
+        {
+           "offset": 8,
+           "length": 6
+        }
+     ];
+      const actual = Formatters.highlightField(plainText, matchedSubstrings);
+
+      const expected = 'No more <mark>straws</mark>'
+      expect(actual).toEqual(expected);
+    });
+
+    it('Highlights multiple substrings correctly', () => {
+      const plainText = 'How does mask wearing prevent COVID-19';
+      const matchedSubstrings = [
+        {
+           "offset": 9,
+           "length": 4
+        },
+        {
+           "offset": 30,
+           "length": 8
+        },
+        {
+           "offset": 14,
+           "length": 7
+        }
+     ];
+      const actual = Formatters.highlightField(plainText, matchedSubstrings);
+
+      const expected = 
+        'How does <mark>mask</mark> <mark>wearing</mark> prevent <mark>COVID-19</mark>';
+      expect(actual).toEqual(expected);
+    });
+  });
 });
