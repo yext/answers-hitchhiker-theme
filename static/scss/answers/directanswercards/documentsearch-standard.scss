@@ -1,0 +1,154 @@
+.HitchhikerDocumentSearchStandard
+{
+  margin-top: calc(var(--yxt-base-spacing) * 1.5);
+
+  background-color: var(--yxt-direct-answer-content-background-color);
+
+  @media (min-width: $breakpoint-mobile-min) {
+    margin-top: calc(var(--yxt-base-spacing) * 2.35);
+  }
+
+  &-titleAndContent
+  {
+    border: var(--yxt-direct-answer-border);
+    border-top-left-radius: var(--yxt-border-radius);
+    border-top-right-radius: var(--yxt-border-radius);
+    border-bottom-left-radius: var(--yxt-border-radius);
+    border-bottom-right-radius: var(--yxt-border-radius);
+  }
+
+  &-title
+  {
+    margin: 0;
+
+    padding-top: calc(var(--yxt-base-spacing) / 2);
+    padding-left: var(--yxt-base-spacing);
+    padding-right: var(--yxt-base-spacing);
+
+    @include Text(
+      $size: var(--yxt-direct-answer-title-font-size),
+      $line-height: var(--yxt-direct-answer-title-line-height),
+      $weight: var(--yxt-direct-answer-title-font-weight),
+      $color: var(--yxt-color-text-primary)
+    );
+  }
+
+  &-column
+  {
+    width: 100%;
+  }
+
+  &-content
+  {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: var(--yxt-base-spacing);
+    @include Text(
+      $size: var(--yxt-direct-answer-footer-font-size),
+      $line-height: var(--yxt-direct-answer-footer-line-height),
+      $weight: var(--yxt-direct-answer-footer-font-weight),
+      $color: var(--yxt-direct-answer-footer-color)
+    );
+  }
+
+  &-cta
+  {
+    text-transform: uppercase;
+    margin-top: calc(var(--yxt-base-spacing) / 2);
+    justify-content: center;
+
+    @media (min-width: $breakpoint-mobile-max)
+    {
+      margin-top: 0;
+      margin-left: calc(var(--yxt-base-spacing) / 2);
+      margin-right: calc(var(--yxt-base-spacing) / 2);
+      justify-content: center;
+    }
+
+  }
+
+  &-footer
+  {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-left: var(--yxt-base-spacing);
+    padding-right: var(--yxt-base-spacing);
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+
+  &-footerText
+  {
+    display: inline;
+    margin-right: var(--yxt-base-spacing);
+    @include Text(
+      $size: var(--yxt-direct-answer-footer-font-size),
+      $line-height: var(--yxt-direct-answer-footer-line-height),
+      $weight: var(--yxt-direct-answer-footer-font-weight),
+      $color: var(--yxt-direct-answer-footer-color)
+    );
+  }
+
+  &-thumbs
+  {
+    display: flex;
+    margin: 0;
+  }
+
+  &-thumbUpIcon
+  {
+    transform: rotate(180deg);
+  }
+
+  &-thumbUpIcon,
+  &-thumbDownIcon
+  {
+    display: inline-flex;
+    color: var(--yxt-color-text-secondary);
+  }
+
+  &-thumb
+  {
+    display: inline;
+    flex-shrink: 0;
+    cursor: pointer;
+    font-size: 18px;
+
+    & + &
+    {
+      margin-left: 10px;
+    }
+  }
+
+  &-feedback
+  {
+    @include Text(
+      $color: var(--yxt-color-text-neutral),
+    );
+    background-color: var(--yxt-color-background-highlight);
+    display: none;
+  }
+
+  &-viewMore
+  {
+    @include Text(
+      $size: var(--yxt-direct-answer-view-details-font-size),
+      $line-height: var(--yxt-direct-answer-view-details-line-height),
+      $weight: var(--yxt-direct-answer-view-details-font-weight),
+    );
+    @include Link;
+
+    display: inline-flex;
+    align-items: center;
+  }
+
+  &-viewMoreWrapper
+  {
+    &:not(:first-child)
+    {
+      margin-top: calc(var(--yxt-base-spacing) / 2);
+    }
+  }
+}
