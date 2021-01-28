@@ -29,8 +29,8 @@ BaseCard["{{componentName}}"] = class extends ANSWERS.Component {
   }
 
   setState(data) {
-    const { _raw, ...derivedFields } = this.result;
-    const profile = { ..._raw };
+    const { _raw, highlightedFields, ...derivedFields } = this.result;
+    const profile = { ..._raw, highlightedFields };
     for (const field of Object.keys(derivedFields)) {
       profile[`d_${field}`] = derivedFields[field];
     }
