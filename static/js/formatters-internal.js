@@ -1,12 +1,12 @@
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import { components__address__i18n__addressForCountry } from './address-i18n.js'
-import CtaFormatter from '@yext/cta-formatter';
 import { getDistanceUnit } from './units-i18n';
 import OpenStatusMessageFactory from './hours/open-status/messagefactory.js';
 import HoursTransformer from './hours/transformer.js';
 import HoursStringsLocalizer from './hours/stringslocalizer.js';
 import HoursTableBuilder from './hours/table/builder.js';
 import { DayNames } from './hours/constants.js';
+import { generateCTAFieldTypeLink } from './formatters/generate-cta-field-type-link';
 
 
 export function address(profile) {
@@ -516,16 +516,7 @@ export function hoursList(profile, opts = {}, key = 'hours', locale) {
     return new HoursTableBuilder(hoursLocalizer).build(hours, standardizedOpts);
 }
 
-/**
- * @param {Object} cta Call To Action field type
- * @return {string} The formatted url associated with the Call to Action object if the cta object exists, null otherwise
- */
-export function generateCTAFieldTypeLink(cta) {
-  if (!cta) {
-    return null;
-  }
-  return CtaFormatter.generateCTAFieldTypeLink(cta);
-}
+export { generateCTAFieldTypeLink };
 
 /**
  * Returns a localized price string for the given price field
