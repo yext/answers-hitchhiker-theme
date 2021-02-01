@@ -26,6 +26,13 @@
       "searchOnChange": true // Will automatically run a search as facets are selected or unselected. Set to false to only trigger updates with an Apply button. 
       // Additional options are available in the documentation
     },
+
+    "SortOptions": {
+      "options": [{
+        "type": "RELEVANCE",
+        "label": "Relevance"
+      }]
+    },
     
     /**
     "FilterLink": {

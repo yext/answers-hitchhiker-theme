@@ -49,6 +49,7 @@ $container-width: 1000px;
   --yxt-searchbar-button-background-color-active: white;
   --yxt-searchbar-button-text-color-hover: var(--yxt-color-brand-primary);
   --yxt-filter-options-options-max-height: none;
+  --yxt-filters-and-sorts-font-size: var(--yxt-font-size-md);
   --yxt-alternative-verticals-emphasized-font-weight: var(--yxt-font-weight-semibold);
 }
 
@@ -59,5 +60,5 @@ $breakpoint-mobile-min: 768px;
 $breakpoint-mobile-sm-max: 575px;
 $breakpoint-mobile-sm-min: 576px;
 
-$breakpoint-collapsed-filters: $container-width + 499px;
-$breakpoint-expanded-filters: $container-width + 500px;
+$breakpoint-collapsed-filters: $container-width + 279px;
+$breakpoint-expanded-filters: $container-width + 280px;
