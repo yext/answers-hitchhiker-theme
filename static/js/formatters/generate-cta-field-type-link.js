@@ -1,7 +1,7 @@
 import CtaFormatter from '@yext/cta-formatter';
 
 /**
- * @param {Object} cta Call To Action field type
+ * @param {{link: string, linkType: string}} cta the Calls To Action field object
  * @returns {string} The formatted url associated with the Call to Action object if the cta object exists, null otherwise
  */
 export function generateCTAFieldTypeLink(cta) {
@@ -15,25 +15,8 @@ export function generateCTAFieldTypeLink(cta) {
   return CtaFormatter.generateCTAFieldTypeLink(normalizedCTA);
 }
 
-/**
- * Normalizes a CTA's linkType to an enum by translating it to english,
- * so it can be used by the @yext/cta-formatter library.
- * 
- * @param {string} linkType 
- * @returns {string}
- */
-function normalizeCtaLinkType(linkType) {
-  if (isTranslationForEmail(linkType)) {
-    return 'Email';
-  } else if (isTranslationForPhone(linkType)) {
-    return 'Phone'
-  }
-  return linkType;
-}
-
 // These translations were taken from the schema for the "Calls To Action" built-in field type
-// http://cms-app05.nj1.yext.com:17952/testy?endpoint=composeAbstractSchema&proto=business_id%3A%203343086%0A
-const localeToPhoneTranslation = {
+const phoneTranslations = {
   cs: 'Telefon',
   da: 'Telefonnummer',
   de: 'Telefon',
@@ -60,19 +43,7 @@ const localeToPhoneTranslation = {
   zh_TW: 'Phone'
 };
 
-/**
- * Whether or not the given CTA linkType is a translation for "Phone".
- * 
- * @param {string} linkType 
- * @returns {boolean}
- */
-function isTranslationForPhone(linkType) {
-  return !!Object.values(localeToPhoneTranslation).find(translation => {
-    return translation.toLowerCase() === linkType.toLowerCase()
-  });
-}
-
-const localeToEmailTranslation = {
+const emailTranslations = {
   cs: 'E-mail',
   da: 'E-mailadresse',
   de: 'E-Mail',
@@ -100,13 +71,30 @@ const localeToEmailTranslation = {
 }
 
 /**
- * Whether or not the given CTA linkType is a translation for "Email".
+ * Normalizes a CTA's linkType to an enum by translating it to english,
+ * so it can be used by the @yext/cta-formatter library.
  * 
  * @param {string} linkType 
+ * @returns {string}
+ */
+function normalizeCtaLinkType(linkType) {
+  if (isLinkTypeInTranslations(linkType, emailTranslations)) {
+    return 'Email';
+  } else if (isLinkTypeInTranslations(linkType, phoneTranslations)) {
+    return 'Phone'
+  }
+  return linkType;
+}
+
+/**
+ * Whether or not the given CTA linkType is included in a translations object's values.
+ * 
+ * @param {string} linkType 
+ * @param {Object} translations
  * @returns {boolean}
  */
-function isTranslationForEmail(linkType) {
-  return !!Object.values(localeToEmailTranslation).find(translation => {
+function isLinkTypeInTranslations(linkType, translations) {
+  return !!Object.values(translations).find(translation => {
     return translation.toLowerCase() === linkType.toLowerCase()
   });
 }
