@@ -78,9 +78,9 @@ const emailTranslations = {
  * @returns {string}
  */
 function normalizeCtaLinkType(linkType) {
-  if (isLinkTypeInTranslations(linkType, emailTranslations)) {
+  if (isLinkTypeInTranslations(linkType, Object.values(emailTranslations))) {
     return 'Email';
-  } else if (isLinkTypeInTranslations(linkType, phoneTranslations)) {
+  } else if (isLinkTypeInTranslations(linkType, Object.values(phoneTranslations))) {
     return 'Phone'
   }
   return linkType;
@@ -90,11 +90,11 @@ function normalizeCtaLinkType(linkType) {
  * Whether or not the given CTA linkType is included in a translations object's values.
  * 
  * @param {string} linkType 
- * @param {Object} translations
+ * @param {Array<string>} translations
  * @returns {boolean}
  */
 function isLinkTypeInTranslations(linkType, translations) {
-  return !!Object.values(translations).find(translation => {
+  return !!translations.find(translation => {
     return translation.toLowerCase() === linkType.toLowerCase()
   });
 }
