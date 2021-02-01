@@ -4,7 +4,9 @@
     "config": "config",
     "output": "public",
     "pages": "pages",
-    "partials": [],
+    "partials": [
+      "script"
+    ],
     "preservedFiles": []
   },
   "defaultTheme": "answers-hitchhiker-theme"
