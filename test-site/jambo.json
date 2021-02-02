@@ -5,7 +5,7 @@
     "output": "public",
     "pages": "pages",
     "partials": [
-      "script"
+      "script/on-ready.js"
     ],
     "preservedFiles": []
   },
