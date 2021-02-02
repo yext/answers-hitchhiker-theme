@@ -109,12 +109,8 @@ class VerticalAdder {
    * @param {Object<string, string>} args The arguments, keyed by name 
    */
   execute(args) {
-    try {
-      this._createVerticalPage(args.name, args.template);
-      this._configureVerticalPage(args.name, args.verticalKey, args.cardName);
-    } catch (error) {
-      console.error(error);
-    }
+    this._createVerticalPage(args.name, args.template);
+    this._configureVerticalPage(args.name, args.verticalKey, args.cardName);
   }
 
   /**
