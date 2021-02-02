@@ -7,7 +7,7 @@ set_working_dir_to_test_site () {
 
 set_working_dir_to_test_site
 
-# TODO: Make this a full integration test. All vertical pages should be built with the
+# TODO (SLAP-1066): Make this a full integration test. All vertical pages should be built with the
 # `vertical` command. We should use the `card` command as well to create some custom cards.
 
 # Create the vertical page for events
