@@ -50,9 +50,6 @@
 @import "cards/product-prominentimage-clickable";
 @import "directanswercards/allfields-standard";
 
-// HH files
-@import "../answers";
-
 // Styling for CollapsibleFilters
 @import "collapsible-filters/collapsible-filters";
 @import "collapsible-filters/collapsible-filters-templates";
@@ -60,6 +57,9 @@
 // Styling for CollapsibleFilters components
 @import "collapsible-filters/filter-link";
 @import "collapsible-filters/view-results-button";
+
+// HH files
+@import "../answers";
 
 // Custom styling outside of the Answers experience
 @import "../page.scss";
