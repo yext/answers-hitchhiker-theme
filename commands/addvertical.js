@@ -62,7 +62,8 @@ class VerticalAdder {
         cardName: {
           displayName: 'Card Name',
           required: true,
-          type: 'string'
+          type: 'singleoption',
+          options: this._getAvailableCards(jamboConfig)
         },
         template: {
           displayName: 'Page Template',
@@ -72,6 +73,21 @@ class VerticalAdder {
         }
       }
     };
+  }
+
+  /**
+   * @returns {Array<string>} the names of the available cards in the Theme
+   */
+  static _getAvailableCards(jamboConfig) {
+    const defaultTheme = jamboConfig.defaultTheme;
+    const themesDir = jamboConfig.dirs && jamboConfig.dirs.themes;
+    if (!defaultTheme || !themesDir) {
+      return [];
+    }
+    const cardsDir = path.join(themesDir, defaultTheme, 'cards');
+    return fs.readdirSync(cardsDir, { withFileTypes: true })
+      .filter(dirent => !dirent.isFile())
+      .map(dirent => dirent.name);
   }
 
   /**
@@ -102,20 +118,15 @@ class VerticalAdder {
   }
 
   /**
-   * Creates a page for the vertical using the provided name and template. If there is an
-   * error during page generation, an exception will be thrown.
+   * Creates a page for the vertical using the provided name and template. Any output from
+   * the `jambo page` command is piped through.
    * 
    * @param {string} name The name of the vertical's page.
    * @param {string} template The template to use.
    */
   _createVerticalPage(name, template) {
     const args = ['--name', name, '--template', template];
-    const { stderr } = spawnSync('npx jambo page', args, { shell: true });
-    const pageCreationError = stderr && stderr.toString('utf-8');
-
-    if (pageCreationError) {
-      throw new Error(pageCreationError);
-    }
+    spawnSync('npx jambo page', args, { shell: true, stdio: 'inherit' });
   }
 
   /**
