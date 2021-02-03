@@ -8,6 +8,7 @@ BaseDirectAnswerCard["{{componentName}}"] = class extends ANSWERS.Component {
     let data = config.data || {};
     this.type = data.type || '';
     this.answer = data.answer || {};
+    this.snippet = this.answer.snippet || {};
     this.relatedItem = data.relatedItem || {};
     this.associatedEntityId = data.relatedItem && data.relatedItem.data && data.relatedItem.data.id;
     this.verticalConfigId = data.relatedItem && data.relatedItem.verticalConfigId;
@@ -20,7 +21,7 @@ BaseDirectAnswerCard["{{componentName}}"] = class extends ANSWERS.Component {
    * @param {Object} data
    */
   setState(data) {
-    let cardData = this.dataForRender(this.type, this.answer, this.relatedItem);
+    let cardData = this.dataForRender(this.type, this.answer, this.relatedItem, this.snippet);
     this.validateDataForRender(cardData);
 
     return super.setState({
