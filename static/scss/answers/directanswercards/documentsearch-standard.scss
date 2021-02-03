@@ -1,8 +1,13 @@
 .HitchhikerDocumentSearchStandard
 {
   margin-top: calc(var(--yxt-base-spacing) * 1.5);
-
   background-color: var(--yxt-direct-answer-content-background-color);
+
+  mark
+  {
+    background-color: var(--yxt-text-snippet-highlight-color);
+    color: var(--yxt-text-snippet-font-color);
+  }
 
   @media (min-width: $breakpoint-mobile-min) {
     margin-top: calc(var(--yxt-base-spacing) * 2.35);
@@ -21,15 +26,15 @@
   {
     margin: 0;
 
-    padding-top: calc(var(--yxt-base-spacing) / 2);
+    padding-top: var(--yxt-base-spacing);
     padding-left: var(--yxt-base-spacing);
     padding-right: var(--yxt-base-spacing);
 
     @include Text(
-      $size: var(--yxt-direct-answer-title-font-size),
+      $size: var(--yxt-font-size-xlg),
       $line-height: var(--yxt-direct-answer-title-line-height),
       $weight: var(--yxt-direct-answer-title-font-weight),
-      $color: var(--yxt-color-text-primary)
+      $color: var(--yxt-color-brand-primary)
     );
   }
 
@@ -43,7 +48,12 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: var(--yxt-base-spacing);
+
+    padding-top: calc(var(--yxt-base-spacing) * 0.7);
+    padding-bottom: var(--yxt-base-spacing);
+    padding-left: var(--yxt-base-spacing);
+    padding-right: var(--yxt-base-spacing);
+
     @include Text(
       $size: var(--yxt-direct-answer-footer-font-size),
       $line-height: var(--yxt-direct-answer-footer-line-height),
@@ -74,7 +84,7 @@
     justify-content: flex-end;
     align-items: center;
     padding-left: var(--yxt-base-spacing);
-    padding-right: var(--yxt-base-spacing);
+    padding-right: 4px;
     padding-top: 8px;
     padding-bottom: 8px;
   }
@@ -82,7 +92,7 @@
   &-footerText
   {
     display: inline;
-    margin-right: var(--yxt-base-spacing);
+    margin-right: 8px;
     @include Text(
       $size: var(--yxt-direct-answer-footer-font-size),
       $line-height: var(--yxt-direct-answer-footer-line-height),
@@ -118,7 +128,7 @@
 
     & + &
     {
-      margin-left: 10px;
+      margin-left: 8px;
     }
   }
 

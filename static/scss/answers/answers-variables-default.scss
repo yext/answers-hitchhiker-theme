@@ -49,6 +49,9 @@ $container-width: 1000px;
   --yxt-searchbar-button-text-color-hover: var(--yxt-color-brand-primary);
   --yxt-filter-options-options-max-height: none;
   --yxt-alternative-verticals-emphasized-font-weight: var(--yxt-font-weight-semibold);
+  --yxt-text-snippet-highlight-color: #eef3fb;
+  --yxt-text-snippet-font-color: var(--yxt-color-text-primary);
+  --yxt-direct-answer-view-details-font-weight: var(--yxt-font-weight-normal);
 }
 
 // breakpoint variables for use in media queries within the theme styling
