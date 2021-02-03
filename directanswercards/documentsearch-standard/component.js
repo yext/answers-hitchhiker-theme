@@ -12,11 +12,13 @@ class documentsearch_standardComponent extends BaseDirectAnswerCard['documentsea
    * @param snippet the snippet for the document search direct answer
    */
   dataForRender(type, answer, relatedItem, snippet) {
+    const relatedItemData = relatedItem.data || {};
+
     return {
       value: answer.value,
       snippet: snippet && Formatter.highlightField(snippet.value, snippet.matchedSubstrings), // Text snippet to include alongside the answer
-      viewDetailsText: relatedItem.data.title, // Text below the direct answer and snippet
-      viewDetailsLink: relatedItem.data.url, // Link for the "view details" text
+      viewDetailsText: relatedItemData.title, // Text below the direct answer and snippet
+      viewDetailsLink: relatedItemData.url, // Link for the "view details" text
       viewDetailsEventOptions: this.addDefaultEventOptions({
         ctaLabel: 'VIEW_DETAILS'
       }), // The event options for viewDetails click analytics

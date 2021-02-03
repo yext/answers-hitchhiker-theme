@@ -16,10 +16,7 @@
   &-titleAndContent
   {
     border: var(--yxt-direct-answer-border);
-    border-top-left-radius: var(--yxt-border-radius);
-    border-top-right-radius: var(--yxt-border-radius);
-    border-bottom-left-radius: var(--yxt-border-radius);
-    border-bottom-right-radius: var(--yxt-border-radius);
+    border-radius: var(--yxt-border-radius);
   }
 
   &-title
