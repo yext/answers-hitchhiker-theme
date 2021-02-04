@@ -110,7 +110,7 @@ class VerticalAdder {
    * @param {Object<string, string>} args The arguments, keyed by name 
    */
   execute(args) {
-    if (!this._getAvailableCards(this.config).includes(args.cardName)) {
+    if (!VerticalAdder._getAvailableCards(this.config).includes(args.cardName)) {
       throw new UserError(`${args.cardName} is not a valid card`);
     }
 
