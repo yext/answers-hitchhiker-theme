@@ -34,6 +34,7 @@
     "postcss": "^8.2.1",
     "serve": "^11.3.2",
     "simple-git": "^2.24.0",
+    "sinon": "^9.2.4",
     "underscore.string": "^3.3.5"
   },
   "jest": {

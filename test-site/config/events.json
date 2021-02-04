@@ -1,13 +1,13 @@
 {
-  "verticalKey": "people", // The vertical key from your search configuration
-  "pageTitle": "People", // !!!REPLACE THIS VALUE!!! The contents of the title tag and meta open graph tag for title
+  "verticalKey": "events", // The vertical key from your search configuration
+  "pageTitle": "Events", // !!!REPLACE THIS VALUE!!! The contents of the title tag and meta open graph tag for title
   // "metaDescription": "", // The meta tag for open graph description
   // "canonicalUrl": "", // The link tag for canonical URL as well as the meta tag for open graph url
   // "keywords": "", // The meta tag for keywords
   "pageSettings": {
     /**
      "search": {
-       "verticalKey": "<REPLACE ME>", // The vertical key from your search configuration
+       "verticalKey": "events", // The vertical key from your search configuration
        "defaultInitialSearch": "" // Enter a default search term
      }
     **/
@@ -19,21 +19,14 @@
       "privacyPolicyUrl": "" // The fully qualified URL to the privacy policy
     },
     **/
-    
+    /**
     "Facets": {
       "expand": false, // Allow the user to expand and collapse the facets
       "showMore": false, // Display a link to see more facet options within a facet
       "searchOnChange": true // Will automatically run a search as facets are selected or unselected. Set to false to only trigger updates with an Apply button. 
       // Additional options are available in the documentation
     },
-
-    "SortOptions": {
-      "options": [{
-        "type": "RELEVANCE",
-        "label": "Relevance"
-      }]
-    },
-    
+    **/
     /**
     "FilterLink": {
       "changeFiltersText": "sorts and filters", // Text that displays by default
@@ -63,9 +56,11 @@
   // Configuration used to define the look and feel of the vertical, both on this page and, by default,
   // on the universal page.
   "verticalsToConfig": {
-    "people": { // The vertical key from your search configuration
-      // "label": "People", // The name of the vertical in the section header and the navigation bar
-      "cardType": "standard", // The name of the card to use - e.g. accordion, location, customcard
+    "events": { // The vertical key from your search configuration
+      "label": "Events", // The name of the vertical in the section header and the navigation bar
+      // "verticalLimit": 15, // The result count limit for vertical search
+      // "universalLimit": 5, // The result count limit for universal search
+      "cardType": "event-standard", // The name of the card to use - e.g. accordion, location, customcard
       "icon": "star", // The icon to use on the card for this vertical
       "universalSectionTemplate": "standard"
     }

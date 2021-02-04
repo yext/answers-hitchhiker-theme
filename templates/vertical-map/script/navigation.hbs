@@ -11,7 +11,7 @@ verticalPages: [
       {{#with (lookup verticalsToConfig verticalKey)}}
         {{#if isFirst}}isFirst: {{isFirst}},{{/if}}
         {{#if icon}}icon: "{{{icon}}}",{{/if}}
-        label: "{{> verticalLabel overridedLabel=label verticalKey=../verticalKey fallback=@key}}",
+        label: {{> verticalLabel overridedLabel=label verticalKey=../verticalKey fallback=@key}},
         url: 
           {{#if url}}
             "{{{relativePathHandler url=url relativePath=@root.relativePath}}}",
@@ -51,30 +51,11 @@ verticalPages: [
 --}}
 {{#*inline 'verticalLabel'}}
   {{~#if overridedLabel ~}}
-    {{{overridedLabel}}}
-  {{~ else if
-    (lookup
-      (lookup 
-        (lookup 
-          (lookup
-            @root.env.JAMBO_INJECTED_DATA.answers.experiences
-            @root.global_config.experienceKey)
-          'verticals')
-        verticalKey)
-      'displayName')
-  ~}}
-    {{{lookup
-      (lookup 
-        (lookup 
-          (lookup
-            @root.env.JAMBO_INJECTED_DATA.answers.experiences
-            @root.global_config.experienceKey)
-          'verticals')
-        verticalKey)
-      'displayName'}}}
-  {{~ else if verticalKey ~}}
-    {{{verticalKey}}}
+    "{{{overridedLabel}}}"
   {{~ else ~}}
-    {{{fallback}}}
+    HitchhikerJS.getInjectedProp(
+      "{{{@root.global_config.experienceKey}}}",
+      ["verticals", "{{{verticalKey}}}", "displayName"])
+    || "{{{verticalKey}}}" || "{{{fallback}}}"
   {{~/if ~}}
 {{/inline}}
