@@ -5,7 +5,7 @@ import { isStaging } from './is-staging';
  * under the given experienceKey.
  * 
  * Will first choose the correct config, based on whether the browser
- * is a STAGING or PRODUCTIon environment, under
+ * is a STAGING or PRODUCTION environment, under
  * JAMBO_INJECTED_DATA.answers.experiences[experienceKey].configByLabel.
  * Defaults to the top-level config at
  * JAMBO_INJECTED_DATA.answers.experiences[experienceKey] if configByLabel
