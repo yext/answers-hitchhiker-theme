@@ -1,9 +1,7 @@
 import { getInjectedProp } from '../../../static/js/get-injected-prop';
 import { isStaging } from '../../../static/js/is-staging';
-import sinon from 'sinon';
-
 jest.mock('../../../static/js/is-staging.js');
-let sandbox = sinon.createSandbox();
+
 let topLevelConfig, productionConfig, stagingConfig;
 beforeEach(() => {
   stagingConfig = {
@@ -42,10 +40,6 @@ beforeEach(() => {
   });
 });
 
-afterEach(() => {
-  sandbox.restore()
-});
-
 describe('getInjectedProp()', () => {
   it('returns undefined when no matching experience key found', () => {
     expect(getInjectedProp('unknownKey')).toEqual(undefined);
@@ -70,7 +64,7 @@ describe('getInjectedProp()', () => {
   });
 
   it('will return undefined when no JAMBO_INJECTED_DATA is set', () => {
-    sandbox.stub(process.env, 'JAMBO_INJECTED_DATA').value(null);
+    process.env.JAMBO_INJECTED_DATA = null;
     const injectedDisplayName = getInjectedProp('mockExperience', ['verticals', 'mockVertical', 'displayName']);
     expect(injectedDisplayName).toEqual(undefined);
   });
@@ -89,5 +83,5 @@ function mockInjectedExperienceConfig(experienceConfig) {
       }
     }
   };
-  sandbox.stub(process.env, 'JAMBO_INJECTED_DATA').value(JSON.stringify(mockJamboInjectedData));
+  process.env.JAMBO_INJECTED_DATA = JSON.stringify(mockJamboInjectedData)
 }
