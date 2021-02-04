@@ -66,4 +66,3 @@ async function isGitSubmodule(submodulePath) {
     .find(p => p === submodulePath)
 }
 exports.isGitSubmodule = isGitSubmodule;
-
