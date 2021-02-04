@@ -66,6 +66,7 @@ ANSWERS.addComponent("VerticalResults", Object.assign({}, {
     HitchhikerJS.getInjectedProp(
       "{{{@root.global_config.experienceKey}}}",
       ["verticals", "{{{verticalKey}}}", "displayName"])
-    || "{{{verticalKey}}}" || "{{{fallback}}}"
+    {{~#if verticalKey ~}} || "{{{verticalKey}}}" {{~/if ~}}
+    {{~#if fallback ~}} || "{{{fallback}}}" {{~/if ~}}
   {{~/if ~}}
 {{/inline}}
