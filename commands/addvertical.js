@@ -37,7 +37,7 @@ class VerticalAdder {
       name: new ArgumentMetadata(ArgumentType.STRING, 'name of the vertical\'s page', true),
       verticalKey: new ArgumentMetadata(ArgumentType.STRING, 'the vertical\'s key', true),
       cardName: new ArgumentMetadata(
-        ArgumentType.STRING, 'card to use with vertical', true),
+        ArgumentType.STRING, 'card to use with vertical', false, 'standard'),
       template: new ArgumentMetadata(
         ArgumentType.STRING, 'page template to use within theme', true)
     };
@@ -62,7 +62,6 @@ class VerticalAdder {
         },
         cardName: {
           displayName: 'Card Name',
-          required: true,
           type: 'singleoption',
           options: this._getAvailableCards(jamboConfig)
         },
