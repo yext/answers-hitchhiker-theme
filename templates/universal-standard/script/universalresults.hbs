@@ -66,7 +66,7 @@ ANSWERS.addComponent("UniversalResults", Object.assign({}, {
       cardType: "{{{cardType}}}"
     },
   {{/if}}
-  sectionTitle: {{#if sectionTitle}}"{{{sectionTitle}}}"{{else}}"{{> verticalLabel overridedLabel=label verticalKey=verticalKey fallback=verticalKey}}"{{/if}},
+  sectionTitle: {{#if sectionTitle}}"{{{sectionTitle}}}"{{else}}{{> verticalLabel overridedLabel=label verticalKey=verticalKey}}{{/if}},
   {{#if icon}}
     sectionTitleIconName: "{{{icon}}}",
   {{/if}}
@@ -103,35 +103,15 @@ ANSWERS.addComponent("UniversalResults", Object.assign({}, {
   Prints the vertical label according to specific logic
   Assumes @root has environment variables and global_config
   @param overridedLabel The hardcoded label from configuration in repo, meant to supercede defaults
-  @param verticalKey The current vertical key, if it exists
-  @param fallback The fallback for the label if all else doesn't exist
+  @param verticalKey The current vertical key, if it exists. Will fallback to this value.
 --}}
 {{#*inline 'verticalLabel'}}
   {{~#if overridedLabel ~}}
-    {{{overridedLabel}}}
-  {{~ else if
-    (lookup
-      (lookup 
-        (lookup 
-          (lookup
-            @root.env.JAMBO_INJECTED_DATA.answers.experiences
-            @root.global_config.experienceKey)
-          'verticals')
-        verticalKey)
-      'displayName')
-  ~}}
-    {{{lookup
-      (lookup 
-        (lookup 
-          (lookup
-            @root.env.JAMBO_INJECTED_DATA.answers.experiences
-            @root.global_config.experienceKey)
-          'verticals')
-        verticalKey)
-      'displayName'}}}
-  {{~ else if verticalKey ~}}
-    {{{verticalKey}}}
+    "{{{overridedLabel}}}"
   {{~ else ~}}
-    {{{fallback}}}
+    HitchhikerJS.getInjectedProp(
+      "{{{@root.global_config.experienceKey}}}",
+      ["verticals", "{{{verticalKey}}}", "displayName"])
+    || "{{{verticalKey}}}"
   {{~/if ~}}
 {{/inline}}
