@@ -1,23 +1,24 @@
-From b84b114fd4a0c8c1253064a0ab3672dded546ba5 Mon Sep 17 00:00:00 2001
+From de361a97d605c1e9573ceb164473365f76e7c9fa Mon Sep 17 00:00:00 2001
 From: Connor Anderson <canderson@yext.com>
-Date: Wed, 3 Feb 2021 18:48:17 -0500
-Subject: [PATCH] Add vertical custom command
+Date: Thu, 4 Feb 2021 14:28:52 -0500
+Subject: [PATCH] Add vertical command
 
 ---
- .../commands/addvertical.js                   | 144 ++++++++++++++++++
- 1 file changed, 144 insertions(+)
+ .../commands/addvertical.js                   | 148 ++++++++++++++++++
+ 1 file changed, 148 insertions(+)
  create mode 100644 themes/answers-hitchhiker-theme/commands/addvertical.js
 
 diff --git a/themes/answers-hitchhiker-theme/commands/addvertical.js b/themes/answers-hitchhiker-theme/commands/addvertical.js
 new file mode 100644
-index 0000000..9062afd
+index 0000000..7343cb6
 --- /dev/null
 +++ b/themes/answers-hitchhiker-theme/commands/addvertical.js
-@@ -0,0 +1,144 @@
+@@ -0,0 +1,148 @@
 +const fs = require('fs-extra');
 +const path = require('path');
 +const { spawnSync } = require('child_process');
 +
++const UserError = require('./helpers/errors/usererror');
 +const { ArgumentMetadata, ArgumentType } = require('./helpers/utils/argumentmetadata');
 +
 +/**
@@ -52,7 +53,7 @@ index 0000000..9062afd
 +      name: new ArgumentMetadata(ArgumentType.STRING, 'name of the vertical\'s page', true),
 +      verticalKey: new ArgumentMetadata(ArgumentType.STRING, 'the vertical\'s key', true),
 +      cardName: new ArgumentMetadata(
-+        ArgumentType.STRING, 'card to use with vertical', true),
++        ArgumentType.STRING, 'card to use with vertical', false, 'standard'),
 +      template: new ArgumentMetadata(
 +        ArgumentType.STRING, 'page template to use within theme', true)
 +    };
@@ -77,7 +78,6 @@ index 0000000..9062afd
 +        },
 +        cardName: {
 +          displayName: 'Card Name',
-+          required: true,
 +          type: 'singleoption',
 +          options: this._getAvailableCards(jamboConfig)
 +        },
@@ -125,6 +125,10 @@ index 0000000..9062afd
 +   * @param {Object<string, string>} args The arguments, keyed by name 
 +   */
 +  execute(args) {
++    if (!VerticalAdder._getAvailableCards(this.config).includes(args.cardName)) {
++      throw new UserError(`${args.cardName} is not a valid card`);
++    }
++
 +    this._createVerticalPage(args.name, args.template);
 +    this._configureVerticalPage(args.name, args.verticalKey, args.cardName);
 +  }
