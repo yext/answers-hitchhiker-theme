@@ -2,6 +2,7 @@ const fs = require('fs-extra');
 const path = require('path');
 const { spawnSync } = require('child_process');
 
+const UserError = require('./helpers/errors/usererror');
 const { ArgumentMetadata, ArgumentType } = require('./helpers/utils/argumentmetadata');
 
 /**
@@ -109,6 +110,10 @@ class VerticalAdder {
    * @param {Object<string, string>} args The arguments, keyed by name 
    */
   execute(args) {
+    if (!VerticalAdder._getAvailableCards(this.config).includes(args.cardName)) {
+      throw new UserError(`${args.cardName} is not a valid card`);
+    }
+
     this._createVerticalPage(args.name, args.template);
     this._configureVerticalPage(args.name, args.verticalKey, args.cardName);
   }
