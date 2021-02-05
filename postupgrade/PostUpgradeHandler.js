@@ -2,7 +2,7 @@ const fs = require('fs');
 const fsExtra = require('fs-extra');
 const path = require('path');
 const { mergeJson, isGitSubmodule } = require('./utils');
-const simpleGit = require('simple-git/promise')();
+const { spawnSync } = require('child_process');
 
 /**
  * PostUpgradeHandler performs filesystem changes after the Theme repository has been upgraded.
@@ -18,6 +18,9 @@ class PostUpgradeHandler {
     if (!isGitSubmodule(this.themeDir)) {
       this.removeFromTheme('.git', '.gitignore', 'tests');
     }
+    this.copyStaticFilesToTopLevel(
+      'package.json', 'Gruntfile.js', 'webpack-config.js', 'package-lock.json');
+    spawnSync('npm', ['install'], { stdio: 'inherit' });
 
     const userGlobalConfigPath = 
       path.relative(process.cwd(), path.join(this.configDir, this.globalConfigFile));
@@ -27,9 +30,6 @@ class PostUpgradeHandler {
       const mergedGlobalConfig = await this.mergeThemeGlobalConfig(userGlobalConfigPath, themeGlobalConfigPath);
       fs.writeFileSync(userGlobalConfigPath, mergedGlobalConfig);
     }
-
-    this.copyStaticFilesToTopLevel(
-      'package.json', 'Gruntfile.js', 'webpack-config.js', 'package-lock.json');
   }
 
   /**
