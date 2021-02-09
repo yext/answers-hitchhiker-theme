@@ -1,21 +1,21 @@
 {{#> layouts/html }}
   {{#> script/core }}
     {{> cards/all }}
-    {{> templates/vertical-map/collapsible-filters/page-setup }}
-    {{> templates/vertical-map/page-setup }}
-    {{> templates/vertical-map/script/searchbar }}
-    {{> templates/vertical-map/script/spellcheck }}
-    {{!-- {{> templates/vertical-map/script/navigation }} --}}
-    {{> templates/vertical-map/script/verticalresultscount }}
-    {{> templates/vertical-map/script/appliedfilters }}
-    {{> templates/vertical-map/script/sortoptions }}
-    {{> templates/vertical-map/script/facets }}
-    {{!-- {{> templates/vertical-map/script/filterbox }} --}}
-    {{> templates/vertical-map/script/verticalresults }}
-    {{> templates/vertical-map/script/pagination }}
-    {{!-- {{> templates/vertical-map/script/qasubmission }} --}}
-    {{!-- {{> templates/vertical-map/script/map }} --}}
-    {{> templates/vertical-map/script/locationbias }}
+    {{> templates/vertical-interactive-map/collapsible-filters/page-setup }}
+    {{> templates/vertical-interactive-map/page-setup }}
+    {{> templates/vertical-interactive-map/script/searchbar }}
+    {{> templates/vertical-interactive-map/script/spellcheck }}
+    {{!-- {{> templates/vertical-interactive-map/script/navigation }} --}}
+    {{> templates/vertical-interactive-map/script/verticalresultscount }}
+    {{> templates/vertical-interactive-map/script/appliedfilters }}
+    {{!-- {{> templates/vertical-interactive-map/script/sortoptions }} --}}
+    {{> templates/vertical-interactive-map/script/facets }}
+    {{!-- {{> templates/vertical-interactive-map/script/filterbox }} --}}
+    {{> templates/vertical-interactive-map/script/verticalresults }}
+    {{> templates/vertical-interactive-map/script/pagination }}
+    {{!-- {{> templates/vertical-interactive-map/script/qasubmission }} --}}
+    {{!-- {{> templates/vertical-interactive-map/script/map }} --}}
+    {{> templates/vertical-interactive-map/script/locationbias }}
     ANSWERS.addComponent("LocationBias", Object.assign({}, {
       container: "#js-answersLocationBias2",
       updateLocationEl: "#js-answersLocationBias2 .js-locationBias-update-location",
@@ -30,15 +30,15 @@
           <div class="Answers-resultsHeader">
             <div class="Answers-searchWrapper js-sticky">
               <div class="Answers-form">
-                {{> templates/vertical-map/markup/searchbar }}
+                {{> templates/vertical-interactive-map/markup/searchbar }}
                 {{!-- {{> templates/vertical-grid/markup/navigation }} --}} 
               </div>
             </div>
             <div class="Answers-resultsHeaderTop">
-              {{> templates/vertical-map/markup/verticalresultscount }}
-              {{> templates/vertical-map/markup/appliedfilters }}
-              {{> templates/vertical-map/collapsible-filters/markup/filterlink }}
-              {{> templates/vertical-map/collapsible-filters/markup/viewresultsbutton }}
+              {{> templates/vertical-interactive-map/markup/verticalresultscount }}
+              {{> templates/vertical-interactive-map/markup/appliedfilters }}
+              {{> templates/vertical-interactive-map/collapsible-filters/markup/filterlink }}
+              {{> templates/vertical-interactive-map/collapsible-filters/markup/viewresultsbutton }}
             </div>
             <div class="Answers-resultsHeaderBottom">
               <div class="Answers-noResults js-answersNoResults"></div>
@@ -46,18 +46,18 @@
           </div>
           <!-- Uncomment the following div if you want to include filters, facets, or sort options  -->
           <div class="Answers-filtersWrapper js-answersFiltersWrapper CollapsibleFilters-inactive">
-            {{> templates/vertical-map/markup/sortoptions }}
-            {{> templates/vertical-map/markup/facets }}
-            {{!-- {{> templates/vertical-map/markup/filterbox }} --}}
+            {{> templates/vertical-interactive-map/markup/sortoptions }}
+            {{> templates/vertical-interactive-map/markup/facets }}
+            {{!-- {{> templates/vertical-interactive-map/markup/filterbox }} --}}
           </div>
           <div class="Answers-resultsWrapper js-locator-resultsWrapper">
             <div class="Answers-resultsContainer js-locator-resultsContainer js-answersResultsWrapper">
               <div class="js-answersResultsColumn">
                 <div class="Answers-results js-answersResults">
-                  {{> templates/vertical-map/markup/spellcheck }}
-                  {{> templates/vertical-map/markup/verticalresults }}
-                  {{> templates/vertical-map/markup/pagination }}
-                  {{!-- {{> templates/vertical-map/markup/qasubmission }} --}}
+                  {{> templates/vertical-interactive-map/markup/spellcheck }}
+                  {{> templates/vertical-interactive-map/markup/verticalresults }}
+                  {{> templates/vertical-interactive-map/markup/pagination }}
+                  {{!-- {{> templates/vertical-interactive-map/markup/qasubmission }} --}}
                 </div>
               </div>
             </div>
