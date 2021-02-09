@@ -13,6 +13,7 @@ export { getDefaultMapApiKey } from './js/default-map-api-key';
 export { isStaging } from './js/is-staging';
 export { isMobile }  from 'is-mobile';
 export { getInjectedProp } from './js/get-injected-prop';
+export { isHighlighted } from './js/is-highlighted';
 
 // Used to transfigure the page for the Overlay
 import Overlay from './js/overlay/answers-frame/overlay';
