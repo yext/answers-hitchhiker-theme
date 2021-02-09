@@ -67,10 +67,18 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: var(--yxt-base-spacing);
     background-color: var(--yxt-direct-answer-content-background-color);
+
+    padding-top: calc(var(--yxt-base-spacing) * 0.7);
+    padding-bottom: var(--yxt-base-spacing);
+    padding-left: var(--yxt-base-spacing);
+    padding-right: var(--yxt-base-spacing);
+
     border-left: var(--yxt-direct-answer-border);
     border-right: var(--yxt-direct-answer-border);
+    border-bottom: var(--yxt-direct-answer-border);
+    border-bottom-left-radius: var(--yxt-border-radius);
+    border-bottom-right-radius: var(--yxt-border-radius);
   }
 
   &-cta
@@ -100,26 +108,21 @@
     justify-content: flex-end;
     align-items: center;
     padding-left: var(--yxt-base-spacing);
-    padding-right: var(--yxt-base-spacing);
+    padding-right: 4px;
     padding-top: 8px;
     padding-bottom: 8px;
-    border: var(--yxt-direct-answer-border);
-    border-bottom-left-radius: var(--yxt-border-radius);
-    border-bottom-right-radius: var(--yxt-border-radius);
   }
 
   &-footerText
   {
     display: inline;
-    margin-right: var(--yxt-base-spacing);
+    margin-right: 8px;
     @include Text(
       $size: var(--yxt-direct-answer-footer-font-size),
       $line-height: var(--yxt-direct-answer-footer-line-height),
       $weight: var(--yxt-direct-answer-footer-font-weight),
       $color: var(--yxt-direct-answer-footer-color)
     );
-
-    font-style: italic;
   }
 
   &-thumbs
@@ -145,11 +148,11 @@
     display: inline;
     flex-shrink: 0;
     cursor: pointer;
-    font-size: 24px;
+    font-size: 18px;
 
     & + &
     {
-      margin-left: 10px;
+      margin-left: 8px;
     }
   }
 
