@@ -1,0 +1,58 @@
+{{#> layouts/html }}
+  {{#> script/core }}
+    {{> cards/all }}
+    {{!-- {{> templates/vertical-map/collapsible-filters/page-setup }} --}}
+    {{> templates/vertical-map/script/searchbar }}
+    {{> templates/vertical-map/script/spellcheck }}
+    {{> templates/vertical-map/script/navigation }}
+    {{> templates/vertical-map/script/verticalresultscount }}
+    {{> templates/vertical-map/script/appliedfilters }}
+    {{!-- {{> templates/vertical-map/script/sortoptions }} --}}
+    {{!-- {{> templates/vertical-map/script/facets }} --}}
+    {{!-- {{> templates/vertical-map/script/filterbox }} --}}
+    {{> templates/vertical-map/script/verticalresults }}
+    {{> templates/vertical-map/script/pagination }}
+    {{!-- {{> templates/vertical-map/script/qasubmission }} --}}
+    {{> templates/vertical-map/script/map }}
+    {{> templates/vertical-map/script/locationbias }}
+  {{/script/core }}
+  <div class="Answers AnswersVerticalMap CollapsibleFilters">
+    <div class="Answers-navWrapper">
+      <div class="Answers-container">
+        {{> templates/vertical-map/markup/searchbar }}
+        {{> templates/vertical-map/markup/navigation }}
+      </div>
+    </div>
+    <!-- Uncomment the following if this page should be searched from the Answers Overlay panel. 
+    The overlay partial should only be added to ONE page of your site, e.g. if you uncomment the 
+    partial for this page, you should not use it on any other page.  -->
+    {{!-- {{> layouts/overlay-suggestions }} --}}
+    <div class="Answers-resultsWrapper js-answersResultsWrapper">
+      <div class="Answers-resultsColumn js-answersResultsColumn">
+        <div class="Answers-resultsHeader">
+          {{> templates/vertical-map/markup/verticalresultscount }}
+          {{> templates/vertical-map/markup/appliedfilters }}
+          {{!-- {{> templates/vertical-map/collapsible-filters/markup/filterlink }} --}}
+          {{!-- {{> templates/vertical-map/collapsible-filters/markup/viewresultsbutton }} --}}
+        </div>
+        <!-- Uncomment the following div if you want to include filters, facets, or sort options  -->
+        {{!-- <div class="Answers-filtersWrapper js-answersFiltersWrapper CollapsibleFilters-inactive"> --}}
+          {{!-- {{> templates/vertical-map/markup/sortoptions }} --}}
+          {{!-- {{> templates/vertical-map/markup/facets }} --}}
+          {{!-- {{> templates/vertical-map/markup/filterbox }} --}}
+        {{!-- </div> --}}
+        <div class="Answers-results js-answersResults">
+          {{> templates/vertical-map/markup/spellcheck }}
+          {{> templates/vertical-map/markup/verticalresults }}
+          {{> templates/vertical-map/markup/pagination }}
+          {{!-- {{> templates/vertical-map/markup/qasubmission }} --}}
+        </div>
+      </div>
+      {{> templates/vertical-map/markup/map }}
+    </div>
+    <div class="Answers-footer js-answersFooter">
+      {{> layouts/yext-logo }}
+      {{> templates/vertical-map/markup/locationbias }}
+    </div>
+  </div>
+{{/layouts/html }}
