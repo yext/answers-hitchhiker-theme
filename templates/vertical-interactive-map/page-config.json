@@ -27,29 +27,28 @@
       // Additional options are available in the documentation
     },
     **/
-    /**
     "FilterLink": {
-      "changeFiltersText": "sorts and filters", // Text that displays by default
+      "changeFiltersText": "filter results", // Text that displays by default
       "resetFiltersText": "reset filters", // Text when filters are applied
       "clearSearchText": "clear search" // Text when there are no results, conducts an empty search
     },
-    **/
     "AppliedFilters": {
       "removable": true
     },
     "VerticalResults": {
       "noResults": {
-        "displayAllResults": true // Optional, whether to display all results in the vertical when no results are found.
+        "displayAllResults": false, // Optional, whether to display all results in the vertical when no results are found.
+        "template": "<span></span>"
       },
       "hideResultsHeader": true
     },
     "SearchBar": {
-      "placeholderText": "Search", // The placeholder text in the answers search bar
+      "placeholderText": "Search for locations", // The placeholder text in the answers search bar
       "allowEmptySearch": true // Allows users to submit an empty search in the searchbar
     },
     "Pagination": {
       "noResults": {
-        "visible": true
+        "visible": false
       }
     }
   },
@@ -64,14 +63,53 @@
       "icon": "pin", // The icon to use on the card for this vertical
       "mapConfig": {
         "mapProvider": "MapBox", // The name of the provider (e.g. Mapbox, Google)
-        "pin": {
-          "backgroundColor": "", // Enter a hex value or color for the pin background
-          "labelColor": "", // Enter a hex value or color for the label color
-          "strokeColor": "" // Enter a hex value or color for the stroke color
-        },
         "noResults": {
-          "displayAllResults": true, // Set to FALSE to hide results on the map when a search returns no results
-          "visible": true // Set to FALSE to hide the map when a search returns no results
+          "displayAllResults": false, // Set to FALSE to hide results on the map when a search returns no results
+        },
+        "pin": {
+          "default": {
+            "backgroundColor": "#5387d7", // Enter a hex value or color for the pin background
+            "strokeColor": "#2a446b",
+            "labelColor": "white"
+          },
+          "hovered": {
+            "backgroundColor": "#2f4d71",
+            "strokeColor": "#172638",
+            "labelColor": "white"
+          },
+          "selected": {
+            "backgroundColor": "#2f4d71",
+            "strokeColor": "#172638",
+            "labelColor": "white"
+          }
+        },
+        //"enablePinClustering": true, // uncomment to turn on pin clustering. Defaults false
+
+        // Below not shown by default in the json config
+        "showOrdinal": true, // If the ordinal should be displayed on the card on universal. Hidden always on vertical.
+        "locale": "en", // defaults to ""
+        "providerOptions": {
+          "mapTypeControl": false,
+          "center": { "lat": -34.397, "lng": 150.644 }, // requires null defaultInitialSearch to show
+          "zoom": 6 // requires null defaultInitialSearch to show
+        },
+        "disableSearchOnMapMove": false, // default false
+        "pinCluster": { // defaults below
+          "default": {
+            "backgroundColor": "#5387d7",
+            "strokeColor": "#2a446b",
+            "labelColor": "white"
+          },
+          "hovered": {
+            "backgroundColor": "#2f4d71",
+            "strokeColor": "#172638",
+            "labelColor": "white"
+          },
+          "selected": {
+            "backgroundColor": "#2f4d71",
+            "strokeColor": "#172638",
+            "labelColor": "white"
+          }
         }
       },
       "universalSectionTemplate": "standard"

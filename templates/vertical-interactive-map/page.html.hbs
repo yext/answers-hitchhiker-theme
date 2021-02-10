@@ -1,58 +1,158 @@
 {{#> layouts/html }}
   {{#> script/core }}
     {{> cards/all }}
-    {{!-- {{> templates/vertical-map/collapsible-filters/page-setup }} --}}
-    {{> templates/vertical-map/script/searchbar }}
-    {{> templates/vertical-map/script/spellcheck }}
-    {{> templates/vertical-map/script/navigation }}
-    {{> templates/vertical-map/script/verticalresultscount }}
-    {{> templates/vertical-map/script/appliedfilters }}
-    {{!-- {{> templates/vertical-map/script/sortoptions }} --}}
-    {{!-- {{> templates/vertical-map/script/facets }} --}}
-    {{!-- {{> templates/vertical-map/script/filterbox }} --}}
-    {{> templates/vertical-map/script/verticalresults }}
-    {{> templates/vertical-map/script/pagination }}
-    {{!-- {{> templates/vertical-map/script/qasubmission }} --}}
-    {{> templates/vertical-map/script/map }}
-    {{> templates/vertical-map/script/locationbias }}
+    {{> templates/vertical-interactive-map/collapsible-filters/page-setup }}
+    {{> templates/vertical-interactive-map/page-setup }}
+    {{> templates/vertical-interactive-map/script/searchbar }}
+    {{> templates/vertical-interactive-map/script/spellcheck }}
+    {{!-- {{> templates/vertical-interactive-map/script/navigation }} --}}
+    {{> templates/vertical-interactive-map/script/verticalresultscount }}
+    {{> templates/vertical-interactive-map/script/appliedfilters }}
+    {{!-- {{> templates/vertical-interactive-map/script/sortoptions }} --}}
+    {{> templates/vertical-interactive-map/script/facets }}
+    {{!-- {{> templates/vertical-interactive-map/script/filterbox }} --}}
+    {{> templates/vertical-interactive-map/script/verticalresults }}
+    {{> templates/vertical-interactive-map/script/pagination }}
+    {{!-- {{> templates/vertical-interactive-map/script/qasubmission }} --}}
+    {{!-- {{> templates/vertical-interactive-map/script/map }} --}}
+    {{> templates/vertical-interactive-map/script/locationbias }}
+    ANSWERS.addComponent("LocationBias", Object.assign({}, {
+      container: "#js-answersLocationBias2",
+      updateLocationEl: "#js-answersLocationBias2 .js-locationBias-update-location",
+      {{#if verticalKey}}
+        verticalKey: "{{{verticalKey}}}"
+      {{/if}}
+    }, {{{ json componentSettings.LocationBias }}}));
   {{/script/core }}
-  <div class="Answers AnswersVerticalMap CollapsibleFilters">
-    <div class="Answers-navWrapper">
-      <div class="Answers-container">
-        {{> templates/vertical-map/markup/searchbar }}
-        {{> templates/vertical-map/markup/navigation }}
-      </div>
-    </div>
-    <!-- Uncomment the following if this page should be searched from the Answers Overlay panel. 
-    The overlay partial should only be added to ONE page of your site, e.g. if you uncomment the 
-    partial for this page, you should not use it on any other page.  -->
-    {{!-- {{> layouts/overlay-suggestions }} --}}
-    <div class="Answers-resultsWrapper js-answersResultsWrapper">
-      <div class="Answers-resultsColumn js-answersResultsColumn">
-        <div class="Answers-resultsHeader">
-          {{> templates/vertical-map/markup/verticalresultscount }}
-          {{> templates/vertical-map/markup/appliedfilters }}
-          {{!-- {{> templates/vertical-map/collapsible-filters/markup/filterlink }} --}}
-          {{!-- {{> templates/vertical-map/collapsible-filters/markup/viewresultsbutton }} --}}
+    <div class="Answers AnswersVerticalMap CollapsibleFilters InteractiveMap InteractiveMap--listShown js-answersInteractiveMap">
+      <div class="Answers-content">
+        <div class="Answers-contentWrap js-locator-contentWrap">
+          <div class="Answers-resultsHeader">
+            <div class="Answers-searchWrapper js-sticky">
+              <div class="Answers-form">
+                {{> templates/vertical-interactive-map/markup/searchbar }}
+                {{!-- {{> templates/vertical-grid/markup/navigation }} --}} 
+              </div>
+            </div>
+            <div class="Answers-resultsHeaderTop">
+              {{> templates/vertical-interactive-map/markup/verticalresultscount }}
+              {{> templates/vertical-interactive-map/markup/appliedfilters }}
+              {{> templates/vertical-interactive-map/collapsible-filters/markup/filterlink }}
+              {{> templates/vertical-interactive-map/collapsible-filters/markup/viewresultsbutton }}
+            </div>
+            <div class="Answers-resultsHeaderBottom">
+              <div class="Answers-noResults js-answersNoResults"></div>
+            </div>
+          </div>
+          <!-- Uncomment the following div if you want to include filters, facets, or sort options  -->
+          <div class="Answers-filtersWrapper js-answersFiltersWrapper CollapsibleFilters-inactive">
+            {{> templates/vertical-interactive-map/markup/sortoptions }}
+            {{> templates/vertical-interactive-map/markup/facets }}
+            {{!-- {{> templates/vertical-interactive-map/markup/filterbox }} --}}
+          </div>
+          <div class="Answers-resultsWrapper js-locator-resultsWrapper">
+            <div class="Answers-resultsContainer js-locator-resultsContainer js-answersResultsWrapper">
+              <div class="js-answersResultsColumn">
+                <div class="Answers-results js-answersResults">
+                  {{> templates/vertical-interactive-map/markup/spellcheck }}
+                  {{> templates/vertical-interactive-map/markup/verticalresults }}
+                  {{> templates/vertical-interactive-map/markup/pagination }}
+                  {{!-- {{> templates/vertical-interactive-map/markup/qasubmission }} --}}
+                </div>
+              </div>
+            </div>
+            <div class="Answers-stickyBottom">
+              <div class="Answers-searchThisAreaToggleWrapper Answers-searchThisAreaToggleWrapper--desktop">
+                <input id="Answers-searchThisAreaToggle--desktop" 
+                       type="checkbox" 
+                       class="Answers-searchThisAreaToggle js-searchThisAreaToggle"
+                      {{#with (lookup verticalsToConfig verticalKey)}}
+                       {{#unless mapConfig.disableSearchOnMapMove}}checked{{/unless}}
+                      {{/with}}
+                >
+                <label class="Answers-searchThisAreaToggleLabel" for="Answers-searchThisAreaToggle--desktop">
+                  Search When Map Moves
+                </label>
+              </div>
+              <div class="Answers-locationBias Answers-locationBias--main js-answersLocationBias" id="js-answersLocationBias"></div>
+            </div>
+          </div>
         </div>
-        <!-- Uncomment the following div if you want to include filters, facets, or sort options  -->
-        {{!-- <div class="Answers-filtersWrapper js-answersFiltersWrapper CollapsibleFilters-inactive"> --}}
-          {{!-- {{> templates/vertical-map/markup/sortoptions }} --}}
-          {{!-- {{> templates/vertical-map/markup/facets }} --}}
-          {{!-- {{> templates/vertical-map/markup/filterbox }} --}}
-        {{!-- </div> --}}
-        <div class="Answers-results js-answersResults">
-          {{> templates/vertical-map/markup/spellcheck }}
-          {{> templates/vertical-map/markup/verticalresults }}
-          {{> templates/vertical-map/markup/pagination }}
-          {{!-- {{> templates/vertical-map/markup/qasubmission }} --}}
+
+        <div class="Answers-centerTop">
+          <div class="Answers-searchThisAreaWrapper Answers-searchThisAreaWrapper--mobile">
+            <button id="Answers-searchThisAreaButton" type="button" class="Answers-searchThisArea js-searchThisArea">
+              Search This Area
+            </button>
+          </div>
+        </div>
+
+        <div class="Answers-mapWrapper">
+          <div id="js-answersMap" class="Answers-map js-answersMap"></div>
+          <div class="Answers-mapFooter">
+            <div class="Answers-searchThisAreaToggleWrapper">
+              <input id="Answers-searchThisAreaToggle--mobileMap" 
+                     type="checkbox" 
+                     class="Answers-searchThisAreaToggle js-searchThisAreaToggle"
+                    {{#with (lookup verticalsToConfig verticalKey)}}
+                     {{#unless mapConfig.disableSearchOnMapMove}}checked{{/unless}}
+                    {{/with}}
+                     >
+              <label class="Answers-searchThisAreaToggleLabel" for="Answers-searchThisAreaToggle--mobileMap">
+                Search When Map Moves
+              </label>
+            </div>
+            <div class="Answers-locationBias Answers-locationBias--mobileMap js-answersLocationBias2" id="js-answersLocationBias2"></div>
+          </div>
+        </div>
+
+        <div class="Answers-mobileToggles js-locator-mobiletoggles">
+          <button class="Answers-mobileToggle Answers-mobileToggle--results js-locator-listToggle">
+            <span class="Answers-viewListText">
+              {{> listIcon}}
+              List
+            </span>
+            <span class="Answers-viewMapText">
+              {{> mapIcon}}
+              Map
+            </span>
+          </button>
         </div>
       </div>
-      {{> templates/vertical-map/markup/map }}
     </div>
     <div class="Answers-footer js-answersFooter">
       {{> layouts/yext-logo }}
-      {{> templates/vertical-map/markup/locationbias }}
     </div>
-  </div>
 {{/layouts/html }}
+
+{{#*inline 'mapIcon'}}
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Elements/Icons/Map</title>
+    <defs>
+        <path d="M23.3333333,0 L23.12,0.04 L16,2.8 L8,0 L0.48,2.53333333 C0.2,2.62666667 0,2.86666667 0,3.17333333 L0,23.3333333 C0,23.7066667 0.293333333,24 0.666666667,24 L0.88,23.96 L8,21.2 L16,24 L23.52,21.4666667 C23.8,21.3733333 24,21.1333333 24,20.8266667 L24,0.666666667 C24,0.293333333 23.7066667,0 23.3333333,0 Z M16,21.3333333 L8,18.52 L8,2.66666667 L16,5.48 L16,21.3333333 Z" id="path-1"></path>
+    </defs>
+    <g id="Elements/Icons/Map" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <use id="Map" fill="black" xlink:href="#path-1"></use>
+    </g>
+</svg>
+{{/inline}}
+
+{{#*inline 'listIcon'}}
+  <?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Elements/Icons/List</title>
+    <defs>
+        <path d="M0,13.8 L2.66666667,13.8 L2.66666667,11.2 L0,11.2 L0,13.8 Z M0,19 L2.66666667,19 L2.66666667,16.4 L0,16.4 L0,19 Z M0,8.6 L2.66666667,8.6 L2.66666667,6 L0,6 L0,8.6 Z M5.33333333,13.8 L24,13.8 L24,11.2 L5.33333333,11.2 L5.33333333,13.8 Z M5.33333333,19 L24,19 L24,16.4 L5.33333333,16.4 L5.33333333,19 Z M5.33333333,6 L5.33333333,8.6 L24,8.6 L24,6 L5.33333333,6 Z" id="path-2"></path>
+    </defs>
+    <g id="Elements/Icons/List" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-2"></use>
+        </mask>
+        <use id="List" fill="black" xlink:href="#path-2"></use>
+    </g>
+</svg>
+{{/inline}}
