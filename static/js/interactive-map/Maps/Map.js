@@ -404,8 +404,7 @@ class Map {
   }
 
   getVisibleBounds() {
-    const b = this.getBounds();
-    const { ne, sw } = b;
+    const { ne, sw } = this.getBounds();
     const padding = this._padding;
 
     const pixelHeight = this._wrapper.offsetHeight;
@@ -427,51 +426,12 @@ class Map {
     newNorthEast.add((-1 * paddingTop * height), (-1 * paddingRight * width), Unit.DEGREE, Projection.MERCATOR);
     newSouthWest.add((paddingBottom * height), (paddingLeft * width), Unit.DEGREE, Projection.MERCATOR);
 
-    /*
-    this.addGoogleMapsMarkerAtLatLng(
-      sw.latitude, 
-      sw.longitude, 
-      'bound1');
-    this.addGoogleMapsMarkerAtLatLng(
-      ne.latitude, 
-      ne.longitude, 
-      'bound2');
-    this.addGoogleMapsMarkerAtLatLng(
-      newSouthWest.latitude, 
-      newSouthWest.longitude);
-    this.addGoogleMapsMarkerAtLatLng(
-      newNorthEast.latitude, 
-      newNorthEast.longitude);
-    */
     const paddedBounds = new GeoBounds(newSouthWest, newNorthEast);
     return paddedBounds;
   }
 
-  markVisibleBounds() {
-    const bounds = this.getVisibleBounds();
-    if (!bounds) {
-      console.info('no bounds to mark');
-    }
-    this.addGoogleMapsMarkerAtLatLng(
-      bounds.sw.latitude, 
-      bounds.sw.longitude, 
-      'bound1');
-    this.addGoogleMapsMarkerAtLatLng(
-      bounds.ne.latitude, 
-      bounds.ne.longitude, 
-      'bound2');
-  }
-
   coordinateIsInVisibleBounds(coordinate) {
     return this.getVisibleBounds().contains(coordinate);
-  }
-
-  addGoogleMapsMarkerAtLatLng(lat, lng, label = '') {
-    new google.maps.Marker({
-      map: this._map.map,
-      position: new google.maps.LatLng(lat, lng),
-      label: label,
-    });
   }
 
   setCenterWithPadding(coordinate, animated = false) {
