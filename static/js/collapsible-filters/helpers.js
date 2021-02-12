@@ -3,8 +3,7 @@
  */
 export default class Helpers {
   static clearSearch() {
-    ANSWERS.core.setQuery('');
-    ANSWERS.core.persistentStorage.set('query', '');
+    ANSWERS.search('');
   }
 
   /**
@@ -24,21 +23,7 @@ export default class Helpers {
    * @param {Object} options 
    */
   static verticalSearch(options) {
-    const verticalKey = ANSWERS.core.globalStorage.getState('search-config').verticalKey;
+    const verticalKey = ANSWERS.core.storage.get('search-config').verticalKey;
     ANSWERS.core.verticalSearch(verticalKey, options);
-  }
-
-  /**
-   * The SDK does not support Facets on load, however the Facets
-   * component interacts with persistent storage in a way that suggests
-   * that it does. This is a temporary fix until the SDK is patched.
-   * @param {string} prefix 
-   */
-  static clearFacetsPersistentStorage(prefix = 'Facets') {
-    for (const urlParamKey in ANSWERS.core.persistentStorage.getAll()) {
-      if (urlParamKey.startsWith(prefix)) {
-        ANSWERS.core.persistentStorage.delete(urlParamKey, true)
-      }
-    }
   }
 }
