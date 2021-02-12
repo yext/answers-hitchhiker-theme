@@ -15,7 +15,7 @@ const DEFAULT_FILTER_LINK_CONFIG = {
 class FilterLink extends ANSWERS.Component {
   constructor(config, systemConfig = {}) {
     super({ ...DEFAULT_FILTER_LINK_CONFIG, ...config }, systemConfig);
-    ANSWERS.registerListener({
+    ANSWERS.core.storage.registerListener({
       eventType: 'update',
       storageKey: 'vertical-results',
       callback:  data => {

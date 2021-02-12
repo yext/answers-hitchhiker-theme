@@ -10,7 +10,7 @@ const DEFAULT_VIEW_RESULTS_BUTTON_CONFIG = {
 class ViewResultsButton extends ANSWERS.Component {
   constructor(config = {}, systemConfig = {}) {
     super({ ...DEFAULT_VIEW_RESULTS_BUTTON_CONFIG, ...config }, systemConfig);
-    ANSWERS.registerListener({
+    ANSWERS.core.storage.registerListener({
       eventType: 'update',
       storageKey: 'vertical-results',
       callback: data => {
