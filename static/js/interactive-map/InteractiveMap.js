@@ -473,7 +473,7 @@ class InteractiveMap extends ANSWERS.Component {
 
     const center = this.map.getVisibleCenter();
     const lat = center.latitude;
-    const lat = center.longitude;
+    const lng = center.longitude;
     const radius = this.map.getVisibleRadius();
 
     const filterNode = ANSWERS.FilterNodeFactory.from({
