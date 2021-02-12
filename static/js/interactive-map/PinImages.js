@@ -1,4 +1,14 @@
+/**
+ * PinImages is meant to offer an accessible way to change the pin images for result pin
+ * on the interactive map page. Given some config, an SVG should be customizable to
+ * have branding consistent styling in this file.
+ */
 class PinImages {
+  /**
+   * @param {Object} defaultPinConfig The configuration for the default pin
+   * @param {Object} hoveredPinConfig The configuration for the hovered pin
+   * @param {Object} selectedPinConfig The configuration for the selected pin
+   */
   constructor(defaultPinConfig = {}, hoveredPinConfig = {}, selectedPinConfig = {}) {
     this.defaultPinConfig = defaultPinConfig;
     this.hoveredPinConfig = hoveredPinConfig;

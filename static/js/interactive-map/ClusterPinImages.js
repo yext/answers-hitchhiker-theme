@@ -1,4 +1,14 @@
+/**
+ * ClusterPinImages is meant to offer an accessible way to change the pin images for a cluster
+ * on the interactive map page. Given some config, an SVG should be customizable to
+ * have branding consistent styling in this file.
+ */
 class ClusterPinImages {
+  /**
+   * @param {Object} defaultPinConfig The configuration for the default pin
+   * @param {Object} hoveredPinConfig The configuration for the hovered pin
+   * @param {Object} selectedPinConfig The configuration for the selected pin
+   */
   constructor(defaultPinConfig = {}, hoveredPinConfig = {}, selectedPinConfig = {}) {
     this.defaultPinConfig = defaultPinConfig;
     this.hoveredPinConfig = hoveredPinConfig;
@@ -36,7 +46,7 @@ class ClusterPinImages {
 
   /**
    * Get the default pin image
-   * @param {Number} pinCount The pin index number for the pin label
+   * @param {Number} pinCount The number of pins in the cluster, for the pin label
    * @param {Object} profile The profile data for the entity associated with the pin
    */
   getDefaultPin (pinCount, profile) {
@@ -52,7 +62,7 @@ class ClusterPinImages {
 
   /**
    * Get the hovered pin image
-   * @param {Number} pinCount The pin index number for the pin label
+   * @param {Number} pinCount The number of pins in the cluster, for the pin label
    * @param {Object} profile The profile data for the entity associated with the pin
    */
   getHoveredPin (pinCount, profile) {
@@ -68,7 +78,7 @@ class ClusterPinImages {
 
   /**
    * Get the selected pin image
-   * @param {Number} pinCount The pin index number for the pin label
+   * @param {Number} pinCount The number of pins in the cluster, for the pin label
    * @param {Object} profile The profile data for the entity associated with the pin
    */
   getSelectedPin (pinCount, profile) {

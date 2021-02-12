@@ -22,18 +22,6 @@ const STORAGE_KEY_FROM_SEARCH_THIS_AREA = 'FROM_SEARCH_THIS_AREA';
  * searching an area is controlled here
  */
 class InteractiveMap extends ANSWERS.Component {
-  static defaultTemplateName() {
-    return 'theme-components/interactive-map';
-  }
-
-  static areDuplicateNamesAllowed() {
-    return false;
-  }
-
-  static get type() {
-    return 'InteractiveMap';
-  }
-
   constructor(config, systemConfig) {
     super(config, systemConfig);
 
@@ -743,6 +731,18 @@ class InteractiveMap extends ANSWERS.Component {
   getBaseUniversalUrl () {
     const universalConfig = this.verticalsConfig.find(config => !config.verticalKey) || {};
     return universalConfig.url;
+  }
+
+  static defaultTemplateName() {
+    return 'theme-components/interactive-map';
+  }
+
+  static areDuplicateNamesAllowed() {
+    return false;
+  }
+
+  static get type() {
+    return 'InteractiveMap';
   }
 }
 
