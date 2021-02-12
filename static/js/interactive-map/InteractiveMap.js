@@ -14,6 +14,7 @@ import { ClusterPinImages } from './ClusterPinImages.js';
 
 const STORAGE_KEY_HOVERED_RESULT = 'HOVERED_RESULT_KEY';
 const STORAGE_KEY_SELECTED_RESULT = 'SELECTEDED_RESULT_KEY';
+const STORAGE_KEY_FROM_SEARCH_THIS_AREA = 'FROM_SEARCH_THIS_AREA';
 
 /**
  * The component to control the interactions for an interative map.
@@ -386,7 +387,6 @@ class InteractiveMap extends ANSWERS.Component {
       showToggles = true;
     }
     this._container.classList.remove('InteractiveMap--detailShown');
-    this.core.globalStorage.delete('SearchThisArea');
 
     if (showToggles) {
       this._container.classList.add('InteractiveMap--showMobileViewToggles');
@@ -485,7 +485,7 @@ class InteractiveMap extends ANSWERS.Component {
       remove: () => this.core.clearStaticFilterNode('SearchThisArea')
     });
     this.core.setStaticFilterNodes('SearchThisArea', filterNode);
-    this.core.globalStorage.set('SearchThisArea', true);
+    this.core.globalStorage.set(STORAGE_KEY_FROM_SEARCH_THIS_AREA, true);
     this.core.verticalSearch('locations', {
       setQueryParams: true,
       resetPagination: true,
@@ -715,7 +715,8 @@ class InteractiveMap extends ANSWERS.Component {
     const universalData = this.transformDataToUniversalData(this._data);
     let entityData = verticalData.length ? verticalData : universalData;
 
-    const fromSearchThisArea = this.core.globalStorage.getState('SearchThisArea');
+    const fromSearchThisArea = this.core.globalStorage.getState(STORAGE_KEY_FROM_SEARCH_THIS_AREA);
+    this.core.globalStorage.delete(STORAGE_KEY_FROM_SEARCH_THIS_AREA);
     let updateZoom = !fromSearchThisArea;
 
     if (this._isNoResults && !this.displayAllResultsOnNoResults) {
