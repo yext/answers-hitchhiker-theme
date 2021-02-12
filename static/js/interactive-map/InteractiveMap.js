@@ -48,21 +48,25 @@ class InteractiveMap extends ANSWERS.Component {
 
     /**
      * The container in the DOM for the interactive map
+     * @type {HTMLElement}
      */
     this._mapContainerEl = document.getElementById('js-answersMap');
 
     /**
      * The page wrapper DOM element
+     * @type {HTMLElement}
      */
     this._pageWrapperEl = document.querySelector('.YxtPage-wrapper');
 
     /**
      * The header DOM element
+     * @type {HTMLElement}
      */
     this._headerEl = this._pageWrapperEl.querySelector('.js-answersHeader');
 
     /**
      * The results wrapper DOM element
+     * @type {HTMLElement}
      */
     this._resultsWrapperEl = this._container.querySelector('.js-locator-resultsWrapper');
 
@@ -172,7 +176,6 @@ class InteractiveMap extends ANSWERS.Component {
       this.pinClusterOptions.selected || this.pinOptions.selected,
     );
 
-    // TODO change to container from document
     const getLeftPadding = () => {
       if (window.innerWidth <= 991) {
         return 50;
@@ -196,6 +199,7 @@ class InteractiveMap extends ANSWERS.Component {
 
     /**
      * The map object
+     * @type {Map}
      */
     this.map = null;
 
@@ -236,7 +240,6 @@ class InteractiveMap extends ANSWERS.Component {
     });
 
     this.loadAndInitializeMap().then((map) => {
-      window.mappp = map; // TODO remove
       this.map = map;
       this.addMapInteractions(map);
     });
@@ -254,6 +257,10 @@ class InteractiveMap extends ANSWERS.Component {
     });
   }
 
+  /**
+   * Load the map provider scripts and initialize the map with the configuration options
+   * @return {Map} The map object
+   */
   async loadAndInitializeMap () {
     const mapProviderImpl = (this.mapProvider === 'google') ? GoogleMaps : MapboxMaps;
     await mapProviderImpl.load(this.apiKey, {
@@ -272,13 +279,12 @@ class InteractiveMap extends ANSWERS.Component {
   }
 
   /**
-   * Add the map interactions
+   * Add map interactions like event listeners and rendering targets
    * @param {Map} The map object
    */
   addMapInteractions(map) {
-
     // TODO google specific
-    google.maps.event.addListener(map._map.map, 'dragend', () => {
+    window.google.maps.event.addListener(map._map.map, 'dragend', () => {
       if (this.searchOnMapMove) {
         this.searchThisArea();
       } else {
@@ -286,7 +292,7 @@ class InteractiveMap extends ANSWERS.Component {
       }
     });
 
-    google.maps.event.addListener(map._map.map, 'zoom_changed', () => {
+    window.google.maps.event.addListener(map._map.map, 'zoom_changed', () => {
       if (this.map._zoomTrigger === 'api') {
         return;
       }
@@ -369,6 +375,12 @@ class InteractiveMap extends ANSWERS.Component {
     });
   }
 
+  /**
+   * The callback for after any time the map renders
+   * @param {Object} data The data (formatted in the Consulting LiveAPI format) of results
+   * @param {Map} map The map object
+   * @param {Object} pins Mapping from pin id to the pin object on the map
+   */
   mapRenderCallback (data, map, pins) {
     const mobileToggles = this._container.querySelector('.js-locator-mobiletoggles');
     const listToggle = mobileToggles.querySelector('.js-locator-listToggle');
@@ -490,6 +502,9 @@ class InteractiveMap extends ANSWERS.Component {
 
   /**
    * Builds a pin given pin options.
+   * @param {PinOptions} pinOptions The pin options builder
+   * @param {Object} entity The entity data to use in pin building
+   * @param {Number} index The index of the entity in the result list ordering
    */
   buildPin(pinOptions, entity, index) {
     const pin = pinOptions
@@ -525,6 +540,11 @@ class InteractiveMap extends ANSWERS.Component {
     return pin;
   }
 
+  /**
+   * The callback when a result pin on the map is clicked
+   * @param {Number} index The index of the pin in the current result list order
+   * @param {string} cardId The HTML element id of the card that a
+   */
   pinClickHandler (index, cardId) {
     this.core.globalStorage.set(STORAGE_KEY_SELECTED_RESULT, cardId);
     const selector = `.yxt-Card[data-opts='{ "_index": ${index - 1} }']`;
@@ -572,12 +592,9 @@ class InteractiveMap extends ANSWERS.Component {
 
   /**
    * Scroll the result list to show the given element
-   * @memberof CobaltAce
-   * @inner
    * @param {HTMLElement} targetEl The result card to scroll to
    */
   scrollToResult(targetEl) {
-    const isIE11 = !!(window.MSInputMethodContext && document.documentMode);
     const stickyHeight = 0;
 
     const header = this._headerEl;
@@ -612,6 +629,11 @@ class InteractiveMap extends ANSWERS.Component {
     this.onMount();
   }
 
+  /**
+   * Transforms the data from the answers API to the live api format the Locator code expects
+   * @param {Object} data The results from the answers API
+   * @return {Object} The results formatted for the Locator code
+   */
   transformDataToUniversalData (data) {
     const universalData = (data.map ? (data.map.mapMarkers || []) : []).map(marker => ({
       profile: {
@@ -635,6 +657,11 @@ class InteractiveMap extends ANSWERS.Component {
     return universalData;
   }
 
+  /**
+   * Transforms the data from the answers API to the live api format the Locator code expects
+   * @param {Object} data The results from the answers API
+   * @return {Object} The results formatted for the Locator code
+   */
   transformDataToVerticalData (data) {
     const verticalData = (data.results || []).map(ent => ({
       profile: {
@@ -682,13 +709,14 @@ class InteractiveMap extends ANSWERS.Component {
       );
     }
 
-    //this._initializeSubcomponents();
-
     this._children.forEach(child => {
       child.mount();
     });
   }
 
+  /**
+   * Update the map with the new data by rendering
+   */
   _updateMap () {
     const verticalData = this.transformDataToVerticalData(this._data);
     const universalData = this.transformDataToUniversalData(this._data);
@@ -715,31 +743,9 @@ class InteractiveMap extends ANSWERS.Component {
   }
 
   /**
-   * Note we aren't using the automatic addChild because then we would need to move the HTML into
-   * a component template, which is disruptive to the HH flow.
+   * Get the base universal url
+   * @return {string} The universal url
    */
-  _initializeSubcomponents () {
-    const searchbarConfig = this._config.searchbarConfig;
-    if (searchbarConfig) {
-      this.addChild({}, 'SearchBar', searchbarConfig);
-    }
-
-    const verticalResultsConfig = this._config.verticalResultsConfig;
-    if (verticalResultsConfig) {
-      this.addChild({}, 'VerticalResults', verticalResultsConfig);
-    }
-
-    const locationBiasMobileMapConfig = this._config.locationBiasConfig;
-    if (locationBiasMobileMapConfig) {
-      this.addChild({}, 'LocationBias', verticalResultsConfig);
-    }
-
-    const locationBiasResultListConfig = this._config.locationBiasConfig;
-    if (locationBiasResultListConfig) {
-      this.addChild({}, 'LocationBias', locationBiasResultListConfig);
-    }
-  }
-
   getBaseUniversalUrl () {
     const universalConfig = this.verticalsConfig.find(config => !config.verticalKey) || {};
     return universalConfig.url;
