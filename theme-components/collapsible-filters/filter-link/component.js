@@ -30,7 +30,7 @@ class FilterLink extends ANSWERS.Component {
   }
 
   setState(data = {}) {
-    const verticalResults = ANSWERS.getFromStorage('vertical-results') || {};
+    const verticalResults = ANSWERS.core.storage.get('vertical-results') || {};
     return super.setState({
       ...this.getState(),
       ...data,

@@ -33,7 +33,7 @@ class ViewResultsButton extends ANSWERS.Component {
       ...this.getState(),
       ...data,
       isNoResults: data.resultsContext === 'no-results',
-      verticalKey: ANSWERS.getFromStorage('search-config').verticalKey
+      verticalKey: ANSWERS.core.storage.get('search-config').verticalKey
     });
   }
 
