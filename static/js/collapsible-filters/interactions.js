@@ -114,7 +114,7 @@ export default class Interactions {
   registerCollapseFiltersOnSearchbarSearch() {
     let pendingQueryUpdate = false;
 
-    ANSWERS.registerListener({
+    ANSWERS.core.storage.registerListener({
       eventType: 'update',
       storageKey: 'query',
       callback: () => {
@@ -122,7 +122,7 @@ export default class Interactions {
       }
     });
 
-    ANSWERS.registerListener({
+    ANSWERS.core.storage.registerListener({
       eventType: 'update',
       storageKey: 'vertical-results',
       callback: verticalResults => {

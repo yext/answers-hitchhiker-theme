@@ -10,7 +10,12 @@ export default class Helpers {
    * Resets all filters in the SDK.
    */
   static resetAllFilters() {
-    ANSWERS.resetAllFilters();
+    const filterNodes = this.core.filterRegistry
+      .getAllFilterNodes()
+      .filter(fn => fn.getFilter().getFilterKey());
+    filterNodes.forEach(node => {
+      node.remove();
+    });
   }
 
   /**
@@ -18,8 +23,7 @@ export default class Helpers {
    * @param {Object} options 
    */
   static verticalSearch(options) {
-    ANSWERS.verticalSearch({
-      ...options,
-    });
+    const verticalKey = ANSWERS.core.storage.get('search-config').verticalKey;
+    ANSWERS.core.verticalSearch(verticalKey, options);
   }
 }
