@@ -7,6 +7,12 @@ class ClusterPinImages {
 
   /**
    * Generate standard theme pin given some parameters
+   * @param {string} pin.backgroundColor Background color for the pin
+   * @param {string} pin.strokeColor Stroke (border) color for the pin
+   * @param {string} pin.labelColor Label (text) color for the pin
+   * @param {string} pin.width The width of the pin
+   * @param {string} pin.height The height of the pin
+   * @param {string} pin.pinCount The index of the pin for the pin text
    * @return string The SVG of the pin
    */
   generatePin ({
@@ -30,6 +36,8 @@ class ClusterPinImages {
 
   /**
    * Get the default pin image
+   * @param {Number} pinCount The pin index number for the pin label
+   * @param {Object} profile The profile data for the entity associated with the pin
    */
   getDefaultPin (pinCount, profile) {
     return this.generatePin({
@@ -44,6 +52,8 @@ class ClusterPinImages {
 
   /**
    * Get the hovered pin image
+   * @param {Number} pinCount The pin index number for the pin label
+   * @param {Object} profile The profile data for the entity associated with the pin
    */
   getHoveredPin (pinCount, profile) {
     return this.generatePin({
@@ -58,6 +68,8 @@ class ClusterPinImages {
 
   /**
    * Get the selected pin image
+   * @param {Number} pinCount The pin index number for the pin label
+   * @param {Object} profile The profile data for the entity associated with the pin
    */
   getSelectedPin (pinCount, profile) {
     return this.generatePin({

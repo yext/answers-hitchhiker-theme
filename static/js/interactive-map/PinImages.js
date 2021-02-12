@@ -7,6 +7,12 @@ class PinImages {
 
   /**
    * Generate standard theme pin given some parameters
+   * @param {string} pin.backgroundColor Background color for the pin
+   * @param {string} pin.strokeColor Stroke (border) color for the pin
+   * @param {string} pin.labelColor Label (text) color for the pin
+   * @param {string} pin.width The width of the pin
+   * @param {string} pin.height The height of the pin
+   * @param {string} pin.pinCount The index of the pin for the pin text
    * @return string The SVG of the pin
    */
   generatePin ({
@@ -35,6 +41,8 @@ class PinImages {
 
   /**
    * Get the default pin image
+   * @param {Number} pinCount The pin index number for the pin label
+   * @param {Object} profile The profile data for the entity associated with the pin
    */
   getDefaultPin (index, profile) {
     return this.generatePin({
@@ -50,6 +58,8 @@ class PinImages {
 
   /**
    * Get the hovered pin image
+   * @param {Number} pinCount The pin index number for the pin label
+   * @param {Object} profile The profile data for the entity associated with the pin
    */
   getHoveredPin (index, profile) {
     return this.generatePin({
@@ -65,6 +75,8 @@ class PinImages {
 
   /**
    * Get the selected pin image
+   * @param {Number} pinCount The pin index number for the pin label
+   * @param {Object} profile The profile data for the entity associated with the pin
    */
   getSelectedPin (index, profile) {
     return this.generatePin({
