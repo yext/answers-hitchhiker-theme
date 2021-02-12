@@ -10,7 +10,7 @@ export default class Helpers {
    * Resets all filters in the SDK.
    */
   static resetAllFilters() {
-    const filterNodes = this.core.filterRegistry
+    const filterNodes = ANSWERS.core.filterRegistry
       .getAllFilterNodes()
       .filter(fn => fn.getFilter().getFilterKey());
     filterNodes.forEach(node => {
