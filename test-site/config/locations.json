@@ -19,14 +19,14 @@
       "privacyPolicyUrl": "" // The fully qualified URL to the privacy policy
     },
     **/
-    /**
+    
     "Facets": {
       "expand": false, // Allow the user to expand and collapse the facets
       "showMore": false, // Display a link to see more facet options within a facet
       "searchOnChange": true // Will automatically run a search as facets are selected or unselected. Set to false to only trigger updates with an Apply button. 
       // Additional options are available in the documentation
     },
-    **/
+    
     /**
     "FilterLink": {
       "changeFiltersText": "sorts and filters", // Text that displays by default
