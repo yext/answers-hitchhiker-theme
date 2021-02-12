@@ -5,6 +5,8 @@ import { Coordinate } from './Geo/Coordinate.js';
 import { PinProperties } from './Maps/PinProperties.js';
 import { PinClustererOptions } from './PinClusterer/PinClusterer.js';
 import { smoothScroll } from './Util/SmoothScroll.js';
+import { getLanguageForProvider } from './Util/helpers.js';
+import { transformDataToUniversalData, transformDataToVerticalData } from './Util/transformers.js';
 
 import { GoogleMaps } from './Maps/Providers/Google.js';
 import { MapboxMaps } from './Maps/Providers/Mapbox.js';
@@ -83,7 +85,7 @@ class InteractiveMap extends ANSWERS.Component {
      * The language locale for the map
      * @type {string}
      */
-    this.language = this.getLanguageForProvider(config.locale, this.mapProvider);
+    this.language = getLanguageForProvider(config.locale, this.mapProvider);
 
     /**
      * The default zoom level for the map
@@ -156,11 +158,17 @@ class InteractiveMap extends ANSWERS.Component {
     );
 
     /**
+     * The mobile breakpoint (inclusive max) in px
+     * @type {Number}
+     */
+    this.mobileBreakpointMax = 991;
+
+    /**
      * The padding for the map within the viewable area
      * @type {Object}
      */
     this.mapPadding = {
-      top: () => window.innerWidth <= 991 ? 150 : 50,
+      top: () => window.innerWidth <= this.mobileBreakpointMax ? 150 : 50,
       bottom: () => 50,
       right: () => 50,
       left: () => this.getLeftPadding(),
@@ -209,7 +217,7 @@ class InteractiveMap extends ANSWERS.Component {
    * @return {Number} The padding (in pixels) for the visible area of the map
    */
   getLeftPadding () {
-    if (window.innerWidth <= 991) {
+    if (window.innerWidth <= this.mobileBreakpointMax) {
       return 50;
     }
 
@@ -223,10 +231,7 @@ class InteractiveMap extends ANSWERS.Component {
       this.setState(data);
     });
 
-    this.loadAndInitializeMap().then((map) => {
-      this.map = map;
-      this.addMapInteractions(map);
-    });
+    this.loadAndInitializeMap();
 
     const searchThisAreaToggleEls = this._container.querySelectorAll('.js-searchThisAreaToggle');
     searchThisAreaToggleEls.forEach((el) => {
@@ -243,7 +248,6 @@ class InteractiveMap extends ANSWERS.Component {
 
   /**
    * Load the map provider scripts and initialize the map with the configuration options
-   * @return {Map} The map object
    */
   async loadAndInitializeMap () {
     const mapProviderImpl = (this.mapProvider === 'google') ? GoogleMaps : MapboxMaps;
@@ -259,7 +263,8 @@ class InteractiveMap extends ANSWERS.Component {
       .withProviderOptions(this.providerOptions || {})
       .withPadding(this.mapPadding)
       .build();
-    return map;
+    this.map = map;
+    this.addMapInteractions(map);
   }
 
   /**
@@ -277,11 +282,11 @@ class InteractiveMap extends ANSWERS.Component {
     });
 
     window.google.maps.event.addListener(map._map.map, 'zoom_changed', () => {
-      if (this.map._zoomTrigger === 'api') {
+      if (map._zoomTrigger === 'api') {
         return;
       }
 
-      this.map.idle().then(() => {
+      map.idle().then(() => {
         if (this.searchOnMapMove) {
           this.searchThisArea();
         } else {
@@ -351,8 +356,8 @@ class InteractiveMap extends ANSWERS.Component {
             this.onPinSelect();
           }
 
-          if (!this.map.coordinateIsInVisibleBounds(pins[id].getCoordinate())) {
-            this.map.setCenterWithPadding(pins[id].getCoordinate(), true);
+          if (!map.coordinateIsInVisibleBounds(pins[id].getCoordinate())) {
+            map.setCenterWithPadding(pins[id].getCoordinate(), true);
           }
         }
       }
@@ -423,31 +428,6 @@ class InteractiveMap extends ANSWERS.Component {
       .withClusterZoomAnimated(true)
       .withClusterZoomMax(20);
     return clustererOptions.build();
-  }
-
-  /**
-   * Gets the language locale according to specific fallback logic
-   * 1. The user-specified locale to the component
-   * 2. If invalid, try using only the first two characters
-   * 3. If still invalid, providers fallback to en
-   *
-   * @param {string} localeStr The user-defined locale string
-   * @param {string[]} supportedLocales The locales supported by the current map provider
-   * @return {string} The language locale for the map
-   */
-  getLanguageForProvider(localeStr, supportedLocales) {
-    if (localeStr.length == 2) {
-      return localeStr;
-    } 
-
-    if (localeStr.length > 2) {
-      if (supportedLocalesForProvider.includes(localeStr)) {
-        return localeStr;
-      } 
-      return localeStr.substring(0, 2);
-    }
-
-    return 'en';
   }
 
   /**
@@ -530,7 +510,7 @@ class InteractiveMap extends ANSWERS.Component {
     this.core.globalStorage.set(STORAGE_KEY_SELECTED_RESULT, cardId);
     const selector = `.yxt-Card[data-opts='{ "_index": ${index - 1} }']`;
     const card = document.querySelector(selector);
-    const mediaQuery = window.matchMedia("(max-width: 991px)");
+    const mediaQuery = window.matchMedia(`(max-width: ${this.mobileBreakpointMax}px)`);
 
     document.querySelectorAll('.yxt-Card--pinClicked').forEach((el) => {
       el.classList.remove('yxt-Card--pinClicked');
@@ -610,62 +590,6 @@ class InteractiveMap extends ANSWERS.Component {
     this.onMount();
   }
 
-  /**
-   * Transforms the data from the answers API to the live api format the Locator code expects
-   * @param {Object} data The results from the answers API
-   * @return {Object} The results formatted for the Locator code
-   */
-  transformDataToUniversalData (data) {
-    const universalData = (data.map ? (data.map.mapMarkers || []) : []).map(marker => ({
-      profile: {
-        ...marker.item,
-        meta: {
-          accountId: '',
-          countryCode: marker.item.address.countryCode,
-          entityType: marker.item.type,
-          folderId: '',
-          id: marker.item.id,
-          labels: '',
-          language: '',
-          schemaTypes: '',
-          timestamp: '',
-          uid: '',
-          utcOffsets: '',
-          yextId: marker.item.id,
-        }
-      }
-    }));
-    return universalData;
-  }
-
-  /**
-   * Transforms the data from the answers API to the live api format the Locator code expects
-   * @param {Object} data The results from the answers API
-   * @return {Object} The results formatted for the Locator code
-   */
-  transformDataToVerticalData (data) {
-    const verticalData = (data.results || []).map(ent => ({
-      profile: {
-        ...ent._raw,
-        meta: {
-          accountId: '',
-          countryCode: ent._raw.address.countryCode,
-          entityType: ent._raw.type,
-          folderId: '',
-          id: ent.id,
-          labels: '',
-          language: '',
-          schemaTypes: '',
-          timestamp: '',
-          uid: '',
-          utcOffsets: '',
-          yextId: ent.id,
-        },
-      }
-    }));
-    return verticalData;
-  }
-
   onMount () {
     this._children.forEach(child => {
       child.unMount();
@@ -699,8 +623,8 @@ class InteractiveMap extends ANSWERS.Component {
    * Update the map with the new data by rendering
    */
   _updateMap () {
-    const verticalData = this.transformDataToVerticalData(this._data);
-    const universalData = this.transformDataToUniversalData(this._data);
+    const verticalData = transformDataToVerticalData(this._data);
+    const universalData = transformDataToUniversalData(this._data);
     let entityData = verticalData.length ? verticalData : universalData;
 
     const fromSearchThisArea = this.core.globalStorage.getState(STORAGE_KEY_FROM_SEARCH_THIS_AREA);
