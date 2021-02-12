@@ -5,7 +5,6 @@ import { Coordinate } from './Geo/Coordinate.js';
 import { PinProperties } from './Maps/PinProperties.js';
 import { PinClustererOptions } from './PinClusterer/PinClusterer.js';
 import { smoothScroll } from './Util/SmoothScroll.js';
-import { Unit } from './Geo/constants.js';
 
 import { GoogleMaps } from './Maps/Providers/Google.js';
 import { MapboxMaps } from './Maps/Providers/Mapbox.js';
@@ -17,19 +16,10 @@ const STORAGE_KEY_HOVERED_RESULT = 'HOVERED_RESULT_KEY';
 const STORAGE_KEY_SELECTED_RESULT = 'SELECTEDED_RESULT_KEY';
 
 /**
- * Enum representing states for the InterativeMap component, maps from state name to 
- * modifier for the locator class
- * @type {Object}
+ * The component to control the interactions for an interative map.
+ * Interactions like clicking on a pin or dragging the map and
+ * searching an area is controlled here
  */
-const INTERACTIVE_MAP_STATTES = {
-  SHOW_SEARCH_THIS_AREA: 'showSearchThisArea',
-  SHOW_NO_RESULTS: 'showNoResults',
-  SHOW_MAP_ON_MOBILE: 'showMapOnMobile',
-  SHOW_LIST_ON_MOBILE: 'showListOnMobile',
-  SHOW_DETAIL_CARD_ON_MOBILE: 'showDetailCardOnMobile',
-  SHOW_MOBILE_VIEW_TOGGLE: 'showMobileViewToggles',
-};
-
 class InteractiveMap extends ANSWERS.Component {
   static defaultTemplateName() {
     return 'theme-components/interactive-map';
@@ -176,16 +166,6 @@ class InteractiveMap extends ANSWERS.Component {
       this.pinClusterOptions.selected || this.pinOptions.selected,
     );
 
-    const getLeftPadding = () => {
-      if (window.innerWidth <= 991) {
-        return 50;
-      }
-
-      const resultsListEl = this._container.querySelector('.js-locator-contentWrap');
-      const resultsListElWidth = resultsListEl ? resultsListEl.offsetWidth : 0;
-      return 50 + resultsListElWidth;
-    };
-
     /**
      * The padding for the map within the viewable area
      * @type {Object}
@@ -194,7 +174,7 @@ class InteractiveMap extends ANSWERS.Component {
       top: () => window.innerWidth <= 991 ? 150 : 50,
       bottom: () => 50,
       right: () => 50,
-      left: getLeftPadding,
+      left: () => this.getLeftPadding(),
     };
 
     /**
@@ -233,6 +213,21 @@ class InteractiveMap extends ANSWERS.Component {
      */
     this.selectedPinId = null;
   }
+
+  /**
+   * Get the padding for the left hand side of the map (results bar), in order
+   * to keep pins in only the visible part of the map.
+   * @return {Number} The padding (in pixels) for the visible area of the map
+   */
+  getLeftPadding () {
+    if (window.innerWidth <= 991) {
+      return 50;
+    }
+
+    const resultsListEl = this._container.querySelector('.js-locator-contentWrap');
+    const resultsListElWidth = resultsListEl ? resultsListEl.offsetWidth : 0;
+    return 50 + resultsListElWidth;
+  };
 
   onCreate () {
     this.core.globalStorage.on('update', 'vertical-results', (data) => {
@@ -412,7 +407,6 @@ class InteractiveMap extends ANSWERS.Component {
    * Get the Map pin clusterer object
    */
   getClusterer () {
-    const clusterPinImages = this.pinClusterImages;
     const clustererOptions = new PinClustererOptions()
       .withClickListener(() => {
         if (this.searchOnMapMove) {
@@ -420,13 +414,13 @@ class InteractiveMap extends ANSWERS.Component {
         }
       })
       .withIconTemplate('default', (pinDetails) => {
-        return clusterPinImages.getDefaultPin(pinDetails.pinCount);
+        return this.pinClusterImages.getDefaultPin(pinDetails.pinCount);
       })
       .withIconTemplate('hovered', (pinDetails) => {
-        return clusterPinImages.getHoveredPin(pinDetails.pinCount);
+        return this.pinClusterImages.getHoveredPin(pinDetails.pinCount);
       })
       .withIconTemplate('selected', (pinDetails) => {
-        return clusterPinImages.getSelectedPin(pinDetails.pinCount);
+        return this.pinClusterImages.getSelectedPin(pinDetails.pinCount);
       })
       .withPropertiesForStatus(status => {
         const properties = new PinProperties()
@@ -477,12 +471,11 @@ class InteractiveMap extends ANSWERS.Component {
   searchThisArea() {
     this._container.classList.remove('InteractiveMap--showSearchThisArea');
 
-    const object = {
-      lat: this.map.getVisibleCenter().latitude,
-      lng: this.map.getVisibleCenter().longitude,
-      radius: this.map.getVisibleRadius(),
-    }
-    const { lat, lng, radius } = object;
+    const center = this.map.getVisibleCenter();
+    const lat = center.latitude;
+    const lat = center.longitude;
+    const radius = this.map.getVisibleRadius();
+
     const filterNode = ANSWERS.FilterNodeFactory.from({
       filter: {
         'builtin.location': {
