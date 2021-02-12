@@ -10,7 +10,7 @@ const DEFAULT_VIEW_RESULTS_BUTTON_CONFIG = {
 class ViewResultsButton extends ANSWERS.Component {
   constructor(config = {}, systemConfig = {}) {
     super({ ...DEFAULT_VIEW_RESULTS_BUTTON_CONFIG, ...config }, systemConfig);
-    ANSWERS.core.storage.registerListener({
+    this.core.storage.registerListener({
       eventType: 'update',
       storageKey: 'vertical-results',
       callback: data => {
@@ -33,7 +33,7 @@ class ViewResultsButton extends ANSWERS.Component {
       ...this.getState(),
       ...data,
       isNoResults: data.resultsContext === 'no-results',
-      verticalKey: ANSWERS.core.storage.get('search-config').verticalKey
+      verticalKey: this.core.storage.get('search-config').verticalKey
     });
   }
 

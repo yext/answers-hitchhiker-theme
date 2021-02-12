@@ -15,7 +15,7 @@ const DEFAULT_FILTER_LINK_CONFIG = {
 class FilterLink extends ANSWERS.Component {
   constructor(config, systemConfig = {}) {
     super({ ...DEFAULT_FILTER_LINK_CONFIG, ...config }, systemConfig);
-    ANSWERS.core.storage.registerListener({
+    this.core.storage.registerListener({
       eventType: 'update',
       storageKey: 'vertical-results',
       callback:  data => {
@@ -30,7 +30,7 @@ class FilterLink extends ANSWERS.Component {
   }
 
   setState(data = {}) {
-    const verticalResults = ANSWERS.core.storage.get('vertical-results') || {};
+    const verticalResults = this.core.storage.get('vertical-results') || {};
     return super.setState({
       ...this.getState(),
       ...data,
