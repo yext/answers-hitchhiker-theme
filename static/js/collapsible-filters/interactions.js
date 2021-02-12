@@ -114,17 +114,25 @@ export default class Interactions {
   registerCollapseFiltersOnSearchbarSearch() {
     let pendingQueryUpdate = false;
 
-    ANSWERS.core.globalStorage.on('update', 'query', () => {
-      pendingQueryUpdate = true;
+    ANSWERS.registerListener({
+      eventType: 'update',
+      storageKey: 'query',
+      callback: () => {
+        pendingQueryUpdate = true;
+      }
     });
 
-    ANSWERS.core.globalStorage.on('update', 'vertical-results', verticalResults => {
-      if (verticalResults.searchState !== 'search-complete' || !pendingQueryUpdate) {
-        return;
+    ANSWERS.registerListener({
+      eventType: 'update',
+      storageKey: 'vertical-results',
+      callback: verticalResults => {
+        if (verticalResults.searchState !== 'search-complete' || !pendingQueryUpdate) {
+          return;
+        }
+        this.collapseFilters();
+        pendingQueryUpdate = false;
       }
-      this.collapseFilters();
-      pendingQueryUpdate = false;
-    });
+    })
   }
 
   /**
