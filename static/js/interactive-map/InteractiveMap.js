@@ -149,7 +149,7 @@ class InteractiveMap extends ANSWERS.Component {
 
     /**
      * The pin images for the default Map Pin
-     * @type {PinImages}
+     * @type {ClusterPinImages}
      */
     this.pinClusterImages = new ClusterPinImages(
       this.pinClusterOptions.default || this.pinOptions.default,
@@ -171,7 +171,7 @@ class InteractiveMap extends ANSWERS.Component {
       top: () => window.innerWidth <= this.mobileBreakpointMax ? 150 : 50,
       bottom: () => 50,
       right: () => 50,
-      left: () => this.getLeftPadding(),
+      left: () => this.getLeftVisibleBoundaryPadding(),
     };
 
     /**
@@ -216,7 +216,7 @@ class InteractiveMap extends ANSWERS.Component {
    * to keep pins in only the visible part of the map.
    * @return {Number} The padding (in pixels) for the visible area of the map
    */
-  getLeftPadding () {
+  getLeftVisibleBoundaryPadding () {
     if (window.innerWidth <= this.mobileBreakpointMax) {
       return 50;
     }
@@ -309,7 +309,7 @@ class InteractiveMap extends ANSWERS.Component {
 
     const mapRenderTargetOptions = new MapRenderTargetOptions()
       .withMap(map)
-      .withOnPostRender((data, map) => this.mapRenderCallback(data, map, mapRenderTarget.getPins()))
+      .withOnPostRender((data, map) => this.setupMobileToggles(data, map, mapRenderTarget.getPins()))
       .withPinBuilder(pinBuilder)
 
     if (this.enablePinClustering) {
@@ -370,7 +370,7 @@ class InteractiveMap extends ANSWERS.Component {
    * @param {Map} map The map object
    * @param {Object} pins Mapping from pin id to the pin object on the map
    */
-  mapRenderCallback (data, map, pins) {
+  setupMobileToggles (data, map, pins) {
     const mobileToggles = this._container.querySelector('.js-locator-mobiletoggles');
     const listToggle = mobileToggles.querySelector('.js-locator-listToggle');
 

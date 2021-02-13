@@ -67,50 +67,23 @@
           "displayAllResults": false, // Set to FALSE to hide results on the map when a search returns no results
         },
         "pin": {
-          "default": {
+          "default": { // The pin in its normal state
             "backgroundColor": "#5387d7", // Enter a hex value or color for the pin background
             "strokeColor": "#2a446b",
             "labelColor": "white"
           },
-          "hovered": {
+          "hovered": { // The pin when it is hovered
             "backgroundColor": "#2f4d71",
             "strokeColor": "#172638",
             "labelColor": "white"
           },
-          "selected": {
-            "backgroundColor": "#2f4d71",
-            "strokeColor": "#172638",
-            "labelColor": "white"
-          }
-        },
-        //"enablePinClustering": true, // uncomment to turn on pin clustering. Defaults false
-
-        // Below not shown by default in the json config
-        "showOrdinal": true, // If the ordinal should be displayed on the card on universal. Hidden always on vertical.
-        "locale": "en", // defaults to ""
-        "providerOptions": {
-          "mapTypeControl": false,
-          "center": { "lat": -34.397, "lng": 150.644 }, // requires null defaultInitialSearch to show
-          "zoom": 6 // requires null defaultInitialSearch to show
-        },
-        "disableSearchOnMapMove": false, // default false
-        "pinCluster": { // defaults below
-          "default": {
-            "backgroundColor": "#5387d7",
-            "strokeColor": "#2a446b",
-            "labelColor": "white"
-          },
-          "hovered": {
-            "backgroundColor": "#2f4d71",
-            "strokeColor": "#172638",
-            "labelColor": "white"
-          },
-          "selected": {
+          "selected": { // The pin when it is selected by mouse click or through a card click
             "backgroundColor": "#2f4d71",
             "strokeColor": "#172638",
             "labelColor": "white"
           }
         }
+        //"enablePinClustering": true, // Cluster pins on the map that are close together. Defaults false
       },
       "universalSectionTemplate": "standard"
     }
