@@ -19,6 +19,7 @@ ANSWERS.addComponent('InteractiveMap', Object.assign({},
     collapsibleFiltersInteractions.collapseFilters();
   },
   locale: "{{global_config.locale}}",
+  verticalKey: "{{{verticalKey}}}",
   verticalPages: [
     {{#each verticalConfigs}}
       {{#if verticalKey}}
