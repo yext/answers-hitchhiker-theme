@@ -1,0 +1,7 @@
+ANSWERS.addComponent('AppliedFilters', {
+  container: '#js-answersAppliedFilters',
+  {{#if verticalKey}}
+    verticalKey: '{{{verticalKey}}}',
+  {{/if}}
+  ...{{{ json componentSettings.AppliedFilters }}}
+});
