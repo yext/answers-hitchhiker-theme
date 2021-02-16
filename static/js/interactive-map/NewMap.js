@@ -10,10 +10,15 @@ import { GoogleMaps } from './Maps/Providers/Google.js';
 import { MapboxMaps } from './Maps/Providers/Mapbox.js';
 
 const STORAGE_KEY_HOVERED_RESULT = 'HOVERED_RESULT_KEY';
-const STORAGE_KEY_SELECTED_RESULT = 'SELECTEDED_RESULT_KEY';
+const STORAGE_KEY_SELECTED_RESULT = 'SELECTED_RESULT_KEY';
 const STORAGE_KEY_FROM_SEARCH_THIS_AREA = 'FROM_SEARCH_THIS_AREA';
 const STORAGE_KEY_MAP_PROPERTIES = 'MAP_PROPERTIES';
 
+/**
+ * The component to create and control the functionality of a map,
+ * including importing and initializing the map, assigning event 
+ * listeners, and rendering the map on the page with results changes
+ */
 class NewMap extends ANSWERS.Component {
   constructor(config, systemConfig) {
     super(config, systemConfig);
@@ -133,22 +138,10 @@ class NewMap extends ANSWERS.Component {
       })
     });
 
-    const iconsForEntity = (entity, index) => ({
-      default: this.pinImages.getDefaultPin(index, entity.profile),
-      hovered: this.pinImages.getHoveredPin(index, entity.profile),
-      selected: this.pinImages.getSelectedPin(index, entity.profile),
-    });
-    const pinBuilder = (pinOptions, entity, index) => {
-      Object.entries(iconsForEntity(entity, index))
-        .forEach(([name, icon]) => pinOptions.withIcon(name, icon));
-      pinOptions.withHideOffscreen(false);
-      return this.buildPin(pinOptions, entity, index);
-    };
-
     const mapRenderTargetOptions = new MapRenderTargetOptions()
       .withMap(map)
       .withOnPostRender((data, map) => this.onPostMapRender(data, map, mapRenderTarget.getPins()))
-      .withPinBuilder(pinBuilder)
+      .withPinBuilder((pinOptions, entity, index) => this.buildPin(pinOptions, entity, index))
 
     if (this.enablePinClustering) {
       mapRenderTargetOptions.withPinClusterer(this.getClusterer());
@@ -240,6 +233,10 @@ class NewMap extends ANSWERS.Component {
    */
   buildPin(pinOptions, entity, index) {
     const pin = pinOptions
+      .withIcon('default', this.pinImages.getDefaultPin(index, entity.profile))
+      .withIcon('hovered', this.pinImages.getHoveredPin(index, entity.profile))
+      .withIcon('selected', this.pinImages.getSelectedPin(index, entity.profile))
+      .withHideOffscreen(false)
       .withCoordinate(new Coordinate(entity.profile.yextDisplayCoordinate))
       .withPropertiesForStatus(status => {
         const properties = new PinProperties()

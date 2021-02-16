@@ -6,7 +6,7 @@ import { PinImages } from './PinImages.js';
 import { ClusterPinImages } from './ClusterPinImages.js';
 
 const STORAGE_KEY_HOVERED_RESULT = 'HOVERED_RESULT_KEY';
-const STORAGE_KEY_SELECTED_RESULT = 'SELECTEDED_RESULT_KEY';
+const STORAGE_KEY_SELECTED_RESULT = 'SELECTED_RESULT_KEY';
 const STORAGE_KEY_FROM_SEARCH_THIS_AREA = 'FROM_SEARCH_THIS_AREA';
 const STORAGE_KEY_MAP_PROPERTIES = 'MAP_PROPERTIES';
 
@@ -194,8 +194,8 @@ class InteractiveMap extends ANSWERS.Component {
       });
     });
 
-    const searchThisAreaEl = this._container.querySelector('.js-searchThisArea');
-    searchThisAreaEl.addEventListener('click', (e) => {
+    const searchThisAreaButtonEl = this._container.querySelector('.js-searchThisAreaButton');
+    searchThisAreaButtonEl.addEventListener('click', (e) => {
       this.searchThisArea();
     });
 
@@ -204,7 +204,7 @@ class InteractiveMap extends ANSWERS.Component {
 
   addMapComponent () {
     /**
-     * Create mobile toggle button when map is rendered
+     * Create mobile view toggle buttons when a map is rendered
      *
      * @param {Object} data The data (formatted in the Consulting LiveAPI format) of results
      * @param {Map} map The map object
@@ -217,27 +217,18 @@ class InteractiveMap extends ANSWERS.Component {
     /**
      * Clicking a pin cluster searches the new area, if desired
      */
-    const pinClusterClickListener = () => {
-      if (this.searchOnMapMove) {
-        this.searchThisArea();
-      }
-    };
+    const pinClusterClickListener = () => this.searchOnMapMove && this.searchThisArea();
 
     /**
      * Dragging the map searches the new area, if desired
      *
      * @param {Map} map The map object
      */
-    const dragEndListener = (map) => {
-      if (this.searchOnMapMove) {
-        this.searchThisArea();
-      } else {
-        this._container.classList.add('InteractiveMap--showSearchThisArea');
-      }
-    };
+    const dragEndListener = (map) => this.handleMapAreaChange();
 
     /**
-     * Dragging the map searches the new area, if desired
+     * User-initiated changes to the map zoom searches the new area, if desired
+     * Clicking on a cluster or fitting the bounds for results is not considered user-initiated
      *
      * @param {Map} map The map object
      */
@@ -246,13 +237,7 @@ class InteractiveMap extends ANSWERS.Component {
         return;
       }
 
-      map.idle().then(() => {
-        if (this.searchOnMapMove) {
-          this.searchThisArea();
-        } else {
-          this._container.classList.add('InteractiveMap--showSearchThisArea');
-        }
-      });
+      map.idle().then(() => this.handleMapAreaChange());
     };
 
     ANSWERS.addComponent('NewMap', Object.assign({}, {
@@ -279,15 +264,27 @@ class InteractiveMap extends ANSWERS.Component {
   }
 
   /**
+   * Search the area or show the search the area button according to configurable logic
+   */
+  handleMapAreaChange () {
+    if (this.searchOnMapMove) {
+      this.searchThisArea();
+    } else {
+      this._container.classList.add('InteractiveMap--showSearchThisArea');
+    }
+  }
+
+  /**
    * The callback when a result pin on the map is clicked
    * @param {Number} index The index of the pin in the current result list order
-   * @param {string} cardId The HTML element id of the card that a
+   * @param {string} cardId The unique id for the pin entity, usually of the form `js-yl-${meta.id}`
    */
   pinClickListener (index, cardId) {
     this.core.globalStorage.set(STORAGE_KEY_SELECTED_RESULT, cardId);
     const selector = `.yxt-Card[data-opts='{ "_index": ${index - 1} }']`;
     const card = document.querySelector(selector);
     const mediaQuery = window.matchMedia(`(max-width: ${this.mobileBreakpointMax}px)`);
+    const isMobile = mediaQuery.matches;
 
     document.querySelectorAll('.yxt-Card--pinClicked').forEach((el) => {
       el.classList.remove('yxt-Card--pinClicked');
@@ -295,12 +292,12 @@ class InteractiveMap extends ANSWERS.Component {
 
     card.classList.add('yxt-Card--pinClicked');
 
-    if (mediaQuery.matches) {
-      document.querySelectorAll('.yxt-Card--copy').forEach((el) => el.remove());
-      const isDetailCardOpened = document.querySelectorAll('.yxt-Card--copy').length;
+    if (isMobile) {
+      document.querySelectorAll('.yxt-Card--isVisibleOnMobileMap').forEach((el) => el.remove());
+      const isDetailCardOpened = document.querySelectorAll('.yxt-Card--isVisibleOnMobileMap').length;
 
       const cardCopy = card.cloneNode(true);
-      cardCopy.classList.add('yxt-Card--copy');
+      cardCopy.classList.add('yxt-Card--isVisibleOnMobileMap');
       this._container.appendChild(cardCopy);
 
       if (!isDetailCardOpened) {
