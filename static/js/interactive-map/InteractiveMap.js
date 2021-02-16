@@ -44,6 +44,11 @@ class InteractiveMap extends ANSWERS.Component {
     this._resultsWrapperEl = this._container.querySelector('.js-locator-resultsWrapper');
 
     /**
+     * The current Answers API vertical key
+     */
+    this.verticalKey = config.verticalKey; 
+
+    /**
      * The vertical configuration
      * @type {Object}
      */
@@ -383,7 +388,7 @@ class InteractiveMap extends ANSWERS.Component {
     });
     this.core.setStaticFilterNodes('SearchThisArea', filterNode);
     this.core.globalStorage.set(STORAGE_KEY_FROM_SEARCH_THIS_AREA, true);
-    this.core.verticalSearch('locations', {
+    this.core.verticalSearch(this.verticalKey, {
       setQueryParams: true,
       resetPagination: true,
       useFacets: true
