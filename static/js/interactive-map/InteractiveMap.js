@@ -1,15 +1,6 @@
-import { MapOptions } from './Maps/Map.js';
-import { MapRenderTargetOptions } from './Renderer/MapRenderTarget.js';
-import { RendererOptions } from './Renderer/Renderer.js';
 import { Coordinate } from './Geo/Coordinate.js';
-import { PinProperties } from './Maps/PinProperties.js';
-import { PinClustererOptions } from './PinClusterer/PinClusterer.js';
 import { smoothScroll } from './Util/SmoothScroll.js';
 import { getLanguageForProvider } from './Util/helpers.js';
-import { transformDataToUniversalData, transformDataToVerticalData } from './Util/transformers.js';
-
-import { GoogleMaps } from './Maps/Providers/Google.js';
-import { MapboxMaps } from './Maps/Providers/Mapbox.js';
 
 import { PinImages } from './PinImages.js';
 import { ClusterPinImages } from './ClusterPinImages.js';
@@ -17,6 +8,7 @@ import { ClusterPinImages } from './ClusterPinImages.js';
 const STORAGE_KEY_HOVERED_RESULT = 'HOVERED_RESULT_KEY';
 const STORAGE_KEY_SELECTED_RESULT = 'SELECTEDED_RESULT_KEY';
 const STORAGE_KEY_FROM_SEARCH_THIS_AREA = 'FROM_SEARCH_THIS_AREA';
+const STORAGE_KEY_MAP_PROPERTIES = 'MAP_PROPERTIES';
 
 /**
  * The component to control the interactions for an interative map.
@@ -31,7 +23,7 @@ class InteractiveMap extends ANSWERS.Component {
      * The container in the DOM for the interactive map
      * @type {HTMLElement}
      */
-    this._mapContainerEl = document.getElementById('js-answersMap');
+    this._mapContainerSelector = '#js-answersMap';
 
     /**
      * The page wrapper DOM element
@@ -173,42 +165,6 @@ class InteractiveMap extends ANSWERS.Component {
       right: () => 50,
       left: () => this.getLeftVisibleBoundaryPadding(),
     };
-
-    /**
-     * The map object
-     * @type {Map}
-     */
-    this.map = null;
-
-    /**
-     * The map renderer
-     * @type {Renderer}
-     */
-    this.renderer = new RendererOptions().build();
-
-    /**
-     * Whether the map is render ready
-     * @type {boolean}
-     */
-    this.renderReady = false;
-
-    /**
-     * The initial data for the map, just in case it isn't renderable yet
-     * @type {Object}
-     */
-    this.initialData = null;
-
-    /**
-     * HTML element id for the hovered pin
-     * @type {string}
-     */
-    this.hoveredPinId = null;
-
-    /**
-     * HTML element id for the selected pin
-     * @type {string}
-     */
-    this.selectedPinId = null;
   }
 
   /**
@@ -231,8 +187,6 @@ class InteractiveMap extends ANSWERS.Component {
       this.setState(data);
     });
 
-    this.loadAndInitializeMap();
-
     const searchThisAreaToggleEls = this._container.querySelectorAll('.js-searchThisAreaToggle');
     searchThisAreaToggleEls.forEach((el) => {
       el.addEventListener('click', (e) => {
@@ -244,44 +198,50 @@ class InteractiveMap extends ANSWERS.Component {
     searchThisAreaEl.addEventListener('click', (e) => {
       this.searchThisArea();
     });
+
+    this.addMapComponent();
   }
 
-  /**
-   * Load the map provider scripts and initialize the map with the configuration options
-   */
-  async loadAndInitializeMap () {
-    const mapProviderImpl = (this.mapProvider === 'google') ? GoogleMaps : MapboxMaps;
-    await mapProviderImpl.load(this.apiKey, {
-      client: this.clientId,
-      language: this.language,
-    });
-    const map = new MapOptions()
-      .withDefaultCenter(this.defaultCenter)
-      .withDefaultZoom(this.defaultZoom)
-      .withWrapper(this._mapContainerEl)
-      .withProvider(mapProviderImpl)
-      .withProviderOptions(this.providerOptions || {})
-      .withPadding(this.mapPadding)
-      .build();
-    this.map = map;
-    this.addMapInteractions(map);
-  }
+  addMapComponent () {
+    /**
+     * Create mobile toggle button when map is rendered
+     *
+     * @param {Object} data The data (formatted in the Consulting LiveAPI format) of results
+     * @param {Map} map The map object
+     * @param {Object} pins Mapping from pin id to the pin object on the map
+     */
+    const onPostMapRender = (data, map, pins) => {
+      this.setupMobileToggles(data, map, pins);
+    };
 
-  /**
-   * Add map interactions like event listeners and rendering targets
-   * @param {Map} The map object
-   */
-  addMapInteractions(map) {
-    // TODO google specific
-    window.google.maps.event.addListener(map._map.map, 'dragend', () => {
+    /**
+     * Clicking a pin cluster searches the new area, if desired
+     */
+    const pinClusterClickListener = () => {
+      if (this.searchOnMapMove) {
+        this.searchThisArea();
+      }
+    };
+
+    /**
+     * Dragging the map searches the new area, if desired
+     *
+     * @param {Map} map The map object
+     */
+    const dragEndListener = (map) => {
       if (this.searchOnMapMove) {
         this.searchThisArea();
       } else {
         this._container.classList.add('InteractiveMap--showSearchThisArea');
       }
-    });
+    };
 
-    window.google.maps.event.addListener(map._map.map, 'zoom_changed', () => {
+    /**
+     * Dragging the map searches the new area, if desired
+     *
+     * @param {Map} map The map object
+     */
+    const zoomChangeListener = (map) => {
       if (map._zoomTrigger === 'api') {
         return;
       }
@@ -293,212 +253,29 @@ class InteractiveMap extends ANSWERS.Component {
           this._container.classList.add('InteractiveMap--showSearchThisArea');
         }
       });
-    });
-
-    const iconsForEntity = (entity, index) => ({
-      default: this.pinImages.getDefaultPin(index, entity.profile),
-      hovered: this.pinImages.getHoveredPin(index, entity.profile),
-      selected: this.pinImages.getSelectedPin(index, entity.profile),
-    });
-    const pinBuilder = (pinOptions, entity, index) => {
-      Object.entries(iconsForEntity(entity, index))
-        .forEach(([name, icon]) => pinOptions.withIcon(name, icon));
-      pinOptions.withHideOffscreen(false);
-      return this.buildPin(pinOptions, entity, index);
     };
 
-    const mapRenderTargetOptions = new MapRenderTargetOptions()
-      .withMap(map)
-      .withOnPostRender((data, map) => this.setupMobileToggles(data, map, mapRenderTarget.getPins()))
-      .withPinBuilder(pinBuilder)
-
-    if (this.enablePinClustering) {
-      mapRenderTargetOptions.withPinClusterer(this.getClusterer());
-    }
-
-    const mapRenderTarget = mapRenderTargetOptions.build();
-
-    this.renderer.register(mapRenderTarget);
-    this.renderReady = true;
-    if (this.initialData) {
-      this.renderer.render(this.initialData);
-    }
-
-    this.core.globalStorage.on('update', STORAGE_KEY_HOVERED_RESULT, id => {
-      if (id != this.hoveredPinId) {
-        const pins = mapRenderTarget.getPins();
-
-        if (this.hoveredPinId && pins[this.hoveredPinId]) {
-          pins[this.hoveredPinId].setStatus({ hovered: false });
-          this.hoveredPinId = null;
-        }
-
-        if (id && pins[id]) {
-          pins[id].setStatus({ hovered: true });
-          this.hoveredPinId = id;
-        }
-      }
-    });
-    this.core.globalStorage.on('update', STORAGE_KEY_SELECTED_RESULT, id => {
-      if (id != this.selectedPinId) {
-        const pins = mapRenderTarget.getPins();
-
-        if (this.selectedPinId && pins[this.selectedPinId]) {
-          pins[this.selectedPinId].setStatus({ selected: false });
-          this.selectedPinId = null;
-        }
-
-        if (id && pins[id]) {
-          pins[id].setStatus({ selected: true });
-          this.selectedPinId = id;
-
-          if (this.onPinSelect) {
-            this.onPinSelect();
-          }
-
-          if (!map.coordinateIsInVisibleBounds(pins[id].getCoordinate())) {
-            map.setCenterWithPadding(pins[id].getCoordinate(), true);
-          }
-        }
-      }
-    });
-  }
-
-  /**
-   * The callback for after any time the map renders
-   * @param {Object} data The data (formatted in the Consulting LiveAPI format) of results
-   * @param {Map} map The map object
-   * @param {Object} pins Mapping from pin id to the pin object on the map
-   */
-  setupMobileToggles (data, map, pins) {
-    const mobileToggles = this._container.querySelector('.js-locator-mobiletoggles');
-    const listToggle = mobileToggles.querySelector('.js-locator-listToggle');
-
-    let showToggles = false;
-
-    if (data.response && data.response.entities && data.response.entities.length) {
-      showToggles = true;
-    }
-    this._container.classList.remove('InteractiveMap--detailShown');
-
-    if (showToggles) {
-      this._container.classList.add('InteractiveMap--showMobileViewToggles');
-      if (!listToggle.dataset.listened) {
-        listToggle.dataset.listened = 'true';
-        listToggle.addEventListener('click', () => {
-          this._container.classList.toggle('InteractiveMap--listShown');
-          this._container.classList.toggle('InteractiveMap--mapShown');
-          this._container.classList.remove('InteractiveMap--detailShown');
-        });
-      }
-    } else {
-      this._container.classList.remove('InteractiveMap--showMobileViewToggles');
-    }
-  }
-
-  /**
-   * Get the Map pin clusterer object
-   */
-  getClusterer () {
-    const clustererOptions = new PinClustererOptions()
-      .withClickListener(() => {
-        if (this.searchOnMapMove) {
-          this.searchThisArea();
-        }
-      })
-      .withIconTemplate('default', (pinDetails) => {
-        return this.pinClusterImages.getDefaultPin(pinDetails.pinCount);
-      })
-      .withIconTemplate('hovered', (pinDetails) => {
-        return this.pinClusterImages.getHoveredPin(pinDetails.pinCount);
-      })
-      .withIconTemplate('selected', (pinDetails) => {
-        return this.pinClusterImages.getSelectedPin(pinDetails.pinCount);
-      })
-      .withPropertiesForStatus(status => {
-        const properties = new PinProperties()
-          .setIcon(status.hovered || status.focused ? 'hovered' : 'default')
-          .setWidth(28)
-          .setHeight(28);
-
-        return properties;
-      })
-      .withMinClusterSize(2)
-      .withClusterRadius(50)
-      .withClusterZoomAnimated(true)
-      .withClusterZoomMax(20);
-    return clustererOptions.build();
-  }
-
-  /**
-   * Conducts a new search on the locator for the given viewable bounds for the map.
-   * Note that the visible area is the viewport of the map, taking into account the map padding.
-   * Also note that the radius is from the center of the visible area to the corner of 
-   * the visible area.
-   */
-  searchThisArea() {
-    this._container.classList.remove('InteractiveMap--showSearchThisArea');
-
-    const center = this.map.getVisibleCenter();
-    const lat = center.latitude;
-    const lng = center.longitude;
-    const radius = this.map.getVisibleRadius();
-
-    const filterNode = ANSWERS.FilterNodeFactory.from({
-      filter: {
-        'builtin.location': {
-          '$near': { lat, lng, radius }
-        }
-      },
-      remove: () => this.core.clearStaticFilterNode('SearchThisArea')
-    });
-    this.core.setStaticFilterNodes('SearchThisArea', filterNode);
-    this.core.globalStorage.set(STORAGE_KEY_FROM_SEARCH_THIS_AREA, true);
-    this.core.verticalSearch('locations', {
-      setQueryParams: true,
-      resetPagination: true,
-      useFacets: true
-    });
-  }
-
-  /**
-   * Builds a pin given pin options.
-   * @param {PinOptions} pinOptions The pin options builder
-   * @param {Object} entity The entity data to use in pin building
-   * @param {Number} index The index of the entity in the result list ordering
-   */
-  buildPin(pinOptions, entity, index) {
-    const pin = pinOptions
-      .withCoordinate(new Coordinate(entity.profile.yextDisplayCoordinate))
-      .withPropertiesForStatus(status => {
-        const properties = new PinProperties()
-          .setIcon(status.selected ? 'selected' : ((status.hovered || status.focused) ? 'hovered' : 'default'))
-          .setSRText(index)
-          .setZIndex(status.selected ? 1 : ((status.hovered || status.focused) ? 2 : 0));
-
-        properties.setWidth(24);
-        properties.setHeight(28);
-
-        if (status.selected) {
-          properties.setWidth(24);
-          properties.setHeight(34);
-        }
-
-        return properties;
-      })
-      .build();
-
-    const id = 'js-yl-' + entity.profile.meta.id;
-    this.core.globalStorage.on('update', 'card-click', (data) => {
-      const cardIndex = data.index;
-      if (cardIndex + 1 === index) {
-        this.core.globalStorage.set(STORAGE_KEY_SELECTED_RESULT, id);
-      }
-    });
-
-    pin.setClickHandler(() => this.pinClickHandler(index, id));
-    pin.setHoverHandler(hovered => this.core.globalStorage.set(STORAGE_KEY_HOVERED_RESULT, hovered ? id : null));
-    return pin;
+    ANSWERS.addComponent('NewMap', Object.assign({}, {
+      container: this._mapContainerSelector,
+      mapProvider: this.mapProvider,
+      apiKey: this.apiKey,
+      clientId: this.clientId,
+      language: this.language,
+      defaultCenter: this.defaultCenter,
+      defaultZoom: this.defaultZoom,
+      providerOptions: this.providerOptions,
+      mapPadding: this.mapPadding,
+      pinImages: this.pinImages,
+      pinClusterImages: this.pinCluterImages,
+      enablePinClustering: this.enablePinClustering,
+      onPinSelect: this.onPinSelect,
+      onPostMapRender: onPostMapRender,
+      pinClickListener: (index, id) => this.pinClickListener(index, id),
+      pinClusterClickListener: pinClusterClickListener,
+      dragEndListener: dragEndListener,
+      zoomChangeListener: zoomChangeListener,
+      displayAllResultsOnNoResults: this.displayAllResultsOnNoResults
+    }));
   }
 
   /**
@@ -506,7 +283,7 @@ class InteractiveMap extends ANSWERS.Component {
    * @param {Number} index The index of the pin in the current result list order
    * @param {string} cardId The HTML element id of the card that a
    */
-  pinClickHandler (index, cardId) {
+  pinClickListener (index, cardId) {
     this.core.globalStorage.set(STORAGE_KEY_SELECTED_RESULT, cardId);
     const selector = `.yxt-Card[data-opts='{ "_index": ${index - 1} }']`;
     const card = document.querySelector(selector);
@@ -549,6 +326,70 @@ class InteractiveMap extends ANSWERS.Component {
     } else {
       this.scrollToResult(card);
     }
+  }
+
+  /**
+   * The callback for after any time the map renders
+   * @param {Object} data The data (formatted in the Consulting LiveAPI format) of results
+   * @param {Map} map The map object
+   * @param {Object} pins Mapping from pin id to the pin object on the map
+   */
+  setupMobileToggles (data, map, pins) {
+    const mobileToggles = this._container.querySelector('.js-locator-mobiletoggles');
+    const listToggle = mobileToggles.querySelector('.js-locator-listToggle');
+
+    let showToggles = false;
+
+    if (data.response && data.response.entities && data.response.entities.length) {
+      showToggles = true;
+    }
+    this._container.classList.remove('InteractiveMap--detailShown');
+
+    if (showToggles) {
+      this._container.classList.add('InteractiveMap--showMobileViewToggles');
+      if (!listToggle.dataset.listened) {
+        listToggle.dataset.listened = 'true';
+        listToggle.addEventListener('click', () => {
+          this._container.classList.toggle('InteractiveMap--listShown');
+          this._container.classList.toggle('InteractiveMap--mapShown');
+          this._container.classList.remove('InteractiveMap--detailShown');
+        });
+      }
+    } else {
+      this._container.classList.remove('InteractiveMap--showMobileViewToggles');
+    }
+  }
+
+  /**
+   * Conducts a new search on the locator for the given viewable bounds for the map.
+   * Note that the visible area is the viewport of the map, taking into account the map padding.
+   * Also note that the radius is from the center of the visible area to the corner of 
+   * the visible area.
+   */
+  searchThisArea() {
+    this._container.classList.remove('InteractiveMap--showSearchThisArea');
+
+    const mapProperties = this.core.globalStorage.getState(STORAGE_KEY_MAP_PROPERTIES);
+    const center = mapProperties.visibleCenter;
+    const radius = mapProperties.visibleRadius;
+    const lat = center.latitude;
+    const lng = center.longitude;
+
+    const filterNode = ANSWERS.FilterNodeFactory.from({
+      filter: {
+        'builtin.location': {
+          '$near': { lat, lng, radius }
+        }
+      },
+      remove: () => this.core.clearStaticFilterNode('SearchThisArea')
+    });
+    this.core.setStaticFilterNodes('SearchThisArea', filterNode);
+    this.core.globalStorage.set(STORAGE_KEY_FROM_SEARCH_THIS_AREA, true);
+    this.core.verticalSearch('locations', {
+      setQueryParams: true,
+      resetPagination: true,
+      useFacets: true
+    });
   }
 
   /**
@@ -597,8 +438,6 @@ class InteractiveMap extends ANSWERS.Component {
     this._children.forEach(c => c.remove());
     this._children = [];
 
-    this._updateMap();
-
     if (this._isNoResults) {
       const altVerticalsData = this.core.globalStorage.getState('alternative-verticals');
       this.addChild(
@@ -617,35 +456,6 @@ class InteractiveMap extends ANSWERS.Component {
     this._children.forEach(child => {
       child.mount();
     });
-  }
-
-  /**
-   * Update the map with the new data by rendering
-   */
-  _updateMap () {
-    const verticalData = transformDataToVerticalData(this._data);
-    const universalData = transformDataToUniversalData(this._data);
-    let entityData = verticalData.length ? verticalData : universalData;
-
-    const fromSearchThisArea = this.core.globalStorage.getState(STORAGE_KEY_FROM_SEARCH_THIS_AREA);
-    this.core.globalStorage.delete(STORAGE_KEY_FROM_SEARCH_THIS_AREA);
-    let updateZoom = !fromSearchThisArea;
-
-    if (this._isNoResults && !this.displayAllResultsOnNoResults) {
-      entityData = [];
-      updateZoom = false;
-    }
-
-    const renderData = {
-      response: { entities: entityData },
-      updateZoom: updateZoom
-    };
-
-    if (this.renderReady) {
-      this.renderer.render(renderData);
-    } else {
-      this.initialData = renderData;
-    }
   }
 
   /**
@@ -670,5 +480,4 @@ class InteractiveMap extends ANSWERS.Component {
   }
 }
 
-window.InteractiveMap = InteractiveMap;
 export { InteractiveMap };
