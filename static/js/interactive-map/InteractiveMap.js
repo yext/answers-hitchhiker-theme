@@ -163,16 +163,16 @@ class InteractiveMap extends ANSWERS.Component {
       top: () => window.innerWidth <= this.mobileBreakpointMax ? 150 : 50,
       bottom: () => 50,
       right: () => 50,
-      left: () => this.getLeftVisibleBoundaryPadding(),
+      left: () => this.getLeftVisibleBoundary(),
     };
   }
 
   /**
-   * Get the padding for the left hand side of the map (results bar), in order
-   * to keep pins in only the visible part of the map.
-   * @return {Number} The padding (in pixels) for the visible area of the map
+   * Get the leftmost point on the map, such that pins will still be visible
+   * @return {Number} The boundary (in pixels) for the visible area of the map, from the left
+   *                  hand side of the viewport
    */
-  getLeftVisibleBoundaryPadding () {
+  getLeftVisibleBoundary () {
     if (window.innerWidth <= this.mobileBreakpointMax) {
       return 50;
     }
@@ -211,7 +211,7 @@ class InteractiveMap extends ANSWERS.Component {
      * @param {Object} pins Mapping from pin id to the pin object on the map
      */
     const onPostMapRender = (data, map, pins) => {
-      this.setupMobileToggles(data, map, pins);
+      this.setupMobileViewToggles(data, map, pins);
     };
 
     /**
@@ -329,12 +329,13 @@ class InteractiveMap extends ANSWERS.Component {
   }
 
   /**
-   * The callback for after any time the map renders
+   * Determines whether or not the view toggles on mobile should be shown or not
+   * If it is shown, add click listener
    * @param {Object} data The data (formatted in the Consulting LiveAPI format) of results
    * @param {Map} map The map object
    * @param {Object} pins Mapping from pin id to the pin object on the map
    */
-  setupMobileToggles (data, map, pins) {
+  setupMobileViewToggles (data, map, pins) {
     const mobileToggles = this._container.querySelector('.js-locator-mobiletoggles');
     const listToggle = mobileToggles.querySelector('.js-locator-listToggle');
 
