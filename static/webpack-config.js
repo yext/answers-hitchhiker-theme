@@ -59,7 +59,7 @@ module.exports = function () {
       devtool: 'source-map',
       target: ['web', 'es5'],
       entry: {
-        'interactive-map': `./${jamboConfig.dirs.output}/static/js/interactive-map/InteractiveMap.js`,
+        'theme-components': `./${jamboConfig.dirs.output}/static/js/theme-components.js`
       },
       resolve: {
         alias: {
