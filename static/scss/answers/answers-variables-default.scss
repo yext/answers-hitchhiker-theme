@@ -53,6 +53,14 @@ $container-width: 1000px;
   --yxt-text-snippet-highlight-color: #eef3fb;
   --yxt-text-snippet-font-color: var(--yxt-color-text-primary);
   --yxt-direct-answer-view-details-font-weight: var(--yxt-font-weight-normal);
+
+  // interactive map variables
+  --yxt-maps-search-this-area-background-color: white;
+  --yxt-maps-search-this-area-text-color: var(--yxt-color-text-primary);
+  --yxt-maps-mobile-detail-card-height: 225px;
+  --yxt-maps-desktop-results-container-width: 410px;
+  --yxt-maps-mobile-results-header-height: 121px;
+  --yxt-maps-mobile-results-footer-height: 97px;
 }
 
 // breakpoint variables for use in media queries within the theme styling
