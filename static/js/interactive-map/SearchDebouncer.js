@@ -15,7 +15,7 @@ class SearchDebouncer {
      * 
      * @type {number}
      */
-    this.relativeDistanceThreshold = 40;
+    this.relativeDistanceThreshold = 25;
 
     /**
      * The threshold for allowing a new search based on a change in zoom.
@@ -84,14 +84,13 @@ class SearchDebouncer {
    * A relative distance of 100 is approximately equal to the width of the entire map.
    * 
    * Each change in the zoom level changes the total map width by an order of 2, which is why this formula
-   * uses `Math.pow()`. The zoom is offet by 8 because the zoom formula defined by {@link Map.getZoom} is
-   * offset by 8
+   * uses `Math.pow()`.
    * 
    * @param {number} distance in miles
    * @param {number} zoom 
    */
   _calculateRelativeDistance (distance, zoom) {
-    return distance * Math.pow(2, zoom - 8);
+    return distance * Math.pow(2, zoom - 10);
   }
 }
 
