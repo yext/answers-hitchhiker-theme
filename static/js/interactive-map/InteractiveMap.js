@@ -1,6 +1,7 @@
 import { Coordinate } from './Geo/Coordinate.js';
 import { smoothScroll } from './Util/SmoothScroll.js';
 import { getLanguageForProvider } from './Util/helpers.js';
+import { SearchDebouncer } from './SearchDebouncer';
 
 import { PinImages } from './PinImages.js';
 import { ClusterPinImages } from './ClusterPinImages.js';
@@ -90,6 +91,8 @@ class InteractiveMap extends ANSWERS.Component {
      */
     this.defaultZoom = this.providerOptions.zoom || 14;
 
+    this.currentZoom = this.defaultZoom;
+
     /**
      * The default center coordinate for the map, an object with {lat, lng}
      * @type {Coordinate}
@@ -170,6 +173,8 @@ class InteractiveMap extends ANSWERS.Component {
       right: () => 50,
       left: () => this.getLeftVisibleBoundary(),
     };
+
+    this.searchDebouncer = new SearchDebouncer();
   }
 
   /**
@@ -242,7 +247,11 @@ class InteractiveMap extends ANSWERS.Component {
         return;
       }
 
-      map.idle().then(() => this.handleMapAreaChange());
+      this.currentZoom = map.getZoom();
+
+      map.idle().then(() => {
+        this.handleMapAreaChange()
+      });
     };
 
     ANSWERS.addComponent('NewMap', Object.assign({}, {
@@ -272,11 +281,26 @@ class InteractiveMap extends ANSWERS.Component {
    * Search the area or show the search the area button according to configurable logic
    */
   handleMapAreaChange () {
-    if (this.searchOnMapMove) {
-      this.searchThisArea();
-    } else {
+    if (!this.searchOnMapMove) {
       this._container.classList.add('InteractiveMap--showSearchThisArea');
+      return;
     }
+
+    const currentMapCenter = this.getCurrentMapCenter();
+    const isSearchAllowed = this.searchDebouncer.isSearchAllowed(currentMapCenter, this.currentZoom);
+
+    if (isSearchAllowed) {
+      this.searchThisArea();
+    }
+  }
+
+  getCurrentMapCenter () {
+    const mapProperties = this.core.globalStorage.getState(STORAGE_KEY_MAP_PROPERTIES);
+    const center = mapProperties.visibleCenter;
+    const lat = center.latitude;
+    const lng = center.longitude;
+
+    return new Coordinate(lat, lng);
   }
 
   /**
@@ -393,6 +417,8 @@ class InteractiveMap extends ANSWERS.Component {
       resetPagination: true,
       useFacets: true
     });
+    this.searchDebouncer.updateMostRecentSearchLocation(new Coordinate(lat, lng));
+    this.searchDebouncer.updateMostRecentSearchZoomLevel(this.currentZoom);
   }
 
   /**
