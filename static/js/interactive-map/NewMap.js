@@ -302,7 +302,7 @@ class NewMap extends ANSWERS.Component {
   }
 
   static defaultTemplateName() {
-    return 'theme-components/interactive-map';
+    return 'theme-components/new-map';
   }
 
   static areDuplicateNamesAllowed() {

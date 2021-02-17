@@ -314,7 +314,7 @@ class InteractiveMap extends ANSWERS.Component {
         });
       }
 
-      cardCopy.querySelectorAll('.js-HitchhikerLocationStandard-exit').forEach((el) => {
+      cardCopy.querySelectorAll('.js-HitchhikerLocationStandard-closeCardButton').forEach((el) => {
         el.addEventListener('click', () => {
           card.classList.remove('yxt-Card--pinClicked');
           cardCopy.remove();
