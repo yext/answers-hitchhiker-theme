@@ -211,7 +211,7 @@
     &-centerTop {
       position: absolute;
       color: black;
-      top: calc(72px + 40px);
+      top: calc(var(--yxt-maps-mobile-results-header-height) + 8px);
       left: 50%;
       z-index: 1;
 
