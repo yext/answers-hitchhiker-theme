@@ -13,7 +13,7 @@ class multilang_financial_professional_locationCardComponent extends BaseCard['m
    */
   dataForRender(profile) {
     return {
-      showOrdinal: true, // Whether to display the corresponding map pin number on the card
+      showOrdinal: true, // Show the map pin number on the card. Only supported for universal search
       title: profile.name, // The header text of the card
       // subtitle: '', // The sub-header text of the card
       url: profile.website || profile.landingPageUrl, // If the card title is a clickable link, set URL here
