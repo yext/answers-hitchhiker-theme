@@ -11,8 +11,11 @@ class location_standardCardComponent extends BaseCard['location-standard'] {
     super.onMount();
   }
 
+  /**
+   * Adds the click listener for the close card button
+   */
   addCloseCardClickListener() {
-    this._container.querySelectorAll('.js-HitchhikerLocationStandard-exit').forEach((el) => {
+    this._container.querySelectorAll('.js-HitchhikerLocationStandard-closeCardButton').forEach((el) => {
       el.addEventListener('click', () => {
         el.closest('.yxt-Card').classList.remove('yxt-Card--pinClicked');
         document.getElementById('js-answersInteractiveMap').classList.remove('InteractiveMap--detailShown');
@@ -23,16 +26,18 @@ class location_standardCardComponent extends BaseCard['location-standard'] {
     });
   }
 
+  /**
+   * Adds the click listener for the card click
+   */
   addCardClickListener() {
     this._container.parentElement.addEventListener('click', () => {
-      const { _index } = JSON.parse(this._container.parentElement.dataset.opts);
-      this.core.globalStorage.set('card-click', { index: parseInt(_index) });
+      const { _index } = JSON.parse(this._container.parentElement.dataset.opts || {});
+      this.core.globalStorage.set('card-click', { index: _index });
 
       document.querySelectorAll('.yxt-Card--pinClicked').forEach((el) => {
         el.classList.remove('yxt-Card--pinClicked');
       });
 
-      this._container.parentElement.classList.remove('yxt-Card--pinClicked');
       this._container.parentElement.classList.add('yxt-Card--pinClicked');
     });
   }

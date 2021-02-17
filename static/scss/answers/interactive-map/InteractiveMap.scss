@@ -1,6 +1,8 @@
 .InteractiveMap
 {
   $results-width-desktop: var(--yxt-maps-desktop-results-container-width);
+  $results-padding-top: 24px !default;
+  $results-padding-bottom: 24px !default;
 
   $input-height: 44px !default;
   $detail-card-height: 30% !default;
@@ -57,14 +59,14 @@
       @include bpgte($desktop-break-point-min)
       {
         width: $results-width-desktop;
-        max-height: calc(100% - 48px);
+        max-height: calc(100% - #{$results-padding-top} - #{$results-padding-bottom});
         margin-top: 16px;
         margin-left: 16px;
         margin-right: 16px;
         margin-bottom: 32px;
         border-radius: 4px;
         box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
-        background-color: #fafafa;
+        background-color: var(--hh-color-gray-2);
       }
 
       @include bplte($mobile-break-point-max)
@@ -272,7 +274,7 @@
         height: 16px;
         width: 16px;
         transform: translateY(50%);
-        border: 1px solid var(--yxt-color-borders);
+        border: var(--yxt-border-default);
         border-radius: 2px;
       }
 
@@ -301,12 +303,12 @@
 
     &-stickyBottom {
       bottom: 0;
-      background-color: #fafafa;
+      background-color: var(--hh-color-gray-2);
       position: sticky;
     }
 
     &-mapFooter {
-      background-color: #fafafa;
+      background-color: var(--hh-color-gray-2);
       display: none;
       position: absolute;
       bottom: 0;
@@ -429,7 +431,7 @@
         {
           position: absolute;
           top: var(--yxt-maps-mobile-results-header-height);
-          height: calc(100% - var(--yxt-maps-mobile-results-header-height) - var(--yxt-maps-mobile-detail-card-height);
+          height: calc(100% - var(--yxt-maps-mobile-results-header-height) - var(--yxt-maps-mobile-detail-card-height));
         }
       }
 
@@ -500,7 +502,7 @@
       margin-left: 0;
     }
 
-    &-exitImageWrapper {
+    &-closeCardButtonImageWrapper {
       height: 16px;
       width: 16px;
       margin-bottom: 8px;
@@ -510,13 +512,13 @@
       display: none;
     }
 
-    &-exitWrapper {
+    &-closeCardButtonWrapper {
       position: absolute;
       right: 16px;
       top: 16px;
     }
 
-    &-exit {
+    &-closeCardButton {
       display: none;
       width: 100%;
       font-size: 16px;
@@ -544,7 +546,7 @@
       height: var(--yxt-maps-mobile-detail-card-height);
       background-color: #fcfcfc;
 
-      .HitchhikerLocationStandard-exit {
+      .HitchhikerLocationStandard-closeCardButton {
         display: flex;
       }
 
@@ -555,7 +557,7 @@
   }
   
   &.CollapsibleFilters .Answers-resultsHeader {
-    background-color: #fafafa !important;
+    background-color: var(--hh-color-gray-2) !important;
   }
 
   &.CollapsibleFilters .Answers-viewResultsButton {

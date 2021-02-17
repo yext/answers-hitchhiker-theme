@@ -174,13 +174,6 @@ export default class Interactions {
    * @param {boolean} shouldCollapseFilters 
    */
   _toggleCollapsibleFilters(shouldCollapseFilters) {
-
-    if (shouldCollapseFilters) {
-      document.querySelector('.js-answersInteractiveMap').classList.remove('InteractiveMap--showCollapsibleFilters');
-    } else {
-      document.querySelector('.js-answersInteractiveMap').classList.add('InteractiveMap--showCollapsibleFilters');
-    }
-
     if (this.stickyButton) {
       // After toggling collapsible filters, let the rest of the page render first
       // before recalculating stickiness
@@ -193,7 +186,7 @@ export default class Interactions {
       this.toggleInactiveClass(el, !shouldCollapseFilters);
     }
     this.toggleInactiveClass(this.viewResultsButton, shouldCollapseFilters);
-    //this.scrollToTop();
+    this.scrollToTop();
     ANSWERS.components.getActiveComponent('FilterLink').setState({
       panelIsDisplayed: !shouldCollapseFilters
     });

@@ -1,2 +1,2 @@
-{{> theme-components/new-map/component}}
-{{> theme-components/interactive-map/component}}
+{{> theme-components/new-map/script}}
+{{> theme-components/interactive-map/script}}

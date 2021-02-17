@@ -5,6 +5,28 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
 const RemovePlugin = require('remove-files-webpack-plugin');
 
+const javascriptModuleRule = {
+  test: /\.js$/,
+  exclude: [
+    /node_modules\//
+  ],
+  loader: 'babel-loader',
+  options: {
+    presets: [
+      '@babel/preset-env',
+    ],
+    plugins: [
+      ['@babel/plugin-transform-runtime', {
+        'corejs': 3
+      }],
+      '@babel/syntax-dynamic-import',
+      '@babel/plugin-transform-arrow-functions',
+      '@babel/plugin-proposal-object-rest-spread',
+      '@babel/plugin-transform-object-assign',
+    ]
+  }
+};
+
 module.exports = function () {
   const isDevelopment = 'IS_DEVELOPMENT_PREVIEW' in process.env ?
     process.env.IS_DEVELOPMENT_PREVIEW === 'true':
@@ -59,7 +81,7 @@ module.exports = function () {
       devtool: 'source-map',
       target: ['web', 'es5'],
       entry: {
-        'theme-components': `./${jamboConfig.dirs.output}/static/js/theme-components.js`
+        'locator-components': `./${jamboConfig.dirs.output}/static/js/locator-components.js`
       },
       resolve: {
         alias: {
@@ -72,29 +94,7 @@ module.exports = function () {
         publicPath: ''
       },
       module: {
-        rules: [
-          {
-            test: /\.js$/,
-            exclude: [
-              /node_modules\//
-            ],
-            loader: 'babel-loader',
-            options: {
-              presets: [
-                '@babel/preset-env',
-              ],
-              plugins: [
-                ['@babel/plugin-transform-runtime', {
-                  'corejs': 3
-                }],
-                '@babel/syntax-dynamic-import',
-                '@babel/plugin-transform-arrow-functions',
-                '@babel/plugin-proposal-object-rest-spread',
-                '@babel/plugin-transform-object-assign',
-              ]
-            }
-          },
-        ],
+        rules: [javascriptModuleRule],
       },
     },
     {
@@ -128,27 +128,7 @@ module.exports = function () {
       plugins,
       module: {
         rules: [
-          {
-            test: /\.js$/,
-            exclude: [
-              /node_modules\//
-            ],
-            loader: 'babel-loader',
-            options: {
-              presets: [
-                '@babel/preset-env',
-              ],
-              plugins: [
-                ['@babel/plugin-transform-runtime', {
-                  'corejs': 3
-                }],
-                '@babel/syntax-dynamic-import',
-                '@babel/plugin-transform-arrow-functions',
-                '@babel/plugin-proposal-object-rest-spread',
-                '@babel/plugin-transform-object-assign',
-              ]
-            }
-          },
+          javascriptModuleRule,
           {
             test: /\.scss$/,
             use: [
