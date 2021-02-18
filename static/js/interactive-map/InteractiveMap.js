@@ -254,9 +254,7 @@ class InteractiveMap extends ANSWERS.Component {
         return;
       }
 
-      map.idle().then(() => {
-        this.handleMapAreaChange()
-      });
+      map.idle().then(() => this.handleMapAreaChange());
     };
 
     ANSWERS.addComponent('NewMap', Object.assign({}, {
