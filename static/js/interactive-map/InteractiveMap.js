@@ -97,8 +97,9 @@ class InteractiveMap extends ANSWERS.Component {
      * The default center coordinate for the map, an object with {lat, lng}
      * @type {Coordinate}
      */
-    this.defaultCenter = this.providerOptions.center || new Coordinate(37.0902, -95.7129);
-    this.defaultCenter = Coordinate.forceCoordinate(this.defaultCenter);
+    this.defaultCenter = this.providerOptions.center
+      ? new Coordinate(this.providerOptions.center)
+      : new Coordinate(37.0902, -95.7129);
 
     this.mostRecentSearchLocation = this.defaultCenter;
 
