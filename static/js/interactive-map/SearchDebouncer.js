@@ -50,9 +50,6 @@ class SearchDebouncer {
     const isOutsideDistanceThreshold = relativeDistance >= this.relativeDistanceThreshold;
     const isOutsideZoomThreshold = zoomDifference >= this.zoomThreshold;
 
-    console.log(relativeDistance);
-    console.log('most recent search center: ' + JSON.stringify(mostRecentSearchState.mapCenter));
-
     return !isOutsideDistanceThreshold && !isOutsideZoomThreshold;
   }
 
