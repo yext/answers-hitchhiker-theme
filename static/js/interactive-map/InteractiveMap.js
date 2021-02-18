@@ -1,6 +1,7 @@
 import { Coordinate } from './Geo/Coordinate.js';
 import { smoothScroll } from './Util/SmoothScroll.js';
 import { getLanguageForProvider } from './Util/helpers.js';
+import { SearchDebouncer } from './SearchDebouncer';
 
 import { PinImages } from './PinImages.js';
 import { ClusterPinImages } from './ClusterPinImages.js';
@@ -91,10 +92,30 @@ class InteractiveMap extends ANSWERS.Component {
     this.defaultZoom = this.providerOptions.zoom || 14;
 
     /**
+     * The current zoom level of the map
+     * @type {number}
+     */
+    this.currentZoom = this.defaultZoom;
+
+    /**
+     * The zoom level of the map during the most recent search
+     * @type {number}
+     */
+    this.mostRecentSearchZoom = this.defaultZoom;
+
+    /**
      * The default center coordinate for the map, an object with {lat, lng}
      * @type {Coordinate}
      */
-    this.defaultCenter = this.providerOptions.center || new Coordinate(37.0902, -95.7129);
+    this.defaultCenter = this.providerOptions.center
+      ? new Coordinate(this.providerOptions.center)
+      : new Coordinate(37.0902, -95.7129);
+
+    /**
+     * The center of the map during the most recent search
+     * @type {Coordinate}
+     */
+    this.mostRecentSearchLocation = this.defaultCenter;
 
     /**
      * Whether the map should search on a map movement action like map drag
@@ -170,6 +191,12 @@ class InteractiveMap extends ANSWERS.Component {
       right: () => 50,
       left: () => this.getLeftVisibleBoundary(),
     };
+
+    /**
+     * Determines whether or not another search should be ran
+     * @type {SearchDebouncer}
+     */
+    this.searchDebouncer = new SearchDebouncer();
   }
 
   /**
@@ -191,6 +218,10 @@ class InteractiveMap extends ANSWERS.Component {
     this.core.globalStorage.on('update', 'vertical-results', (data) => {
       this.setState(data);
     });
+
+    this.core.globalStorage.on('update', 'query', () => {
+      this.updateMostRecentSearchState()
+    })
 
     const searchThisAreaToggleEls = this._container.querySelectorAll('.js-searchThisAreaToggle');
     searchThisAreaToggleEls.forEach((el) => {
@@ -238,6 +269,8 @@ class InteractiveMap extends ANSWERS.Component {
      * @param {Map} map The map object
      */
     const zoomChangeListener = (map) => {
+      this.currentZoom = map.getZoom();
+
       if (map._zoomTrigger === 'api') {
         return;
       }
@@ -272,11 +305,58 @@ class InteractiveMap extends ANSWERS.Component {
    * Search the area or show the search the area button according to configurable logic
    */
   handleMapAreaChange () {
-    if (this.searchOnMapMove) {
-      this.searchThisArea();
-    } else {
+    if (!this.searchOnMapMove) {
       this._container.classList.add('InteractiveMap--showSearchThisArea');
+      return;
     }
+
+    if (!this.shouldSearchBeDebounced()) {
+      this.searchThisArea();
+    }
+  }
+
+  /**
+   * Returns true if a search should be debounced and false otherwise
+   * 
+   * @returns {boolean}
+   */
+  shouldSearchBeDebounced () {
+    const mostRecentSearchState = {
+      mapCenter: this.mostRecentSearchLocation,
+      zoom: this.mostRecentSearchZoom,
+    }
+    const currentMapState = {
+      mapCenter: this.getCurrentMapCenter(),
+      zoom: this.currentZoom
+    }
+    return this.searchDebouncer.shouldBeDebounced(mostRecentSearchState, currentMapState);
+  }
+
+  /**
+   * Sets the most recent search state to the current map state
+   */
+  updateMostRecentSearchState () {
+    this.mostRecentSearchZoom = this.currentZoom;
+    this.mostRecentSearchLocation = this.getCurrentMapCenter();
+  }
+
+  /**
+   * Returns the current center of the map
+   * 
+   * @returns {Coordinate}
+   */
+  getCurrentMapCenter () {
+    const mapProperties = this.core.globalStorage.getState(STORAGE_KEY_MAP_PROPERTIES);
+
+    if (!mapProperties) {
+      return this.defaultCenter;
+    }
+
+    const center = mapProperties.visibleCenter;
+    const lat = center.latitude;
+    const lng = center.longitude;
+
+    return new Coordinate(lat, lng);
   }
 
   /**
@@ -393,6 +473,7 @@ class InteractiveMap extends ANSWERS.Component {
       resetPagination: true,
       useFacets: true
     });
+    this.updateMostRecentSearchState();
   }
 
   /**
