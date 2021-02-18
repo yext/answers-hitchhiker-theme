@@ -76,7 +76,8 @@ class SearchDebouncer {
    * uses `Math.pow()`.
    * 
    * @param {number} distance in miles
-   * @param {number} zoom 
+   * @param {number} zoom
+   * @returns {number}
    */
   _calculateRelativeDistance (distance, zoom) {
     return distance * Math.pow(2, zoom - 10);
