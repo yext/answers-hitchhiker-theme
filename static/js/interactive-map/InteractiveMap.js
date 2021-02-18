@@ -253,9 +253,7 @@ class InteractiveMap extends ANSWERS.Component {
      * @param {Map} map The map object
      */
     const zoomChangeListener = (map) => {
-      const zoom = map.getZoom();
-      console.log('zoom: ' + zoom);
-      this.currentZoom = zoom;
+      this.currentZoom = map.getZoom();
 
       if (map._zoomTrigger === 'api') {
         return;
