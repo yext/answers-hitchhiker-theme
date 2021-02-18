@@ -132,10 +132,10 @@ class NewMap extends ANSWERS.Component {
     window.google.maps.event.addListener(map._map.map, 'zoom_changed', () => this.zoomChangeListener(map));
 
     window.google.maps.event.addListener(map._map.map, 'bounds_changed', () => {
+      
       this.core.globalStorage.set(STORAGE_KEY_MAP_PROPERTIES, {
         visibleCenter: map.getVisibleCenter(),
-        visibleRadius: map.getVisibleRadius(),
-        zoom: map.getZoom()
+        visibleRadius: map.getVisibleRadius()
       })
     });
 

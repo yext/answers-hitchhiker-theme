@@ -91,6 +91,8 @@ class InteractiveMap extends ANSWERS.Component {
      */
     this.defaultZoom = this.providerOptions.zoom || 14;
 
+    this.currentZoom = this.defaultZoom;
+
     this.mostRecentSearchZoom = this.defaultZoom;
 
     /**
@@ -251,6 +253,10 @@ class InteractiveMap extends ANSWERS.Component {
      * @param {Map} map The map object
      */
     const zoomChangeListener = (map) => {
+      const zoom = map.getZoom();
+      console.log('zoom: ' + zoom);
+      this.currentZoom = zoom;
+
       if (map._zoomTrigger === 'api') {
         return;
       }
@@ -307,7 +313,7 @@ class InteractiveMap extends ANSWERS.Component {
     }
     const currentMapState = {
       mapCenter: this.getCurrentMapCenter(),
-      zoom: this.getCurrentMapZoom()
+      zoom: this.currentZoom
     }
     return this.searchDebouncer.shouldBeDebounced(mostRecentSearchState, currentMapState);
   }
@@ -316,7 +322,7 @@ class InteractiveMap extends ANSWERS.Component {
    * Sets the most recent search state to the current map state
    */
   updateMostRecentSearchState () {
-    this.mostRecentSearchZoom = this.getCurrentMapZoom(),
+    this.mostRecentSearchZoom = this.currentZoom;
     this.mostRecentSearchLocation = this.getCurrentMapCenter();
   }
 
@@ -337,21 +343,6 @@ class InteractiveMap extends ANSWERS.Component {
     const lng = center.longitude;
 
     return new Coordinate(lat, lng);
-  }
-  
-  /**
-   * Gets the current zoom level of the map
-   * 
-   * @returns {number}
-   */
-  getCurrentMapZoom () {
-    const mapProperties = this.core.globalStorage.getState(STORAGE_KEY_MAP_PROPERTIES);
-
-    if (!mapProperties) {
-      return this.defaultZoom;
-    }
-
-    return mapProperties.zoom;
   }
 
   /**
