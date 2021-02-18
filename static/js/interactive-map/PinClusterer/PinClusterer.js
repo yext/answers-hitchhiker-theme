@@ -263,7 +263,7 @@ class PinClusterer {
         clusterPin.setFocusHandler(focused => clusterPin.setStatus({ focused }));
         clusterPin.setHoverHandler(hovered => clusterPin.setStatus({ hovered }));
         clusterPin.setClickHandler(async () => {
-          this._map.fitCoordinatesForCluster(coordinates, this._clusterZoomAnimated, this._clusterZoomMax);
+          this._map.fitCoordinates(coordinates, this._clusterZoomAnimated, this._clusterZoomMax);
           await this._map.moving();
           await this._map.idle();
           if (this._clickListener) {

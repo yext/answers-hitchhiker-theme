@@ -6,6 +6,8 @@ import { SearchDebouncer } from './SearchDebouncer';
 import { PinImages } from './PinImages.js';
 import { ClusterPinImages } from './ClusterPinImages.js';
 
+import ZoomTriggers from './Maps/ZoomTriggers.js';
+
 const STORAGE_KEY_HOVERED_RESULT = 'HOVERED_RESULT_KEY';
 const STORAGE_KEY_SELECTED_RESULT = 'SELECTED_RESULT_KEY';
 const STORAGE_KEY_FROM_SEARCH_THIS_AREA = 'FROM_SEARCH_THIS_AREA';
@@ -260,22 +262,31 @@ class InteractiveMap extends ANSWERS.Component {
      *
      * @param {Map} map The map object
      */
-    const dragEndListener = (map) => this.handleMapAreaChange();
+    const dragEndListener = () => this.handleMapAreaChange();
+
+    /**
+     * Record the current zoom before a zoom event
+     *
+     * @param {number} zoom The zoom before the zoom event
+     * @param {string} zoomTrigger The intitiator of the zoom
+     */
+    const zoomStartListener = (zoom, zoomTrigger) => {
+      this.currentZoom = zoom;
+    };
 
     /**
      * User-initiated changes to the map zoom searches the new area, if desired
      * Clicking on a cluster or fitting the bounds for results is not considered user-initiated
      *
-     * @param {Map} map The map object
+     * @param {number} zoom The zoom after this event
+     * @param {string} zoomTrigger The intitiator of the zoom
      */
-    const zoomChangeListener = (map) => {
-      this.currentZoom = map.getZoom();
-
-      if (map._zoomTrigger === 'api') {
+    const zoomEndListener = (zoom, zoomTrigger) => {
+      if (zoomTrigger !== ZoomTriggers.USER) {
         return;
       }
 
-      map.idle().then(() => this.handleMapAreaChange());
+      this.handleMapAreaChange();
     };
 
     ANSWERS.addComponent('NewMap', Object.assign({}, {
@@ -289,14 +300,15 @@ class InteractiveMap extends ANSWERS.Component {
       providerOptions: this.providerOptions,
       mapPadding: this.mapPadding,
       pinImages: this.pinImages,
-      pinClusterImages: this.pinCluterImages,
+      pinClusterImages: this.pinClusterImages,
       enablePinClustering: this.enablePinClustering,
       onPinSelect: this.onPinSelect,
       onPostMapRender: onPostMapRender,
       pinClickListener: (index, id) => this.pinClickListener(index, id),
       pinClusterClickListener: pinClusterClickListener,
       dragEndListener: dragEndListener,
-      zoomChangeListener: zoomChangeListener,
+      zoomStartListener: zoomStartListener,
+      zoomEndListener: zoomEndListener,
       displayAllResultsOnNoResults: this.displayAllResultsOnNoResults
     }));
   }
@@ -313,6 +325,50 @@ class InteractiveMap extends ANSWERS.Component {
     if (!this.shouldSearchBeDebounced()) {
       this.searchThisArea();
     }
+  }
+
+  /**
+   * Returns true if a search should be debounced and false otherwise
+   * 
+   * @returns {boolean}
+   */
+  shouldSearchBeDebounced () {
+    const mostRecentSearchState = {
+      mapCenter: this.mostRecentSearchLocation,
+      zoom: this.mostRecentSearchZoom,
+    }
+    const currentMapState = {
+      mapCenter: this.getCurrentMapCenter(),
+      zoom: this.currentZoom
+    }
+    return this.searchDebouncer.shouldBeDebounced(mostRecentSearchState, currentMapState);
+  }
+
+  /**
+   * Sets the most recent search state to the current map state
+   */
+  updateMostRecentSearchState () {
+    this.mostRecentSearchZoom = this.currentZoom;
+    this.mostRecentSearchLocation = this.getCurrentMapCenter();
+  }
+
+  /**
+   * Returns the current center of the map
+   * 
+   * @returns {Coordinate}
+   */
+  getCurrentMapCenter () {
+    const mapProperties = this.core.globalStorage.getState(STORAGE_KEY_MAP_PROPERTIES);
+
+    if (!mapProperties) {
+      return this.defaultCenter;
+    }
+
+    const center = mapProperties.visibleCenter;
+    const lat = center.latitude;
+    const lng = center.longitude;
+
+    return new Coordinate(lat, lng);
   }
 
   /**
