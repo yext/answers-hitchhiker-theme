@@ -91,8 +91,16 @@ class InteractiveMap extends ANSWERS.Component {
      */
     this.defaultZoom = this.providerOptions.zoom || 14;
 
+    /**
+     * The current zoom level of the map
+     * @type {number}
+     */
     this.currentZoom = this.defaultZoom;
 
+    /**
+     * The zoom level of the map during the most recent search
+     * @type {number}
+     */
     this.mostRecentSearchZoom = this.defaultZoom;
 
     /**
@@ -103,6 +111,10 @@ class InteractiveMap extends ANSWERS.Component {
       ? new Coordinate(this.providerOptions.center)
       : new Coordinate(37.0902, -95.7129);
 
+    /**
+     * The center of the map during the most recent search
+     * @type {Coordinate}
+     */
     this.mostRecentSearchLocation = this.defaultCenter;
 
     /**
@@ -180,6 +192,10 @@ class InteractiveMap extends ANSWERS.Component {
       left: () => this.getLeftVisibleBoundary(),
     };
 
+    /**
+     * Determines whether or not another search should be ran
+     * @type {SearchDebouncer}
+     */
     this.searchDebouncer = new SearchDebouncer();
   }
 
