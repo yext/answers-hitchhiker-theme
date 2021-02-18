@@ -15,7 +15,7 @@ class SearchDebouncer {
      * 
      * @type {number}
      */
-    this.relativeDistanceThreshold = 25;
+    this.relativeDistanceThreshold = 20;
 
     /**
      * The threshold for allowing a new search based on a change in zoom.
