@@ -25,57 +25,49 @@ class SearchDebouncer {
      * @type {number}
      */
     this.zoomThreshold = 1;
-
-    /**
-     * The location of the most recent search
-     * @type {Coordinate}
-     */
-    this.mostRecentSearchLocation = new Coordinate(37.0902, -95.7129);
-
-    /**
-     * The zoom level of the map during the most recent search.
-     * 
-     * See {@link Map.getZoom} for more information on the unit.
-     * 
-     * @type {number}
-     */
-    this.mostRecentSearchZoomLevel = 14;
   }
 
   /**
-   * Set the location of the most recent search
+   * Determines whether or not a search should be debounced
    * 
-   * @param {Coordinate} coordinate
+   * @param {Object} mostRecentSearchState
+   * @param {Coordinate} mostRecentSearchState.mapCenter
+   * @param {number} mostRecentSearchState.zoom
+   * @param {Object} currentMapState
+   * @param {Coordinate} currentMapState.mapCenter
+   * @param {number} currentMapState.zoom
+   * @retuns {boolean}
    */
-  updateMostRecentSearchLocation (coordinate) {
-    this.mostRecentSearchLocation = coordinate;
-  }
+  shouldBeDebounced (mostRecentSearchState, currentMapState) {
+    this._validateMapStateObject(mostRecentSearchState);
+    this._validateMapStateObject(currentMapState);
 
-  /**
-   * Set the zoom level of the most recent search
-   * 
-   * @param {number} num
-   */
-  updateMostRecentSearchZoomLevel (num) {
-    this.mostRecentSearchZoomLevel = num;
-  }
+    const distanceToLastSearch = mostRecentSearchState.mapCenter.distanceTo(currentMapState.mapCenter);
 
-  /**
-   * Determines whether or not a search should be allowed or debounced
-   * 
-   * @param {Coordinate} currentMapCenter 
-   * @param {number} currentMapZoom 
-   */
-  isSearchAllowed (currentMapCenter, currentMapZoom) {
-    const distanceToLastSearch = this.mostRecentSearchLocation.distanceTo(currentMapCenter);
-
-    const relativeDistance = this._calculateRelativeDistance(distanceToLastSearch, currentMapZoom);
-    const zoomDifference = Math.abs(currentMapZoom - this.mostRecentSearchZoomLevel)
+    const relativeDistance = this._calculateRelativeDistance(distanceToLastSearch, currentMapState.zoom);
+    const zoomDifference = Math.abs(currentMapState.zoom - mostRecentSearchState.zoom)
 
     const isOutsideDistanceThreshold = relativeDistance >= this.relativeDistanceThreshold;
     const isOutsideZoomThreshold = zoomDifference >= this.zoomThreshold;
 
-    return isOutsideDistanceThreshold || isOutsideZoomThreshold;
+    console.log(relativeDistance);
+    console.log('most recent search center: ' + JSON.stringify(mostRecentSearchState.mapCenter));
+
+    return !isOutsideDistanceThreshold && !isOutsideZoomThreshold;
+  }
+
+  /**
+   * Throws an error if the object is missing any of the required params
+   * 
+   * @param {Object}
+   */
+  _validateMapStateObject (obj) {
+    if (!('mapCenter' in obj)) {
+      throw new Error('The search debouncer was passed an object which is missing the "mapCenter" property');
+    }
+    if (!('zoom' in obj)) {
+      throw new Error('The search debouncer was passed an object which is missing the "zoom" property');
+    }
   }
 
   /**

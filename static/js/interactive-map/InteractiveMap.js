@@ -91,13 +91,16 @@ class InteractiveMap extends ANSWERS.Component {
      */
     this.defaultZoom = this.providerOptions.zoom || 14;
 
-    this.currentZoom = this.defaultZoom;
+    this.mostRecentSearchZoom = this.defaultZoom;
 
     /**
      * The default center coordinate for the map, an object with {lat, lng}
      * @type {Coordinate}
      */
     this.defaultCenter = this.providerOptions.center || new Coordinate(37.0902, -95.7129);
+    this.defaultCenter = Coordinate.forceCoordinate(this.defaultCenter);
+
+    this.mostRecentSearchLocation = this.defaultCenter;
 
     /**
      * Whether the map should search on a map movement action like map drag
@@ -197,6 +200,10 @@ class InteractiveMap extends ANSWERS.Component {
       this.setState(data);
     });
 
+    this.core.globalStorage.on('update', 'query', () => {
+      this.updateMostRecentSearchState()
+    })
+
     const searchThisAreaToggleEls = this._container.querySelectorAll('.js-searchThisAreaToggle');
     searchThisAreaToggleEls.forEach((el) => {
       el.addEventListener('click', (e) => {
@@ -247,8 +254,6 @@ class InteractiveMap extends ANSWERS.Component {
         return;
       }
 
-      this.currentZoom = map.getZoom();
-
       map.idle().then(() => {
         this.handleMapAreaChange()
       });
@@ -286,21 +291,68 @@ class InteractiveMap extends ANSWERS.Component {
       return;
     }
 
-    const currentMapCenter = this.getCurrentMapCenter();
-    const isSearchAllowed = this.searchDebouncer.isSearchAllowed(currentMapCenter, this.currentZoom);
-
-    if (isSearchAllowed) {
+    if (!this.shouldSearchBeDebounced()) {
       this.searchThisArea();
     }
   }
 
+  /**
+   * Returns true if a search should be debounced and false otherwise
+   * 
+   * @returns {boolean}
+   */
+  shouldSearchBeDebounced () {
+    const mostRecentSearchState = {
+      mapCenter: this.mostRecentSearchLocation,
+      zoom: this.mostRecentSearchZoom,
+    }
+    const currentMapState = {
+      mapCenter: this.getCurrentMapCenter(),
+      zoom: this.getCurrentMapZoom()
+    }
+    return this.searchDebouncer.shouldBeDebounced(mostRecentSearchState, currentMapState);
+  }
+
+  /**
+   * Sets the most recent search state to the current map state
+   */
+  updateMostRecentSearchState () {
+    this.mostRecentSearchZoom = this.getCurrentMapZoom(),
+    this.mostRecentSearchLocation = this.getCurrentMapCenter();
+  }
+
+  /**
+   * Returns the current center of the map
+   * 
+   * @returns {Coordinate}
+   */
   getCurrentMapCenter () {
     const mapProperties = this.core.globalStorage.getState(STORAGE_KEY_MAP_PROPERTIES);
+
+    if (!mapProperties) {
+      return this.defaultCenter;
+    }
+
     const center = mapProperties.visibleCenter;
     const lat = center.latitude;
     const lng = center.longitude;
 
     return new Coordinate(lat, lng);
+  }
+  
+  /**
+   * Gets the current zoom level of the map
+   * 
+   * @returns {number}
+   */
+  getCurrentMapZoom () {
+    const mapProperties = this.core.globalStorage.getState(STORAGE_KEY_MAP_PROPERTIES);
+
+    if (!mapProperties) {
+      return this.defaultZoom;
+    }
+
+    return mapProperties.zoom;
   }
 
   /**
@@ -417,8 +469,7 @@ class InteractiveMap extends ANSWERS.Component {
       resetPagination: true,
       useFacets: true
     });
-    this.searchDebouncer.updateMostRecentSearchLocation(new Coordinate(lat, lng));
-    this.searchDebouncer.updateMostRecentSearchZoomLevel(this.currentZoom);
+    this.updateMostRecentSearchState();
   }
 
   /**

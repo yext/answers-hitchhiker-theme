@@ -281,6 +281,20 @@ class Coordinate {
   searchQueryString() {
     return `${this.latitude},${this.longitude}`;
   }
+
+  /**
+   * If an object with lat and lng is not of type Coordianate, make it a Coordinate
+   * 
+   * @param {Object | Coordinate}
+   * @returns {Coordinate}
+   */
+  static forceCoordinate (obj) {
+    if (obj instanceof Coordinate) {
+      return obj;
+    }
+
+    return new Coordinate(obj);
+  }
 }
 
 export {
