@@ -57,6 +57,15 @@ class GoogleMap extends ProviderMap {
       this._moving = false;
       this._panHandler();
     });
+    google.maps.event.addListener(this.map, 'dragend', () => {
+      this._dragEndHandler();
+    });
+    google.maps.event.addListener(this.map, 'zoom_changed', () => {
+      this._zoomChangedHandler();
+      google.maps.event.addListenerOnce(this.map, 'idle', () => {
+        this._zoomEndHandler();
+      });
+    });
   }
 
   getCenter() {
