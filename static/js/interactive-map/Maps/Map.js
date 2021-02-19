@@ -159,6 +159,22 @@ class MapOptions {
   }
 
   /**
+   * @typedef Map~zoomChangedHandler
+   * @function
+   */
+
+  /**
+   * @param {Map~zoomChangedHandler} zoomChangedHandler
+   * @returns {MapOptions}
+   */
+  withZoomChangedHandler (zoomChangedHandler) {
+    assertType(zoomChangedHandler, Type.FUNCTION);
+
+    this.zoomChangedHandler = zoomChangedHandler;
+    return this;
+  }
+
+  /**
    * @typedef Map~zoomEndHandler
    * @function
    */

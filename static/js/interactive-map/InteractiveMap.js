@@ -268,7 +268,7 @@ class InteractiveMap extends ANSWERS.Component {
      * Record the current zoom during a zoom event
      *
      * @param {number} zoom The zoom during a zoom event
-     * @param {string} zoomTrigger The intitiator of the zoom
+     * @param {ZoomTriggers} zoomTrigger The intitiator of the zoom
      */
     const zoomChangedListener = (zoom, zoomTrigger) => {
       this.currentZoom = zoom;
@@ -279,7 +279,7 @@ class InteractiveMap extends ANSWERS.Component {
      * Clicking on a cluster or fitting the bounds for results is not considered user-initiated
      *
      * @param {number} zoom The zoom after this event
-     * @param {string} zoomTrigger The intitiator of the zoom
+     * @param {ZoomTriggers} zoomTrigger The intitiator of the zoom
      */
     const zoomEndListener = (zoom, zoomTrigger) => {
       if (zoomTrigger !== ZoomTriggers.USER) {
