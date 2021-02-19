@@ -6,6 +6,8 @@ import { SearchDebouncer } from './SearchDebouncer';
 import { PinImages } from './PinImages.js';
 import { ClusterPinImages } from './ClusterPinImages.js';
 
+import ZoomTriggers from './Maps/ZoomTriggers.js';
+
 const STORAGE_KEY_HOVERED_RESULT = 'HOVERED_RESULT_KEY';
 const STORAGE_KEY_SELECTED_RESULT = 'SELECTED_RESULT_KEY';
 const STORAGE_KEY_FROM_SEARCH_THIS_AREA = 'FROM_SEARCH_THIS_AREA';
@@ -260,22 +262,31 @@ class InteractiveMap extends ANSWERS.Component {
      *
      * @param {Map} map The map object
      */
-    const dragEndListener = (map) => this.handleMapAreaChange();
+    const dragEndListener = () => this.handleMapAreaChange();
+
+    /**
+     * Record the current zoom during a zoom event
+     *
+     * @param {number} zoom The zoom during a zoom event
+     * @param {ZoomTriggers} zoomTrigger The intitiator of the zoom
+     */
+    const zoomChangedListener = (zoom, zoomTrigger) => {
+      this.currentZoom = zoom;
+    };
 
     /**
      * User-initiated changes to the map zoom searches the new area, if desired
      * Clicking on a cluster or fitting the bounds for results is not considered user-initiated
      *
-     * @param {Map} map The map object
+     * @param {number} zoom The zoom after this event
+     * @param {ZoomTriggers} zoomTrigger The intitiator of the zoom
      */
-    const zoomChangeListener = (map) => {
-      this.currentZoom = map.getZoom();
-
-      if (map._zoomTrigger === 'api') {
+    const zoomEndListener = (zoom, zoomTrigger) => {
+      if (zoomTrigger !== ZoomTriggers.USER) {
         return;
       }
 
-      map.idle().then(() => this.handleMapAreaChange());
+      this.handleMapAreaChange();
     };
 
     ANSWERS.addComponent('NewMap', Object.assign({}, {
@@ -289,14 +300,15 @@ class InteractiveMap extends ANSWERS.Component {
       providerOptions: this.providerOptions,
       mapPadding: this.mapPadding,
       pinImages: this.pinImages,
-      pinClusterImages: this.pinCluterImages,
+      pinClusterImages: this.pinClusterImages,
       enablePinClustering: this.enablePinClustering,
       onPinSelect: this.onPinSelect,
       onPostMapRender: onPostMapRender,
       pinClickListener: (index, id) => this.pinClickListener(index, id),
       pinClusterClickListener: pinClusterClickListener,
       dragEndListener: dragEndListener,
-      zoomChangeListener: zoomChangeListener,
+      zoomChangedListener: zoomChangedListener,
+      zoomEndListener: zoomEndListener,
       displayAllResultsOnNoResults: this.displayAllResultsOnNoResults
     }));
   }

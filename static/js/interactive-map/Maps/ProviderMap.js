@@ -19,6 +19,9 @@ class ProviderMapOptions {
     this.controlEnabled = true;
     this.panHandler = () => {};
     this.panStartHandler = () => {};
+    this.dragEndHandler = () => {};
+    this.zoomChangedHandler = () => {};
+    this.zoomEndHandler = () => {};
     this.providerOptions = {};
   }
 
@@ -64,6 +67,54 @@ class ProviderMapOptions {
   }
 
   /**
+   * @typedef ProviderMap~dragEndHandler
+   * @function
+   */
+
+  /**
+   * @param {ProviderMap~dragEndHandler} dragEndHandler Function called after the map is dragged
+   * @returns {ProviderMapOptions}
+   */
+  withDragEndHandler(dragEndHandler) {
+    assertType(dragEndHandler, Type.FUNCTION);
+
+    this.dragEndHandler = dragEndHandler;
+    return this;
+  }
+
+  /**
+   * @typedef ProviderMap~zoomChangedHandler
+   * @function
+   */
+
+  /**
+   * @param {ProviderMap~zoomChangedHandler} zoomChangedHandler Function called when the map starts a zoom change
+   * @returns {ProviderMapOptions}
+   */
+  withZoomChangedHandler(zoomChangedHandler) {
+    assertType(zoomChangedHandler, Type.FUNCTION);
+
+    this.zoomChangedHandler = zoomChangedHandler;
+    return this;
+  }
+
+  /**
+   * @typedef ProviderMap~zoomEndHandler
+   * @function
+   */
+
+  /**
+   * @param {ProviderMap~zoomEndHandler} zoomEndHandler Function called when the map ends a zoom change
+   * @returns {ProviderMapOptions}
+   */
+  withZoomEndHandler(zoomEndHandler) {
+    assertType(zoomEndHandler, Type.FUNCTION);
+
+    this.zoomEndHandler = zoomEndHandler;
+    return this;
+  }
+
+  /**
    * @param {Object} providerOptions A free-form object used to set any additional provider-specific options, usually by passing the object to the map's constructor
    * @returns {ProviderMapOptions}
    */
@@ -101,6 +152,9 @@ class ProviderMap {
     // changing, and call _panHandler when it stops.
     this._panHandler = options.panHandler;
     this._panStartHandler = options.panStartHandler;
+    this._dragEndHandler = options.dragEndHandler;
+    this._zoomChangedHandler = options.zoomChangedHandler;
+    this._zoomEndHandler = options.zoomEndHandler;
   }
 
   /**

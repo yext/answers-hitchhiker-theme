@@ -39,7 +39,8 @@ class NewMap extends ANSWERS.Component {
     this.pinClickListener = config.pinClickListener;
     this.pinClusterClickListener = config.pinClusterClickListener;
     this.dragEndListener = config.dragEndListener;
-    this.zoomChangeListener = config.zoomChangeListener;
+    this.zoomChangedListener = config.zoomChangedListener;
+    this.zoomEndListener = config.zoomEndListener;
     this.displayAllResultsOnNoResults  = config.displayAllResultsOnNoResults;
 
     /**
@@ -122,20 +123,33 @@ class NewMap extends ANSWERS.Component {
   }
 
   /**
+   * Update in the Answers SDK storage map properties used by other components
+   */
+  updateMapPropertiesInStorage() {
+    this.core.globalStorage.set(STORAGE_KEY_MAP_PROPERTIES, {
+      visibleCenter: this.map.getVisibleCenter(),
+      visibleRadius: this.map.getVisibleRadius()
+    });
+  }
+
+  /**
    * Add map interactions like event listeners and rendering targets
    * @param {Map} The map object
    */
   addMapInteractions(map) {
-    // TODO google specific
-    window.google.maps.event.addListener(map._map.map, 'dragend', () => this.dragEndListener(map));
-
-    window.google.maps.event.addListener(map._map.map, 'zoom_changed', () => this.zoomChangeListener(map));
-
-    window.google.maps.event.addListener(map._map.map, 'bounds_changed', () => {
-      this.core.globalStorage.set(STORAGE_KEY_MAP_PROPERTIES, {
-        visibleCenter: map.getVisibleCenter(),
-        visibleRadius: map.getVisibleRadius()
-      })
+    this.map.idle().then(() => {
+      map.setPanHandler(() => this.updateMapPropertiesInStorage());
+      map.setDragEndHandler(() => {
+        this.updateMapPropertiesInStorage();
+        this.dragEndListener()
+      });
+      map.setZoomChangedHandler((zoomTrigger) => {
+        this.zoomChangedListener(this.map.getZoom(), zoomTrigger);
+      });
+      map.setZoomEndHandler((zoomTrigger) => {
+        this.updateMapPropertiesInStorage();
+        this.zoomEndListener(this.map.getZoom(), zoomTrigger);
+      });
     });
 
     const mapRenderTargetOptions = new MapRenderTargetOptions()
@@ -200,7 +214,10 @@ class NewMap extends ANSWERS.Component {
    */
   getClusterer () {
     const clustererOptions = new PinClustererOptions()
-      .withClickListener(() => this.pinClusterClickListener())
+      .withClickListener(() => {
+        this.updateMapPropertiesInStorage();
+        this.pinClusterClickListener();
+      })
       .withIconTemplate('default', (pinDetails) => {
         return this.pinClusterImages.getDefaultPin(pinDetails.pinCount);
       })

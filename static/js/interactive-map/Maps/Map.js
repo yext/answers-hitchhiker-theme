@@ -5,6 +5,7 @@ import { Type, assertType, assertInstance } from '../Util/Assertions.js';
 import { MapPinOptions } from './MapPin.js';
 import { MapProvider } from './MapProvider.js';
 import { ProviderMapOptions } from './ProviderMap.js';
+import ZoomTriggers from './ZoomTriggers.js';
 
 /**
  * The maximum percent of the map height or width that can be taken up by padding.
@@ -43,6 +44,9 @@ class MapOptions {
     this.padding = { bottom: () => 50, left: () => 50, right: () => 50, top: () => 50 };
     this.panHandler = (previousBounds, currentBounds) => {};
     this.panStartHandler = currentBounds => {};
+    this.dragEndHandler = () => {};
+    this.zoomChangedHandler = () => {};
+    this.zoomEndHandler = () => {};
     this.provider = null;
     this.providerOptions = {};
     this.singlePinZoom = 14;
@@ -139,6 +143,54 @@ class MapOptions {
   }
 
   /**
+   * @typedef Map~dragEndHandler
+   * @function
+   */
+
+  /**
+   * @param {Map~dragEndHandler} dragEndHandler
+   * @returns {MapOptions}
+   */
+  withDragEndHandler (dragEndHandler) {
+    assertType(dragEndHandler, Type.FUNCTION);
+
+    this.dragEndHandler = dragEndHandler;
+    return this;
+  }
+
+  /**
+   * @typedef Map~zoomChangedHandler
+   * @function
+   */
+
+  /**
+   * @param {Map~zoomChangedHandler} zoomChangedHandler
+   * @returns {MapOptions}
+   */
+  withZoomChangedHandler (zoomChangedHandler) {
+    assertType(zoomChangedHandler, Type.FUNCTION);
+
+    this.zoomChangedHandler = zoomChangedHandler;
+    return this;
+  }
+
+  /**
+   * @typedef Map~zoomEndHandler
+   * @function
+   */
+
+  /**
+   * @param {Map~zoomEndHandler} zoomEndHandler
+   * @returns {MapOptions}
+   */
+  withZoomEndHandler (zoomEndHandler) {
+    assertType(zoomEndHandler, Type.FUNCTION);
+
+    this.zoomEndHandler = zoomEndHandler;
+    return this;
+  }
+
+  /**
    * The MapProvider must be loaded before constructing a Map with it.
    * @param {MapProvider} provider
    * @returns {MapOptions}
@@ -222,9 +274,13 @@ class Map {
     this._resolveMoving = () => {};
     this._idlePromise = Promise.resolve();
     this._setIdle();
+    this._zoomTrigger = ZoomTriggers.UNSET;
 
     this.setPanHandler(options.panHandler);
     this.setPanStartHandler(options.panStartHandler);
+    this.setDragEndHandler(options.dragEndHandler);
+    this.setZoomChangedHandler(options.zoomChangedHandler);
+    this.setZoomEndHandler(options.zoomEndHandler);
 
     // Remove all child elements of wrapper
     while (this._wrapper.firstChild) {
@@ -236,6 +292,9 @@ class Map {
     this._map = new ProviderMapOptions(options.provider, this._wrapper)
       .withControlEnabled(options.controlEnabled)
       .withPanHandler(() => this.panHandler())
+      .withDragEndHandler(() => this._dragEndHandler())
+      .withZoomChangedHandler(() => this.zoomChangedHandler())
+      .withZoomEndHandler(() => this.zoomEndHandler())
       .withPanStartHandler(() => this.panStartHandler())
       .withProviderOptions(options.providerOptions)
       .build();
@@ -390,6 +449,30 @@ class Map {
     });
 
     this._setMoving();
+  }
+
+  /**
+   * Called when the map starts a zoom change
+   */
+  zoomChangedHandler() {
+    // We assume that the zoom trigger is the user if it was
+    // left unset by our locator code
+    if (this.getZoomTrigger() === ZoomTriggers.UNSET) {
+      this.setZoomTrigger(ZoomTriggers.USER);
+    }
+
+    this._zoomChangedHandler(this.getZoomTrigger());
+  }
+
+  /**
+   * Called when the map ends a zoom change
+   */
+  zoomEndHandler() {
+    this._zoomEndHandler(this.getZoomTrigger());
+
+    if (this.getZoomTrigger() !== ZoomTriggers.UNSET) {
+      this.setZoomTrigger(ZoomTriggers.UNSET);
+    }
   }
 
   getVisibleCenter() {
@@ -596,14 +679,40 @@ class Map {
   }
 
   /**
+   * @param {Map~dragEndHandler} dragEndHandler
+   */
+  setDragEndHandler(dragEndHandler) {
+    assertType(dragEndHandler, Type.FUNCTION);
+
+    this._dragEndHandler = dragEndHandler;
+  }
+
+  /**
+   * @param {Map~zoomChangedHandler} zoomChangedHandler
+   */
+  setZoomChangedHandler(zoomChangedHandler) {
+    assertType(zoomChangedHandler, Type.FUNCTION);
+
+    this._zoomChangedHandler = zoomChangedHandler;
+  }
+
+  /**
+   * @param {Map~zoomEndHandler} zoomEndHandler
+   */
+  setZoomEndHandler(zoomEndHandler) {
+    assertType(zoomEndHandler, Type.FUNCTION);
+
+    this._zoomEndHandler = zoomEndHandler;
+  }
+
+  /**
    * @param {number} zoom
    * @param {boolean} [animated=false] Whether to transition smoothly to the new zoom
    * @see {@link Map#getZoom}
    */
   setZoom(zoom, animated = false) {
-    this._zoomTrigger = 'api';
+    this.setZoomTrigger(ZoomTriggers.API);
     this._map.setZoom(zoom, animated);
-    this._zoomTrigger = undefined;
   }
 
   /**
@@ -614,9 +723,25 @@ class Map {
    * @see {@link Map#setCenter}
    */
   setZoomCenter(zoom, center, animated = false) {
-    this._zoomTrigger = 'api';
+    this.setZoomTrigger(ZoomTriggers.API);
     this._map.setZoomCenter(zoom, center, animated);
-    this._zoomTrigger = undefined;
+  }
+
+  /**
+   * The zoom trigger is the initiator of the zoom, this can be from a user
+   * on a double click, for example, or from the api when fitting the map around
+   * a cluster or a set of results.
+   * @param {ZoomTriggers} zoomTrigger
+   */
+  setZoomTrigger(zoomTrigger) {
+    this._zoomTrigger = zoomTrigger;
+  }
+
+  /**
+   * @return {ZoomTriggers} The trigger for the last zoom
+   */
+  getZoomTrigger() {
+    return this._zoomTrigger;
   }
 
   /**
