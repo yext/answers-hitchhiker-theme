@@ -453,8 +453,7 @@
     }
   }
 
-  // TODO move to js
-  &.CollapsibleFilters--collapsed {
+  &:not(.CollapsibleFilters--collapsed) {
     .Answers-mobileToggles {
       display: none;
     }

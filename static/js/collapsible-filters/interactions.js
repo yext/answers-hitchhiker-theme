@@ -2,8 +2,8 @@
  * Interactions manages page interactions for collapsible filters.
  */
 export default class Interactions {
-  constructor(domElements) {
-    const { filterEls, resultEls } = domElements;
+  constructor(config) {
+    const { filterEls, resultEls, disableScrollToTopOnToggle } = config;
     this.collapsibleFiltersParentEl = document.querySelector('.CollapsibleFilters');
     this.filterEls = filterEls || [];
     this.resultEls = resultEls || [];
@@ -16,8 +16,7 @@ export default class Interactions {
       || document.querySelector('.Answers-resultsWrapper');
     this._updateStickyButton = this._updateStickyButton.bind(this);
     this._debouncedStickyUpdate = this._debouncedStickyUpdate.bind(this);
-    this._disableScrollToTopOnToggle = 
-      document.querySelector('.js-CollapsibleFilters--disableScrollToTop') !== null;
+    this._disableScrollToTopOnToggle = disableScrollToTopOnToggle;
   }
 
   /**
@@ -181,9 +180,9 @@ export default class Interactions {
    */
   toggleCollapsedStatusClass(isCollapsed) {
     if (isCollapsed) {
-      this.collapsibleFiltersParentEl.classList.remove(this.collapsedcCssClass);
-    } else {
       this.collapsibleFiltersParentEl.classList.add(this.collapsedcCssClass)
+    } else {
+      this.collapsibleFiltersParentEl.classList.remove(this.collapsedcCssClass);
     }
   }
 
