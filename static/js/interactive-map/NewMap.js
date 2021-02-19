@@ -39,7 +39,7 @@ class NewMap extends ANSWERS.Component {
     this.pinClickListener = config.pinClickListener;
     this.pinClusterClickListener = config.pinClusterClickListener;
     this.dragEndListener = config.dragEndListener;
-    this.zoomStartListener = config.zoomStartListener;
+    this.zoomChangedListener = config.zoomChangedListener;
     this.zoomEndListener = config.zoomEndListener;
     this.displayAllResultsOnNoResults  = config.displayAllResultsOnNoResults;
 
@@ -143,8 +143,8 @@ class NewMap extends ANSWERS.Component {
         this.updateMapPropertiesInStorage();
         this.dragEndListener()
       });
-      map.setZoomStartHandler((zoomTrigger) => {
-        this.zoomStartListener(this.map.getZoom(), zoomTrigger);
+      map.setZoomChangedHandler((zoomTrigger) => {
+        this.zoomChangedListener(this.map.getZoom(), zoomTrigger);
       });
       map.setZoomEndHandler((zoomTrigger) => {
         this.updateMapPropertiesInStorage();

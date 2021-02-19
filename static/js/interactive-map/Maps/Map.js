@@ -45,7 +45,7 @@ class MapOptions {
     this.panHandler = (previousBounds, currentBounds) => {};
     this.panStartHandler = currentBounds => {};
     this.dragEndHandler = () => {};
-    this.zoomStartHandler = () => {};
+    this.zoomChangedHandler = () => {};
     this.zoomEndHandler = () => {};
     this.provider = null;
     this.providerOptions = {};
@@ -263,7 +263,7 @@ class Map {
     this.setPanHandler(options.panHandler);
     this.setPanStartHandler(options.panStartHandler);
     this.setDragEndHandler(options.dragEndHandler);
-    this.setZoomStartHandler(options.zoomStartHandler);
+    this.setZoomChangedHandler(options.zoomChangedHandler);
     this.setZoomEndHandler(options.zoomEndHandler);
 
     // Remove all child elements of wrapper
@@ -277,7 +277,7 @@ class Map {
       .withControlEnabled(options.controlEnabled)
       .withPanHandler(() => this.panHandler())
       .withDragEndHandler(() => this._dragEndHandler())
-      .withZoomStartHandler(() => this.zoomStartHandler())
+      .withZoomChangedHandler(() => this.zoomChangedHandler())
       .withZoomEndHandler(() => this.zoomEndHandler())
       .withPanStartHandler(() => this.panStartHandler())
       .withProviderOptions(options.providerOptions)
@@ -438,14 +438,14 @@ class Map {
   /**
    * Called when the map starts a zoom change
    */
-  zoomStartHandler() {
+  zoomChangedHandler() {
     // We assume that the zoom trigger is the user if it was
     // left unset by our locator code
     if (this.getZoomTrigger() === ZoomTriggers.UNSET) {
       this.setZoomTrigger(ZoomTriggers.USER);
     }
 
-    this._zoomStartHandler(this.getZoomTrigger());
+    this._zoomChangedHandler(this.getZoomTrigger());
   }
 
   /**
@@ -672,12 +672,12 @@ class Map {
   }
 
   /**
-   * @param {Map~zoomStartHandler} zoomStartHandler
+   * @param {Map~zoomChangedHandler} zoomChangedHandler
    */
-  setZoomStartHandler(zoomStartHandler) {
-    assertType(zoomStartHandler, Type.FUNCTION);
+  setZoomChangedHandler(zoomChangedHandler) {
+    assertType(zoomChangedHandler, Type.FUNCTION);
 
-    this._zoomStartHandler = zoomStartHandler;
+    this._zoomChangedHandler = zoomChangedHandler;
   }
 
   /**
@@ -715,14 +715,14 @@ class Map {
    * The zoom trigger is the initiator of the zoom, this can be from a user
    * on a double click, for example, or from the api when fitting the map around
    * a cluster or a set of results.
-   * @param {ZoomTriggers} zoomTrigger The trigger of the zoom
+   * @param {ZoomTriggers} zoomTrigger
    */
   setZoomTrigger(zoomTrigger) {
     this._zoomTrigger = zoomTrigger;
   }
 
   /**
-   * @return {string} The trigger for the last zoom
+   * @return {ZoomTriggers} The trigger for the last zoom
    */
   getZoomTrigger() {
     return this._zoomTrigger;

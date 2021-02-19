@@ -61,7 +61,7 @@ class GoogleMap extends ProviderMap {
       this._dragEndHandler();
     });
     google.maps.event.addListener(this.map, 'zoom_changed', () => {
-      this._zoomStartHandler();
+      this._zoomChangedHandler();
       google.maps.event.addListenerOnce(this.map, 'idle', () => {
         this._zoomEndHandler();
       });

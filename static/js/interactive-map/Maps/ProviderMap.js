@@ -20,7 +20,7 @@ class ProviderMapOptions {
     this.panHandler = () => {};
     this.panStartHandler = () => {};
     this.dragEndHandler = () => {};
-    this.zoomStartHandler = () => {};
+    this.zoomChangedHandler = () => {};
     this.zoomEndHandler = () => {};
     this.providerOptions = {};
   }
@@ -83,18 +83,18 @@ class ProviderMapOptions {
   }
 
   /**
-   * @typedef ProviderMap~zoomStartHandler
+   * @typedef ProviderMap~zoomChangedHandler
    * @function
    */
 
   /**
-   * @param {ProviderMap~zoomStartHandler} zoomStartHandler Function called when the map starts a zoom change
+   * @param {ProviderMap~zoomChangedHandler} zoomChangedHandler Function called when the map starts a zoom change
    * @returns {ProviderMapOptions}
    */
-  withZoomStartHandler(zoomStartHandler) {
-    assertType(zoomStartHandler, Type.FUNCTION);
+  withZoomChangedHandler(zoomChangedHandler) {
+    assertType(zoomChangedHandler, Type.FUNCTION);
 
-    this.zoomStartHandler = zoomStartHandler;
+    this.zoomChangedHandler = zoomChangedHandler;
     return this;
   }
 
@@ -153,7 +153,7 @@ class ProviderMap {
     this._panHandler = options.panHandler;
     this._panStartHandler = options.panStartHandler;
     this._dragEndHandler = options.dragEndHandler;
-    this._zoomStartHandler = options.zoomStartHandler;
+    this._zoomChangedHandler = options.zoomChangedHandler;
     this._zoomEndHandler = options.zoomEndHandler;
   }
 

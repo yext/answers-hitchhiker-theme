@@ -265,12 +265,12 @@ class InteractiveMap extends ANSWERS.Component {
     const dragEndListener = () => this.handleMapAreaChange();
 
     /**
-     * Record the current zoom before a zoom event
+     * Record the current zoom during a zoom event
      *
-     * @param {number} zoom The zoom before the zoom event
+     * @param {number} zoom The zoom during a zoom event
      * @param {string} zoomTrigger The intitiator of the zoom
      */
-    const zoomStartListener = (zoom, zoomTrigger) => {
+    const zoomChangedListener = (zoom, zoomTrigger) => {
       this.currentZoom = zoom;
     };
 
@@ -307,7 +307,7 @@ class InteractiveMap extends ANSWERS.Component {
       pinClickListener: (index, id) => this.pinClickListener(index, id),
       pinClusterClickListener: pinClusterClickListener,
       dragEndListener: dragEndListener,
-      zoomStartListener: zoomStartListener,
+      zoomChangedListener: zoomChangedListener,
       zoomEndListener: zoomEndListener,
       displayAllResultsOnNoResults: this.displayAllResultsOnNoResults
     }));
@@ -325,50 +325,6 @@ class InteractiveMap extends ANSWERS.Component {
     if (!this.shouldSearchBeDebounced()) {
       this.searchThisArea();
     }
-  }
-
-  /**
-   * Returns true if a search should be debounced and false otherwise
-   * 
-   * @returns {boolean}
-   */
-  shouldSearchBeDebounced () {
-    const mostRecentSearchState = {
-      mapCenter: this.mostRecentSearchLocation,
-      zoom: this.mostRecentSearchZoom,
-    }
-    const currentMapState = {
-      mapCenter: this.getCurrentMapCenter(),
-      zoom: this.currentZoom
-    }
-    return this.searchDebouncer.shouldBeDebounced(mostRecentSearchState, currentMapState);
-  }
-
-  /**
-   * Sets the most recent search state to the current map state
-   */
-  updateMostRecentSearchState () {
-    this.mostRecentSearchZoom = this.currentZoom;
-    this.mostRecentSearchLocation = this.getCurrentMapCenter();
-  }
-
-  /**
-   * Returns the current center of the map
-   * 
-   * @returns {Coordinate}
-   */
-  getCurrentMapCenter () {
-    const mapProperties = this.core.globalStorage.getState(STORAGE_KEY_MAP_PROPERTIES);
-
-    if (!mapProperties) {
-      return this.defaultCenter;
-    }
-
-    const center = mapProperties.visibleCenter;
-    const lat = center.latitude;
-    const lng = center.longitude;
-
-    return new Coordinate(lat, lng);
   }
 
   /**
