@@ -173,8 +173,8 @@ export default class Interactions {
   }
 
   /**
-   * If isCollapsed is true, then set the css class
-   * for CollapsibleFilters indicating that the filters are collapsedc
+   * If isCollapsed is true, then set the css class for CollapsibleFilters 
+   * indicating that the filters are collapsed.
    *
    * @param {boolean} isCollapsed
    */
