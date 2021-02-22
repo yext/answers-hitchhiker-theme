@@ -5,7 +5,10 @@ class location_standardCardComponent extends BaseCard['location-standard'] {
     super(config, systemConfig);
   }
 
-  {{> static/js/interactive-map/location-card-partial}}
+  onMount() {
+    {{> static/js/interactive-map/location-card/add-card-click-listener}}
+    super.onMount();
+  }
 
   /**
    * This returns an object that will be called `card`
