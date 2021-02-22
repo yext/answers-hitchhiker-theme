@@ -564,6 +564,12 @@
       .HitchhikerFinancialProfessionalLocation  {
         display: flex;
       }
+
+      .HitchhikerLocationStandard,
+      .HitchhikerProfessionalLocation,
+      .HitchhikerFinancialProfessionalLocation {	
+        overflow-y: scroll;	
+      }
     }
   }
   
