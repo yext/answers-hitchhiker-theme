@@ -53,12 +53,6 @@
 @import "directanswercards/allfields-standard";
 @import "directanswercards/documentsearch-standard";
 
-// Vertical map component styling
-@import 'interactive-map/InteractiveMap.scss';
-
-// HH files
-@import "../answers";
-
 // Styling for CollapsibleFilters
 @import "collapsible-filters/collapsible-filters";
 @import "collapsible-filters/collapsible-filters-templates";
@@ -66,6 +60,12 @@
 // Styling for CollapsibleFilters components
 @import "collapsible-filters/filter-link";
 @import "collapsible-filters/view-results-button";
+
+// Vertical map component styling
+@import 'interactive-map/InteractiveMap.scss';
+
+// HH files
+@import "../answers";
 
 // Custom styling outside of the Answers experience
 @import "../page.scss";
