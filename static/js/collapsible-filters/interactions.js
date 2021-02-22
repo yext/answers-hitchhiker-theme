@@ -3,7 +3,8 @@
  */
 export default class Interactions {
   constructor(config) {
-    const { filterEls, resultEls, templateName } = config;
+    const { filterEls, resultEls, disableScrollToTopOnToggle, templateName } = config;
+    this.collapsibleFiltersParentEl = document.querySelector('.CollapsibleFilters');
     this.filterEls = filterEls || [];
     this.resultEls = resultEls || [];
     this.templateName = templateName;
@@ -11,10 +12,12 @@ export default class Interactions {
     this.searchBarContainer = document.getElementById('js-answersSearchBar');
     this.resultsColumn = document.querySelector('.js-answersResultsColumn');
     this.inactiveCssClass = 'CollapsibleFilters-inactive';
+    this.collapsedcCssClass = 'CollapsibleFilters--collapsed';
     this.resultsWrapper = document.querySelector('.js-answersResultsWrapper')
       || document.querySelector('.Answers-resultsWrapper');
     this._updateStickyButton = this._updateStickyButton.bind(this);
     this._debouncedStickyUpdate = this._debouncedStickyUpdate.bind(this);
+    this._disableScrollToTopOnToggle = disableScrollToTopOnToggle;
   }
 
   /**
@@ -171,6 +174,20 @@ export default class Interactions {
   }
 
   /**
+   * If isCollapsed is true, then set the css class for CollapsibleFilters 
+   * indicating that the filters are collapsed.
+   *
+   * @param {boolean} isCollapsed
+   */
+  toggleCollapsedStatusClass(isCollapsed) {
+    if (isCollapsed) {
+      this.collapsibleFiltersParentEl.classList.add(this.collapsedcCssClass)
+    } else {
+      this.collapsibleFiltersParentEl.classList.remove(this.collapsedcCssClass);
+    }
+  }
+
+  /**
    * Either collapses or expands the collapsible filters panel.
    * @param {boolean} shouldCollapseFilters 
    */
@@ -187,7 +204,10 @@ export default class Interactions {
       this.toggleInactiveClass(el, !shouldCollapseFilters);
     }
     this.toggleInactiveClass(this.viewResultsButton, shouldCollapseFilters);
-    this.scrollToTop();
+    this.toggleCollapsedStatusClass(shouldCollapseFilters);
+    if (!this._disableScrollToTopOnToggle) {
+      this.scrollToTop();
+    }
     ANSWERS.components.getActiveComponent('FilterLink').setState({
       panelIsDisplayed: !shouldCollapseFilters
     });
