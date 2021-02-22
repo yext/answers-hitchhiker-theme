@@ -545,7 +545,8 @@
   .yxt-Card--pinClicked {
     @include bpgte($desktop-break-point-min) {
       .HitchhikerLocationStandard, 
-      .HitchhikerProfessionalLocation {
+      .HitchhikerProfessionalLocation,
+      .HitchhikerFinancialProfessionalLocation {
         background-color: #ececec;
       }
     }
@@ -558,11 +559,9 @@
       height: var(--yxt-maps-mobile-detail-card-height);
       background-color: #fcfcfc;
 
-      .HitchhikerLocationStandard-closeCardButton {
-        display: flex;
-      }
-
-      .HitchhikerProfessionalLocation-closeCardButton {
+      .HitchhikerLocationStandard-closeCardButton,
+      .HitchhikerProfessionalLocation-closeCardButton,
+      .HitchhikerFinancialProfessionalLocation  {
         display: flex;
       }
     }
