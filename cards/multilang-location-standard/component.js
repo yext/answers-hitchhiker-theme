@@ -5,6 +5,8 @@ class multilang_location_standardCardComponent extends BaseCard['multilang-locat
     super(config, systemConfig);
   }
 
+  {{> static/js/interactive-map/location-card-partial}}
+
   /**
    * This returns an object that will be called `card`
    * in the template. Put all mapping logic here.

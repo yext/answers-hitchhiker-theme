@@ -491,12 +491,23 @@
   }
 
   .HitchhikerLocationStandard {
-    position: relative;
-
     &-content {
       flex-wrap: wrap;
       line-height: var(--yxt-line-height-sm);
     }
+  }
+
+  .HitchhikerProfessionalLocation,
+  .HitchhikerFinancialProfessionalLocation {
+    &-info {
+      line-height: var(--yxt-line-height-sm);
+    }
+  }
+
+  .HitchhikerLocationStandard,
+  .HitchhikerProfessionalLocation,
+  .HitchhikerFinancialProfessionalLocation {
+    position: relative;
 
     &-ctasWrapper {
       margin-left: 0;
@@ -533,7 +544,8 @@
 
   .yxt-Card--pinClicked {
     @include bpgte($desktop-break-point-min) {
-      .HitchhikerLocationStandard {
+      .HitchhikerLocationStandard, 
+      .HitchhikerProfessionalLocation {
         background-color: #ececec;
       }
     }
@@ -550,8 +562,8 @@
         display: flex;
       }
 
-      .HitchhikerLocationStandard-contentWrapper {
-        overflow-y: scroll;
+      .HitchhikerProfessionalLocation-closeCardButton {
+        display: flex;
       }
     }
   }

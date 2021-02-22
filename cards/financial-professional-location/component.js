@@ -5,6 +5,8 @@ class financial_professional_locationCardComponent extends BaseCard['financial-p
     super(config, systemConfig);
   }
 
+  {{> static/js/interactive-map/location-card-partial}}
+
   /**
    * This returns an object that will be called `card`
    * in the template. Put all mapping logic here.
