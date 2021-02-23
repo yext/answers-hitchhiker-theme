@@ -34,6 +34,9 @@ class MapboxMap extends ProviderMap {
 
     this.map.on('movestart', () => this._panStartHandler());
     this.map.on('moveend', () => this._panHandler());
+    this.map.on('dragend', () => this._dragEndHandler());
+    this.map.on('zoomstart', () => this._zoomChangedHandler());
+    this.map.on('zoomend', () => this._zoomEndHandler());
   }
 
   getCenter() {

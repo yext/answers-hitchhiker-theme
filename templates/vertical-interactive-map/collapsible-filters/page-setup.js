@@ -1,16 +1,12 @@
 // For signaling collapsible filters specific behavior in components.
 const IS_COLLAPSIBLE_FILTERS = true;
 
-// The SDK does not support Facets on load, however the Facets
-// component interacts with persistent storage in a way that suggests
-// that it does. This is a temporary fix until the SDK is patched.
-CollapsibleFilters.Helpers.clearFacetsPersistentStorage();
-
 // Register the CollapsibleFiltersInteractions class, and instantiate an instance
 // of it, to be called within component config.
 const collapsibleFiltersInteractions = new CollapsibleFilters.Interactions({
   filterEls: document.querySelectorAll('.js-answersFiltersWrapper'),
-  resultEls: document.querySelectorAll('.js-answersResults,.js-answersFooter') 
+  resultEls: document.querySelectorAll('.js-answersResults,.js-answersFooter'),
+  disableScrollToTopOnToggle: true
 });
 
 // When a search is made with the searchbar, collapse the filters.

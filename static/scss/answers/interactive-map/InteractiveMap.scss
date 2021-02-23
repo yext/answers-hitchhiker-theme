@@ -453,8 +453,7 @@
     }
   }
 
-  // TODO move to js
-  &.InteractiveMap--showCollapsibleFilters {
+  &:not(.CollapsibleFilters--collapsed) {
     .Answers-mobileToggles {
       display: none;
     }
@@ -562,21 +561,21 @@
   }
   
   &.CollapsibleFilters .Answers-resultsHeader {
-    background-color: var(--hh-color-gray-2) !important;
+    background-color: var(--hh-color-gray-2);
   }
 
   &.CollapsibleFilters .Answers-viewResultsButton {
     padding: 8px;
     
     @include bpgte($desktop-break-point-min) {
-      width: 100% !important;
+      width: 100%;
       position: absolute;
     }
   }
 
   &.CollapsibleFilters .Answers-filtersWrapper {
     @include bplte($mobile-break-point-max) {
-      margin: 0 !important;
+      margin: 0;
       padding: 16px;
     }
   }

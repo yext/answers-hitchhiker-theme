@@ -6,6 +6,8 @@ import { SearchDebouncer } from './SearchDebouncer';
 import { PinImages } from './PinImages.js';
 import { ClusterPinImages } from './ClusterPinImages.js';
 
+import ZoomTriggers from './Maps/ZoomTriggers.js';
+
 const STORAGE_KEY_HOVERED_RESULT = 'HOVERED_RESULT_KEY';
 const STORAGE_KEY_SELECTED_RESULT = 'SELECTED_RESULT_KEY';
 const STORAGE_KEY_FROM_SEARCH_THIS_AREA = 'FROM_SEARCH_THIS_AREA';
@@ -215,13 +217,17 @@ class InteractiveMap extends ANSWERS.Component {
   };
 
   onCreate () {
-    this.core.globalStorage.on('update', 'vertical-results', (data) => {
-      this.setState(data);
+    this.core.storage.registerListener({
+      eventType: 'update',
+      storageKey: 'vertical-results',
+      callback: (data) => this.setState(data)
     });
 
-    this.core.globalStorage.on('update', 'query', () => {
-      this.updateMostRecentSearchState()
-    })
+    this.core.storage.registerListener({
+      eventType: 'update',
+      storageKey: 'query',
+      callback: () => this.updateMostRecentSearchState()
+    });
 
     const searchThisAreaToggleEls = this._container.querySelectorAll('.js-searchThisAreaToggle');
     searchThisAreaToggleEls.forEach((el) => {
@@ -260,22 +266,31 @@ class InteractiveMap extends ANSWERS.Component {
      *
      * @param {Map} map The map object
      */
-    const dragEndListener = (map) => this.handleMapAreaChange();
+    const dragEndListener = () => this.handleMapAreaChange();
+
+    /**
+     * Record the current zoom during a zoom event
+     *
+     * @param {number} zoom The zoom during a zoom event
+     * @param {ZoomTriggers} zoomTrigger The intitiator of the zoom
+     */
+    const zoomChangedListener = (zoom, zoomTrigger) => {
+      this.currentZoom = zoom;
+    };
 
     /**
      * User-initiated changes to the map zoom searches the new area, if desired
      * Clicking on a cluster or fitting the bounds for results is not considered user-initiated
      *
-     * @param {Map} map The map object
+     * @param {number} zoom The zoom after this event
+     * @param {ZoomTriggers} zoomTrigger The intitiator of the zoom
      */
-    const zoomChangeListener = (map) => {
-      this.currentZoom = map.getZoom();
-
-      if (map._zoomTrigger === 'api') {
+    const zoomEndListener = (zoom, zoomTrigger) => {
+      if (zoomTrigger !== ZoomTriggers.USER) {
         return;
       }
 
-      map.idle().then(() => this.handleMapAreaChange());
+      this.handleMapAreaChange();
     };
 
     ANSWERS.addComponent('NewMap', Object.assign({}, {
@@ -289,14 +304,15 @@ class InteractiveMap extends ANSWERS.Component {
       providerOptions: this.providerOptions,
       mapPadding: this.mapPadding,
       pinImages: this.pinImages,
-      pinClusterImages: this.pinCluterImages,
+      pinClusterImages: this.pinClusterImages,
       enablePinClustering: this.enablePinClustering,
       onPinSelect: this.onPinSelect,
       onPostMapRender: onPostMapRender,
       pinClickListener: (index, id) => this.pinClickListener(index, id),
       pinClusterClickListener: pinClusterClickListener,
       dragEndListener: dragEndListener,
-      zoomChangeListener: zoomChangeListener,
+      zoomChangedListener: zoomChangedListener,
+      zoomEndListener: zoomEndListener,
       displayAllResultsOnNoResults: this.displayAllResultsOnNoResults
     }));
   }
@@ -346,7 +362,7 @@ class InteractiveMap extends ANSWERS.Component {
    * @returns {Coordinate}
    */
   getCurrentMapCenter () {
-    const mapProperties = this.core.globalStorage.getState(STORAGE_KEY_MAP_PROPERTIES);
+    const mapProperties = this.core.storage.get(STORAGE_KEY_MAP_PROPERTIES);
 
     if (!mapProperties) {
       return this.defaultCenter;
@@ -365,7 +381,7 @@ class InteractiveMap extends ANSWERS.Component {
    * @param {string} cardId The unique id for the pin entity, usually of the form `js-yl-${meta.id}`
    */
   pinClickListener (index, cardId) {
-    this.core.globalStorage.set(STORAGE_KEY_SELECTED_RESULT, cardId);
+    this.core.storage.set(STORAGE_KEY_SELECTED_RESULT, cardId);
     const selector = `.yxt-Card[data-opts='{ "_index": ${index - 1} }']`;
     const card = document.querySelector(selector);
     const mediaQuery = window.matchMedia(`(max-width: ${this.mobileBreakpointMax}px)`);
@@ -454,7 +470,7 @@ class InteractiveMap extends ANSWERS.Component {
   searchThisArea() {
     this._container.classList.remove('InteractiveMap--showSearchThisArea');
 
-    const mapProperties = this.core.globalStorage.getState(STORAGE_KEY_MAP_PROPERTIES);
+    const mapProperties = this.core.storage.get(STORAGE_KEY_MAP_PROPERTIES);
     const center = mapProperties.visibleCenter;
     const radius = mapProperties.visibleRadius;
     const lat = center.latitude;
@@ -469,7 +485,7 @@ class InteractiveMap extends ANSWERS.Component {
       remove: () => this.core.clearStaticFilterNode('SearchThisArea')
     });
     this.core.setStaticFilterNodes('SearchThisArea', filterNode);
-    this.core.globalStorage.set(STORAGE_KEY_FROM_SEARCH_THIS_AREA, true);
+    this.core.storage.set(STORAGE_KEY_FROM_SEARCH_THIS_AREA, true);
     this.core.verticalSearch(this.verticalKey, {
       setQueryParams: true,
       resetPagination: true,
@@ -525,7 +541,7 @@ class InteractiveMap extends ANSWERS.Component {
     this._children = [];
 
     if (this._isNoResults) {
-      const altVerticalsData = this.core.globalStorage.getState('alternative-verticals');
+      const altVerticalsData = this.core.storage.get('alternative-verticals');
       this.addChild(
         altVerticalsData,
         'AlternativeVerticals',
