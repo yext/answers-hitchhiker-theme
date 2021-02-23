@@ -9,10 +9,7 @@ import { transformDataToUniversalData, transformDataToVerticalData } from './Uti
 import { GoogleMaps } from './Maps/Providers/Google.js';
 import { MapboxMaps } from './Maps/Providers/Mapbox.js';
 
-const STORAGE_KEY_HOVERED_RESULT = 'HOVERED_RESULT_KEY';
-const STORAGE_KEY_SELECTED_RESULT = 'SELECTED_RESULT_KEY';
-const STORAGE_KEY_FROM_SEARCH_THIS_AREA = 'FROM_SEARCH_THIS_AREA';
-const STORAGE_KEY_MAP_PROPERTIES = 'MAP_PROPERTIES';
+import StorageKeys from '../storage-keys.js';
 
 /**
  * The component to create and control the functionality of a map,
@@ -85,7 +82,7 @@ class NewMap extends ANSWERS.Component {
 
     this.core.storage.registerListener({
       eventType: 'update',
-      storageKey: 'vertical-results',
+      storageKey: StorageKeys.VERTICAL_RESULTS,
       callback: (data) => {
         this.setState(data);
       }
@@ -130,7 +127,7 @@ class NewMap extends ANSWERS.Component {
    * Update in the Answers SDK storage map properties used by other components
    */
   updateMapPropertiesInStorage() {
-    this.core.storage.set(STORAGE_KEY_MAP_PROPERTIES, {
+    this.core.storage.set(StorageKeys.LOCATOR_MAP_PROPERTIES, {
       visibleCenter: this.map.getVisibleCenter(),
       visibleRadius: this.map.getVisibleRadius()
     });
@@ -175,7 +172,7 @@ class NewMap extends ANSWERS.Component {
 
     this.core.storage.registerListener({
       eventType: 'update',
-      storageKey: STORAGE_KEY_HOVERED_RESULT,
+      storageKey: StorageKeys.LOCATOR_HOVERED_RESULT,
       callback: id => {
         if (id != this.hoveredPinId) {
           const pins = mapRenderTarget.getPins();
@@ -195,7 +192,7 @@ class NewMap extends ANSWERS.Component {
 
     this.core.storage.registerListener({
       eventType: 'update',
-      storageKey: STORAGE_KEY_SELECTED_RESULT,
+      storageKey: StorageKeys.LOCATOR_SELECTED_RESULT,
       callback: id => {
         if (id != this.selectedPinId) {
           const pins = mapRenderTarget.getPins();
@@ -290,16 +287,19 @@ class NewMap extends ANSWERS.Component {
 
     this.core.storage.registerListener({
       eventType: 'update',
-      storageKey: 'card-click',
+      storageKey: StorageKeys.LOCATOR_CARD_CLICK,
       callback: (data) => {
         const cardIndex = data.index;
         if (cardIndex + 1 === index) {
-          this.core.storage.set(STORAGE_KEY_SELECTED_RESULT, id);
+          this.core.storage.set(StorageKeys.LOCATOR_SELECTED_RESULT, id);
         }
       }
     });
     pin.setClickHandler(() => this.pinClickListener(index, id));
-    pin.setHoverHandler(hovered => this.core.storage.set(STORAGE_KEY_HOVERED_RESULT, hovered ? id : null));
+    pin.setHoverHandler(hovered => this.core.storage.set(
+      StorageKeys.LOCATOR_HOVERED_RESULT,
+      hovered ? id : null
+    ));
     return pin;
   }
 
@@ -313,8 +313,8 @@ class NewMap extends ANSWERS.Component {
     const universalData = transformDataToUniversalData(data);
     let entityData = verticalData.length ? verticalData : universalData;
 
-    const fromSearchThisArea = this.core.storage.get(STORAGE_KEY_FROM_SEARCH_THIS_AREA);
-    this.core.storage.delete(STORAGE_KEY_FROM_SEARCH_THIS_AREA);
+    const fromSearchThisArea = this.core.storage.get(StorageKeys.LOCATOR_FROM_SEARCH_THIS_AREA);
+    this.core.storage.delete(StorageKeys.LOCATOR_FROM_SEARCH_THIS_AREA);
     let updateZoom = !fromSearchThisArea;
 
     const isNoResults = data.resultsContext === 'no-results';
