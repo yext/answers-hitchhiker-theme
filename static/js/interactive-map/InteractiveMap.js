@@ -217,13 +217,17 @@ class InteractiveMap extends ANSWERS.Component {
   };
 
   onCreate () {
-    this.core.globalStorage.on('update', 'vertical-results', (data) => {
-      this.setState(data);
+    this.core.storage.registerListener({
+      eventType: 'update',
+      storageKey: 'vertical-results',
+      callback: (data) => this.setState(data)
     });
 
-    this.core.globalStorage.on('update', 'query', () => {
-      this.updateMostRecentSearchState()
-    })
+    this.core.storage.registerListener({
+      eventType: 'update',
+      storageKey: 'query',
+      callback: () => this.updateMostRecentSearchState()
+    });
 
     const searchThisAreaToggleEls = this._container.querySelectorAll('.js-searchThisAreaToggle');
     searchThisAreaToggleEls.forEach((el) => {
@@ -358,7 +362,7 @@ class InteractiveMap extends ANSWERS.Component {
    * @returns {Coordinate}
    */
   getCurrentMapCenter () {
-    const mapProperties = this.core.globalStorage.getState(STORAGE_KEY_MAP_PROPERTIES);
+    const mapProperties = this.core.storage.get(STORAGE_KEY_MAP_PROPERTIES);
 
     if (!mapProperties) {
       return this.defaultCenter;
@@ -377,7 +381,7 @@ class InteractiveMap extends ANSWERS.Component {
    * @param {string} cardId The unique id for the pin entity, usually of the form `js-yl-${meta.id}`
    */
   pinClickListener (index, cardId) {
-    this.core.globalStorage.set(STORAGE_KEY_SELECTED_RESULT, cardId);
+    this.core.storage.set(STORAGE_KEY_SELECTED_RESULT, cardId);
     const selector = `.yxt-Card[data-opts='{ "_index": ${index - 1} }']`;
     const card = document.querySelector(selector);
     const mediaQuery = window.matchMedia(`(max-width: ${this.mobileBreakpointMax}px)`);
@@ -464,7 +468,7 @@ class InteractiveMap extends ANSWERS.Component {
   searchThisArea() {
     this._container.classList.remove('InteractiveMap--showSearchThisArea');
 
-    const mapProperties = this.core.globalStorage.getState(STORAGE_KEY_MAP_PROPERTIES);
+    const mapProperties = this.core.storage.get(STORAGE_KEY_MAP_PROPERTIES);
     const center = mapProperties.visibleCenter;
     const radius = mapProperties.visibleRadius;
     const lat = center.latitude;
@@ -479,7 +483,7 @@ class InteractiveMap extends ANSWERS.Component {
       remove: () => this.core.clearStaticFilterNode('SearchThisArea')
     });
     this.core.setStaticFilterNodes('SearchThisArea', filterNode);
-    this.core.globalStorage.set(STORAGE_KEY_FROM_SEARCH_THIS_AREA, true);
+    this.core.storage.set(STORAGE_KEY_FROM_SEARCH_THIS_AREA, true);
     this.core.verticalSearch(this.verticalKey, {
       setQueryParams: true,
       resetPagination: true,
@@ -535,7 +539,7 @@ class InteractiveMap extends ANSWERS.Component {
     this._children = [];
 
     if (this._isNoResults) {
-      const altVerticalsData = this.core.globalStorage.getState('alternative-verticals');
+      const altVerticalsData = this.core.storage.get('alternative-verticals');
       this.addChild(
         altVerticalsData,
         'AlternativeVerticals',

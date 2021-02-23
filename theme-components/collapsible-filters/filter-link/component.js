@@ -15,18 +15,22 @@ const DEFAULT_FILTER_LINK_CONFIG = {
 class FilterLink extends ANSWERS.Component {
   constructor(config, systemConfig = {}) {
     super({ ...DEFAULT_FILTER_LINK_CONFIG, ...config }, systemConfig);
-    this.core.globalStorage.on('update', 'vertical-results', data => {
-      if (data.searchState === 'search-complete') {
-        this.setState();
+    this.core.storage.registerListener({
+      eventType: 'update',
+      storageKey: 'vertical-results',
+      callback:  data => {
+        if (data.searchState === 'search-complete') {
+          this.setState();
+        }
       }
-    });
+    })
     this.onClickClearSearch = this._config.onClickClearSearch.bind(this);
     this.onClickResetFilters = this._config.onClickResetFilters.bind(this);
     this.onClickChangeFilters = this._config.onClickChangeFilters.bind(this);
   }
 
   setState(data = {}) {
-    const verticalResults = this.core.globalStorage.getState('vertical-results') || {};
+    const verticalResults = this.core.storage.get('vertical-results') || {};
     return super.setState({
       ...this.getState(),
       ...data,

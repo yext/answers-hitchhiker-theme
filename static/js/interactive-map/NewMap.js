@@ -83,8 +83,12 @@ class NewMap extends ANSWERS.Component {
   onCreate () {
     this.loadAndInitializeMap();
 
-    this.core.globalStorage.on('update', 'vertical-results', (data) => {
-      this.setState(data);
+    this.core.storage.registerListener({
+      eventType: 'update',
+      storageKey: 'vertical-results',
+      callback: (data) => {
+        this.setState(data);
+      }
     });
   }
 
@@ -126,7 +130,7 @@ class NewMap extends ANSWERS.Component {
    * Update in the Answers SDK storage map properties used by other components
    */
   updateMapPropertiesInStorage() {
-    this.core.globalStorage.set(STORAGE_KEY_MAP_PROPERTIES, {
+    this.core.storage.set(STORAGE_KEY_MAP_PROPERTIES, {
       visibleCenter: this.map.getVisibleCenter(),
       visibleRadius: this.map.getVisibleRadius()
     });
@@ -169,40 +173,49 @@ class NewMap extends ANSWERS.Component {
       this.renderer.render(this.initialData);
     }
 
-    this.core.globalStorage.on('update', STORAGE_KEY_HOVERED_RESULT, id => {
-      if (id != this.hoveredPinId) {
-        const pins = mapRenderTarget.getPins();
+    this.core.storage.registerListener({
+      eventType: 'update',
+      storageKey: STORAGE_KEY_HOVERED_RESULT,
+      callback: id => {
+        if (id != this.hoveredPinId) {
+          const pins = mapRenderTarget.getPins();
 
-        if (this.hoveredPinId && pins[this.hoveredPinId]) {
-          pins[this.hoveredPinId].setStatus({ hovered: false });
-          this.hoveredPinId = null;
-        }
+          if (this.hoveredPinId && pins[this.hoveredPinId]) {
+            pins[this.hoveredPinId].setStatus({ hovered: false });
+            this.hoveredPinId = null;
+          }
 
-        if (id && pins[id]) {
-          pins[id].setStatus({ hovered: true });
-          this.hoveredPinId = id;
+          if (id && pins[id]) {
+            pins[id].setStatus({ hovered: true });
+            this.hoveredPinId = id;
+          }
         }
       }
     });
-    this.core.globalStorage.on('update', STORAGE_KEY_SELECTED_RESULT, id => {
-      if (id != this.selectedPinId) {
-        const pins = mapRenderTarget.getPins();
 
-        if (this.selectedPinId && pins[this.selectedPinId]) {
-          pins[this.selectedPinId].setStatus({ selected: false });
-          this.selectedPinId = null;
-        }
+    this.core.storage.registerListener({
+      eventType: 'update',
+      storageKey: STORAGE_KEY_SELECTED_RESULT,
+      callback: id => {
+        if (id != this.selectedPinId) {
+          const pins = mapRenderTarget.getPins();
 
-        if (id && pins[id]) {
-          pins[id].setStatus({ selected: true });
-          this.selectedPinId = id;
-
-          if (this.onPinSelect) {
-            this.onPinSelect();
+          if (this.selectedPinId && pins[this.selectedPinId]) {
+            pins[this.selectedPinId].setStatus({ selected: false });
+            this.selectedPinId = null;
           }
 
-          if (!map.coordinateIsInVisibleBounds(pins[id].getCoordinate())) {
-            map.setCenterWithPadding(pins[id].getCoordinate(), true);
+          if (id && pins[id]) {
+            pins[id].setStatus({ selected: true });
+            this.selectedPinId = id;
+
+            if (this.onPinSelect) {
+              this.onPinSelect();
+            }
+
+            if (!map.coordinateIsInVisibleBounds(pins[id].getCoordinate())) {
+              map.setCenterWithPadding(pins[id].getCoordinate(), true);
+            }
           }
         }
       }
@@ -274,15 +287,19 @@ class NewMap extends ANSWERS.Component {
       .build();
 
     const id = 'js-yl-' + entity.profile.meta.id;
-    this.core.globalStorage.on('update', 'card-click', (data) => {
-      const cardIndex = data.index;
-      if (cardIndex + 1 === index) {
-        this.core.globalStorage.set(STORAGE_KEY_SELECTED_RESULT, id);
+
+    this.core.storage.registerListener({
+      eventType: 'update',
+      storageKey: 'card-click',
+      callback: (data) => {
+        const cardIndex = data.index;
+        if (cardIndex + 1 === index) {
+          this.core.storage.set(STORAGE_KEY_SELECTED_RESULT, id);
+        }
       }
     });
-
     pin.setClickHandler(() => this.pinClickListener(index, id));
-    pin.setHoverHandler(hovered => this.core.globalStorage.set(STORAGE_KEY_HOVERED_RESULT, hovered ? id : null));
+    pin.setHoverHandler(hovered => this.core.storage.set(STORAGE_KEY_HOVERED_RESULT, hovered ? id : null));
     return pin;
   }
 
@@ -296,8 +313,8 @@ class NewMap extends ANSWERS.Component {
     const universalData = transformDataToUniversalData(data);
     let entityData = verticalData.length ? verticalData : universalData;
 
-    const fromSearchThisArea = this.core.globalStorage.getState(STORAGE_KEY_FROM_SEARCH_THIS_AREA);
-    this.core.globalStorage.delete(STORAGE_KEY_FROM_SEARCH_THIS_AREA);
+    const fromSearchThisArea = this.core.storage.get(STORAGE_KEY_FROM_SEARCH_THIS_AREA);
+    this.core.storage.delete(STORAGE_KEY_FROM_SEARCH_THIS_AREA);
     let updateZoom = !fromSearchThisArea;
 
     const isNoResults = data.resultsContext === 'no-results';
