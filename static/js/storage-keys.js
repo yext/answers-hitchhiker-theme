@@ -1,7 +1,7 @@
 /**
  * An enum listing SDK storage keys for the theme. Because 
- * the SDK does not expose StorageKeys, SDK keys may also
- * live in this file.
+ * the SDK does not expose StorageKeys, non-theme specific 
+ * keys may also live in this file.
  *
  * @enum {string}
  */
@@ -12,10 +12,10 @@ export default {
   ALTERNATIVE_VERTICALS: 'alternative-verticals',
 
   // Locator
-  LOCATOR_HOVERED_RESULT: 'HOVERED_RESULT_KEY',
-  LOCATOR_SELECTED_RESULT: 'SELECTED_RESULT_KEY',
-  LOCATOR_FROM_SEARCH_THIS_AREA: 'FROM_SEARCH_THIS_AREA',
-  LOCATOR_MAP_PROPERTIES: 'MAP_PROPERTIES',
-  LOCATOR_CARD_CLICK: 'card-click'
+  LOCATOR_HOVERED_RESULT: 'locator-hovered-result',
+  LOCATOR_SELECTED_RESULT: 'locator-selected-result',
+  LOCATOR_FROM_SEARCH_THIS_AREA: 'locator-from-search-this-area',
+  LOCATOR_MAP_PROPERTIES: 'locator-map-properties',
+  LOCATOR_CARD_CLICK: 'locator-card-click'
 };
 
