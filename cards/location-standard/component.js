@@ -32,7 +32,7 @@ class location_standardCardComponent extends BaseCard['location-standard'] {
   addCardClickListener() {
     this._container.parentElement.addEventListener('click', () => {
       const { _index } = JSON.parse(this._container.parentElement.dataset.opts || {});
-      this.core.globalStorage.set('card-click', { index: _index });
+      this.core.storage.set('card-click', { index: _index });
 
       document.querySelectorAll('.yxt-Card--pinClicked').forEach((el) => {
         el.classList.remove('yxt-Card--pinClicked');

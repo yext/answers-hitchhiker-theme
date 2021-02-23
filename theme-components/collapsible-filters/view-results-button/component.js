@@ -10,9 +10,13 @@ const DEFAULT_VIEW_RESULTS_BUTTON_CONFIG = {
 class ViewResultsButton extends ANSWERS.Component {
   constructor(config = {}, systemConfig = {}) {
     super({ ...DEFAULT_VIEW_RESULTS_BUTTON_CONFIG, ...config }, systemConfig);
-    this.core.globalStorage.on('update', 'vertical-results', data => {
-      if (data.searchState === 'search-complete') {
-        this.setState(data);
+    this.core.storage.registerListener({
+      eventType: 'update',
+      storageKey: 'vertical-results',
+      callback: data => {
+        if (data.searchState === 'search-complete') {
+          this.setState(data);
+        }
       }
     });
   }
@@ -29,7 +33,7 @@ class ViewResultsButton extends ANSWERS.Component {
       ...this.getState(),
       ...data,
       isNoResults: data.resultsContext === 'no-results',
-      verticalKey: this.core.globalStorage.getState('search-config').verticalKey
+      verticalKey: this.core.storage.get('search-config').verticalKey
     });
   }
 
