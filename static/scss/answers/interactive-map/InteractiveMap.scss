@@ -538,9 +538,7 @@
 
   .yxt-Card--pinClicked {
     @include bpgte($desktop-break-point-min) {
-      .HitchhikerLocationStandard, 
-      .HitchhikerProfessionalLocation,
-      .HitchhikerFinancialProfessionalLocation {
+      .HitchhikerLocationCard {
         background-color: #ececec;
       }
     }
