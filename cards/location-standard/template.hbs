@@ -2,30 +2,15 @@
     any card template. This value contains the ordinal of the card.
 }}
 
-<div class="HitchhikerLocationStandard {{cardName}}">
+<div class="HitchhikerLocationStandard HitchhikerLocationCard {{cardName}}">
   {{> image }}
   <div class="HitchhikerLocationStandard-contentWrapper">
     {{#if (any card.title card.distance)}}
     <div class="HitchhikerLocationStandard-topRow">
       {{> ordinalAndTitle displayOrdinal=(all card.showOrdinal result.ordinal) }}
-      <div class="HitchhikerLocationStandard-closeCardButtonWrapper">
-        <button class="HitchhikerLocationStandard-closeCardButton js-HitchhikerLocationStandard-closeCardButton js-HitchhikerLocationCard-closeCardButton">
-          <span class="HitchhikerLocationStandard-closeCardButtonImageWrapper">
-            <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <g stroke="none" stroke-width="1" fill="#757575" fill-rule="evenodd">
-                  <polygon points="0 2 10 12 0 22 2 24 12 14 22 24 24 22 14 12 24 2 22 0 12 10 2 0"></polygon>
-                </g>
-            </svg>
-          </span>
-          <span class="sr-only">
-            Close Card Details
-          </span>
-        </button>
-        {{#if card.distance}}
-          <div class="HitchhikerLocationStandard-distance HitchhikerLocationStandard-distance--desktop">
-            {{card.distance}}
-          </div>
-        {{/if}}
+      <div class="HitchhikerLocationCard-closeCardButtonWrapper">
+        {{> closeCardButton }}
+        {{> distance }}
       </div>
     </div>
     {{/if}}
@@ -34,7 +19,7 @@
       {{card.subtitle}}
     </div>
     {{/if}}
-    <div class="HitchhikerLocationStandard-content">
+    <div class="HitchhikerLocationStandard-content HitchhikerLocationCard-content">
       <div class="HitchhikerLocationStandard-infoWrapper">
         {{> contactInfo }}
         {{> details }}
@@ -87,7 +72,7 @@
 
 {{#*inline 'ctas'}}
 {{#if (any (all card.CTA1 card.CTA1.url) (all card.CTA2 card.CTA2.url))}}
-<div class="HitchhikerLocationStandard-ctasWrapper">
+<div class="HitchhikerLocationStandard-ctasWrapper HitchhikerLocationCard-ctasWrapper">
   {{> CTA card.CTA1 ctaName="primaryCTA" }}
   {{> CTA card.CTA2 ctaName="secondaryCTA" }}
 </div>
@@ -124,7 +109,7 @@
 {{#if (any displayOrdinal card.title)}}
 <div class="HitchhikerLocationStandard-ordinalAndTitle">
   {{#if displayOrdinal}}
-  <div class="HitchhikerLocationStandard-ordinal">
+  <div class="HitchhikerLocationStandard-ordinal HitchhikerLocationCard-ordinal">
     {{result.ordinal}}
   </div>
   {{/if}}
@@ -211,4 +196,13 @@
   {{/if}}
 </div>
 {{/if}}
+{{/inline}}
+
+{{#*inline 'closeCardButton'}}
+<button class="HitchhikerLocationCard-closeCardButton js-HitchhikerLocationCard-closeCardButton">
+  <span class="HitchhikerLocationCard-closeCardButtonImageWrapper">
+    {{ close-card-svg }}
+  </span>
+  <span class="sr-only">Close Card Details</span>
+</button>
 {{/inline}}

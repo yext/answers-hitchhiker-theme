@@ -490,27 +490,21 @@
     }
   }
 
-  .HitchhikerLocationStandard {
-    &-content {
-      flex-wrap: wrap;
-      line-height: var(--yxt-line-height-sm);
-    }
-  }
 
-  .HitchhikerProfessionalLocation,
-  .HitchhikerFinancialProfessionalLocation {
-    &-info {
-      line-height: var(--yxt-line-height-sm);
-    }
-  }
-
-  .HitchhikerLocationStandard,
-  .HitchhikerProfessionalLocation,
-  .HitchhikerFinancialProfessionalLocation {
+  .HitchhikerLocationCard {
     position: relative;
 
     &-ctasWrapper {
       margin-left: 0;
+    }
+
+    &-info {
+      line-height: var(--yxt-line-height-sm);
+    }
+
+    &-content {
+      flex-wrap: wrap;
+      line-height: var(--yxt-line-height-sm);
     }
 
     &-closeCardButtonImageWrapper {
@@ -559,16 +553,12 @@
       height: var(--yxt-maps-mobile-detail-card-height);
       background-color: #fcfcfc;
 
-      .HitchhikerLocationStandard-closeCardButton,
-      .HitchhikerProfessionalLocation-closeCardButton,
-      .HitchhikerFinancialProfessionalLocation  {
-        display: flex;
-      }
-
-      .HitchhikerLocationStandard,
-      .HitchhikerProfessionalLocation,
-      .HitchhikerFinancialProfessionalLocation {	
+      .HitchhikerLocationCard {	
         overflow-y: scroll;	
+
+        &-closeCardButton {
+          display: flex;
+        }
       }
     }
   }
