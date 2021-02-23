@@ -410,7 +410,9 @@ class InteractiveMap extends ANSWERS.Component {
         });
       }
 
-      cardCopy.querySelectorAll('.js-HitchhikerLocationStandard-closeCardButton').forEach((el) => {
+      const buttonSelector = '.js-HitchhikerLocationCard-closeCardButton';
+
+      cardCopy.querySelectorAll(buttonSelector).forEach((el) => {
         el.addEventListener('click', () => {
           card.classList.remove('yxt-Card--pinClicked');
           cardCopy.remove();

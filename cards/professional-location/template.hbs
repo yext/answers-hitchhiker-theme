@@ -1,16 +1,19 @@
-<div class="HitchhikerProfessionalLocation {{cardName}}">
+<div class="HitchhikerProfessionalLocation HitchhikerLocationCard {{cardName}}">
   {{> image }}
   <div class="HitchhikerProfessionalLocation-body">
     {{#if (any card.title card.distance)}}
     <div class="HitchhikerProfessionalLocation-topRow">
       {{> ordinal }}
       {{> title }}
-      {{> distance }}
+      <div class="HitchhikerLocationCard-closeCardButtonWrapper">
+        {{> closeCardButton }}
+        {{> distance }}
+      </div>
     </div>
     {{/if}}
     {{> subtitle }}
     <div class="HitchhikerProfessionalLocation-contentWrapper">
-      <div class="HitchhikerProfessionalLocation-info">
+      <div class="HitchhikerProfessionalLocation-info HitchhikerLocationCard-info">
         {{> address }}
         {{> details }}
         {{> list }}
@@ -31,7 +34,7 @@
 
 {{#*inline 'ordinal'}}
 {{#if card.showOrdinal}}
-<div class="HitchhikerProfessionalLocation-ordinal">
+<div class="HitchhikerProfessionalLocation-ordinal HitchhikerLocationCard-ordinal">
   {{result.ordinal}}
 </div>
 {{/if}}
@@ -148,7 +151,7 @@
 
 {{#*inline 'ctas'}}
 {{#if (any (all card.CTA1 card.CTA1.url) (all card.CTA2 card.CTA2.url))}}
-<div class="HitchhikerProfessionalLocation-ctasWrapper">
+<div class="HitchhikerProfessionalLocation-ctasWrapper HitchhikerLocationCard-ctasWrapper">
   {{> CTA card.CTA1 ctaName="primaryCTA" }}
   {{> CTA card.CTA2 ctaName="secondaryCTA" }}
 </div>
@@ -179,4 +182,13 @@
   </a>
 </div>
 {{/if}}
+{{/inline}}
+
+{{#*inline 'closeCardButton'}}
+<button class="HitchhikerProfessionalLocation-closeCardButton HitchhikerLocationCard-closeCardButton js-HitchhikerLocationCard-closeCardButton">
+  <span class="HitchhikerLocationCard-closeCardButtonImageWrapper">
+    {{ close-card-svg }}
+  </span>
+  <span class="sr-only">Close Card</span>
+</button>
 {{/inline}}
