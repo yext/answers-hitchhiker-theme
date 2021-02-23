@@ -71,6 +71,10 @@
           const absoluteURLRegex = /^(\/|[a-zA-Z]+:)/;
           return str && str.match(absoluteURLRegex);
         });
+
+        ANSWERS.registerHelper('close-card-svg', () => {
+          return ANSWERS.renderer.SafeString({{{stringifyPartial (read 'static/assets/images/close-card') }}});
+        });
       }
     });
     {{> script/after-init}}

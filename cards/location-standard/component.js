@@ -6,40 +6,8 @@ class location_standardCardComponent extends BaseCard['location-standard'] {
   }
 
   onMount() {
-    this.addCardClickListener();
-    this.addCloseCardClickListener();
+    {{> static/js/interactive-map/location-card/add-card-click-listener}}
     super.onMount();
-  }
-
-  /**
-   * Adds the click listener for the close card button
-   */
-  addCloseCardClickListener() {
-    this._container.querySelectorAll('.js-HitchhikerLocationStandard-closeCardButton').forEach((el) => {
-      el.addEventListener('click', () => {
-        el.closest('.yxt-Card').classList.remove('yxt-Card--pinClicked');
-        document.getElementById('js-answersInteractiveMap').classList.remove('InteractiveMap--detailShown');
-
-        const yextPageContentEl = document.querySelector('.YxtPage-content');
-        yextPageContentEl.classList.remove('YxtPage-content--detailShown');
-      });
-    });
-  }
-
-  /**
-   * Adds the click listener for the card click
-   */
-  addCardClickListener() {
-    this._container.parentElement.addEventListener('click', () => {
-      const { _index } = JSON.parse(this._container.parentElement.dataset.opts || {});
-      this.core.storage.set('card-click', { index: _index });
-
-      document.querySelectorAll('.yxt-Card--pinClicked').forEach((el) => {
-        el.classList.remove('yxt-Card--pinClicked');
-      });
-
-      this._container.parentElement.classList.add('yxt-Card--pinClicked');
-    });
   }
 
   /**

@@ -489,16 +489,20 @@
     }
   }
 
-  .HitchhikerLocationStandard {
+  .HitchhikerLocationCard {
     position: relative;
+
+    &-ctasWrapper {
+      margin-left: 0;
+    }
+
+    &-info {
+      line-height: var(--yxt-line-height-sm);
+    }
 
     &-content {
       flex-wrap: wrap;
       line-height: var(--yxt-line-height-sm);
-    }
-
-    &-ctasWrapper {
-      margin-left: 0;
     }
 
     &-closeCardButtonImageWrapper {
@@ -532,7 +536,7 @@
 
   .yxt-Card--pinClicked {
     @include bpgte($desktop-break-point-min) {
-      .HitchhikerLocationStandard {
+      .HitchhikerLocationCard {
         background-color: #ececec;
       }
     }
@@ -545,12 +549,12 @@
       height: var(--yxt-maps-mobile-detail-card-height);
       background-color: #fcfcfc;
 
-      .HitchhikerLocationStandard-closeCardButton {
-        display: flex;
-      }
+      .HitchhikerLocationCard {	
+        overflow-y: scroll;	
 
-      .HitchhikerLocationStandard-contentWrapper {
-        overflow-y: scroll;
+        &-closeCardButton {
+          display: flex;
+        }
       }
     }
   }
