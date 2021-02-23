@@ -394,7 +394,7 @@ class InteractiveMap extends ANSWERS.Component {
         });
       }
 
-      const buttonSelector = `.js-HitchhikerLocationCard-closeCardButton`;
+      const buttonSelector = '.js-HitchhikerLocationCard-closeCardButton';
 
       cardCopy.querySelectorAll(buttonSelector).forEach((el) => {
         el.addEventListener('click', () => {
