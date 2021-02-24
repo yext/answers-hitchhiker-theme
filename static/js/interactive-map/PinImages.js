@@ -34,7 +34,7 @@ class PinImages {
     index = '',
     profile = ''
   } = {}) {
-    return `data:image/svg+xml;utf8,${encodeURIComponent(`
+    return `
     <svg width="${width}" height="${height}" viewBox="0 0 20 27" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <title>Path</title>
         <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -46,7 +46,8 @@ class PinImages {
           <tspan x="50%" y="15" text-anchor="middle">${index}</tspan>
         </text>
         </g>
-    </svg>`)}`;
+    </svg>
+    `;
   };
 
   /**
