@@ -23,6 +23,17 @@ const getLanguageForProvider = (localeStr, supportedLocales) => {
   return 'en';
 };
 
+/**
+ * Returns a utf-8 encoding of an SVG
+ *
+ * @param {string} svg The SVG to encode
+ * @return {string}
+ */
+const getEncodedSvg = (svg) => {
+  return `data:image/svg+xml;charset=utf-8, ${encodeURIComponent(svg)}`;
+}
+
 export {
-  getLanguageForProvider
+  getLanguageForProvider,
+  getEncodedSvg
 }

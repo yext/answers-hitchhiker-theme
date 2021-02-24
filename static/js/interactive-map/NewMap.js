@@ -5,6 +5,7 @@ import { RendererOptions } from './Renderer/Renderer.js';
 import { PinProperties } from './Maps/PinProperties.js';
 import { PinClustererOptions } from './PinClusterer/PinClusterer.js';
 import { transformDataToUniversalData, transformDataToVerticalData } from './Util/transformers.js';
+import { getEncodedSvg } from './Util/helpers.js';
 
 import { GoogleMaps } from './Maps/Providers/Google.js';
 import { MapboxMaps } from './Maps/Providers/Mapbox.js';
@@ -232,13 +233,13 @@ class NewMap extends ANSWERS.Component {
         this.pinClusterClickListener();
       })
       .withIconTemplate('default', (pinDetails) => {
-        return this.pinClusterImages.getDefaultPin(pinDetails.pinCount);
+        return getEncodedSvg(this.pinClusterImages.getDefaultPin(pinDetails.pinCount));
       })
       .withIconTemplate('hovered', (pinDetails) => {
-        return this.pinClusterImages.getHoveredPin(pinDetails.pinCount);
+        return getEncodedSvg(this.pinClusterImages.getHoveredPin(pinDetails.pinCount));
       })
       .withIconTemplate('selected', (pinDetails) => {
-        return this.pinClusterImages.getSelectedPin(pinDetails.pinCount);
+        return getEncodedSvg(this.pinClusterImages.getSelectedPin(pinDetails.pinCount));
       })
       .withPropertiesForStatus(status => {
         const properties = new PinProperties()
@@ -263,9 +264,9 @@ class NewMap extends ANSWERS.Component {
    */
   buildPin(pinOptions, entity, index) {
     const pin = pinOptions
-      .withIcon('default', this.pinImages.getDefaultPin(index, entity.profile))
-      .withIcon('hovered', this.pinImages.getHoveredPin(index, entity.profile))
-      .withIcon('selected', this.pinImages.getSelectedPin(index, entity.profile))
+      .withIcon('default', getEncodedSvg(this.pinImages.getDefaultPin(index, entity.profile)))
+      .withIcon('hovered', getEncodedSvg(this.pinImages.getHoveredPin(index, entity.profile)))
+      .withIcon('selected', getEncodedSvg(this.pinImages.getSelectedPin(index, entity.profile)))
       .withHideOffscreen(false)
       .withCoordinate(new Coordinate(entity.profile.yextDisplayCoordinate))
       .withPropertiesForStatus(status => {

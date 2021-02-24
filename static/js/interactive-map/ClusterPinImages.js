@@ -33,7 +33,7 @@ class ClusterPinImages {
     height= '24px',
     labelText = ''
   } = {}) {
-    return `data:image/svg+xml;utf8,${encodeURIComponent(`
+    return `
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
         <g fill="none" fill-rule="evenodd">
           <circle fill="${backgroundColor}" fill-rule="nonzero" stroke="${strokeColor}" cx="12" cy="12" r="11"/>
@@ -41,7 +41,8 @@ class ClusterPinImages {
             <tspan x="50%" y="16" text-anchor="middle">${labelText}</tspan>
           </text>
         </g>
-      </svg>`)}`;
+      </svg>
+    `;
   };
 
   /**
