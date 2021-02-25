@@ -3,9 +3,6 @@ import { smoothScroll } from './Util/SmoothScroll.js';
 import { getLanguageForProvider } from './Util/helpers.js';
 import { SearchDebouncer } from './SearchDebouncer';
 
-import { PinImages } from './PinImages.js';
-import { ClusterPinImages } from './ClusterPinImages.js';
-
 import ZoomTriggers from './Maps/ZoomTriggers.js';
 import StorageKeys from '../storage-keys.js';
 
@@ -44,6 +41,7 @@ class InteractiveMap extends ANSWERS.Component {
 
     /**
      * The current Answers API vertical key
+     * @type {string}
      */
     this.verticalKey = config.verticalKey; 
 
@@ -54,34 +52,18 @@ class InteractiveMap extends ANSWERS.Component {
     this.verticalsConfig = config.verticalPages || [];
 
     /**
-     * The provider for the map, normalized to lowercase
-     * @type {string}
-     */
-    this.mapProvider = config.mapProvider.toLowerCase();
-
-    /**
      * Map options to be passed directly to the Map Provider
      * @type {Object}
      */
     this.providerOptions = config.providerOptions || {};
 
     /**
-     * The API key for the map provider (if applicable)
-     * @type {string}
+     * The default center coordinate for the map, an object with {lat, lng}
+     * @type {Coordinate}
      */
-    this.apiKey = config.apiKey;
-
-    /**
-     * The client id for the map provider (if applicable)
-     * @type {string}
-     */
-    this.clientId = undefined;
-
-    /**
-     * The language locale for the map
-     * @type {string}
-     */
-    this.language = getLanguageForProvider(config.locale, this.mapProvider);
+    this.defaultCenter = this.providerOptions.center
+      ? new Coordinate(this.providerOptions.center)
+      : new Coordinate(37.0902, -95.7129);
 
     /**
      * The default zoom level for the map
@@ -100,14 +82,6 @@ class InteractiveMap extends ANSWERS.Component {
      * @type {number}
      */
     this.mostRecentSearchZoom = this.defaultZoom;
-
-    /**
-     * The default center coordinate for the map, an object with {lat, lng}
-     * @type {Coordinate}
-     */
-    this.defaultCenter = this.providerOptions.center
-      ? new Coordinate(this.providerOptions.center)
-      : new Coordinate(37.0902, -95.7129);
 
     /**
      * The center of the map during the most recent search
@@ -130,65 +104,10 @@ class InteractiveMap extends ANSWERS.Component {
     this.displayAllResultsOnNoResults = noResultsConfig.displayAllResults;
 
     /**
-     * The pin options for the map, with information for each pin state (e.g. default, hovered)
-     * @type {Object}
-     */
-    this.pinOptions = config.pin || {};
-
-    /**
-     * The pin images for the default Map Pin
-     * @type {PinImages}
-     */
-    this.pinImages = new PinImages(
-      this.pinOptions.default,
-      this.pinOptions.hovered,
-      this.pinOptions.selected,
-    );
-
-    /**
-     * A custom pin selection callback for the interactive map
-     * @type {Function}
-     */
-    this.onPinSelect = config.onPinSelect;
-
-    /**
-     * Whether the map should cluster pins that are close to each other
-     * @type {boolean}
-     */
-    this.enablePinClustering = config.enablePinClustering;
-
-    /**
-     * The cluster pin options for the map, with information for each pin state
-     * @type {Object}
-     */
-    this.pinClusterOptions = config.pinCluster || config.pin;
-
-    /**
-     * The pin images for the default Map Pin
-     * @type {ClusterPinImages}
-     */
-    this.pinClusterImages = new ClusterPinImages(
-      this.pinClusterOptions.default || this.pinOptions.default,
-      this.pinClusterOptions.hovered || this.pinOptions.hovered,
-      this.pinClusterOptions.selected || this.pinOptions.selected,
-    );
-
-    /**
      * The mobile breakpoint (inclusive max) in px
      * @type {Number}
      */
     this.mobileBreakpointMax = 991;
-
-    /**
-     * The padding for the map within the viewable area
-     * @type {Object}
-     */
-    this.mapPadding = {
-      top: () => window.innerWidth <= this.mobileBreakpointMax ? 150 : 50,
-      bottom: () => 50,
-      right: () => 50,
-      left: () => this.getLeftVisibleBoundary(),
-    };
 
     /**
      * Determines whether or not another search should be ran
@@ -196,21 +115,6 @@ class InteractiveMap extends ANSWERS.Component {
      */
     this.searchDebouncer = new SearchDebouncer();
   }
-
-  /**
-   * Get the leftmost point on the map, such that pins will still be visible
-   * @return {Number} The boundary (in pixels) for the visible area of the map, from the left
-   *                  hand side of the viewport
-   */
-  getLeftVisibleBoundary () {
-    if (window.innerWidth <= this.mobileBreakpointMax) {
-      return 50;
-    }
-
-    const resultsListEl = this._container.querySelector('.js-locator-contentWrap');
-    const resultsListElWidth = resultsListEl ? resultsListEl.offsetWidth : 0;
-    return 50 + resultsListElWidth;
-  };
 
   onCreate () {
     this.core.storage.registerListener({
@@ -291,25 +195,26 @@ class InteractiveMap extends ANSWERS.Component {
 
     ANSWERS.addComponent('NewMap', Object.assign({}, {
       container: this._mapContainerSelector,
-      mapProvider: this.mapProvider,
-      apiKey: this.apiKey,
-      clientId: this.clientId,
-      language: this.language,
+      mapProvider: this._config.mapProvider,
+      apiKey: this._config.apiKey,
+      clientId: this._config.clientId,
+      locale: this._config.locale,
+      contentWrapperEl: this._container.querySelector('.js-locator-contentWrap'),
+      providerOptions: this._config.providerOptions,
       defaultCenter: this.defaultCenter,
       defaultZoom: this.defaultZoom,
-      providerOptions: this.providerOptions,
-      mapPadding: this.mapPadding,
-      pinImages: this.pinImages,
-      pinClusterImages: this.pinClusterImages,
-      enablePinClustering: this.enablePinClustering,
-      onPinSelect: this.onPinSelect,
+      mobileBreakpointMax: this.mobileBreakpointMax,
+      pinOptions: this._config.pin,
+      pinClusterOptions: this._config.pinCluster,
+      enablePinClustering: this._config.enablePinClustering,
+      noResultsConfig: this.noResultsConfig,
+      onPinSelect: this._config.onPinSelect,
       onPostMapRender: onPostMapRender,
       pinClickListener: (index, id) => this.pinClickListener(index, id),
       pinClusterClickListener: pinClusterClickListener,
       dragEndListener: dragEndListener,
       zoomChangedListener: zoomChangedListener,
-      zoomEndListener: zoomEndListener,
-      displayAllResultsOnNoResults: this.displayAllResultsOnNoResults
+      zoomEndListener: zoomEndListener
     }));
   }
 
