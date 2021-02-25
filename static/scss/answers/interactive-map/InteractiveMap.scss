@@ -578,6 +578,20 @@
       padding: 16px;
     }
   }
+
+  &.CollapsibleFilters {
+    .Answers-viewResultsButton {
+      @include bplte(sm) {
+        width: 100%;
+      }
+    }
+
+    .CollapsibleFilters-unstuck {
+      @include bplte(sm) {
+        position: fixed;
+      }
+    }
+  }
 }
 
 .YxtPage-wrapper--detailShown {
