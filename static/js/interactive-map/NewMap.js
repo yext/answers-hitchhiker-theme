@@ -233,10 +233,10 @@ class NewMap extends ANSWERS.Component {
 
         return properties;
       })
-      .withMinClusterSize(2)
-      .withClusterRadius(50)
-      .withClusterZoomAnimated(true)
-      .withClusterZoomMax(20);
+      .withMinClusterSize(this.config.minClusterSize)
+      .withClusterRadius(this.config.minClusterRadius)
+      .withClusterZoomAnimated(this.config.clusterZoomAnimated)
+      .withClusterZoomMax(this.config.clusterZoomMax);
     return clustererOptions.build();
   }
 

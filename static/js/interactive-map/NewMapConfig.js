@@ -169,6 +169,30 @@ export default class NewMapConfig {
      * Callback for when a map zoom event has finished
      */
     this.zoomEndListener = rawConfig.zoomEndListener || function () {};
+
+    /**
+     * The minimum number of pins to be clustered
+     * @type {number}
+     */
+    this.minClusterSize = 2;
+
+    /**
+     * The max pixel distance from the center of a cluster to any pin in the cluster
+     * @type {number}
+     */
+    this.minClusterRadius = 50;
+
+    /**
+     * Whether to animate map zoom on cluster click
+     * @type {boolean}
+     */
+    this.clusterZoomAnimated = true;
+
+    /**
+     * Max zoom level for the map after clicking a cluster
+     * @type {number}
+     */
+    this.clusterZoomMax = 20;
   }
 
   /**
