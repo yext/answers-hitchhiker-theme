@@ -2,6 +2,7 @@ import { Coordinate } from './Geo/Coordinate.js';
 import { PinImages } from './PinImages.js';
 import { ClusterPinImages } from './ClusterPinImages.js';
 import { getLanguageForProvider } from './Util/helpers.js';
+import { defaultCenterCoordinate } from './constants.js';
 
 /**
  * The configuration for the NewMap component.
@@ -50,15 +51,15 @@ export default class NewMapConfig {
      */
     this.providerOptions = rawConfig.providerOptions || {};
 
-    const defaultCenter = rawConfig.defaultCenter 
-      || this.providerOptions.center 
-      || { lat: 37.0902, lng: -95.7129 };
+    const defaultCenterFromConfig = rawConfig.defaultCenter || this.providerOptions.center;
 
     /**
      * The default center coordinate for the map, an object with {lat, lng}
      * @type {Coordinate}
      */
-    this.defaultCenter = new Coordinate(defaultCenter);
+    this.defaultCenter = defaultCenterFromConfig
+      ? new Coordinate(defaultCenterFromConfig)
+      : defaultCenterCoordinate;
 
     /**
      * The default zoom level for the map
@@ -157,16 +158,19 @@ export default class NewMapConfig {
 
     /**
      * Callback for when a map drag event has finished
+     * @type {Function}
      */
     this.dragEndListener = rawConfig.dragEndListener || function () {};
 
     /**
      * Callback for when a map zoom event has fired
+     * @type {Function}
      */
     this.zoomChangedListener = rawConfig.zoomChangedListener || function () {};
 
     /**
      * Callback for when a map zoom event has finished
+     * @type {Function}
      */
     this.zoomEndListener = rawConfig.zoomEndListener || function () {};
 

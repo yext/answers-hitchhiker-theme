@@ -2,6 +2,7 @@ import { Coordinate } from './Geo/Coordinate.js';
 import { smoothScroll } from './Util/SmoothScroll.js';
 import { getLanguageForProvider } from './Util/helpers.js';
 import { SearchDebouncer } from './SearchDebouncer';
+import { defaultCenterCoordinate } from './constants.js';
 
 import ZoomTriggers from './Maps/ZoomTriggers.js';
 import StorageKeys from '../storage-keys.js';
@@ -63,7 +64,7 @@ class InteractiveMap extends ANSWERS.Component {
      */
     this.defaultCenter = this.providerOptions.center
       ? new Coordinate(this.providerOptions.center)
-      : new Coordinate(37.0902, -95.7129);
+      : defaultCenterCoordinate;
 
     /**
      * The default zoom level for the map
