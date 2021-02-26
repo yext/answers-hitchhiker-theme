@@ -6,7 +6,7 @@ class location_standardCardComponent extends BaseCard['location-standard'] {
   }
 
   onMount() {
-    new CardListenerAssigner({card: this}).addListenersToCard();
+    InteractiveMap && new CardListenerAssigner({card: this}).addListenersToCard();
     super.onMount();
   }
 
