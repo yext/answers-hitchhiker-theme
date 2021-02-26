@@ -6,7 +6,7 @@ class multilang_professional_locationCardComponent extends BaseCard['multilang-p
   }
 
   onMount() {
-    InteractiveMap && new CardListenerAssigner({card: this}).addListenersToCard();
+    window.InteractiveMap && new CardListenerAssigner({card: this}).addListenersToCard();
     super.onMount();
   }
   

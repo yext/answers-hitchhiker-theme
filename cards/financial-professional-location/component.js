@@ -6,7 +6,7 @@ class financial_professional_locationCardComponent extends BaseCard['financial-p
   }
 
   onMount() {
-    InteractiveMap && new CardListenerAssigner({card: this}).addListenersToCard();
+    window.InteractiveMap && new CardListenerAssigner({card: this}).addListenersToCard();
     super.onMount();
   }
 
