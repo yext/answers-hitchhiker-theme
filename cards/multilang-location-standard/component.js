@@ -6,7 +6,8 @@ class multilang_location_standardCardComponent extends BaseCard['multilang-locat
   }
 
   onMount() {
-    window.InteractiveMap && new CardListenerAssigner({card: this}).addListenersToCard();
+    const onInteractiveMapPage = !!document.querySelector('.InteractiveMap');
+    onInteractiveMapPage && new CardListenerAssigner({card: this}).addListenersToCard();
     super.onMount();
   }
 

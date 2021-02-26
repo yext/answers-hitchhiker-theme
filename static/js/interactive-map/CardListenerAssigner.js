@@ -65,12 +65,18 @@ class CardListenerAssigner {
     this.card.core.storage.set(HitchhikerJS.StorageKeys.LOCATOR_CARD_FOCUS, { index: index });
   }
   
+  /**
+   * Remove .yxt-Card--pinFocused from all cards
+   */
   _removePinFocusFromAllCards () {
     document.querySelectorAll('.yxt-Card--pinFocused').forEach((el) => {
       el.classList.remove('yxt-Card--pinFocused');
     });
   }
   
+  /**
+   * Add .yxt-Card--pinFocused to the card
+   */
   _addPinFocusToCard () {
     this.card._container.parentElement.classList.add('yxt-Card--pinFocused');
   }
