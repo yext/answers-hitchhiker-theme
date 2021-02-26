@@ -10,6 +10,7 @@ import { getEncodedSvg } from './Util/helpers.js';
 import { GoogleMaps } from './Maps/Providers/Google.js';
 import { MapboxMaps } from './Maps/Providers/Mapbox.js';
 
+import NewMapConfig from './NewMapConfig.js'
 import StorageKeys from '../storage-keys.js';
 
 /**
@@ -18,28 +19,14 @@ import StorageKeys from '../storage-keys.js';
  * listeners, and rendering the map on the page with results changes
  */
 class NewMap extends ANSWERS.Component {
-  constructor(config, systemConfig) {
-    super(config, systemConfig);
+  constructor(rawConfig, systemConfig) {
+    super(rawConfig, systemConfig);
 
-    this.mapProvider = config.mapProvider;
-    this.apiKey = config.apiKey;
-    this.clientId = config.cliendId;
-    this.language = config.language;
-    this.defaultCenter = config.defaultCenter;
-    this.defaultZoom = config.defaultZoom;
-    this.providerOptions = config.providerOptions;
-    this.mapPadding = config.mapPadding;
-    this.pinImages = config.pinImages;
-    this.pinClusterImages = config.pinClusterImages;
-    this.enablePinClustering = config.enablePinClustering;
-    this.onPinSelect = config.onPinSelect;
-    this.onPostMapRender = config.onPostMapRender;
-    this.pinClickListener = config.pinClickListener;
-    this.pinClusterClickListener = config.pinClusterClickListener;
-    this.dragEndListener = config.dragEndListener;
-    this.zoomChangedListener = config.zoomChangedListener;
-    this.zoomEndListener = config.zoomEndListener;
-    this.displayAllResultsOnNoResults  = config.displayAllResultsOnNoResults;
+    /**
+     * Configuration with default logic
+     * @type {NewMapConfig}
+     */
+    this.config = new NewMapConfig(rawConfig);
 
     /**
      * The map object
@@ -107,18 +94,18 @@ class NewMap extends ANSWERS.Component {
    * Load the map provider scripts and initialize the map with the configuration options
    */
   async loadAndInitializeMap () {
-    const mapProviderImpl = (this.mapProvider === 'google') ? GoogleMaps : MapboxMaps;
-    await mapProviderImpl.load(this.apiKey, {
-      client: this.clientId,
-      language: this.language,
+    const mapProviderImpl = (this.config.mapProvider === 'google') ? GoogleMaps : MapboxMaps;
+    await mapProviderImpl.load(this.config.apiKey, {
+      client: this.config.clientId,
+      language: this.config.language,
     });
     const map = new MapOptions()
-      .withDefaultCenter(this.defaultCenter)
-      .withDefaultZoom(this.defaultZoom)
+      .withDefaultCenter(this.config.defaultCenter)
+      .withDefaultZoom(this.config.defaultZoom)
       .withWrapper(this._container)
       .withProvider(mapProviderImpl)
-      .withProviderOptions(this.providerOptions || {})
-      .withPadding(this.mapPadding)
+      .withProviderOptions(this.config.providerOptions || {})
+      .withPadding(this.config.mapPadding)
       .build();
     this.map = map;
     this.addMapInteractions(map);
@@ -143,23 +130,23 @@ class NewMap extends ANSWERS.Component {
       map.setPanHandler(() => this.updateMapPropertiesInStorage());
       map.setDragEndHandler(() => {
         this.updateMapPropertiesInStorage();
-        this.dragEndListener()
+        this.config.dragEndListener()
       });
       map.setZoomChangedHandler((zoomTrigger) => {
-        this.zoomChangedListener(this.map.getZoom(), zoomTrigger);
+        this.config.zoomChangedListener(this.map.getZoom(), zoomTrigger);
       });
       map.setZoomEndHandler((zoomTrigger) => {
         this.updateMapPropertiesInStorage();
-        this.zoomEndListener(this.map.getZoom(), zoomTrigger);
+        this.config.zoomEndListener(this.map.getZoom(), zoomTrigger);
       });
     });
 
     const mapRenderTargetOptions = new MapRenderTargetOptions()
       .withMap(map)
-      .withOnPostRender((data, map) => this.onPostMapRender(data, map, mapRenderTarget.getPins()))
+      .withOnPostRender((data, map) => this.config.onPostMapRender(data, map, mapRenderTarget.getPins()))
       .withPinBuilder((pinOptions, entity, index) => this.buildPin(pinOptions, entity, index))
 
-    if (this.enablePinClustering) {
+    if (this.config.enablePinClustering) {
       mapRenderTargetOptions.withPinClusterer(this.getClusterer());
     }
 
@@ -207,8 +194,8 @@ class NewMap extends ANSWERS.Component {
             pins[id].setStatus({ selected: true });
             this.selectedPinId = id;
 
-            if (this.onPinSelect) {
-              this.onPinSelect();
+            if (this.config.onPinSelect) {
+              this.config.onPinSelect();
             }
 
             if (!map.coordinateIsInVisibleBounds(pins[id].getCoordinate())) {
@@ -227,16 +214,16 @@ class NewMap extends ANSWERS.Component {
     const clustererOptions = new PinClustererOptions()
       .withClickListener(() => {
         this.updateMapPropertiesInStorage();
-        this.pinClusterClickListener();
+        this.config.pinClusterClickListener();
       })
       .withIconTemplate('default', (pinDetails) => {
-        return getEncodedSvg(this.pinClusterImages.getDefaultPin(pinDetails.pinCount));
+        return getEncodedSvg(this.config.pinClusterImages.getDefaultPin(pinDetails.pinCount));
       })
       .withIconTemplate('hovered', (pinDetails) => {
-        return getEncodedSvg(this.pinClusterImages.getHoveredPin(pinDetails.pinCount));
+        return getEncodedSvg(this.config.pinClusterImages.getHoveredPin(pinDetails.pinCount));
       })
       .withIconTemplate('selected', (pinDetails) => {
-        return getEncodedSvg(this.pinClusterImages.getSelectedPin(pinDetails.pinCount));
+        return getEncodedSvg(this.config.pinClusterImages.getSelectedPin(pinDetails.pinCount));
       })
       .withPropertiesForStatus(status => {
         const properties = new PinProperties()
@@ -246,10 +233,10 @@ class NewMap extends ANSWERS.Component {
 
         return properties;
       })
-      .withMinClusterSize(2)
-      .withClusterRadius(50)
-      .withClusterZoomAnimated(true)
-      .withClusterZoomMax(20);
+      .withMinClusterSize(this.config.minClusterSize)
+      .withClusterRadius(this.config.minClusterRadius)
+      .withClusterZoomAnimated(this.config.clusterZoomAnimated)
+      .withClusterZoomMax(this.config.clusterZoomMax);
     return clustererOptions.build();
   }
 
@@ -261,9 +248,15 @@ class NewMap extends ANSWERS.Component {
    */
   buildPin(pinOptions, entity, index) {
     const pin = pinOptions
-      .withIcon('default', getEncodedSvg(this.pinImages.getDefaultPin(index, entity.profile)))
-      .withIcon('hovered', getEncodedSvg(this.pinImages.getHoveredPin(index, entity.profile)))
-      .withIcon('selected', getEncodedSvg(this.pinImages.getSelectedPin(index, entity.profile)))
+      .withIcon(
+        'default',
+        getEncodedSvg(this.config.pinImages.getDefaultPin(index, entity.profile)))
+      .withIcon(
+        'hovered',
+        getEncodedSvg(this.config.pinImages.getHoveredPin(index, entity.profile)))
+      .withIcon(
+        'selected',
+        getEncodedSvg(this.config.pinImages.getSelectedPin(index, entity.profile)))
       .withHideOffscreen(false)
       .withCoordinate(new Coordinate(entity.profile.yextDisplayCoordinate))
       .withPropertiesForStatus(status => {
@@ -296,7 +289,7 @@ class NewMap extends ANSWERS.Component {
         }
       }
     });
-    pin.setClickHandler(() => this.pinClickListener(index, id));
+    pin.setClickHandler(() => this.config.pinClickListener(index, id));
     pin.setHoverHandler(hovered => this.core.storage.set(
       StorageKeys.LOCATOR_HOVERED_RESULT,
       hovered ? id : null
@@ -319,7 +312,7 @@ class NewMap extends ANSWERS.Component {
     let updateZoom = !fromSearchThisArea;
 
     const isNoResults = data.resultsContext === 'no-results';
-    if (isNoResults && !this.displayAllResultsOnNoResults) {
+    if (isNoResults && !this.config.displayAllResultsOnNoResults) {
       entityData = [];
       updateZoom = false;
     }
