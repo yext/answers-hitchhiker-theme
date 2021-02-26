@@ -12,6 +12,8 @@
 
   $border-default: 1px solid #666 !default;
 
+  $locator-text-gray: #737373;
+
   position: relative;
   display: flex;
   flex-direction: column;
@@ -238,7 +240,7 @@
       display: flex;
       align-items: center;
       border-top: var(--yxt-border-default);
-      color: #737373;
+      color: $locator-text-gray;
 
       &--desktop {
         display: none;
@@ -346,7 +348,7 @@
         border-top: var(--yxt-border-default);
         padding-left: 16px;
         padding-right: 16px;
-        color: #737373;
+        color: $locator-text-gray;
 
         @include bplte($mobile-break-point-max) {
           height: 60px;
@@ -565,7 +567,7 @@
   }
 
   &.CollapsibleFilters .yxt-VerticalResultsCount {
-    color: #737373;
+    color: $locator-text-gray;
   }
 
   &.CollapsibleFilters .Answers-viewResultsButton {
