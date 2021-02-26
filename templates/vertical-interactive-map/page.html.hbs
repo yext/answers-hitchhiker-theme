@@ -20,7 +20,7 @@
   <script src="{{relativePath}}/locator-components.js" defer></script>
     <div class="Answers AnswersVerticalMap CollapsibleFilters InteractiveMap InteractiveMap--listShown js-answersInteractiveMap">
       <div class="Answers-content">
-        <div class="Answers-contentWrap js-locator-contentWrap">
+        <div class="Answers-contentWrap js-locator-contentWrap"  role="region" aria-label="Main location search">
           <div class="Answers-resultsHeader">
             <div class="Answers-searchWrapper js-sticky">
               <div class="Answers-form">
@@ -55,13 +55,13 @@
                 </div>
               </div>
             </div>
-            <div class="Answers-stickyBottom">
-              {{> templates/vertical-interactive-map/markup/searchthisareatoggle modifier="desktop"}}
-              {{> templates/vertical-interactive-map/markup/locationbias modifier="main"}}
-            </div>
+          </div>
+          <div class="Answers-stickyBottom" role="region" aria-label="Map controls">
+            {{> templates/vertical-interactive-map/markup/searchthisareatoggle modifier="desktop"}}
+            {{> templates/vertical-interactive-map/markup/locationbias modifier="main"}}
           </div>
         </div>
-        <div class="Answers-mapWrapper">
+        <div class="Answers-mapWrapper" role="region" aria-label="Map">
           {{> templates/vertical-interactive-map/markup/map }}
           <div class="Answers-centerTop">
             {{> templates/vertical-interactive-map/markup/searchthisareabutton }}
