@@ -9,26 +9,26 @@ import { defaultCenterCoordinate } from './constants.js';
  */
 export default class NewMapConfig {
   /**
-   * @param {Object} rawConfig Configuration to parse
+   * @param {Object} jsonConfig Configuration to parse
    */
-  constructor (rawConfig) {
+  constructor (jsonConfig) {
     /**
      * The provider for the map, normalized to lowercase
      * @type {string}
      */
-    this.mapProvider = rawConfig.mapProvider && rawConfig.mapProvider.toLowerCase();
+    this.mapProvider = jsonConfig.mapProvider && jsonConfig.mapProvider.toLowerCase();
 
     /**
      * The API key for the map provider (if applicable)
      * @type {string}
      */
-    this.apiKey = rawConfig.apiKey;
+    this.apiKey = jsonConfig.apiKey;
 
     /**
      * The client id for the map provider (if applicable)
      * @type {string}
      */
-    this.clientId = rawConfig.clientId;
+    this.clientId = jsonConfig.clientId;
 
     /**
      * The language locale for the map. This is different from
@@ -37,21 +37,21 @@ export default class NewMapConfig {
      * when we come across a locale we do not support
      * @type {string}
      */
-    this.language = getLanguageForProvider(rawConfig.locale, this.mapProvider);
+    this.language = getLanguageForProvider(jsonConfig.locale, this.mapProvider);
 
     /**
      * The content wrapper for the floating content above the map
      * @type {HTMLElement}
      */
-    this.contentWrapperEl = rawConfig.contentWrapperEl;
+    this.contentWrapperEl = jsonConfig.contentWrapperEl;
 
     /**
      * Map options to be passed directly to the Map Provider
      * @type {Object}
      */
-    this.providerOptions = rawConfig.providerOptions || {};
+    this.providerOptions = jsonConfig.providerOptions || {};
 
-    const defaultCenterFromConfig = rawConfig.defaultCenter || this.providerOptions.center;
+    const defaultCenterFromConfig = jsonConfig.defaultCenter || this.providerOptions.center;
 
     /**
      * The default center coordinate for the map, an object with {lat, lng}
@@ -65,7 +65,7 @@ export default class NewMapConfig {
      * The default zoom level for the map
      * @type {number}
      */
-    this.defaultZoom = rawConfig.defaultZoom 
+    this.defaultZoom = jsonConfig.defaultZoom
       || this.providerOptions.zoom 
       || 14;
 
@@ -73,7 +73,7 @@ export default class NewMapConfig {
      * The mobile breakpoint (inclusive max) in px
      * @type {Number}
      */
-    this.mobileBreakpointMax = rawConfig.mobileBreakpointMax || 991;
+    this.mobileBreakpointMax = jsonConfig.mobileBreakpointMax || 991;
 
     /**
      * The padding for the map within the viewable area
@@ -90,7 +90,7 @@ export default class NewMapConfig {
      * The pin options for the map, with information for each pin state (e.g. default, hovered)
      * @type {Object}
      */
-    this.pinOptions = rawConfig.pinOptions || {};
+    this.pinOptions = jsonConfig.pinOptions || {};
 
     /**
      * The pin images for the default Map Pin
@@ -106,7 +106,7 @@ export default class NewMapConfig {
      * The cluster pin options for the map, with information for each pin state
      * @type {Object}
      */
-    this.pinClusterOptions = rawConfig.pinClusterOptions || rawConfig.pinOptions;
+    this.pinClusterOptions = jsonConfig.pinClusterOptions || jsonConfig.pinOptions;
 
     /**
      * The pin images for the default Map Pin
@@ -122,9 +122,9 @@ export default class NewMapConfig {
      * Whether the map should cluster pins that are close to each other
      * @type {boolean}
      */
-    this.enablePinClustering = rawConfig.enablePinClustering;
+    this.enablePinClustering = jsonConfig.enablePinClustering;
 
-    const noResultsConfig = rawConfig.noResults || {};
+    const noResultsConfig = jsonConfig.noResults || {};
 
     /**
      * Whether the map should display all results on no results
@@ -136,43 +136,43 @@ export default class NewMapConfig {
      * Callback for when a non-cluster pin is selected
      * @type {Function}
      */
-    this.onPinSelect = rawConfig.onPinSelect || function () {};
+    this.onPinSelect = jsonConfig.onPinSelect || function () {};
 
     /**
      * Callback for when the map is rendered
      * @type {Function}
      */
-    this.onPostMapRender = rawConfig.onPostMapRender || function () {};
+    this.onPostMapRender = jsonConfig.onPostMapRender || function () {};
 
     /**
      * Callback for when a non-cluster pin is clicked
      * @type {Function}
      */
-    this.pinClickListener = rawConfig.pinClickListener || function () {};
+    this.pinClickListener = jsonConfig.pinClickListener || function () {};
 
     /**
      * Callback for when a cluster pin is clicked
      * @type {Function}
      */
-    this.pinClusterClickListener = rawConfig.pinClusterClickListener || function () {};
+    this.pinClusterClickListener = jsonConfig.pinClusterClickListener || function () {};
 
     /**
      * Callback for when a map drag event has finished
      * @type {Function}
      */
-    this.dragEndListener = rawConfig.dragEndListener || function () {};
+    this.dragEndListener = jsonConfig.dragEndListener || function () {};
 
     /**
      * Callback for when a map zoom event has fired
      * @type {Function}
      */
-    this.zoomChangedListener = rawConfig.zoomChangedListener || function () {};
+    this.zoomChangedListener = jsonConfig.zoomChangedListener || function () {};
 
     /**
      * Callback for when a map zoom event has finished
      * @type {Function}
      */
-    this.zoomEndListener = rawConfig.zoomEndListener || function () {};
+    this.zoomEndListener = jsonConfig.zoomEndListener || function () {};
 
     /**
      * The minimum number of pins to be clustered
