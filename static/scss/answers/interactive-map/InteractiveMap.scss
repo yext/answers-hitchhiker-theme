@@ -249,6 +249,10 @@
       }
     }
 
+    &-searchThisAreaToggleWrapper:focus-within {
+      outline: 2px solid var(--yxt-color-brand-hover);
+    }
+
     &-searchThisAreaToggle {
       opacity: 0;
       height: 0;
@@ -357,6 +361,10 @@
         &-container {
           text-align: left;
         }
+      }
+
+      .yxt-locationBias-updateLoc:focus {
+        outline: 2px solid var(--yxt-color-brand-hover);
       }
     }
 
