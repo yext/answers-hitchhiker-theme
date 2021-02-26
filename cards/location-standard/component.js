@@ -6,7 +6,7 @@ class location_standardCardComponent extends BaseCard['location-standard'] {
   }
 
   onMount() {
-    const onInteractiveMapPage = !!document.querySelector('.InteractiveMap');
+    const onInteractiveMapPage = !!document.querySelector('.js-answersInteractiveMap');
     onInteractiveMapPage && new CardListenerAssigner({card: this}).addListenersToCard();
     super.onMount();
   }

@@ -6,7 +6,7 @@ class multilang_financial_professional_locationCardComponent extends BaseCard['m
   }
 
   onMount() {
-    const onInteractiveMapPage = !!document.querySelector('.InteractiveMap');
+    const onInteractiveMapPage = !!document.querySelector('.js-answersInteractiveMap');
     onInteractiveMapPage && new CardListenerAssigner({card: this}).addListenersToCard();
     super.onMount();
   }
