@@ -561,13 +561,13 @@
       }
     }
   }
+
+  .yxt-VerticalResultsCount {
+    color: $locator-text-gray;
+  }
   
   &.CollapsibleFilters .Answers-resultsHeader {
     background-color: var(--hh-color-gray-2);
-  }
-
-  &.CollapsibleFilters .yxt-VerticalResultsCount {
-    color: $locator-text-gray;
   }
 
   &.CollapsibleFilters .Answers-viewResultsButton {
