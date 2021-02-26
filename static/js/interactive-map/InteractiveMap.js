@@ -383,11 +383,11 @@ class InteractiveMap extends ANSWERS.Component {
     const mediaQuery = window.matchMedia(`(max-width: ${this.mobileBreakpointMax}px)`);
     const isMobile = mediaQuery.matches;
 
-    document.querySelectorAll('.yxt-Card--pinClicked').forEach((el) => {
-      el.classList.remove('yxt-Card--pinClicked');
+    document.querySelectorAll('.yxt-Card--pinFocused').forEach((el) => {
+      el.classList.remove('yxt-Card--pinFocused');
     });
 
-    card.classList.add('yxt-Card--pinClicked');
+    card.classList.add('yxt-Card--pinFocused');
 
     if (isMobile) {
       document.querySelectorAll('.yxt-Card--isVisibleOnMobileMap').forEach((el) => el.remove());
@@ -410,7 +410,7 @@ class InteractiveMap extends ANSWERS.Component {
 
       cardCopy.querySelectorAll(buttonSelector).forEach((el) => {
         el.addEventListener('click', () => {
-          card.classList.remove('yxt-Card--pinClicked');
+          card.classList.remove('yxt-Card--pinFocused');
           cardCopy.remove();
           this._container.classList.remove('InteractiveMap--detailShown');
           this._pageWrapperEl.classList.remove('YxtPage-wrapper--detailShown');

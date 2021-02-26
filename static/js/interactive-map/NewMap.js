@@ -288,7 +288,7 @@ class NewMap extends ANSWERS.Component {
 
     this.core.storage.registerListener({
       eventType: 'update',
-      storageKey: StorageKeys.LOCATOR_CARD_CLICK,
+      storageKey: StorageKeys.LOCATOR_CARD_FOCUS,
       callback: (data) => {
         const cardIndex = data.index;
         if (cardIndex + 1 === index) {

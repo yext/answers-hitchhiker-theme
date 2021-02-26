@@ -6,7 +6,7 @@ class multilang_location_standardCardComponent extends BaseCard['multilang-locat
   }
 
   onMount() {
-    {{> static/js/interactive-map/location-card/add-card-click-listener}}
+    {{> static/js/interactive-map/location-card/add-card-listeners}}
     super.onMount();
   }
 

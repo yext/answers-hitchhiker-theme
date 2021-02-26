@@ -6,7 +6,7 @@ class multilang_financial_professional_locationCardComponent extends BaseCard['m
   }
 
   onMount() {
-    {{> static/js/interactive-map/location-card/add-card-click-listener}}
+    {{> static/js/interactive-map/location-card/add-card-listeners}}
     super.onMount();
   }
 

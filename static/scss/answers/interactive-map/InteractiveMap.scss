@@ -534,7 +534,7 @@
     transition: height 0.3s ease-out;
   }
 
-  .yxt-Card--pinClicked {
+  .yxt-Card--pinFocused {
     @include bpgte($desktop-break-point-min) {
       .HitchhikerLocationCard {
         background-color: #ececec;

@@ -6,7 +6,7 @@ class location_standardCardComponent extends BaseCard['location-standard'] {
   }
 
   onMount() {
-    {{> static/js/interactive-map/location-card/add-card-click-listener}}
+    {{> static/js/interactive-map/location-card/add-card-listeners}}
     super.onMount();
   }
 
