@@ -6,7 +6,7 @@ class professional_locationCardComponent extends BaseCard['professional-location
   }
 
   onMount() {
-    {{> static/js/interactive-map/location-card/add-card-listeners}}
+    new CardListenerAssigner({card: this}).addListenersToCard();
     super.onMount();
   }
 
