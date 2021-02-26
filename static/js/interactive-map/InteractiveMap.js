@@ -304,7 +304,7 @@ class InteractiveMap extends ANSWERS.Component {
       enablePinClustering: this.enablePinClustering,
       onPinSelect: this.onPinSelect,
       onPostMapRender: onPostMapRender,
-      pinClickListener: (index, id) => this.pinClickListener(index, id),
+      pinFocusListener: (index, id) => this.pinFocusListener(index, id),
       pinClusterClickListener: pinClusterClickListener,
       dragEndListener: dragEndListener,
       zoomChangedListener: zoomChangedListener,
@@ -372,11 +372,11 @@ class InteractiveMap extends ANSWERS.Component {
   }
 
   /**
-   * The callback when a result pin on the map is clicked
+   * The callback when a result pin on the map is clicked or tabbed onto
    * @param {Number} index The index of the pin in the current result list order
    * @param {string} cardId The unique id for the pin entity, usually of the form `js-yl-${meta.id}`
    */
-  pinClickListener (index, cardId) {
+  pinFocusListener (index, cardId) {
     this.core.storage.set(StorageKeys.LOCATOR_SELECTED_RESULT, cardId);
     const selector = `.yxt-Card[data-opts='{ "_index": ${index - 1} }']`;
     const card = document.querySelector(selector);
