@@ -37,6 +37,7 @@ class NewMap extends ANSWERS.Component {
     this.pinFocusListener = config.pinFocusListener;
     this.pinClusterClickListener = config.pinClusterClickListener;
     this.dragEndListener = config.dragEndListener;
+    this.panHandler = config.panHandler;
     this.zoomChangedListener = config.zoomChangedListener;
     this.zoomEndListener = config.zoomEndListener;
     this.displayAllResultsOnNoResults  = config.displayAllResultsOnNoResults;
@@ -140,7 +141,10 @@ class NewMap extends ANSWERS.Component {
    */
   addMapInteractions(map) {
     this.map.idle().then(() => {
-      map.setPanHandler(() => this.updateMapPropertiesInStorage());
+      map.setPanHandler(() => {
+        this.updateMapPropertiesInStorage();
+        this.panHandler();
+      });
       map.setDragEndHandler(() => {
         this.updateMapPropertiesInStorage();
         this.dragEndListener()
@@ -212,7 +216,7 @@ class NewMap extends ANSWERS.Component {
             }
 
             if (!map.coordinateIsInVisibleBounds(pins[id].getCoordinate())) {
-              map.setCenterWithPadding(pins[id].getCoordinate(), true);
+              lmap.setCenterWithPadding(pins[id].getCoordinate(), true);
             }
           }
         }
