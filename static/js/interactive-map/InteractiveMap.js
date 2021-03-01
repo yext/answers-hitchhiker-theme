@@ -329,7 +329,6 @@ class InteractiveMap extends ANSWERS.Component {
     }
 
     if (!this.shouldSearchBeDebouncedBasedOnCenter()) {
-      console.log('distance triggered a new search')
       this.searchThisArea();
     }
   }

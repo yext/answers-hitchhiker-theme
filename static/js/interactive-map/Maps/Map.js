@@ -6,6 +6,7 @@ import { MapPinOptions } from './MapPin.js';
 import { MapProvider } from './MapProvider.js';
 import { ProviderMapOptions } from './ProviderMap.js';
 import ZoomTriggers from './ZoomTriggers.js';
+import PanTriggers from './PanTriggers.js';
 
 /**
  * The maximum percent of the map height or width that can be taken up by padding.
@@ -275,6 +276,7 @@ class Map {
     this._idlePromise = Promise.resolve();
     this._setIdle();
     this._zoomTrigger = ZoomTriggers.UNSET;
+    this._panTrigger = PanTriggers.UNSET;
 
     this.setPanHandler(options.panHandler);
     this.setPanStartHandler(options.panStartHandler);
@@ -425,6 +427,7 @@ class Map {
     });
 
     this._setIdle();
+    this._panTrigger = PanTriggers.UNSET;
   }
 
   /**
