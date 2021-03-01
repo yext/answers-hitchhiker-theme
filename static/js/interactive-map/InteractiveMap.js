@@ -211,7 +211,7 @@ class InteractiveMap extends ANSWERS.Component {
       noResultsConfig: this.noResultsConfig,
       onPinSelect: this._config.onPinSelect,
       onPostMapRender: onPostMapRender,
-      pinClickListener: (index, id) => this.pinClickListener(index, id),
+      pinFocusListener: (index, id) => this.pinFocusListener(index, id),
       pinClusterClickListener: pinClusterClickListener,
       dragEndListener: dragEndListener,
       zoomChangedListener: zoomChangedListener,
@@ -278,22 +278,22 @@ class InteractiveMap extends ANSWERS.Component {
   }
 
   /**
-   * The callback when a result pin on the map is clicked
+   * The callback when a result pin on the map is clicked or tabbed onto
    * @param {Number} index The index of the pin in the current result list order
    * @param {string} cardId The unique id for the pin entity, usually of the form `js-yl-${meta.id}`
    */
-  pinClickListener (index, cardId) {
+  pinFocusListener (index, cardId) {
     this.core.storage.set(StorageKeys.LOCATOR_SELECTED_RESULT, cardId);
     const selector = `.yxt-Card[data-opts='{ "_index": ${index - 1} }']`;
     const card = document.querySelector(selector);
     const mediaQuery = window.matchMedia(`(max-width: ${this.mobileBreakpointMax}px)`);
     const isMobile = mediaQuery.matches;
 
-    document.querySelectorAll('.yxt-Card--pinClicked').forEach((el) => {
-      el.classList.remove('yxt-Card--pinClicked');
+    document.querySelectorAll('.yxt-Card--pinFocused').forEach((el) => {
+      el.classList.remove('yxt-Card--pinFocused');
     });
 
-    card.classList.add('yxt-Card--pinClicked');
+    card.classList.add('yxt-Card--pinFocused');
 
     if (isMobile) {
       document.querySelectorAll('.yxt-Card--isVisibleOnMobileMap').forEach((el) => el.remove());
@@ -316,7 +316,7 @@ class InteractiveMap extends ANSWERS.Component {
 
       cardCopy.querySelectorAll(buttonSelector).forEach((el) => {
         el.addEventListener('click', () => {
-          card.classList.remove('yxt-Card--pinClicked');
+          card.classList.remove('yxt-Card--pinFocused');
           cardCopy.remove();
           this._container.classList.remove('InteractiveMap--detailShown');
           this._pageWrapperEl.classList.remove('YxtPage-wrapper--detailShown');

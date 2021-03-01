@@ -17,10 +17,10 @@
     {{> templates/vertical-interactive-map/script/locationbias modifier="main" }}
     {{> templates/vertical-interactive-map/script/locationbias modifier="mobileMap" }}
   {{/script/core }}
-  <script src="{{relativePath}}/locator-components.js" defer></script>
+  <script src="{{relativePath}}/locator-bundle.js" defer></script>
     <div class="Answers AnswersVerticalMap CollapsibleFilters InteractiveMap InteractiveMap--listShown js-answersInteractiveMap">
       <div class="Answers-content">
-        <div class="Answers-contentWrap js-locator-contentWrap">
+        <div class="Answers-contentWrap js-locator-contentWrap" role="region" aria-label="{{ translate phrase="Main location search" }}">
           <div class="Answers-resultsHeader">
             <div class="Answers-searchWrapper js-sticky">
               <div class="Answers-form">
@@ -55,17 +55,17 @@
                 </div>
               </div>
             </div>
-            <div class="Answers-stickyBottom">
-              {{> templates/vertical-interactive-map/markup/searchthisareatoggle modifier="desktop"}}
-              {{> templates/vertical-interactive-map/markup/locationbias modifier="main"}}
-            </div>
+          </div>
+          <div class="Answers-stickyBottom" role="region" aria-label="{{ translate phrase="Map controls" }}">
+            {{> templates/vertical-interactive-map/markup/searchthisareatoggle modifier="desktop"}}
+            {{> templates/vertical-interactive-map/markup/locationbias modifier="main"}}
           </div>
         </div>
-        <div class="Answers-mapWrapper">
-          {{> templates/vertical-interactive-map/markup/map }}
+        <div class="Answers-mapWrapper" role="region" aria-label="{{ translate phrase="Map" }}">
           <div class="Answers-centerTop">
             {{> templates/vertical-interactive-map/markup/searchthisareabutton }}
           </div>
+          {{> templates/vertical-interactive-map/markup/map }}
           <div class="Answers-mapFooter">
               {{> templates/vertical-interactive-map/markup/searchthisareatoggle modifier="mobileMap"}}
             {{> templates/vertical-interactive-map/markup/locationbias modifier="mobileMap"}}
