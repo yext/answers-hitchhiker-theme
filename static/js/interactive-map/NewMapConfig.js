@@ -151,6 +151,12 @@ export default class NewMapConfig {
     this.pinClickListener = jsonConfig.pinClickListener || function () {};
 
     /**
+     * Callback for when a non-cluster pin gains focus
+     * @type {Function}
+     */
+    this.pinFocusListener = jsonConfig.pinFocusListener || function () {};
+
+    /**
      * Callback for when a cluster pin is clicked
      * @type {Function}
      */

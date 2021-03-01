@@ -16,6 +16,6 @@ export default {
   LOCATOR_SELECTED_RESULT: 'locator-selected-result',
   LOCATOR_FROM_SEARCH_THIS_AREA: 'locator-from-search-this-area',
   LOCATOR_MAP_PROPERTIES: 'locator-map-properties',
-  LOCATOR_CARD_CLICK: 'locator-card-click'
+  LOCATOR_CARD_FOCUS: 'locator-card-focus'
 };
 

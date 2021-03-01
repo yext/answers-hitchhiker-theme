@@ -81,7 +81,7 @@ module.exports = function () {
       devtool: 'source-map',
       target: ['web', 'es5'],
       entry: {
-        'locator-components': `./${jamboConfig.dirs.output}/static/js/locator-components.js`
+        'locator-bundle': `./${jamboConfig.dirs.output}/static/js/locator-bundle.js`
       },
       resolve: {
         alias: {
