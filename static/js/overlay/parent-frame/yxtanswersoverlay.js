@@ -58,7 +58,7 @@ export default class YextAnswersOverlay {
 
 if (!global.YxtAnswersOverlay) {
   if (document.readyState === 'loading') {
-    window.addEventListener('load', (event) => {
+    window.addEventListener('DOMContentLoaded', (event) => {
       global.YxtAnswersOverlay = new YextAnswersOverlay(window.YxtAnswersOverlaySettings);
     });
   } else {
