@@ -113,3 +113,10 @@ msgstr "並べ替えとフィルタ"
 msgid "View 1 Result"
 msgid_plural "View [[count]] Results"
 msgstr[0] "[[count]]件の結果を表示"
+
+#: cards/multilang-financial-professional-location/template.hbs:195
+#: cards/multilang-location-standard/template.hbs:206
+#: cards/multilang-professional-location/template.hbs:192
+msgctxt "Close is a verb"
+msgid "Close Card"
+msgstr "カードを閉じる"
