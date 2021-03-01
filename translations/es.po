@@ -114,3 +114,10 @@ msgid "View 1 Result"
 msgid_plural "View [[count]] Results"
 msgstr[0] "Ver 1 resultado"
 msgstr[1] "Ver [[count]] resultados"
+
+#: cards/multilang-financial-professional-location/template.hbs:195
+#: cards/multilang-location-standard/template.hbs:206
+#: cards/multilang-professional-location/template.hbs:192
+msgctxt "Close is a verb"
+msgid "Close Card"
+msgstr "Cerrar tarjeta"
