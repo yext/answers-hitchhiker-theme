@@ -10,7 +10,7 @@ CollapsibleFilters.Helpers.clearFacetsPersistentStorage();
 // of it, to be called within component config.
 const collapsibleFiltersInteractions = new CollapsibleFilters.Interactions({
   filterEls: document.querySelectorAll('.js-answersFiltersWrapper'),
-  resultEls: document.querySelectorAll('.js-answersResults,.js-answersFooter') 
+  resultEls: document.querySelectorAll('.js-answersResults,.js-answersFooter,.js-yxtFooter') 
 });
 
 // When a search is made with the searchbar, collapse the filters.
