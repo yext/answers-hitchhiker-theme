@@ -47,10 +47,6 @@
   @media (max-width: #{$breakpoint-collapsed-filters}) {
     @include CollapsibleFilters;
 
-    .CollapsibleFilters-inactive {
-      display: none;
-    }
-
     .yxt-SpellCheck {
       padding-top: calc(var(--yxt-base-spacing) / 2);
     }
