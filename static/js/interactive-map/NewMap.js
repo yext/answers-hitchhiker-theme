@@ -281,7 +281,7 @@ class NewMap extends ANSWERS.Component {
 
     this.core.storage.registerListener({
       eventType: 'update',
-      storageKey: StorageKeys.LOCATOR_CARD_CLICK,
+      storageKey: StorageKeys.LOCATOR_CARD_FOCUS,
       callback: (data) => {
         const cardIndex = data.index;
         if (cardIndex + 1 === index) {
@@ -289,7 +289,8 @@ class NewMap extends ANSWERS.Component {
         }
       }
     });
-    pin.setClickHandler(() => this.config.pinClickListener(index, id));
+    pin.setClickHandler(() => this.config.pinFocusListener(index, id));
+    pin.setFocusHandler(() => this.config.pinFocusListener(index, id));
     pin.setHoverHandler(hovered => this.core.storage.set(
       StorageKeys.LOCATOR_HOVERED_RESULT,
       hovered ? id : null
