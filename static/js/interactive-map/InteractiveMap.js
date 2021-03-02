@@ -29,12 +29,6 @@ class InteractiveMap extends ANSWERS.Component {
     this._pageWrapperEl = document.querySelector('.YxtPage-wrapper');
 
     /**
-     * The header DOM element
-     * @type {HTMLElement}
-     */
-    this._headerEl = this._pageWrapperEl.querySelector('.js-answersHeader');
-
-    /**
      * The results wrapper DOM element
      * @type {HTMLElement}
      */
@@ -401,7 +395,6 @@ class InteractiveMap extends ANSWERS.Component {
    * @param {HTMLElement} targetEl The result card to scroll to
    */
   scrollToResult(targetEl) {
-    const headerHeight = this._headerEl ? this._headerEl.offsetHeight : 0;
     const scrollContainer = this._resultsWrapperEl;
     const scrollDistance  = targetEl.offsetTop - scrollContainer.scrollTop;
 
