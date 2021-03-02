@@ -34,6 +34,13 @@
   }
 }
 
+.VerticalMap.YxtFooter.CollapsibleFilters-inactive {
+  display: none;
+  @include bpgte(sm) {
+    display: block;
+  }
+}
+
 .AnswersVerticalStandard.CollapsibleFilters,
 .AnswersVerticalGrid.CollapsibleFilters {
   @include CollapsibleFiltersOverrides;
@@ -46,6 +53,10 @@
 
   @media (max-width: #{$breakpoint-collapsed-filters}) {
     @include CollapsibleFilters;
+
+    .CollapsibleFilters-inactive {	
+      display: none;	
+    }
 
     .yxt-SpellCheck {
       padding-top: calc(var(--yxt-base-spacing) / 2);
@@ -69,5 +80,12 @@
     .Answers-viewResultsButton {
       display: none;
     }
+  }
+}
+
+@media (max-width: #{$breakpoint-collapsed-filters}) {
+  .VerticalStandard.YxtFooter.CollapsibleFilters-inactive,
+  .VerticalGrid.YxtFooter.CollapsibleFilters-inactive {
+    display: none;
   }
 }
