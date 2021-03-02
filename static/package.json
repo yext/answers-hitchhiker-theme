@@ -29,7 +29,7 @@
     "grunt-webpack": "^4.0.0",
     "html-loader": "^1.1.0",
     "html-webpack-plugin": "^4.3.0",
-    "jambo": "^1.10.0",
+    "jambo": "^1.10.2",
     "jsdom": "^16.4.0",
     "mini-css-extract-plugin": "^0.11.0",
     "node-sass": "^4.13.1",
