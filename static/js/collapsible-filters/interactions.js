@@ -210,6 +210,8 @@ export default class Interactions {
    */
   setupFooter() {
     const yxtFooter = document.querySelector('.js-yxtFooter');
-    this.templateName && yxtFooter.classList.add(this.templateName);
+    if (yxtFooter && this.templateName) {
+      yxtFooter.classList.add(this.templateName);
+    }
   }
 }
