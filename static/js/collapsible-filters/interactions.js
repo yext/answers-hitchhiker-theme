@@ -2,10 +2,11 @@
  * Interactions manages page interactions for collapsible filters.
  */
 export default class Interactions {
-  constructor(domElements) {
-    const { filterEls, resultEls } = domElements;
+  constructor(config) {
+    const { filterEls, resultEls, templateName } = config;
     this.filterEls = filterEls || [];
     this.resultEls = resultEls || [];
+    this.templateName = templateName;
     this.viewResultsButton = document.getElementById('js-answersViewResultsButton');
     this.searchBarContainer = document.getElementById('js-answersSearchBar');
     this.resultsColumn = document.querySelector('.js-answersResultsColumn');
@@ -201,6 +202,16 @@ export default class Interactions {
     });
     if (this.resultsColumn) {
       this.resultsColumn.scrollTop = 0;
+    }
+  }
+
+  /**
+   * Set the page template name as a CSS class on the footer so the it can be styled for CFilters
+   */
+  setupFooter() {
+    const yxtFooter = document.querySelector('.js-yxtFooter');
+    if (yxtFooter && this.templateName) {
+      yxtFooter.classList.add(this.templateName);
     }
   }
 }
