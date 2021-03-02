@@ -83,9 +83,9 @@
   }
 }
 
-@media (max-width: #{$breakpoint-collapsed-filters}) {
-  .VerticalStandard.YxtFooter.CollapsibleFilters-inactive,
-  .VerticalGrid.YxtFooter.CollapsibleFilters-inactive {
+.VerticalStandard.YxtFooter.CollapsibleFilters-inactive,
+.VerticalGrid.YxtFooter.CollapsibleFilters-inactive {
+  @media (max-width: #{$breakpoint-collapsed-filters}) {
     display: none;
   }
 }
