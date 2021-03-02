@@ -33,7 +33,30 @@ const getEncodedSvg = (svg) => {
   return `data:image/svg+xml;charset=utf-8, ${encodeURIComponent(svg)}`;
 }
 
+/**
+ * Returns whether or not targetEl is viewable within containerEl, considering
+ * its container's scroll position and the target's offset from the top
+ *
+ * @param {HTMLElement} targetEl The element that is meant to be viewable
+ * @param {HTMLElement} containerEl The wrapper element, should be some ancestor for targetEl
+ * @return {boolean}
+ */
+const isViewableWithinContainer = (targetEl, containerEl) => {
+  const containerElViewableTop = containerEl.scrollTop;
+  const containerElViewableBottom = containerEl.scrollTop + containerEl.offsetHeight;
+  const targetElTop = targetEl.offsetTop;
+  const targetElBottom = targetEl.offsetTop + targetEl.offsetHeight;
+
+  const isScrolledIntoView =
+    targetElTop >= containerElViewableTop &&
+    targetElTop <= containerElViewableBottom &&
+    targetElBottom >= containerElViewableTop &&
+    targetElBottom <= containerElViewableBottom;
+  return isScrolledIntoView;
+};
+
 export {
   getLanguageForProvider,
-  getEncodedSvg
+  getEncodedSvg,
+  isViewableWithinContainer
 }

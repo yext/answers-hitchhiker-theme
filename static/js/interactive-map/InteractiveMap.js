@@ -1,6 +1,6 @@
 import { Coordinate } from './Geo/Coordinate.js';
 import { smoothScroll } from './Util/SmoothScroll.js';
-import { getLanguageForProvider } from './Util/helpers.js';
+import { getLanguageForProvider, isViewableWithinContainer } from './Util/helpers.js';
 import { SearchDebouncer } from './SearchDebouncer';
 import { defaultCenterCoordinate } from './constants.js';
 
@@ -401,19 +401,12 @@ class InteractiveMap extends ANSWERS.Component {
    * @param {HTMLElement} targetEl The result card to scroll to
    */
   scrollToResult(targetEl) {
-    const stickyHeight = 0;
+    const headerHeight = this._headerEl ? this._headerEl.offsetHeight : 0;
+    const scrollContainer = this._resultsWrapperEl;
+    const scrollDistance  = targetEl.offsetTop - scrollContainer.scrollTop;
 
-    const header = this._headerEl;
-    const headerHeight = header ? header.offsetHeight : 0;
-
-    const container = this._resultsWrapperEl;
-    const elTop = targetEl.offsetTop - (container.scrollTop + container.offsetTop);
-    const elBottom = elTop + targetEl.offsetHeight;
-    const isScrolledIntoView = elTop >= stickyHeight && elBottom <= container.offsetHeight - headerHeight;
-
-    window.scroll = (x) => smoothScroll(container, x, 400);
-    if (!isScrolledIntoView) {
-      smoothScroll(container, elTop - stickyHeight, 400);
+    if (!isViewableWithinContainer(targetEl, scrollContainer)) {
+      smoothScroll(scrollContainer, scrollDistance, 400);
     }
   }
 
