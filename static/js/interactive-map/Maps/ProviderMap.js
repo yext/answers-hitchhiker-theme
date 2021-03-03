@@ -189,21 +189,19 @@ class ProviderMap {
     throw new Error('not implemented');
   }
 
-/**
+  /**
    * @param {number} zoom
    * @param {Object} center Must be convertible to {@link Coordinate}
-   * @param {boolean} [animated=false] Whether to transition smoothly to the new bounds
+   * @param {boolean} animated Whether to transition smoothly to the new bounds
    * @see {@link ProviderMap#setZoom}
    * @see {@link ProviderMap#setCenter}
    */
-  setZoomCenter(zoom, center, animated = false) {
-    // Some maps change center when zooming and others snap to integer zoom when setting center.
-    // Set zoom a second time after setting center to fix for all providers.
+  setZoomCenter(zoom, center, animated) {
+    // This method doesn't need to be implemented for each provider,
+    // but it can be overridden if this default function doesn't work.
     this.setZoom(zoom, animated);
     this.setCenter(center, animated);
-    this.setZoom(zoom, animated);
   }
-
 }
 
 export {
