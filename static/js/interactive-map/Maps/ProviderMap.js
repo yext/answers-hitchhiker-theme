@@ -22,6 +22,7 @@ class ProviderMapOptions {
     this.dragEndHandler = () => {};
     this.zoomChangedHandler = () => {};
     this.zoomEndHandler = () => {};
+    this.canvasClickHandler = () => {};
     this.providerOptions = {};
   }
 
@@ -115,6 +116,22 @@ class ProviderMapOptions {
   }
 
   /**
+   * @typedef ProviderMap~canvasClickHandler
+   * @function
+   */
+
+  /**
+   * @param {ProviderMap~canvasClickHandler} canvasClickHandler Function called when the map ends a zoom change
+   * @returns {ProviderMapOptions}
+   */
+  withCanvasClickHandler(canvasClickHandler) {
+    assertType(canvasClickHandler, Type.FUNCTION);
+
+    this.canvasClickHandler = canvasClickHandler;
+    return this;
+  }
+
+  /**
    * @param {Object} providerOptions A free-form object used to set any additional provider-specific options, usually by passing the object to the map's constructor
    * @returns {ProviderMapOptions}
    */
@@ -155,6 +172,7 @@ class ProviderMap {
     this._dragEndHandler = options.dragEndHandler;
     this._zoomChangedHandler = options.zoomChangedHandler;
     this._zoomEndHandler = options.zoomEndHandler;
+    this._canvasClickHandler = options.canvasClickHandler;
   }
 
   /**

@@ -47,6 +47,7 @@ class MapOptions {
     this.dragEndHandler = () => {};
     this.zoomChangedHandler = () => {};
     this.zoomEndHandler = () => {};
+    this.canvasClickHandler = () => {};
     this.provider = null;
     this.providerOptions = {};
     this.singlePinZoom = 14;
@@ -191,6 +192,22 @@ class MapOptions {
   }
 
   /**
+   * @typedef Map~canvasClickHandler
+   * @function
+   */
+
+  /**
+   * @param {Map~canvasClickHandler} canvasClickHandler
+   * @returns {MapOptions}
+   */
+  withCanvasClickHandler (mapCanvasClickHandler) {
+    assertType(canvasClickHandler, Type.FUNCTION);
+
+    this.canvasClickHandler = canvasClickHandler;
+    return this;
+  }
+
+  /**
    * The MapProvider must be loaded before constructing a Map with it.
    * @param {MapProvider} provider
    * @returns {MapOptions}
@@ -281,6 +298,7 @@ class Map {
     this.setDragEndHandler(options.dragEndHandler);
     this.setZoomChangedHandler(options.zoomChangedHandler);
     this.setZoomEndHandler(options.zoomEndHandler);
+    this.setCanvasClickHandler(options.canvasClickHandler);
 
     // Remove all child elements of wrapper
     while (this._wrapper.firstChild) {
@@ -295,6 +313,7 @@ class Map {
       .withDragEndHandler(() => this._dragEndHandler())
       .withZoomChangedHandler(() => this.zoomChangedHandler())
       .withZoomEndHandler(() => this.zoomEndHandler())
+      .withCanvasClickHandler(() => this._canvasClickHandler())
       .withPanStartHandler(() => this.panStartHandler())
       .withProviderOptions(options.providerOptions)
       .build();
@@ -703,6 +722,15 @@ class Map {
     assertType(zoomEndHandler, Type.FUNCTION);
 
     this._zoomEndHandler = zoomEndHandler;
+  }
+
+  /**
+   * @param {Map~canvasClickHandler} canvasClickHandler
+   */
+  setCanvasClickHandler(canvasClickHandler) {
+    assertType(canvasClickHandler, Type.FUNCTION);
+
+    this._canvasClickHandler = canvasClickHandler;
   }
 
   /**
