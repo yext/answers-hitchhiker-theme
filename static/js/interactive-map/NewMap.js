@@ -108,7 +108,6 @@ class NewMap extends ANSWERS.Component {
       .withPadding(this.config.mapPadding)
       .build();
     this.map = map;
-    window.mappp = this.map._map.map;
     this.addMapInteractions(map);
   }
 
