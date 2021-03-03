@@ -139,6 +139,7 @@ class NewMap extends ANSWERS.Component {
         this.updateMapPropertiesInStorage();
         this.config.zoomEndListener(this.map.getZoom(), zoomTrigger);
       });
+      map.setCanvasClickHandler(() => this.config.canvasClickListener());
     });
 
     const mapRenderTargetOptions = new MapRenderTargetOptions()
