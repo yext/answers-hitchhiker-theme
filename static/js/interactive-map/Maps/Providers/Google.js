@@ -66,6 +66,9 @@ class GoogleMap extends ProviderMap {
         this._zoomEndHandler();
       });
     });
+    google.maps.event.addListener(this.map, 'click', () => {
+      this._canvasClickHandler();
+    });
   }
 
   getCenter() {

@@ -37,6 +37,11 @@ class MapboxMap extends ProviderMap {
     this.map.on('dragend', () => this._dragEndHandler());
     this.map.on('zoomstart', () => this._zoomChangedHandler());
     this.map.on('zoomend', () => this._zoomEndHandler());
+    this.map.on('click', (e) => {
+      if (e.originalEvent.target.nodeName === 'CANVAS') {
+        this._canvasClickHandler();
+      }
+    });
   }
 
   getCenter() {

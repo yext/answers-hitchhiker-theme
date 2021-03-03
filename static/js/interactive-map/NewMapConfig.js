@@ -181,6 +181,14 @@ export default class NewMapConfig {
     this.zoomEndListener = jsonConfig.zoomEndListener || function () {};
 
     /**
+     * Callback for when the map canvas is clicked
+     * A click does not include clicks to a pin or a map control
+     * A click is a mouseup and a mousedown with moving the mouse
+     * @type {Function}
+     */
+    this.canvasClickListener = jsonConfig.canvasClickListener || function () {};
+
+    /**
      * The minimum number of pins to be clustered
      * @type {number}
      */

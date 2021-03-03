@@ -209,7 +209,8 @@ class InteractiveMap extends ANSWERS.Component {
       pinClusterClickListener: pinClusterClickListener,
       dragEndListener: dragEndListener,
       zoomChangedListener: zoomChangedListener,
-      zoomEndListener: zoomEndListener
+      zoomEndListener: zoomEndListener,
+      canvasClickListener: () => this.removeResultFocusedStates()
     }));
   }
 
@@ -269,6 +270,20 @@ class InteractiveMap extends ANSWERS.Component {
     const lng = center.longitude;
 
     return new Coordinate(lat, lng);
+  }
+
+  /**
+   * Remove the result focused state styling from all cards and pins on the page
+   */
+  removeResultFocusedStates () {
+    this._container.classList.remove('InteractiveMap--detailShown');
+    this._pageWrapperEl.classList.remove('YxtPage-wrapper--detailShown');
+
+    document.querySelectorAll('.yxt-Card--pinFocused').forEach((el) => {
+      el.classList.remove('yxt-Card--pinFocused');
+    });
+
+    this.core.storage.set(StorageKeys.LOCATOR_SELECTED_RESULT, null);
   }
 
   /**

@@ -108,6 +108,7 @@ class NewMap extends ANSWERS.Component {
       .withPadding(this.config.mapPadding)
       .build();
     this.map = map;
+    window.mappp = this.map._map.map;
     this.addMapInteractions(map);
   }
 
@@ -139,6 +140,7 @@ class NewMap extends ANSWERS.Component {
         this.updateMapPropertiesInStorage();
         this.config.zoomEndListener(this.map.getZoom(), zoomTrigger);
       });
+      map.setCanvasClickHandler(() => this.config.canvasClickListener());
     });
 
     const mapRenderTargetOptions = new MapRenderTargetOptions()
