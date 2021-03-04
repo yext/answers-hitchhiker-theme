@@ -9,7 +9,7 @@ Need help? Ask a question in the [Hitchhiker's Community](https://hitchhikers.ye
 ## Getting Started
 
 ### Prerequisites
-- Jambo, a static site generator, which can be installed with `npm i jambo -g`
+- Jambo, a static site generator, which can be installed with `npm i jambo`
 - An Answers experience configured at https://yext.com. This will provide the `experienceKey` and the `apiKey`
 
 ### Creating an Answers site
