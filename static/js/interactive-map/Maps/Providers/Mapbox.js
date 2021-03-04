@@ -73,6 +73,14 @@ class MapboxMap extends ProviderMap {
       this.map.setZoom(zoom - 1);
     }
   }
+
+  setZoomCenter(zoom, coordinate, animated) {
+    const center = new mapboxgl.LngLat(coordinate.longitude, coordinate.latitude);
+
+    // Our standard zoom: at level 0, the world is 256 pixels wide and doubles each level
+    // Mapbox zoom: at level 0, the world is 512 pixels wide and doubles each level
+    this.map[animated ? 'easeTo' : 'jumpTo']({ center, zoom: zoom - 1 });
+  }
 }
 
 // Pin Class
