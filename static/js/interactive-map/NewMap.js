@@ -69,6 +69,12 @@ class NewMap extends ANSWERS.Component {
      * @type {string}
      */
     this.selectedClusterPin = null;
+
+    /*
+     * A list of listeners to remove when results are updated
+     * @type {StorageListener[]}
+     */
+    this.resultsSpecificStorageListeners = [];
   }
 
   onCreate () {
@@ -347,7 +353,7 @@ class NewMap extends ANSWERS.Component {
       })
       .build();
 
-    this.core.storage.registerListener({
+    const cardFocusUpdateListener = {
       eventType: 'update',
       storageKey: StorageKeys.LOCATOR_CARD_FOCUS,
       callback: (data) => {
@@ -356,7 +362,9 @@ class NewMap extends ANSWERS.Component {
           this.core.storage.set(StorageKeys.LOCATOR_SELECTED_RESULT, id);
         }
       }
-    });
+    };
+    this.resultsSpecificStorageListeners.push(cardFocusUpdateListener);
+    this.core.storage.registerListener(cardFocusUpdateListener);
     pin.setClickHandler(() => this.config.pinFocusListener(index, id));
     pin.setFocusHandler(() => this.config.pinFocusListener(index, id));
     pin.setHoverHandler(hovered => this.core.storage.set(
@@ -372,6 +380,11 @@ class NewMap extends ANSWERS.Component {
    * @param data The vertical results data
    */
   _updateMap (data) {
+    this.resultsSpecificStorageListeners.forEach((listener) => {
+      this.core.storage.removeListener(listener);
+    });
+    this.resultsSpecificStorageListeners = [];
+
     const verticalData = transformDataToVerticalData(data);
     const universalData = transformDataToUniversalData(data);
     let entityData = verticalData.length ? verticalData : universalData;
