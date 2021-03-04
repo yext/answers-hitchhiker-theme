@@ -43,32 +43,32 @@ The site should now be available at http://localhost:5000
 
 This theme makes the following commands available when Jambo imports this theme.
 
-### Add Vertical Command
+### Vertical Command
 Creates a vertical page of an Answers experience
 
 Example usage:
 ```bash
-jambo vertical --name Locations --verticalKey locations --template vertical-standard
+npx jambo vertical --name Locations --verticalKey locations --template vertical-standard
 ```
 
 See `jambo vertical --help` for more info
 
-### Add Card Command
+### Card Command
 Creates a new, custom card based on an existing card.
 
 Example usage:
 ```bash
-jambo card --name custom-location --templateCardFolder cards/location-standard
+npx jambo card --name custom-location --templateCardFolder themes/answers-hitchhiker-theme/cards/location-standard
 ```
 
 See `jambo card --help` for more info
 
-### Add Direct Answer Card
+### Direct Answer Card
 Creates a new, custom direct answer card.
 
 Example usage:
 ```bash
-jambo directanswercard --name custom-card --templateCardFolder directanswercards/allfields-standard
+npx jambo directanswercard --name custom-directanswer --templateCardFolder themes/answers-hitchhiker-theme/directanswercards/allfields-standard
 ```
 
 See `jambo directanswercard --help` for more info
