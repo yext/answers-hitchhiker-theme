@@ -50,6 +50,15 @@ class MapPinOptions {
   }
 
   /**
+   * @param {string} id The unique id for the pin
+   * @returns {MapPinOptions}
+   */
+  withId(id) {
+    this.id = id
+    return this;
+  }
+
+  /**
    * @typedef MapPin~propertiesForStatus
    * @function
    * @param {Object} status A generic object whose properties define the state of the pin, from {@link MapPin#setStatus}
@@ -135,6 +144,8 @@ class MapPin {
       .withHoverHandler(hovered => this._hoverHandler(hovered))
       .build();
 
+    this._id = options.id;
+
     this._pin.setCoordinate(options.coordinate);
 
     this._status = {};
@@ -156,6 +167,14 @@ class MapPin {
    */
   getIcon(key) {
     return this._icons[key];
+  }
+
+  /**
+   * Get the unique identifier for the map pin
+   * @returns {string}
+   */
+  getId() {
+    return this._id;
   }
 
   /**
