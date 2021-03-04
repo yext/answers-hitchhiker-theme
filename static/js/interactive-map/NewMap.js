@@ -63,6 +63,12 @@ class NewMap extends ANSWERS.Component {
      * @type {string}
      */
     this.selectedPinId = null;
+
+    /**
+     * HTML element id for the selected cluster
+     * @type {string}
+     */
+    this.selectedClusterPin = null;
   }
 
   onCreate () {
@@ -147,8 +153,10 @@ class NewMap extends ANSWERS.Component {
       .withOnPostRender((data, map) => this.config.onPostMapRender(data, map, mapRenderTarget.getPins()))
       .withPinBuilder((pinOptions, entity, index) => this.buildPin(pinOptions, entity, index))
 
+    let pinClusterer;
     if (this.config.enablePinClustering) {
-      mapRenderTargetOptions.withPinClusterer(this.getClusterer());
+      pinClusterer = this.getClusterer();
+      mapRenderTargetOptions.withPinClusterer(pinClusterer);
     }
 
     const mapRenderTarget = mapRenderTargetOptions.build();
@@ -183,29 +191,88 @@ class NewMap extends ANSWERS.Component {
       eventType: 'update',
       storageKey: StorageKeys.LOCATOR_SELECTED_RESULT,
       callback: id => {
-        if (id != this.selectedPinId) {
-          const pins = mapRenderTarget.getPins();
+        if (id === this.selectedPinId) {
+          return;
+        }
 
-          if (this.selectedPinId && pins[this.selectedPinId]) {
-            pins[this.selectedPinId].setStatus({ selected: false });
-            this.selectedPinId = null;
-          }
+        const pins = mapRenderTarget.getPins();
 
-          if (id && pins[id]) {
-            pins[id].setStatus({ selected: true });
-            this.selectedPinId = id;
+        if (this.selectedPinId && pins[this.selectedPinId]) {
+          pins[this.selectedPinId].setStatus({ selected: false });
+          this.selectedPinId = null;
+        }
 
-            if (this.config.onPinSelect) {
-              this.config.onPinSelect();
-            }
+        if (this.selectedClusterPin) {
+          this.selectedClusterPin.setStatus({ selected: false });
+          this.selectedClusterPin = null;
+        }
 
-            if (!map.coordinateIsInVisibleBounds(pins[id].getCoordinate())) {
-              map.setCenterWithPadding(pins[id].getCoordinate(), true);
-            }
-          }
+        if (!id) {
+          return;
+        }
+
+        if (!pins[id]) {
+          throw new Error(`A pin with the id ${id} could not be found on the map.`);
+        }
+
+        if (this.config.enablePinClustering && pinClusterer) {
+          this.updateSelectedResultStateWithClusters(id, pins, pinClusterer.getClusters());
+        } else {
+          this.updateSelectedResultStateWithoutClusters(id, pins);
+        }
+
+        if (this.config.onPinSelect) {
+          this.config.onPinSelect();
         }
       }
     });
+  }
+
+  /**
+   * Update the pin and map state with information about the selected result. This result
+   * may be selected by either a pin click or a card click.
+   *
+   * @param {string} id
+   * @param {MapPin[]} pins
+   */
+  updateSelectedResultStateWithoutClusters(id, pins) {
+    pins[id].setStatus({ selected: true });
+    this.selectedPinId = id;
+
+    if (!this.map.coordinateIsInVisibleBounds(pins[id].getCoordinate())) {
+      this.map.setCenterWithPadding(pins[id].getCoordinate(), true);
+    }
+  }
+
+  /**
+   * Update the pin and map state with information about the selected result. This result
+   * may be selected by either a pin click or a card click.
+   * This will check if the selected result, identified by id, is in a cluster in clusters
+   * and enact changes according to the selected cluster.
+   * If not, fallback to the normal selected result behavior.
+   *
+   * @param {string} id
+   * @param {MapPin[]} pins
+   * @param {PinCluster[]} clusters
+   */
+  updateSelectedResultStateWithClusters(id, pins, clusters) {
+    const filteredClusters = clusters.filter((cluster) => cluster.containsPin(id));
+
+    if (filteredClusters.length === 0) {
+      this.updateSelectedResultStateWithoutClusters(id, pins);
+      return;
+    }
+
+    const selectedCluster = filteredClusters[0];
+    const selectedClusterPin = selectedCluster.clusterPin;
+
+    selectedClusterPin.setStatus({ selected: true });
+    this.selectedPinId = id;
+    this.selectedClusterPin = selectedClusterPin;
+
+    if (!this.map.coordinateIsInVisibleBounds(selectedCluster.clusterPin.getCoordinate())) {
+      this.map.setCenterWithPadding(selectedCluster.clusterPin.getCoordinate(), true);
+    }
   }
 
   /**
@@ -213,7 +280,7 @@ class NewMap extends ANSWERS.Component {
    */
   getClusterer () {
     const clustererOptions = new PinClustererOptions()
-      .withClickListener(() => {
+      .withClickHandler(() => {
         this.updateMapPropertiesInStorage();
         this.config.pinClusterClickListener();
       })
@@ -228,7 +295,7 @@ class NewMap extends ANSWERS.Component {
       })
       .withPropertiesForStatus(status => {
         const properties = new PinProperties()
-          .setIcon(status.hovered || status.focused ? 'hovered' : 'default')
+          .setIcon(status.hovered || status.focused || status.selected ? 'hovered' : 'default')
           .setWidth(28)
           .setHeight(28);
 
@@ -248,7 +315,9 @@ class NewMap extends ANSWERS.Component {
    * @param {Number} index The index of the entity in the result list ordering
    */
   buildPin(pinOptions, entity, index) {
+    const id = 'js-yl-' + entity.profile.meta.id;
     const pin = pinOptions
+      .withId(id)
       .withIcon(
         'default',
         getEncodedSvg(this.config.pinImages.getDefaultPin(index, entity.profile)))
@@ -277,8 +346,6 @@ class NewMap extends ANSWERS.Component {
         return properties;
       })
       .build();
-
-    const id = 'js-yl-' + entity.profile.meta.id;
 
     this.core.storage.registerListener({
       eventType: 'update',
