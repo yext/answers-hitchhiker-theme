@@ -359,7 +359,6 @@ class NewMap extends ANSWERS.Component {
       callback: (data) => {
         const cardIndex = data.index;
         if (cardIndex + 1 === index) {
-          console.log('setting in card focus handler');
           this.core.storage.set(StorageKeys.LOCATOR_SELECTED_RESULT, id);
         }
       }
