@@ -10,7 +10,7 @@ Need help? Ask a question in the [Hitchhiker's Community](https://hitchhikers.ye
 
 ### Prerequisites
 - Jambo, a static site generator, which can be installed with `npm i jambo -g`
-- An Answers experience configured on https://yext.com. This will provide the `experienceKey` and the `apiKey`
+- An Answers experience configured at https://yext.com. This will provide the `experienceKey` and the `apiKey`
 
 ### Creating an Answers site
 
@@ -44,7 +44,7 @@ The site should now be available at http://localhost:5000.
 This theme makes the following commands available when Jambo imports this theme.
 
 ### Vertical Command
-Creates a vertical page of an Answers experience
+Creates a vertical page of an Answers experience.
 
 Example usage:
 ```bash
