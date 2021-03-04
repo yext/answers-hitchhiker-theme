@@ -229,7 +229,8 @@ class NewMap extends ANSWERS.Component {
   }
 
   /**
-   * Update the pin and map state with select result information.
+   * Update the pin and map state with information about the selected result. This result
+   * may be selected by either a pin click or a card click.
    *
    * @param {string} id
    * @param {MapPin[]} pins
@@ -244,7 +245,8 @@ class NewMap extends ANSWERS.Component {
   }
 
   /**
-   * Update the pin and map state with selected result information.
+   * Update the pin and map state with information about the selected result. This result
+   * may be selected by either a pin click or a card click.
    * This will check if the selected result, identified by id, is in a cluster in clusters
    * and enact changes according to the selected cluster.
    * If not, fallback to the normal selected result behavior.

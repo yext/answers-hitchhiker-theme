@@ -27,7 +27,7 @@ class PinCluster {
    * @returns {boolean}
    */
   containsPin(id) {
-    return this.pins.filter((pin) => pin.getId() === id).length;
+    return this.pins.filter(pin => pin.getId() === id).length;
   }
 }
 
