@@ -8,9 +8,9 @@ Need help? Ask a question in the [Hitchhiker's Community](https://hitchhikers.ye
 
 ## Getting Started
 
-### Prerequesites
+### Prerequisites
 - Jambo, a static site generator, which can be installed with `npm i jambo -g`
-- An Answers experience configured on yext.com. This will provide the `experienceKey` and the `apiKey`.
+- An Answers experience configured on yext.com. This will provide the `experienceKey` and the `apiKey`
 
 ### Creating an Answers site
 
@@ -43,7 +43,7 @@ The site should now be available at http://localhost:5000
 
 This theme makes the following commands available when Jambo imports this theme.
 
-#### Add Vertical Command
+### Add Vertical Command
 Creates a vertical page of an Answers experience
 
 Example usage:
@@ -51,9 +51,9 @@ Example usage:
 jambo vertical --name Locations --verticalKey locations --template vertical-standard
 ```
 
-Run `jambo vertical --help` for more info
+See `jambo vertical --help` for more info
 
-#### Add Card Command
+### Add Card Command
 Creates a new, custom card based on an existing card.
 
 Example usage:
@@ -61,14 +61,14 @@ Example usage:
 jambo card --name custom-location --templateCardFolder cards/location-standard
 ```
 
-Run `jambo card --help` for more info
+See `jambo card --help` for more info
 
-#### Add Direct Answer Card
+### Add Direct Answer Card
 Creates a new, custom direct answer card.
 
 Example usage:
 ```bash
-jambo directanswercard --name custom-directanswer --templateCardFolder directanswercards/documentsearch-standard
+jambo directanswercard --name custom-card --templateCardFolder directanswercards/allfields-standard
 ```
 
-Run `jambo directanswercard --help` for more info
+See `jambo directanswercard --help` for more info
