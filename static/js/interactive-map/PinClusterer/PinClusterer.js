@@ -5,6 +5,23 @@ import { PinProperties } from '../Maps/PinProperties.js';
 import { Type, assertType, assertInstance } from '../Util/Assertions.js';
 
 /**
+ * Represents a cluster of {@link MapPin}s on a map.
+ * @member {MapPin} clusterPin
+ * @member {MapPin[]} pins
+ * @see {PinCluster}
+ */
+class PinCluster {
+  /**
+   * @param {MapPin} clusterPin
+   * @param {MapPin[]} pins
+   */
+  constructor(clusterPin, pins) {
+    this.clusterPin = clusterPin;
+    this.pins = [...pins];
+  }
+}
+
+/**
  * {@link PinClusterer} options class
  */
 class PinClustererOptions {
@@ -13,10 +30,12 @@ class PinClustererOptions {
    */
   constructor() {
     this.autoUpdate = true;
+    this.clickHandler = cluster => {};
     this.clusterRadius = 50;
     this.clusterZoomAnimated = true;
     this.clusterZoomMax = Infinity;
     this.hideOffscreen = false;
+    this.hoverHandler = (cluster, hovered) => {};
     this.iconTemplates = {
       'default': null,
       'hovered': null
@@ -28,6 +47,8 @@ class PinClustererOptions {
       .setHeight(33)
       .setIcon(status.hovered || status.focused ? 'hovered' : 'default')
       .setWidth(33);
+    this.updateHandler = clusters => {};
+    this.zoomOnClick = true;
   }
 
   /**
@@ -36,6 +57,23 @@ class PinClustererOptions {
    */
   withAutoUpdate(autoUpdate) {
     this.autoUpdate = autoUpdate;
+    return this;
+  }
+
+  /**
+   * @typedef PinClusterer~clickHandler
+   * @function
+   * @param {PinCluster} cluster The cluster whose pin was clicked
+   */
+
+  /**
+   * @param {PinClusterer~clickHandler} clickHandler Function that runs when a pin cluster is clicked
+   * @returns {PinClustererOptions}
+   */
+  withClickHandler(clickHandler) {
+    assertType(clickHandler, Type.FUNCTION);
+
+    this.clickHandler = clickHandler;
     return this;
   }
 
@@ -72,6 +110,24 @@ class PinClustererOptions {
    */
   withHideOffscreen(hideOffscreen) {
     this.hideOffscreen = hideOffscreen;
+    return this;
+  }
+
+  /**
+   * @typedef PinClusterer~hoverHandler
+   * @function
+   * @param {PinCluster} cluster The cluster whose pin was hovered
+   * @param {boolean} hovered Whether the cluster pin is currently hovered
+   */
+
+  /**
+   * @param {PinClusterer~hoverHandler} hoverHandler Function that runs when a pin cluster is hovered
+   * @returns {PinClustererOptions}
+   */
+  withHoverHandler(hoverHandler) {
+    assertType(hoverHandler, Type.FUNCTION);
+
+    this.hoverHandler = hoverHandler;
     return this;
   }
 
@@ -115,8 +171,29 @@ class PinClustererOptions {
     return this;
   }
 
-  withClickListener(listener) {
-    this.clickListener = listener;
+  /**
+   * @typedef PinClusterer~updateHandler
+   * @function
+   * @param {PinCluster[]} clusters All pin clusters after the update
+   */
+
+  /**
+   * @param {PinClusterer~updateHandler} updateHandler Function that runs after the clusters are updated
+   * @returns {PinClustererOptions}
+   */
+  withUpdateHandler(updateHandler) {
+    assertType(updateHandler, Type.FUNCTION);
+
+    this.updateHandler = updateHandler;
+    return this;
+  }
+
+  /**
+   * @param {boolean} zoomOnClick Whether to zoom in to the pins in a cluster on cluster click
+   * @returns {PinClustererOptions}
+   */
+  withZoomOnClick(zoomOnClick) {
+    this.zoomOnClick = zoomOnClick;
     return this;
   }
 
@@ -141,16 +218,19 @@ class PinClusterer {
     assertInstance(options, PinClustererOptions);
 
     this._autoUpdate = options.autoUpdate;
+    this._clickHandler = options.clickHandler;
     this._clusterRadius = options.clusterRadius;
     this._clusterZoomAnimated = options.clusterZoomAnimated;
     this._clusterZoomMax = options.clusterZoomMax;
     this._hideOffscreen = options.hideOffscreen;
+    this._hoverHandler = options.hoverHandler;
     this._iconTemplates = options.iconTemplates;
     this._minClusterSize = options.minClusterSize;
     this._propertiesForStatus = options.propertiesForStatus;
-    this._clickListener = options.clickListener;
+    this._updateHandler = options.updateHandler;
+    this._zoomOnClick = options.zoomOnClick;
 
-    this._clusterPins = [];
+    this._clusters = [];
     this.reset(false);
   }
 
@@ -206,6 +286,13 @@ class PinClusterer {
   }
 
   /**
+   * @returns {PinCluster[]} Current pin clusters
+   */
+  getClusters() {
+    return [...this._clusters];
+  }
+
+  /**
    * @param {boolean} [restorePins=true] Whether to put pins currently in clusters back on the map
    */
   reset(restorePins = true) {
@@ -230,8 +317,8 @@ class PinClusterer {
       return;
     }
 
-    this._clusterPins.forEach(clusterPin => clusterPin.remove());
-    this._clusterPins = [];
+    this._clusters.forEach(cluster => cluster.clusterPin.remove());
+    this._clusters = [];
 
     if (!this._map || !this._pins.length) {
       return;
@@ -253,36 +340,40 @@ class PinClusterer {
         }
 
         const clusterPin = pinOptions.build();
+        const newCluster = new PinCluster(clusterPin, pinCluster);
 
         // Remove all pins in cluster from map, replace with cluster pin
         pinCluster.forEach(pin => pin.remove());
         clusterPin.setMap(this._map);
-        this._clusterPins.push(clusterPin);
+        this._clusters.push(newCluster);
 
         // When clicked, fit map to all the pins in the cluster and update clusters
-        clusterPin.setFocusHandler(focused => clusterPin.setStatus({ focused }));
-        clusterPin.setHoverHandler(hovered => clusterPin.setStatus({ hovered }));
+        clusterPin.setFocusHandler(focused => {
+          clusterPin.setStatus({ focused });
+          this._hoverHandler(newCluster, focused);
+        });
+        clusterPin.setHoverHandler(hovered => {
+          clusterPin.setStatus({ hovered });
+          this._hoverHandler(newCluster, hovered);
+        });
         clusterPin.setClickHandler(async () => {
-          this._map.fitCoordinates(coordinates, this._clusterZoomAnimated, this._clusterZoomMax);
-          await this._map.moving();
-          await this._map.idle();
-          if (this._clickListener) {
-            this._clickListener();
+          if (this._zoomOnClick) {
+            const movingPromise = this._map.moving();
+
+            this._map.fitCoordinates(coordinates, this._clusterZoomAnimated, this._clusterZoomMax);
+            await movingPromise;
+            await this._map.idle();
+            this.update();
           }
-          this.update();
-          /*
-          let start = Date.now(),
-            now = start;
-          while (now - start < 5000) {
-            now = Date.now();
-          }
-          */
+
+          this._clickHandler(newCluster);
         });
       }
     }
 
     // Save the zoom level of the clusters -- they don't have to be updated if zoom doesn't change
     this._currentZoom = this._map.getZoom();
+    this._updateHandler(this.getClusters());
   }
 
   /**
@@ -358,6 +449,7 @@ class PinClusterer {
 }
 
 export {
+  PinCluster,
   PinClustererOptions,
   PinClusterer
 };

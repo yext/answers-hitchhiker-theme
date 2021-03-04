@@ -213,7 +213,7 @@ class NewMap extends ANSWERS.Component {
    */
   getClusterer () {
     const clustererOptions = new PinClustererOptions()
-      .withClickListener(() => {
+      .withClickHandler(() => {
         this.updateMapPropertiesInStorage();
         this.config.pinClusterClickListener();
       })
