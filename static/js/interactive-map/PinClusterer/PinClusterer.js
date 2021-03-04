@@ -19,6 +19,16 @@ class PinCluster {
     this.clusterPin = clusterPin;
     this.pins = [...pins];
   }
+
+  /**
+   * Returns true if the cluster contains the pin with the given id, false otherwise
+   *
+   * @param {string} id The unique identifier for the pin
+   * @returns {boolean}
+   */
+  containsPin(id) {
+    return this.pins.filter((pin) => pin.getId() === id).length;
+  }
 }
 
 /**
