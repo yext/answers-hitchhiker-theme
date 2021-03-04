@@ -25,7 +25,7 @@ npx jambo page --name index --template universal-standard
 ```
 
 Inside config/global_config.json, delete the "//" before "apiKey" and enter your `apiKey`. Do the same for the `experienceKey` inside config/locale_config.json.
-You can find examples inside test-site/config
+You can find examples inside test-site/config.
 
 Build the site:
 ```bash
