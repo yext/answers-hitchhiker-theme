@@ -1,10 +1,10 @@
 # Answers Hitchhiker Theme
 
-A [Jambo](https://github.com/yext/jambo) theme for building and customizing Answers experiences.
+A [Jambo](https://github.com/yext/jambo) theme for building Answers experiences.
 
-Additonal resources for integrating Answers can be found at https://hitchhikers.yext.com/
+Additonal resources for integrating Answers can be found at https://hitchhikers.yext.com/.
 
-Need help? Ask a question in the [Hitchhiker's Community](https://hitchhikers.yext.com/community/c/answers)
+Need help? Ask a question in the [Hitchhiker's Community](https://hitchhikers.yext.com/community/c/answers).
 
 ## Getting Started
 
@@ -25,7 +25,7 @@ npx jambo page --name index --template universal-standard
 ```
 
 Inside config/global_config.json, delete the "//" before "apiKey" and enter your `apiKey`. Do the same for the `experienceKey` inside config/locale_config.json.
-You can find examples inside test-site/config.
+You can find examples inside test-site/config
 
 Build the site:
 ```bash
@@ -37,7 +37,7 @@ Finally, serve the site:
 npx serve public
 ```
 
-The site should now be available at http://localhost:5000
+The site should now be available at http://localhost:5000.
 
 ## Custom Jambo Commands
 
@@ -51,7 +51,7 @@ Example usage:
 npx jambo vertical --name Locations --verticalKey locations --template vertical-standard
 ```
 
-See `jambo vertical --help` for more info
+See `jambo vertical --help` for more info.
 
 ### Card Command
 Creates a new, custom card based on an existing card.
@@ -61,7 +61,7 @@ Example usage:
 npx jambo card --name custom-location --templateCardFolder themes/answers-hitchhiker-theme/cards/location-standard
 ```
 
-See `jambo card --help` for more info
+See `jambo card --help` for more info.
 
 ### Direct Answer Card
 Creates a new, custom direct answer card.
@@ -71,4 +71,4 @@ Example usage:
 npx jambo directanswercard --name custom-directanswer --templateCardFolder themes/answers-hitchhiker-theme/directanswercards/allfields-standard
 ```
 
-See `jambo directanswercard --help` for more info
+See `jambo directanswercard --help` for more info.
