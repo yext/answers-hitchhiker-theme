@@ -1,4 +1,5 @@
-public/
+!public/overlay.html
+public/*
 Gruntfile.js
 package-lock.json
 package.json
