@@ -6,6 +6,8 @@ const HtmlPlugin = require('html-webpack-plugin');
 const RemovePlugin = require('remove-files-webpack-plugin');
 
 module.exports = function () {
+  const fontExtensionRegex = /\.(eot|otf|ttf|woff2?)$/;
+
   const isDevelopment = 'IS_DEVELOPMENT_PREVIEW' in process.env ?
     process.env.IS_DEVELOPMENT_PREVIEW === 'true':
     false;
@@ -120,10 +122,39 @@ module.exports = function () {
           ],
         },
         {
-          test: /\.(png|ico|gif|jpe?g|svg|webp|eot|otf|ttf|woff2?)$/,
+          test: /\.(png|ico|gif|jpe?g|svg|webp)$/,
           loader: 'file-loader',
           options: {
             name: '[name].[contenthash].[ext]'
+          }
+        },
+        {
+          test: fontExtensionRegex,
+          loader: 'url-loader',
+          options: {
+            generator: (content, _mimetype, _encoding, resourcePath) => {
+              let mimetype;
+              const fontExtension = fontExtensionRegex.exec(resourcePath)[0];
+              switch (fontExtension) {
+                case '.woff':
+                  mimetype = 'font/woff';
+                  break;
+                case '.woff2':
+                  mimetype = 'font/woff2';
+                  break;
+                case '.otf':
+                  mimetype = 'font/otf';
+                  break;
+                case '.ttf':
+                  mimetype = 'font/ttf';
+                  break;
+                default:
+                  mimetype = 'application/vnd.ms-fontobject';
+              }
+              const encoding = 'base64';
+
+              return `data:${mimetype};${encoding},${content.toString(encoding)}`;
+            }
           }
         },
         {
