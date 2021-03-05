@@ -60,7 +60,7 @@ if (!global.YxtAnswersOverlay) {
   if (document.readyState === 'complete') {
     global.YxtAnswersOverlay = new YextAnswersOverlay(window.YxtAnswersOverlaySettings);
   } else {
-    window.addEventListener('load', (event) => {
+    window.addEventListener('load', () => {
       global.YxtAnswersOverlay = new YextAnswersOverlay(window.YxtAnswersOverlaySettings);
     });
   }
