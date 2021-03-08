@@ -1,0 +1,81 @@
+{{#> layouts/html }}
+  {{#> script/core }}
+    {{> cards/all }}
+    {{!-- {{> templates/vertical-interactive-map/collapsible-filters/page-setup }} --}}
+    {{> templates/vertical-interactive-map/page-setup }}
+    {{> templates/vertical-interactive-map/script/searchbar }}
+    {{> templates/vertical-interactive-map/script/spellcheck }}
+    {{!-- {{> templates/vertical-interactive-map/script/navigation }} --}}
+    {{> templates/vertical-interactive-map/script/verticalresultscount }}
+    {{> templates/vertical-interactive-map/script/appliedfilters }}
+    {{!-- {{> templates/vertical-interactive-map/script/sortoptions }} --}}
+    {{!-- {{> templates/vertical-interactive-map/script/facets }} --}}
+    {{!-- {{> templates/vertical-interactive-map/script/filterbox }} --}}
+    {{> templates/vertical-interactive-map/script/verticalresults }}
+    {{> templates/vertical-interactive-map/script/pagination }}
+    {{!-- {{> templates/vertical-interactive-map/script/qasubmission }} --}}
+    {{> templates/vertical-interactive-map/script/locationbias modifier="main" }}
+    {{> templates/vertical-interactive-map/script/locationbias modifier="mobileMap" }}
+  {{/script/core }}
+  <script src="{{relativePath}}/locator-bundle.js" defer></script>
+    <div class="Answers AnswersVerticalMap CollapsibleFilters InteractiveMap InteractiveMap--listShown js-answersInteractiveMap">
+      <div class="Answers-content">
+        <div class="Answers-contentWrap js-locator-contentWrap" role="region" aria-label="{{ translate phrase="Main location search" }}">
+          <div class="Answers-resultsHeader">
+            <div class="Answers-searchWrapper js-sticky">
+              <div class="Answers-form">
+                {{> templates/vertical-interactive-map/markup/searchbar }}
+                {{!-- {{> templates/vertical-grid/markup/navigation }} --}} 
+              </div>
+            </div>
+            <div class="Answers-resultsHeaderTop">
+              {{> templates/vertical-interactive-map/markup/verticalresultscount }}
+              {{> templates/vertical-interactive-map/markup/appliedfilters }}
+              {{!-- {{> templates/vertical-interactive-map/collapsible-filters/markup/filterlink }} --}}
+              {{!-- {{> templates/vertical-interactive-map/collapsible-filters/markup/viewresultsbutton }} --}}
+            </div>
+            <div class="Answers-resultsHeaderBottom">
+              {{> templates/vertical-interactive-map/markup/alternativeresults }}
+            </div>
+          </div>
+          <!-- Uncomment the following div if you want to include filters, facets, or sort options  -->
+          {{!-- <div class="Answers-filtersWrapper js-answersFiltersWrapper CollapsibleFilters-inactive"> --}}
+            {{!-- {{> templates/vertical-interactive-map/markup/sortoptions }} --}}
+            {{!-- {{> templates/vertical-interactive-map/markup/facets }} --}}
+            {{!-- {{> templates/vertical-interactive-map/markup/filterbox }} --}}
+          {{!-- </div> --}}
+          <div class="Answers-resultsWrapper js-locator-resultsWrapper">
+            <div class="Answers-resultsContainer js-locator-resultsContainer js-answersResultsWrapper">
+              <div class="js-answersResultsColumn">
+                <div class="Answers-results js-answersResults">
+                  {{> templates/vertical-interactive-map/markup/spellcheck }}
+                  {{> templates/vertical-interactive-map/markup/verticalresults }}
+                  {{> templates/vertical-interactive-map/markup/pagination }}
+                  {{!-- {{> templates/vertical-interactive-map/markup/qasubmission }} --}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="Answers-stickyBottom" role="region" aria-label="{{ translate phrase="Map controls" }}">
+            {{> templates/vertical-interactive-map/markup/searchthisareatoggle modifier="desktop"}}
+            {{> templates/vertical-interactive-map/markup/locationbias modifier="main"}}
+          </div>
+        </div>
+        <div class="Answers-mapWrapper" role="region" aria-label="{{ translate phrase="Map" }}">
+          <div class="Answers-centerTop">
+            {{> templates/vertical-interactive-map/markup/searchthisareabutton }}
+          </div>
+          {{> templates/vertical-interactive-map/markup/map }}
+          <div class="Answers-mapFooter">
+              {{> templates/vertical-interactive-map/markup/searchthisareatoggle modifier="mobileMap"}}
+            {{> templates/vertical-interactive-map/markup/locationbias modifier="mobileMap"}}
+          </div>
+        </div>
+        {{> templates/vertical-interactive-map/markup/mobilelisttoggles }}
+      </div>
+    </div>
+    <div class="Answers-footer js-answersFooter">
+      {{> layouts/yext-logo }}
+    </div>
+{{/layouts/html }}
+

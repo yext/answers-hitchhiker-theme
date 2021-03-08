@@ -27,3 +27,6 @@ global.CollapsibleFilters = CollapsibleFilters;
 // Import custom modules which can be accessed from HitchhikerJS.CustomModules
 import * as CustomModules from './js/custom-modules';
 export { CustomModules };
+
+import StorageKeys from './js/storage-keys';
+export { StorageKeys };
