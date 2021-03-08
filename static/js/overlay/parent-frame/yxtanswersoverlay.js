@@ -57,11 +57,11 @@ export default class YextAnswersOverlay {
 }
 
 if (!global.YxtAnswersOverlay) {
-  if (document.readyState === 'complete') {
-    global.YxtAnswersOverlay = new YextAnswersOverlay(window.YxtAnswersOverlaySettings);
-  } else {
-    window.addEventListener('load', () => {
+  if (document.readyState === 'loading') {
+    window.addEventListener('DOMContentLoaded', (event) => {
       global.YxtAnswersOverlay = new YextAnswersOverlay(window.YxtAnswersOverlaySettings);
     });
+  } else {
+    global.YxtAnswersOverlay = new YextAnswersOverlay(window.YxtAnswersOverlaySettings);
   }
 }
