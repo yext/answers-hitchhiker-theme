@@ -469,16 +469,6 @@
     }
   }
 
-  &:not(.CollapsibleFilters--collapsed) {
-    .Answers-mobileToggles {
-      display: none;
-    }
-
-    .Answers-stickyBottom {
-      display: none;
-    }
-  }
-
   // TODO move to js
   &.InteractiveMap--noResults {
     .Answers-searchThisAreaWrapper {
@@ -600,6 +590,16 @@
   }
 
   &.CollapsibleFilters {
+    &.CollapsibleFilters--expanded {
+      .Answers-mobileToggles {
+        display: none;
+      }
+
+      .Answers-stickyBottom {
+        display: none;
+      }
+    }
+
     .Answers-viewResultsButton {
       @include bplte(sm) {
         width: 100%;

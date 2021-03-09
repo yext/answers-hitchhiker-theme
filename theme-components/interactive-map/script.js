@@ -16,7 +16,7 @@ ANSWERS.addComponent('InteractiveMap', Object.assign({},
   ),
   pageSettings: {{{ json pageSettings }}},
   onPinSelect: () => {
-    collapsibleFiltersInteractions.collapseFilters();
+    window.collapsibleFiltersInteractions && window.collapsibleFiltersInteractions.collapseFilters();
   },
   locale: "{{global_config.locale}}",
   verticalKey: "{{{verticalKey}}}",
