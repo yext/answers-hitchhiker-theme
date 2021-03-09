@@ -180,4 +180,11 @@ $container-width-at-collapsed-filters-breakpoint: $breakpoint-collapsed-filters 
   .yxt-SortOptions-optionLabel {
     font-size: var(--yxt-filters-and-sorts-font-size);
   }
+
+  .yxt-Card-child {
+    mark {
+      background-color: unset;
+      font-weight: var(--yxt-font-weight-medium);
+    }
+  }
 }
