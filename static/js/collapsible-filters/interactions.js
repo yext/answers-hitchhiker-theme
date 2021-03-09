@@ -13,6 +13,7 @@ export default class Interactions {
     this.resultsColumn = document.querySelector('.js-answersResultsColumn');
     this.inactiveCssClass = 'CollapsibleFilters-inactive';
     this.collapsedcCssClass = 'CollapsibleFilters--collapsed';
+    this.expandedCssClass = 'CollapsibleFilters--expanded';
     this.resultsWrapper = document.querySelector('.js-answersResultsWrapper')
       || document.querySelector('.Answers-resultsWrapper');
     this._updateStickyButton = this._updateStickyButton.bind(this);
@@ -189,8 +190,10 @@ export default class Interactions {
    */
   toggleCollapsedStatusClass(isCollapsed) {
     if (isCollapsed) {
+      this.collapsibleFiltersParentEl.classList.remove(this.expandedCssClass);
       this.collapsibleFiltersParentEl.classList.add(this.collapsedcCssClass)
     } else {
+      this.collapsibleFiltersParentEl.classList.add(this.expandedCssClass);
       this.collapsibleFiltersParentEl.classList.remove(this.collapsedcCssClass);
     }
   }

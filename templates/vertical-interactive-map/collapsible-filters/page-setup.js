@@ -8,6 +8,7 @@ const collapsibleFiltersInteractions = new CollapsibleFilters.Interactions({
   resultEls: document.querySelectorAll('.js-answersResults,.js-answersFooter'),
   disableScrollToTopOnToggle: true
 });
+window.collapsibleFiltersInteractions = collapsibleFiltersInteractions;
 
 // When a search is made with the searchbar, collapse the filters.
 collapsibleFiltersInteractions.registerCollapseFiltersOnSearchbarSearch();
