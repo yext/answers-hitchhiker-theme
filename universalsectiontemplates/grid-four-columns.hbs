@@ -20,10 +20,12 @@
 
 {{#*inline "header"}}
   <div class="HitchhikerResultsGridFourColumns-title">
-    {{#if iconIsBuiltIn}}
-      <div data-component="IconComponent" data-opts='{ "iconName": "{{ _config.icon }}" }'></div>
-    {{else}}
-      <div data-component="IconComponent" data-opts='{ "iconUrl": "{{ _config.icon }}" }'></div>
+    {{#if _config.icon}}
+      {{#if iconIsBuiltIn}}
+        <div data-component="IconComponent" data-opts='{ "iconName": "{{ _config.icon }}" }'></div>
+      {{else}}
+        <div data-component="IconComponent" data-opts='{ "iconUrl": "{{ _config.icon }}" }'></div>
+      {{/if}}
     {{/if}}
     <div class="HitchhikerResultsGridFourColumns-titleLabel">{{_config.title}}</div>
   </div>
