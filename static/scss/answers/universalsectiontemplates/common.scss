@@ -207,19 +207,6 @@
     flex-basis: 100%;
     flex-grow: 1;
 
-    &,
-    &-placeholder {
-      min-width: var(--yxt-cards-min-width);
-      border: var(--yxt-border-default);
-      margin-right: var(--yxt-cards-margin);
-    }
-
-    &-placeholder {
-      visibility: hidden;
-      border-top: none;
-      border-bottom: none;
-    }
-
     &-child {
       flex-grow: 1;
       min-height: 1px;
