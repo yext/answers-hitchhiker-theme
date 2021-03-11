@@ -1,4 +1,14 @@
+ // This variable does not change the filters width. It is simply used for calculation
+ $filters-width: 242px;
+ $container-width-at-collapsed-filters-breakpoint: $breakpoint-collapsed-filters - (2 * $filters-width);
+
 @mixin CollapsibleFiltersOverrides {
+  .Answers-container {
+    @media (min-width: #{$breakpoint-expanded-filters}) {
+      width: $container-width-at-collapsed-filters-breakpoint / $breakpoint-collapsed-filters * 100%;
+    }
+  }
+
   .yxt-FilterOptions {
     &-fieldSet {
       margin: 0;
