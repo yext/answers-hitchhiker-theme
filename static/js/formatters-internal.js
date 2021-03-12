@@ -544,7 +544,7 @@ export function price(fieldValue = {}, locale) {
  * @param {Array<Object>} matchedSubstrings The list of matched substrings to
  *                                          highlight.
  */
-export function highlightField(fieldValue, matchedSubstrings) {
+export function highlightField(fieldValue, matchedSubstrings = []) {
   let highlightedString = fieldValue;
 
   // We must first sort the matchedSubstrings by decreasing offset. 
