@@ -53,3 +53,17 @@ exports.addToPartials = function (partialsPath) {
     fs.writeFileSync('jambo.json', stringify(jamboConfig, null, 2));
   }
 }
+
+/**
+ * Returns whether or not the partialsPath exists in the partials object in the
+ * Jambo config
+ *
+ * @param {Object} jamboConfig The parsed jambo config
+ * @param {string} partialsPath The local path to the set of partials. 
+ * @returns {boolean}
+ */
+exports.containsPartial = function (jamboConfig, partialsPath) {
+  return jamboConfig.dirs
+    && jamboConfig.dirs.partials
+    && jamboConfig.dirs.partials.includes(partialsPath);
+}
