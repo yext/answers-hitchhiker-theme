@@ -12,7 +12,7 @@ import StorageKeys from '../storage-keys.js';
  * Interactions like clicking on a pin or dragging the map and
  * searching an area is controlled here
  */
-class VerticalFullPageMap extends ANSWERS.Component {
+class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
   constructor(config, systemConfig) {
     super(config, systemConfig);
 

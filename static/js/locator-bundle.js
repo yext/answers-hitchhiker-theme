@@ -1,4 +1,4 @@
-import { VerticalFullPageMap } from './theme-map/VerticalFullPageMap.js'
+import { VerticalFullPageMap } from './theme-map/VerticalFullPageMapOrchestrator.js'
 window.VerticalFullPageMap = VerticalFullPageMap;
 export { VerticalFullPageMap }
 
