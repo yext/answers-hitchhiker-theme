@@ -1,16 +1,16 @@
-From 660820c21d6fe401f8f95f62bf1299eddd3a76bc Mon Sep 17 00:00:00 2001
+From 41b11d6f2671beffca00808e87a74983118a94b9 Mon Sep 17 00:00:00 2001
 From: Connor Anderson <canderson@yext.com>
-Date: Thu, 4 Feb 2021 14:22:07 -0500
+Date: Mon, 15 Mar 2021 12:03:36 -0400
 Subject: [PATCH] Add custom card commands and the add vertical command
 
 ---
- .../commands/addvertical.js                   | 148 +++++++++++++++
- .../commands/cardcreator.js                   | 168 +++++++++++++++++
- .../commands/directanswercardcreator.js       | 173 ++++++++++++++++++
- .../commands/helpers/errors/usererror.js      |  20 ++
+ .../commands/addvertical.js                   | 148 ++++++++++++++++
+ .../commands/cardcreator.js                   | 160 +++++++++++++++++
+ .../commands/directanswercardcreator.js       | 165 ++++++++++++++++++
+ .../commands/helpers/errors/usererror.js      |  20 +++
  .../helpers/utils/argumentmetadata.js         |  52 ++++++
- .../helpers/utils/jamboconfigutils.js         |  55 ++++++
- 6 files changed, 616 insertions(+)
+ .../helpers/utils/jamboconfigutils.js         |  69 ++++++++
+ 6 files changed, 614 insertions(+)
  create mode 100644 themes/answers-hitchhiker-theme/commands/addvertical.js
  create mode 100644 themes/answers-hitchhiker-theme/commands/cardcreator.js
  create mode 100644 themes/answers-hitchhiker-theme/commands/directanswercardcreator.js
@@ -174,12 +174,12 @@ index 0000000..7343cb6
 +module.exports = VerticalAdder;
 diff --git a/themes/answers-hitchhiker-theme/commands/cardcreator.js b/themes/answers-hitchhiker-theme/commands/cardcreator.js
 new file mode 100644
-index 0000000..dfe5ca9
+index 0000000..33c1c6a
 --- /dev/null
 +++ b/themes/answers-hitchhiker-theme/commands/cardcreator.js
-@@ -0,0 +1,168 @@
+@@ -0,0 +1,160 @@
 +const fs = require('fs-extra');
-+const { addToPartials } = require('./helpers/utils/jamboconfigutils');
++const { containsPartial, addToPartials } = require('./helpers/utils/jamboconfigutils');
 +const path = require('path');
 +const UserError = require('./helpers/errors/usererror');
 +const { ArgumentMetadata, ArgumentType } = require('./helpers/utils/argumentmetadata');
@@ -294,7 +294,8 @@ index 0000000..dfe5ca9
 +
 +    const cardFolder = `${this._customCardsDir}/${cardFolderName}`;
 +    if (fs.existsSync(templateCardFolder)) {
-+      !fs.existsSync(this._customCardsDir) && this._createCustomCardsDir();
++      !fs.existsSync(this._customCardsDir) && fs.mkdirSync(this._customCardsDir);
++      !containsPartial(this._customCardsDir) && addToPartials(this._customCardsDir);
 +      fs.copySync(templateCardFolder, cardFolder);
 +      this._renameCardComponent(cardFolderName, cardFolder);
 +    } else {
@@ -335,25 +336,16 @@ index 0000000..dfe5ca9
 +      .replace(new RegExp(originalComponentName, 'g'), customCardName)
 +      .replace(/cards[/_](.*)[/_]template/g, `cards/${customCardName}/template`);
 +  }
-+
-+  /**
-+   * Creates the 'cards' directory in the Jambo repository and adds the newly 
-+   * created directory to the list of partials in the Jambo config.
-+   */
-+  _createCustomCardsDir() {
-+    fs.mkdirSync(this._customCardsDir);
-+    addToPartials(this._customCardsDir);
-+  }
 +}
 +module.exports = CardCreator;
 diff --git a/themes/answers-hitchhiker-theme/commands/directanswercardcreator.js b/themes/answers-hitchhiker-theme/commands/directanswercardcreator.js
 new file mode 100644
-index 0000000..b4c0652
+index 0000000..7658ca6
 --- /dev/null
 +++ b/themes/answers-hitchhiker-theme/commands/directanswercardcreator.js
-@@ -0,0 +1,173 @@
+@@ -0,0 +1,165 @@
 +const fs = require('fs-extra');
-+const { addToPartials } = require('./helpers/utils/jamboconfigutils');
++const { containsPartial, addToPartials } = require('./helpers/utils/jamboconfigutils');
 +const path = require('path');
 +const UserError = require('./helpers/errors/usererror');
 +const { ArgumentMetadata, ArgumentType } = require('./helpers/utils/argumentmetadata');
@@ -468,7 +460,8 @@ index 0000000..b4c0652
 +
 +    const cardFolder = `${this._customCardsDir}/${cardFolderName}`;
 +    if (fs.existsSync(templateCardFolder)) {
-+      !fs.existsSync(this._customCardsDir) && this._createCustomCardsDir();
++      !fs.existsSync(this._customCardsDir) && fs.mkdirSync(this._customCardsDir);
++      !containsPartial(this._customCardsDir) && addToPartials(this._customCardsDir);
 +      fs.copySync(templateCardFolder, cardFolder);
 +      this._renameCardComponent(cardFolderName, cardFolder);
 +    } else {
@@ -512,15 +505,6 @@ index 0000000..b4c0652
 +      .replace(
 +        /directanswercards[/_](.*)[/_]template/g,
 +        `directanswercards/${customCardName}/template`);
-+  }
-+
-+  /**
-+   * Creates the 'directanswercards' directory in the Jambo repository and adds the newly 
-+   * created directory to the list of partials in the Jambo config.
-+   */
-+  _createCustomCardsDir() {
-+    fs.mkdirSync(this._customCardsDir);
-+    addToPartials(this._customCardsDir);
 +  }
 +}
 +
@@ -613,10 +597,10 @@ index 0000000..2047695
 \ No newline at end of file
 diff --git a/themes/answers-hitchhiker-theme/commands/helpers/utils/jamboconfigutils.js b/themes/answers-hitchhiker-theme/commands/helpers/utils/jamboconfigutils.js
 new file mode 100644
-index 0000000..2e91f22
+index 0000000..c356cba
 --- /dev/null
 +++ b/themes/answers-hitchhiker-theme/commands/helpers/utils/jamboconfigutils.js
-@@ -0,0 +1,55 @@
+@@ -0,0 +1,69 @@
 +const fs = require('file-system');
 +const path = require('path');
 +const mergeOptions = require('merge-options');
@@ -672,7 +656,20 @@ index 0000000..2e91f22
 +    fs.writeFileSync('jambo.json', stringify(jamboConfig, null, 2));
 +  }
 +}
-\ No newline at end of file
++
++/**
++ * Returns whether or not the partialsPath exists in the partials object in the
++ * Jambo config
++ *
++ * @param {Object} jamboConfig The parsed jambo config
++ * @param {string} partialsPath The local path to the set of partials. 
++ * @returns {boolean}
++ */
++exports.containsPartial = function (jamboConfig, partialsPath) {
++  return jamboConfig.dirs
++    && jamboConfig.dirs.partials
++    && jamboConfig.dirs.partials.includes(partialsPath);
++}
 -- 
-2.28.0
+2.30.2
 

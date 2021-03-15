@@ -1,11 +1,14 @@
-From de361a97d605c1e9573ceb164473365f76e7c9fa Mon Sep 17 00:00:00 2001
+From 5515a51b0a869c0c8be2c7439eac0df299f19e7e Mon Sep 17 00:00:00 2001
 From: Connor Anderson <canderson@yext.com>
-Date: Thu, 4 Feb 2021 14:28:52 -0500
-Subject: [PATCH] Add vertical command
+Date: Mon, 15 Mar 2021 12:28:27 -0400
+Subject: [PATCH] patch updates
 
 ---
  .../commands/addvertical.js                   | 148 ++++++++++++++++++
- 1 file changed, 148 insertions(+)
+ .../commands/cardcreator.js                   |  14 +-
+ .../commands/directanswercardcreator.js       |  14 +-
+ .../helpers/utils/jamboconfigutils.js         |  16 +-
+ 4 files changed, 169 insertions(+), 23 deletions(-)
  create mode 100644 themes/answers-hitchhiker-theme/commands/addvertical.js
 
 diff --git a/themes/answers-hitchhiker-theme/commands/addvertical.js b/themes/answers-hitchhiker-theme/commands/addvertical.js
@@ -162,6 +165,104 @@ index 0000000..7343cb6
 +  }
 +}
 +module.exports = VerticalAdder;
+diff --git a/themes/answers-hitchhiker-theme/commands/cardcreator.js b/themes/answers-hitchhiker-theme/commands/cardcreator.js
+index dfe5ca9..33c1c6a 100644
+--- a/themes/answers-hitchhiker-theme/commands/cardcreator.js
++++ b/themes/answers-hitchhiker-theme/commands/cardcreator.js
+@@ -1,5 +1,5 @@
+ const fs = require('fs-extra');
+-const { addToPartials } = require('./helpers/utils/jamboconfigutils');
++const { containsPartial, addToPartials } = require('./helpers/utils/jamboconfigutils');
+ const path = require('path');
+ const UserError = require('./helpers/errors/usererror');
+ const { ArgumentMetadata, ArgumentType } = require('./helpers/utils/argumentmetadata');
+@@ -114,7 +114,8 @@ class CardCreator {
+ 
+     const cardFolder = `${this._customCardsDir}/${cardFolderName}`;
+     if (fs.existsSync(templateCardFolder)) {
+-      !fs.existsSync(this._customCardsDir) && this._createCustomCardsDir();
++      !fs.existsSync(this._customCardsDir) && fs.mkdirSync(this._customCardsDir);
++      !containsPartial(this._customCardsDir) && addToPartials(this._customCardsDir);
+       fs.copySync(templateCardFolder, cardFolder);
+       this._renameCardComponent(cardFolderName, cardFolder);
+     } else {
+@@ -155,14 +156,5 @@ class CardCreator {
+       .replace(new RegExp(originalComponentName, 'g'), customCardName)
+       .replace(/cards[/_](.*)[/_]template/g, `cards/${customCardName}/template`);
+   }
+-
+-  /**
+-   * Creates the 'cards' directory in the Jambo repository and adds the newly 
+-   * created directory to the list of partials in the Jambo config.
+-   */
+-  _createCustomCardsDir() {
+-    fs.mkdirSync(this._customCardsDir);
+-    addToPartials(this._customCardsDir);
+-  }
+ }
+ module.exports = CardCreator;
+diff --git a/themes/answers-hitchhiker-theme/commands/directanswercardcreator.js b/themes/answers-hitchhiker-theme/commands/directanswercardcreator.js
+index b4c0652..7658ca6 100644
+--- a/themes/answers-hitchhiker-theme/commands/directanswercardcreator.js
++++ b/themes/answers-hitchhiker-theme/commands/directanswercardcreator.js
+@@ -1,5 +1,5 @@
+ const fs = require('fs-extra');
+-const { addToPartials } = require('./helpers/utils/jamboconfigutils');
++const { containsPartial, addToPartials } = require('./helpers/utils/jamboconfigutils');
+ const path = require('path');
+ const UserError = require('./helpers/errors/usererror');
+ const { ArgumentMetadata, ArgumentType } = require('./helpers/utils/argumentmetadata');
+@@ -114,7 +114,8 @@ class DirectAnswerCardCreator {
+ 
+     const cardFolder = `${this._customCardsDir}/${cardFolderName}`;
+     if (fs.existsSync(templateCardFolder)) {
+-      !fs.existsSync(this._customCardsDir) && this._createCustomCardsDir();
++      !fs.existsSync(this._customCardsDir) && fs.mkdirSync(this._customCardsDir);
++      !containsPartial(this._customCardsDir) && addToPartials(this._customCardsDir);
+       fs.copySync(templateCardFolder, cardFolder);
+       this._renameCardComponent(cardFolderName, cardFolder);
+     } else {
+@@ -159,15 +160,6 @@ class DirectAnswerCardCreator {
+         /directanswercards[/_](.*)[/_]template/g,
+         `directanswercards/${customCardName}/template`);
+   }
+-
+-  /**
+-   * Creates the 'directanswercards' directory in the Jambo repository and adds the newly 
+-   * created directory to the list of partials in the Jambo config.
+-   */
+-  _createCustomCardsDir() {
+-    fs.mkdirSync(this._customCardsDir);
+-    addToPartials(this._customCardsDir);
+-  }
+ }
+ 
+ module.exports = DirectAnswerCardCreator;
+diff --git a/themes/answers-hitchhiker-theme/commands/helpers/utils/jamboconfigutils.js b/themes/answers-hitchhiker-theme/commands/helpers/utils/jamboconfigutils.js
+index 2e91f22..c356cba 100644
+--- a/themes/answers-hitchhiker-theme/commands/helpers/utils/jamboconfigutils.js
++++ b/themes/answers-hitchhiker-theme/commands/helpers/utils/jamboconfigutils.js
+@@ -52,4 +52,18 @@ exports.addToPartials = function (partialsPath) {
+     existingPartials.push(partialsPath);
+     fs.writeFileSync('jambo.json', stringify(jamboConfig, null, 2));
+   }
+-}
+\ No newline at end of file
++}
++
++/**
++ * Returns whether or not the partialsPath exists in the partials object in the
++ * Jambo config
++ *
++ * @param {Object} jamboConfig The parsed jambo config
++ * @param {string} partialsPath The local path to the set of partials. 
++ * @returns {boolean}
++ */
++exports.containsPartial = function (jamboConfig, partialsPath) {
++  return jamboConfig.dirs
++    && jamboConfig.dirs.partials
++    && jamboConfig.dirs.partials.includes(partialsPath);
++}
 -- 
-2.28.0
+2.30.2
 
