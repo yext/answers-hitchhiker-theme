@@ -485,4 +485,4 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
   }
 }
 
-export { VerticalFullPageMap };
+export { VerticalFullPageMapOrchestrator };
