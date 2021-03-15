@@ -1,4 +1,4 @@
-.InteractiveMap
+.VerticalFullPageMap
 {
   $results-width-desktop: var(--yxt-maps-desktop-results-container-width);
   $results-padding-top: 24px !default;
@@ -391,7 +391,7 @@
   }
 
   // TODO make this the default
-  &.InteractiveMap--listShown
+  &.VerticalFullPageMap--listShown
   {
     @include bplte($mobile-break-point-max) {
       height: 100%;
@@ -420,7 +420,7 @@
     }
   }
 
-  &.InteractiveMap--mapShown
+  &.VerticalFullPageMap--mapShown
   {
     .Answers-mapFooter {
       display: flex;
@@ -437,7 +437,7 @@
     }
   }
 
-  &.InteractiveMap--detailShown
+  &.VerticalFullPageMap--detailShown
   {
     .Answers
     {
@@ -461,7 +461,7 @@
     }
   }
 
-  &.InteractiveMap--showMobileViewToggles {
+  &.VerticalFullPageMap--showMobileViewToggles {
     .Answers-mobileToggles {
       @include bplte($mobile-break-point-max) {
         display: flex;
@@ -470,7 +470,7 @@
   }
 
   // TODO move to js
-  &.InteractiveMap--noResults {
+  &.VerticalFullPageMap--noResults {
     .Answers-searchThisAreaWrapper {
       display: none;
     }
@@ -481,7 +481,7 @@
   }
 
   // TODO move to js
-  &.InteractiveMap--showSearchThisArea:not(.InteractiveMap--noResults) {
+  &.VerticalFullPageMap--showSearchThisArea:not(.VerticalFullPageMap--noResults) {
     .Answers-searchThisAreaWrapper {
       display: flex;
     }

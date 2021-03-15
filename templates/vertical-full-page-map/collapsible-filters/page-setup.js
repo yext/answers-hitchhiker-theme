@@ -23,6 +23,6 @@ const facetsDecorator = new CollapsibleFilters.FacetsDecorator();
 // Register the theme components used in CollapsibleFilters, and
 // add them to the page with ANSWERS.addComponent()
 {{> theme-components/collapsible-filters/view-results-button/component}}
-{{> templates/vertical-interactive-map/collapsible-filters/script/viewresultsbutton }}
+{{> templates/vertical-full-page-map/collapsible-filters/script/viewresultsbutton }}
 {{> theme-components/collapsible-filters/filter-link/component}}
-{{> templates/vertical-interactive-map/collapsible-filters/script/filterlink }}
+{{> templates/vertical-full-page-map/collapsible-filters/script/filterlink }}

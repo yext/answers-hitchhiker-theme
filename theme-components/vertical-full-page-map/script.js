@@ -1,8 +1,8 @@
-ANSWERS.registerTemplate('theme-components/interactive-map', '');
-ANSWERS.registerComponentType(window.InteractiveMap);
-ANSWERS.addComponent('InteractiveMap', Object.assign({},
+ANSWERS.registerTemplate('theme-components/vertical-full-page-map', '');
+ANSWERS.registerComponentType(window.VerticalFullPageMap);
+ANSWERS.addComponent('VerticalFullPageMap', Object.assign({},
 {
-  container: '.js-answersInteractiveMap',
+  container: '.js-answersVerticalFullPageMap',
   apiKey: HitchhikerJS.getDefaultMapApiKey(
     {{#if componentSettings.Map.mapProvider}}
       "{{componentSettings.Map.mapProvider}}"
@@ -62,7 +62,7 @@ ANSWERS.addComponent('InteractiveMap', Object.assign({},
       {{{json mapConfig}}},
     {{/if}}
   {{/with}}
-  {{{ json componentSettings.InteractiveMap }}},
+  {{{ json componentSettings.VerticalFullPageMap }}},
 ));
 
 {{!--

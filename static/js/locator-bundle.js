@@ -1,11 +1,11 @@
-import { InteractiveMap } from './interactive-map/InteractiveMap.js'
-window.InteractiveMap = InteractiveMap;
-export { InteractiveMap }
+import { VerticalFullPageMap } from './theme-map/VerticalFullPageMap.js'
+window.VerticalFullPageMap = VerticalFullPageMap;
+export { VerticalFullPageMap }
 
-import { NewMap } from './interactive-map/NewMap.js'
-window.NewMap = NewMap;
-export { NewMap }
+import { ThemeMap } from './theme-map/ThemeMap.js'
+window.ThemeMap = ThemeMap;
+export { ThemeMap }
 
-import { CardListenerAssigner } from './interactive-map/CardListenerAssigner.js'
+import { CardListenerAssigner } from './theme-map/CardListenerAssigner.js'
 window.CardListenerAssigner = CardListenerAssigner;
 export { CardListenerAssigner }
