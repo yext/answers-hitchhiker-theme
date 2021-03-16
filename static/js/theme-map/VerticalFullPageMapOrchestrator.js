@@ -481,7 +481,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
   }
 
   static get type() {
-    return 'VerticalFullPageMap';
+    return 'VerticalFullPageMapOrchestrator';
   }
 }
 

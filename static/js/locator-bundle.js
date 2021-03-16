@@ -1,6 +1,6 @@
 import { VerticalFullPageMapOrchestrator } from './theme-map/VerticalFullPageMapOrchestrator.js'
-window.VerticalFullPageMap = VerticalFullPageMapOrchestrator;
-export { VerticalFullPageMapOrchestrator as VerticalFullPageMap }
+window.VerticalFullPageMapOrchestrator = VerticalFullPageMapOrchestrator;
+export { VerticalFullPageMapOrchestrator }
 
 import { ThemeMap } from './theme-map/ThemeMap.js'
 window.ThemeMap = ThemeMap;

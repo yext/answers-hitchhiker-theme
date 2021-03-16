@@ -1,6 +1,6 @@
 ANSWERS.registerTemplate('theme-components/vertical-full-page-map', '');
 ANSWERS.registerComponentType(window.VerticalFullPageMap);
-ANSWERS.addComponent('VerticalFullPageMap', Object.assign({},
+ANSWERS.addComponent('VerticalFullPageMapOrchestrator', Object.assign({},
 {
   container: '.js-answersVerticalFullPageMap',
   apiKey: HitchhikerJS.getDefaultMapApiKey(
