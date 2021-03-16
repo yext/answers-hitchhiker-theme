@@ -127,8 +127,8 @@ class GooglePin extends ProviderPin {
     this.pin.setPosition(new google.maps.LatLng(coordinate.latitude, coordinate.longitude));
   }
 
-  setMap(newMap, currentMap) {
-    this.pin.setMap(newMap ? newMap.getProviderMap().map : null);
+  setMap(themeMap, currentMap) {
+    this.pin.setMap(themeMap ? themeMap.getProviderMap().map : null);
   }
 
   setProperties(pinProperties) {

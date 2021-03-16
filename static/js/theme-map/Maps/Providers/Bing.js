@@ -177,16 +177,16 @@ class BingPin extends ProviderPin {
     }
   }
 
-  setMap(newMap, currentMap) {
+  setMap(themeMap, currentMap) {
     if (currentMap) {
       currentMap.getProviderMap().pinOverlay.removePin(this);
     }
 
-    if (newMap) {
-      newMap.getProviderMap().pinOverlay.addPin(this);
+    if (themeMap) {
+      themeMap.getProviderMap().pinOverlay.addPin(this);
     }
 
-    this._map = newMap;
+    this._map = themeMap;
   }
 
   setProperties(pinProperties) {

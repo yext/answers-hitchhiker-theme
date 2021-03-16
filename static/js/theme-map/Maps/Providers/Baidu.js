@@ -255,14 +255,14 @@ class BaiduPin extends ProviderPin {
     });
   }
 
-  setMap(newMap, currentMap) {
+  setMap(themeMap, currentMap) {
     this._coordinateReady.then(() => {
       if (currentMap) {
         currentMap.getProviderMap().map.removeOverlay(this.pin);
       }
 
-      if (newMap) {
-        newMap.getProviderMap().map.addOverlay(this.pin);
+      if (themeMap) {
+        themeMap.getProviderMap().map.addOverlay(this.pin);
       }
     });
   }

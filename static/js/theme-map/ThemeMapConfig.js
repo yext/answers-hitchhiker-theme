@@ -5,9 +5,9 @@ import { getLanguageForProvider } from './Util/helpers.js';
 import { defaultCenterCoordinate } from './constants.js';
 
 /**
- * The configuration for the NewMap component.
+ * The configuration for the ThemeMap component.
  */
-export default class NewMapConfig {
+export default class ThemeMapConfig {
   /**
    * @param {Object} jsonConfig Configuration to parse
    */

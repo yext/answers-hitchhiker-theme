@@ -121,11 +121,11 @@ class ProviderPin {
   }
 
   /**
-   * Remove the pin from its current map and, if newMap is not null, add it to the new map.
-   * @param {?Map} newMap The new map -- if null, the pin will not be shown on any map
+   * Remove the pin from its current map and, if themeMap is not null, add it to the new map.
+   * @param {?Map} themeMap The new map -- if null, the pin will not be shown on any map
    * @param {?Map} currentMap The current map -- if null, the pin is not shown on any map
    */
-  setMap(newMap, currentMap) {
+  setMap(themeMap, currentMap) {
     throw new Error('not implemented');
   }
 
