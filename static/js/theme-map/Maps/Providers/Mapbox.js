@@ -125,9 +125,9 @@ class MapboxPin extends ProviderPin {
     this.pin.setLngLat(new mapboxgl.LngLat(coordinate.longitude, coordinate.latitude));
   }
 
-  setMap(newMap, currentMap) {
-    if (newMap) {
-      this.pin.addTo(newMap.getProviderMap().map);
+  setMap(themeMap, currentMap) {
+    if (themeMap) {
+      this.pin.addTo(themeMap.getProviderMap().map);
     } else {
       this.pin.remove();
     }

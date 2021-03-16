@@ -12,7 +12,7 @@ import StorageKeys from '../storage-keys.js';
  * Interactions like clicking on a pin or dragging the map and
  * searching an area is controlled here
  */
-class InteractiveMap extends ANSWERS.Component {
+class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
   constructor(config, systemConfig) {
     super(config, systemConfig);
 
@@ -188,7 +188,7 @@ class InteractiveMap extends ANSWERS.Component {
       this.handleMapAreaChange();
     };
 
-    ANSWERS.addComponent('NewMap', Object.assign({}, {
+    ANSWERS.addComponent('ThemeMap', Object.assign({}, {
       container: this._mapContainerSelector,
       mapProvider: this._config.mapProvider,
       apiKey: this._config.apiKey,
@@ -219,7 +219,7 @@ class InteractiveMap extends ANSWERS.Component {
    */
   handleMapAreaChange () {
     if (!this.searchOnMapMove) {
-      this._container.classList.add('InteractiveMap--showSearchThisArea');
+      this._container.classList.add('VerticalFullPageMap--showSearchThisArea');
       return;
     }
 
@@ -276,7 +276,7 @@ class InteractiveMap extends ANSWERS.Component {
    * Remove the result focused state styling from all cards and pins on the page
    */
   removeResultFocusedStates () {
-    this._container.classList.remove('InteractiveMap--detailShown');
+    this._container.classList.remove('VerticalFullPageMap--detailShown');
     this._pageWrapperEl.classList.remove('YxtPage-wrapper--detailShown');
 
     document.querySelectorAll('.yxt-Card--pinFocused').forEach((el) => {
@@ -327,12 +327,12 @@ class InteractiveMap extends ANSWERS.Component {
         el.addEventListener('click', () => {
           card.classList.remove('yxt-Card--pinFocused');
           cardCopy.remove();
-          this._container.classList.remove('InteractiveMap--detailShown');
+          this._container.classList.remove('VerticalFullPageMap--detailShown');
           this._pageWrapperEl.classList.remove('YxtPage-wrapper--detailShown');
         });
       });
 
-      this._container.classList.add('InteractiveMap--detailShown');
+      this._container.classList.add('VerticalFullPageMap--detailShown');
       this._pageWrapperEl.classList.add('YxtPage-wrapper--detailShown');
     } else {
       this.scrollToResult(card);
@@ -355,20 +355,20 @@ class InteractiveMap extends ANSWERS.Component {
     if (data.response && data.response.entities && data.response.entities.length) {
       showToggles = true;
     }
-    this._container.classList.remove('InteractiveMap--detailShown');
+    this._container.classList.remove('VerticalFullPageMap--detailShown');
 
     if (showToggles) {
-      this._container.classList.add('InteractiveMap--showMobileViewToggles');
+      this._container.classList.add('VerticalFullPageMap--showMobileViewToggles');
       if (!listToggle.dataset.listened) {
         listToggle.dataset.listened = 'true';
         listToggle.addEventListener('click', () => {
-          this._container.classList.toggle('InteractiveMap--listShown');
-          this._container.classList.toggle('InteractiveMap--mapShown');
-          this._container.classList.remove('InteractiveMap--detailShown');
+          this._container.classList.toggle('VerticalFullPageMap--listShown');
+          this._container.classList.toggle('VerticalFullPageMap--mapShown');
+          this._container.classList.remove('VerticalFullPageMap--detailShown');
         });
       }
     } else {
-      this._container.classList.remove('InteractiveMap--showMobileViewToggles');
+      this._container.classList.remove('VerticalFullPageMap--showMobileViewToggles');
     }
   }
 
@@ -379,7 +379,7 @@ class InteractiveMap extends ANSWERS.Component {
    * the visible area.
    */
   searchThisArea() {
-    this._container.classList.remove('InteractiveMap--showSearchThisArea');
+    this._container.classList.remove('VerticalFullPageMap--showSearchThisArea');
 
     const mapProperties = this.core.storage.get(StorageKeys.LOCATOR_MAP_PROPERTIES);
     const center = mapProperties.visibleCenter;
@@ -427,10 +427,10 @@ class InteractiveMap extends ANSWERS.Component {
 
     if (data.resultsContext === 'no-results') {
       this._isNoResults = true;
-      this._container.classList.add('InteractiveMap--noResults');
+      this._container.classList.add('VerticalFullPageMap--noResults');
     } else {
       this._isNoResults = false;
-      this._container.classList.remove('InteractiveMap--noResults');
+      this._container.classList.remove('VerticalFullPageMap--noResults');
     }
 
     this.onMount();
@@ -473,7 +473,7 @@ class InteractiveMap extends ANSWERS.Component {
   }
 
   static defaultTemplateName() {
-    return 'theme-components/interactive-map';
+    return 'theme-components/vertical-full-page-map';
   }
 
   static areDuplicateNamesAllowed() {
@@ -481,8 +481,8 @@ class InteractiveMap extends ANSWERS.Component {
   }
 
   static get type() {
-    return 'InteractiveMap';
+    return 'VerticalFullPageMapOrchestrator';
   }
 }
 
-export { InteractiveMap };
+export { VerticalFullPageMapOrchestrator };

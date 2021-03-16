@@ -38,7 +38,7 @@ class ApplePin extends ProviderPin {
     // TODO
   }
 
-  setMap(newMap, currentMap) {
+  setMap(themeMap, currentMap) {
     // TODO
   }
 

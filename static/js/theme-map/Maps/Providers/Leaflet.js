@@ -93,9 +93,9 @@ class LeafletPin extends ProviderPin {
     this.pin.setLatLng(latLng);
   }
 
-  setMap(newMap, currentMap) {
-    if (newMap) {
-      this.pin.addTo(newMap.getProviderMap().map);
+  setMap(themeMap, currentMap) {
+    if (themeMap) {
+      this.pin.addTo(themeMap.getProviderMap().map);
     } else {
       this.pin.remove();
     }

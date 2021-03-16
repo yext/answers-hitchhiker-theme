@@ -6,8 +6,8 @@ class financial_professional_locationCardComponent extends BaseCard['financial-p
   }
 
   onMount() {
-    const onInteractiveMapPage = !!document.querySelector('.js-answersInteractiveMap');
-    onInteractiveMapPage && new CardListenerAssigner({card: this}).addListenersToCard();
+    const onVerticalFullPageMap = !!document.querySelector('.js-answersVerticalFullPageMap');
+    onVerticalFullPageMap && new CardListenerAssigner({card: this}).addListenersToCard();
     super.onMount();
   }
 

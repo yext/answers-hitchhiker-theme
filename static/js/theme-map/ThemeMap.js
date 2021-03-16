@@ -10,7 +10,7 @@ import { getEncodedSvg } from './Util/helpers.js';
 import { GoogleMaps } from './Maps/Providers/Google.js';
 import { MapboxMaps } from './Maps/Providers/Mapbox.js';
 
-import NewMapConfig from './NewMapConfig.js'
+import ThemeMapConfig from './ThemeMapConfig.js'
 import StorageKeys from '../storage-keys.js';
 
 /**
@@ -18,15 +18,15 @@ import StorageKeys from '../storage-keys.js';
  * including importing and initializing the map, assigning event 
  * listeners, and rendering the map on the page with results changes
  */
-class NewMap extends ANSWERS.Component {
+class ThemeMap extends ANSWERS.Component {
   constructor(rawConfig, systemConfig) {
     super(rawConfig, systemConfig);
 
     /**
      * Configuration with default logic
-     * @type {NewMapConfig}
+     * @type {ThemeMapConfig}
      */
-    this.config = new NewMapConfig(rawConfig);
+    this.config = new ThemeMapConfig(rawConfig);
 
     /**
      * The map object
@@ -412,7 +412,7 @@ class NewMap extends ANSWERS.Component {
   }
 
   static defaultTemplateName() {
-    return 'theme-components/new-map';
+    return 'theme-components/theme-map';
   }
 
   static areDuplicateNamesAllowed() {
@@ -420,8 +420,8 @@ class NewMap extends ANSWERS.Component {
   }
 
   static get type() {
-    return 'NewMap';
+    return 'ThemeMap';
   }
 }
 
-export { NewMap };
+export { ThemeMap };
