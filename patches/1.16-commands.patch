@@ -1,7 +1,7 @@
 From 3201f4cc62c870f6428e03de0fdb834099adba10 Mon Sep 17 00:00:00 2001
 From: Connor Anderson <canderson@yext.com>
 Date: Mon, 15 Mar 2021 13:24:04 -0400
-Subject: [PATCH] Card updates
+Subject: [PATCH] Update the custom card commands and add the add vertical command for theme v1.16
 
 ---
  .../commands/addvertical.js                   | 148 ++++++++++++++++++
