@@ -1,5 +1,5 @@
 ANSWERS.registerTemplate('theme-components/vertical-full-page-map', '');
-ANSWERS.registerComponentType(window.VerticalFullPageMap);
+ANSWERS.registerComponentType(window.VerticalFullPageMapOrchestrator);
 ANSWERS.addComponent('VerticalFullPageMapOrchestrator', Object.assign({},
 {
   container: '.js-answersVerticalFullPageMap',
