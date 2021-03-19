@@ -54,7 +54,7 @@
       max-height: 100%;
       width: 100%;
       position: absolute;
-      z-index: 2;
+      z-index: 3;
       display: flex;
       flex-direction: column;
 
@@ -187,7 +187,7 @@
       position: fixed;
       bottom: 72px;
       right: 16px;
-      z-index: 2;
+      z-index: 4;
       background-color: #eaeaea;
       color: black;
       cursor: pointer;
