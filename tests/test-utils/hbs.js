@@ -21,8 +21,8 @@ function registerCustomHbsHelpers(hbs, pathToCustomHelpers) {
       try {
         hbs.registerHelper(helperName, require(filePath));
       } catch (err) {
-        throw new UserError(
-          `Could not register handlebars helper from file ${path}`, err.stack);
+        throw new Error(
+          `Could not register handlebars helper from file ${filePath}`, err.stack);
       }
     });
   return hbs;
