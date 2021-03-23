@@ -164,6 +164,10 @@
       height: 100%;
       right: 0;
       top: 0;
+
+      @include bplte($mobile-break-point-max) {
+        max-height: 100vh;
+      }
     }
 
     &-map
