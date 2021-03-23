@@ -19,7 +19,7 @@ export default function transformFacets (facets, config) {
     const fieldConfig = config.fields[facet.fieldId];
 
     const options = facet.options.map(option => {
-      if (!('fieldLabels') in fieldConfig) {
+      if (!('fieldLabels' in fieldConfig)) {
         return option;
       }
       const fieldLabels = fieldConfig.fieldLabels;
