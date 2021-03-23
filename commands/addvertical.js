@@ -93,7 +93,7 @@ class VerticalAdder {
     const customCardsDir = 'cards';
     if (fs.existsSync(customCardsDir)) {
       fs.readdirSync(customCardsDir, { withFileTypes: true })
-        .filter(dirent => !dirent.isFile())
+        .filter(dirent => !dirent.isFile() && !cards.includes(dirent.name))
         .forEach(dirent => cards.push(dirent.name));
     }
 
