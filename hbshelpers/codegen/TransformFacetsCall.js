@@ -23,6 +23,9 @@ class TransformFacetsCall {
    * @param {Object} fields filterOptions keyed by fieldId
    */
   static _generateFacetModificationCode (fields) {
+    if (typeof fields !== 'object') {
+      return '';
+    }
     return Object.entries(fields).reduce((acc, [fieldId, filterOptions]) => {
       return acc + `if (facet.fieldId === '${fieldId}') {
         ${this._generateFilterOptionsSetterCode(filterOptions)}
@@ -38,10 +41,17 @@ class TransformFacetsCall {
    * @param {Object} filterOptions option values keyed by option name
    */
   static _generateFilterOptionsSetterCode (filterOptions) {
+    if (typeof filterOptions !== 'object') {
+      return '';
+    }
     return Object.entries(filterOptions).reduce((acc, [option, value]) => {
-      return option !== 'fieldLabels'
-        ? acc + `facet['${option}'] = '${value}';\n`
-        : acc;
+      if (option === 'fieldLabels') {
+        return acc;
+      }
+      if (typeof value === 'boolean' || typeof value === 'number'){
+        return acc + `facet['${option}'] = ${value};\n`;
+      }
+      return acc + `facet['${option}'] = '${value}';\n`;
     }, '');
   }
 
@@ -51,7 +61,7 @@ class TransformFacetsCall {
    * @param {Object} fieldLabels new option display names keyed by old display names
    */
   static _generateFacetOptionsModificationCode (fieldLabels) {
-    if (!fieldLabels) {
+    if (typeof fieldLabels !== 'object') {
       return '';
     }
     const displayNameTransformationsCode =
