@@ -7,7 +7,7 @@ it('performs a chained lookup', () => {
         c: 123
       }
     }
-  }
+  };
   expect(chainedLookup(context, 'a', 'b', 'c', {})).toEqual(123);
 });
 
@@ -18,7 +18,7 @@ it('short circuits when key does not exist', () => {
         c: 123
       }
     }
-  }
+  };
   expect(chainedLookup(context, 'a', '123', 'asdf', {})).toEqual(undefined);
 });
 
@@ -28,6 +28,6 @@ it('short circuits when intermediate key points to non-object', () => {
     a: {
       b: 123
     }
-  }
+  };
   expect(chainedLookup(context, 'a', 'b', 'c', 'd', {})).toEqual(undefined);
 });
