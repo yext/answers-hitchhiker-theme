@@ -8,5 +8,6 @@ ANSWERS.addComponent('Facets', {
       facetsDecorator.onMount(this);
     }
   },
+  transformFacets: {{{ generateTransformFacetsCall componentSettings.Facets }}},
   ...{{{ json componentSettings.Facets }}},
 });
