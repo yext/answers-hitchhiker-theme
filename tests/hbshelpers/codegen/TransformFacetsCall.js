@@ -43,6 +43,19 @@ it('generates transform facet calls', () => {
   expect(standardizeWhitespace(actualCode)).toEqual(standardizeWhitespace(expectedCode));
 });
 
+it('the function generator properly handles empty fields', () => {
+  const fields = {};
+  const expectedCode = 
+   `(facets, config) => {
+     return facets.map(facet => {
+       let options = facet.options;
+       return Object.assign({}, facet, { options });
+      });
+    }`;
+  const actualCode = TransformFacetsCall.generate(fields);
+  expect(standardizeWhitespace(actualCode)).toEqual(standardizeWhitespace(expectedCode));
+});
+
 it('generates filter options setter code', () => {
   const filterOptions = {
     searchable: true,
