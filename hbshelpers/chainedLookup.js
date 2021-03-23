@@ -9,7 +9,7 @@
 module.exports = function chainedLookup(context, ...lookupChain) {
   let lookupResult = context;
   for (const lookup of lookupChain.slice(0, -1)) {
-    if (!context || typeof context !== 'object') {
+    if (!lookupResult || typeof lookupResult !== 'object') {
       return '';
     }
     lookupResult = lookupResult[lookup];
