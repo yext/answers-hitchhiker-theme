@@ -37,7 +37,6 @@
     "resolve-url-loader": "^3.1.1",
     "sass-loader": "^8.0.2",
     "simple-git": "^2.15.0",
-    "underscore.string": "3.2.3",
     "webpack": "^5.4.0",
     "webpack-cli": "^4.2.0"
   },
@@ -52,9 +51,11 @@
     "iframe-resizer": "^4.1.1",
     "is-mobile": "^2.2.2",
     "libphonenumber-js": "^1.7.51",
+    "lodash": "^4.17.20",
     "lodash.clonedeep": "^4.5.0",
     "merge-options": "^2.0.0",
-    "remove-files-webpack-plugin": "^1.4.3"
+    "remove-files-webpack-plugin": "^1.4.3",
+    "underscore.string": "3.3.5"
   },
   "engines": {
     "node": ">=10"
