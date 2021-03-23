@@ -10,7 +10,7 @@ module.exports = function chainedLookup(context, ...lookupChain) {
   let lookupResult = context;
   for (const lookup of lookupChain.slice(0, -1)) {
     if (!lookupResult || typeof lookupResult !== 'object') {
-      return '';
+      return undefined;
     }
     lookupResult = lookupResult[lookup];
   }
