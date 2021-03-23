@@ -6,6 +6,7 @@ class TransformFacetsCall {
    * Generates a transformFacets function based on the fields config
    * 
    * @param {Object} fields filterOptions keyed by fieldId
+   * @returns {string} the generated code
    */
   static generate (fields) {
     return `(facets, config) => {
@@ -21,6 +22,7 @@ class TransformFacetsCall {
    * Generates code which modifies the in-scope facet based on the fields config
    * 
    * @param {Object} fields filterOptions keyed by fieldId
+   * @returns {string} the generated code
    */
   static _generateFacetModificationCode (fields) {
     if (typeof fields !== 'object') {
@@ -39,6 +41,7 @@ class TransformFacetsCall {
    * option is not included because it is processed separately.
    * 
    * @param {Object} filterOptions option values keyed by option name
+   * @returns {string} the generated code
    */
   static _generateFilterOptionsSetterCode (filterOptions) {
     if (typeof filterOptions !== 'object') {
@@ -59,6 +62,7 @@ class TransformFacetsCall {
    * Generates code which modifies the display names of the in-scope DisplayableFacetOption array
    * 
    * @param {Object} fieldLabels new option display names keyed by old display names
+   * @returns {string} the generated code
    */
   static _generateFacetOptionsModificationCode (fieldLabels) {
     if (typeof fieldLabels !== 'object') {
