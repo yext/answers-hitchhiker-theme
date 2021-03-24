@@ -1,0 +1,26 @@
+/** @define HitchhikerResultsGridFourColumns */
+
+@import 'common';
+
+.HitchhikerResultsGridFourColumns
+{
+  @include universal-standard;
+
+  &-items
+  {
+    @include column-grid-items;
+  }
+
+  &-Card
+  {
+    &--universal
+    {
+      @media (min-width: $breakpoint-mobile-min) {
+        margin: var(--hh-universal-grid-margin);
+        flex-basis: var(--hh-universal-grid-four-columns-width);
+        max-width: var(--hh-universal-grid-four-columns-width);
+        border: var(--yxt-border-default);
+      }
+    }
+  }
+}

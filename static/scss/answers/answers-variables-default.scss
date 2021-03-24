@@ -25,6 +25,7 @@ $container-width: 1000px;
   --hh-product-tag-text-color: var(--yxt-color-brand-white);
   --hh-product-tag-background-color: var(--hh-color-gray-3);
   --hh-universal-grid-margin: 8px;
+  --hh-universal-grid-four-columns-width: calc(calc(100% - var(--hh-universal-grid-margin) * 8)/4);
   --hh-universal-grid-three-columns-width: calc(calc(100% - var(--hh-universal-grid-margin) * 6) / 3);
   --hh-universal-grid-two-columns-width: calc(calc(100% - var(--hh-universal-grid-margin) * 4) / 2);
   --hh-universal-section-title-text-color: var(--yxt-color-text-primary);

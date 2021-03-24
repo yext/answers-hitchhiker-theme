@@ -527,7 +527,7 @@ export { generateCTAFieldTypeLink };
  */
 export function price(fieldValue = {}, locale) {
   const localeForFormatting = locale || _getDocumentLocale() || 'en';
-  const price = fieldValue.value && parseInt(fieldValue.value);
+  const price = fieldValue.value && parseFloat(fieldValue.value);
   const currencyCode = fieldValue.currencyCode && fieldValue.currencyCode.split('-')[0];
   if (!price || isNaN(price) || !currencyCode) {
     console.warn(`No price or currency code in the price fieldValue object: ${fieldValue}`);
@@ -544,7 +544,7 @@ export function price(fieldValue = {}, locale) {
  * @param {Array<Object>} matchedSubstrings The list of matched substrings to
  *                                          highlight.
  */
-export function highlightField(fieldValue, matchedSubstrings) {
+export function highlightField(fieldValue, matchedSubstrings = []) {
   let highlightedString = fieldValue;
 
   // We must first sort the matchedSubstrings by decreasing offset. 

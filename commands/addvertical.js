@@ -84,10 +84,20 @@ class VerticalAdder {
     if (!defaultTheme || !themesDir) {
       return [];
     }
-    const cardsDir = path.join(themesDir, defaultTheme, 'cards');
-    return fs.readdirSync(cardsDir, { withFileTypes: true })
+    const themeCardsDir = path.join(themesDir, defaultTheme, 'cards');
+
+    const cards = fs.readdirSync(themeCardsDir, { withFileTypes: true })
       .filter(dirent => !dirent.isFile())
       .map(dirent => dirent.name);
+
+    const customCardsDir = 'cards';
+    if (fs.existsSync(customCardsDir)) {
+      fs.readdirSync(customCardsDir, { withFileTypes: true })
+        .filter(dirent => !dirent.isFile() && !cards.includes(dirent.name))
+        .forEach(dirent => cards.push(dirent.name));
+    }
+
+    return cards;
   }
 
   /**

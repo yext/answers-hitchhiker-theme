@@ -1,5 +1,5 @@
 const fs = require('fs-extra');
-const { addToPartials } = require('./helpers/utils/jamboconfigutils');
+const { containsPartial, addToPartials } = require('./helpers/utils/jamboconfigutils');
 const path = require('path');
 const UserError = require('./helpers/errors/usererror');
 const { ArgumentMetadata, ArgumentType } = require('./helpers/utils/argumentmetadata');
@@ -114,7 +114,8 @@ class CardCreator {
 
     const cardFolder = `${this._customCardsDir}/${cardFolderName}`;
     if (fs.existsSync(templateCardFolder)) {
-      !fs.existsSync(this._customCardsDir) && this._createCustomCardsDir();
+      !fs.existsSync(this._customCardsDir) && fs.mkdirSync(this._customCardsDir);
+      !containsPartial(this._customCardsDir) && addToPartials(this._customCardsDir);
       fs.copySync(templateCardFolder, cardFolder);
       this._renameCardComponent(cardFolderName, cardFolder);
     } else {
@@ -154,15 +155,6 @@ class CardCreator {
       .replace(registerComponentTypeRegex, `(${customComponentClassName})`)
       .replace(new RegExp(originalComponentName, 'g'), customCardName)
       .replace(/cards[/_](.*)[/_]template/g, `cards/${customCardName}/template`);
-  }
-
-  /**
-   * Creates the 'cards' directory in the Jambo repository and adds the newly 
-   * created directory to the list of partials in the Jambo config.
-   */
-  _createCustomCardsDir() {
-    fs.mkdirSync(this._customCardsDir);
-    addToPartials(this._customCardsDir);
   }
 }
 module.exports = CardCreator;

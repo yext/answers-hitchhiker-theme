@@ -30,6 +30,7 @@
 
 // Universal Section Template styling
 @import "universalsectiontemplates/standard";
+@import "universalsectiontemplates/grid-four-columns";
 @import "universalsectiontemplates/grid-three-columns";
 @import "universalsectiontemplates/grid-two-columns";
 
@@ -62,7 +63,7 @@
 @import "collapsible-filters/view-results-button";
 
 // Vertical map component styling
-@import 'interactive-map/InteractiveMap.scss';
+@import 'interactive-map/VerticalFullPageMap.scss';
 
 // HH files
 @import "../answers";

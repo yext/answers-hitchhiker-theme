@@ -3,15 +3,17 @@
  */
 export default class Interactions {
   constructor(config) {
-    const { filterEls, resultEls, disableScrollToTopOnToggle } = config;
+    const { filterEls, resultEls, disableScrollToTopOnToggle, templateName } = config;
     this.collapsibleFiltersParentEl = document.querySelector('.CollapsibleFilters');
     this.filterEls = filterEls || [];
     this.resultEls = resultEls || [];
+    this.templateName = templateName;
     this.viewResultsButton = document.getElementById('js-answersViewResultsButton');
     this.searchBarContainer = document.getElementById('js-answersSearchBar');
     this.resultsColumn = document.querySelector('.js-answersResultsColumn');
     this.inactiveCssClass = 'CollapsibleFilters-inactive';
     this.collapsedcCssClass = 'CollapsibleFilters--collapsed';
+    this.expandedCssClass = 'CollapsibleFilters--expanded';
     this.resultsWrapper = document.querySelector('.js-answersResultsWrapper')
       || document.querySelector('.Answers-resultsWrapper');
     this._updateStickyButton = this._updateStickyButton.bind(this);
@@ -188,8 +190,10 @@ export default class Interactions {
    */
   toggleCollapsedStatusClass(isCollapsed) {
     if (isCollapsed) {
+      this.collapsibleFiltersParentEl.classList.remove(this.expandedCssClass);
       this.collapsibleFiltersParentEl.classList.add(this.collapsedcCssClass)
     } else {
+      this.collapsibleFiltersParentEl.classList.add(this.expandedCssClass);
       this.collapsibleFiltersParentEl.classList.remove(this.collapsedcCssClass);
     }
   }
@@ -229,6 +233,16 @@ export default class Interactions {
     });
     if (this.resultsColumn) {
       this.resultsColumn.scrollTop = 0;
+    }
+  }
+
+  /**
+   * Set the page template name as a CSS class on the footer so the it can be styled for CFilters
+   */
+  setupFooter() {
+    const yxtFooter = document.querySelector('.js-yxtFooter');
+    if (yxtFooter && this.templateName) {
+      yxtFooter.classList.add(this.templateName);
     }
   }
 }

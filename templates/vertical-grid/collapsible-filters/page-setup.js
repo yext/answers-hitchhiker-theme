@@ -5,7 +5,8 @@ const IS_COLLAPSIBLE_FILTERS = true;
 // of it, to be called within component config.
 const collapsibleFiltersInteractions = new CollapsibleFilters.Interactions({
   filterEls: document.querySelectorAll('.js-answersFiltersWrapper'),
-  resultEls: document.querySelectorAll('.js-answersResults,.js-answersFooter')
+  resultEls: document.querySelectorAll('.js-answersResults,.js-answersFooter,.js-yxtFooter'),
+  templateName: 'VerticalGrid'
 });
 
 // When a search is made with the searchbar, collapse the filters.
@@ -13,6 +14,9 @@ collapsibleFiltersInteractions.registerCollapseFiltersOnSearchbarSearch();
 
 // Make the view results button sticky
 collapsibleFiltersInteractions.stickifyViewResultsButton(true);
+
+// Setup the Footer so that it can properly interact with CFilters
+collapsibleFiltersInteractions.setupFooter();
 
 // Register an instance of CollapsibleFilters.FacetsDecorator,
 // to decorate the Facets component with

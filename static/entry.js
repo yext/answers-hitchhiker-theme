@@ -30,3 +30,6 @@ export { CustomModules };
 
 import StorageKeys from './js/storage-keys';
 export { StorageKeys };
+
+import transformFacets from './js/transform-facets';
+export { transformFacets }
