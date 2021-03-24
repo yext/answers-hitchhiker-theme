@@ -121,9 +121,25 @@ class GeoBounds {
     const newLon = (nw.longitude + this._ne.longitude) / 2 + (this._ne.longitude < nw.longitude ? 180 : 0);
 
     nw.add(-latDist / 2, 0, Unit.DEGREE, projection);
-    nw.longitude = newLon;
+    nw.longitude = this._getNormalizedLongitude(newLon);
 
     return nw;
+  }
+
+  /**
+   * Normalize lng to the range [-180, 180]. If you give -181, for
+   * example, we wrap back to 180.
+   *
+   * @param {Number} lng The longitude
+   * @returns {Number} The normalized longitude
+   */
+  _getNormalizedLongitude(lng) {
+    const positiveModLng = ((lng % 361) + 361) % 361;
+    const normalizedLng = positiveModLng > 180
+      ? positiveModLng - 361
+      : positiveModLng;
+
+    return normalizedLng;
   }
 }
 
