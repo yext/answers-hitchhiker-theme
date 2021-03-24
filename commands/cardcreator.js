@@ -73,7 +73,7 @@ class CardCreator {
     if (!defaultTheme || !themesDir) {
       return [];
     }
-    const cardsDir = path.join(themesDir, defaultTheme, 'cards');
+    const themeCardsDir = path.join(themesDir, defaultTheme, 'cards');
     const cardPaths = new Set();
     const addCardsToSet = cardsDir => {
       if (!fs.existsSync(cardsDir)) {
@@ -83,7 +83,7 @@ class CardCreator {
         .filter(dirent => !dirent.isFile())
         .forEach(dirent => cardPaths.add(path.join('cards', dirent.name)));
     };
-    [cardsDir, 'cards'].forEach(dir => addCardsToSet(dir));
+    [themeCardsDir, 'cards'].forEach(dir => addCardsToSet(dir));
     return Array.from(cardPaths);
   }
 

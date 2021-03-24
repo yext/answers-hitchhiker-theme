@@ -73,7 +73,7 @@ class DirectAnswerCardCreator {
     if (!defaultTheme || !themesDir) {
       return [];
     }
-    const daCardsDir = path.join(themesDir, defaultTheme, 'directanswercards');
+    const themeCardsDir = path.join(themesDir, defaultTheme, 'directanswercards');
     const cardPaths = new Set();
     const addCardsToSet = cardsDir => {
       if (!fs.existsSync(cardsDir)) {
@@ -83,7 +83,7 @@ class DirectAnswerCardCreator {
         .filter(dirent => !dirent.isFile())
         .forEach(dirent => cardPaths.add(path.join('directanswercards', dirent.name)));
     };
-    [daCardsDir, 'directanswercards'].forEach(dir => addCardsToSet(dir));
+    [themeCardsDir, 'directanswercards'].forEach(dir => addCardsToSet(dir));
     return Array.from(cardPaths);
   }
 
