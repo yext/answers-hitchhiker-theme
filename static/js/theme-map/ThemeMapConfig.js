@@ -25,6 +25,22 @@ export default class ThemeMapConfig {
     this.apiKey = jsonConfig.apiKey;
 
     /**
+     * Controls the visual offset of each pin.
+     */
+    this.pinAnchors = {
+      anchorX: 0.5,
+      anchorY: 0.5
+    };
+
+    /**
+     * Controls the visual offset of each cluster pin.
+     */
+    this.pinClusterAnchors = {
+      anchorX: 0.5,
+      anchorY: 0.5
+    };
+
+    /**
      * The client id for the map provider (if applicable)
      * @type {string}
      */
