@@ -79,7 +79,7 @@ export default class ThemeMapConfig {
      * The padding for the map within the viewable area
      * @type {Object}
      */
-    this.mapPadding = {
+    this.padding = {
       top: () => window.innerWidth <= this.mobileBreakpointMax ? 150 : 50,
       bottom: () => 50,
       right: () => 50,
