@@ -18,18 +18,19 @@ export default function transformFacets (facets, config) {
     }
     const facetConfig = config.fields[facet.fieldId];
 
-    const options = facet.options.map(option => {
-      if (!('fieldLabels' in facetConfig)) {
-        return option;
-      }
-      const fieldLabels = facetConfig.fieldLabels;
+    let options = facet.options;
 
-      const displayName = (option.displayName in fieldLabels)
-        ? fieldLabels[option.displayName]
-        : option.displayName;
+    if ('fieldLabels' in facetConfig) {
+      options = facet.options.map(option => {
+        const fieldLabels = facetConfig.fieldLabels;
 
-      return Object.assign({}, option, { displayName });
-    });
+        const displayName = (option.displayName in fieldLabels)
+          ? fieldLabels[option.displayName]
+          : option.displayName;
+
+        return Object.assign({}, option, { displayName });
+      })
+    }
 
     const filterOptionsConfig = Object.entries(facetConfig).reduce((filterOptions, [option, value]) => {
       if (option !== 'fieldLabels') {
