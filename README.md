@@ -58,7 +58,7 @@ Creates a new, custom card based on an existing card.
 
 Example usage:
 ```bash
-npx jambo card --name custom-location --templateCardFolder themes/answers-hitchhiker-theme/cards/location-standard
+npx jambo card --name custom-location --templateCardFolder cards/location-standard
 ```
 
 See `jambo card --help` for more info.
@@ -68,7 +68,7 @@ Creates a new, custom direct answer card.
 
 Example usage:
 ```bash
-npx jambo directanswercard --name custom-directanswer --templateCardFolder themes/answers-hitchhiker-theme/directanswercards/allfields-standard
+npx jambo directanswercard --name custom-directanswer --templateCardFolder directanswercards/allfields-standard
 ```
 
 See `jambo directanswercard --help` for more info.
