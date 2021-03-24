@@ -157,6 +157,15 @@
       width: 100%;
     }
 
+    &-nav
+    {
+      @include bplte($mobile-break-point-max)
+      {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+
     &-mapWrapper {
       display: block;
       position: absolute;
