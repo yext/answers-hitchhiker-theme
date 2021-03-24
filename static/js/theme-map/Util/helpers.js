@@ -55,8 +55,25 @@ const isViewableWithinContainer = (targetEl, containerEl) => {
   return isScrolledIntoView;
 };
 
+
+/**
+ * Normalize lng to the range [-180, 180]. If you give -181, for
+ * example, we wrap back to 179. If lng is 180, we return 180. Otherwise, we
+ * prefer to return -180 over 180 when wrapping, as they are the same coordinate.
+ *
+ * @param {Number} lng The longitude
+ * @returns {Number} The normalized longitude
+ */
+const getNormalizedLongitude = (lng) => {
+  if (lng === 180) {
+    return lng;
+  }
+  return ((lng + 180) % 360 + 360) % 360 - 180;
+}
+
 export {
   getLanguageForProvider,
   getEncodedSvg,
+  getNormalizedLongitude,
   isViewableWithinContainer
 }
