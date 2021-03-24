@@ -527,7 +527,7 @@ export { generateCTAFieldTypeLink };
  */
 export function price(fieldValue = {}, locale) {
   const localeForFormatting = locale || _getDocumentLocale() || 'en';
-  const price = fieldValue.value && parseInt(fieldValue.value);
+  const price = fieldValue.value && parseFloat(fieldValue.value);
   const currencyCode = fieldValue.currencyCode && fieldValue.currencyCode.split('-')[0];
   if (!price || isNaN(price) || !currencyCode) {
     console.warn(`No price or currency code in the price fieldValue object: ${fieldValue}`);
