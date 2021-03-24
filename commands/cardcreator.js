@@ -76,7 +76,7 @@ class CardCreator {
     const cardsDir = path.join(themesDir, defaultTheme, 'cards');
     return fs.readdirSync(cardsDir, { withFileTypes: true })
       .filter(dirent => !dirent.isFile())
-      .map(dirent => path.join(cardsDir, dirent.name));
+      .map(dirent => path.join('cards', dirent.name));
   }
 
   /**
@@ -113,13 +113,14 @@ class CardCreator {
     }
 
     const cardFolder = `${this._customCardsDir}/${cardFolderName}`;
-    if (fs.existsSync(templateCardFolder)) {
+    const themeCardFolder = path.join(this.config.dirs.themes, defaultTheme, templateCardFolder);
+    if (fs.existsSync(themeCardFolder)) {
       !fs.existsSync(this._customCardsDir) && fs.mkdirSync(this._customCardsDir);
       !containsPartial(this._customCardsDir) && addToPartials(this._customCardsDir);
-      fs.copySync(templateCardFolder, cardFolder);
+      fs.copySync(themeCardFolder, cardFolder);
       this._renameCardComponent(cardFolderName, cardFolder);
     } else {
-      throw new UserError(`The folder ${templateCardFolder} does not exist`);
+      throw new UserError(`The folder ${themeCardFolder} does not exist`);
     }
   }
 
