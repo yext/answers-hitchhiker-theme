@@ -1,10 +1,10 @@
 /**
- * A Facets component transformFacets function which applies the configuration
- * specified by the Facets 'fields' option
+ * Transforms the Facets.fields component configuration into a transformFacets function
+ * which can be understood by the Answers Search UI.
  * 
  * @param {DisplayableFacet[]} facets from answers-core
- * @param {FilterOptionsConfig} config from answers-search-ui
- * @returns {DisplayableFacet[]} from answers-core
+ * @param {FilterOptionsConfig} config the config of the FilterOptionsConfig from answers-search-ui
+ * @returns {(DisplayableFacet | FilterOptionsConfig)[]}
  */
 export default function transformFacets (facets, config) {
   if(!config || !('fields' in config)) {
@@ -12,17 +12,17 @@ export default function transformFacets (facets, config) {
   }
 
   return facets.map(facet => {
-    const isFacetFieldConfigSpecified = facet.fieldId in config.fields;
-    if (!isFacetFieldConfigSpecified) {
+    const isConfigurationForFacet = facet.fieldId in config.fields;
+    if (!isConfigurationForFacet) {
       return facet;
     }
-    const fieldConfig = config.fields[facet.fieldId];
+    const facetConfig = config.fields[facet.fieldId];
 
     const options = facet.options.map(option => {
-      if (!('fieldLabels' in fieldConfig)) {
+      if (!('fieldLabels' in facetConfig)) {
         return option;
       }
-      const fieldLabels = fieldConfig.fieldLabels;
+      const fieldLabels = facetConfig.fieldLabels;
 
       const displayName = (option.displayName in fieldLabels)
         ? fieldLabels[option.displayName]
@@ -31,7 +31,7 @@ export default function transformFacets (facets, config) {
       return Object.assign({}, option, { displayName });
     });
 
-    const filterOptionsConfig = Object.entries(fieldConfig).reduce((filterOptions, [option, value]) => {
+    const filterOptionsConfig = Object.entries(facetConfig).reduce((filterOptions, [option, value]) => {
       if (option !== 'fieldLabels') {
         filterOptions[option] = value;
       }
