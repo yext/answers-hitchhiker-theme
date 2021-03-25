@@ -5,6 +5,8 @@ import { SearchDebouncer } from './SearchDebouncer';
 import { defaultCenterCoordinate } from './constants.js';
 
 import ZoomTriggers from './Maps/ZoomTriggers.js';
+import PanTriggers from './Maps/PanTriggers.js';
+
 import StorageKeys from '../storage-keys.js';
 
 /**
@@ -164,7 +166,11 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
     /**
      * The listener called when the map stops panning
      */
-    const panHandler = (prevousBounds, currentBounds) => {
+    const panHandler = (prevousBounds, currentBounds, panTrigger) => {
+      if (panTrigger === PanTriggers.API) {
+        return;
+      }
+
       this.handleMapCenterChange();
     }
 

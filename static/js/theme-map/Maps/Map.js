@@ -6,6 +6,7 @@ import { MapPinOptions } from './MapPin.js';
 import { MapProvider } from './MapProvider.js';
 import { ProviderMapOptions } from './ProviderMap.js';
 import ZoomTriggers from './ZoomTriggers.js';
+import PanTriggers from './PanTriggers.js';
 
 /**
  * The maximum percent of the map height or width that can be taken up by padding.
@@ -292,6 +293,7 @@ class Map {
     this._idlePromise = Promise.resolve();
     this._setIdle();
     this._zoomTrigger = ZoomTriggers.UNSET;
+    this._panTrigger = PanTriggers.UNSET;
 
     this.setPanHandler(options.panHandler);
     this.setPanStartHandler(options.panStartHandler);
@@ -438,9 +440,10 @@ class Map {
       this._panHandler(previousBounds, new GeoBounds(
         new Coordinate(this._currentBounds.sw),
         new Coordinate(this._currentBounds.ne)
-      ));
+      ), this.getPanTrigger());
 
       this._panHandlerRunning = false;
+      this.setPanTrigger(PanTriggers.UNSET);
     });
 
     this._setIdle();
@@ -462,7 +465,7 @@ class Map {
       this._panStartHandler(new GeoBounds(
         new Coordinate(this._currentBounds.sw),
         new Coordinate(this._currentBounds.ne)
-      ));
+      ), this.getPanTrigger());
 
       this._panStartHandlerRunning = false;
     });
@@ -647,6 +650,7 @@ class Map {
    * @param {boolean} [animated=false] Whether to transition smoothly to the new center
    */
   setCenter(coordinate, animated = false) {
+    this.setPanTrigger(PanTriggers.API);
     this._map.setCenter(new Coordinate(coordinate), animated);
   }
 
@@ -752,6 +756,7 @@ class Map {
    */
   setZoomCenter(zoom, center, animated = false) {
     this.setZoomTrigger(ZoomTriggers.API);
+    this.setPanTrigger(PanTriggers.API);
     this._map.setZoomCenter(zoom, center, animated);
   }
 
@@ -770,6 +775,23 @@ class Map {
    */
   getZoomTrigger() {
     return this._zoomTrigger;
+  }
+
+  /**
+   * The pan trigger is the initiator of the map pan, which can occur when a user
+   * moves the map, or when the map is automatically fit around a cluster or a set
+   * of results.
+   * @param {PanTriggers} panTrigger
+   */
+  setPanTrigger(panTrigger) {
+    this._panTrigger = panTrigger;
+  }
+
+  /**
+   * @return {PanTriggers} The trigger for the last pan
+   */
+  getPanTrigger() {
+    return this._panTrigger;
   }
 
   /**
