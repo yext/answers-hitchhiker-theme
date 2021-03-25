@@ -55,8 +55,36 @@ const isViewableWithinContainer = (targetEl, containerEl) => {
   return isScrolledIntoView;
 };
 
+
+/**
+ * Normalize lng to the range [-180, 180]. If you give -181, for
+ * example, we wrap back to 179. If lng is 180, we return 180. Otherwise, we
+ * prefer to return -180 over 180 when wrapping, as they are the same coordinate.
+ *
+ * The idea is that we must mod by the range of the longitude values (360) to
+ * be span our entire range of values. In order to have our negative to
+ * positive wrapping work with modulus, the values we mod by need to be positive.
+ *
+ * 1. Add 180 to shift values to make sure -180 to 0 map to 0 to 180 
+ *    and 0 to 180 map to 180 to 360 for example
+ * 2. Mod by 360 to make the range (-360, 360)
+ * 3. Add 360 and mod by 360 again to make the range positive [0, 360)
+ * 4. Subtract by 180 to make the range into the desired range [-180, 180)
+ *
+ * @param {Number} lng The longitude
+ * @returns {Number} The normalized longitude
+ */
+const getNormalizedLongitude = (lng) => {
+  if (lng === 180) {
+    return lng;
+  }
+  const range = 360; // 180 - (-180)
+  return ((lng + 180) % range + range) % range - 180;
+}
+
 export {
   getLanguageForProvider,
   getEncodedSvg,
+  getNormalizedLongitude,
   isViewableWithinContainer
 }
