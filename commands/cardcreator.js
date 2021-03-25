@@ -73,10 +73,18 @@ class CardCreator {
     if (!defaultTheme || !themesDir) {
       return [];
     }
-    const cardsDir = path.join(themesDir, defaultTheme, 'cards');
-    return fs.readdirSync(cardsDir, { withFileTypes: true })
-      .filter(dirent => !dirent.isFile())
-      .map(dirent => path.join(cardsDir, dirent.name));
+    const themeCardsDir = path.join(themesDir, defaultTheme, 'cards');
+    const cardPaths = new Set();
+    const addCardsToSet = cardsDir => {
+      if (!fs.existsSync(cardsDir)) {
+        return;
+      }
+      fs.readdirSync(cardsDir, { withFileTypes: true })
+        .filter(dirent => !dirent.isFile())
+        .forEach(dirent => cardPaths.add(path.join('cards', dirent.name)));
+    };
+    [themeCardsDir, 'cards'].forEach(dir => addCardsToSet(dir));
+    return Array.from(cardPaths);
   }
 
   /**
@@ -112,15 +120,23 @@ class CardCreator {
       throw new UserError(`A folder with name ${cardFolderName} already exists`);
     }
 
-    const cardFolder = `${this._customCardsDir}/${cardFolderName}`;
+    const newCardFolder = `${this._customCardsDir}/${cardFolderName}`;
+    const originalCardFolder = this._getOriginalCardFolder(defaultTheme, templateCardFolder);
+    !fs.existsSync(this._customCardsDir) && fs.mkdirSync(this._customCardsDir);
+    !containsPartial(this._customCardsDir) && addToPartials(this._customCardsDir);
+    fs.copySync(originalCardFolder, newCardFolder);
+    this._renameCardComponent(cardFolderName, newCardFolder);
+  }
+
+  _getOriginalCardFolder(defaultTheme, templateCardFolder) {
     if (fs.existsSync(templateCardFolder)) {
-      !fs.existsSync(this._customCardsDir) && fs.mkdirSync(this._customCardsDir);
-      !containsPartial(this._customCardsDir) && addToPartials(this._customCardsDir);
-      fs.copySync(templateCardFolder, cardFolder);
-      this._renameCardComponent(cardFolderName, cardFolder);
-    } else {
-      throw new UserError(`The folder ${templateCardFolder} does not exist`);
+      return templateCardFolder
+    } 
+    const themeCardFolder = path.join(this.config.dirs.themes, defaultTheme, templateCardFolder);
+    if (fs.existsSync(themeCardFolder)) {
+      return themeCardFolder;
     }
+    throw new UserError(`The folder ${themeCardFolder} does not exist at the root or in the theme.`);
   }
 
   _renameCardComponent(customCardName, cardFolder) {
