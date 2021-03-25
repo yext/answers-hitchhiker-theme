@@ -303,7 +303,10 @@ class ThemeMap extends ANSWERS.Component {
         const properties = new PinProperties()
           .setIcon(status.hovered || status.focused || status.selected ? 'hovered' : 'default')
           .setWidth(28)
-          .setHeight(28);
+          .setHeight(28)
+          .setAnchorX(this.config.pinClusterAnchors.anchorX)
+          .setAnchorY(this.config.pinClusterAnchors.anchorY);
+
 
         return properties;
       })
@@ -339,7 +342,9 @@ class ThemeMap extends ANSWERS.Component {
         const properties = new PinProperties()
           .setIcon(status.selected ? 'selected' : ((status.hovered || status.focused) ? 'hovered' : 'default'))
           .setSRText(index)
-          .setZIndex(status.selected ? 1 : ((status.hovered || status.focused) ? 2 : 0));
+          .setZIndex(status.selected ? 1 : ((status.hovered || status.focused) ? 2 : 0))
+          .setAnchorX(this.config.pinAnchors.anchorX)
+          .setAnchorY(this.config.pinAnchors.anchorY);
 
         properties.setWidth(24);
         properties.setHeight(28);
