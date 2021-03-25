@@ -25,6 +25,24 @@ export default class ThemeMapConfig {
     this.apiKey = jsonConfig.apiKey;
 
     /**
+     * Controls the visual offset of each pin.
+     * @type {Object}
+     */
+    this.pinAnchors = {
+      anchorX: 0.5,
+      anchorY: 0.5
+    };
+
+    /**
+     * Controls the visual offset of each cluster pin.
+     * @type {Object}
+     */
+    this.pinClusterAnchors = {
+      anchorX: 0.5,
+      anchorY: 0.5
+    };
+
+    /**
      * The client id for the map provider (if applicable)
      * @type {string}
      */
@@ -79,7 +97,7 @@ export default class ThemeMapConfig {
      * The padding for the map within the viewable area
      * @type {Object}
      */
-    this.mapPadding = {
+    this.padding = {
       top: () => window.innerWidth <= this.mobileBreakpointMax ? 150 : 50,
       bottom: () => 50,
       right: () => 50,

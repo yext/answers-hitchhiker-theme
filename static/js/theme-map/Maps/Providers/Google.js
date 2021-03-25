@@ -143,7 +143,7 @@ class GooglePin extends ProviderPin {
 
     if (icon) {
       options.icon = {
-        anchor: new google.maps.Point(pinProperties.getAnchorX() * width, pinProperties.getAnchorY() * height),
+        anchor: new google.maps.Point(anchorX * width, anchorY * height),
         scaledSize: new google.maps.Size(width, height),
         url: this._icons[pinProperties.getIcon()]
       }
