@@ -26,6 +26,7 @@ export default class ThemeMapConfig {
 
     /**
      * Controls the visual offset of each pin.
+     * @type {Object}
      */
     this.pinAnchors = {
       anchorX: 0.5,
@@ -34,6 +35,7 @@ export default class ThemeMapConfig {
 
     /**
      * Controls the visual offset of each cluster pin.
+     * @type {Object}
      */
     this.pinClusterAnchors = {
       anchorX: 0.5,
