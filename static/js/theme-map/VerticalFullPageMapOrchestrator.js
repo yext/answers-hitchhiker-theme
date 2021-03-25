@@ -175,7 +175,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
     }
 
     /**
-     * Record the current zoom during a zoom event
+     * The listener called when the zoom changes
      *
      * @param {number} zoom The zoom during a zoom event
      * @param {ZoomTriggers} zoomTrigger The intitiator of the zoom

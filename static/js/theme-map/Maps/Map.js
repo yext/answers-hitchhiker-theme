@@ -778,9 +778,7 @@ class Map {
   }
 
   /**
-   * The pan trigger is the initiator of the map pan, which can occur when a user
-   * moves the map, or when the map is automatically fit around a cluster or a set
-   * of results.
+   * Sets the PanTrigger which indicates the reason for the most recent map pan
    * @param {PanTriggers} panTrigger
    */
   setPanTrigger(panTrigger) {
