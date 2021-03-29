@@ -11,18 +11,11 @@ class CardListenerAssigner {
     this.card = card;
 
     /**
-     * The upper bound (inclusive) of the mobile breakpoint in px
-     *
-     * @type {Number}
-     */
-    this.mobileBreakpointMax = 991;
-
-    /**
      * The matcher to determine if the window width is within the mobile breakpoint
      *
      * @type {MediaQueryList}
      */
-    this.mediaMatcher = window.matchMedia(`(max-width: ${this.mobileBreakpointMax}px)`);
+    this.mobileMediaMatcher = window.matchMedia(`(max-width: 991px)`);
   }
 
   /**
@@ -38,7 +31,7 @@ class CardListenerAssigner {
    */
   _addCardClickListener () {
     this.card._container.parentElement.addEventListener('click', () => {
-      if (this.mediaMatcher.matches) {
+      if (this.mobileMediaMatcher.matches) {
         return;
       }
 
@@ -56,7 +49,7 @@ class CardListenerAssigner {
   _addLinkFocusListeners() {
     this.card._container.querySelectorAll('a').forEach((el) => {
       el.addEventListener('focus', () => {
-        if (this.mediaMatcher.matches) {
+        if (this.mobileMediaMatcher.matches) {
           return;
         }
 
