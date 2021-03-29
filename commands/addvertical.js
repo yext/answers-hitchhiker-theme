@@ -1,5 +1,6 @@
 const fs = require('fs-extra');
 const path = require('path');
+const { parse, stringify } = require('comment-json');
 const { spawnSync } = require('child_process');
 
 const UserError = require('./helpers/errors/usererror');
@@ -37,7 +38,7 @@ class VerticalAdder {
       name: new ArgumentMetadata(ArgumentType.STRING, 'name of the vertical\'s page', true),
       verticalKey: new ArgumentMetadata(ArgumentType.STRING, 'the vertical\'s key', true),
       cardName: new ArgumentMetadata(
-        ArgumentType.STRING, 'card to use with vertical', false, 'standard'),
+        ArgumentType.STRING, 'card to use with vertical', false),
       template: new ArgumentMetadata(
         ArgumentType.STRING, 'page template to use within theme', true)
     };
@@ -119,12 +120,71 @@ class VerticalAdder {
    * @param {Object<string, string>} args The arguments, keyed by name 
    */
   execute(args) {
-    if (!VerticalAdder._getAvailableCards(this.config).includes(args.cardName)) {
-      throw new UserError(`${args.cardName} is not a valid card`);
+    this._validateArgs(args);
+    this._createVerticalPage(args.name, args.template);
+    const cardName = args.cardName || this._getCardDefault(args.template);
+    this._configureVerticalPage(args.name, args.verticalKey, cardName);
+  }
+
+
+  /**
+   * Structural validation (missing required parameters, etc.) is handled by YArgs. This
+   * method provides an additional validation layer to ensure the provided template and
+   * cardName are valid. Any issue will result in a {@link UserError} being thrown.
+   * 
+   * @param {Object} args The command parameters.
+   */
+  _validateArgs(args) {
+    if (args.template === 'universal-standard') {
+      throw new UserError('A vertical cannot be initialized with the universal template');
     }
 
-    this._createVerticalPage(args.name, args.template);
-    this._configureVerticalPage(args.name, args.verticalKey, args.cardName);
+    const themeDir = this._getThemeDirectory(this.config);
+    const templateDir = path.join(themeDir, 'templates', args.template);
+    if (!fs.existsSync(templateDir)) {
+      throw new UserError(`${args.template} is not a valid template in the Theme`);
+    }
+
+    const availableCards = VerticalAdder._getAvailableCards(this.config);
+    if (args.cardName && !availableCards.includes(args.cardName)) {
+      throw new UserError(`${args.cardName} is not a valid card`);
+    }
+  }
+
+  /**
+   * Determines the default card type to use for a vertical. This is done by parsing the
+   * provided vertical template's page-config.json to find the cardType, if it exists.
+   * If the parsed JSON has no cardType, the 'standard' card is reported as the default.
+   * 
+   * @param {string} template The vertical's template name.
+   * @returns {string} The default card type.
+   */
+  _getCardDefault(template) {
+    const themeDir = this._getThemeDirectory(this.config);
+    const templateDir = path.join(themeDir, 'templates', template);
+
+    const pageConfig = parse(
+      fs.readFileSync(path.join(templateDir, 'page-config.json'), 'utf-8'));
+    const verticalConfig = pageConfig.verticalsToConfig['<REPLACE ME>'];
+    
+    return verticalConfig.cardType || 'standard';
+  }
+
+  /**
+   * Returns the path to the defaultTheme. If there is no defaultTheme, or
+   * the themes directory does not exist, null is returned.
+   * 
+   * @param {Object} jamboConfig The Jambo configuration for the site.
+   * @returns The path to the defaultTheme, relative to the top-level of the site.
+   */
+  _getThemeDirectory(jamboConfig) {
+    const defaultTheme = jamboConfig.defaultTheme;
+    const themesDir = jamboConfig.dirs && jamboConfig.dirs.themes;
+    if (!defaultTheme || !themesDir) {
+      return null;
+    }
+
+    return path.join(themesDir, defaultTheme);
   }
 
   /**
@@ -149,10 +209,17 @@ class VerticalAdder {
    */
   _configureVerticalPage(name, verticalKey, cardName) {
     const configFile = `config/${name}.json`;
-    let parsedConfig = fs.readFileSync(configFile, { encoding: 'utf-8' });
-    parsedConfig = parsedConfig.replace(/\<REPLACE ME\>/g, verticalKey);
-    parsedConfig = parsedConfig.replace(/"cardType": "[^,]+"/, `"cardType": "${cardName}"`);
-    fs.writeFileSync(configFile, parsedConfig);
+    let parsedConfig = parse(fs.readFileSync(configFile, { encoding: 'utf-8' }));
+
+    parsedConfig.verticalKey = verticalKey;
+
+    parsedConfig.verticalsToConfig[verticalKey] = 
+      parsedConfig.verticalsToConfig['<REPLACE ME>'];
+    delete parsedConfig.verticalsToConfig['<REPLACE ME>'];
+
+    parsedConfig.verticalsToConfig[verticalKey].cardType = cardName;
+
+    fs.writeFileSync(configFile, stringify(parsedConfig, null, 2));
   }
 }
 module.exports = VerticalAdder;
