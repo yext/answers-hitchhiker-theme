@@ -409,6 +409,10 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
    * the visible area.
    */
   searchThisArea() {
+    const numConcurrentSearchThisAreaCalls = this.core.storage.get(StorageKeys.NUM_CONCURRENT_SEARCH_THIS_AREA_CALLS);
+    const updatedNumSearchThisAreaCalls = numConcurrentSearchThisAreaCalls + 1 || 1;
+    this.core.storage.set(StorageKeys.NUM_CONCURRENT_SEARCH_THIS_AREA_CALLS, updatedNumSearchThisAreaCalls);
+
     this._container.classList.remove('VerticalFullPageMap--showSearchThisArea');
 
     const mapProperties = this.core.storage.get(StorageKeys.LOCATOR_MAP_PROPERTIES);
@@ -426,7 +430,6 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       remove: () => this.core.clearStaticFilterNode('SearchThisArea')
     });
     this.core.setStaticFilterNodes('SearchThisArea', filterNode);
-    this.core.storage.set(StorageKeys.LOCATOR_FROM_SEARCH_THIS_AREA, true);
     this.core.verticalSearch(this.verticalKey, {
       setQueryParams: true,
       resetPagination: true,

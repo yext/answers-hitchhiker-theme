@@ -397,9 +397,12 @@ class ThemeMap extends ANSWERS.Component {
     const universalData = transformDataToUniversalData(data);
     let entityData = verticalData.length ? verticalData : universalData;
 
-    const fromSearchThisArea = this.core.storage.get(StorageKeys.LOCATOR_FROM_SEARCH_THIS_AREA);
-    this.core.storage.delete(StorageKeys.LOCATOR_FROM_SEARCH_THIS_AREA);
-    let updateZoom = !fromSearchThisArea;
+    const numConcurrentSearchThisAreaCalls = this.core.storage.get(StorageKeys.NUM_CONCURRENT_SEARCH_THIS_AREA_CALLS);
+    if (numConcurrentSearchThisAreaCalls > 0) {
+      this.core.storage.set(StorageKeys.NUM_CONCURRENT_SEARCH_THIS_AREA_CALLS, numConcurrentSearchThisAreaCalls - 1); 
+    }
+
+    let updateZoom = numConcurrentSearchThisAreaCalls <= 0;
 
     const isNoResults = data.resultsContext === 'no-results';
     if (isNoResults && !this.config.displayAllResultsOnNoResults) {
