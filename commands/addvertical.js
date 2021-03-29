@@ -211,6 +211,8 @@ class VerticalAdder {
     const configFile = `config/${name}.json`;
     let parsedConfig = parse(fs.readFileSync(configFile, { encoding: 'utf-8' }));
 
+    parsedConfig.verticalKey = verticalKey;
+
     parsedConfig.verticalsToConfig[verticalKey] = 
       parsedConfig.verticalsToConfig['<REPLACE ME>'];
     delete parsedConfig.verticalsToConfig['<REPLACE ME>'];
