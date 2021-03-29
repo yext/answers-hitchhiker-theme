@@ -362,6 +362,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       if (!listToggle.dataset.listened) {
         listToggle.dataset.listened = 'true';
         listToggle.addEventListener('click', () => {
+          window.scrollTo(0, 0);
           this._container.classList.toggle('VerticalFullPageMap--listShown');
           this._container.classList.toggle('VerticalFullPageMap--mapShown');
           this._container.classList.remove('VerticalFullPageMap--detailShown');
