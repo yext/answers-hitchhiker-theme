@@ -175,7 +175,12 @@
       top: 0;
 
       @include bplte($mobile-break-point-max) {
-        max-height: 100vh;
+        overflow: auto;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
       }
     }
 
@@ -188,7 +193,7 @@
 
       @include bplte($mobile-break-point-max)
       {
-        top: var(--yxt-maps-mobile-results-header-height);
+        top: 0;
         transition: height 0.3s ease-out;
         height: calc(100% - var(--yxt-maps-mobile-results-header-height) - var(--yxt-maps-mobile-results-footer-height));
       }
@@ -447,6 +452,10 @@
 
   &.VerticalFullPageMap--mapShown
   {
+    .Answers-map {
+      top: var(--yxt-maps-mobile-results-header-height);
+    }
+
     .Answers-mapFooter {
       display: flex;
     }
@@ -573,7 +582,7 @@
     }
 
     @include bplte($mobile-break-point-max) {
-      position: absolute;
+      position: fixed;
       bottom: 0;
       left: 0;
       width: 100%;
@@ -636,6 +645,16 @@
         position: fixed;
       }
     }
+  }
+}
+
+.YxtPage-wrapper--mapShown {
+  .YxtPage-content {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
   }
 }
 
