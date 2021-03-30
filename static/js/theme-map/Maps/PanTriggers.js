@@ -5,10 +5,15 @@
  */
 export default {
   /**
-   * Indicates that the panTrigger is not set, and therefore there is no specific
-   * behavior that should occur if the panHandler is called with this PanTrigger.
+   * Indicates that the panTrigger is not set.
    */
   UNSET: '',
+  /**
+   * Indicates that the pan occured as a result of user interaction.
+   * 
+   * This includes moving the map or clicking on a pin cluster.
+   */
+  USER: 'user',
   /** 
    * Indicates that the map is panning due to programatic reason, and therefore a new
    * search should not be ran if the panHandler is called while this PanTrigger is set

@@ -461,6 +461,12 @@ class Map {
 
     this._panStartHandlerRunning = true;
 
+    // We assume that the pan trigger is the user if it was
+    // left unset by our locator code
+    if (this.getPanTrigger() === PanTriggers.UNSET) {
+      this.setPanTrigger(PanTriggers.USER);
+    }
+
     requestAnimationFrame(() => {
       this._panStartHandler(new GeoBounds(
         new Coordinate(this._currentBounds.sw),

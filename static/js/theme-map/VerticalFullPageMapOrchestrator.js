@@ -159,7 +159,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
     const pinClusterClickListener = () => this.searchOnMapMove && this.searchThisArea();
 
     /**
-     * The listener called when the map stops panning
+     * The listener called when the map pans
      */
     const panHandler = (prevousBounds, currentBounds, panTrigger) => {
       if (panTrigger === PanTriggers.API) {
