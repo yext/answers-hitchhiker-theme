@@ -40,7 +40,13 @@ class VerticalAdder {
       cardName: new ArgumentMetadata(
         ArgumentType.STRING, 'card to use with vertical', false),
       template: new ArgumentMetadata(
-        ArgumentType.STRING, 'page template to use within theme', true)
+        ArgumentType.STRING, 'page template to use within theme', true),
+      locales: new ArgumentMetadata(
+        ArgumentType.ARRAY,
+        'additional locales to generate the page for',
+        false,
+        [],
+        ArgumentType.STRING)
     };
   }
 
@@ -71,9 +77,53 @@ class VerticalAdder {
           required: true,
           type: 'singleoption',
           options: this._getPageTemplates(jamboConfig)
+        },
+        locales: {
+          displayName: 'Additional Page Locales',
+          type: 'multioption',
+          options: this._getAdditionalPageLocales(jamboConfig)
         }
       }
     };
+  }
+
+  /**
+   * @param {Object} jamboConfig The Jambo configuration of the site.
+   * @returns {Array<string>} The additional locales that are configured in 
+   *                          locale_config.json
+   */
+  static _getAdditionalPageLocales(jamboConfig) {
+    if (!jamboConfig) {
+      return [];
+    }
+
+    const configDir = jamboConfig.dirs.config;
+    if (!configDir) {
+      return [];
+    }
+
+    const localeConfig = path.resolve(configDir, 'locale_config.json');
+    if (!fs.existsSync(localeConfig)) {
+      return [];
+    }
+
+    const localeContentsRaw = fs.readFileSync(localeConfig, 'utf-8');
+    let localeContentsJson;
+    try {
+      localeContentsJson = parse(localeContentsRaw);
+    } catch(err) {
+      throw new UserError('Could not parse locale_config.json ', err.stack);
+    }
+
+    const defaultLocale = localeContentsJson.default;
+    const pageLocales = [];
+    for (const locale in localeContentsJson.localeConfig) {
+      // don't list the default locale as an option
+      if (locale !== defaultLocale) {
+        pageLocales.push(locale);
+      }
+    }
+    return pageLocales;
   }
 
   /**
@@ -121,7 +171,7 @@ class VerticalAdder {
    */
   execute(args) {
     this._validateArgs(args);
-    this._createVerticalPage(args.name, args.template);
+    this._createVerticalPage(args.name, args.template, args.locales);
     const cardName = args.cardName || this._getCardDefault(args.template);
     this._configureVerticalPage(args.name, args.verticalKey, cardName);
   }
@@ -129,8 +179,8 @@ class VerticalAdder {
 
   /**
    * Structural validation (missing required parameters, etc.) is handled by YArgs. This
-   * method provides an additional validation layer to ensure the provided template and
-   * cardName are valid. Any issue will result in a {@link UserError} being thrown.
+   * method provides an additional validation layer to ensure the provided template,
+   * cardName, and locales are valid. Any issue will result in a {@link UserError} being thrown.
    * 
    * @param {Object} args The command parameters.
    */
@@ -148,6 +198,15 @@ class VerticalAdder {
     const availableCards = VerticalAdder._getAvailableCards(this.config);
     if (args.cardName && !availableCards.includes(args.cardName)) {
       throw new UserError(`${args.cardName} is not a valid card`);
+    }
+
+    if (args.locales.length) {
+      const supportedLocales = VerticalAdder._getAdditionalPageLocales(this.config);
+      args.locales.forEach(locale => {
+        if (!supportedLocales.includes(locale)) {
+          throw new UserError(`${locale} is not a locale supported by your site`);
+        }
+      })
     }
   }
 
@@ -188,14 +247,21 @@ class VerticalAdder {
   }
 
   /**
-   * Creates a page for the vertical using the provided name and template. Any output from
-   * the `jambo page` command is piped through.
+   * Creates a page for the vertical using the provided name and template. If additional
+   * locales are provided, localized copies of the vertical page will be created as well.
+   * Any output from the `jambo page` command is piped through.
    * 
    * @param {string} name The name of the vertical's page.
    * @param {string} template The template to use.
+   * @param {Array<string>} locales The additional locales to generate the page for.
    */
-  _createVerticalPage(name, template) {
+  _createVerticalPage(name, template, locales) {
     const args = ['--name', name, '--template', template];
+
+    if (locales.length) {
+      args.push('--locales', locales.join(' '));
+    }
+
     spawnSync('npx jambo page', args, { shell: true, stdio: 'inherit' });
   }
 
