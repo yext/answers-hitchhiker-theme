@@ -106,7 +106,6 @@ class VerticalAdder {
       return [];
     }
 
-    const pageLocales = [];
     const localeContentsRaw = fs.readFileSync(localeConfig, 'utf-8');
     let localeContentsJson;
     try {
@@ -114,7 +113,9 @@ class VerticalAdder {
     } catch(err) {
       throw new UserError('Could not parse locale_config.json ', err.stack);
     }
+
     const defaultLocale = localeContentsJson.default;
+    const pageLocales = [];
     for (const locale in localeContentsJson.localeConfig) {
       // don't list the default locale as an option
       if (locale !== defaultLocale) {
@@ -202,7 +203,7 @@ class VerticalAdder {
       const supportedLocales = VerticalAdder._getAdditionalPageLocales(this.config);
       args.locales.forEach(locale => {
         if (!supportedLocales.includes(locale)) {
-          throw new UserError(`${locale} is not supported by your site`);
+          throw new UserError(`${locale} is not a locale supported by your site`);
         }
       })
     }
