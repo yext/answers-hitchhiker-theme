@@ -14,7 +14,7 @@ export default {
   // Locator
   LOCATOR_HOVERED_RESULT: 'locator-hovered-result',
   LOCATOR_SELECTED_RESULT: 'locator-selected-result',
-  NUM_CONCURRENT_SEARCH_THIS_AREA_CALLS: 'num-concurrent-search-this-area-calls',
+  LOCATOR_NUM_CONCURRENT_SEARCH_THIS_AREA_CALLS: 'locator-num-concurrent-search-this-area-calls',
   LOCATOR_MAP_PROPERTIES: 'locator-map-properties',
   LOCATOR_CARD_FOCUS: 'locator-card-focus'
 };
