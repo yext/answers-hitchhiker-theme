@@ -365,6 +365,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
           window.scrollTo(0, 0);
           this._container.classList.toggle('VerticalFullPageMap--listShown');
           this._container.classList.toggle('VerticalFullPageMap--mapShown');
+          this._pageWrapperEl.classList.toggle('YxtPage-wrapper--mapShown');
           this._container.classList.remove('VerticalFullPageMap--detailShown');
         });
       }
