@@ -159,11 +159,6 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
     const pinClusterClickListener = () => this.searchOnMapMove && this.searchThisArea();
 
     /**
-     * The listener called when the map drag ends
-     */
-    const dragEndListener = () => {};
-
-    /**
      * The listener called when the map stops panning
      */
     const panHandler = (prevousBounds, currentBounds, panTrigger) => {
@@ -218,7 +213,6 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       onPostMapRender: onPostMapRender,
       pinFocusListener: (index, id) => this.pinFocusListener(index, id),
       pinClusterClickListener: pinClusterClickListener,
-      dragEndListener: dragEndListener,
       zoomChangedListener: zoomChangedListener,
       zoomEndListener: zoomEndListener,
       panHandler: panHandler,
