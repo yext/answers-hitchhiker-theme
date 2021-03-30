@@ -88,6 +88,7 @@ class VerticalAdder {
   }
 
   /**
+   * @param {Object} jamboConfig The Jambo configuration of the site.
    * @returns {Array<string>} The additional locales that are configured in 
    *                          locale_config.json
    */
