@@ -52,7 +52,7 @@ class GoogleMap extends ProviderMap {
     const debouncedIdleEvent = debounce(() => {
       this._moving = false;
       this._panHandler();
-    }, 250);
+    }, 100);
 
     google.maps.event.addListener(this.map, 'bounds_changed', () => {
       if (!this._moving) {
