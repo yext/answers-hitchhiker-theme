@@ -5,6 +5,7 @@ import { LoadScript } from '../../Performance/LoadContent.js';
 import { MapProviderOptions } from '../MapProvider.js';
 import { ProviderMap } from '../ProviderMap.js';
 import { ProviderPin } from '../ProviderPin.js';
+import { debounce } from '../../Util/helpers';
 
 /**
  * @static
@@ -47,16 +48,21 @@ class GoogleMap extends ProviderMap {
     this._zoomChangeListener = null;
 
     this._moving = false;
+
+    const debouncedIdleEvent = debounce(() => {
+      this._moving = false;
+      this._panHandler();
+    }, 100);
+
     google.maps.event.addListener(this.map, 'bounds_changed', () => {
       if (!this._moving) {
         this._moving = true;
         this._panStartHandler();
+      } else {
+        debouncedIdleEvent();
       }
     });
-    google.maps.event.addListener(this.map, 'idle', () => {
-      this._moving = false;
-      this._panHandler();
-    });
+    google.maps.event.addListener(this.map, 'idle', debouncedIdleEvent);
     google.maps.event.addListener(this.map, 'dragend', () => {
       this._dragEndHandler();
     });

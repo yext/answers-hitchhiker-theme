@@ -5,6 +5,8 @@ import { SearchDebouncer } from './SearchDebouncer';
 import { defaultCenterCoordinate } from './constants.js';
 
 import ZoomTriggers from './Maps/ZoomTriggers.js';
+import PanTriggers from './Maps/PanTriggers.js';
+
 import StorageKeys from '../storage-keys.js';
 
 /**
@@ -157,21 +159,23 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
     const pinClusterClickListener = () => this.searchOnMapMove && this.searchThisArea();
 
     /**
-     * Dragging the map searches the new area, if desired
-     *
-     * @param {Map} map The map object
+     * The listener called when the map pans
      */
-    const dragEndListener = () => this.handleMapAreaChange();
+    const panHandler = (prevousBounds, currentBounds, panTrigger) => {
+      if (panTrigger === PanTriggers.API) {
+        return;
+      }
+
+      this.handleMapCenterChange();
+    }
 
     /**
-     * Record the current zoom during a zoom event
+     * The listener called when the zoom changes
      *
      * @param {number} zoom The zoom during a zoom event
      * @param {ZoomTriggers} zoomTrigger The intitiator of the zoom
      */
-    const zoomChangedListener = (zoom, zoomTrigger) => {
-      this.currentZoom = zoom;
-    };
+    const zoomChangedListener = (zoom, zoomTrigger) => {};
 
     /**
      * User-initiated changes to the map zoom searches the new area, if desired
@@ -181,11 +185,13 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
      * @param {ZoomTriggers} zoomTrigger The intitiator of the zoom
      */
     const zoomEndListener = (zoom, zoomTrigger) => {
+      this.currentZoom = zoom;
+
       if (zoomTrigger !== ZoomTriggers.USER) {
         return;
       }
 
-      this.handleMapAreaChange();
+      this.handleMapZoomChange();
     };
 
     ANSWERS.addComponent('ThemeMap', Object.assign({}, {
@@ -207,9 +213,9 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       onPostMapRender: onPostMapRender,
       pinFocusListener: (index, id) => this.pinFocusListener(index, id),
       pinClusterClickListener: pinClusterClickListener,
-      dragEndListener: dragEndListener,
       zoomChangedListener: zoomChangedListener,
       zoomEndListener: zoomEndListener,
+      panHandler: panHandler,
       canvasClickListener: () => this.removeResultFocusedStates()
     }));
   }
@@ -217,32 +223,56 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
   /**
    * Search the area or show the search the area button according to configurable logic
    */
-  handleMapAreaChange () {
+  handleMapCenterChange () {
     if (!this.searchOnMapMove) {
       this._container.classList.add('VerticalFullPageMap--showSearchThisArea');
       return;
     }
 
-    if (!this.shouldSearchBeDebounced()) {
+    if (!this.shouldSearchBeDebouncedBasedOnCenter()) {
       this.searchThisArea();
     }
   }
 
   /**
-   * Returns true if a search should be debounced and false otherwise
+   * Search the area or show the search the area button according to configurable logic
+   */
+  handleMapZoomChange () {
+    if (!this.searchOnMapMove) {
+      this._container.classList.add('InteractiveMap--showSearchThisArea');
+      return;
+    }
+
+    if (!this.shouldSearchBeDebouncedBasedOnZoom()) {
+      this.searchThisArea();
+    }
+  }
+
+  /**
+   * Returns true if a search should be debounced based on the center of the current map
+   * and the center of the map during the most recent search
    * 
    * @returns {boolean}
    */
-  shouldSearchBeDebounced () {
-    const mostRecentSearchState = {
-      mapCenter: this.mostRecentSearchLocation,
-      zoom: this.mostRecentSearchZoom,
-    }
-    const currentMapState = {
-      mapCenter: this.getCurrentMapCenter(),
-      zoom: this.currentZoom
-    }
-    return this.searchDebouncer.shouldBeDebounced(mostRecentSearchState, currentMapState);
+  shouldSearchBeDebouncedBasedOnCenter () {
+    return this.searchDebouncer.isWithinDistanceThreshold({
+      mostRecentSearchMapCenter: this.mostRecentSearchLocation,
+      currentMapCenter: this.getCurrentMapCenter(),
+      currentZoom: this.currentZoom
+    });
+  }
+
+  /**
+   * Returns true if a search should be debounced based on the previous search zoom level and
+   * the current zoom level
+   * 
+   * @returns {boolean}
+   */
+  shouldSearchBeDebouncedBasedOnZoom () {
+    return this.searchDebouncer.isWithinZoomThreshold({
+      mostRecentSearchZoom: this.mostRecentSearchZoom,
+      currentZoom: this.currentZoom
+    });
   }
 
   /**

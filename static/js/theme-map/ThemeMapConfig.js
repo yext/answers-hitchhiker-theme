@@ -187,6 +187,12 @@ export default class ThemeMapConfig {
     this.dragEndListener = jsonConfig.dragEndListener || function () {};
 
     /**
+     * Callback for when a map pan event has finished
+     * @type {Function}
+     */
+    this.panHandler = jsonConfig.panHandler || function () {};
+
+    /**
      * Callback for when a map zoom event has fired
      * @type {Function}
      */

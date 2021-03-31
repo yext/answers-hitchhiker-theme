@@ -139,7 +139,10 @@ class ThemeMap extends ANSWERS.Component {
    */
   addMapInteractions(map) {
     this.map.idle().then(() => {
-      map.setPanHandler(() => this.updateMapPropertiesInStorage());
+      map.setPanHandler((prevousBounds, currentBounds, zoomTrigger) => {
+        this.updateMapPropertiesInStorage();
+        this.config.panHandler(prevousBounds, currentBounds, zoomTrigger);
+      });
       map.setDragEndHandler(() => {
         this.updateMapPropertiesInStorage();
         this.config.dragEndListener()

@@ -82,9 +82,34 @@ const getNormalizedLongitude = (lng) => {
   return ((lng + 180) % range + range) % range - 180;
 }
 
+/**
+ * Returns a function, that, as long as it continues to be invoked, will not be triggered.
+ * The function will be called after it stops being called for `wait` milliseconds.
+ * 
+ * Source: https://levelup.gitconnected.com/debounce-in-javascript-improve-your-applications-performance-5b01855e086
+ * 
+ * @param {Function} func The function to debounce
+ * @param {number} wait The number of milliseconds that need to pass without the function
+ *                      being called before the provided function will execute
+ */
+const debounce = (func, wait) => {
+  let timeout;
+
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+};
+
 export {
   getLanguageForProvider,
   getEncodedSvg,
   getNormalizedLongitude,
-  isViewableWithinContainer
+  isViewableWithinContainer,
+  debounce
 }
