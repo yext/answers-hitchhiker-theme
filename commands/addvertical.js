@@ -275,13 +275,10 @@ class VerticalAdder {
    */
   _configureVerticalPage(name, verticalKey, cardName) {
     const configFile = `config/${name}.json`;
-    let parsedConfig = parse(fs.readFileSync(configFile, { encoding: 'utf-8' }));
 
-    parsedConfig.verticalKey = verticalKey;
-
-    parsedConfig.verticalsToConfig[verticalKey] = 
-      parsedConfig.verticalsToConfig['<REPLACE ME>'];
-    delete parsedConfig.verticalsToConfig['<REPLACE ME>'];
+    let rawConfig = fs.readFileSync(configFile, { encoding: 'utf-8' });
+    rawConfig = rawConfig.replace(/\<REPLACE ME\>/g, verticalKey);
+    const parsedConfig = parse(rawConfig);
 
     parsedConfig.verticalsToConfig[verticalKey].cardType = cardName;
 
