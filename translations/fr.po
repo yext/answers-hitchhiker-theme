@@ -141,3 +141,15 @@ msgstr "Liste"
 msgctxt "The label of a toggle for viewing a visual map"
 msgid "Map"
 msgstr "Carte"
+
+#: templates/vertical-interactive-map/page.html.hbs:23
+msgid "Main location search"
+msgstr "Recherche d'établissements principale"
+
+#: templates/vertical-interactive-map/page.html.hbs:64
+msgid "Map"
+msgstr "Carte"
+
+#: templates/vertical-interactive-map/page.html.hbs:59
+msgid "Map controls"
+msgstr "Commandes de carte"
