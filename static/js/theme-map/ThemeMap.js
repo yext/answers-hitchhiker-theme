@@ -407,7 +407,7 @@ class ThemeMap extends ANSWERS.Component {
       ); 
     }
 
-    let updateZoom = numConcurrentSearchThisAreaCalls <= 0;
+    const updateZoom = numConcurrentSearchThisAreaCalls <= 0;
 
     const isNoResults = data.resultsContext === 'no-results';
     if (isNoResults && !this.config.displayAllResultsOnNoResults) {
