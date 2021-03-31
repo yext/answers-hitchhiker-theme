@@ -120,3 +120,23 @@ msgstr[0] "[[count]]件の結果を表示"
 msgctxt "Close is a verb"
 msgid "Close Card"
 msgstr "カードを閉じる"
+
+#: templates/vertical-full-page-map/markup/searchthisareatoggle.hbs:10
+msgctxt "A button that conducts a search in the current map area"
+msgid "Search When Map Moves"
+msgstr "マップが移動したときに検索"
+
+#: templates/vertical-full-page-map/markup/searchthisareabutton.hbs:3
+msgctxt "A toggle for automatically searching when the map moves"
+msgid "Search This Area"
+msgstr "このエリアを検索"
+
+#: templates/vertical-full-page-map/markup/mobilelisttoggles.hbs:5
+msgctxt "The label of a toggle for displaying a list of results"
+msgid "List"
+msgstr "リスト"
+
+#: templates/vertical-full-page-map/markup/mobilelisttoggles.hbs:9
+msgctxt "The label of a toggle for viewing a visual map"
+msgid "Map"
+msgstr "マップ"
