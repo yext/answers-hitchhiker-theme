@@ -34,6 +34,7 @@ class SearchDebouncer {
    * @param {Coordinate} mostRecentSearchMapCenter
    * @param {Coordinate} currentMapCenter
    * @param {number} currentZoom
+   * @returns {boolean}
    */
   isWithinDistanceThreshold ({ mostRecentSearchMapCenter, currentMapCenter, currentZoom }) {
     const distanceToLastSearch = currentMapCenter.distanceTo(mostRecentSearchMapCenter);
@@ -49,6 +50,7 @@ class SearchDebouncer {
    * 
    * @param {number} mostRecentSearchZoom
    * @param {number} currentZoom
+   * @returns {boolean}
    */
   isWithinZoomThreshold ({ mostRecentSearchZoom, currentZoom }) {
     const zoomDifference = Math.abs(currentZoom - mostRecentSearchZoom);
