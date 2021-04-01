@@ -123,6 +123,18 @@ export default class Interactions {
       eventType: 'update',
       storageKey: 'query',
       callback: () => {
+        const repeatedSearchTriggers = [
+          'filter-component',
+          'pagination',
+          'suggest',
+          'initialize',
+          'query-parameter'
+        ];
+        const queryTrigger = ANSWERS.core.storage.get('queryTrigger');
+        const isRepeatedSearch =  repeatedSearchTriggers.includes(queryTrigger);
+        if (isRepeatedSearch) {
+          return;
+        }
         pendingQueryUpdate = true;
       }
     });
