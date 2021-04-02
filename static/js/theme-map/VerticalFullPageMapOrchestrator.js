@@ -351,9 +351,9 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       this._container.appendChild(this._detailCard);
 
       if (!isDetailCardOpened) {
-        window.requestAnimationFrame(function(){
+        window.requestAnimationFrame(() => {
           this._detailCard.style = 'height: 0;';
-          window.requestAnimationFrame(function(){
+          window.requestAnimationFrame(() => {
             this._detailCard.style = '';
           });
         });
