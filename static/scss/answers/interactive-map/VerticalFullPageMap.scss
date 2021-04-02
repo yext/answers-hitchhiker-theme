@@ -410,8 +410,7 @@
     }
 
     &-resultsHeader {
-      display: flex;
-      flex-direction: column;
+      display: block;
       padding-left: 0;
 
       @include bplte($mobile-break-point-max) {
