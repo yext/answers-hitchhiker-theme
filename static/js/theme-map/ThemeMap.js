@@ -11,7 +11,7 @@ import { GoogleMaps } from './Maps/Providers/Google.js';
 import { MapboxMaps } from './Maps/Providers/Mapbox.js';
 
 import ThemeMapConfig from './ThemeMapConfig.js'
-import StorageKeys from '../storage-keys.js';
+import StorageKeys from '../constants/storage-keys.js';
 
 /**
  * The component to create and control the functionality of a map,
