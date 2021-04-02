@@ -9,13 +9,13 @@ class SearchDebouncer {
     /**
      * The threshold for allowing a new search based on the distance to the previous search.
      * 
-     * The unit is approximately the map width percentage. For example, if the threshold is 50,
+     * The unit is a percentage of the map width. For example, if the threshold is .50,
      * a new search will not be allowed unless the currentMapCenter is further than 50% of the map
      * width away from the previous search.
      * 
      * @type {number}
      */
-    this.relativeDistanceThreshold = 20;
+    this.relativeDistanceThreshold = .125;
 
     /**
      * The threshold for allowing a new search based on a change in zoom.
@@ -71,7 +71,10 @@ class SearchDebouncer {
    * @returns {number}
    */
   _calculateRelativeDistance (distance, zoom) {
-    return distance * Math.pow(2, zoom - 10);
+    const adjustment = 0.835; // The adjustment ensures that distanceInPixels is accurate
+    const distanceInPixels = distance * Math.pow(2, zoom - 6) * adjustment;
+    const widthOfMap = window.innerWidth || 1;
+    return distanceInPixels / widthOfMap;
   }
 }
 
