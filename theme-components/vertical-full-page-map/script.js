@@ -49,6 +49,12 @@ ANSWERS.addComponent('VerticalFullPageMapOrchestrator', Object.assign({},
       {{/if}}
     {{/each}}
   ],
+  alternativeVerticalsConfig: Object.assign({},
+    {
+      template: `{{> theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals}}`
+    },
+    {{{ json componentSettings.AlternativeVerticals }}},
+  ),
   searchbarConfig: Object.assign({}, 
     {
       container: ".js-answersSearch",

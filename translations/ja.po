@@ -152,3 +152,11 @@ msgstr "マップ"
 #: templates/vertical-interactive-map/page.html.hbs:59
 msgid "Map controls"
 msgstr "マップコントロール"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:3
+msgid "<em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">No results found</em> in [[currentVerticalLabel]]."
+msgstr "[[currentVerticalLabel]] で<em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">結果は見つかりませんでした</em>。"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:5
+msgid "Showing <em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">all [[currentVerticalLabel]]</em> instead."
+msgstr "代わりに<em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">すべての[[currentVerticalLabel]]</em>を表示しています。"

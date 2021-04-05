@@ -117,6 +117,15 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
      * @type {Element}
      */
     this._detailCard = null;
+
+    /**
+     * The passthrough config for the Alternative Verticals component
+     * NOTE This component is added as a child to this component because Alternative Verticals
+     * in the SDK is not designed to be a standalone component. In this layout, it cannot be
+     * a child of the Vertical Results in order to show on the map view.
+     * @type {Object}
+     */
+    this.alternativeVerticalsConfig = config.alternativeVerticalsConfig;
   }
 
   onCreate () {
@@ -490,16 +499,31 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
 
     if (this._isNoResults) {
       const altVerticalsData = this.core.storage.get(StorageKeys.ALTERNATIVE_VERTICALS);
+      console.log(
+        Object.assign({},
+          {
+            container: '.js-answersNoResults',
+            verticalsConfig: this.verticalsConfig,
+            baseUniversalUrl: this.getBaseUniversalUrl(),
+            isShowingResults: this.displayAllResultsOnNoResults && this._data.results,
+            name: 'AlternativeVerticals--resultsHeader'
+          },
+          this.alternativeVerticalsConfig
+        )
+      );
       this.addChild(
         altVerticalsData,
-        'AlternativeVerticals',
-        {
-          container: '.js-answersNoResults',
-          verticalsConfig: this.verticalsConfig,
-          baseUniversalUrl: this.getBaseUniversalUrl(),
-          isShowingResults: this.displayAllResultsOnNoResults && this._data.results,
-          name: 'AlternativeVerticals--resultsHeader',
-        }
+        'AlternativeVerticals', 
+        Object.assign({},
+          {
+            container: '.js-answersNoResults',
+            verticalsConfig: this.verticalsConfig,
+            baseUniversalUrl: this.getBaseUniversalUrl(),
+            isShowingResults: this.displayAllResultsOnNoResults && this._data.results,
+            name: 'AlternativeVerticals--resultsHeader'
+          },
+          this.alternativeVerticalsConfig
+        )
       );
     }
 
