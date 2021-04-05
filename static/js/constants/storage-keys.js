@@ -5,11 +5,12 @@
  *
  * @enum {string}
  */
-export default {
+const StorageKeys = {
   // From SDK
   VERTICAL_RESULTS: 'vertical-results',
   QUERY: 'query',
   ALTERNATIVE_VERTICALS: 'alternative-verticals',
+  QUERY_TRIGGER: 'queryTrigger',
 
   // Locator
   LOCATOR_HOVERED_RESULT: 'locator-hovered-result',
@@ -19,3 +20,4 @@ export default {
   LOCATOR_CARD_FOCUS: 'locator-card-focus'
 };
 
+export default StorageKeys;

@@ -7,7 +7,7 @@ import { defaultCenterCoordinate } from './constants.js';
 import ZoomTriggers from './Maps/ZoomTriggers.js';
 import PanTriggers from './Maps/PanTriggers.js';
 
-import StorageKeys from '../storage-keys.js';
+import StorageKeys from '../constants/storage-keys.js';
 
 /**
  * The component to control the interactions for an interative map.

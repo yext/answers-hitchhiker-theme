@@ -1,3 +1,7 @@
+import QueryTriggers from '../constants/query-triggers';
+import StorageKeys from '../constants/storage-keys';
+import SearchStates from '../constants/search-states';
+
 /**
  * Interactions manages page interactions for collapsible filters.
  */
@@ -117,25 +121,16 @@ export default class Interactions {
    * made by the searchbar is completed.
    */
   registerCollapseFiltersOnSearchbarSearch() {
-    let pendingQueryUpdate = false;
-
     ANSWERS.core.storage.registerListener({
       eventType: 'update',
-      storageKey: 'query',
-      callback: () => {
-        pendingQueryUpdate = true;
-      }
-    });
-
-    ANSWERS.core.storage.registerListener({
-      eventType: 'update',
-      storageKey: 'vertical-results',
+      storageKey: StorageKeys.VERTICAL_RESULTS,
       callback: verticalResults => {
-        if (verticalResults.searchState !== 'search-complete' || !pendingQueryUpdate) {
-          return;
-        }
-        this.collapseFilters();
-        pendingQueryUpdate = false;
+        const searchComplete = verticalResults.searchState === SearchStates.SEARCH_COMPLETE;
+        const queryTrigger = ANSWERS.core.storage.get(StorageKeys.QUERY_TRIGGER);
+        const isSearchbarSearch = queryTrigger === QueryTriggers.SEARCH_BAR;
+        if (searchComplete && isSearchbarSearch) {
+          this.collapseFilters();
+        };
       }
     })
   }
