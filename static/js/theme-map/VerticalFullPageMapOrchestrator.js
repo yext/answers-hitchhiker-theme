@@ -222,7 +222,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       zoomChangedListener: zoomChangedListener,
       zoomEndListener: zoomEndListener,
       panHandler: panHandler,
-      canvasClickListener: () => this.removeResultFocusedStates()
+      canvasClickListener: () => this.deselectAllResults()
     }));
   }
 
@@ -309,9 +309,10 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
   }
 
   /**
-   * Remove the result focused state styling from all cards and pins on the page
+   * Deselect all results by updating CSS classes, removing the detail card if present, and
+   * updating global storage.
    */
-  removeResultFocusedStates () {
+  deselectAllResults () {
     this._container.classList.remove('VerticalFullPageMap--detailShown');
     this._pageWrapperEl.classList.remove('YxtPage-wrapper--detailShown');
 
@@ -363,7 +364,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
 
       this._detailCard.querySelectorAll(buttonSelector).forEach((el) => {
         el.addEventListener('click', () => {
-          this.removeResultFocusedStates();
+          this.deselectAllResults();
         });
       });
 
