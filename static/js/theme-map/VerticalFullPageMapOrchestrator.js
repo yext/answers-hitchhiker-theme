@@ -427,7 +427,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
   }
 
   /**
-   * Register listeners so that any active pins are deselected when a users  clicks
+   * Register listeners so that any active pins are deselected when a user clicks
    * or focuses on the search bar
    */
   setupSearchBarListeners () {
