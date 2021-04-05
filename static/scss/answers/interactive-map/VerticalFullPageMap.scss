@@ -513,7 +513,7 @@
   }
 
   // TODO move to js
-  &.VerticalFullPageMap--showSearchThisArea:not(.VerticalFullPageMap--noResults) {
+  &.VerticalFullPageMap--showSearchThisArea {
     .Answers-searchThisAreaWrapper {
       display: flex;
     }
