@@ -136,6 +136,11 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
     searchThisAreaToggleEls.forEach((el) => {
       el.addEventListener('click', (e) => {
         this.searchOnMapMove = e.target.checked;
+        if (this.searchOnMapMove) {
+          this._container.classList.remove('VerticalFullPageMap--showSearchThisArea');
+        } else {
+          this._container.classList.add('VerticalFullPageMap--showSearchThisArea');
+        }
       });
     });
 
