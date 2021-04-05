@@ -5,7 +5,8 @@ const hbs = require('../../test-utils/hbs');
 const pageTemplates = [
   'vertical-grid',
   'vertical-standard',
-  'vertical-map'
+  'vertical-map',
+  'vertical-full-page-map'
 ];
 
 for (const pageTemplate of pageTemplates) {

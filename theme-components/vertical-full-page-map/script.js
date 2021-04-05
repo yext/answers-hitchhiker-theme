@@ -33,7 +33,7 @@ ANSWERS.addComponent('VerticalFullPageMapOrchestrator', Object.assign({},
         {{#if isFirst}}isFirst: {{isFirst}},{{/if}}
         {{#if icon}}icon: "{{{icon}}}",{{/if}}
         {{#if iconUrl}}iconUrl: "{{#unless (isNonRelativeUrl iconUrl)}}{{relativePath}}/{{/unless}}{{{iconUrl}}}",{{/if}}
-        label: "{{> verticalLabel overridedLabel=label verticalKey=../verticalKey fallback=@key}}",
+        label: {{> verticalLabel overridedLabel=label verticalKey=../verticalKey fallback=@key}},
         url: "{{#if url}}{{{url}}}{{else if ../url}}{{../../relativePath}}/{{{../url}}}{{else}}{{{@key}}}.html{{/if}}",
         {{/with}}
       }{{#unless @last}},{{/unless}}
@@ -76,30 +76,12 @@ ANSWERS.addComponent('VerticalFullPageMapOrchestrator', Object.assign({},
 --}}
 {{#*inline 'verticalLabel'}}
   {{~#if overridedLabel ~}}
-    {{{overridedLabel}}}
-  {{~ else if
-    (lookup
-      (lookup 
-        (lookup 
-          (lookup
-            @root.env.JAMBO_INJECTED_DATA.answers.experiences
-            @root.global_config.experienceKey)
-          'verticals')
-        verticalKey)
-      'displayName')
-  ~}}
-    {{{lookup
-      (lookup 
-        (lookup 
-          (lookup
-            @root.env.JAMBO_INJECTED_DATA.answers.experiences
-            @root.global_config.experienceKey)
-          'verticals')
-        verticalKey)
-      'displayName'}}}
-  {{~ else if verticalKey ~}}
-    {{{verticalKey}}}
+    "{{{overridedLabel}}}"
   {{~ else ~}}
-    {{{fallback}}}
+    HitchhikerJS.getInjectedProp(
+      "{{{@root.global_config.experienceKey}}}",
+      ["verticals", "{{{verticalKey}}}", "displayName"])
+    {{~#if verticalKey ~}} || "{{{verticalKey}}}" {{~/if ~}}
+    {{~#if fallback ~}} || "{{{fallback}}}" {{~/if ~}}
   {{~/if ~}}
 {{/inline}}
