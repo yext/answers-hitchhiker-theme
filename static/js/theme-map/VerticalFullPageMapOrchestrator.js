@@ -238,8 +238,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       zoomChangedListener: zoomChangedListener,
       zoomEndListener: zoomEndListener,
       panHandler: panHandler,
-      canvasClickListener: () => this.deselectAllResults(),
-      searchBarFocusListener: () => this.deselectAllResults()
+      canvasClickListener: () => this.deselectAllResults()
     }));
   }
 
