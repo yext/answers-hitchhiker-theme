@@ -161,3 +161,19 @@ msgstr "<em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">Aucun r
 #: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:5
 msgid "Showing <em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">all [[currentVerticalLabel]]</em> instead."
 msgstr "Voici <em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\"> tous/toutes les [[currentVerticalLabel]]</em> à la place."
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:11
+msgid "The following search category yielded results for <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"
+msgid_plural "The following search categories yielded results for <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"
+msgstr[0] "La catégorie de recherche suivante a produit des résultats pour <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"
+msgstr[1] "Les catégories de recherche suivantes ont produit des résultats pour <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:32
+msgid "([[resultsCount]] result)"
+msgid_plural "([[resultsCount]] results)"
+msgstr[0] "([[resultsCount]] résultat)"
+msgstr[1] "([[resultsCount]] résultats)"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:47
+msgid "Alternatively, you can <a class=\"yxt-AlternativeVerticals-universalLink\" href=\"[[universalUrl]]\"> view results across all search categories</a>."
+msgstr "Autrement, vous pouvez <a class=\"yxt-AlternativeVerticals-universalLink\" href=[[universalUrl]]> voir les résultats à travers toutes les catégories</a>."
