@@ -237,7 +237,8 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       zoomChangedListener: zoomChangedListener,
       zoomEndListener: zoomEndListener,
       panHandler: panHandler,
-      canvasClickListener: () => this.deselectAllResults()
+      canvasClickListener: () => this.deselectAllResults(),
+      searchBarFocusListener: () => this.deselectAllResults()
     }));
   }
 
@@ -439,6 +440,8 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       StorageKeys.LOCATOR_NUM_CONCURRENT_SEARCH_THIS_AREA_CALLS,
       updatedNumSearchThisAreaCalls
     );
+
+    this.deselectAllResults();
 
     this._container.classList.remove('VerticalFullPageMap--showSearchThisArea');
 

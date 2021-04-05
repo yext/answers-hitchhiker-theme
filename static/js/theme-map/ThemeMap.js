@@ -235,6 +235,14 @@ class ThemeMap extends ANSWERS.Component {
         }
       }
     });
+
+    const searchBarInput = document.querySelector('#yxt-SearchBar-input--SearchBar');
+    searchBarInput && searchBarInput.addEventListener('click', () => {
+      this.config.searchBarFocusListener();
+    });
+    searchBarInput && searchBarInput.addEventListener('focus', () => {
+      this.config.searchBarFocusListener();
+    });
   }
 
   /**
