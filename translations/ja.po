@@ -152,3 +152,25 @@ msgstr "マップ"
 #: templates/vertical-interactive-map/page.html.hbs:59
 msgid "Map controls"
 msgstr "マップコントロール"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:3
+msgid "<em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">No results found</em> in [[currentVerticalLabel]]."
+msgstr "[[currentVerticalLabel]] で<em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">結果は見つかりませんでした</em>。"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:5
+msgid "Showing <em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">all [[currentVerticalLabel]]</em> instead."
+msgstr "代わりに<em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">すべての[[currentVerticalLabel]]</em>を表示しています。"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:11
+msgid "The following search category yielded results for <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"
+msgid_plural "The following search categories yielded results for <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"
+msgstr[0] "以下の検索カテゴリーで<span class=\"yxt-AlternativeVerticals-details--query\">「[[query]]」</span>の検索結果が見つかりました。"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:32
+msgid "([[resultsCount]] result)"
+msgid_plural "([[resultsCount]] results)"
+msgstr[0] "（[[resultsCount]]件の結果）"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:47
+msgid "Alternatively, you can <a class=\"yxt-AlternativeVerticals-universalLink\" href=\"[[universalUrl]]\"> view results across all search categories</a>."
+msgstr "代わりに<a class=\"yxt-AlternativeVerticals-universalLink\" href=\"[[universalUrl]]\">すべての検索カテゴリーの結果を表示することもできます</a>。"
