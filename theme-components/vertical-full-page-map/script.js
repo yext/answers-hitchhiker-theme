@@ -51,7 +51,7 @@ ANSWERS.addComponent('VerticalFullPageMapOrchestrator', Object.assign({},
   ],
   alternativeVerticalsConfig: Object.assign({},
     {
-      template: `{{> theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals}}`
+      template: {{{ stringifyPartial (read 'theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals') }}}
     },
     {{{ json componentSettings.AlternativeVerticals }}},
   ),
