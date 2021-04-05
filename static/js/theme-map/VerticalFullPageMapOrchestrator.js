@@ -122,7 +122,8 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
      * The passthrough config for the Alternative Verticals component
      * NOTE This component is added as a child to this component because Alternative Verticals
      * in the SDK is not designed to be a standalone component. In this layout, it cannot be
-     * a child of the Vertical Results in order to show on the map view.
+     * a child of the Vertical Results because we want it to show on the map view. So we make it
+     * a child of the larger component.
      * @type {Object}
      */
     this.alternativeVerticalsConfig = config.alternativeVerticalsConfig;
@@ -499,18 +500,6 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
 
     if (this._isNoResults) {
       const altVerticalsData = this.core.storage.get(StorageKeys.ALTERNATIVE_VERTICALS);
-      console.log(
-        Object.assign({},
-          {
-            container: '.js-answersNoResults',
-            verticalsConfig: this.verticalsConfig,
-            baseUniversalUrl: this.getBaseUniversalUrl(),
-            isShowingResults: this.displayAllResultsOnNoResults && this._data.results,
-            name: 'AlternativeVerticals--resultsHeader'
-          },
-          this.alternativeVerticalsConfig
-        )
-      );
       this.addChild(
         altVerticalsData,
         'AlternativeVerticals', 
