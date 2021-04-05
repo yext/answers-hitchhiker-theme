@@ -164,7 +164,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
 
   addMapComponent () {
     /**
-     * Create mobile view toggle buttons when a map is rendered
+     * Sets up mobile view toggles and search bar listeners
      *
      * @param {Object} data The data (formatted in the Consulting LiveAPI format) of results
      * @param {Map} map The map object
@@ -172,6 +172,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
      */
     const onPostMapRender = (data, map, pins) => {
       this.setupMobileViewToggles(data, map, pins);
+      this.setupSearchBarListeners();
     };
 
     /**
@@ -424,6 +425,20 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
     } else {
       this._container.classList.remove('VerticalFullPageMap--showMobileViewToggles');
     }
+  }
+
+  /**
+   * Register listeners so that any active pins are deselected when a users  clicks
+   * or focuses on the search bar
+   */
+  setupSearchBarListeners () {
+    const searchBarInput = document.querySelector('#yxt-SearchBar-input--SearchBar');
+    searchBarInput && searchBarInput.addEventListener('click', () => {
+      this.deselectAllResults()
+    });
+    searchBarInput && searchBarInput.addEventListener('focus', () => {
+      this.deselectAllResults()
+    });
   }
 
   /**

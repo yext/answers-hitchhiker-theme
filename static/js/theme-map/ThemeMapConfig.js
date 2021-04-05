@@ -212,13 +212,6 @@ export default class ThemeMapConfig {
      */
     this.canvasClickListener = jsonConfig.canvasClickListener || function () {};
 
-
-    /**
-     * Callback for when the search bar input is clicked or focused
-     * @type {Function}
-     */
-    this.searchBarFocusListener = jsonConfig.searchBarFocusListener || function () {};
-
     /**
      * The minimum number of pins to be clustered
      * @type {number}
