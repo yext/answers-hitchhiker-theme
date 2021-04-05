@@ -111,6 +111,12 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
      * @type {SearchDebouncer}
      */
     this.searchDebouncer = new SearchDebouncer();
+
+    /**
+     * The detail card which apears on mobile after clicking a pin
+     * @type {Element}
+     */
+    this._detailCard = null;
   }
 
   onCreate () {
@@ -216,7 +222,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       zoomChangedListener: zoomChangedListener,
       zoomEndListener: zoomEndListener,
       panHandler: panHandler,
-      canvasClickListener: () => this.removeResultFocusedStates()
+      canvasClickListener: () => this.deselectAllResults()
     }));
   }
 
@@ -303,15 +309,18 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
   }
 
   /**
-   * Remove the result focused state styling from all cards and pins on the page
+   * Deselect all results by updating CSS classes, removing the detail card if present, and
+   * updating global storage.
    */
-  removeResultFocusedStates () {
+  deselectAllResults () {
     this._container.classList.remove('VerticalFullPageMap--detailShown');
     this._pageWrapperEl.classList.remove('YxtPage-wrapper--detailShown');
 
     document.querySelectorAll('.yxt-Card--pinFocused').forEach((el) => {
       el.classList.remove('yxt-Card--pinFocused');
     });
+
+    this._detailCard && this._detailCard.remove();
 
     this.core.storage.set(StorageKeys.LOCATOR_SELECTED_RESULT, null);
   }
@@ -338,27 +347,24 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       document.querySelectorAll('.yxt-Card--isVisibleOnMobileMap').forEach((el) => el.remove());
       const isDetailCardOpened = document.querySelectorAll('.yxt-Card--isVisibleOnMobileMap').length;
 
-      const cardCopy = card.cloneNode(true);
-      cardCopy.classList.add('yxt-Card--isVisibleOnMobileMap');
-      this._container.appendChild(cardCopy);
+      this._detailCard = card.cloneNode(true);
+      this._detailCard.classList.add('yxt-Card--isVisibleOnMobileMap');
+      this._container.appendChild(this._detailCard);
 
       if (!isDetailCardOpened) {
-        window.requestAnimationFrame(function(){
-          cardCopy.style = 'height: 0;';
-          window.requestAnimationFrame(function(){
-            cardCopy.style = '';
+        window.requestAnimationFrame(() => {
+          this._detailCard.style = 'height: 0;';
+          window.requestAnimationFrame(() => {
+            this._detailCard.style = '';
           });
         });
       }
 
       const buttonSelector = '.js-HitchhikerLocationCard-closeCardButton';
 
-      cardCopy.querySelectorAll(buttonSelector).forEach((el) => {
+      this._detailCard.querySelectorAll(buttonSelector).forEach((el) => {
         el.addEventListener('click', () => {
-          card.classList.remove('yxt-Card--pinFocused');
-          cardCopy.remove();
-          this._container.classList.remove('VerticalFullPageMap--detailShown');
-          this._pageWrapperEl.classList.remove('YxtPage-wrapper--detailShown');
+          this.deselectAllResults();
         });
       });
 
