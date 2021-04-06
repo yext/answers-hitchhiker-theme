@@ -464,7 +464,7 @@
 
   &.VerticalFullPageMap--mapShown
   {
-    .Answers-map {
+    &:not(.CollapsibleFilters--expanded) .Answers-map {
       top: var(--yxt-maps-mobile-results-header-height);
     }
 
