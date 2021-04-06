@@ -398,7 +398,7 @@ class ThemeMap extends ANSWERS.Component {
     let entityData = verticalData.length ? verticalData : universalData;
 
     const numConcurrentSearchThisAreaCalls = 
-      this.core.storage.get(StorageKeys.LOCATOR_NUM_CONCURRENT_SEARCH_THIS_AREA_CALLS);
+      this.core.storage.get(StorageKeys.LOCATOR_NUM_CONCURRENT_SEARCH_THIS_AREA_CALLS) || 0;
 
     if (numConcurrentSearchThisAreaCalls > 0) {
       this.core.storage.set(
