@@ -431,7 +431,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
    * or focuses on the search bar
    */
   setupSearchBarListeners () {
-    const searchBarInput = document.querySelector('#yxt-SearchBar-input--SearchBar');
+    const searchBarInput = this._container.querySelector('.yxt-SearchBar-input');
     searchBarInput && searchBarInput.addEventListener('click', () => {
       this.deselectAllResults()
     });
