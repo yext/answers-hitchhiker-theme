@@ -407,17 +407,17 @@ class ThemeMap extends ANSWERS.Component {
       ); 
     }
 
-    let updateZoom = numConcurrentSearchThisAreaCalls <= 0;
+    let fitCoordinates = numConcurrentSearchThisAreaCalls <= 0;
 
     const isNoResults = data.resultsContext === 'no-results';
     if (isNoResults && !this.config.displayAllResultsOnNoResults) {
       entityData = [];
-      updateZoom = false;
+      fitCoordinates = false;
     }
 
     const renderData = {
       response: { entities: entityData },
-      updateZoom: updateZoom
+      fitCoordinates: fitCoordinates
     };
 
     if (this.renderReady) {
