@@ -60,6 +60,7 @@
       "cardType": "location-standard", // The name of the card to use - e.g. accordion, location, customcard 
       "icon": "pin", // The icon to use on the card for this vertical
       "mapConfig": {
+        //"enablePinClustering": true, // Cluster pins on the map that are close together. Defaults false
         "mapProvider": "MapBox", // The name of the provider (e.g. Mapbox, Google)
         "noResults": {
           "displayAllResults": false, // Set to FALSE to hide results on the map when a search returns no results
@@ -81,7 +82,6 @@
             "labelColor": "white"
           }
         }
-        //"enablePinClustering": true, // Cluster pins on the map that are close together. Defaults false
       },
       "universalSectionTemplate": "standard"
     }
