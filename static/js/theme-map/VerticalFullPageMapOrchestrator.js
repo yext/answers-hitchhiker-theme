@@ -159,6 +159,8 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       this.searchThisArea();
     });
 
+    this._pageWrapperEl.classList.add('YxtPage-wrapper--listShown');
+
     this.addMapComponent();
   }
 
@@ -418,6 +420,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
           this._container.classList.toggle('VerticalFullPageMap--listShown');
           this._container.classList.toggle('VerticalFullPageMap--mapShown');
           this._pageWrapperEl.classList.toggle('YxtPage-wrapper--mapShown');
+          this._pageWrapperEl.classList.toggle('YxtPage-wrapper--listShown');
           this._container.classList.remove('VerticalFullPageMap--detailShown');
         });
       }

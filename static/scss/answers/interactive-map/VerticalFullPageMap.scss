@@ -1,3 +1,5 @@
+$mobile-break-point-max: sm !default;
+
 .VerticalFullPageMap
 {
   $results-width-desktop: var(--yxt-maps-desktop-results-container-width);
@@ -8,7 +10,6 @@
   $detail-card-height: 30% !default;
 
   $desktop-break-point-min: md !default;
-  $mobile-break-point-max: sm !default;
 
   $border-default: 1px solid #666 !default;
 
@@ -665,5 +666,15 @@
 
   .YxtFooter {
     display: none;
+  }
+}
+
+.YxtPage-wrapper--listShown {
+  .Answers-footer {
+    @include bplte($mobile-break-point-max) {
+      margin-top: 0;
+      padding-top: calc(24px + var(--yxt-base-spacing));
+      position: relative;
+    }
   }
 }
