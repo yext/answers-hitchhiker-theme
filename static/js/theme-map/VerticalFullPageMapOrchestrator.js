@@ -108,6 +108,12 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
     this.mobileBreakpointMax = 991;
 
     /**
+     * Provides information about whether or not the window is within the mobile breakpoint
+     * @ytype {MediaQueryList}
+     */
+    this.mobileBreakpointMediaQuery = window.matchMedia(`(max-width: ${this.mobileBreakpointMax}px)`);
+
+    /**
      * The current view for mobile.
      * 
      * Either MobileStates.LIST_VIEW or MobileStates.MAP_VIEW
@@ -179,8 +185,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       this.updateCssForDesktop();
     }
 
-    const mediaQuery = window.matchMedia(`(max-width: ${this.mobileBreakpointMax}px)`);
-    mediaQuery.addEventListener('change', () => {
+    this.mobileBreakpointMediaQuery.addEventListener('change', () => {
       if (this.isMobile()) {
         this.updateCssForMobile();
       } else {
@@ -193,8 +198,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
    * @returns {boolean}
    */
   isMobile () {
-    const mediaQuery = window.matchMedia(`(max-width: ${this.mobileBreakpointMax}px)`);
-    return mediaQuery.matches;
+    return this.mobileBreakpointMediaQuery.matches;
   }
 
   updateCssForMobile () {
@@ -229,7 +233,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
    * @param {MobileStates} mobileState
    */
   addCssClassesForState(mobileState) {
-    const classModifier = this.getModifierForState(mobileState)
+    const classModifier = this.getModifierForState(mobileState);
     this._container.classList.add(`VerticalFullPageMap--${classModifier}`);
     this._pageWrapperEl.classList.add(`YxtPage-wrapper--${classModifier}`);
   }
@@ -238,7 +242,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
    * @param {MobileStates} mobileState 
    */
   removeCssClassesForState(mobileState) {
-    const classModifier = this.getModifierForState(mobileState)
+    const classModifier = this.getModifierForState(mobileState);
     this._container.classList.remove(`VerticalFullPageMap--${classModifier}`);
     this._pageWrapperEl.classList.remove(`YxtPage-wrapper--${classModifier}`);
   }
@@ -257,6 +261,8 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
         return 'mobileMapView'
       case MobileStates.DETAIL_SHOWN:
         return 'mobileDetailShown'
+      default:
+        return '';
     }
   }
   
