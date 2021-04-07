@@ -57,15 +57,15 @@
               </div>
             </div>
           </div>
+          <div class="Answers-centerTop">
+            {{> templates/vertical-full-page-map/markup/searchthisareabutton }}
+          </div>
           <div class="Answers-stickyBottom" role="region" aria-label="{{ translate phrase="Map controls" }}">
             {{> templates/vertical-full-page-map/markup/searchthisareatoggle modifier="desktop"}}
             {{> templates/vertical-full-page-map/markup/locationbias modifier="main"}}
           </div>
         </div>
         <div class="Answers-mapWrapper" role="region" aria-label="{{ translate phrase="Map" }}">
-          <div class="Answers-centerTop">
-            {{> templates/vertical-full-page-map/markup/searchthisareabutton }}
-          </div>
           {{> templates/vertical-full-page-map/markup/map }}
           <div class="Answers-mapFooter">
               {{> templates/vertical-full-page-map/markup/searchthisareatoggle modifier="mobileMap"}}

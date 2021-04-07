@@ -524,16 +524,21 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
 
   /**
    * Register listeners so that any active pins are deselected when a user clicks
-   * or focuses on the search bar
+   * or focuses on the searchbar.
    */
   setupSearchBarListeners () {
-    const searchBarInput = document.querySelector('#yxt-SearchBar-input--SearchBar');
-    searchBarInput && searchBarInput.addEventListener('click', () => {
+    const searchBarForm = this._container.querySelector('.yxt-SearchBar-form');
+    searchBarForm && searchBarForm.addEventListener('click', () => {
       this.deselectAllResults()
     });
+    const searchBarInput = this._container.querySelector('.yxt-SearchBar-input');
     searchBarInput && searchBarInput.addEventListener('focus', () => {
-      this.deselectAllResults()
+      this.deselectAllResults();
     });
+    const searchBarButton = this._container.querySelector('.yxt-SearchBar-button');
+    searchBarButton && searchBarButton.addEventListener('focus', () => {
+      this.deselectAllResults();
+    })
   }
 
   /**
