@@ -514,9 +514,10 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       const noResultsHeight = noResults.getBoundingClientRect().height;
       map.style.top =
         `calc(var(--yxt-maps-mobile-results-header-height) + ${noResultsHeight}px)`;
-      const headerFooterHeight = 
-        'var(--yxt-maps-mobile-results-header-height) - var(--yxt-maps-mobile-results-footer-height)';
-      map.style.height = `calc(100% - ${headerFooterHeight} - ${noResultsHeight}px)`;
+      map.style.height = 'calc(100%' +
+      ' - var(--yxt-maps-mobile-results-header-height)' + 
+      ' - var(--yxt-maps-mobile-results-footer-height) ' + 
+      ` - ${noResultsHeight}px)`;
     } else {
       map.style.top = '';
       map.style.height = '';
