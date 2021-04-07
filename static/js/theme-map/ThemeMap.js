@@ -398,7 +398,7 @@ class ThemeMap extends ANSWERS.Component {
     let entityData = verticalData.length ? verticalData : universalData;
 
     const numConcurrentSearchThisAreaCalls = 
-      this.core.storage.get(StorageKeys.LOCATOR_NUM_CONCURRENT_SEARCH_THIS_AREA_CALLS);
+      this.core.storage.get(StorageKeys.LOCATOR_NUM_CONCURRENT_SEARCH_THIS_AREA_CALLS) || 0;
 
     if (numConcurrentSearchThisAreaCalls > 0) {
       this.core.storage.set(
@@ -407,17 +407,17 @@ class ThemeMap extends ANSWERS.Component {
       ); 
     }
 
-    let updateZoom = numConcurrentSearchThisAreaCalls <= 0;
+    let fitCoordinates = numConcurrentSearchThisAreaCalls <= 0;
 
     const isNoResults = data.resultsContext === 'no-results';
     if (isNoResults && !this.config.displayAllResultsOnNoResults) {
       entityData = [];
-      updateZoom = false;
+      fitCoordinates = false;
     }
 
     const renderData = {
       response: { entities: entityData },
-      updateZoom: updateZoom
+      fitCoordinates: fitCoordinates
     };
 
     if (this.renderReady) {
