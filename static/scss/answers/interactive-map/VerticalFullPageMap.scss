@@ -466,18 +466,15 @@
     }
   }
 
-  &.VerticalFullPageMap--detailShown
+  &.VerticalFullPageMap--mobileDetailShown
   {
     .Answers
     {
       &-map
       {
-        @include bplte($mobile-break-point-max)
-        {
-          position: absolute;
-          top: var(--yxt-maps-mobile-results-header-height);
-          height: calc(100% - var(--yxt-maps-mobile-results-header-height) - var(--yxt-maps-mobile-detail-card-height));
-        }
+        position: absolute;
+        top: var(--yxt-maps-mobile-results-header-height);
+        height: calc(100% - var(--yxt-maps-mobile-results-header-height) - var(--yxt-maps-mobile-detail-card-height));
       }
 
       &-searchThisWrapper {
@@ -655,7 +652,7 @@
   }
 }
 
-.YxtPage-wrapper--detailShown {
+.YxtPage-wrapper--mobileDetailShown {
   .Answers-footer {
     display: none;
   }

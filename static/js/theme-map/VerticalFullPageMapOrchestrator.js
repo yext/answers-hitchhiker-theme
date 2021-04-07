@@ -227,8 +227,8 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
   }
 
   addMobileDetailShownCssClasses () {
-    this._container.classList.add('VerticalFullPageMap--detailShown');
-    this._pageWrapperEl.classList.add('YxtPage-wrapper--detailShown');
+    this._container.classList.add('VerticalFullPageMap--mobileDetailShown');
+    this._pageWrapperEl.classList.add('YxtPage-wrapper--mobileDetailShown');
   }
 
   removeMobileMapViewCssClasses () {
@@ -242,8 +242,8 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
   }
 
   removeMobileDetailShownCssClasses () {
-    this._container.classList.remove('VerticalFullPageMap--detailShown');
-    this._pageWrapperEl.classList.remove('YxtPage-wrapper--detailShown');
+    this._container.classList.remove('VerticalFullPageMap--mobileDetailShown');
+    this._pageWrapperEl.classList.remove('YxtPage-wrapper--mobileDetailShown');
   }
   
   addMapComponent () {
