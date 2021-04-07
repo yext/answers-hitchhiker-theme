@@ -91,8 +91,10 @@ module.exports = function () {
       output: {
         filename: '[name].js',
         path: path.resolve(__dirname, jamboConfig.dirs.output),
-        library: 'VerticalFullPageMap',
-        libraryTarget: 'window',
+        library: {
+          name: 'VerticalFullPageMap',
+          type: 'window'
+        },
         publicPath: ''
       },
       module: {
