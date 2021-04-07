@@ -21,12 +21,13 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
 
     /**
      * The container in the DOM for the interactive map
-     * @type {HTMLElement}
+     * @type {string}
      */
     this._mapContainerSelector = '#js-answersMap';
 
     /**
      * The container in the DOM for the no results block.
+     * @type {HTMLElement}
      */
     this._noResultsContainer = document.querySelector('.js-answersNoResults');
 
