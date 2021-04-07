@@ -262,7 +262,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       case MobileStates.DETAIL_SHOWN:
         return 'mobileDetailShown'
       default:
-        return '';
+        throw new Error('Invalid mobile state');
     }
   }
   
