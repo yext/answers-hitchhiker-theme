@@ -7,7 +7,7 @@ class professional_locationCardComponent extends BaseCard['professional-location
 
   onMount() {
     const onVerticalFullPageMap = !!document.querySelector('.js-answersVerticalFullPageMap');
-    onVerticalFullPageMap && new CardListenerAssigner({card: this}).addListenersToCard();
+    onVerticalFullPageMap && new VerticalFullPageMap.CardListenerAssigner({card: this}).addListenersToCard();
     super.onMount();
   }
 
