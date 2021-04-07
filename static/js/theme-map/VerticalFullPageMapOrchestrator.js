@@ -8,6 +8,7 @@ import ZoomTriggers from './Maps/ZoomTriggers.js';
 import PanTriggers from './Maps/PanTriggers.js';
 
 import StorageKeys from '../constants/storage-keys.js';
+import ResultsContext from '../constants/results-context.js';
 
 /**
  * The component to control the interactions for an interative map.
@@ -23,6 +24,11 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
      * @type {HTMLElement}
      */
     this._mapContainerSelector = '#js-answersMap';
+
+    /**
+     * The container in the DOM for the no results block.
+     */
+    this._noResultsContainer = document.querySelector('.js-answersNoResults');
 
     /**
      * The page wrapper DOM element
@@ -127,6 +133,12 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
      * @type {Object}
      */
     this.alternativeVerticalsConfig = config.alternativeVerticalsConfig;
+
+    /**
+     * Whether the page is displaying the map on mobile.
+     * @type {boolean}
+     */
+    this.isInMobileMapView = false;
   }
 
   onCreate () {
@@ -340,6 +352,11 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
     this.core.storage.set(StorageKeys.LOCATOR_SELECTED_RESULT, null);
   }
 
+  isMobile() {
+    const mediaQuery = window.matchMedia(`(max-width: ${this.mobileBreakpointMax}px)`);
+    return mediaQuery.matches;
+  }
+
   /**
    * The callback when a result pin on the map is clicked or tabbed onto
    * @param {Number} index The index of the pin in the current result list order
@@ -349,8 +366,6 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
     this.core.storage.set(StorageKeys.LOCATOR_SELECTED_RESULT, cardId);
     const selector = `.yxt-Card[data-opts='{ "_index": ${index - 1} }']`;
     const card = document.querySelector(selector);
-    const mediaQuery = window.matchMedia(`(max-width: ${this.mobileBreakpointMax}px)`);
-    const isMobile = mediaQuery.matches;
 
     document.querySelectorAll('.yxt-Card--pinFocused').forEach((el) => {
       el.classList.remove('yxt-Card--pinFocused');
@@ -358,7 +373,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
 
     card.classList.add('yxt-Card--pinFocused');
 
-    if (isMobile) {
+    if (this.isMobile()) {
       document.querySelectorAll('.yxt-Card--isVisibleOnMobileMap').forEach((el) => el.remove());
       const isDetailCardOpened = document.querySelectorAll('.yxt-Card--isVisibleOnMobileMap').length;
 
@@ -418,6 +433,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
           this._container.classList.toggle('VerticalFullPageMap--mapShown');
           this._pageWrapperEl.classList.toggle('YxtPage-wrapper--mapShown');
           this._container.classList.remove('VerticalFullPageMap--detailShown');
+          this.isInMobileMapView = this._container.classList.contains('VerticalFullPageMap--mapShown');
         });
       }
     } else {
@@ -478,6 +494,34 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
     }
   }
 
+  /**
+   * Update the map wrapper's "top" and "height" css properties so that it is not covered up
+   * by the no results block in mobile. 
+   *
+   * @param {ResultsContext} resultsContext 
+   */
+  updateMapDimensionsForNoResults(resultsContext) {
+    if (!this.isInMobileMapView) {
+      return;
+    }
+    const noResults = this._noResultsContainer;
+    const map = document.querySelector(this._mapContainerSelector);
+    if (!noResults || !map) {
+      return;
+    }
+    if (resultsContext === ResultsContext.NO_RESULTS) {
+      const noResultsHeight = noResults.getBoundingClientRect().height;
+      map.style.top =
+        `calc(var(--yxt-maps-mobile-results-header-height) + ${noResultsHeight}px)`;
+      const headerFooterHeight = 
+        'var(--yxt-maps-mobile-results-header-height) - var(--yxt-maps-mobile-results-footer-height)';
+      map.style.height = `calc(100% - ${headerFooterHeight} - ${noResultsHeight}px)`;
+    } else {
+      map.style.top = '';
+      map.style.height = '';
+    }
+  }
+
   setState(data) {
     if (data.searchState === 'search-loading') {
       return;
@@ -485,7 +529,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
 
     this._data = data;
 
-    if (data.resultsContext === 'no-results') {
+    if (data.resultsContext === ResultsContext.NO_RESULTS) {
       this._isNoResults = true;
       this._container.classList.add('VerticalFullPageMap--noResults');
     } else {
@@ -514,7 +558,11 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
             verticalsConfig: this.verticalsConfig,
             baseUniversalUrl: this.getBaseUniversalUrl(),
             isShowingResults: this.displayAllResultsOnNoResults && this._data.results,
-            name: 'AlternativeVerticals--resultsHeader'
+            name: 'AlternativeVerticals--resultsHeader',
+            onMount: () => {
+              const { resultsContext } = this.core.storage.get(StorageKeys.VERTICAL_RESULTS) || {};
+              this.updateMapDimensionsForNoResults(resultsContext);
+            }
           },
           this.alternativeVerticalsConfig
         )

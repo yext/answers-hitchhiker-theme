@@ -214,7 +214,8 @@ export default class Interactions {
     if (!this._disableScrollToTopOnToggle) {
       this.scrollToTop();
     }
-    ANSWERS.components.getActiveComponent('FilterLink').setState({
+    const filterLink = ANSWERS.components.getActiveComponent('FilterLink');
+    filterLink && filterLink.setState({
       panelIsDisplayed: !shouldCollapseFilters
     });
   }

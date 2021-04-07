@@ -12,6 +12,7 @@ import { MapboxMaps } from './Maps/Providers/Mapbox.js';
 
 import ThemeMapConfig from './ThemeMapConfig.js'
 import StorageKeys from '../constants/storage-keys.js';
+import ResultsContext from '../constants/results-context.js';
 
 /**
  * The component to create and control the functionality of a map,
@@ -409,7 +410,7 @@ class ThemeMap extends ANSWERS.Component {
 
     let fitCoordinates = numConcurrentSearchThisAreaCalls <= 0;
 
-    const isNoResults = data.resultsContext === 'no-results';
+    const isNoResults = data.resultsContext === ResultsContext.NO_RESULTS;
     if (isNoResults && !this.config.displayAllResultsOnNoResults) {
       entityData = [];
       fitCoordinates = false;
