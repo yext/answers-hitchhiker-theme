@@ -505,7 +505,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       return;
     }
     const noResults = this._noResultsContainer;
-    const map = document.querySelector(this._mapContainerSelector);
+    const map = this._container.querySelector(this._mapContainerSelector);
     if (!noResults || !map) {
       return;
     }
