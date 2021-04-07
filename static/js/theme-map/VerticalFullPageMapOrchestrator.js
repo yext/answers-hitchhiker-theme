@@ -164,7 +164,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
 
   addMapComponent () {
     /**
-     * Create mobile view toggle buttons when a map is rendered
+     * Sets up mobile view toggles and search bar listeners
      *
      * @param {Object} data The data (formatted in the Consulting LiveAPI format) of results
      * @param {Map} map The map object
@@ -172,6 +172,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
      */
     const onPostMapRender = (data, map, pins) => {
       this.setupMobileViewToggles(data, map, pins);
+      this.setupSearchBarListeners();
     };
 
     /**
@@ -426,6 +427,25 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
   }
 
   /**
+   * Register listeners so that any active pins are deselected when a user clicks
+   * or focuses on the searchbar.
+   */
+  setupSearchBarListeners () {
+    const searchBarForm = this._container.querySelector('.yxt-SearchBar-form');
+    searchBarForm && searchBarForm.addEventListener('click', () => {
+      this.deselectAllResults()
+    });
+    const searchBarInput = this._container.querySelector('.yxt-SearchBar-input');
+    searchBarInput && searchBarInput.addEventListener('focus', () => {
+      this.deselectAllResults();
+    });
+    const searchBarButton = this._container.querySelector('.yxt-SearchBar-button');
+    searchBarButton && searchBarButton.addEventListener('focus', () => {
+      this.deselectAllResults();
+    })
+  }
+
+  /**
    * Conducts a new search on the locator for the given viewable bounds for the map.
    * Note that the visible area is the viewport of the map, taking into account the map padding.
    * Also note that the radius is from the center of the visible area to the corner of 
@@ -439,6 +459,8 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       StorageKeys.LOCATOR_NUM_CONCURRENT_SEARCH_THIS_AREA_CALLS,
       updatedNumSearchThisAreaCalls
     );
+
+    this.deselectAllResults();
 
     this._container.classList.remove('VerticalFullPageMap--showSearchThisArea');
 
