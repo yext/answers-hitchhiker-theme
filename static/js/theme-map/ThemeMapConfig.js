@@ -142,13 +142,13 @@ export default class ThemeMapConfig {
      */
     this.enablePinClustering = jsonConfig.enablePinClustering;
 
-    const noResultsConfig = jsonConfig.noResults || {};
+    const noResultsConfig = jsonConfig.noResultsConfig || {};
 
     /**
      * Whether the map should display all results on no results
      * @type {boolean}
      */
-    this.displayAllResultsOnNoResults = noResultsConfig.displayAllResultsOnNoResults;
+    this.displayAllResultsOnNoResults = noResultsConfig.displayAllResults;
 
     /**
      * Callback for when a non-cluster pin is selected

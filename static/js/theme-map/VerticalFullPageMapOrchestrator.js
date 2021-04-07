@@ -93,13 +93,17 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
      */
     this.searchOnMapMove = !config.disableSearchOnMapMove;
 
-    const noResultsConfig = config.noResults || {};
+    /**
+     * The configuration for the no results state
+     * @type {Object}
+     */
+    this.noResultsConfig = config.noResults || {};
 
     /**
      * Whether the map should display all results on no results
      * @type {boolean}
      */
-    this.displayAllResultsOnNoResults = noResultsConfig.displayAllResults;
+    this.displayAllResultsOnNoResults = this.noResultsConfig.displayAllResults;
 
     /**
      * The mobile breakpoint (inclusive max) in px
