@@ -6,6 +6,7 @@ import { defaultCenterCoordinate } from './constants.js';
 
 import ZoomTriggers from './Maps/ZoomTriggers.js';
 import PanTriggers from './Maps/PanTriggers.js';
+import MobileViews from './MobileViews';
 
 import StorageKeys from '../constants/storage-keys.js';
 
@@ -107,6 +108,11 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
     this.mobileBreakpointMax = 991;
 
     /**
+     * The current view for mobile
+     */
+    this._mobileView = MobileViews.LIST_VIEW;
+
+    /**
      * Determines whether or not another search should be ran
      * @type {SearchDebouncer}
      */
@@ -159,11 +165,87 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       this.searchThisArea();
     });
 
-    this._pageWrapperEl.classList.add('YxtPage-wrapper--listShown');
-
+    this.setupMapViewCssClasses();
     this.addMapComponent();
   }
 
+  /**
+   * Properly set CSS classes for mobile and desktop
+   */
+  setupMapViewCssClasses () {
+    if (!this.isMobile()) {
+      this.updateCssForDesktop();
+    }
+    window.addEventListener('resize', () => {
+      if (this.isMobile()) {
+        this.updateCssForMobile();
+      } else {
+        this.updateCssForDesktop();
+      }
+    }, { passive: true });
+  }
+
+  isMobile () {
+    return window.innerWidth <= this.mobileBreakpointMax;
+  }
+
+  updateCssForMobile () {
+    if (this._mobileView === MobileViews.LIST_VIEW) {
+      this.addMobileListViewCssClasses();
+      this.removeMobileMapViewCssClasses();
+      this.removeMobileDetailShownCssClasses();
+    } else if (this._mobileView === MobileViews.MAP_VIEW) {
+      this.addMobileMapViewCssClasses();
+      this.removeMobileListViewCssClasses();
+    }
+  }
+
+  updateCssForDesktop () {
+    this.removeMobileListViewCssClasses();
+    this.removeMobileMapViewCssClasses();
+    this.removeMobileDetailShownCssClasses();
+  }
+
+  setMobileMapView () {
+    this._mobileView = 'mapView';
+    this.updateCssForMobile();
+  }
+
+  setMobileListView () {
+    this._mobileView = 'listView';
+    this.updateCssForMobile();
+  }
+
+  addMobileListViewCssClasses () {
+    this._container.classList.add('VerticalFullPageMap--mobileListView');
+    this._pageWrapperEl.classList.add('YxtPage-wrapper--mobileListView');
+  }
+
+  addMobileMapViewCssClasses () {
+    this._container.classList.add('VerticalFullPageMap--mobileMapView');
+    this._pageWrapperEl.classList.add('YxtPage-wrapper--mobileMapView');
+  }
+
+  addMobileDetailShownCssClasses () {
+    this._container.classList.add('VerticalFullPageMap--detailShown');
+    this._pageWrapperEl.classList.add('YxtPage-wrapper--detailShown');
+  }
+
+  removeMobileMapViewCssClasses () {
+    this._container.classList.remove('VerticalFullPageMap--mobileMapView');
+    this._pageWrapperEl.classList.remove('YxtPage-wrapper--mobileMapView');
+  }
+
+  removeMobileListViewCssClasses () {
+    this._container.classList.remove('VerticalFullPageMap--mobileListView');
+    this._pageWrapperEl.classList.remove('YxtPage-wrapper--mobileListView');
+  }
+
+  removeMobileDetailShownCssClasses () {
+    this._container.classList.remove('VerticalFullPageMap--detailShown');
+    this._pageWrapperEl.classList.remove('YxtPage-wrapper--detailShown');
+  }
+  
   addMapComponent () {
     /**
      * Sets up mobile view toggles and search bar listeners
@@ -331,8 +413,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
    * updating global storage.
    */
   deselectAllResults () {
-    this._container.classList.remove('VerticalFullPageMap--detailShown');
-    this._pageWrapperEl.classList.remove('YxtPage-wrapper--detailShown');
+    this.removeMobileDetailShownCssClasses();
 
     document.querySelectorAll('.yxt-Card--pinFocused').forEach((el) => {
       el.classList.remove('yxt-Card--pinFocused');
@@ -352,8 +433,6 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
     this.core.storage.set(StorageKeys.LOCATOR_SELECTED_RESULT, cardId);
     const selector = `.yxt-Card[data-opts='{ "_index": ${index - 1} }']`;
     const card = document.querySelector(selector);
-    const mediaQuery = window.matchMedia(`(max-width: ${this.mobileBreakpointMax}px)`);
-    const isMobile = mediaQuery.matches;
 
     document.querySelectorAll('.yxt-Card--pinFocused').forEach((el) => {
       el.classList.remove('yxt-Card--pinFocused');
@@ -361,7 +440,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
 
     card.classList.add('yxt-Card--pinFocused');
 
-    if (isMobile) {
+    if (this.isMobile()) {
       document.querySelectorAll('.yxt-Card--isVisibleOnMobileMap').forEach((el) => el.remove());
       const isDetailCardOpened = document.querySelectorAll('.yxt-Card--isVisibleOnMobileMap').length;
 
@@ -386,8 +465,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
         });
       });
 
-      this._container.classList.add('VerticalFullPageMap--detailShown');
-      this._pageWrapperEl.classList.add('YxtPage-wrapper--detailShown');
+      this.addMobileDetailShownCssClasses();
     } else {
       this.scrollToResult(card);
     }
@@ -409,19 +487,20 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
     if (data.response && data.response.entities && data.response.entities.length) {
       showToggles = true;
     }
-    this._container.classList.remove('VerticalFullPageMap--detailShown');
+    this.removeMobileDetailShownCssClasses();
 
     if (showToggles) {
       this._container.classList.add('VerticalFullPageMap--showMobileViewToggles');
       if (!listToggle.dataset.listened) {
         listToggle.dataset.listened = 'true';
         listToggle.addEventListener('click', () => {
+          this.deselectAllResults();
           window.scrollTo(0, 0);
-          this._container.classList.toggle('VerticalFullPageMap--listShown');
-          this._container.classList.toggle('VerticalFullPageMap--mapShown');
-          this._pageWrapperEl.classList.toggle('YxtPage-wrapper--mapShown');
-          this._pageWrapperEl.classList.toggle('YxtPage-wrapper--listShown');
-          this._container.classList.remove('VerticalFullPageMap--detailShown');
+          if (this._mobileView === 'listView') {
+            this.setMobileMapView();
+          } else {
+            this.setMobileListView();
+          }
         });
       }
     } else {

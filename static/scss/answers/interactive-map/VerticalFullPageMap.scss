@@ -424,17 +424,14 @@ $mobile-break-point-max: sm !default;
   }
 
   // TODO make this the default
-  &.VerticalFullPageMap--listShown
+  &.VerticalFullPageMap--mobileListView
   {
     .Answers
     {
       &-resultsWrapper
       {
-        @include bplte($mobile-break-point-max)
-        {
-          top: 0;
-          display: flex;
-        }
+        top: 0;
+        display: flex;
       }
 
       &-viewMapText
@@ -449,7 +446,7 @@ $mobile-break-point-max: sm !default;
     }
   }
 
-  &.VerticalFullPageMap--mapShown
+  &.VerticalFullPageMap--mobileMapView
   {
     .Answers-map {
       top: var(--yxt-maps-mobile-results-header-height);
@@ -647,7 +644,7 @@ $mobile-break-point-max: sm !default;
   }
 }
 
-.YxtPage-wrapper--mapShown {
+.YxtPage-wrapper--mobileMapView {
   min-height: var(--yxt-maps-mobile-height);
 
   .YxtPage-content {
@@ -669,12 +666,10 @@ $mobile-break-point-max: sm !default;
   }
 }
 
-.YxtPage-wrapper--listShown {
+.YxtPage-wrapper--mobileListView {
   .Answers-footer {
-    @include bplte($mobile-break-point-max) {
       margin-top: 0;
       padding-top: calc(24px + var(--yxt-base-spacing));
       position: relative;
-    }
   }
 }
