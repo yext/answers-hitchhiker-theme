@@ -5,7 +5,7 @@
       {{translate phrase='Showing <em class="yxt-AlternativeVerticals-noResultsInfo--emphasized">all [[currentVerticalLabel]]</em> instead.' currentVerticalLabel=currentVerticalLabel escapeHTML=false}}
     {{/if}}
   </div>
-  {{#if (all verticalSuggestions query)}}
+  {{#if (all verticalSuggestions.length query)}}
     <div class="yxt-AlternativeVerticals-suggestionsWrapper">
       <div class="yxt-AlternativeVerticals-details">
         {{translate phrase='The following search category yielded results for <span class="yxt-AlternativeVerticals-details--query">"[[query]]"</span>:' pluralForm='The following search categories yielded results for <span class="yxt-AlternativeVerticals-details--query">"[[query]]"</span>:' count=verticalSuggestions.length query=query escapeHTML=false}}
