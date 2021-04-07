@@ -167,14 +167,14 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       this.searchThisArea();
     });
 
-    this.setupMapViewCssClasses();
+    this.setupCssForBreakpoints();
     this.addMapComponent();
   }
 
   /**
    * Properly set CSS classes for mobile and desktop
    */
-  setupMapViewCssClasses () {
+  setupCssForBreakpoints () {
     if (!this.isMobile()) {
       this.updateCssForDesktop();
     }
@@ -186,7 +186,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       } else {
         this.updateCssForDesktop();
       }
-    }, {passive: true });
+    }, { passive: true });
   }
 
   /**
