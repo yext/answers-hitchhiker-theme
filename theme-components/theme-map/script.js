@@ -1,2 +1,2 @@
 ANSWERS.registerTemplate('theme-components/theme-map', '');
-ANSWERS.registerComponentType(window.ThemeMap);
+ANSWERS.registerComponentType(VerticalFullPageMap.ThemeMap);
