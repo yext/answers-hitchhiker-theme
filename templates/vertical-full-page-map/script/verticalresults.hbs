@@ -50,7 +50,12 @@ ANSWERS.addComponent("VerticalResults", Object.assign({}, {
       {{#if cardType}}cardType: "{{{cardType}}}",{{/if}}
     },
   {{/with}}
-}, {{{ json componentSettings.VerticalResults }}}));
+}, {{{ json componentSettings.VerticalResults }}}, {
+  noResults: Object.assign({},
+    { template: "<span></span>" },
+    {{{ json componentSettings.VerticalResults.noResults }}}
+  )
+}));
 
 {{!--
   Prints the vertical label according to specific logic
