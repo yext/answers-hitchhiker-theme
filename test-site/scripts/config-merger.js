@@ -56,9 +56,7 @@ class ConfigMerger {
 
     _.merge(config, configOverrides)
 
-    const outputFile = path.resolve(this._configDir, `${pageName}.json`);
-
-    fs.writeFileSync(outputFile, stringify(config, null, 2));
+    fs.writeFileSync(configFile, stringify(config, null, 2));
   }
 }
 
