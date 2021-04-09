@@ -7,6 +7,9 @@ set_working_dir_to_test_site () {
 
 set_working_dir_to_test_site
 
+rm -rf cards/event-custom
+rm -rf directanswercards/allfields-custom
+
 jambo card --name event-custom --templateCardFolder cards/event-standard
 jambo directanswercard --name allfields-custom --templateCardFolder directanswercards/allfields-standard
 
