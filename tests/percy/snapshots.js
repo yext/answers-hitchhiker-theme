@@ -19,6 +19,7 @@ PercyScript.run(async (page, percySnapshot) => {
   await captureVerticalSearch(page, percySnapshot);
   await captureVerticalGridSearch(page, percySnapshot);
   await captureVerticalMapSearch(page, percySnapshot);
+  await captureVerticalFullPageMapSearch(page, percySnapshot);
 
   server.shutdown();
 });
@@ -49,6 +50,12 @@ async function captureVerticalGridSearch (page, percySnapshot) {
 
 async function captureVerticalMapSearch (page, percySnapshot) {
   await page.goto(`${TEST_SITE}/locations?query=a`);
+  await waitTillHTMLRendered(page)
+  await percySnapshot('vertical-map-search');
+}
+
+async function captureVerticalFullPageMapSearch (page, percySnapshot) {
+  await page.goto(`${TEST_SITE}/locations_full_page_map?query=`);
   await waitTillHTMLRendered(page)
   await percySnapshot('vertical-map-search');
 }
