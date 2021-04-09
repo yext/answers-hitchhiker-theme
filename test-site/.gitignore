@@ -1,4 +1,10 @@
 public/
+!config/global_config.json
+!config/locale_config.json
+!config/index.json
+config/
+!pages/index.html.hbs
+pages/
 Gruntfile.js
 package-lock.json
 package.json

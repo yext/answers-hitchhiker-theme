@@ -5,15 +5,21 @@ const _ = require('lodash');
 
 
 /**
- * Responsible for applying overrides to a jambo page config
+ * Responsible for applying overrides to jambo page configs
  */
 class ConfigMerger {
-  constructor (siteDir) {
+  constructor ({ configDir, overridesDir }) {
     /**
-     * The path to the jambo site directory
+     * The path to the config folder
      * @type {string}
      */
-    this._siteDir = siteDir; 
+    this._configDir = configDir; 
+
+    /**
+     * The path to the config overrides folder
+     * @type {string}
+     */
+    this._overridesDir = overridesDir;
   }
 
   /**
@@ -22,16 +28,23 @@ class ConfigMerger {
    * @param {string} pageName 
    */
   mergeConfigForPage (pageName) {
-    if (!this._siteDir) {
-      throw new Error('A site directory is not specified for ConfigMerger');
+    if (!this._configDir) {
+      throw new Error('Invalid config directory.');
     }
-
+    if (!this._overridesDir) {
+      throw new Error('Invalid config overrides directory.');
+    }
     if (!pageName) {
       throw new Error('A pageName must be specified');
     }
 
-    const configFile = path.resolve(this._siteDir, `config/${pageName}.json`);
-    const configOverridesFile = path.resolve(this._siteDir, `config-overrides/${pageName}.json`);
+    const configFile = path.resolve(this._configDir, `${pageName}.json`);
+    const configOverridesFile = path.resolve(this._overridesDir, `${pageName}.json`);
+
+    if(!fs.existsSync(configFile)) {
+      console.log(`No config found for the ${pageName} page.`);
+      return;
+    }
 
     if(!fs.existsSync(configOverridesFile)) {
       console.log(`No config overrides found for the ${pageName} page. The default config will remain unchanged.`);
@@ -43,7 +56,7 @@ class ConfigMerger {
 
     _.merge(config, configOverrides)
 
-    const outputFile = path.resolve(this._siteDir, `config/${pageName}.json`);
+    const outputFile = path.resolve(this._configDir, `${pageName}.json`);
 
     fs.writeFileSync(outputFile, stringify(config, null, 2));
   }

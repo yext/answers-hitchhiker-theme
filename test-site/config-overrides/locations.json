@@ -1,0 +1,22 @@
+{
+  "componentSettings": {
+    "Facets": {
+      "expand": false,
+      "showMore": false,
+      "searchOnChange": true
+    },
+    "SortOptions": {
+      "options": [
+        {
+          "type": "ENTITY_DISTANCE",
+          "label": "Distance"
+        }
+      ]
+    }
+  },
+  "verticalsToConfig": {
+    "KM": {
+      "label": "Locations"
+    }
+  }
+}

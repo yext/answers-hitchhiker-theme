@@ -1,6 +1,8 @@
 const { execSync } = require('child_process')
-const ConfigMerger = require('./config-merger');
+const process = require('process');
 const path = require('path');
+const ConfigMerger = require('./config-merger');
+const PagePatcher = require('./page-patcher');
 
 const verticalConfiguration = [{
   name: 'events',
@@ -20,13 +22,24 @@ const verticalConfiguration = [{
 }, {
   name: 'people',
   verticalKey: 'people',
-  template: 'vertical-standard',
+  template: 'vertical-grid',
   cardName: 'standard'
 }];
 
 const testSiteDir = path.resolve(__dirname, '..');
+const pagesDir = path.resolve(__dirname, '../pages');
+const patchesDir = path.resolve(__dirname, '../pages-patches');
+const configDir = path.resolve(__dirname, '../config');
+const overridesDir = path.resolve(__dirname, '../config-overrides');
+
+// Change dir into the theme dir so that jambo can find the theme's custom commands
+process.chdir(testSiteDir);
+
+const configMerger = new ConfigMerger({ configDir, overridesDir });
+const pagePatcher = new PagePatcher({ pagesDir, patchesDir });
 
 verticalConfiguration.forEach(config => {
-  execSync(`npx jambo vertical --name ${config.name} --verticalKey ${config.verticalKey} --template ${config.template} --cardName ${config.cardName}`);
-  new ConfigMerger(testSiteDir).mergeConfigForPage(config.name);
+  execSync(`jambo vertical --name ${config.name} --verticalKey ${config.verticalKey} --template ${config.template} --cardName ${config.cardName}`);
+  configMerger.mergeConfigForPage(config.name);
+  pagePatcher.applyPatchToPage(config.name);
 });
