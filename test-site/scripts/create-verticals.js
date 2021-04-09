@@ -32,11 +32,11 @@ const patchesDir = path.resolve(__dirname, '../pages-patches');
 const configDir = path.resolve(__dirname, '../config');
 const overridesDir = path.resolve(__dirname, '../config-overrides');
 
-// Change dir into the theme dir so that jambo can find the theme's custom commands
-process.chdir(testSiteDir);
-
 const configMerger = new ConfigMerger({ configDir, overridesDir });
 const pagePatcher = new PagePatcher({ pagesDir, patchesDir });
+
+// Change dir into the theme dir so that jambo can find the theme's custom commands
+process.chdir(testSiteDir);
 
 verticalConfiguration.forEach(config => {
   execSync(`jambo vertical --name ${config.name} --verticalKey ${config.verticalKey} --template ${config.template} --cardName ${config.cardName}`);
