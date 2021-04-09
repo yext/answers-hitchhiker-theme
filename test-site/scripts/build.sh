@@ -7,6 +7,9 @@ set_working_dir_to_test_site () {
 
 set_working_dir_to_test_site
 
+jambo card --name event-custom --templateCardFolder cards/event-standard
+jambo directanswercard --name allfields-custom --templateCardFolder directanswercards/allfields-standard
+
 node scripts/create-verticals.js
 
 npx jambo build && grunt webpack

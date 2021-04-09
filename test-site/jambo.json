@@ -5,7 +5,9 @@
     "output": "public",
     "pages": "pages",
     "partials": [
-      "script/on-ready.js"
+      "script/on-ready.js",
+      "cards",
+      "directanswercards"
     ],
     "preservedFiles": []
   },
