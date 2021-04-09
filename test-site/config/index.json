@@ -16,7 +16,7 @@
           "cardType": "documentsearch-standard"
         },
         "FIELD_VALUE": {
-          "cardType": "allfields-standard"
+          "cardType": "allfields-custom"
         }
       }
     },

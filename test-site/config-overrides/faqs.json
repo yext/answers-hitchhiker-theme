@@ -1,0 +1,14 @@
+{
+  "pageTitle": "FAQ Search",
+  "componentSettings": {
+    "QASubmission": {
+      "entityId": "12345",
+      "privacyPolicyUrl": ""
+    }
+  },
+  "verticalsToConfig": {
+    "faq": {
+      "label": "FAQs"
+    }
+  }
+}
