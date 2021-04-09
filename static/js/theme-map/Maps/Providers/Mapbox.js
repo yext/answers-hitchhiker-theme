@@ -101,6 +101,7 @@ class MapboxPin extends ProviderPin {
     this._pinEl.style.position = 'absolute';
     this._pinEl.style.top = '0';
     this._pinEl.style.left = '0';
+    this._pinEl.classList.add('Answers-mapPin');
 
     this._pinAlt = document.createElement('span');
     this._pinAlt.classList.add('sr-only');
