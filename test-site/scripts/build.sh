@@ -7,12 +7,14 @@ set_working_dir_to_test_site () {
 
 set_working_dir_to_test_site
 
-# TODO (SLAP-1066): Make this a full integration test. All vertical pages should be built with the
-# `vertical` command. We should use the `card` command as well to create some custom cards.
+rm -rf cards/event-custom
+rm -rf directanswercards/allfields-custom
 
-# Create the vertical page for events
-npx jambo vertical --name events --verticalKey events --template vertical-standard --cardName event-standard
-sed -i '' -e 's/\/\/ "label": ""/"label": "Events"/g' config/events.json
-sed -i '' -e 's/"pageTitle": "Search"/"pageTitle": "Events"/g' config/events.json
+set -e
+
+npx jambo card --name event-custom --templateCardFolder cards/event-standard
+npx jambo directanswercard --name allfields-custom --templateCardFolder directanswercards/allfields-standard
+
+node scripts/create-verticals.js
 
 npx jambo build && grunt webpack
