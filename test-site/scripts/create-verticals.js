@@ -40,7 +40,7 @@ const testSiteDir = path.resolve(__dirname, '..');
 process.chdir(testSiteDir);
 
 Object.entries(verticalConfiguration).forEach(([pageName, config]) => {
-  execSync(`jambo vertical --name ${pageName} --verticalKey ${config.verticalKey} --template ${config.template} --cardName ${config.cardName}`);
+  execSync(`npx jambo vertical --name ${pageName} --verticalKey ${config.verticalKey} --template ${config.template} --cardName ${config.cardName}`);
   configMerger.mergeConfigForPage(pageName);
   pagePatcher.applyPatchToPage(pageName);
 });

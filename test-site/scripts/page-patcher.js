@@ -7,11 +7,18 @@ const path = require('path');
  */
 class PagePatcher {
   constructor ({ pagesDir, patchesDir }) {
+    if (!pagesDir) {
+      throw new Error('Invalid pages directory');
+    }
+    if (!patchesDir) {
+      throw new Error('Invalid patches directory');
+    }
+
     /**
      * The path to the pages folder
      * @type {string}
      */
-    this._pagesDir = pagesDir; 
+    this._pagesDir = pagesDir;
 
     /**
      * The path to the patches folder
@@ -20,13 +27,13 @@ class PagePatcher {
     this._patchesDir = patchesDir;
   }
 
+  /**
+   * Applies a diff from the patches directory to the corresponding config in the config
+   * directory for a given page
+   * 
+   * @param {string} pageName 
+   */
   applyPatchToPage(pageName) {
-    if (!this._pagesDir) {
-      throw new Error('Invalid pages directory');
-    }
-    if (!this._patchesDir) {
-      throw new Error('Invalid patches directory');
-    }
     if (!pageName) {
       throw new Error('A pageName must be specified');
     }

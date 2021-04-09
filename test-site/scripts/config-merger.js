@@ -9,6 +9,13 @@ const _ = require('lodash');
  */
 class ConfigMerger {
   constructor ({ configDir, overridesDir }) {
+    if (!configDir) {
+      throw new Error('Invalid config directory.');
+    }
+    if (!overridesDir) {
+      throw new Error('Invalid config overrides directory.');
+    }
+
     /**
      * The path to the config folder
      * @type {string}
@@ -23,17 +30,12 @@ class ConfigMerger {
   }
 
   /**
-   * Applies overrides from the config-overrides folder to the corresponding config in the config
-   * folder for a given page
+   * Applies overrides from the overrides directory to the corresponding config in the config
+   * directory for a given page
+   * 
    * @param {string} pageName 
    */
   mergeConfigForPage (pageName) {
-    if (!this._configDir) {
-      throw new Error('Invalid config directory.');
-    }
-    if (!this._overridesDir) {
-      throw new Error('Invalid config overrides directory.');
-    }
     if (!pageName) {
       throw new Error('A pageName must be specified');
     }
