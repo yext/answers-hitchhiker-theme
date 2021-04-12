@@ -573,9 +573,9 @@
     }
 
     &-closeCardButtonWrapper {
-      position: absolute;
-      right: 16px;
-      top: 16px;
+      position: relative;
+      top: 1px;
+      margin-left: auto;
     }
 
     &-closeCardButton {
