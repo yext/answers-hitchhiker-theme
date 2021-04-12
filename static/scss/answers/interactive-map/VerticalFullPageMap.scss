@@ -535,6 +535,17 @@
     }
   }
 
+  .HitchhikerProfessionalLocation,
+  .HitchhikerFinancialProfessionalLocation {
+    &-contentWrapper {
+      flex-direction: column;
+    }
+
+    &-ctasWrapper {
+      margin-top: calc(var(--yxt-base-spacing) / 2);
+    }
+  }
+
   .HitchhikerLocationCard {
     position: relative;
 
