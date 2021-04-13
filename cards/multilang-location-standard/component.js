@@ -5,6 +5,12 @@ class multilang_location_standardCardComponent extends BaseCard['multilang-locat
     super(config, systemConfig);
   }
 
+  onMount() {
+    const onVerticalFullPageMap = !!document.querySelector('.js-answersVerticalFullPageMap');
+    onVerticalFullPageMap && new VerticalFullPageMap.CardListenerAssigner({card: this}).addListenersToCard();
+    super.onMount();
+  }
+
   /**
    * This returns an object that will be called `card`
    * in the template. Put all mapping logic here.
@@ -27,7 +33,7 @@ class multilang_location_standardCardComponent extends BaseCard['multilang-locat
       // details: profile.description, // The description for the card, displays below the address and phone
       // altText: '', // The alt-text of the displayed image
       // image: '', // The URL of the image to display on the card
-      showOrdinal: true, // If the ordinal should be displayed on the card
+      showOrdinal: true, // Show the map pin number on the card. Only supported for universal search
       CTA1: { // The primary call to action for the card
         label: {{ translateJS phrase='Call' context='Call is a verb' }}, // The label of the CTA
         iconName: 'phone', // The icon to use for the CTA

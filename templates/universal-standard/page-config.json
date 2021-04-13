@@ -11,7 +11,14 @@
     },
     **/
     "DirectAnswer": {
-      "defaultCard": "allfields-standard"
+      "types": {
+        "FEATURED_SNIPPET": {
+          "cardType": "documentsearch-standard"
+        },
+        "FIELD_VALUE": {
+          "cardType": "allfields-standard"
+        }
+      }
     },
     "SearchBar": {
       "placeholderText": "Search" // The placeholder text in the answers search bar

@@ -1,12 +1,12 @@
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import { components__address__i18n__addressForCountry } from './address-i18n.js'
-import CtaFormatter from '@yext/cta-formatter';
 import { getDistanceUnit } from './units-i18n';
 import OpenStatusMessageFactory from './hours/open-status/messagefactory.js';
 import HoursTransformer from './hours/transformer.js';
 import HoursStringsLocalizer from './hours/stringslocalizer.js';
 import HoursTableBuilder from './hours/table/builder.js';
 import { DayNames } from './hours/constants.js';
+import { generateCTAFieldTypeLink } from './formatters/generate-cta-field-type-link';
 
 
 export function address(profile) {
@@ -516,16 +516,7 @@ export function hoursList(profile, opts = {}, key = 'hours', locale) {
     return new HoursTableBuilder(hoursLocalizer).build(hours, standardizedOpts);
 }
 
-/**
- * @param {Object} cta Call To Action field type
- * @return {string} The formatted url associated with the Call to Action object if the cta object exists, null otherwise
- */
-export function generateCTAFieldTypeLink(cta) {
-  if (!cta) {
-    return null;
-  }
-  return CtaFormatter.generateCTAFieldTypeLink(cta);
-}
+export { generateCTAFieldTypeLink };
 
 /**
  * Returns a localized price string for the given price field
@@ -536,11 +527,37 @@ export function generateCTAFieldTypeLink(cta) {
  */
 export function price(fieldValue = {}, locale) {
   const localeForFormatting = locale || _getDocumentLocale() || 'en';
-  const price = fieldValue.value && parseInt(fieldValue.value);
+  const price = fieldValue.value && parseFloat(fieldValue.value);
   const currencyCode = fieldValue.currencyCode && fieldValue.currencyCode.split('-')[0];
   if (!price || isNaN(price) || !currencyCode) {
     console.warn(`No price or currency code in the price fieldValue object: ${fieldValue}`);
     return fieldValue.value;
   }
   return price.toLocaleString(localeForFormatting, { style: 'currency', currency: currencyCode });
+}
+
+/**
+ * Highlights snippets of the provided fieldValue according to the matched substrings.
+ * Each match will be wrapped in <mark> tags.
+ * 
+ * @param {string} fieldValue The plain, un-highlighted text.
+ * @param {Array<Object>} matchedSubstrings The list of matched substrings to
+ *                                          highlight.
+ */
+export function highlightField(fieldValue, matchedSubstrings = []) {
+  let highlightedString = fieldValue;
+
+  // We must first sort the matchedSubstrings by decreasing offset. 
+  const sortedMatches = matchedSubstrings.slice()
+    .sort((match1, match2) => match2.offset - match1.offset);
+  
+  sortedMatches.forEach(match => {
+    const { offset, length } = match;
+    highlightedString = 
+      highlightedString.substr(0, offset) +
+      `<mark>${fieldValue.substr(offset, length)}</mark>`+
+      highlightedString.substr(offset + length);
+  });
+
+  return highlightedString;
 }

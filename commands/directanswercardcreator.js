@@ -1,5 +1,5 @@
 const fs = require('fs-extra');
-const { addToPartials } = require('./helpers/utils/jamboconfigutils');
+const { containsPartial, addToPartials } = require('./helpers/utils/jamboconfigutils');
 const path = require('path');
 const UserError = require('./helpers/errors/usererror');
 const { ArgumentMetadata, ArgumentType } = require('./helpers/utils/argumentmetadata');
@@ -73,10 +73,18 @@ class DirectAnswerCardCreator {
     if (!defaultTheme || !themesDir) {
       return [];
     }
-    const daCardsDir = path.join(themesDir, defaultTheme, 'directanswercards');
-    return fs.readdirSync(daCardsDir, { withFileTypes: true })
-      .filter(dirent => !dirent.isFile())
-      .map(dirent => path.join(daCardsDir, dirent.name));
+    const themeCardsDir = path.join(themesDir, defaultTheme, 'directanswercards');
+    const cardPaths = new Set();
+    const addCardsToSet = cardsDir => {
+      if (!fs.existsSync(cardsDir)) {
+        return;
+      }
+      fs.readdirSync(cardsDir, { withFileTypes: true })
+        .filter(dirent => !dirent.isFile())
+        .forEach(dirent => cardPaths.add(path.join('directanswercards', dirent.name)));
+    };
+    [themeCardsDir, 'directanswercards'].forEach(dir => addCardsToSet(dir));
+    return Array.from(cardPaths);
   }
 
   /**
@@ -112,14 +120,23 @@ class DirectAnswerCardCreator {
       throw new UserError(`A folder with name ${cardFolderName} already exists`);
     }
 
-    const cardFolder = `${this._customCardsDir}/${cardFolderName}`;
+    const newCardFolder = `${this._customCardsDir}/${cardFolderName}`;
+    const originalCardFolder = this._getOriginalCardFolder(defaultTheme, templateCardFolder);
+    !fs.existsSync(this._customCardsDir) && fs.mkdirSync(this._customCardsDir);
+    !containsPartial(this._customCardsDir) && addToPartials(this._customCardsDir);
+    fs.copySync(originalCardFolder, newCardFolder);
+    this._renameCardComponent(cardFolderName, newCardFolder);
+  }
+
+  _getOriginalCardFolder(defaultTheme, templateCardFolder) {
     if (fs.existsSync(templateCardFolder)) {
-      !fs.existsSync(this._customCardsDir) && this._createCustomCardsDir();
-      fs.copySync(templateCardFolder, cardFolder);
-      this._renameCardComponent(cardFolderName, cardFolder);
-    } else {
-      throw new UserError(`The folder ${templateCardFolder} does not exist`);
+      return templateCardFolder
+    } 
+    const themeCardFolder = path.join(this.config.dirs.themes, defaultTheme, templateCardFolder);
+    if (fs.existsSync(themeCardFolder)) {
+      return themeCardFolder;
     }
+    throw new UserError(`The folder ${themeCardFolder} does not exist at the root or in the theme.`);
   }
 
   _renameCardComponent(customCardName, cardFolder) {
@@ -158,15 +175,6 @@ class DirectAnswerCardCreator {
       .replace(
         /directanswercards[/_](.*)[/_]template/g,
         `directanswercards/${customCardName}/template`);
-  }
-
-  /**
-   * Creates the 'directanswercards' directory in the Jambo repository and adds the newly 
-   * created directory to the list of partials in the Jambo config.
-   */
-  _createCustomCardsDir() {
-    fs.mkdirSync(this._customCardsDir);
-    addToPartials(this._customCardsDir);
   }
 }
 

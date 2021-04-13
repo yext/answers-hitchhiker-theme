@@ -63,6 +63,10 @@ $location-standard-ordinal-dimensions: calc(var(--hh-location-standard-base-spac
   width: 100%;
   height: 100%;
 
+  &-closeCardButton {
+    display: none;
+  }
+
   &-ordinal {
     display: flex;
     align-items: center;

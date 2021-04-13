@@ -1,0 +1,68 @@
+{{#if isSearchComplete}}
+  {{#if showNoResults}}
+    {{> noResults}}
+  {{/if}}
+  {{#if resultsPresent}}
+    <section class="HitchhikerResultsGridFourColumns HitchhikerResultsGridFourColumns--{{_config.modifier}} HitchhikerResultsGridFourColumns--universal">
+      {{> header}}
+      {{> map}}
+      {{> results}}
+      {{> viewMore}}
+    </section>
+  {{/if}}
+{{/if}}
+
+{{#*inline "noResults"}}
+  {{#if useLegacyNoResults}}
+    {{> results/noresults}}
+  {{/if}}
+{{/inline}}
+
+{{#*inline "header"}}
+  <div class="HitchhikerResultsGridFourColumns-title">
+    {{#if _config.icon}}
+      {{#if iconIsBuiltIn}}
+        <div data-component="IconComponent" data-opts='{ "iconName": "{{ _config.icon }}" }'></div>
+      {{else}}
+        <div data-component="IconComponent" data-opts='{ "iconUrl": "{{ _config.icon }}" }'></div>
+      {{/if}}
+    {{/if}}
+    <div class="HitchhikerResultsGridFourColumns-titleLabel">{{_config.title}}</div>
+  </div>
+  <div data-component="ResultsHeader"></div>
+{{/inline}}
+
+{{#*inline "results"}}
+  <div class="HitchhikerResultsGridFourColumns-items js-HitchhikerResultsGridFourColumns-items">
+    {{#each results}}
+      <div class="HitchhikerResultsGridFourColumns-Card HitchhikerResultsGridFourColumns-Card--universal"
+        data-component="Card"
+        data-opts='{ "_index": {{@index}} }'>
+      </div>
+    {{/each}}
+  </div>
+{{/inline}}
+
+{{#*inline "map"}}
+  {{#if _config.includeMap}}
+    <div class="HitchhikerResultsGridFourColumns-map"
+          data-component="Map"
+          data-prop="map">
+    </div>
+  {{/if}}
+{{/inline}}
+
+{{#*inline "viewMore"}}
+  {{#if _config.isUniversal}}
+    <div class="HitchhikerResultsGridFourColumns-viewMore">
+      <a class="HitchhikerResultsGridFourColumns-viewMoreLink" 
+         href="{{ verticalURL }}"
+         data-eventtype="VERTICAL_VIEW_ALL"
+         data-eventoptions='{{eventOptions}}'
+      >
+        <div class="HitchhikerResultsGridFourColumns-viewMoreLabel">{{_config.viewMoreLabel}}</div>
+        <div data-component="IconComponent" data-opts='{ "iconName": "chevron" }'></div>
+      </a>
+    </div>
+  {{/if}}
+{{/inline}}

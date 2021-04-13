@@ -1,8 +1,5 @@
 // answers theme goes here
 
- // This variable does not change the filters width. It is simply used for calculation
-$filters-width: 242px;
-$container-width-at-collapsed-filters-breakpoint: $breakpoint-collapsed-filters - (2 * $filters-width);
 
 .Answers
 {
@@ -19,10 +16,6 @@ $container-width-at-collapsed-filters-breakpoint: $breakpoint-collapsed-filters 
     margin-right: auto;
     max-width: var(--hh-answers-container-width);
     width: 100%;
-
-    @media (min-width: #{$breakpoint-expanded-filters}) {
-      width: $container-width-at-collapsed-filters-breakpoint / $breakpoint-collapsed-filters * 100%;
-    }
   }
 
   &-search,
@@ -179,5 +172,12 @@ $container-width-at-collapsed-filters-breakpoint: $breakpoint-collapsed-filters 
   .yxt-FilterOptions-optionLabel,
   .yxt-SortOptions-optionLabel {
     font-size: var(--yxt-filters-and-sorts-font-size);
+  }
+
+  .yxt-Card-child {
+    mark {
+      background-color: unset;
+      font-weight: var(--yxt-font-weight-medium);
+    }
   }
 }

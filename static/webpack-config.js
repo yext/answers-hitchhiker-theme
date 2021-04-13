@@ -5,6 +5,28 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
 const RemovePlugin = require('remove-files-webpack-plugin');
 
+const javascriptModuleRule = {
+  test: /\.js$/,
+  exclude: [
+    /node_modules\//
+  ],
+  loader: 'babel-loader',
+  options: {
+    presets: [
+      '@babel/preset-env',
+    ],
+    plugins: [
+      ['@babel/plugin-transform-runtime', {
+        'corejs': 3
+      }],
+      '@babel/syntax-dynamic-import',
+      '@babel/plugin-transform-arrow-functions',
+      '@babel/plugin-proposal-object-rest-spread',
+      '@babel/plugin-transform-object-assign',
+    ]
+  }
+};
+
 module.exports = function () {
   const isDevelopment = 'IS_DEVELOPMENT_PREVIEW' in process.env ?
     process.env.IS_DEVELOPMENT_PREVIEW === 'true':
@@ -53,106 +75,113 @@ module.exports = function () {
     mode = 'production';
   }
 
-  return {
-    mode,
-    performance: {
-      maxAssetSize: 1536000,
-      maxEntrypointSize: 1024000
+  return [
+    {
+      mode,
+      devtool: 'source-map',
+      target: ['web', 'es5'],
+      entry: {
+        'locator-bundle': `./${jamboConfig.dirs.output}/static/js/locator-bundle.js`
+      },
+      resolve: {
+        alias: {
+          static: path.resolve(__dirname, jamboConfig.dirs.output, 'static'),
+        }
+      },
+      output: {
+        filename: '[name].js',
+        path: path.resolve(__dirname, jamboConfig.dirs.output),
+        library: {
+          name: 'VerticalFullPageMap',
+          type: 'window'
+        },
+        publicPath: ''
+      },
+      module: {
+        rules: [javascriptModuleRule],
+      },
     },
-    target: ['web', 'es5'],
-    entry: {
-      'bundle': `./${jamboConfig.dirs.output}/static/entry.js`,
-      'iframe': `./${jamboConfig.dirs.output}/static/js/iframe.js`,
-      'answers': `./${jamboConfig.dirs.output}/static/js/iframe.js`,
-      'overlay-button': `./${jamboConfig.dirs.output}/static/js/overlay/button-frame/entry.js`,
-      'overlay': `./${jamboConfig.dirs.output}/static/js/overlay/parent-frame/yxtanswersoverlay.js`,
-      'iframe-prod': `./${jamboConfig.dirs.output}/static/js/iframe-prod.js`,
-      'iframe-staging': `./${jamboConfig.dirs.output}/static/js/iframe-staging.js`,
-    },
-    resolve: {
-      alias: {
-        static: path.resolve(__dirname, jamboConfig.dirs.output, 'static'),
-      }
-    },
-    output: {
-      filename: '[name].js',
-      path: path.resolve(__dirname, jamboConfig.dirs.output),
-      library: 'HitchhikerJS',
-      libraryTarget: 'window',
-      publicPath: ''
-    },
-    plugins,
-    module: {
-      rules: [
-        {
-          test: /\.js$/,
-          exclude: [
-            /node_modules\//
-          ],
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              '@babel/preset-env',
+    {
+      mode,
+      performance: {
+        maxAssetSize: 1536000,
+        maxEntrypointSize: 1024000
+      },
+      target: ['web', 'es5'],
+      entry: {
+        'bundle': `./${jamboConfig.dirs.output}/static/entry.js`,
+        'iframe': `./${jamboConfig.dirs.output}/static/js/iframe.js`,
+        'answers': `./${jamboConfig.dirs.output}/static/js/iframe.js`,
+        'overlay-button': `./${jamboConfig.dirs.output}/static/js/overlay/button-frame/entry.js`,
+        'overlay': `./${jamboConfig.dirs.output}/static/js/overlay/parent-frame/yxtanswersoverlay.js`,
+        'iframe-prod': `./${jamboConfig.dirs.output}/static/js/iframe-prod.js`,
+        'iframe-staging': `./${jamboConfig.dirs.output}/static/js/iframe-staging.js`,
+      },
+      resolve: {
+        alias: {
+          static: path.resolve(__dirname, jamboConfig.dirs.output, 'static'),
+        }
+      },
+      output: {
+        filename: '[name].js',
+        path: path.resolve(__dirname, jamboConfig.dirs.output),
+        library: 'HitchhikerJS',
+        libraryTarget: 'window',
+        publicPath: ''
+      },
+      plugins,
+      module: {
+        rules: [
+          javascriptModuleRule,
+          {
+            test: /\.scss$/,
+            use: [
+              MiniCssExtractPlugin.loader,
+              'css-loader',
+              'resolve-url-loader',
+              {
+                loader: 'sass-loader',
+                options: {
+                  sourceMap: true,
+                }
+              }
             ],
-            plugins: [
-              ['@babel/plugin-transform-runtime', {
-                'corejs': 3
-              }],
-              '@babel/syntax-dynamic-import',
-              '@babel/plugin-transform-arrow-functions',
-              '@babel/plugin-proposal-object-rest-spread',
-              '@babel/plugin-transform-object-assign',
+          },
+          {
+            test: /\.(png|ico|gif|jpe?g|svg|webp|eot|otf|ttf|woff2?)$/,
+            loader: 'file-loader',
+            options: {
+              name: '[name].[contenthash].[ext]'
+            }
+          },
+          {
+            test: /\.html$/i,
+            use: [
+              {
+                loader: path.resolve(__dirname, `./${jamboConfig.dirs.output}/static/webpack/html-asset-loader.js`),
+              },
+              {
+                loader: 'html-loader',
+                options: {
+                  minimize: {
+                    removeAttributeQuotes: false,
+                    collapseWhitespace: true,
+                    conservativeCollapse: true,
+                    keepClosingSlash: true,
+                    minifyCSS: false,
+                    minifyJS: false,
+                    removeComments: true,
+                    removeScriptTypeAttributes: true,
+                    removeStyleLinkTypeAttributes: true,
+                    useShortDoctype: true
+                  },
+                  attributes: false
+                }
+              }
             ]
           }
-        },
-        {
-          test: /\.scss$/,
-          use: [
-            MiniCssExtractPlugin.loader,
-            'css-loader',
-            'resolve-url-loader',
-            {
-              loader: 'sass-loader',
-              options: {
-                sourceMap: true,
-              }
-            }
-          ],
-        },
-        {
-          test: /\.(png|ico|gif|jpe?g|svg|webp|eot|otf|ttf|woff2?)$/,
-          loader: 'file-loader',
-          options: {
-            name: '[name].[contenthash].[ext]'
-          }
-        },
-        {
-          test: /\.html$/i,
-          use: [
-            {
-              loader: path.resolve(__dirname, `./${jamboConfig.dirs.output}/static/webpack/html-asset-loader.js`),
-            },
-            {
-              loader: 'html-loader',
-              options: {
-                minimize: {
-                  removeAttributeQuotes: false,
-                  collapseWhitespace: true,
-                  conservativeCollapse: true,
-                  keepClosingSlash: true,
-                  minifyCSS: false,
-                  minifyJS: false,
-                  removeComments: true,
-                  removeScriptTypeAttributes: true,
-                  removeStyleLinkTypeAttributes: true,
-                  useShortDoctype: true
-                },
-                attributes: false
-              }
-            }
-          ]
-        }
-      ],
-    },
-  }
+        ],
+      },
+    }
+  ]
 };

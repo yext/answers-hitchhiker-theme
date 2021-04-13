@@ -54,31 +54,31 @@ describe('Formatters', () => {
 
   describe('price', () => {
     const priceField = {
-      value: '100',
+      value: '100.99',
       currencyCode: 'USD-US Dollar'
     };
     it('Formats a price in USD', () => {
       const price = Formatters.price(priceField, 'en');
-      expect(price).toEqual('$100.00');
+      expect(price).toEqual('$100.99');
     });
     it('Formats a price in USD with no provided locale', () => {
       const price = Formatters.price(priceField);
-      expect(price).toEqual('$100.00');
+      expect(price).toEqual('$100.99');
     });
     it('Formats a price in USD with a non-en locale', () => {
       const price = Formatters.price(priceField, 'fr');
-      expect(price).toEqual('100,00 $US');
+      expect(price).toEqual('100,99 $US');
     });
 
     it('Formats a price in EUR', () => {
       priceField.currencyCode = 'EUR-Euro';
       const price = Formatters.price(priceField);
-      expect(price).toEqual('€100.00');
+      expect(price).toEqual('€100.99');
     });
     it('Formats a price in EUR with a non-en locale', () => {
       priceField.currencyCode = 'EUR-Euro';
       const price = Formatters.price(priceField, 'fr');
-      expect(price).toEqual('100,00 €');
+      expect(price).toEqual('100,99 €');
     });
 
     it('Returns value when no price or currency code', () => {
@@ -105,6 +105,52 @@ describe('Formatters', () => {
       const price = Formatters.price({value: 'String', currencyCode: 'USD-US Dollar'});
       expect(price).toEqual('String');
       expect(consoleWarn).toHaveBeenCalled();
+    });
+  });
+
+  describe('highlightField', () => {
+    it('Behaves correctly when there are no matchedSubstrings', () => {
+      const plainText = 'No more straws';
+      const actual = Formatters.highlightField(plainText, []);
+
+      expect(actual).toEqual(plainText);
+    });
+
+    it('Highlights single substring correctly', () => {
+      const plainText = 'No more straws';
+      const matchedSubstrings = [
+        {
+           "offset": 8,
+           "length": 6
+        }
+     ];
+      const actual = Formatters.highlightField(plainText, matchedSubstrings);
+
+      const expected = 'No more <mark>straws</mark>'
+      expect(actual).toEqual(expected);
+    });
+
+    it('Highlights multiple substrings correctly', () => {
+      const plainText = 'How does mask wearing prevent COVID-19';
+      const matchedSubstrings = [
+        {
+           "offset": 9,
+           "length": 4
+        },
+        {
+           "offset": 30,
+           "length": 8
+        },
+        {
+           "offset": 14,
+           "length": 7
+        }
+     ];
+      const actual = Formatters.highlightField(plainText, matchedSubstrings);
+
+      const expected = 
+        'How does <mark>mask</mark> <mark>wearing</mark> prevent <mark>COVID-19</mark>';
+      expect(actual).toEqual(expected);
     });
   });
 });

@@ -23,7 +23,21 @@
     "Facets": {
       "expand": false, // Allow the user to expand and collapse the facets
       "showMore": false, // Display a link to see more facet options within a facet
-      "searchOnChange": true // Will automatically run a search as facets are selected or unselected. Set to false to only trigger updates with an Apply button. 
+      "searchOnChange": true, // Will automatically run a search as facets are selected or unselected. Set to false to only trigger updates with an Apply button.
+      "fields": {
+        "c_puppyPreference": {
+          "searchable": true,
+          "fieldLabels": {
+            "Frodo": "FRODO !!!",
+            "Marty": "MARTY !!!"
+          }
+        },
+        "c_employeeDepartment": {
+          "fieldLabels": {
+            "Strategy": "STRATEGY !!!"
+          }
+        }
+      }
       // Additional options are available in the documentation
     },
 

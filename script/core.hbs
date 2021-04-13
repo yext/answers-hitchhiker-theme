@@ -9,15 +9,12 @@
 {{#babel}}
   function initAnswers() {
     const JAMBO_INJECTED_DATA = {{{ json env.JAMBO_INJECTED_DATA }}} || {};
-    const pages = JAMBO_INJECTED_DATA.pages || {};
-    const IS_STAGING = HitchhikerJS.isStaging(pages.stagingDomains || []);
+    const IS_STAGING = HitchhikerJS.isStaging(JAMBO_INJECTED_DATA?.pages?.stagingDomains || []);
     const injectedConfig = {
       experienceVersion: IS_STAGING ? 'STAGING' : 'PRODUCTION',
+      apiKey: HitchhikerJS.getInjectedProp('{{{global_config.experienceKey}}}', ['apiKey']),
       {{#with env.JAMBO_INJECTED_DATA}}
         {{#if businessId}}businessId: "{{businessId}}",{{/if}}
-        {{#with (lookup (lookup (lookup this 'answers') 'experiences') ../global_config.experienceKey)}}
-          {{#if apiKey}}apiKey: "{{apiKey}}",{{/if}}
-        {{/with}}
       {{/with}}
     };
     const userConfig = {
@@ -73,6 +70,10 @@
         ANSWERS.registerHelper('isNonRelativeUrl', function(str) {
           const absoluteURLRegex = /^(\/|[a-zA-Z]+:)/;
           return str && str.match(absoluteURLRegex);
+        });
+
+        ANSWERS.registerHelper('close-card-svg', () => {
+          return ANSWERS.renderer.SafeString({{{stringifyPartial (read 'static/assets/images/close-card') }}});
         });
       }
     });

@@ -21,10 +21,12 @@
 
 {{#*inline "header"}}
   <div class="HitchhikerResultsGridThreeColumns-title">
-    {{#if iconIsBuiltIn}}
-      <div data-component="IconComponent" data-opts='{ "iconName": "{{ _config.icon }}" }'></div>
-    {{else}}
-      <div data-component="IconComponent" data-opts='{ "iconUrl": "{{ _config.icon }}" }'></div>
+    {{#if _config.icon}}
+      {{#if iconIsBuiltIn}}
+        <div data-component="IconComponent" data-opts='{ "iconName": "{{ _config.icon }}" }'></div>
+      {{else}}
+        <div data-component="IconComponent" data-opts='{ "iconUrl": "{{ _config.icon }}" }'></div>
+      {{/if}}
     {{/if}}
     <div class="HitchhikerResultsGridThreeColumns-titleLabel">{{_config.title}}</div>
   </div>
@@ -38,9 +40,6 @@
         data-component="Card"
         data-opts='{ "_index": {{@index}} }'>
       </div>
-    {{/each}}
-    {{#each placeholders}}
-      <div class="HitchhikerResultsGridThreeColumns-Card-placeholder" aria-hidden="true"></div>
     {{/each}}
   </div>
 {{/inline}}

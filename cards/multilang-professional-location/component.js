@@ -5,6 +5,12 @@ class multilang_professional_locationCardComponent extends BaseCard['multilang-p
     super(config, systemConfig);
   }
 
+  onMount() {
+    const onVerticalFullPageMap = !!document.querySelector('.js-answersVerticalFullPageMap');
+    onVerticalFullPageMap && new VerticalFullPageMap.CardListenerAssigner({card: this}).addListenersToCard();
+    super.onMount();
+  }
+  
   /**
    * This returns an object that will be called `card`
    * in the template. Put all mapping logic here.
@@ -13,7 +19,7 @@ class multilang_professional_locationCardComponent extends BaseCard['multilang-p
    */
   dataForRender(profile) {
     return {
-      showOrdinal: true, // Whether to display the corresponding map pin number on the card
+      showOrdinal: true, // Show the map pin number on the card. Only supported for universal search
       title: `${profile.firstName} ${profile.lastName}`, // The header text of the card
       // subtitle: '', // The sub-header text of the card
       url: profile.website || profile.landingPageUrl, // If the card title is a clickable link, set URL here

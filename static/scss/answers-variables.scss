@@ -26,6 +26,7 @@ $container-width: 1000px;
   --hh-product-tag-text-color: var(--yxt-color-brand-white);
   --hh-product-tag-background-color: var(--hh-color-gray-3);
   --hh-universal-grid-margin: 8px;
+  --hh-universal-grid-four-columns-width: calc(calc(100% - var(--hh-universal-grid-margin) * 8)/4);
   --hh-universal-grid-three-columns-width: calc(calc(100% - var(--hh-universal-grid-margin) * 6) / 3);
   --hh-universal-grid-two-columns-width: calc(calc(100% - var(--hh-universal-grid-margin) * 4) / 2);
   --hh-universal-section-title-text-color: var(--yxt-color-text-primary);
@@ -51,6 +52,19 @@ $container-width: 1000px;
   --yxt-filter-options-options-max-height: none;
   --yxt-filters-and-sorts-font-size: var(--yxt-font-size-md);
   --yxt-alternative-verticals-emphasized-font-weight: var(--yxt-font-weight-semibold);
+  --yxt-text-snippet-highlight-color: #eef3fb;
+  --yxt-text-snippet-font-color: var(--yxt-color-text-primary);
+  --yxt-direct-answer-view-details-font-weight: var(--yxt-font-weight-normal);
+
+  // interactive map variables
+  --yxt-maps-search-this-area-background-color: white;
+  --yxt-maps-search-this-area-text-color: var(--yxt-color-text-primary);
+  --yxt-maps-mobile-detail-card-height: 225px;
+  --yxt-maps-desktop-results-container-width: 410px;
+  --yxt-maps-mobile-results-header-height: 185px;
+  --yxt-maps-mobile-results-footer-height: 97px;
+  --yxt-maps-desktop-height: 820px;
+  --yxt-maps-mobile-height: 620px;
 }
 
 // breakpoint variables for use in media queries within the theme styling

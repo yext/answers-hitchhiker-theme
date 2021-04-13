@@ -21,7 +21,7 @@
       </div>
     {{/if}}
     {{> 'details'}}
-    {{#if (any (all card.CTA1 card.CTA1.url) (all card.CTA2 card.CTA2.url))}}
+    {{#if (any (all card.CTA1 card.CTA1.url card.CTA1.label) (all card.CTA2 card.CTA2.url card.CTA2.label))}}
       <div class="HitchhikerFaqAccordion-ctasWrapper">
         {{#if card.CTA1.url}}
         <div class="HitchhikerFaqAccordion-primaryCTA">

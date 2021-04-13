@@ -1,0 +1,44 @@
+<div class="Answers-mobileToggles js-locator-mobiletoggles">
+  <button class="Answers-mobileToggle Answers-mobileToggle--results js-locator-listToggle">
+    <span class="Answers-viewListText">
+      {{> listIcon}}
+      {{ translate phrase="List" context="The label of a toggle for displaying a list of results" }}
+    </span>
+    <span class="Answers-viewMapText">
+      {{> mapIcon}}
+      {{ translate phrase="Map" context="The label of a toggle for viewing a visual map" }}
+    </span>
+  </button>
+</div>
+
+{{#*inline 'mapIcon'}}
+  <?xml version="1.0" encoding="UTF-8"?>
+  <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <title>Elements/Icons/Map</title>
+      <defs>
+          <path d="M23.3333333,0 L23.12,0.04 L16,2.8 L8,0 L0.48,2.53333333 C0.2,2.62666667 0,2.86666667 0,3.17333333 L0,23.3333333 C0,23.7066667 0.293333333,24 0.666666667,24 L0.88,23.96 L8,21.2 L16,24 L23.52,21.4666667 C23.8,21.3733333 24,21.1333333 24,20.8266667 L24,0.666666667 C24,0.293333333 23.7066667,0 23.3333333,0 Z M16,21.3333333 L8,18.52 L8,2.66666667 L16,5.48 L16,21.3333333 Z" id="path-1"></path>
+      </defs>
+      <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+          <mask fill="white">
+              <use xlink:href="#path-1"></use>
+          </mask>
+          <use id="Map" fill="black" xlink:href="#path-1"></use>
+      </g>
+  </svg>
+{{/inline}}
+
+{{#*inline 'listIcon'}}
+  <?xml version="1.0" encoding="UTF-8"?>
+  <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <title>Elements/Icons/List</title>
+      <defs>
+          <path d="M0,13.8 L2.66666667,13.8 L2.66666667,11.2 L0,11.2 L0,13.8 Z M0,19 L2.66666667,19 L2.66666667,16.4 L0,16.4 L0,19 Z M0,8.6 L2.66666667,8.6 L2.66666667,6 L0,6 L0,8.6 Z M5.33333333,13.8 L24,13.8 L24,11.2 L5.33333333,11.2 L5.33333333,13.8 Z M5.33333333,19 L24,19 L24,16.4 L5.33333333,16.4 L5.33333333,19 Z M5.33333333,6 L5.33333333,8.6 L24,8.6 L24,6 L5.33333333,6 Z" id="path-2"></path>
+      </defs>
+      <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+          <mask fill="white">
+              <use xlink:href="#path-2"></use>
+          </mask>
+          <use id="List" fill="black" xlink:href="#path-2"></use>
+      </g>
+  </svg>
+{{/inline}}

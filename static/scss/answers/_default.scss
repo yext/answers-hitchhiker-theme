@@ -30,6 +30,7 @@
 
 // Universal Section Template styling
 @import "universalsectiontemplates/standard";
+@import "universalsectiontemplates/grid-four-columns";
 @import "universalsectiontemplates/grid-three-columns";
 @import "universalsectiontemplates/grid-two-columns";
 
@@ -48,10 +49,10 @@
 @import "cards/professional-location";
 @import "cards/financial-professional-location";
 @import "cards/product-prominentimage-clickable";
-@import "directanswercards/allfields-standard";
 
-// HH files
-@import "../answers";
+// Direct Answer Card styling
+@import "directanswercards/allfields-standard";
+@import "directanswercards/documentsearch-standard";
 
 // Styling for CollapsibleFilters
 @import "collapsible-filters/collapsible-filters";
@@ -60,6 +61,12 @@
 // Styling for CollapsibleFilters components
 @import "collapsible-filters/filter-link";
 @import "collapsible-filters/view-results-button";
+
+// Vertical map component styling
+@import 'interactive-map/VerticalFullPageMap.scss';
+
+// HH files
+@import "../answers";
 
 // Custom styling outside of the Answers experience
 @import "../page.scss";

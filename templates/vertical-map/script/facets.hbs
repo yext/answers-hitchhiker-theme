@@ -8,5 +8,8 @@ ANSWERS.addComponent('Facets', {
       facetsDecorator.onMount(this);
     }
   },
+  {{#if componentSettings.Facets.fields}}
+    transformFacets: HitchhikerJS.transformFacets,
+  {{/if}}
   ...{{{ json componentSettings.Facets }}},
 });
