@@ -35,7 +35,7 @@
     "serve": "^11.3.2",
     "simple-git": "^2.24.0",
     "underscore.string": "^3.3.5",
-    "urijs": "1.18.12"
+    "urijs": "1.19.6"
   },
   "jest": {
     "verbose": true,
