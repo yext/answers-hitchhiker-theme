@@ -535,6 +535,17 @@
     }
   }
 
+  .HitchhikerProfessionalLocation,
+  .HitchhikerFinancialProfessionalLocation {
+    &-contentWrapper {
+      flex-direction: column;
+    }
+
+    &-ctasWrapper {
+      margin-top: calc(var(--yxt-base-spacing) / 2);
+    }
+  }
+
   .HitchhikerLocationCard {
     position: relative;
 
@@ -562,9 +573,9 @@
     }
 
     &-closeCardButtonWrapper {
-      position: absolute;
-      right: 16px;
-      top: 16px;
+      position: relative;
+      top: 1px;
+      margin-left: auto;
     }
 
     &-closeCardButton {
