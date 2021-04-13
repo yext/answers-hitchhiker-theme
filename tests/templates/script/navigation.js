@@ -6,7 +6,8 @@ const pageTemplates = [
   'universal-standard',
   'vertical-grid',
   'vertical-standard',
-  'vertical-map'
+  'vertical-map',
+  'vertical-full-page-map'
 ];
 
 for (const pageTemplate of pageTemplates) {

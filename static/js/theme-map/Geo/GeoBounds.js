@@ -1,5 +1,6 @@
 import { Unit, Projection } from './constants.js';
 import { Coordinate } from './Coordinate.js';
+import { getNormalizedLongitude } from '../Util/helpers.js';
 
 /**
  * This class represents a bounded coordinate region of a sphere.
@@ -121,7 +122,7 @@ class GeoBounds {
     const newLon = (nw.longitude + this._ne.longitude) / 2 + (this._ne.longitude < nw.longitude ? 180 : 0);
 
     nw.add(-latDist / 2, 0, Unit.DEGREE, projection);
-    nw.longitude = newLon;
+    nw.longitude = getNormalizedLongitude(newLon);
 
     return nw;
   }

@@ -19,7 +19,11 @@
   flex-direction: column;
   flex-grow: 1;
   width: 100%;
-  height: 100vh;
+  height: var(--yxt-maps-mobile-height);
+
+  @include bpgte($desktop-break-point-min) {
+    height: var(--yxt-maps-desktop-height);
+  }
 
   .Answers 
   {
@@ -44,7 +48,6 @@
       @include bplte($mobile-break-point-max)
       {
         flex-direction: column-reverse;
-        min-height: 100vh;
       }
     }
 
@@ -88,7 +91,6 @@
         pointer-events: none;
         position: static;
         height: 100%;
-        min-height: 100vh;
       }
     }
 
@@ -99,6 +101,7 @@
       flex-grow: 1;
       background-color: white;
       padding: 0;
+      overflow-y: scroll;
 
       @include bpgte($desktop-break-point-min) {
         display: flex;
@@ -157,6 +160,15 @@
       width: 100%;
     }
 
+    &-nav
+    {
+      @include bplte($mobile-break-point-max)
+      {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+
     &-mapWrapper {
       display: block;
       position: absolute;
@@ -166,7 +178,12 @@
       top: 0;
 
       @include bplte($mobile-break-point-max) {
-        max-height: 100vh;
+        overflow: auto;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
       }
     }
 
@@ -179,7 +196,7 @@
 
       @include bplte($mobile-break-point-max)
       {
-        top: var(--yxt-maps-mobile-results-header-height);
+        top: 0;
         transition: height 0.3s ease-out;
         height: calc(100% - var(--yxt-maps-mobile-results-header-height) - var(--yxt-maps-mobile-results-footer-height));
       }
@@ -188,7 +205,7 @@
     &-mobileToggles
     {
       display: none;
-      position: fixed;
+      position: absolute;
       bottom: 72px;
       right: 16px;
       z-index: 4;
@@ -228,13 +245,14 @@
     }
 
     &-centerTop {
-      position: absolute;
+      display: flex;
+      margin-top: 11px;
       color: black;
-      top: calc(var(--yxt-maps-mobile-results-header-height) + 8px);
-      left: 50%;
       z-index: 1;
 
       @include bpgte($desktop-break-point-min) {
+        position: fixed;
+        margin-top: 0;
         top: 16px;
         left: calc(50% + calc(var(--yxt-maps-desktop-results-container-width) / 2));
       }
@@ -243,12 +261,18 @@
     &-searchThisAreaWrapper {
       display: none;
       position: relative;
-      left: -50%;
       background-color: var(--yxt-maps-search-this-area-background-color);
       color: var(--yxt-maps-search-this-area-text-color);
+      margin-left: auto;
+      margin-right: auto;
       padding: 10px 16px;
       border-radius: var(--yxt-border-radius);
       box-shadow: 1px 1px 2px rgba(0,0,0,0.25);
+      pointer-events: all;
+
+      @include bpgte($desktop-break-point-min) {
+        left: -50%;
+      }
     }
 
     &-searchThisAreaWrapper:focus-within {
@@ -393,8 +417,7 @@
     }
 
     &-resultsHeader {
-      display: flex;
-      flex-direction: column;
+      display: block;
       padding-left: 0;
 
       @include bplte($mobile-break-point-max) {
@@ -407,21 +430,14 @@
   }
 
   // TODO make this the default
-  &.VerticalFullPageMap--listShown
+  &.VerticalFullPageMap--mobileListView
   {
-    @include bplte($mobile-break-point-max) {
-      height: 100%;
-    }
-
     .Answers
     {
       &-resultsWrapper
       {
-        @include bplte($mobile-break-point-max)
-        {
-          top: 0;
-          display: flex;
-        }
+        top: 0;
+        display: flex;
       }
 
       &-viewMapText
@@ -433,11 +449,22 @@
       {
         display: none;
       }
+
+      &-centerTop
+      {
+        @include bplte($mobile-break-point-max) {
+          display: none;
+        }
+      }
     }
   }
 
-  &.VerticalFullPageMap--mapShown
+  &.VerticalFullPageMap--mobileMapView
   {
+    &:not(.CollapsibleFilters--expanded) .Answers-map {
+      top: var(--yxt-maps-mobile-results-header-height);
+    }
+
     .Answers-mapFooter {
       display: flex;
     }
@@ -453,18 +480,15 @@
     }
   }
 
-  &.VerticalFullPageMap--detailShown
+  &.VerticalFullPageMap--mobileDetailShown
   {
     .Answers
     {
       &-map
       {
-        @include bplte($mobile-break-point-max)
-        {
-          position: absolute;
-          top: var(--yxt-maps-mobile-results-header-height);
-          height: calc(100% - var(--yxt-maps-mobile-results-header-height) - var(--yxt-maps-mobile-detail-card-height));
-        }
+        position: absolute;
+        top: var(--yxt-maps-mobile-results-header-height);
+        height: calc(100% - var(--yxt-maps-mobile-results-header-height) - var(--yxt-maps-mobile-detail-card-height));
       }
 
       &-searchThisWrapper {
@@ -497,7 +521,7 @@
   }
 
   // TODO move to js
-  &.VerticalFullPageMap--showSearchThisArea:not(.VerticalFullPageMap--noResults) {
+  &.VerticalFullPageMap--showSearchThisArea {
     .Answers-searchThisAreaWrapper {
       display: flex;
     }
@@ -508,6 +532,17 @@
     @include bplte($mobile-break-point-max)
     {
       display: none;
+    }
+  }
+
+  .HitchhikerProfessionalLocation,
+  .HitchhikerFinancialProfessionalLocation {
+    &-contentWrapper {
+      flex-direction: column;
+    }
+
+    &-ctasWrapper {
+      margin-top: calc(var(--yxt-base-spacing) / 2);
     }
   }
 
@@ -538,9 +573,9 @@
     }
 
     &-closeCardButtonWrapper {
-      position: absolute;
-      right: 16px;
-      top: 16px;
+      position: relative;
+      top: 1px;
+      margin-left: auto;
     }
 
     &-closeCardButton {
@@ -564,7 +599,7 @@
     }
 
     @include bplte($mobile-break-point-max) {
-      position: absolute;
+      position: fixed;
       bottom: 0;
       left: 0;
       width: 100%;
@@ -630,8 +665,32 @@
   }
 }
 
-.YxtPage-wrapper--detailShown {
+.YxtPage-wrapper--mobileMapView {
+  min-height: var(--yxt-maps-mobile-height);
+
+  .YxtPage-content {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
+.YxtPage-wrapper--mobileDetailShown {
   .Answers-footer {
     display: none;
+  }
+
+  .YxtFooter {
+    display: none;
+  }
+}
+
+.YxtPage-wrapper--mobileListView {
+  .Answers-footer {
+      margin-top: 0;
+      padding-top: calc(24px + var(--yxt-base-spacing));
+      position: relative;
   }
 }

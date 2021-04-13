@@ -9,6 +9,13 @@ class CardListenerAssigner {
      * @type {Answers.Component}
      */
     this.card = card;
+
+    /**
+     * The matcher to determine if the window width is within the mobile breakpoint
+     *
+     * @type {MediaQueryList}
+     */
+    this.mobileMediaMatcher = window.matchMedia(`(max-width: 991px)`);
   }
 
   /**
@@ -24,6 +31,10 @@ class CardListenerAssigner {
    */
   _addCardClickListener () {
     this.card._container.parentElement.addEventListener('click', () => {
+      if (this.mobileMediaMatcher.matches) {
+        return;
+      }
+
       const index = this._getCardIndex();
       this._storeCardFocusIndex(index);
       this._removePinFocusFromAllCards();
@@ -38,6 +49,10 @@ class CardListenerAssigner {
   _addLinkFocusListeners() {
     this.card._container.querySelectorAll('a').forEach((el) => {
       el.addEventListener('focus', () => {
+        if (this.mobileMediaMatcher.matches) {
+          return;
+        }
+
         const index = this._getCardIndex();
         this._storeCardFocusIndex(index);
         this._removePinFocusFromAllCards();

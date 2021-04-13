@@ -90,10 +90,8 @@ class MapRenderTarget extends RenderTarget {
     const pins = Object.values(this._pins);
     const coordinates = pins.map(pin => pin.getCoordinate());
 
-    if (coordinates.length) {
-      if (data.updateZoom) {
-        this._map.fitCoordinates(coordinates);
-      }
+    if (coordinates.length && data.fitCoordinates) {
+      this._map.fitCoordinates(coordinates);
     }
 
     if (this._pinClusterer) {

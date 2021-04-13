@@ -9,13 +9,13 @@ class SearchDebouncer {
     /**
      * The threshold for allowing a new search based on the distance to the previous search.
      * 
-     * The unit is approximately the map width percentage. For example, if the threshold is 50,
+     * The unit is a percentage of the map width. For example, if the threshold is .50,
      * a new search will not be allowed unless the currentMapCenter is further than 50% of the map
      * width away from the previous search.
      * 
      * @type {number}
      */
-    this.relativeDistanceThreshold = 20;
+    this.relativeDistanceThreshold = .125;
 
     /**
      * The threshold for allowing a new search based on a change in zoom.
@@ -28,43 +28,34 @@ class SearchDebouncer {
   }
 
   /**
-   * Determines whether or not a search should be debounced
+   * Determines if a search should be debounced based on the relative distance of the current map
+   * center to the previous map center.
    * 
-   * @param {Object} mostRecentSearchState
-   * @param {Coordinate} mostRecentSearchState.mapCenter
-   * @param {number} mostRecentSearchState.zoom
-   * @param {Object} currentMapState
-   * @param {Coordinate} currentMapState.mapCenter
-   * @param {number} currentMapState.zoom
-   * @retuns {boolean}
+   * @param {Coordinate} mostRecentSearchMapCenter
+   * @param {Coordinate} currentMapCenter
+   * @param {number} currentZoom
+   * @returns {boolean}
    */
-  shouldBeDebounced (mostRecentSearchState, currentMapState) {
-    this._validateMapStateObject(mostRecentSearchState);
-    this._validateMapStateObject(currentMapState);
+  isWithinDistanceThreshold ({ mostRecentSearchMapCenter, currentMapCenter, currentZoom }) {
+    const distanceToLastSearch = currentMapCenter.distanceTo(mostRecentSearchMapCenter);
+    const relativeDistance = this._calculateRelativeDistance(distanceToLastSearch, currentZoom);
 
-    const distanceToLastSearch = mostRecentSearchState.mapCenter.distanceTo(currentMapState.mapCenter);
 
-    const relativeDistance = this._calculateRelativeDistance(distanceToLastSearch, currentMapState.zoom);
-    const zoomDifference = Math.abs(currentMapState.zoom - mostRecentSearchState.zoom)
-
-    const isOutsideDistanceThreshold = relativeDistance >= this.relativeDistanceThreshold;
-    const isOutsideZoomThreshold = zoomDifference >= this.zoomThreshold;
-
-    return !isOutsideDistanceThreshold && !isOutsideZoomThreshold;
+    return relativeDistance <= this.relativeDistanceThreshold;
   }
 
   /**
-   * Throws an error if the object is missing any of the required params
+   * Determines if a search should be debounced based on the difference between the map zoom during
+   * the most recent search and the current map zoom.
    * 
-   * @param {Object}
+   * @param {number} mostRecentSearchZoom
+   * @param {number} currentZoom
+   * @returns {boolean}
    */
-  _validateMapStateObject (obj) {
-    if (!('mapCenter' in obj)) {
-      throw new Error('The search debouncer was passed an object which is missing the "mapCenter" property');
-    }
-    if (!('zoom' in obj)) {
-      throw new Error('The search debouncer was passed an object which is missing the "zoom" property');
-    }
+  isWithinZoomThreshold ({ mostRecentSearchZoom, currentZoom }) {
+    const zoomDifference = Math.abs(currentZoom - mostRecentSearchZoom);
+
+    return zoomDifference <= this.zoomThreshold;
   }
 
   /**
@@ -80,7 +71,10 @@ class SearchDebouncer {
    * @returns {number}
    */
   _calculateRelativeDistance (distance, zoom) {
-    return distance * Math.pow(2, zoom - 10);
+    const adjustment = 0.835; // The adjustment ensures that distanceInPixels is accurate
+    const distanceInPixels = distance * Math.pow(2, zoom - 6) * adjustment;
+    const widthOfMap = window.innerWidth || 1;
+    return distanceInPixels / widthOfMap;
   }
 }
 

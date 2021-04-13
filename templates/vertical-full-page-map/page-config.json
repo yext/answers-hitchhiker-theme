@@ -5,12 +5,10 @@
   // "canonicalUrl": "", // The link tag for canonical URL as well as the meta tag for open graph url
   // "keywords": "", // The meta tag for keywords
   "pageSettings": {
-    /**
     "search": {
       "verticalKey": "<REPLACE ME>", // The vertical key from your search configuration
       "defaultInitialSearch": "" // Enter a default search term
     }
-    **/
   },
   "componentSettings": {
     /**
@@ -37,8 +35,7 @@
     },
     "VerticalResults": {
       "noResults": {
-        "displayAllResults": false, // Optional, whether to display all results in the vertical when no results are found.
-        "template": "<span></span>"
+        "displayAllResults": false // Optional, whether to display all results in the vertical when no results are found.
       },
       "hideResultsHeader": true
     },
@@ -62,6 +59,7 @@
       "cardType": "location-standard", // The name of the card to use - e.g. accordion, location, customcard 
       "icon": "pin", // The icon to use on the card for this vertical
       "mapConfig": {
+        //"enablePinClustering": true, // Cluster pins on the map that are close together. Defaults false
         "mapProvider": "MapBox", // The name of the provider (e.g. Mapbox, Google)
         "noResults": {
           "displayAllResults": false, // Set to FALSE to hide results on the map when a search returns no results
@@ -83,7 +81,6 @@
             "labelColor": "white"
           }
         }
-        //"enablePinClustering": true, // Cluster pins on the map that are close together. Defaults false
       },
       "universalSectionTemplate": "standard"
     }

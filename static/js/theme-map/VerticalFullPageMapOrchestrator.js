@@ -5,7 +5,10 @@ import { SearchDebouncer } from './SearchDebouncer';
 import { defaultCenterCoordinate } from './constants.js';
 
 import ZoomTriggers from './Maps/ZoomTriggers.js';
-import StorageKeys from '../storage-keys.js';
+import PanTriggers from './Maps/PanTriggers.js';
+import MobileStates from './MobileStates';
+
+import StorageKeys from '../constants/storage-keys.js';
 
 /**
  * The component to control the interactions for an interative map.
@@ -90,13 +93,17 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
      */
     this.searchOnMapMove = !config.disableSearchOnMapMove;
 
-    const noResultsConfig = config.noResults || {};
+    /**
+     * The configuration for the no results state
+     * @type {Object}
+     */
+    this.noResultsConfig = config.noResults || {};
 
     /**
      * Whether the map should display all results on no results
      * @type {boolean}
      */
-    this.displayAllResultsOnNoResults = noResultsConfig.displayAllResults;
+    this.displayAllResultsOnNoResults = this.noResultsConfig.displayAllResults;
 
     /**
      * The mobile breakpoint (inclusive max) in px
@@ -105,10 +112,39 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
     this.mobileBreakpointMax = 991;
 
     /**
+     * Provides information about whether or not the window is within the mobile breakpoint
+     * @ytype {MediaQueryList}
+     */
+    this.mobileBreakpointMediaQuery = window.matchMedia(`(max-width: ${this.mobileBreakpointMax}px)`);
+
+    /**
+     * The current view for mobile.
+     * 
+     * Either MobileStates.LIST_VIEW or MobileStates.MAP_VIEW
+     */
+    this._mobileView = MobileStates.LIST_VIEW;
+
+    /**
      * Determines whether or not another search should be ran
      * @type {SearchDebouncer}
      */
     this.searchDebouncer = new SearchDebouncer();
+
+    /**
+     * The detail card which apears on mobile after clicking a pin
+     * @type {Element}
+     */
+    this._detailCard = null;
+
+    /**
+     * The passthrough config for the Alternative Verticals component
+     * NOTE This component is added as a child to this component because Alternative Verticals
+     * in the SDK is not designed to be a standalone component. In this layout, it cannot be
+     * a child of the Vertical Results because we want it to show on the map view. So we make it
+     * a child of the larger component.
+     * @type {Object}
+     */
+    this.alternativeVerticalsConfig = config.alternativeVerticalsConfig;
   }
 
   onCreate () {
@@ -128,6 +164,11 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
     searchThisAreaToggleEls.forEach((el) => {
       el.addEventListener('click', (e) => {
         this.searchOnMapMove = e.target.checked;
+        if (this.searchOnMapMove) {
+          this._container.classList.remove('VerticalFullPageMap--showSearchThisArea');
+        } else {
+          this._container.classList.add('VerticalFullPageMap--showSearchThisArea');
+        }
       });
     });
 
@@ -136,12 +177,102 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       this.searchThisArea();
     });
 
+    this.setupCssForBreakpoints();
     this.addMapComponent();
   }
 
+  /**
+   * Properly set CSS classes for mobile and desktop
+   */
+  setupCssForBreakpoints () {
+    if (!this.isMobile()) {
+      this.updateCssForDesktop();
+    }
+
+    this.mobileBreakpointMediaQuery.addEventListener('change', () => {
+      if (this.isMobile()) {
+        this.updateCssForMobile();
+      } else {
+        this.updateCssForDesktop();
+      }
+    }, { passive: true });
+  }
+
+  /**
+   * @returns {boolean}
+   */
+  isMobile () {
+    return this.mobileBreakpointMediaQuery.matches;
+  }
+
+  updateCssForMobile () {
+    if (this._mobileView === MobileStates.LIST_VIEW) {
+      this.addCssClassesForState(MobileStates.LIST_VIEW);
+      this.removeCssClassesForState(MobileStates.MAP_VIEW);
+      this.removeCssClassesForState(MobileStates.DETAIL_SHOWN); 
+    } else if (this._mobileView === MobileStates.MAP_VIEW) {
+      this.addCssClassesForState(MobileStates.MAP_VIEW);
+      this.removeCssClassesForState(MobileStates.LIST_VIEW);
+    }
+  }
+
+  updateCssForDesktop () {
+    const statesToRemove = [MobileStates.LIST_VIEW, MobileStates.MAP_VIEW, MobileStates.DETAIL_SHOWN];
+    statesToRemove.forEach(state => {
+      this.removeCssClassesForState(state);
+    });
+  }
+
+  setMobileMapView () {
+    this._mobileView = 'mapView';
+    this.updateCssForMobile();
+  }
+
+  setMobileListView () {
+    this._mobileView = 'listView';
+    this.updateCssForMobile();
+  }
+
+  /**
+   * @param {MobileStates} mobileState
+   */
+  addCssClassesForState(mobileState) {
+    const classModifier = this.getModifierForState(mobileState);
+    this._container.classList.add(`VerticalFullPageMap--${classModifier}`);
+    this._pageWrapperEl.classList.add(`YxtPage-wrapper--${classModifier}`);
+  }
+
+  /**
+   * @param {MobileStates} mobileState 
+   */
+  removeCssClassesForState(mobileState) {
+    const classModifier = this.getModifierForState(mobileState);
+    this._container.classList.remove(`VerticalFullPageMap--${classModifier}`);
+    this._pageWrapperEl.classList.remove(`YxtPage-wrapper--${classModifier}`);
+  }
+
+  /**
+   * Returns a css class modifier for a given mobile state.
+   * 
+   * @param {MobileStates} mobileState 
+   * @returns {string}
+   */
+  getModifierForState(mobileState) {
+    switch (mobileState) {
+      case MobileStates.LIST_VIEW:
+        return 'mobileListView'
+      case MobileStates.MAP_VIEW:
+        return 'mobileMapView'
+      case MobileStates.DETAIL_SHOWN:
+        return 'mobileDetailShown'
+      default:
+        throw new Error('Invalid mobile state');
+    }
+  }
+  
   addMapComponent () {
     /**
-     * Create mobile view toggle buttons when a map is rendered
+     * Sets up mobile view toggles and search bar listeners
      *
      * @param {Object} data The data (formatted in the Consulting LiveAPI format) of results
      * @param {Map} map The map object
@@ -149,6 +280,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
      */
     const onPostMapRender = (data, map, pins) => {
       this.setupMobileViewToggles(data, map, pins);
+      this.setupSearchBarListeners();
     };
 
     /**
@@ -157,21 +289,23 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
     const pinClusterClickListener = () => this.searchOnMapMove && this.searchThisArea();
 
     /**
-     * Dragging the map searches the new area, if desired
-     *
-     * @param {Map} map The map object
+     * The listener called when the map pans
      */
-    const dragEndListener = () => this.handleMapAreaChange();
+    const panHandler = (prevousBounds, currentBounds, panTrigger) => {
+      if (panTrigger === PanTriggers.API) {
+        return;
+      }
+
+      this.handleMapCenterChange();
+    }
 
     /**
-     * Record the current zoom during a zoom event
+     * The listener called when the zoom changes
      *
      * @param {number} zoom The zoom during a zoom event
      * @param {ZoomTriggers} zoomTrigger The intitiator of the zoom
      */
-    const zoomChangedListener = (zoom, zoomTrigger) => {
-      this.currentZoom = zoom;
-    };
+    const zoomChangedListener = (zoom, zoomTrigger) => {};
 
     /**
      * User-initiated changes to the map zoom searches the new area, if desired
@@ -181,11 +315,13 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
      * @param {ZoomTriggers} zoomTrigger The intitiator of the zoom
      */
     const zoomEndListener = (zoom, zoomTrigger) => {
+      this.currentZoom = zoom;
+
       if (zoomTrigger !== ZoomTriggers.USER) {
         return;
       }
 
-      this.handleMapAreaChange();
+      this.handleMapZoomChange();
     };
 
     ANSWERS.addComponent('ThemeMap', Object.assign({}, {
@@ -207,42 +343,66 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       onPostMapRender: onPostMapRender,
       pinFocusListener: (index, id) => this.pinFocusListener(index, id),
       pinClusterClickListener: pinClusterClickListener,
-      dragEndListener: dragEndListener,
       zoomChangedListener: zoomChangedListener,
       zoomEndListener: zoomEndListener,
-      canvasClickListener: () => this.removeResultFocusedStates()
+      panHandler: panHandler,
+      canvasClickListener: () => this.deselectAllResults()
     }));
   }
 
   /**
    * Search the area or show the search the area button according to configurable logic
    */
-  handleMapAreaChange () {
+  handleMapCenterChange () {
     if (!this.searchOnMapMove) {
       this._container.classList.add('VerticalFullPageMap--showSearchThisArea');
       return;
     }
 
-    if (!this.shouldSearchBeDebounced()) {
+    if (!this.shouldSearchBeDebouncedBasedOnCenter()) {
       this.searchThisArea();
     }
   }
 
   /**
-   * Returns true if a search should be debounced and false otherwise
+   * Search the area or show the search the area button according to configurable logic
+   */
+  handleMapZoomChange () {
+    if (!this.searchOnMapMove) {
+      this._container.classList.add('InteractiveMap--showSearchThisArea');
+      return;
+    }
+
+    if (!this.shouldSearchBeDebouncedBasedOnZoom()) {
+      this.searchThisArea();
+    }
+  }
+
+  /**
+   * Returns true if a search should be debounced based on the center of the current map
+   * and the center of the map during the most recent search
    * 
    * @returns {boolean}
    */
-  shouldSearchBeDebounced () {
-    const mostRecentSearchState = {
-      mapCenter: this.mostRecentSearchLocation,
-      zoom: this.mostRecentSearchZoom,
-    }
-    const currentMapState = {
-      mapCenter: this.getCurrentMapCenter(),
-      zoom: this.currentZoom
-    }
-    return this.searchDebouncer.shouldBeDebounced(mostRecentSearchState, currentMapState);
+  shouldSearchBeDebouncedBasedOnCenter () {
+    return this.searchDebouncer.isWithinDistanceThreshold({
+      mostRecentSearchMapCenter: this.mostRecentSearchLocation,
+      currentMapCenter: this.getCurrentMapCenter(),
+      currentZoom: this.currentZoom
+    });
+  }
+
+  /**
+   * Returns true if a search should be debounced based on the previous search zoom level and
+   * the current zoom level
+   * 
+   * @returns {boolean}
+   */
+  shouldSearchBeDebouncedBasedOnZoom () {
+    return this.searchDebouncer.isWithinZoomThreshold({
+      mostRecentSearchZoom: this.mostRecentSearchZoom,
+      currentZoom: this.currentZoom
+    });
   }
 
   /**
@@ -273,15 +433,17 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
   }
 
   /**
-   * Remove the result focused state styling from all cards and pins on the page
+   * Deselect all results by updating CSS classes, removing the detail card if present, and
+   * updating global storage.
    */
-  removeResultFocusedStates () {
-    this._container.classList.remove('VerticalFullPageMap--detailShown');
-    this._pageWrapperEl.classList.remove('YxtPage-wrapper--detailShown');
+  deselectAllResults () {
+    this.removeCssClassesForState(MobileStates.DETAIL_SHOWN);
 
     document.querySelectorAll('.yxt-Card--pinFocused').forEach((el) => {
       el.classList.remove('yxt-Card--pinFocused');
     });
+
+    this._detailCard && this._detailCard.remove();
 
     this.core.storage.set(StorageKeys.LOCATOR_SELECTED_RESULT, null);
   }
@@ -295,8 +457,6 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
     this.core.storage.set(StorageKeys.LOCATOR_SELECTED_RESULT, cardId);
     const selector = `.yxt-Card[data-opts='{ "_index": ${index - 1} }']`;
     const card = document.querySelector(selector);
-    const mediaQuery = window.matchMedia(`(max-width: ${this.mobileBreakpointMax}px)`);
-    const isMobile = mediaQuery.matches;
 
     document.querySelectorAll('.yxt-Card--pinFocused').forEach((el) => {
       el.classList.remove('yxt-Card--pinFocused');
@@ -304,36 +464,32 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
 
     card.classList.add('yxt-Card--pinFocused');
 
-    if (isMobile) {
+    if (this.isMobile()) {
       document.querySelectorAll('.yxt-Card--isVisibleOnMobileMap').forEach((el) => el.remove());
       const isDetailCardOpened = document.querySelectorAll('.yxt-Card--isVisibleOnMobileMap').length;
 
-      const cardCopy = card.cloneNode(true);
-      cardCopy.classList.add('yxt-Card--isVisibleOnMobileMap');
-      this._container.appendChild(cardCopy);
+      this._detailCard = card.cloneNode(true);
+      this._detailCard.classList.add('yxt-Card--isVisibleOnMobileMap');
+      this._container.appendChild(this._detailCard);
 
       if (!isDetailCardOpened) {
-        window.requestAnimationFrame(function(){
-          cardCopy.style = 'height: 0;';
-          window.requestAnimationFrame(function(){
-            cardCopy.style = '';
+        window.requestAnimationFrame(() => {
+          this._detailCard.style = 'height: 0;';
+          window.requestAnimationFrame(() => {
+            this._detailCard.style = '';
           });
         });
       }
 
       const buttonSelector = '.js-HitchhikerLocationCard-closeCardButton';
 
-      cardCopy.querySelectorAll(buttonSelector).forEach((el) => {
+      this._detailCard.querySelectorAll(buttonSelector).forEach((el) => {
         el.addEventListener('click', () => {
-          card.classList.remove('yxt-Card--pinFocused');
-          cardCopy.remove();
-          this._container.classList.remove('VerticalFullPageMap--detailShown');
-          this._pageWrapperEl.classList.remove('YxtPage-wrapper--detailShown');
+          this.deselectAllResults();
         });
       });
 
-      this._container.classList.add('VerticalFullPageMap--detailShown');
-      this._pageWrapperEl.classList.add('YxtPage-wrapper--detailShown');
+      this.addCssClassesForState(MobileStates.DETAIL_SHOWN);
     } else {
       this.scrollToResult(card);
     }
@@ -355,21 +511,44 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
     if (data.response && data.response.entities && data.response.entities.length) {
       showToggles = true;
     }
-    this._container.classList.remove('VerticalFullPageMap--detailShown');
+    this.removeCssClassesForState(MobileStates.DETAIL_SHOWN);
 
     if (showToggles) {
       this._container.classList.add('VerticalFullPageMap--showMobileViewToggles');
       if (!listToggle.dataset.listened) {
         listToggle.dataset.listened = 'true';
         listToggle.addEventListener('click', () => {
-          this._container.classList.toggle('VerticalFullPageMap--listShown');
-          this._container.classList.toggle('VerticalFullPageMap--mapShown');
-          this._container.classList.remove('VerticalFullPageMap--detailShown');
+          this.deselectAllResults();
+          window.scrollTo(0, 0);
+          if (this._mobileView === MobileStates.LIST_VIEW) {
+            this.setMobileMapView();
+          } else {
+            this.setMobileListView();
+          }
         });
       }
     } else {
       this._container.classList.remove('VerticalFullPageMap--showMobileViewToggles');
     }
+  }
+
+  /**
+   * Register listeners so that any active pins are deselected when a user clicks
+   * or focuses on the searchbar.
+   */
+  setupSearchBarListeners () {
+    const searchBarForm = this._container.querySelector('.yxt-SearchBar-form');
+    searchBarForm && searchBarForm.addEventListener('click', () => {
+      this.deselectAllResults()
+    });
+    const searchBarInput = this._container.querySelector('.yxt-SearchBar-input');
+    searchBarInput && searchBarInput.addEventListener('focus', () => {
+      this.deselectAllResults();
+    });
+    const searchBarButton = this._container.querySelector('.yxt-SearchBar-button');
+    searchBarButton && searchBarButton.addEventListener('focus', () => {
+      this.deselectAllResults();
+    })
   }
 
   /**
@@ -379,6 +558,16 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
    * the visible area.
    */
   searchThisArea() {
+    const numConcurrentSearchThisAreaCalls =
+      this.core.storage.get(StorageKeys.LOCATOR_NUM_CONCURRENT_SEARCH_THIS_AREA_CALLS);
+    const updatedNumSearchThisAreaCalls = numConcurrentSearchThisAreaCalls + 1 || 1;
+    this.core.storage.set(
+      StorageKeys.LOCATOR_NUM_CONCURRENT_SEARCH_THIS_AREA_CALLS,
+      updatedNumSearchThisAreaCalls
+    );
+
+    this.deselectAllResults();
+
     this._container.classList.remove('VerticalFullPageMap--showSearchThisArea');
 
     const mapProperties = this.core.storage.get(StorageKeys.LOCATOR_MAP_PROPERTIES);
@@ -396,7 +585,6 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       remove: () => this.core.clearStaticFilterNode('SearchThisArea')
     });
     this.core.setStaticFilterNodes('SearchThisArea', filterNode);
-    this.core.storage.set(StorageKeys.LOCATOR_FROM_SEARCH_THIS_AREA, true);
     this.core.verticalSearch(this.verticalKey, {
       setQueryParams: true,
       resetPagination: true,
@@ -447,14 +635,17 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       const altVerticalsData = this.core.storage.get(StorageKeys.ALTERNATIVE_VERTICALS);
       this.addChild(
         altVerticalsData,
-        'AlternativeVerticals',
-        {
-          container: '.js-answersNoResults',
-          verticalsConfig: this.verticalsConfig,
-          baseUniversalUrl: this.getBaseUniversalUrl(),
-          isShowingResults: this.displayAllResultsOnNoResults && this._data.results,
-          name: 'AlternativeVerticals--resultsHeader',
-        }
+        'AlternativeVerticals', 
+        Object.assign({},
+          {
+            container: '.js-answersNoResults',
+            verticalsConfig: this.verticalsConfig,
+            baseUniversalUrl: this.getBaseUniversalUrl(),
+            isShowingResults: this.displayAllResultsOnNoResults && this._data.results,
+            name: 'AlternativeVerticals--resultsHeader'
+          },
+          this.alternativeVerticalsConfig
+        )
       );
     }
 
