@@ -5,6 +5,8 @@ const { waitTillHTMLRendered } = require('./utils');
 const PORT = 5042;
 const TEST_SITE = `http://localhost:${PORT}`;
 
+const mobileWidth = { widths: [375] };
+const desktopWidth = { widths: [1280] };
 
 PercyScript.run(async (page, percySnapshot) => {
   const server = new HttpServer({
@@ -19,6 +21,7 @@ PercyScript.run(async (page, percySnapshot) => {
   await captureVerticalSearch(page, percySnapshot);
   await captureVerticalGridSearch(page, percySnapshot);
   await captureVerticalMapSearch(page, percySnapshot);
+  await captureVerticalFullPageMapSearch(page, percySnapshot);
 
   server.shutdown();
 });
@@ -51,4 +54,20 @@ async function captureVerticalMapSearch (page, percySnapshot) {
   await page.goto(`${TEST_SITE}/locations?query=a`);
   await waitTillHTMLRendered(page)
   await percySnapshot('vertical-map-search');
+}
+
+async function captureVerticalFullPageMapSearch (page, percySnapshot) {
+  await page.goto(`${TEST_SITE}/locations_full_page_map?query=`);
+  await waitTillHTMLRendered(page)
+  await percySnapshot('vertical-full-page-map-desktop-view', desktopWidth);
+  await percySnapshot('vertical-full-page-map-mobile-list-view', mobileWidth);
+
+  await page.click('.Answers-mobileToggle');
+  await waitTillHTMLRendered(page)
+  await percySnapshot('vertical-full-page-map-mobile-map-view', mobileWidth);
+
+  const mapboxPinSelector = '.js-answersMap button';
+  await page.click(mapboxPinSelector);
+  await waitTillHTMLRendered(page)
+  await percySnapshot('vertical-full-page-map-mobile-detail-view', mobileWidth);
 }
