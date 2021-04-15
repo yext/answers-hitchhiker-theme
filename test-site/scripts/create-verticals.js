@@ -49,3 +49,5 @@ Object.entries(verticalConfiguration).forEach(([pageName, config]) => {
   configMerger.mergeConfigForPage(pageName);
   pagePatcher.applyPatchToPage(pageName);
 });
+
+pagePatcher.applyPatchToPage('index');
