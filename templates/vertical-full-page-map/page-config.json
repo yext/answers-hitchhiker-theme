@@ -62,7 +62,7 @@
         //"enablePinClustering": true, // Cluster pins on the map that are close together. Defaults false
         "mapProvider": "MapBox", // The name of the provider (e.g. Mapbox, Google)
         "noResults": {
-          "displayAllResults": false, // Set to FALSE to hide results on the map when a search returns no results
+          "displayAllResults": false // Set to FALSE to hide results on the map when a search returns no results
         },
         "pin": {
           "default": { // The pin in its normal state
