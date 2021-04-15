@@ -35,7 +35,8 @@
       "label": "All" // The name of the universal tab in the navigation bar
     },
     "KM": {
-      "universalSectionTemplate": "grid-two-columns"
+      "universalSectionTemplate": "grid-two-columns",
+      "cardType": "product-standard"
     }
   }
 }
