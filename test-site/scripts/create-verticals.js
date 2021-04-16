@@ -25,6 +25,11 @@ const verticalConfiguration = {
     template: 'vertical-full-page-map',
     cardName: 'location-standard'
   },
+  locations_full_page_map_with_filters: {
+    verticalKey: 'KM',
+    template: 'vertical-full-page-map',
+    cardName: 'location-standard'
+  },
   people: {
     verticalKey: 'people',
     template: 'vertical-grid',
