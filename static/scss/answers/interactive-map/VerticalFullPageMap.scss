@@ -456,6 +456,14 @@
           display: none;
         }
       }
+
+      &-mapWrapper
+      {
+        // Hide the map above the screen. This has better performance than
+        // display: none since the map does not have to re-render
+        position: fixed;
+        top: calc(-2 * var(--yxt-maps-mobile-height));
+      }
     }
   }
 
