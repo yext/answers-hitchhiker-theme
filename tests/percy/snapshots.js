@@ -62,6 +62,11 @@ async function captureVerticalFullPageMapSearch (page, percySnapshot) {
   await percySnapshot('vertical-full-page-map-desktop-view', desktopWidth);
   await percySnapshot('vertical-full-page-map-mobile-list-view', mobileWidth);
 
+  await page.goto(`${TEST_SITE}/locations_full_page_map?query=office+sparce`);
+  await waitTillHTMLRendered(page)
+  await percySnapshot('vertical-full-page-map-desktop-view-spellcheck', desktopWidth);
+  await percySnapshot('vertical-full-page-map-mobile-list-view-spellcheck', mobileWidth);
+
   await page.click('.Answers-mobileToggle');
   await waitTillHTMLRendered(page)
   await percySnapshot('vertical-full-page-map-mobile-map-view', mobileWidth);
