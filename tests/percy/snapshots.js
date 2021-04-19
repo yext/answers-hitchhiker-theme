@@ -36,18 +36,30 @@ async function captureUniversalSearch (page, percySnapshot) {
   await page.goto(`${TEST_SITE}/?query=a`);
   await waitTillHTMLRendered(page)
   await percySnapshot('universal-search');
+
+  await page.goto(`${TEST_SITE}/?query=office-sparce`);
+  await waitTillHTMLRendered(page)
+  await percySnapshot('universal-search-spellcheck');
 }
 
 async function captureVerticalSearch (page, percySnapshot) {
   await page.goto(`${TEST_SITE}/events?query=a`);
   await waitTillHTMLRendered(page)
   await percySnapshot('vertical-search');
+
+  await page.goto(`${TEST_SITE}/events?query=vrginia`);
+  await waitTillHTMLRendered(page)
+  await percySnapshot('vertical-search-spellcheck');
 }
 
 async function captureVerticalGridSearch (page, percySnapshot) {
   await page.goto(`${TEST_SITE}/people?query=a`);
   await waitTillHTMLRendered(page)
   await percySnapshot('vertical-grid-search');
+
+  await page.goto(`${TEST_SITE}/people?query=vrginia`);
+  await waitTillHTMLRendered(page)
+  await percySnapshot('vertical-grid-search-spellcheck');
 }
 
 async function captureVerticalMapSearch (page, percySnapshot) {

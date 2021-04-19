@@ -167,9 +167,8 @@
     {
       .yxt-SpellCheck
       {
-        margin-top: calc(var(--yxt-base-spacing) / 2);
-        margin-bottom: var(--yxt-base-spacing);
-        margin-left: var(--yxt-base-spacing);
+        margin-bottom: calc(var(--yxt-base-spacing) * 1.25);
+        margin-left: calc(var(--yxt-base-spacing) * 0.25);
       }
     }
   }
