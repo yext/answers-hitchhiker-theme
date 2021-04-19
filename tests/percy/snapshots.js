@@ -37,7 +37,7 @@ async function captureUniversalSearch (page, percySnapshot) {
   await waitTillHTMLRendered(page)
   await percySnapshot('universal-search');
 
-  await page.goto(`${TEST_SITE}/?query=office-sparce`);
+  await page.goto(`${TEST_SITE}/?query=office+sparce`);
   await waitTillHTMLRendered(page)
   await percySnapshot('universal-search-spellcheck');
 }
