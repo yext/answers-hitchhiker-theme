@@ -29,6 +29,16 @@
   font-style: italic;
 }
 
+@mixin header_styling
+{
+  display: block;
+  margin-block-start: .33em;
+  margin-block-end: .33em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+
 @mixin rich_text_formatting
 {
   ul
@@ -127,68 +137,38 @@
 
   h1 
   {
-    display: block;
+    @include header_styling;
     font-size: var(--yxt-font-size-xlg);
-    margin-block-start: .33em;
-    margin-block-end: .33em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
   }
 
   h2 
   {
-    display: block;
+    @include header_styling;
     font-size: var(--yxt-font-size-lg);
-    margin-block-start: .33em;
-    margin-block-end: .33em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
   }
 
   h3 
   {
-    display: block;
+    @include header_styling;
     font-size: var(--yxt-font-size-md-lg);
-    margin-block-start: .33em;
-    margin-block-end: .33em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
   }
 
   h4 
   {
-    display: block;
+    @include header_styling;
     font-size: var(--yxt-font-size-md);
-    margin-block-start: .33em;
-    margin-block-end: .33em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
   }
 
   h5 
   {
-    display: block;
+    @include header_styling;
     font-size: var(--yxt-font-size-sm);
-    margin-block-start: .33em;
-    margin-block-end: .33em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
   }
 
   h6 
   {
-    display: block;
+    @include header_styling;
     font-size: var(--yxt-font-size-xs);
-    margin-block-start: .33em;
-    margin-block-end: .33em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
   }
 }
 
