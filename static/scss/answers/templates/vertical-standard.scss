@@ -132,6 +132,11 @@
     .yxt-SpellCheck
     {
       margin-bottom: calc(var(--yxt-base-spacing) * 1.5);
+      margin-left: var(--yxt-base-spacing);
+
+      @include bpgte(sm) {
+        margin-left: 0px;
+      }
     }
   }
 }
