@@ -131,9 +131,7 @@
   {
     .yxt-SpellCheck
     {
-      margin-top: calc(var(--yxt-base-spacing) / 2);
-      margin-bottom: calc(var(--yxt-base-spacing) / 2);
-      margin-left: var(--yxt-base-spacing);
+      margin-bottom: calc(var(--yxt-base-spacing) * 1.5);
     }
   }
 }
