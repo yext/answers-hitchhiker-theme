@@ -1,0 +1,35 @@
+{
+  "pageTitle": "People",
+  "componentSettings": {
+    "Facets": {
+      "expand": false,
+      "showMore": false,
+      "searchOnChange": true,
+      "fields": {
+        "c_puppyPreference": {
+          "searchable": true,
+          "fieldLabels": {
+            "Frodo": "FRODO !!!",
+            "Marty": "MARTY !!!"
+          }
+        },
+        "c_employeeDepartment": {
+          "fieldLabels": {
+            "Strategy": "STRATEGY !!!"
+          }
+        }
+      }
+    },
+    "SortOptions": {
+      "options": [{
+        "type": "RELEVANCE",
+        "label": "Relevance"
+      }]
+    }
+  },
+  "verticalsToConfig": {
+    "people": {
+      "label": "People"
+    }
+  }
+}

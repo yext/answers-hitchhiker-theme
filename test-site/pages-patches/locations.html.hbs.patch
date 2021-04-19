@@ -1,0 +1,42 @@
+--- locations.html.hbs	2021-04-08 20:33:05.000000000 -0400
++++ locations.updated.html.hbs	2021-04-08 20:38:44.000000000 -0400
+@@ -1,14 +1,14 @@
+ {{#> layouts/html }}
+   {{#> script/core }}
+     {{> cards/all }}
+-    {{!-- {{> templates/vertical-map/collapsible-filters/page-setup }} --}}
++    {{> templates/vertical-map/collapsible-filters/page-setup }}
+     {{> templates/vertical-map/script/searchbar }}
+     {{> templates/vertical-map/script/spellcheck }}
+     {{> templates/vertical-map/script/navigation }}
+     {{> templates/vertical-map/script/verticalresultscount }}
+     {{> templates/vertical-map/script/appliedfilters }}
+-    {{!-- {{> templates/vertical-map/script/sortoptions }} --}}
+-    {{!-- {{> templates/vertical-map/script/facets }} --}}
++    {{> templates/vertical-map/script/sortoptions }}
++    {{> templates/vertical-map/script/facets }}
+     {{!-- {{> templates/vertical-map/script/filterbox }} --}}
+     {{> templates/vertical-map/script/verticalresults }}
+     {{> templates/vertical-map/script/pagination }}
+@@ -32,15 +32,15 @@
+         <div class="Answers-resultsHeader">
+           {{> templates/vertical-map/markup/verticalresultscount }}
+           {{> templates/vertical-map/markup/appliedfilters }}
+-          {{!-- {{> templates/vertical-map/collapsible-filters/markup/filterlink }} --}}
+-          {{!-- {{> templates/vertical-map/collapsible-filters/markup/viewresultsbutton }} --}}
++          {{> templates/vertical-map/collapsible-filters/markup/filterlink }}
++          {{> templates/vertical-map/collapsible-filters/markup/viewresultsbutton }}
+         </div>
+         <!-- Uncomment the following div if you want to include filters, facets, or sort options  -->
+-        {{!-- <div class="Answers-filtersWrapper js-answersFiltersWrapper CollapsibleFilters-inactive"> --}}
+-          {{!-- {{> templates/vertical-map/markup/sortoptions }} --}}
+-          {{!-- {{> templates/vertical-map/markup/facets }} --}}
++        <div class="Answers-filtersWrapper js-answersFiltersWrapper CollapsibleFilters-inactive">
++          {{> templates/vertical-map/markup/sortoptions }}
++          {{> templates/vertical-map/markup/facets }}
+           {{!-- {{> templates/vertical-map/markup/filterbox }} --}}
+-        {{!-- </div> --}}
++        </div>
+         <div class="Answers-results js-answersResults">
+           {{> templates/vertical-map/markup/spellcheck }}
+           {{> templates/vertical-map/markup/verticalresults }}
