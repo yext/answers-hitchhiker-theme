@@ -70,4 +70,12 @@ async function captureVerticalFullPageMapSearch (page, percySnapshot) {
   await page.click(mapboxPinSelector);
   await waitTillHTMLRendered(page)
   await percySnapshot('vertical-full-page-map-mobile-detail-view', mobileWidth);
+
+  await page.goto(`${TEST_SITE}/locations_full_page_map?query=virginia`);
+  await waitTillHTMLRendered(page)
+  await percySnapshot('vertical-full-page-map-desktop-view-nlp-filters', desktopWidth);
+
+  await page.goto(`${TEST_SITE}/locations_full_page_map_with_filters?query=virginia`);
+  await waitTillHTMLRendered(page)
+  await percySnapshot('vertical-full-page-map-with-filters-desktop-view-nlp-filters', desktopWidth);
 }

@@ -1,0 +1,45 @@
+--- locations_full_page_map_with_filters.html.hbs
++++ locations_full_page_map_with_filters.html.hbs
+@@ -1,7 +1,7 @@
+ {{#> layouts/html pageWrapperCss="YxtPage-wrapper--mobileListView" }}
+   {{#> script/core }}
+     {{> cards/all }}
+-    {{!-- {{> templates/vertical-full-page-map/collapsible-filters/page-setup }} --}}
++    {{> templates/vertical-full-page-map/collapsible-filters/page-setup }}
+     {{> templates/vertical-full-page-map/page-setup }}
+     {{> templates/vertical-full-page-map/script/searchbar }}
+     {{> templates/vertical-full-page-map/script/spellcheck }}
+@@ -9,7 +9,7 @@
+     {{> templates/vertical-full-page-map/script/verticalresultscount }}
+     {{> templates/vertical-full-page-map/script/appliedfilters }}
+     {{!-- {{> templates/vertical-full-page-map/script/sortoptions }} --}}
+-    {{!-- {{> templates/vertical-full-page-map/script/facets }} --}}
++    {{> templates/vertical-full-page-map/script/facets }}
+     {{!-- {{> templates/vertical-full-page-map/script/filterbox }} --}}
+     {{> templates/vertical-full-page-map/script/verticalresults }}
+     {{> templates/vertical-full-page-map/script/pagination }}
+@@ -32,19 +32,19 @@
+             <div class="Answers-resultsHeaderTop">
+               {{> templates/vertical-full-page-map/markup/verticalresultscount }}
+               {{> templates/vertical-full-page-map/markup/appliedfilters }}
+-              {{!-- {{> templates/vertical-full-page-map/collapsible-filters/markup/filterlink }} --}}
+-              {{!-- {{> templates/vertical-full-page-map/collapsible-filters/markup/viewresultsbutton }} --}}
++              {{> templates/vertical-full-page-map/collapsible-filters/markup/filterlink }}
++              {{> templates/vertical-full-page-map/collapsible-filters/markup/viewresultsbutton }}
+             </div>
+             <div class="Answers-resultsHeaderBottom">
+               {{> templates/vertical-full-page-map/markup/alternativeresults }}
+             </div>
+           </div>
+           <!-- Uncomment the following div if you want to include filters, facets, or sort options  -->
+-          {{!-- <div class="Answers-filtersWrapper js-answersFiltersWrapper CollapsibleFilters-inactive"> --}}
++          <div class="Answers-filtersWrapper js-answersFiltersWrapper CollapsibleFilters-inactive">
+             {{!-- {{> templates/vertical-full-page-map/markup/sortoptions }} --}}
+-            {{!-- {{> templates/vertical-full-page-map/markup/facets }} --}}
++            {{> templates/vertical-full-page-map/markup/facets }}
+             {{!-- {{> templates/vertical-full-page-map/markup/filterbox }} --}}
+-          {{!-- </div> --}}
++          </div>
+           <div class="Answers-resultsWrapper js-locator-resultsWrapper">
+             <div class="Answers-resultsContainer js-locator-resultsContainer js-answersResultsWrapper">
+               <div class="js-answersResultsColumn">
