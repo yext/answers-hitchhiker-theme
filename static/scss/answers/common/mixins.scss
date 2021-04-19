@@ -84,6 +84,112 @@
   {
     margin-bottom: var(--yxt-base-spacing);
   }
+
+  s
+  {
+    text-decoration: line-through;
+  }
+
+  sup
+  {
+    vertical-align: super;
+    font-size: smaller;
+  }
+
+  sub 
+  {
+    vertical-align: sub;
+    font-size: smaller;
+  }
+
+  code 
+  {
+    font-family: monospace;
+    font-size: smaller;
+  }
+
+  pre 
+  {
+    display: block;
+    font-family: monospace;
+    white-space: pre;
+    margin: 1em 0px;
+  }
+
+  blockquote 
+  {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: var(--yxt-base-spacing);
+    margin-inline-end: var(--yxt-base-spacing);
+  }
+
+  h1 
+  {
+    display: block;
+    font-size: var(--yxt-font-size-xlg);
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+  }
+
+  h2 
+  {
+    display: block;
+    font-size: var(--yxt-font-size-lg);
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+  }
+
+  h3 
+  {
+    display: block;
+    font-size: var(--yxt-font-size-md-lg);
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+  }
+
+  h4 
+  {
+    display: block;
+    font-size: var(--yxt-font-size-md);
+    margin-block-start: 1.33em;
+    margin-block-end: 1.33em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+  }
+
+  h5 
+  {
+    display: block;
+    font-size: var(--yxt-font-size-sm);
+    margin-block-start: 1.67em;
+    margin-block-end: 1.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+  }
+
+  h6 
+  {
+    display: block;
+    font-size: var(--yxt-font-size-xs);
+    margin-block-start: 2.33em;
+    margin-block-end: 2.33em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+  }
 }
 
 @mixin Text(
