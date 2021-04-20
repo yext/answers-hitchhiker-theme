@@ -3,6 +3,11 @@
   // "metaDescription": "", // The meta tag for open graph description
   // "canonicalUrl": "", // The link tag for canonical URL as well as the meta tag for open graph url
   // "keywords": "", // The meta tag for keywords
+  "pageSettings": {
+    "search": {
+      "defaultInitialSearch": "virginia" // Enter a default search term
+    }
+  },  
   "componentSettings": {
     /**
     "QASubmission": {
@@ -28,6 +33,10 @@
     "Universal": {
       "isFirst": "true", // Indicates that this should always appear first in the navigation bar
       "label": "All" // The name of the universal tab in the navigation bar
+    },
+    "KM": {
+      "universalSectionTemplate": "grid-two-columns",
+      "cardType": "multilang-financial-professional-location"
     }
   }
 }
