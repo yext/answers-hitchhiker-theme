@@ -37,16 +37,25 @@ class SnapshotDirector {
   async _captureUniversalSearch () {
     await this._photographer.gotoUniversalPage({ queryParams: 'query=a' });
     await this._photographer.snapshot('universal-search');
+
+    await this._photographer.gotoUniversalPage({ queryParams: 'query=office+sparce'});
+    await this._photographer.snapshot('universal-search-spellcheck');
   }
   
   async _captureVerticalSearch () {
     await this._photographer.gotoVerticalPage({ vertical: 'events', queryParams: 'query=a'});
     await this._photographer.snapshot('vertical-search');
+
+    await this._photographer.gotoVerticalPage({ vertical: 'events', queryParams: 'query=vrginia'});
+    await this.photographer.snapshot('vertical-search-spellcheck');
   }
   
   async _captureVerticalGridSearch () {
     await this._photographer.gotoVerticalPage({ vertical: 'people', queryParams: 'query=a' });
     await this._photographer.snapshot('vertical-grid-search');
+
+    await this._photographer.gotoVerticalPage({ vertical: 'people', queryParams: 'query=vrginia'});
+    await this._photographer.snapshot('vertical-grid-search-spellcheck');
   }
   
   async _captureVerticalMapSearch () {
@@ -65,6 +74,16 @@ class SnapshotDirector {
     const mapboxPinSelector = '.js-answersMap button';
     await this._photographer.click(mapboxPinSelector);
     await this._photographer.snapshotMobileOnly('vertical-full-page-map-mobile-detail-view');
+
+    await this._photographer.gotoVerticalPage({ vertical: 'locations_full_page_map', queryParams: 'query=office+sparce'});
+    await this._photographer.snapshotDesktopOnly('vertical-full-page-map-desktop-view-spellcheck');
+    await this._photographer.snapshotMobileOnly('vertical-full-page-map-mobile-list-view-spellcheck');
+
+    await this._photographer.gotoVerticalPage({ vertical: 'locations_full_page_map', queryParams: 'query=virginia' });
+    await this._photographer.snapshotDesktopOnly('vertical-full-page-map-desktop-view-nlp-filters');
+
+    await this._photographer.gotoVerticalPage({ vertical: 'locations_full_page_map_with_filters', queryParams: 'query=virginia' });
+    await this._photographer.snapshotDesktopOnly('vertical-full-page-map-with-filters-desktop-view-nlp-filters');
   }
 }
 

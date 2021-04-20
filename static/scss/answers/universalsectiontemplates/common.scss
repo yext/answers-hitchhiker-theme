@@ -8,15 +8,6 @@
     margin-top: calc(var(--yxt-base-spacing) * 2.35);
   }
 
-  & + &
-  {
-    margin-top: calc(var(--yxt-base-spacing) * 1.5);
-
-    @media (min-width: $breakpoint-mobile-min) {
-      margin-top: calc(var(--yxt-base-spacing) * 2.35);
-    }
-  }
-
   &-left
   {
     display: flex;

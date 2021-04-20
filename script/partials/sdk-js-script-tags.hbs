@@ -1,0 +1,16 @@
+{{!--
+  Returns the SDK js script tags needed by the page.
+  @param locale 
+  @param sdkVersion
+--}}
+<script
+  src="{{> script/partials/sdk-url sdkAsset="answers-modern.min.js" locale=locale sdkVersion=sdkVersion}}"
+  type="module"
+  onload="initAnswers()"
+></script>
+<script
+  src="{{> script/partials/sdk-url sdkAsset="answers.min.js" locale=locale sdkVersion=sdkVersion}}"
+  nomodule
+  onload="initAnswers()"
+  defer
+></script>

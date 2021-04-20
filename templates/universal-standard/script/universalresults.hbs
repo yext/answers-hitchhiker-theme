@@ -1,3 +1,9 @@
+{{!-- Override the default VerticalResults template used in UniversalResults --}}
+ANSWERS.registerTemplate(
+  "results/verticalresults",
+  {{{ stringifyPartial (read "universalsectiontemplates/standard") }}}
+);
+
 ANSWERS.addComponent("UniversalResults", Object.assign({}, {
     container: ".js-answersUniversalResults",
     config: Object.assign({}, {
@@ -31,9 +37,7 @@ ANSWERS.addComponent("UniversalResults", Object.assign({}, {
 
 {{#*inline "VerticalConfig"}}
   {{#if universalSectionTemplate}}
-    template: `{{{read (concat "universalsectiontemplates/" universalSectionTemplate)}}}`,
-  {{else}}
-    template: `{{{read "universalsectiontemplates/standard"}}}`,
+    template: {{{ stringifyPartial (read (concat "universalsectiontemplates/" universalSectionTemplate)) }}},
   {{/if}}
   modifier: "{{{verticalKey}}}",
   {{#if url}}
