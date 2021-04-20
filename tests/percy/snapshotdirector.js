@@ -47,7 +47,7 @@ class SnapshotDirector {
     await this._photographer.snapshot('vertical-search');
 
     await this._photographer.gotoVerticalPage({ vertical: 'events', queryParams: 'query=vrginia'});
-    await this.photographer.snapshot('vertical-search-spellcheck');
+    await this._photographer.snapshot('vertical-search-spellcheck');
   }
   
   async _captureVerticalGridSearch () {
