@@ -170,7 +170,7 @@
         margin-bottom: calc(var(--yxt-base-spacing) * 1.25);
         margin-left: var(--yxt-base-spacing);
 
-        @include bpgte(sm) {
+        @media (min-width: $breakpoint-mobile-min)  {
           margin-left: calc(var(--yxt-base-spacing) * 0.25);
         }
       }

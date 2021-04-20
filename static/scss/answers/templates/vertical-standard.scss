@@ -134,7 +134,7 @@
       margin-bottom: calc(var(--yxt-base-spacing) * 1.5);
       margin-left: var(--yxt-base-spacing);
 
-      @include bpgte(sm) {
+      @media (min-width: $breakpoint-mobile-min) {
         margin-left: 0px;
       }
     }
