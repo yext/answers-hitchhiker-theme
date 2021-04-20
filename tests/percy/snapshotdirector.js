@@ -1,8 +1,21 @@
+/**
+ * @typedef {import('./Photographer.js')} Photographer
+ */
+
+/**
+ * Responsible for determining which snapshots to take
+ */
 class SnapshotDirector {
+  /**
+   * @param {Photographer} photographer 
+   */
   constructor(photographer) {
     this._photographer = photographer;
   }
 
+  /**
+   * @param {Photographer} photographer 
+   */
   setPhotographer(photographer) {
     this._photographer = photographer;
   }

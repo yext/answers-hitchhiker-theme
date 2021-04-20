@@ -1,7 +1,17 @@
 const Photographer = require('./photographer');
 const { waitTillHTMLRendered } = require('./utils');
+const { SnapshotWidths } = require('./constants');
 
+/**
+ * Responsible for taking Percy snapshots of an iframe answers experience
+ */
 class IframePhotographer extends Photographer {
+  /**
+   * @param {Object} obj
+   * @param {import('puppeteer').Page} obj.page A Pupeteer Page
+   * @param {function} obj.percySnapshot The percy snapshot function
+   * @param {string} obj.siteUrl A url to the index of the site
+   */
   constructor({ page, percySnapshot, siteUrl, iframePage }) {
     super();
     this._page = page;
@@ -27,11 +37,11 @@ class IframePhotographer extends Photographer {
   }
 
   async snapshotDesktopOnly(snapshotName) {
-    await this._percySnapshot(snapshotName + '-iframe', { widths: [1280] });
+    await this._percySnapshot(snapshotName + '-iframe', { widths: [SnapshotWidths.Desktop] });
   }
 
   async snapshotMobileOnly(snapshotName) {
-    await this._percySnapshot(snapshotName + '-iframe', { widths: [375] });
+    await this._percySnapshot(snapshotName + '-iframe', { widths: [SnapshotWidths.Mobile] });
   }
 
   async click(selector) {
