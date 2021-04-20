@@ -1,0 +1,27 @@
+{{!--
+  Returns the SDK js script tags needed by the page.
+  @param locale 
+  @param sdkVersion
+--}}
+
+{{~#*inline 'localePrefix'~}}
+  {{~#unless (eq locale 'en')~}}
+    {{locale}}-
+  {{~/unless~}}
+{{~/inline~}}
+
+{{~#*inline 'sdkUrl'~}}
+  https://assets.sitescdn.net/answers/v{{sdkVersion}}/{{> localePrefix }}{{sdkBundle}}
+{{~/inline~}}
+
+<script
+  src="{{> sdkUrl sdkBundle="answers-modern.min.js"}}"
+  type="module"
+  onload="initAnswers()"
+></script>
+<script
+  src="{{> sdkUrl sdkBundle="answers.min.js"}}"
+  nomodule
+  onload="initAnswers()"
+  defer
+></script>
