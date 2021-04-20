@@ -82,7 +82,7 @@
 {{/babel}}
 </script>
 
-{{> script/sdk-js-script-tags
+{{> script/partials/sdk-js-script-tags
   locale=(findFirst params.sdkLocaleOverride global_config.locale 'en')
   sdkVersion=global_config.sdkVersion
 }}
