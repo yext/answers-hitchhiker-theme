@@ -3,6 +3,7 @@ const HttpServer = require('./server');
 const SnapshotDirector = require('./snapshotdirector');
 const StandardPhotographer = require('./standardphotographer');
 const IframePhotographer = require('./iframephotographer');
+const Camera = require('./Camera');
 
 const PORT = 5042;
 
@@ -16,21 +17,27 @@ PercyScript.run(async (page, percySnapshot) => {
 
   const standardPhotographer = new StandardPhotographer({
     page: page,
-    percySnapshot: percySnapshot,
     siteUrl: `http://localhost:${PORT}`,
   });
-
   const iframePhotographer = new IframePhotographer({
     page: page,
-    percySnapshot: percySnapshot,
     siteUrl: `http://localhost:${PORT}`,
     iframePage: 'iframe_test'
   });
+  const standardCamera = new Camera({ percySnapshot: percySnapshot });
+  const iframeCamera = new Camera({ 
+    percySnapshot: percySnapshot,
+    iframeMode: true
+  });
 
-  const snapshotDirector = new SnapshotDirector(standardPhotographer);
-  await snapshotDirector.direct();
-  snapshotDirector.setPhotographer(iframePhotographer);
-  await snapshotDirector.direct();
+  await (new SnapshotDirector({
+    photographer: standardPhotographer,
+    camera: standardCamera
+  }).direct());
+  await (new SnapshotDirector({
+    photographer: iframePhotographer,
+    camera: iframeCamera
+  }).direct());
 
   server.shutdown();
 });
