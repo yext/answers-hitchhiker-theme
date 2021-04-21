@@ -2,6 +2,7 @@
 !config/locale_config.json
 !config/index.json
 !pages/index.html.hbs
+!public/iframe_test.html
 public/
 config/
 pages/
