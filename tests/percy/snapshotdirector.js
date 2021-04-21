@@ -61,7 +61,8 @@ class SnapshotDirector {
   }
   
   async _captureVerticalFullPageMapSearch () {
-    await this._photographer.gotoVerticalPage({ vertical: 'locations_full_page_map', queryParams: 'query=' });
+    await this._photographer
+      .gotoVerticalPage({ vertical: 'locations_full_page_map', queryParams: 'query=' });
     await this._camera.snapshotDesktopOnly('vertical-full-page-map-desktop-view');
     await this._camera.snapshotMobileOnly('vertical-full-page-map-mobile-list-view');
   
@@ -72,14 +73,17 @@ class SnapshotDirector {
     await this._photographer.click(mapboxPinSelector);
     await this._camera.snapshotMobileOnly('vertical-full-page-map-mobile-detail-view');
 
-    await this._photographer.gotoVerticalPage({ vertical: 'locations_full_page_map', queryParams: 'query=office+sparce'});
+    await this._photographer
+      .gotoVerticalPage({ vertical: 'locations_full_page_map', queryParams: 'query=office+sparce'});
     await this._camera.snapshotDesktopOnly('vertical-full-page-map-desktop-view-spellcheck');
     await this._camera.snapshotMobileOnly('vertical-full-page-map-mobile-list-view-spellcheck');
 
-    await this._photographer.gotoVerticalPage({ vertical: 'locations_full_page_map', queryParams: 'query=virginia' });
+    await this._photographer
+      .gotoVerticalPage({ vertical: 'locations_full_page_map', queryParams: 'query=virginia' });
     await this._camera.snapshotDesktopOnly('vertical-full-page-map-desktop-view-nlp-filters');
 
-    await this._photographer.gotoVerticalPage({ vertical: 'locations_full_page_map_with_filters', queryParams: 'query=virginia' });
+    await this._photographer
+      .gotoVerticalPage({ vertical: 'locations_full_page_map_with_filters', queryParams: 'query=virginia' });
     await this._camera.snapshotDesktopOnly('vertical-full-page-map-with-filters-desktop-view-nlp-filters');
   }
 }
