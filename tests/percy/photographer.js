@@ -50,12 +50,12 @@ class Photographer {
     await this._pageNavigator.gotoVerticalPage('people', { query: 'a' });
     await this._camera.snapshot('vertical-grid-search');
 
-    await this._pageNavigator.gotoVerticalPage('people', {query: 'vrginia' });
+    await this._pageNavigator.gotoVerticalPage('people', { query: 'vrginia' });
     await this._camera.snapshot('vertical-grid-search--spellcheck');
   }
   
   async _captureVerticalMapSearch () {
-    await this._pageNavigator.gotoVerticalPage('locations', {query: 'a' });
+    await this._pageNavigator.gotoVerticalPage('locations', { query: 'a' });
     await this._camera.snapshot('vertical-map-search');
   }
   
