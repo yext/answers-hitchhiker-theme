@@ -4,7 +4,7 @@
  * This methods polls the html content length and waits until the value is the same for three
  * consecutive samples before returning.
  * 
- * @param {Puppeteer.Page} page 
+ * @param {import('puppeteer').Page} page 
  */
 module.exports.waitTillHTMLRendered = async function (page) {
   const pollingIntervalMsecs = 750;
@@ -28,3 +28,16 @@ module.exports.waitTillHTMLRendered = async function (page) {
     previousHTMLSize = currentHTMLSize;
   }
 };
+
+/**
+ * Returns a string represenation of a query params object
+ * 
+ * @example
+ * The input of {query: 'test', url: 'localhost'} returns 'query=test&url=localhost'
+ * 
+ * @param {Object} queryParams 
+ * @returns {string}
+ */
+module.exports.getQueryParamsString = function (queryParams) {
+  return new URLSearchParams(queryParams).toString();
+}

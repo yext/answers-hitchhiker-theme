@@ -5,11 +5,10 @@ const { SnapshotWidths } = require('./constants');
  */
 class Camera {
   /**
-   * @param {Object} obj
-   * @param {function} obj.percySnapshot The percy snapshot function
-   * @param {boolean} obj.iframeMode Enables capturing iframe snapshots
+   * @param {function} percySnapshot The percy snapshot function
+   * @param {boolean} iframeMode Enables capturing iframe snapshots
    */
-  constructor({ percySnapshot, iframeMode }) {
+  constructor(percySnapshot, iframeMode ) {
     this._percySnapshot = percySnapshot;
     this._iframeMode = iframeMode;
   }
@@ -52,7 +51,7 @@ class Camera {
    */
   _getSnapshotName(snapshotName) {
     return this._iframeMode
-      ? snapshotName + '--iframe'
+      ? snapshotName + '_iframe'
       : snapshotName;
   }
 }

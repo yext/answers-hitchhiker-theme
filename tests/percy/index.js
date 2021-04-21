@@ -1,8 +1,8 @@
 const PercyScript = require('@percy/script');
 const HttpServer = require('./server');
-const SnapshotDirector = require('./snapshotdirector');
-const StandardPhotographer = require('./standardphotographer');
-const IframePhotographer = require('./iframephotographer');
+const Photographer = require('./photographer');
+const StandardPageNavigator = require('./standardpagenavigator');
+const IframePageNavigator = require('./iframepagenavigator');
 const Camera = require('./camera');
 
 const PORT = 5042;
@@ -15,29 +15,13 @@ PercyScript.run(async (page, percySnapshot) => {
 
   server.start();
 
-  const standardPhotographer = new StandardPhotographer({
-    page: page,
-    siteUrl: `http://localhost:${PORT}`,
-  });
-  const iframePhotographer = new IframePhotographer({
-    page: page,
-    siteUrl: `http://localhost:${PORT}`,
-    iframePage: 'iframe_test'
-  });
-  const standardCamera = new Camera({ percySnapshot: percySnapshot });
-  const iframeCamera = new Camera({ 
-    percySnapshot: percySnapshot,
-    iframeMode: true
-  });
+  const standardPageNavigator = new StandardPageNavigator(page, `http://localhost:${PORT}`);
+  const iframePageNavigator = new IframePageNavigator(page, `http://localhost:${PORT}`, 'iframe_test');
+  const standardCamera = new Camera(percySnapshot);
+  const iframeCamera = new Camera(percySnapshot, true);
 
-  await (new SnapshotDirector({
-    photographer: standardPhotographer,
-    camera: standardCamera
-  }).direct());
-  await (new SnapshotDirector({
-    photographer: iframePhotographer,
-    camera: iframeCamera
-  }).direct());
+  await (new Photographer(standardPageNavigator, standardCamera).direct());
+  await (new Photographer(iframePageNavigator, iframeCamera).direct());
 
   server.shutdown();
 });

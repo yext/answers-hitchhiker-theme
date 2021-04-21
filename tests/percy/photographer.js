@@ -1,32 +1,90 @@
 /**
- * Responsible for navigating pages and capturing snapshots
+ * @typedef {import('./pagenavigator.js')} PageNavigator
+ * @typedef {import('./Camera.js')} Camera
+ */
+
+/**
+ * Responsible for determining which snapshots to take
  */
 class Photographer {
   /**
-   * Navigate to a universal page
-   * 
-   * @param {Object} obj
-   * @param {string} obj.queryParams params to be put on the page. A leading '?' or '&' should
-   *                                 not be supplied.
+   * @param {PageNavigator} pageNavigator
+   * @param {Camera} camera
    */
-  async gotoUniversalPage({ queryParams = '' } = {}) {}
+  constructor(pageNavigator, camera) {
+    this._pageNavigator = pageNavigator;
+    this._camera = camera;
+  }
 
-  /**
-   * Navigate to a vertical page
-   * 
-   * @param {Object} obj
-   * @param {string} obj.vertical The vertical to navigate to.
-   * @param {string} obj.queryParams params to be put on the page. A leading '?' or '&' should
-   *                                 not be supplied.
-   */
-  async gotoVerticalPage({ vertical, queryParams = '' } = {}) {}
+  async direct() {
+    await this._captureHomepage();
+    await this._captureUniversalSearch();
+    await this._captureVerticalSearch();
+    await this._captureVerticalGridSearch();
+    await this._captureVerticalMapSearch();
+    await this._captureVerticalFullPageMapSearch();
+  }
 
-  /**
-   * Click on an element of the current page
-   * 
-   * @param {string} selector The CSS selector to click on
-   */
-  async click(selector) {}
+  async _captureHomepage () {
+    await this._pageNavigator.gotoUniversalPage();
+    await this._camera.snapshot('homepage');
+  }
+  
+  async _captureUniversalSearch () {
+    await this._pageNavigator.gotoUniversalPage({ query: 'a' });
+    await this._camera.snapshot('universal-search');
+
+    await this._pageNavigator.gotoUniversalPage({ query: 'office+sparce'});
+    await this._camera.snapshot('universal-search--spellcheck');
+  }
+  
+  async _captureVerticalSearch () {
+    await this._pageNavigator.gotoVerticalPage('events', { query: 'a' });
+    await this._camera.snapshot('vertical-search');
+
+    await this._pageNavigator.gotoVerticalPage('events',{ query: 'vrginia' });
+    await this._camera.snapshot('vertical-search--spellcheck');
+  }
+  
+  async _captureVerticalGridSearch () {
+    await this._pageNavigator.gotoVerticalPage('people', { query: 'a' });
+    await this._camera.snapshot('vertical-grid-search');
+
+    await this._pageNavigator.gotoVerticalPage('people', {query: 'vrginia' });
+    await this._camera.snapshot('vertical-grid-search--spellcheck');
+  }
+  
+  async _captureVerticalMapSearch () {
+    await this._pageNavigator.gotoVerticalPage('locations', {query: 'a' });
+    await this._camera.snapshot('vertical-map-search');
+  }
+  
+  async _captureVerticalFullPageMapSearch () {
+    await this._pageNavigator
+      .gotoVerticalPage('locations_full_page_map', { query: '' });
+    await this._camera.snapshotDesktopOnly('vertical-full-page-map__desktop-view');
+    await this._camera.snapshotMobileOnly('vertical-full-page-map__mobile-list-view');
+  
+    await this._pageNavigator.click('.Answers-mobileToggle');
+    await this._camera.snapshotMobileOnly('vertical-full-page-map__mobile-map-view');
+  
+    const mapboxPinSelector = '.js-answersMap button';
+    await this._pageNavigator.click(mapboxPinSelector);
+    await this._camera.snapshotMobileOnly('vertical-full-page-map__mobile-detail-view');
+
+    await this._pageNavigator
+      .gotoVerticalPage('locations_full_page_map', { query: 'office+sparce'});
+    await this._camera.snapshotDesktopOnly('vertical-full-page-map--spellcheck__desktop-view');
+    await this._camera.snapshotMobileOnly('vertical-full-page-map--spellcheck__mobile-list-view');
+
+    await this._pageNavigator
+      .gotoVerticalPage('locations_full_page_map', { query: 'virginia' });
+    await this._camera.snapshotDesktopOnly('vertical-full-page-map--nlp-filters__desktop-view');
+
+    await this._pageNavigator
+      .gotoVerticalPage('locations_full_page_map_with_filters', { query: 'virginia' });
+    await this._camera.snapshotDesktopOnly('vertical-full-page-map-with-filters--nlp-filters__desktop-view');
+  }
 }
 
 module.exports = Photographer;
