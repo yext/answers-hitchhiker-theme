@@ -93,7 +93,7 @@ module.exports = function () {
         'overlay': `./${jamboConfig.dirs.output}/static/js/overlay/parent-frame/yxtanswersoverlay.js`,
         'iframe-prod': `./${jamboConfig.dirs.output}/static/js/iframe-prod.js`,
         'iframe-staging': `./${jamboConfig.dirs.output}/static/js/iframe-staging.js`,
-        'VerticalFullPageMap': `./${jamboConfig.dirs.output}/static/js/locator-bundle.js`
+        'VerticalFullPageMap': `./${jamboConfig.dirs.output}/static/js/VerticalFullPageMap.js`
       },
       resolve: {
         alias: {
@@ -101,13 +101,7 @@ module.exports = function () {
         }
       },
       output: {
-        filename: (pathData) => {
-          const chunkName = pathData.chunk.name;
-          if (chunkName === 'VerticalFullPageMap') {
-            return 'locator-bundle.js';
-          }
-          return '[name].js';
-        },
+        filename: '[name].js',
         library: '[name]',
         path: path.resolve(__dirname, jamboConfig.dirs.output),
         libraryTarget: 'window',
