@@ -3,7 +3,7 @@ const HttpServer = require('./server');
 const SnapshotDirector = require('./snapshotdirector');
 const StandardPhotographer = require('./standardphotographer');
 const IframePhotographer = require('./iframephotographer');
-const Camera = require('./Camera');
+const Camera = require('./camera');
 
 const PORT = 5042;
 

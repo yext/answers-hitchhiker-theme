@@ -2,7 +2,7 @@ const Photographer = require('./photographer');
 const { waitTillHTMLRendered } = require('./utils');
 
 /**
- * Responsible for taking Percy snapshots of an answers experience
+ * Responsible for navigating answers experiences
  */
 class StandardPhotographer extends Photographer {
   /**

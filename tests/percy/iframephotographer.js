@@ -2,7 +2,7 @@ const Photographer = require('./photographer');
 const { waitTillHTMLRendered } = require('./utils');
 
 /**
- * Responsible for taking Percy snapshots of an iframe answers experience
+ * Responsible for navigating iframe answers experiences
  */
 class IframePhotographer extends Photographer {
   /**
