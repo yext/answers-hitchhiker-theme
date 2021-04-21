@@ -16,7 +16,7 @@ class Photographer {
     this._camera = camera;
   }
 
-  async direct() {
+  async captureSnapshots() {
     await this._captureHomepage();
     await this._captureUniversalSearch();
     await this._captureVerticalSearch();

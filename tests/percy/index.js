@@ -20,8 +20,8 @@ PercyScript.run(async (page, percySnapshot) => {
   const standardCamera = new Camera(percySnapshot);
   const iframeCamera = new Camera(percySnapshot, true);
 
-  await (new Photographer(standardPageNavigator, standardCamera).direct());
-  await (new Photographer(iframePageNavigator, iframeCamera).direct());
+  await (new Photographer(standardPageNavigator, standardCamera).captureSnapshots());
+  await (new Photographer(iframePageNavigator, iframeCamera).captureSnapshots());
 
   server.shutdown();
 });
