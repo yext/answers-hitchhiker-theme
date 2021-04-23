@@ -79,43 +79,21 @@ module.exports = function () {
     {
       mode,
       devtool: 'source-map',
-      target: ['web', 'es5'],
-      entry: {
-        'locator-bundle': `./${jamboConfig.dirs.output}/static/js/locator-bundle.js`
-      },
-      resolve: {
-        alias: {
-          static: path.resolve(__dirname, jamboConfig.dirs.output, 'static'),
-        }
-      },
-      output: {
-        filename: '[name].js',
-        path: path.resolve(__dirname, jamboConfig.dirs.output),
-        library: {
-          name: 'VerticalFullPageMap',
-          type: 'window'
-        },
-        publicPath: ''
-      },
-      module: {
-        rules: [javascriptModuleRule],
-      },
-    },
-    {
-      mode,
       performance: {
         maxAssetSize: 1536000,
         maxEntrypointSize: 1024000
       },
       target: ['web', 'es5'],
       entry: {
-        'bundle': `./${jamboConfig.dirs.output}/static/entry.js`,
+        'HitchhikerJS': `./${jamboConfig.dirs.output}/static/entry.js`,
+        'HitchhikerCSS': `./${jamboConfig.dirs.output}/static/css-entry.js`,
         'iframe': `./${jamboConfig.dirs.output}/static/js/iframe.js`,
         'answers': `./${jamboConfig.dirs.output}/static/js/iframe.js`,
         'overlay-button': `./${jamboConfig.dirs.output}/static/js/overlay/button-frame/entry.js`,
         'overlay': `./${jamboConfig.dirs.output}/static/js/overlay/parent-frame/yxtanswersoverlay.js`,
         'iframe-prod': `./${jamboConfig.dirs.output}/static/js/iframe-prod.js`,
         'iframe-staging': `./${jamboConfig.dirs.output}/static/js/iframe-staging.js`,
+        'VerticalFullPageMap': `./${jamboConfig.dirs.output}/static/js/VerticalFullPageMap.js`
       },
       resolve: {
         alias: {
@@ -124,8 +102,8 @@ module.exports = function () {
       },
       output: {
         filename: '[name].js',
+        library: '[name]',
         path: path.resolve(__dirname, jamboConfig.dirs.output),
-        library: 'HitchhikerJS',
         libraryTarget: 'window',
         publicPath: ''
       },
