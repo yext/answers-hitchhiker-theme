@@ -113,7 +113,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
 
     /**
      * Provides information about whether or not the window is within the mobile breakpoint
-     * @ytype {MediaQueryList}
+     * @type {MediaQueryList}
      */
     this.mobileBreakpointMediaQuery = window.matchMedia(`(max-width: ${this.mobileBreakpointMax}px)`);
 
@@ -189,13 +189,19 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       this.updateCssForDesktop();
     }
 
-    this.mobileBreakpointMediaQuery.addEventListener('change', () => {
+    const breakpointChangeHandler = () => {
       if (this.isMobile()) {
         this.updateCssForMobile();
       } else {
         this.updateCssForDesktop();
       }
-    }, { passive: true });
+    };
+    if (this.mobileBreakpointMediaQuery.addEventListener) {
+      this.mobileBreakpointMediaQuery
+        .addEventListener('change', breakpointChangeHandler, { passive: true });
+    } else {
+      this.mobileBreakpointMediaQuery.addListener(breakpointChangeHandler); // For IE11
+    }
   }
 
   /**
@@ -443,9 +449,25 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       el.classList.remove('yxt-Card--pinFocused');
     });
 
-    this._detailCard && this._detailCard.remove();
+    this._removeElement(this._detailCard);
 
     this.core.storage.set(StorageKeys.LOCATOR_SELECTED_RESULT, null);
+  }
+
+  /**
+   * Removes an element from the DOM, with support for IE11
+   * 
+   * @param {Element} element
+   */
+  _removeElement(element) {
+    if (!element) {
+      return;
+    }
+    if (element.remove) {
+      element.remove();
+    } else {
+      element.parentNode && element.parentNode.removeChild(element); // For IE11
+    }
   }
 
   /**
@@ -465,7 +487,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
     card.classList.add('yxt-Card--pinFocused');
 
     if (this.isMobile()) {
-      document.querySelectorAll('.yxt-Card--isVisibleOnMobileMap').forEach((el) => el.remove());
+      document.querySelectorAll('.yxt-Card--isVisibleOnMobileMap').forEach((el) => this._removeElement(el));
       const isDetailCardOpened = document.querySelectorAll('.yxt-Card--isVisibleOnMobileMap').length;
 
       this._detailCard = card.cloneNode(true);
@@ -474,9 +496,9 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
 
       if (!isDetailCardOpened) {
         window.requestAnimationFrame(() => {
-          this._detailCard.style = 'height: 0;';
+          this._detailCard.setAttribute('style', 'height: 0;');
           window.requestAnimationFrame(() => {
-            this._detailCard.style = '';
+            this._detailCard.removeAttribute('style');
           });
         });
       }
