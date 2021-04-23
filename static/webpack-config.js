@@ -29,7 +29,7 @@ const javascriptModuleRule = {
 
 module.exports = function () {
   const isDevelopment = 'IS_DEVELOPMENT_PREVIEW' in process.env ?
-    process.env.IS_DEVELOPMENT_PREVIEW === 'true':
+    process.env.IS_DEVELOPMENT_PREVIEW === 'true' :
     false;
 
   const jamboConfig = require('./jambo.json');
@@ -75,91 +75,89 @@ module.exports = function () {
     mode = 'production';
   }
 
-  return [
-    {
-      mode,
-      devtool: 'source-map',
-      performance: {
-        maxAssetSize: 1536000,
-        maxEntrypointSize: 1024000
-      },
-      target: ['web', 'es5'],
-      entry: {
-        'HitchhikerJS': `./${jamboConfig.dirs.output}/static/entry.js`,
-        'HitchhikerCSS': `./${jamboConfig.dirs.output}/static/css-entry.js`,
-        'iframe': `./${jamboConfig.dirs.output}/static/js/iframe.js`,
-        'answers': `./${jamboConfig.dirs.output}/static/js/iframe.js`,
-        'overlay-button': `./${jamboConfig.dirs.output}/static/js/overlay/button-frame/entry.js`,
-        'overlay': `./${jamboConfig.dirs.output}/static/js/overlay/parent-frame/yxtanswersoverlay.js`,
-        'iframe-prod': `./${jamboConfig.dirs.output}/static/js/iframe-prod.js`,
-        'iframe-staging': `./${jamboConfig.dirs.output}/static/js/iframe-staging.js`,
-        'VerticalFullPageMap': `./${jamboConfig.dirs.output}/static/js/VerticalFullPageMap.js`
-      },
-      resolve: {
-        alias: {
-          static: path.resolve(__dirname, jamboConfig.dirs.output, 'static'),
-        }
-      },
-      output: {
-        filename: '[name].js',
-        library: '[name]',
-        path: path.resolve(__dirname, jamboConfig.dirs.output),
-        libraryTarget: 'window',
-        publicPath: ''
-      },
-      plugins,
-      module: {
-        rules: [
-          javascriptModuleRule,
-          {
-            test: /\.scss$/,
-            use: [
-              MiniCssExtractPlugin.loader,
-              'css-loader',
-              'resolve-url-loader',
-              {
-                loader: 'sass-loader',
-                options: {
-                  sourceMap: true,
-                }
+  return {
+    mode,
+    devtool: 'source-map',
+    performance: {
+      maxAssetSize: 1536000,
+      maxEntrypointSize: 1024000
+    },
+    target: ['web', 'es5'],
+    entry: {
+      'HitchhikerJS': `./${jamboConfig.dirs.output}/static/entry.js`,
+      'HitchhikerCSS': `./${jamboConfig.dirs.output}/static/css-entry.js`,
+      'iframe': `./${jamboConfig.dirs.output}/static/js/iframe.js`,
+      'answers': `./${jamboConfig.dirs.output}/static/js/iframe.js`,
+      'overlay-button': `./${jamboConfig.dirs.output}/static/js/overlay/button-frame/entry.js`,
+      'overlay': `./${jamboConfig.dirs.output}/static/js/overlay/parent-frame/yxtanswersoverlay.js`,
+      'iframe-prod': `./${jamboConfig.dirs.output}/static/js/iframe-prod.js`,
+      'iframe-staging': `./${jamboConfig.dirs.output}/static/js/iframe-staging.js`,
+      'VerticalFullPageMap': `./${jamboConfig.dirs.output}/static/js/VerticalFullPageMap.js`
+    },
+    resolve: {
+      alias: {
+        static: path.resolve(__dirname, jamboConfig.dirs.output, 'static'),
+      }
+    },
+    output: {
+      filename: '[name].js',
+      library: '[name]',
+      path: path.resolve(__dirname, jamboConfig.dirs.output),
+      libraryTarget: 'window',
+      publicPath: ''
+    },
+    plugins,
+    module: {
+      rules: [
+        javascriptModuleRule,
+        {
+          test: /\.scss$/,
+          use: [
+            MiniCssExtractPlugin.loader,
+            'css-loader',
+            'resolve-url-loader',
+            {
+              loader: 'sass-loader',
+              options: {
+                sourceMap: true,
               }
-            ],
-          },
-          {
-            test: /\.(png|ico|gif|jpe?g|svg|webp|eot|otf|ttf|woff2?)$/,
-            loader: 'file-loader',
-            options: {
-              name: '[name].[contenthash].[ext]'
             }
-          },
-          {
-            test: /\.html$/i,
-            use: [
-              {
-                loader: path.resolve(__dirname, `./${jamboConfig.dirs.output}/static/webpack/html-asset-loader.js`),
-              },
-              {
-                loader: 'html-loader',
-                options: {
-                  minimize: {
-                    removeAttributeQuotes: false,
-                    collapseWhitespace: true,
-                    conservativeCollapse: true,
-                    keepClosingSlash: true,
-                    minifyCSS: false,
-                    minifyJS: false,
-                    removeComments: true,
-                    removeScriptTypeAttributes: true,
-                    removeStyleLinkTypeAttributes: true,
-                    useShortDoctype: true
-                  },
-                  attributes: false
-                }
-              }
-            ]
+          ],
+        },
+        {
+          test: /\.(png|ico|gif|jpe?g|svg|webp|eot|otf|ttf|woff2?)$/,
+          loader: 'file-loader',
+          options: {
+            name: '[name].[contenthash].[ext]'
           }
-        ],
-      },
-    }
-  ]
+        },
+        {
+          test: /\.html$/i,
+          use: [
+            {
+              loader: path.resolve(__dirname, `./${jamboConfig.dirs.output}/static/webpack/html-asset-loader.js`),
+            },
+            {
+              loader: 'html-loader',
+              options: {
+                minimize: {
+                  removeAttributeQuotes: false,
+                  collapseWhitespace: true,
+                  conservativeCollapse: true,
+                  keepClosingSlash: true,
+                  minifyCSS: false,
+                  minifyJS: false,
+                  removeComments: true,
+                  removeScriptTypeAttributes: true,
+                  removeStyleLinkTypeAttributes: true,
+                  useShortDoctype: true
+                },
+                attributes: false
+              }
+            }
+          ]
+        }
+      ],
+    },
+  }
 };
