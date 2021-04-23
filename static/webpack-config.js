@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
 const RemovePlugin = require('remove-files-webpack-plugin');
+const { merge } = require('webpack-merge');
 
 module.exports = function () {
   const jamboConfig = require('./jambo.json');
@@ -39,7 +40,7 @@ module.exports = function () {
     })
   ];
 
-  const config = {
+  const commonConfig = {
     devtool: 'source-map',
     performance: {
       maxAssetSize: 1536000,
@@ -123,9 +124,16 @@ module.exports = function () {
     },
   };
 
-  const ConfigModeDecorator = require(
-    `./${jamboConfig.dirs.output}/static/webpack/ConfigModeDecorator`
-  );
-  const configModeDecorator = new ConfigModeDecorator();
-  return configModeDecorator.decorate(config);
+  const isDevelopment = (process.env || {}).IS_DEVELOPMENT_PREVIEW === 'true';
+  if (isDevelopment) {
+    const devConfig = require(
+      `./${jamboConfig.dirs.output}/static/webpack/webpack.dev.js`
+    )();
+    return merge(commonConfig, devConfig);
+  } else {
+    const prodConfig = require(
+      `./${jamboConfig.dirs.output}/static/webpack/webpack.prod.js`
+    )();
+    return merge(commonConfig, prodConfig);
+  }
 };
