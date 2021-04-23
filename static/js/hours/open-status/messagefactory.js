@@ -1,6 +1,5 @@
 import HoursStringsLocalizer from '../stringslocalizer.js';
 import { OpenStatusStrings, OpenStatusTypes } from './constants.js';
-import { DayNames } from '../constants.js';
 
 /**
  * Responsible for forming a localized open status message based on the hours data
