@@ -29,7 +29,7 @@ const javascriptModuleRule = {
 
 module.exports = function () {
   const isDevelopment = 'IS_DEVELOPMENT_PREVIEW' in process.env ?
-    process.env.IS_DEVELOPMENT_PREVIEW === 'true' :
+    process.env.IS_DEVELOPMENT_PREVIEW === 'true':
     false;
 
   const jamboConfig = require('./jambo.json');
