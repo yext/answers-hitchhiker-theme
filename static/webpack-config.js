@@ -4,39 +4,10 @@ const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
 const RemovePlugin = require('remove-files-webpack-plugin');
-
-const javascriptModuleRule = {
-  test: /\.js$/,
-  exclude: [
-    /node_modules\//
-  ],
-  loader: 'babel-loader',
-  options: {
-    presets: [
-      '@babel/preset-env',
-    ],
-    plugins: [
-      ['@babel/plugin-transform-runtime', {
-        'corejs': 3
-      }],
-      '@babel/syntax-dynamic-import',
-      '@babel/plugin-transform-arrow-functions',
-      '@babel/plugin-proposal-object-rest-spread',
-      '@babel/plugin-transform-object-assign',
-    ]
-  }
-};
+const { merge } = require('webpack-merge');
 
 module.exports = function () {
-  const isDevelopment = 'IS_DEVELOPMENT_PREVIEW' in process.env ?
-    process.env.IS_DEVELOPMENT_PREVIEW === 'true':
-    false;
-
   const jamboConfig = require('./jambo.json');
-  const InlineAssetHtmlPlugin = require(
-    `./${jamboConfig.dirs.output}/static/webpack/InlineAssetHtmlPlugin`
-  );
-
   const htmlPlugins = [];
 
   const htmlAssetPathToOutputFilename = {
@@ -69,14 +40,7 @@ module.exports = function () {
     })
   ];
 
-  let mode = 'development';
-  if (!isDevelopment) {
-    plugins.push(new InlineAssetHtmlPlugin());
-    mode = 'production';
-  }
-
-  return {
-    mode,
+  const commonConfig = {
     devtool: 'source-map',
     performance: {
       maxAssetSize: 1536000,
@@ -109,7 +73,6 @@ module.exports = function () {
     plugins,
     module: {
       rules: [
-        javascriptModuleRule,
         {
           test: /\.scss$/,
           use: [
@@ -159,5 +122,18 @@ module.exports = function () {
         }
       ],
     },
+  };
+
+  const isDevelopment = (process.env || {}).IS_DEVELOPMENT_PREVIEW === 'true';
+  if (isDevelopment) {
+    const devConfig = require(
+      `./${jamboConfig.dirs.output}/static/webpack/webpack.dev.js`
+    )();
+    return merge(commonConfig, devConfig);
+  } else {
+    const prodConfig = require(
+      `./${jamboConfig.dirs.output}/static/webpack/webpack.prod.js`
+    )();
+    return merge(commonConfig, prodConfig);
   }
 };
