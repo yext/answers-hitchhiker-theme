@@ -1,6 +1,6 @@
 import { Coordinate } from './Geo/Coordinate.js';
 import { smoothScroll } from './Util/SmoothScroll.js';
-import { getLanguageForProvider, isViewableWithinContainer } from './Util/helpers.js';
+import { getLanguageForProvider, isViewableWithinContainer, removeElement } from './Util/helpers.js';
 import { SearchDebouncer } from './SearchDebouncer';
 import { defaultCenterCoordinate } from './constants.js';
 
@@ -449,25 +449,9 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       el.classList.remove('yxt-Card--pinFocused');
     });
 
-    this._removeElement(this._detailCard);
+    removeElement(this._detailCard);
 
     this.core.storage.set(StorageKeys.LOCATOR_SELECTED_RESULT, null);
-  }
-
-  /**
-   * Removes an element from the DOM, with support for IE11
-   * 
-   * @param {Element} element
-   */
-  _removeElement(element) {
-    if (!element) {
-      return;
-    }
-    if (element.remove) {
-      element.remove();
-    } else {
-      element.parentNode && element.parentNode.removeChild(element); // For IE11
-    }
   }
 
   /**
@@ -487,7 +471,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
     card.classList.add('yxt-Card--pinFocused');
 
     if (this.isMobile()) {
-      document.querySelectorAll('.yxt-Card--isVisibleOnMobileMap').forEach((el) => this._removeElement(el));
+      document.querySelectorAll('.yxt-Card--isVisibleOnMobileMap').forEach((el) => removeElement(el));
       const isDetailCardOpened = document.querySelectorAll('.yxt-Card--isVisibleOnMobileMap').length;
 
       this._detailCard = card.cloneNode(true);
