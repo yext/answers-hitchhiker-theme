@@ -1,11 +1,11 @@
-function loadFullPageMap() {
+function addFullPageMap() {
   {{> theme-components/theme-map/script}}
   {{> theme-components/vertical-full-page-map/script}}
 }
 
-if (window.locatorBundleLoaded) {
-  loadFullPageMap();
+if (window.verticalFullPageMapBundleLoaded) {
+  addFullPageMap();
 } else {
-  const locatorBundleScript = document.querySelector('script#js-answersLocatorBundleScript');
-  locatorBundleScript.onload = loadFullPageMap;
+  const verticalFullPageMapScript = document.querySelector('script#js-verticalFullPageMapScript');
+  verticalFullPageMapScript.onload = addFullPageMap;
 }
