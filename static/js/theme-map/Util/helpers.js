@@ -106,10 +106,28 @@ const debounce = (func, wait) => {
   };
 };
 
+/**
+ * Removes an element from the DOM, with support for IE11
+ * 
+ * @param {Element} element
+ */
+const removeElement = (element) => {
+  if (!element) {
+    return;
+  }
+  if (element.remove) {
+    element.remove();
+  } else {
+    element.parentNode && element.parentNode.removeChild(element); // For IE11
+  }
+}
+
 export {
   getLanguageForProvider,
   getEncodedSvg,
   getNormalizedLongitude,
   isViewableWithinContainer,
-  debounce
+  debounce,
+  removeElement
 }
+
