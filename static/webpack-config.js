@@ -35,7 +35,7 @@ module.exports = function () {
       after: {
         root: `${jamboConfig.dirs.output}`,
         include: ['static'],
-        log: true
+        log: false
       }
     })
   ];
