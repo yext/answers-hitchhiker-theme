@@ -42,6 +42,7 @@ module.exports = function () {
 
   const commonConfig = {
     devtool: 'source-map',
+    stats: 'errors-warnings',
     performance: {
       maxAssetSize: 1536000,
       maxEntrypointSize: 1024000
