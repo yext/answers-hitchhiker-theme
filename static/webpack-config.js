@@ -35,13 +35,14 @@ module.exports = function () {
       after: {
         root: `${jamboConfig.dirs.output}`,
         include: ['static'],
-        log: true
+        log: false
       }
     })
   ];
 
   const commonConfig = {
     devtool: 'source-map',
+    stats: 'errors-warnings',
     performance: {
       maxAssetSize: 1536000,
       maxEntrypointSize: 1024000
