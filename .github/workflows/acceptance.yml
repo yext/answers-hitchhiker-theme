@@ -3,7 +3,7 @@ name: BrowserStack Acceptance Tests
 on: [push, pull_request]
 
 jobs:
-  run-acceptance-tests:
+  browserstack-acceptance-tests:
     name: BrowserStack Acceptance Tests
     runs-on: ubuntu-latest
     env:
@@ -19,3 +19,16 @@ jobs:
       - run: npm run build-test-site
       - name: Run Acceptance Tests
         run: './.github/run_browserstack_acceptance.sh'
+  headless-acceptance-tests:
+    name: Headless Acceptance Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - run: npm ci
+      - run: npm run setup-test-site
+      - run: npm run build-test-site
+      - name: Run Acceptance Tests
+        run: npx testcafe "chrome:headless,firefox:headless" tests/acceptance/suites/*.js -q
