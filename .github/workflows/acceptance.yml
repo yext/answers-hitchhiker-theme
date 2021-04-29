@@ -7,15 +7,13 @@ jobs:
     name: 'Browserstack Acceptance Tests'
     runs-on: ubuntu-latest
     steps:
-      - name: BrowserStack Env Setup
-        uses: 'browserstack/github-actions/setup-env@master'
+      - uses: 'browserstack/github-actions/setup-env@master'
         with:
           username:  ${{ secrets.BROWSERSTACK_USERNAME }}
           access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
           project-name: 'Answers Hitchhiker Theme'
-      - name: Build test site
       - uses: actions/checkout@v2
-        uses: actions/setup-node@v1
+      - uses: actions/setup-node@v1
         with:
           node-version: 14
       - run: npm ci
