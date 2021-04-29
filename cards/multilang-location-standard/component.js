@@ -7,7 +7,7 @@ class multilang_location_standardCardComponent extends BaseCard['multilang-locat
 
   onMount() {
     const onVerticalFullPageMap = !!document.querySelector('.js-answersVerticalFullPageMap');
-    onVerticalFullPageMap && new VerticalFullPageMap.CardListenerAssigner({card: this}).addListenersToCard();
+    onVerticalFullPageMap && registerVerticalFullPageMapCardListeners(this);
     super.onMount();
   }
 
