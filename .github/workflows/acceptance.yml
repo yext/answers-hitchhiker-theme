@@ -17,6 +17,7 @@ jobs:
       - run: npm ci
       - run: npm run setup-test-site
       - run: npm run build-test-site
+      - run: chmod +x ./.github/run_browserstack_acceptance.sh
       - name: Run Acceptance Tests
         run: ./.github/run_browserstack_acceptance.sh
         shell: bash
@@ -31,7 +32,6 @@ jobs:
       - run: npm ci
       - run: npm run setup-test-site
       - run: npm run build-test-site
-      - run: chmod +x tests/acceptance/suites/*.js
       - name: Run Acceptance Tests
         run: npx testcafe "chrome:headless,firefox:headless" tests/acceptance/suites/*.js -q
         shell: bash
