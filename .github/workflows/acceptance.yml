@@ -18,7 +18,7 @@ jobs:
       - run: npm run setup-test-site
       - run: npm run build-test-site
       - name: Run Acceptance Tests
-        run: './.github/run_browserstack_acceptance.sh'
+        run: ./.github/run_browserstack_acceptance.sh
         shell: bash
   headless-acceptance-tests:
     name: Headless Acceptance Tests
