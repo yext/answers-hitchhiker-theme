@@ -1,5 +1,4 @@
 #!/bin/bash
-
 export BROWSERSTACK_USE_AUTOMATE="1"
 export BROWSERSTACK_PROJECT_NAME="Answers Hitchhiker Theme"
 GITHUB_BRANCH=${GITHUB_REF#refs/heads/}
