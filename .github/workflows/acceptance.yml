@@ -6,13 +6,10 @@ jobs:
   run-acceptance-tests:
     name: BrowserStack Acceptance Tests
     runs-on: ubuntu-latest
+    env:
+      BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+      BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
     steps:
-      - name: BrowserStack Environment Setup
-        uses: 'browserstack/github-actions/setup-env@master'
-        with:
-          username:  ${{ secrets.BROWSERSTACK_USERNAME }}
-          access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
-          project-name: 'Answers Hitchhiker Theme'
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
@@ -21,4 +18,4 @@ jobs:
       - run: npm run setup-test-site
       - run: npm run build-test-site
       - name: Run Acceptance Tests
-        run: 'npx testcafe "browserstack:chrome,browserstack:firefox,browserstack:safari,browserstack:ie@11" tests/acceptance/suites/*.js'
+        run: './run_browserstack_acceptance.sh'
