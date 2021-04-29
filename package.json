@@ -56,7 +56,8 @@
       "/fixtures/",
       "/test-utils/",
       "/test-site/",
-      "/percy/"
+      "/percy/",
+      "/acceptance/"
     ]
   }
 }

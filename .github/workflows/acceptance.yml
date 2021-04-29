@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   run-acceptance-tests:
-    name: 'Browserstack Acceptance Tests'
+    name: Browserstack Acceptance Tests
     runs-on: ubuntu-latest
     steps:
       - uses: 'browserstack/github-actions/setup-env@master'
@@ -16,7 +16,6 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 14
-      - run: npm ci
       - run: npm run setup-test-site
       - run: npm run build-test-site
-      - run: 'npx testcafe "browserstack:chrome" tests/acceptance/suites/*.js'
+      - run: 'npx testcafe "browserstack:chrome,browserstack:firefox,browserstack:safari,browserstack:ie@11" tests/acceptance/suites/*.js'
