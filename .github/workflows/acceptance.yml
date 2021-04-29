@@ -19,5 +19,4 @@ jobs:
       - run: npm ci
       - run: npm run setup-test-site
       - run: npm run build-test-site
-      - name: Run Acceptance Tests
       - run: 'npx testcafe "browserstack:chrome" tests/acceptance/suites/*.js'
