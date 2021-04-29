@@ -16,6 +16,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 14
+      - run: npm ci
       - run: npm run setup-test-site
       - run: npm run build-test-site
       - run: 'npx testcafe "browserstack:chrome,browserstack:firefox,browserstack:safari,browserstack:ie@11" tests/acceptance/suites/*.js'
