@@ -1,13 +1,14 @@
-name: Browserstack Acceptance Tests
+name: BrowserStack Acceptance Tests
 
 on: [push, pull_request]
 
 jobs:
   run-acceptance-tests:
-    name: Browserstack Acceptance Tests
+    name: BrowserStack Acceptance Tests
     runs-on: ubuntu-latest
     steps:
-      - uses: 'browserstack/github-actions/setup-env@master'
+      - name: BrowserStack Environment Setup
+        uses: 'browserstack/github-actions/setup-env@master'
         with:
           username:  ${{ secrets.BROWSERSTACK_USERNAME }}
           access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
@@ -19,4 +20,5 @@ jobs:
       - run: npm ci
       - run: npm run setup-test-site
       - run: npm run build-test-site
-      - run: 'npx testcafe "browserstack:chrome,browserstack:firefox,browserstack:safari,browserstack:ie@11" tests/acceptance/suites/*.js'
+      - name: Run Acceptance Tests
+        run: 'npx testcafe "browserstack:chrome,browserstack:firefox,browserstack:safari,browserstack:ie@11" tests/acceptance/suites/*.js'
