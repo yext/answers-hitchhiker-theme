@@ -1,5 +1,5 @@
 const PercyScript = require('@percy/script');
-const HttpServer = require('./server');
+const HttpServer = require('../test-utils/server');
 const Photographer = require('./photographer');
 const StandardPageNavigator = require('./standardpagenavigator');
 const IframePageNavigator = require('./iframepagenavigator');
