@@ -33,8 +33,12 @@
     .yxt-SpellCheck
     {
       margin-top: calc(var(--yxt-base-spacing) * 1.5);
-      margin-bottom: calc(var(--yxt-base-spacing) * 0.2);
-      margin-left: var(--yxt-base-spacing);
+      margin-bottom: calc(var(--yxt-base-spacing) * -0.85);
+
+      @media (max-width: $breakpoint-mobile-max) {
+        margin-left: var(--yxt-base-spacing);
+        margin-bottom: 0px;
+      }
     }
   }
 }

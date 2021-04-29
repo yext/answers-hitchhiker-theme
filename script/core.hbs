@@ -81,4 +81,8 @@
   }
 {{/babel}}
 </script>
-<script src="https://assets.sitescdn.net/answers/v{{global_config.sdkVersion}}/{{#if params.sdkLocaleOverride}}{{#unless (eq params.sdkLocaleOverride 'en')}}{{params.sdkLocaleOverride}}-{{/unless}}{{else if global_config.locale}}{{#unless (eq global_config.locale 'en')}}{{global_config.locale}}-{{/unless}}{{/if}}answers.min.js" onload="initAnswers()" defer></script>
+
+{{> script/partials/sdk-js-script-tags
+  locale=(findFirst params.sdkLocaleOverride global_config.locale 'en')
+  sdkVersion=global_config.sdkVersion
+}}

@@ -1,16 +1,16 @@
-function loadFullPageMap() {
+function addFullPageMap() {
   {{> theme-components/theme-map/script}}
   {{> theme-components/vertical-full-page-map/script}}
 }
 
-if (window.locatorBundleLoaded) {
-  loadFullPageMap();
+if (window.verticalFullPageMapBundleLoaded) {
+  addFullPageMap();
 } else {
-  const locatorBundleScript = document.querySelector('script#js-answersLocatorBundleScript');
-  locatorBundleScript.onload = () => {
-    window.locatorBundleLoaded = true;
-    locatorBundleScript.dispatchEvent(new Event('locator-bundle-loaded'));
-    loadFullPageMap();
+  const verticalFullPageMapScript = document.querySelector('script#js-verticalFullPageMapScript');
+  verticalFullPageMapScript.onload = () => {
+    window.verticalFullPageMapBundleLoaded = true;
+    verticalFullPageMapScript.dispatchEvent(new Event('vertical-full-page-map-bundle-loaded'));
+    addFullPageMap();
   }
 }
 
@@ -20,12 +20,12 @@ if (window.locatorBundleLoaded) {
  * @param {ANSWERS.Component} card A location card
  */
 function registerVerticalFullPageMapCardListeners(card) {
-  if (window.locatorBundleLoaded) {
+  if (window.verticalFullPageMapBundleLoaded) {
     new VerticalFullPageMap.CardListenerAssigner({card: card}).addListenersToCard();
     return;
   }
-  const locatorBundleScript = document.querySelector('script#js-answersLocatorBundleScript');
-  locatorBundleScript.addEventListener('locator-bundle-loaded', () => {
+  const verticalFullPageMapScript = document.querySelector('script#js-verticalFullPageMapScript');
+  verticalFullPageMapScript.addEventListener('vertical-full-page-map-bundle-loaded', () => {
     new VerticalFullPageMap.CardListenerAssigner({card: card}).addListenersToCard();
   });
 }
