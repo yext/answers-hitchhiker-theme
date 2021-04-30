@@ -6,4 +6,4 @@ export BROWSERSTACK_BUILD_ID="${GITHUB_BRANCH} - ${GITHUB_JOB}"
 COMMIT_MSG_TITLE=$(git log -n 1 --pretty=format:%s)
 export BROWSERSTACK_TEST_RUN_NAME=$COMMIT_MSG_TITLE
 
-npx testcafe "browserstack:ie@11.0,browserstack:safari" tests/acceptance/suites/*.js -q
+npx testcafe "browserstack:ie@11.0,browserstack:firefox" tests/acceptance/suites/*.js -q
