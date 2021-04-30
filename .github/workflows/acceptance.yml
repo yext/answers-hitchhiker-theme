@@ -33,5 +33,5 @@ jobs:
       - run: npm run setup-test-site
       - run: npm run build-test-site
       - name: Run Acceptance Tests
-        run: npx testcafe "chrome:headless,safari:headless" tests/acceptance/suites/*.js -q
+        run: npx testcafe "chrome:headless" tests/acceptance/suites/*.js -q
         shell: bash
