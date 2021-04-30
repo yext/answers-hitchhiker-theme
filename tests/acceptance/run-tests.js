@@ -23,9 +23,8 @@ runTests(argv.browsers);
 async function runTests (browsers) {
   const testCafeOptions = {
     hostname: 'localhost',
-    port1:   1337,
-    port2:   1338,
-    developmentMode: true,
+    port1: 1337,
+    port2: 1338
  };
   const testcafe = await createTestCafe(testCafeOptions);
   try {
@@ -33,7 +32,7 @@ async function runTests (browsers) {
       .src('tests/acceptance/suites/*.js')
       .browsers(browsers)
       .startApp(`npx serve -p ${PORT} test-site/public`, 4000)
-      .run();
+      .run({ quarantineMode: true });
   }
   finally {
     await testcafe.close();
