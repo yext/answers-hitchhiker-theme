@@ -1,6 +1,6 @@
 name: BrowserStack Acceptance Tests
 
-on: [push, pull_request]
+on: push
 
 jobs:
   browserstack-acceptance-tests:
