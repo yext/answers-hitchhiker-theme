@@ -1,9 +1,7 @@
-import { setupServer, shutdownServer } from '../server';
+const { PORT } = require('../constants');
 
 fixture`Vertical Full Page Map`
-  .before(setupServer)
-  .after(shutdownServer)
-  .page('http://localhost:9999/locations_full_page_map')
+  .page(`http://localhost:${PORT}/locations_full_page_map`)
 
 test('The test runs', async () => {
 
