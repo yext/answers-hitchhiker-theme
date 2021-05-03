@@ -37,7 +37,7 @@
     "serve": "^11.3.2",
     "simple-git": "^2.24.0",
     "testcafe": "^1.14.0",
-    "testcafe-browser-provider-browserstack": "^1.13.2-alpha.1",
+    "testcafe-browser-provider-browserstack": "^1.13.1",
     "underscore.string": "^3.3.5",
     "urijs": "1.18.12",
     "yargs": "^17.0"
