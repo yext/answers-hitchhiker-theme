@@ -17,10 +17,8 @@ jobs:
       - run: npm ci
       - run: npm run setup-test-site
       - run: npm run build-test-site
-      - run: chmod +x ./.github/run_browserstack_acceptance.sh
       - name: Run Acceptance Tests
         run: ./.github/run_browserstack_acceptance.sh
-        shell: bash
   headless-acceptance-tests:
     name: Headless Acceptance Tests
     runs-on: ubuntu-latest
@@ -33,5 +31,4 @@ jobs:
       - run: npm run setup-test-site
       - run: npm run build-test-site
       - name: Run Acceptance Tests
-        run: node tests/acceptance/run-tests.js --browsers chrome:headless
-        shell: bash
+        run: node tests/acceptance/run-tests.js --browsers chrome:headless firefox:headless
