@@ -6,7 +6,8 @@
     "test": "cross-env NODE_ICU_DATA=node_modules/full-icu jest --verbose",
     "setup-test-site": "./test-site/scripts/setup.sh",
     "build-test-site": "./test-site/scripts/build.sh",
-    "serve-test-site": "serve -p 5042 test-site/public"
+    "serve-test-site": "serve -p 5042 test-site/public",
+    "acceptance": "node ./tests/acceptance/run-tests.js"
   },
   "repository": {
     "type": "git",
@@ -35,8 +36,11 @@
     "postcss": "^8.2.1",
     "serve": "^11.3.2",
     "simple-git": "^2.24.0",
+    "testcafe": "^1.14.0",
+    "testcafe-browser-provider-browserstack": "^1.13.1",
     "underscore.string": "^3.3.5",
-    "urijs": "1.18.12"
+    "urijs": "1.18.12",
+    "yargs": "^17.0"
   },
   "jest": {
     "verbose": true,
@@ -54,7 +58,8 @@
       "/fixtures/",
       "/test-utils/",
       "/test-site/",
-      "/percy/"
+      "/percy/",
+      "/acceptance/"
     ]
   }
 }
