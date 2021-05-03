@@ -33,5 +33,5 @@ jobs:
       - run: npm run setup-test-site
       - run: npm run build-test-site
       - name: Run Acceptance Tests
-        run: node tests/acceptance/run-tests.js --browsers chrome:headless
+        run: node tests/acceptance/run-tests.js --browsers chrome:headless safari:headless
         shell: bash
