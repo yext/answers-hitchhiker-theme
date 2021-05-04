@@ -20,7 +20,6 @@ test('Clicking on a pin focuses on a results card', async t => {
   await t.expect(focusedCard.exists).ok();
 });
 
-
 test('Search when map moves works', async t => {
   await SearchBar.submitQuery('virginia');
   const resultsCountBeforeDrag = await VerticalResults.getNumResults();
