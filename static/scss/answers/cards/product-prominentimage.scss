@@ -98,6 +98,7 @@
   {
     text-transform: uppercase;
     margin-top: auto;
+    padding-top: calc(var(--yxt-base-spacing) / 2);
   }
 
   &-primaryCTA,
