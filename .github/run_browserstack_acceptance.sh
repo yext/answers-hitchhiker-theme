@@ -6,4 +6,4 @@ export BROWSERSTACK_BUILD_ID="${GITHUB_BRANCH} - ${GITHUB_RUN_ID}"
 COMMIT_MSG_TITLE=$(git log -n 1 --pretty=format:%s)
 export BROWSERSTACK_TEST_RUN_NAME=$COMMIT_MSG_TITLE
 
-node tests/acceptance/run-tests.js --browsers browserstack:ie@11.0 browserstack:safari
+npm run acceptance -- --browsers browserstack:ie@11.0 browserstack:safari
