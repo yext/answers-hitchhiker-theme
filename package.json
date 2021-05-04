@@ -7,7 +7,7 @@
     "setup-test-site": "./test-site/scripts/setup.sh",
     "build-test-site": "./test-site/scripts/build.sh",
     "serve-test-site": "serve -p 5042 test-site/public",
-    "acceptance": "node ./tests/acceptance/run-tests.js"
+    "acceptance": "node ./tests/acceptance/index.js"
   },
   "repository": {
     "type": "git",
