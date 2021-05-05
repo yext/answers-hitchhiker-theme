@@ -3,6 +3,7 @@
 !config/index.json
 !pages/index.html.hbs
 !public/iframe_test.html
+!public/iframe_jwt_test.html
 public/
 config/
 pages/

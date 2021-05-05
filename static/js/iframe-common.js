@@ -1,6 +1,6 @@
 require('iframe-resizer');
 
-export function generateIFrame(domain, queryParam, urlParam) {
+export function generateIFrame(domain, queryParam, urlParam, token) {
   var isLocalHost = window.location.host.split(':')[0] === 'localhost';
   var containerEl = document.querySelector('#answers-container');
   var iframe = document.createElement('iframe');
@@ -47,6 +47,10 @@ export function generateIFrame(domain, queryParam, urlParam) {
     }
 
     new_params.push('referrerPageUrl=' + referrerPageUrl);
+
+    if(token) {
+      new_params.push('token=' + token);
+    }
 
     // Build the Iframe URL
     var iframeUrl = domain;

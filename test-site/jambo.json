@@ -10,7 +10,8 @@
       "directanswercards"
     ],
     "preservedFiles": [
-      "public/iframe_test.html"
+      "public/iframe_test.html",
+      "public/iframe_jwt_test.html"
     ]
   },
   "defaultTheme": "answers-hitchhiker-theme"
