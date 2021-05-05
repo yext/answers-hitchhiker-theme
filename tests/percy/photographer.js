@@ -31,6 +31,7 @@ class Photographer {
   }
   
   async _captureUniversalSearch () {
+    await this._pageNavigator.gotoVerticalPage('events', { query: 'a' });
     await this._pageNavigator.gotoUniversalPage({ query: 'a' });
     await this._camera.snapshot('universal-search');
 
