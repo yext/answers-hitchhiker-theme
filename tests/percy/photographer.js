@@ -36,6 +36,9 @@ class Photographer {
 
     await this._pageNavigator.gotoUniversalPage({ query: 'office+sparce'});
     await this._camera.snapshot('universal-search--spellcheck');
+
+    await this._pageNavigator.gotoUniversalPage({ query: 'fuyuki+hours?'});
+    await this._camera.snapshot('universal-search--directAnswerOpenStatus');
   }
   
   async _captureVerticalSearch () {
