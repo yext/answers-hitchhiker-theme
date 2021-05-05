@@ -26,7 +26,7 @@ async function runTests (browsers) {
     await testcafe.createRunner()
       .src('tests/acceptance/suites/*.js')
       .browsers(browsers)
-      .startApp(`npx serve -p ${PORT} test-site/public`, 4000)
+      .startApp(`npx http-server -p ${PORT} test-site/public`, 4000)
       .run({ quarantineMode: true });
   }
   finally {
