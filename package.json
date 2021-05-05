@@ -6,7 +6,7 @@
     "test": "cross-env NODE_ICU_DATA=node_modules/full-icu jest --verbose",
     "setup-test-site": "./test-site/scripts/setup.sh",
     "build-test-site": "./test-site/scripts/build.sh",
-    "serve-test-site": "http-server -p 5042 test-site/public",
+    "serve-test-site": "http-server -p 4000 test-site/public",
     "acceptance": "node ./tests/acceptance/index.js"
   },
   "repository": {
