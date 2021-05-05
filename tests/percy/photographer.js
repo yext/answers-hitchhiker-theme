@@ -17,12 +17,12 @@ class Photographer {
   }
 
   async captureSnapshots() {
-    await this._captureHomepage();
+    // await this._captureHomepage();
     await this._captureUniversalSearch();
-    await this._captureVerticalSearch();
-    await this._captureVerticalGridSearch();
-    await this._captureVerticalMapSearch();
-    await this._captureVerticalFullPageMapSearch();
+    // await this._captureVerticalSearch();
+    // await this._captureVerticalGridSearch();
+    // await this._captureVerticalMapSearch();
+    // await this._captureVerticalFullPageMapSearch();
   }
 
   async _captureHomepage () {
@@ -31,11 +31,11 @@ class Photographer {
   }
   
   async _captureUniversalSearch () {
-    await this._pageNavigator.gotoUniversalPage({ query: 'a' });
-    await this._camera.snapshot('universal-search');
+    // await this._pageNavigator.gotoUniversalPage({ query: 'a' });
+    // await this._camera.snapshot('universal-search');
 
-    await this._pageNavigator.gotoUniversalPage({ query: 'office sparce'});
-    await this._camera.snapshot('universal-search--spellcheck');
+    // await this._pageNavigator.gotoUniversalPage({ query: 'office sparce'});
+    // await this._camera.snapshot('universal-search--spellcheck');
 
     await this._pageNavigator.gotoUniversalPage({ query: 'fuyuki hours?'});
     await this._camera.snapshot('universal-search--directAnswerOpenStatus');
