@@ -20,6 +20,7 @@ class IframePageNavigator extends PageNavigator {
   async gotoUniversalPage(queryParams = {}) {
     const queryParamsString = getQueryParamsString(queryParams);
     const url = `${this._siteUrl}/${this._iframePage}?${queryParamsString}`;
+    console.log('going to universal iframe url:!!', url);
     await this._page.goto(url);
     await waitTillHTMLRendered(this._page);
   }
