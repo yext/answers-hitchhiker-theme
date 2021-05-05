@@ -5,7 +5,7 @@
   // "keywords": "", // The meta tag for keywords
   "pageSettings": {
     "search": {
-      "defaultInitialSearch": "virginia" // Enter a default search term
+      "defaultInitialSearch": "virginia!" // Enter a default search term
     }
   },  
   "componentSettings": {
