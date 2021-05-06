@@ -8,6 +8,7 @@ const { transformSync } = require('@babel/core');
  */
 module.exports = function babel(options) {
   const srcCode = options.fn(this);
+  return srcCode;
   return transformSync(srcCode, {
     compact: true,
     minified: true,
