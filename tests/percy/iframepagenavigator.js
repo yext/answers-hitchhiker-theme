@@ -29,6 +29,7 @@ class IframePageNavigator extends PageNavigator {
     const queryParamsString = getQueryParamsString(queryParams);
     const url = `${this._siteUrl}/${this._iframePage}?verticalUrl=${vertical}&${queryParamsString}`;
     await this._page.goto(url);
+    await page.waitForTimeout(10000);
     await waitTillHTMLRendered(this._page);
   }
 
