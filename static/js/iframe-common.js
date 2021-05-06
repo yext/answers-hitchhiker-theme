@@ -48,10 +48,6 @@ export function generateIFrame(domain, queryParam, urlParam, token) {
 
     new_params.push('referrerPageUrl=' + referrerPageUrl);
 
-    if(token) {
-      new_params.push('token=' + token);
-    }
-
     // Build the Iframe URL
     var iframeUrl = domain;
     if (verticalUrl) {
