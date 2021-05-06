@@ -8,13 +8,6 @@ const Camera = require('./camera');
 const PORT = 4000;
 
 PercyScript.run(async (page, percySnapshot) => {
-  const server = new HttpServer({
-    dir: 'test-site/public',
-    port: PORT
-  })
-
-  server.start();
-
   // const standardPageNavigator = new StandardPageNavigator(page, `http://localhost:${PORT}`);
   const iframePageNavigator = new IframePageNavigator(page, `http://localhost:${PORT}`, 'iframe_test');
   const standardCamera = new Camera(percySnapshot);
@@ -22,6 +15,4 @@ PercyScript.run(async (page, percySnapshot) => {
 
   // await (new Photographer(standardPageNavigator, standardCamera).captureSnapshots());
   await (new Photographer(iframePageNavigator, iframeCamera).captureSnapshots());
-
-  server.shutdown();
 });
