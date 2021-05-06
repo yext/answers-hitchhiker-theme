@@ -12,7 +12,9 @@
     const IS_STAGING = HitchhikerJS.isStaging(JAMBO_INJECTED_DATA?.pages?.stagingDomains || []);
     const injectedConfig = {
       experienceVersion: IS_STAGING ? 'STAGING' : 'PRODUCTION',
-      apiKey: HitchhikerJS.getInjectedProp('{{{global_config.experienceKey}}}', ['apiKey']),
+      {{#unless global_config.useJWT}} 
+        apiKey: HitchhikerJS.getInjectedProp('{{{global_config.experienceKey}}}', ['apiKey']),
+      {{/unless}}
       {{#with env.JAMBO_INJECTED_DATA}}
         {{#if businessId}}businessId: "{{businessId}}",{{/if}}
       {{/with}}
@@ -29,14 +31,16 @@
       {{/with}}
     };
     let token = null;
-    let iframeSearchParams = null;
-    if (window.frameElement) {
-      const iframeSrc = new URL(window.frameElement.src);
-      iframeSearchParams = new URLSearchParams(iframeSrc.search);
-    } else {
-      iframeSearchParams = new URLSearchParams(window.location.search);
-    }
-    token = iframeSearchParams?.get('token');
+    {{#if global_config.useJWT}}
+      let iframeSearchParams = null;
+      if (window.frameElement) { // to support same-origin
+        const iframeSrc = new URL(window.frameElement.src);
+        iframeSearchParams = new URLSearchParams(iframeSrc.search);
+      } else { // to support cross-origin
+        iframeSearchParams = new URLSearchParams(window.location.search);
+      }
+      token = iframeSearchParams?.get('token');
+    {{/if}}
     ANSWERS.init({
       templateBundle: TemplateBundle.default,
       ...injectedConfig,
