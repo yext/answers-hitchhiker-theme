@@ -1,5 +1,6 @@
 {{#> layouts/html }}
   {{#> script/core }}
+    document.getElementById('test-me').innerHTML = window.location.href
     {{> cards/all }}
     {{> directanswercards/all }}
     {{> templates/universal-standard/script/searchbar }}
@@ -10,6 +11,7 @@
     {{> templates/universal-standard/script/locationbias }}
     {{!-- {{> templates/universal-standard/script/qasubmission }} --}}
   {{/script/core }}
+  <div id="test-me"></div>
   <div class="Answers AnswersUniversalStandard">
     <div class="Answers-navWrapper">
       <div class="Answers-container">
