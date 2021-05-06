@@ -30,22 +30,25 @@
         {{/if}}
       {{/with}}
     };
-    let token = null;
     {{#if global_config.useJWT}}
-      let iframeSearchParams = null;
-      if (window.frameElement) { // to support same-origin
-        const iframeSrc = new URL(window.frameElement.src);
-        iframeSearchParams = new URLSearchParams(iframeSrc.search);
-      } else { // to support cross-origin
-        iframeSearchParams = new URLSearchParams(window.location.search);
-      }
-      token = iframeSearchParams.get('token');
+      window.iframeJWT.then(token => {
+        initAnswersInstance({
+          ...injectedConfig,
+          ...userConfig,
+          apiKey: token
+        });
+      });
+    {{else}}
+      initAnswersInstance({
+        ...injectedConfig, 
+        ...userConfig
+      });
     {{/if}}
+  }
+  function initAnswersInstance (config) {
     ANSWERS.init({
       templateBundle: TemplateBundle.default,
-      ...injectedConfig,
-      ...userConfig,
-      ...token && { apiKey: token },
+      ...config,
       querySource: window.isOverlay ? 'OVERLAY' : 'STANDARD',
       onStateChange: (objParams, stringParams, replaceHistory) => {
         if ('parentIFrame' in window) {

@@ -86,6 +86,11 @@ export function generateIFrame(domain, queryParam, urlParam, token) {
   // For dynamic iFrame resizing
   iFrameResize({
     checkOrigin: false,
+    onInit: function(iframe) {
+      iframe.iFrameResizer.sendMessage({
+        token: token
+      }); 
+    },
     onMessage: function(messageData) {
       const message = JSON.parse(messageData.message);
       if (message.action === "paginate") {
