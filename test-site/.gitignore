@@ -1,5 +1,14 @@
-public/*
+!config/global_config.json
+!config/locale_config.json
+!config/index.json
+!pages/index.html.hbs
+!public/iframe_test.html
 !public/overlay.html
+public/
+config/
+pages/
+cards/
+directanswercards/
 Gruntfile.js
 package-lock.json
 package.json

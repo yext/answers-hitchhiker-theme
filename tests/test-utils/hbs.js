@@ -1,8 +1,32 @@
 const hbs = require('handlebars');
 const path = require('path');
 const fs = require('fs');
+const fileSystem = require('file-system');
 
-module.exports = registerCustomHbsHelpers(hbs, path.resolve(__dirname, '../../hbshelpers'));
+registerPartials(hbs);
+registerCustomHbsHelpers(hbs, path.resolve(__dirname, '../../hbshelpers'))
+module.exports = hbs;
+
+/**
+ * Registers the theme's partials to the test hbs instance.
+ * 
+ * @param {Handlebars} hbs the handlebars instance
+ */
+function registerPartials(hbs) {
+  const partialFolders = [
+    'script',
+  ];
+  partialFolders.forEach(folder => {
+    const folderPath = path.resolve(__dirname, '../..', folder);
+    fileSystem.recurseSync(folderPath, (filepath, relative, filename) => {
+      if (!filename || !fs.lstatSync(filepath).isFile()) {
+        return;
+      }
+      const partialName = stripExtension(`${folder}/${relative}`);
+      hbs.registerPartial(partialName, fs.readFileSync(filepath, 'utf-8'));
+    });
+  });
+}
 
 /**
  * Register's handlebars helpers from the given folder, one helper per file.
@@ -21,8 +45,8 @@ function registerCustomHbsHelpers(hbs, pathToCustomHelpers) {
       try {
         hbs.registerHelper(helperName, require(filePath));
       } catch (err) {
-        throw new UserError(
-          `Could not register handlebars helper from file ${path}`, err.stack);
+        throw new Error(
+          `Could not register handlebars helper from file ${filePath}`, err.stack);
       }
     });
   return hbs;

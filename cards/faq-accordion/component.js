@@ -13,7 +13,7 @@ class faq_accordionCardComponent extends BaseCard['faq-accordion'] {
    */
   dataForRender(profile) {
     return {
-      title: profile.name, // The header text of the card
+      title: profile.question || profile.name, // The header text of the card
       // subtitle: '', // The sub-header text of the card
       details: profile.answer ? ANSWERS.formatRichText(profile.answer, "answer", "_top") : null, // The text in the body of the card
       // If the card's details are longer than a certain character count, you can truncate the

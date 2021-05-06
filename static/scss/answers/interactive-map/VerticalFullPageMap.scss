@@ -1,0 +1,702 @@
+.VerticalFullPageMap
+{
+  $results-width-desktop: var(--yxt-maps-desktop-results-container-width);
+  $results-padding-top: 24px !default;
+  $results-padding-bottom: 24px !default;
+
+  $input-height: 44px !default;
+  $detail-card-height: 30% !default;
+
+  $desktop-break-point-min: md !default;
+  $mobile-break-point-max: sm !default;
+
+  $border-default: 1px solid #666 !default;
+
+  $locator-text-gray: #737373;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 100%;
+  height: var(--yxt-maps-mobile-height);
+
+  @include bpgte($desktop-break-point-min) {
+    height: var(--yxt-maps-desktop-height);
+  }
+
+  .Answers 
+  {
+    &-content
+    {
+      display: flex;
+      flex-grow: 1;
+      flex-direction: column;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      background-color: white;
+
+      @include bpgte($desktop-break-point-min)
+      {
+        position: relative;
+        bottom: 0;
+        height: auto;
+        width: 100%;
+      }
+
+      @include bplte($mobile-break-point-max)
+      {
+        flex-direction: column-reverse;
+      }
+    }
+
+    &-contentWrap
+    {
+      background-color: transparent;
+      max-height: 100%;
+      width: 100%;
+      position: absolute;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+
+      // IE11 only styling to fix content height problem
+      @media (-ms-high-contrast:none)
+      {
+        height: 100%;
+      }
+
+      @include bpgte($desktop-break-point-min)
+      {
+        width: $results-width-desktop;
+        max-height: calc(100% - #{$results-padding-top} - #{$results-padding-bottom});
+        margin-top: 16px;
+        margin-left: 16px;
+        margin-right: 16px;
+        margin-bottom: 32px;
+        border-radius: 4px;
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
+        background-color: var(--hh-color-gray-2);
+
+        // IE11 only styling to fix content height problem
+        @media (-ms-high-contrast:none)
+        {
+          height: calc(100% - #{$results-padding-top} - #{$results-padding-bottom});
+        }
+      }
+
+      @include bplte($mobile-break-point-max)
+      {
+        pointer-events: none;
+        position: static;
+        height: 100%;
+      }
+    }
+
+    &-resultsWrapper
+    {
+      display: none;
+      flex-direction: column;
+      flex-grow: 1;
+      background-color: white;
+      padding: 0;
+      overflow-y: scroll;
+
+      @include bpgte($desktop-break-point-min) {
+        display: flex;
+        border-radius: 4px;
+        overflow-y: auto;
+      }
+
+      @include bplte($mobile-break-point-max)
+      {
+        transition: top 0.3s ease-out;
+        position: relative;
+        top: 100%;
+        pointer-events: all;
+        height: auto;
+
+        &--moving
+        {
+          transition: none;
+        }
+      }
+    }
+
+    &-resultsContainer,
+    &-results
+    {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      flex-shrink: 0;
+    }
+
+    &-searchWrapper
+    {
+      padding: 16px;
+      display: flex;
+      flex-shrink: 0;
+      width: 100%;
+      background-color: transparent;
+
+      @include bpgte($desktop-break-point-min) {
+        position: static;
+      }
+
+      @include bplte($mobile-break-point-max)
+      {
+        pointer-events: all;
+        padding: 16px;
+      }
+    }
+
+    &-form
+    {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      width: 100%;
+    }
+
+    &-nav
+    {
+      @include bplte($mobile-break-point-max)
+      {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+
+    &-mapWrapper {
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      right: 0;
+      top: 0;
+
+      @include bplte($mobile-break-point-max) {
+        overflow: auto;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      }
+    }
+
+    &-map
+    {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+
+      @include bplte($mobile-break-point-max)
+      {
+        top: 0;
+        transition: height 0.3s ease-out;
+        height: calc(100% - var(--yxt-maps-mobile-results-header-height) - var(--yxt-maps-mobile-results-footer-height));
+      }
+    }
+
+    &-mobileToggles
+    {
+      display: none;
+      position: absolute;
+      bottom: 72px;
+      right: 16px;
+      z-index: 4;
+      background-color: #eaeaea;
+      color: black;
+      cursor: pointer;
+      box-shadow: 1px 1px 2px rgba(0,0,0,0.25);
+      border-radius: var(--yxt-searchbar-form-border-radius);
+    }
+
+    &-mobileToggle
+    {
+      padding: 16px;
+    }
+
+    &-viewMapText,
+    &-viewListText {
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      align-items: center;
+
+      svg {
+        margin-right: 8px;
+        height: 20px;
+        width: 20px;
+      }
+    }
+
+    &-viewListText {
+      display: flex;
+    }
+
+    &-viewMapText
+    {
+      display: none;
+    }
+
+    &-centerTop {
+      display: flex;
+      margin-top: 11px;
+      color: black;
+      z-index: 1;
+
+      @include bpgte($desktop-break-point-min) {
+        position: fixed;
+        margin-top: 0;
+        top: 16px;
+        left: calc(50% + calc(var(--yxt-maps-desktop-results-container-width) / 2));
+      }
+    }
+
+    &-searchThisAreaWrapper {
+      display: none;
+      position: relative;
+      background-color: var(--yxt-maps-search-this-area-background-color);
+      color: var(--yxt-maps-search-this-area-text-color);
+      margin-left: auto;
+      margin-right: auto;
+      padding: 10px 16px;
+      border-radius: var(--yxt-border-radius);
+      box-shadow: 1px 1px 2px rgba(0,0,0,0.25);
+      pointer-events: all;
+
+      @include bpgte($desktop-break-point-min) {
+        left: -50%;
+      }
+    }
+
+    &-searchThisAreaWrapper:focus-within {
+      background-color: #ececec;
+    }
+
+    &-searchThisAreaToggleWrapper {
+      padding: 8px 16px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      border-top: var(--yxt-border-default);
+      color: $locator-text-gray;
+
+      &--desktop {
+        display: none;
+
+        @include bpgte(md) {
+          display: flex;
+        }
+      }
+    }
+
+    &-searchThisAreaToggleWrapper:focus-within {
+      outline: 2px solid var(--yxt-color-brand-hover);
+    }
+
+    &-searchThisAreaToggle {
+      opacity: 0;
+      height: 0;
+      width: 0;
+      margin: 0;
+    }
+
+    &-searchThisAreaToggle:checked + .Answers-searchThisAreaToggleLabel:after {
+      content: "";
+    }
+
+    &-searchThisAreaToggleLabel {
+      position: relative;
+      cursor: pointer;
+      margin-left: 22px;
+      font-size: var(--yxt-font-size-md);
+
+      &:before {
+        content: "";
+        position: absolute;
+        bottom: 50%;
+        left: -22px;
+        height: 16px;
+        width: 16px;
+        transform: translateY(50%);
+        border: var(--yxt-border-default);
+        border-radius: 2px;
+      }
+
+      &:after {
+        content: none;
+        position: absolute;
+        top: calc(50% - 3px);
+        left: -20px;
+        width: 4px;
+        height: 12px;
+        transform: rotate(45deg) translateY(-50%);
+        border-left-color: var(--yxt-filter-options-checkmark-color);
+        border-bottom: .0625rem solid #0c5ecb;
+        border-bottom-color: var(--yxt-filter-options-checkmark-color);
+        border-right: .0625rem solid #0c5ecb;
+        border-right-color: var(--yxt-filter-options-checkmark-color);
+        border-top-color: var(--yxt-filter-options-checkmark-color);
+      }
+    }
+
+    &-resultsHeaderTop {
+      display: flex;
+      padding-left: 16px;
+    }
+
+    &-stickyBottom {
+      bottom: 0;
+      background-color: var(--hh-color-gray-2);
+      position: sticky;
+    }
+
+    &-mapFooter {
+      background-color: var(--hh-color-gray-2);
+      display: none;
+      position: absolute;
+      bottom: 0;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    &-search {
+      @include bplte($mobile-break-point-max) {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+
+    &-pagination .yxt-Pagination {
+      padding: 8px;
+    }
+
+    &-filtersWrapper {
+      overflow: auto;
+
+      @include bplte($mobile-break-point-max) {
+        height: 100%;
+        pointer-events: all;
+        background-color: white;
+      }
+    }
+
+    &-locationBias {
+      &--mobileMap {
+        display: none;
+      }
+
+      .yxt-LocationBias {
+        border-top: var(--yxt-border-default);
+        padding-left: 16px;
+        padding-right: 16px;
+        color: $locator-text-gray;
+
+        @include bplte($mobile-break-point-max) {
+          height: 60px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        &-container {
+          text-align: left;
+        }
+      }
+
+      .yxt-locationBias-updateLoc:focus {
+        outline: 2px solid var(--yxt-color-brand-hover);
+      }
+    }
+
+    &-resultsHeader {
+      display: block;
+      padding-left: 0;
+
+      @include bplte($mobile-break-point-max) {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        pointer-events: all;
+      }
+    }
+  }
+
+  // TODO make this the default
+  &.VerticalFullPageMap--mobileListView
+  {
+    .Answers
+    {
+      &-resultsWrapper
+      {
+        top: 0;
+        display: flex;
+      }
+
+      &-viewMapText
+      {
+        display: flex;
+      }
+
+      &-viewListText
+      {
+        display: none;
+      }
+
+      &-centerTop
+      {
+        @include bplte($mobile-break-point-max) {
+          display: none;
+        }
+      }
+
+      &-mapWrapper
+      {
+        // Hide the map above the screen. This has better performance than
+        // display: none since the map does not have to re-render
+        position: fixed;
+        top: calc(-2 * var(--yxt-maps-mobile-height));
+      }
+    }
+  }
+
+  &.VerticalFullPageMap--mobileMapView
+  {
+    &:not(.CollapsibleFilters--expanded) .Answers-map {
+      top: var(--yxt-maps-mobile-results-header-height);
+    }
+
+    .Answers-mapFooter {
+      display: flex;
+    }
+
+    .Answers-locationBias {
+      &--main {
+        display: none;
+      }
+
+      &--mobileMap {
+        display: inline-block;
+      }
+    }
+  }
+
+  &.VerticalFullPageMap--mobileDetailShown
+  {
+    .Answers
+    {
+      &-map
+      {
+        position: absolute;
+        top: var(--yxt-maps-mobile-results-header-height);
+        height: calc(100% - var(--yxt-maps-mobile-results-header-height) - var(--yxt-maps-mobile-detail-card-height));
+      }
+
+      &-searchThisWrapper {
+        display: none;
+      }
+
+      &-mobileToggles {
+        z-index: 0;
+      }
+    }
+  }
+
+  &.VerticalFullPageMap--showMobileViewToggles {
+    .Answers-mobileToggles {
+      @include bplte($mobile-break-point-max) {
+        display: flex;
+      }
+    }
+  }
+
+  // TODO move to js
+  &.VerticalFullPageMap--noResults {
+    .Answers-searchThisAreaWrapper {
+      display: none;
+    }
+
+    .Answers-searchThisAreaToggleWrapper {
+      display: none;
+    }
+  }
+
+  // TODO move to js
+  &.VerticalFullPageMap--showSearchThisArea {
+    .Answers-searchThisAreaWrapper {
+      display: flex;
+    }
+  }
+
+  .gmnoprint
+  {
+    @include bplte($mobile-break-point-max)
+    {
+      display: none;
+    }
+  }
+
+  .HitchhikerProfessionalLocation,
+  .HitchhikerFinancialProfessionalLocation {
+    &-contentWrapper {
+      flex-direction: column;
+    }
+
+    &-ctasWrapper {
+      margin-top: calc(var(--yxt-base-spacing) / 2);
+    }
+  }
+
+  .HitchhikerLocationCard {
+    position: relative;
+
+    &-ctasWrapper {
+      margin-left: 0;
+    }
+
+    &-info {
+      line-height: var(--yxt-line-height-sm);
+    }
+
+    &-content {
+      flex-wrap: wrap;
+      line-height: var(--yxt-line-height-sm);
+    }
+
+    &-closeCardButtonImageWrapper {
+      height: 16px;
+      width: 16px;
+      margin-bottom: 8px;
+    }
+
+    &-ordinal {
+      display: none;
+    }
+
+    &-closeCardButtonWrapper {
+      position: relative;
+      top: 1px;
+      margin-left: auto;
+    }
+
+    &-closeCardButton {
+      display: none;
+      width: 100%;
+      font-size: 16px;
+      font-weight: bold;
+      justify-content: flex-end;
+    }
+  }
+
+  .yxt-Card--isVisibleOnMobileMap {
+    transition: height 0.3s ease-out;
+  }
+
+  .yxt-Card--pinFocused {
+    @include bpgte($desktop-break-point-min) {
+      .HitchhikerLocationCard {
+        background-color: #ececec;
+      }
+    }
+
+    @include bplte($mobile-break-point-max) {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: var(--yxt-maps-mobile-detail-card-height);
+      background-color: #fcfcfc;
+
+      .HitchhikerLocationCard {	
+        overflow-y: scroll;	
+
+        &-closeCardButton {
+          display: flex;
+        }
+      }
+    }
+  }
+
+  .yxt-VerticalResultsCount {
+    color: $locator-text-gray;
+  }
+  
+  &.CollapsibleFilters .Answers-resultsHeader {
+    background-color: var(--hh-color-gray-2);
+  }
+
+  &.CollapsibleFilters .Answers-viewResultsButton {
+    padding: 8px;
+    
+    @include bpgte($desktop-break-point-min) {
+      width: 100%;
+      position: absolute;
+    }
+  }
+
+  &.CollapsibleFilters .Answers-filtersWrapper {
+    @include bplte($mobile-break-point-max) {
+      margin: 0;
+      padding: 16px;
+    }
+  }
+
+  &.CollapsibleFilters {
+    &.CollapsibleFilters--expanded {
+      .Answers-mobileToggles {
+        display: none;
+      }
+
+      .Answers-stickyBottom {
+        display: none;
+      }
+    }
+
+    .Answers-viewResultsButton {
+      @include bplte(sm) {
+        width: 100%;
+      }
+    }
+
+    .CollapsibleFilters-unstuck {
+      @include bplte(sm) {
+        position: fixed;
+      }
+    }
+  }
+}
+
+.YxtPage-wrapper--mobileMapView {
+  min-height: var(--yxt-maps-mobile-height);
+
+  .YxtPage-content {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
+.YxtPage-wrapper--mobileDetailShown {
+  .Answers-footer {
+    display: none;
+  }
+
+  .YxtFooter {
+    display: none;
+  }
+}
+
+.YxtPage-wrapper--mobileListView {
+  .Answers-footer {
+      margin-top: 0;
+      padding-top: calc(24px + var(--yxt-base-spacing));
+      position: relative;
+  }
+}

@@ -1,19 +1,28 @@
+import QueryTriggers from '../constants/query-triggers';
+import StorageKeys from '../constants/storage-keys';
+import SearchStates from '../constants/search-states';
+
 /**
  * Interactions manages page interactions for collapsible filters.
  */
 export default class Interactions {
-  constructor(domElements) {
-    const { filterEls, resultEls } = domElements;
+  constructor(config) {
+    const { filterEls, resultEls, disableScrollToTopOnToggle, templateName } = config;
+    this.collapsibleFiltersParentEl = document.querySelector('.CollapsibleFilters');
     this.filterEls = filterEls || [];
     this.resultEls = resultEls || [];
+    this.templateName = templateName;
     this.viewResultsButton = document.getElementById('js-answersViewResultsButton');
     this.searchBarContainer = document.getElementById('js-answersSearchBar');
     this.resultsColumn = document.querySelector('.js-answersResultsColumn');
     this.inactiveCssClass = 'CollapsibleFilters-inactive';
+    this.collapsedcCssClass = 'CollapsibleFilters--collapsed';
+    this.expandedCssClass = 'CollapsibleFilters--expanded';
     this.resultsWrapper = document.querySelector('.js-answersResultsWrapper')
       || document.querySelector('.Answers-resultsWrapper');
     this._updateStickyButton = this._updateStickyButton.bind(this);
     this._debouncedStickyUpdate = this._debouncedStickyUpdate.bind(this);
+    this._disableScrollToTopOnToggle = disableScrollToTopOnToggle;
   }
 
   /**
@@ -112,19 +121,18 @@ export default class Interactions {
    * made by the searchbar is completed.
    */
   registerCollapseFiltersOnSearchbarSearch() {
-    let pendingQueryUpdate = false;
-
-    ANSWERS.core.globalStorage.on('update', 'query', () => {
-      pendingQueryUpdate = true;
-    });
-
-    ANSWERS.core.globalStorage.on('update', 'vertical-results', verticalResults => {
-      if (verticalResults.searchState !== 'search-complete' || !pendingQueryUpdate) {
-        return;
+    ANSWERS.core.storage.registerListener({
+      eventType: 'update',
+      storageKey: StorageKeys.VERTICAL_RESULTS,
+      callback: verticalResults => {
+        const searchComplete = verticalResults.searchState === SearchStates.SEARCH_COMPLETE;
+        const queryTrigger = ANSWERS.core.storage.get(StorageKeys.QUERY_TRIGGER);
+        const isSearchbarSearch = queryTrigger === QueryTriggers.SEARCH_BAR;
+        if (searchComplete && isSearchbarSearch) {
+          this.collapseFilters();
+        };
       }
-      this.collapseFilters();
-      pendingQueryUpdate = false;
-    });
+    })
   }
 
   /**
@@ -170,6 +178,22 @@ export default class Interactions {
   }
 
   /**
+   * If isCollapsed is true, then set the css class for CollapsibleFilters 
+   * indicating that the filters are collapsed.
+   *
+   * @param {boolean} isCollapsed
+   */
+  toggleCollapsedStatusClass(isCollapsed) {
+    if (isCollapsed) {
+      this.collapsibleFiltersParentEl.classList.remove(this.expandedCssClass);
+      this.collapsibleFiltersParentEl.classList.add(this.collapsedcCssClass)
+    } else {
+      this.collapsibleFiltersParentEl.classList.add(this.expandedCssClass);
+      this.collapsibleFiltersParentEl.classList.remove(this.collapsedcCssClass);
+    }
+  }
+
+  /**
    * Either collapses or expands the collapsible filters panel.
    * @param {boolean} shouldCollapseFilters 
    */
@@ -186,7 +210,10 @@ export default class Interactions {
       this.toggleInactiveClass(el, !shouldCollapseFilters);
     }
     this.toggleInactiveClass(this.viewResultsButton, shouldCollapseFilters);
-    this.scrollToTop();
+    this.toggleCollapsedStatusClass(shouldCollapseFilters);
+    if (!this._disableScrollToTopOnToggle) {
+      this.scrollToTop();
+    }
     ANSWERS.components.getActiveComponent('FilterLink').setState({
       panelIsDisplayed: !shouldCollapseFilters
     });
@@ -201,6 +228,16 @@ export default class Interactions {
     });
     if (this.resultsColumn) {
       this.resultsColumn.scrollTop = 0;
+    }
+  }
+
+  /**
+   * Set the page template name as a CSS class on the footer so the it can be styled for CFilters
+   */
+  setupFooter() {
+    const yxtFooter = document.querySelector('.js-yxtFooter');
+    if (yxtFooter && this.templateName) {
+      yxtFooter.classList.add(this.templateName);
     }
   }
 }

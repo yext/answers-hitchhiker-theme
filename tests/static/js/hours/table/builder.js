@@ -119,7 +119,7 @@ describe('HoursTableBuilder properly builds hours table', () => {
           <span class="c-hours-details-row-intervals-instance">
             <span class="c-hours-details-row-intervals-instance-open">
 
-                  <span class="Hours-statusText">
+                  <span class="Hours-statusText Hours-open24Hours">
                     Open 24 Hours
                   </span>
             </span>

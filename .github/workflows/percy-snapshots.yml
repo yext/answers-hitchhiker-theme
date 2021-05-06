@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [15.x]
+        node-version: [12.18]
 
     steps:
     - uses: actions/checkout@v2
@@ -25,6 +25,6 @@ jobs:
     - name: Percy snapshots
       uses: percy/exec-action@v0.3.1
       with:
-        command: node tests/percy/snapshots.js
+        command: node tests/percy/index.js
       env:
         PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}

@@ -114,3 +114,66 @@ msgid "View 1 Result"
 msgid_plural "View [[count]] Results"
 msgstr[0] "Afficher 1 résultat"
 msgstr[1] "Afficher [[count]] résultats"
+
+#: cards/multilang-financial-professional-location/template.hbs:195
+#: cards/multilang-location-standard/template.hbs:206
+#: cards/multilang-professional-location/template.hbs:192
+msgctxt "Close is a verb"
+msgid "Close Card"
+msgstr "Fermer la carte"
+
+#: templates/vertical-full-page-map/markup/searchthisareatoggle.hbs:10
+msgctxt "A button that conducts a search in the current map area"
+msgid "Search When Map Moves"
+msgstr "Rechercher quand la carte est déplacée"
+
+#: templates/vertical-full-page-map/markup/searchthisareabutton.hbs:3
+msgctxt "A toggle for automatically searching when the map moves"
+msgid "Search This Area"
+msgstr "Rechercher dans cette zone"
+
+#: templates/vertical-full-page-map/markup/mobilelisttoggles.hbs:5
+msgctxt "The label of a toggle for displaying a list of results"
+msgid "List"
+msgstr "Liste"
+
+#: templates/vertical-full-page-map/markup/mobilelisttoggles.hbs:9
+msgctxt "The label of a toggle for viewing a visual map"
+msgid "Map"
+msgstr "Carte"
+
+#: templates/vertical-interactive-map/page.html.hbs:23
+msgid "Main location search"
+msgstr "Recherche d'établissements principale"
+
+#: templates/vertical-interactive-map/page.html.hbs:64
+msgid "Map"
+msgstr "Carte"
+
+#: templates/vertical-interactive-map/page.html.hbs:59
+msgid "Map controls"
+msgstr "Commandes de carte"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:3
+msgid "<em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">No results found</em> in [[currentVerticalLabel]]."
+msgstr "<em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">Aucun resultat</em> in [[currentVerticalLabel]]."
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:5
+msgid "Showing <em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">all [[currentVerticalLabel]]</em> instead."
+msgstr "Voici <em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\"> tous/toutes les [[currentVerticalLabel]]</em> à la place."
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:11
+msgid "The following search category yielded results for <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"
+msgid_plural "The following search categories yielded results for <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"
+msgstr[0] "La catégorie de recherche suivante a produit des résultats pour <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"
+msgstr[1] "Les catégories de recherche suivantes ont produit des résultats pour <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:32
+msgid "([[resultsCount]] result)"
+msgid_plural "([[resultsCount]] results)"
+msgstr[0] "([[resultsCount]] résultat)"
+msgstr[1] "([[resultsCount]] résultats)"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:47
+msgid "Alternatively, you can <a class=\"yxt-AlternativeVerticals-universalLink\" href=\"[[universalUrl]]\"> view results across all search categories</a>."
+msgstr "Autrement, vous pouvez <a class=\"yxt-AlternativeVerticals-universalLink\" href=[[universalUrl]]> voir les résultats à travers toutes les catégories</a>."

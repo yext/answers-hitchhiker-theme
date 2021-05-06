@@ -1,0 +1,15 @@
+{{!--
+  Returns the cdn url for a particular SDK asset
+  @param locale 
+  @param sdkVersion
+  @param sdkAsset
+--}}
+https://assets.sitescdn.net/answers/v{{sdkVersion}}/{{> localePrefix }}{{sdkAsset}}
+
+{{~#*inline 'localePrefix'~}}
+  {{~#if locale~}}
+    {{~#unless (eq locale 'en')~}}
+      {{locale}}-
+    {{~/unless~}}
+  {{~/if~}}
+{{~/inline~}}

@@ -4,7 +4,8 @@
 const ArgumentType = {
   STRING: 'string',
   NUMBER: 'number',
-  BOOLEAN: 'boolean'
+  BOOLEAN: 'boolean',
+  ARRAY: 'array'
 }
 Object.freeze(ArgumentType);
 
@@ -13,11 +14,12 @@ Object.freeze(ArgumentType);
  * the type of the argument's values, if it is required, and an optional default.
  */
 class ArgumentMetadata {
-  constructor(type, description, isRequired, defaultValue) {
+  constructor(type, description, isRequired, defaultValue, itemType) {
     this._type = type;
     this._isRequired = isRequired;
     this._defaultValue = defaultValue;
     this._description = description;
+    this._itemType = itemType;
   }
 
   /**
@@ -25,6 +27,13 @@ class ArgumentMetadata {
    */
   getType() {
     return this._type;
+  }
+
+  /**
+   * @returns {ArgumentType} The type of the elements of an array argument.
+   */
+  getItemType() {
+    return this._itemType;
   }
 
   /**
@@ -47,6 +56,5 @@ class ArgumentMetadata {
   defaultValue() {
     return this._defaultValue;
   }
-
 }
 module.exports = { ArgumentMetadata, ArgumentType };

@@ -49,6 +49,10 @@ $financial-professional-location-ordinal-dimensions: 18px !default;
     height: auto;
   }
 
+  &-closeCardButton {
+    display: none;
+  }
+
   &-ordinal {
     flex-shrink: 0;
     padding-top: 3px;

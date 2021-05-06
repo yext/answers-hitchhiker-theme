@@ -54,31 +54,31 @@ describe('Formatters', () => {
 
   describe('price', () => {
     const priceField = {
-      value: '100',
+      value: '100.99',
       currencyCode: 'USD-US Dollar'
     };
     it('Formats a price in USD', () => {
       const price = Formatters.price(priceField, 'en');
-      expect(price).toEqual('$100.00');
+      expect(price).toEqual('$100.99');
     });
     it('Formats a price in USD with no provided locale', () => {
       const price = Formatters.price(priceField);
-      expect(price).toEqual('$100.00');
+      expect(price).toEqual('$100.99');
     });
     it('Formats a price in USD with a non-en locale', () => {
       const price = Formatters.price(priceField, 'fr');
-      expect(price).toEqual('100,00 $US');
+      expect(price).toEqual('100,99 $US');
     });
 
     it('Formats a price in EUR', () => {
       priceField.currencyCode = 'EUR-Euro';
       const price = Formatters.price(priceField);
-      expect(price).toEqual('€100.00');
+      expect(price).toEqual('€100.99');
     });
     it('Formats a price in EUR with a non-en locale', () => {
       priceField.currencyCode = 'EUR-Euro';
       const price = Formatters.price(priceField, 'fr');
-      expect(price).toEqual('100,00 €');
+      expect(price).toEqual('100,99 €');
     });
 
     it('Returns value when no price or currency code', () => {

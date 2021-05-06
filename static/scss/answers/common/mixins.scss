@@ -29,6 +29,16 @@
   font-style: italic;
 }
 
+@mixin header_styling
+{
+  display: block;
+  margin-block-start: .33em;
+  margin-block-end: .33em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+
 @mixin rich_text_formatting
 {
   ul
@@ -83,6 +93,82 @@
   p
   {
     margin-bottom: var(--yxt-base-spacing);
+  }
+
+  s
+  {
+    text-decoration: line-through;
+  }
+
+  sup
+  {
+    vertical-align: super;
+    font-size: smaller;
+  }
+
+  sub 
+  {
+    vertical-align: sub;
+    font-size: smaller;
+  }
+
+  code 
+  {
+    font-family: monospace;
+    font-size: smaller;
+  }
+
+  pre 
+  {
+    display: block;
+    font-family: monospace;
+    white-space: pre;
+    margin: 1em 0px;
+  }
+
+  blockquote 
+  {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: var(--yxt-base-spacing);
+    margin-inline-end: var(--yxt-base-spacing);
+  }
+
+  h1 
+  {
+    @include header_styling;
+    font-size: var(--yxt-font-size-xlg);
+  }
+
+  h2 
+  {
+    @include header_styling;
+    font-size: var(--yxt-font-size-lg);
+  }
+
+  h3 
+  {
+    @include header_styling;
+    font-size: var(--yxt-font-size-md-lg);
+  }
+
+  h4 
+  {
+    @include header_styling;
+    font-size: var(--yxt-font-size-md);
+  }
+
+  h5 
+  {
+    @include header_styling;
+    font-size: var(--yxt-font-size-sm);
+  }
+
+  h6 
+  {
+    @include header_styling;
+    font-size: var(--yxt-font-size-xs);
   }
 }
 

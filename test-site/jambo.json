@@ -5,10 +5,13 @@
     "output": "public",
     "pages": "pages",
     "partials": [
-      "script/on-ready.js"
+      "script/on-ready.js",
+      "cards",
+      "directanswercards"
     ],
     "preservedFiles": [
-      "public/overlay.html"
+      "public/overlay.html",
+      "public/iframe_test.html"
     ]
   },
   "defaultTheme": "answers-hitchhiker-theme"

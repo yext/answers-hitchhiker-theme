@@ -1,0 +1,34 @@
+name: BrowserStack Acceptance Tests
+
+on: push
+
+jobs:
+  browserstack-acceptance-tests:
+    name: BrowserStack Acceptance Tests
+    runs-on: ubuntu-latest
+    env:
+      BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+      BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - run: npm ci
+      - run: npm run setup-test-site
+      - run: npm run build-test-site
+      - name: Run Acceptance Tests
+        run: ./.github/run_browserstack_acceptance.sh
+  headless-acceptance-tests:
+    name: Headless Acceptance Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - run: npm ci
+      - run: npm run setup-test-site
+      - run: npm run build-test-site
+      - name: Run Acceptance Tests
+        run: npm run acceptance -- --browsers chrome:headless firefox:headless

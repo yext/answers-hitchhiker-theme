@@ -1,1 +1,1 @@
-// Modules exported here will be included in bundle.js
+// Modules exported here will be included in HitchhikerJS.js

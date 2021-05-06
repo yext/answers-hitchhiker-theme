@@ -97,7 +97,8 @@
   &-ctasWrapper
   {
     text-transform: uppercase;
-    margin-top: calc(var(--yxt-base-spacing) / 2);
+    margin-top: auto;
+    padding-top: calc(var(--yxt-base-spacing) / 2);
   }
 
   &-primaryCTA,

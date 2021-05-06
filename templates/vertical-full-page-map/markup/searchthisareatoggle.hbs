@@ -1,0 +1,12 @@
+<div class="Answers-searchThisAreaToggleWrapper{{#if modifier}} Answers-searchThisAreaToggleWrapper--{{modifier}}{{/if}}">
+  <input id="Answers-searchThisAreaToggle{{#if modifier}}--{{modifier}}{{/if}}" 
+         type="checkbox" 
+         class="Answers-searchThisAreaToggle js-searchThisAreaToggle"
+         {{#with (lookup verticalsToConfig verticalKey)}}
+          {{#unless mapConfig.disableSearchOnMapMove}}checked{{/unless}}
+         {{/with}}
+  >
+  <label class="Answers-searchThisAreaToggleLabel" for="Answers-searchThisAreaToggle{{#if modifier}}--{{modifier}}{{/if}}">
+    {{ translate phrase="Search When Map Moves" context="A button that conducts a search in the current map area" }}
+  </label>
+</div>

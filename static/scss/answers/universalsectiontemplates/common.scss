@@ -8,15 +8,6 @@
     margin-top: calc(var(--yxt-base-spacing) * 2.35);
   }
 
-  & + &
-  {
-    margin-top: calc(var(--yxt-base-spacing) * 1.5);
-
-    @media (min-width: $breakpoint-mobile-min) {
-      margin-top: calc(var(--yxt-base-spacing) * 2.35);
-    }
-  }
-
   &-left
   {
     display: flex;
@@ -206,19 +197,6 @@
     margin-bottom: var(--yxt-cards-margin);
     flex-basis: 100%;
     flex-grow: 1;
-
-    &,
-    &-placeholder {
-      min-width: var(--yxt-cards-min-width);
-      border: var(--yxt-border-default);
-      margin-right: var(--yxt-cards-margin);
-    }
-
-    &-placeholder {
-      visibility: hidden;
-      border-top: none;
-      border-bottom: none;
-    }
 
     &-child {
       flex-grow: 1;
