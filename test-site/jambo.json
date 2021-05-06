@@ -11,7 +11,8 @@
     ],
     "preservedFiles": [
       "public/iframe_test.html",
-      "public/iframe_jwt_test.html"
+      "public/iframe_jwt_test.html",
+      "public/overlay.html"
     ]
   },
   "defaultTheme": "answers-hitchhiker-theme"
