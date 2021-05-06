@@ -39,7 +39,7 @@
       } else { // to support cross-origin
         iframeSearchParams = new URLSearchParams(window.location.search);
       }
-      token = iframeSearchParams?.get('token');
+      token = iframeSearchParams.get('token');
     {{/if}}
     ANSWERS.init({
       templateBundle: TemplateBundle.default,
