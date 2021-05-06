@@ -10,6 +10,7 @@
       "directanswercards"
     ],
     "preservedFiles": [
+      "public/overlay.html",
       "public/iframe_test.html"
     ]
   },
