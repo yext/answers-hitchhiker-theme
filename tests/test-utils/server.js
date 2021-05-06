@@ -1,4 +1,5 @@
-const express = require('express');
+const http = require('http');
+const handler = require('serve-handler');
 
 /**
  * A simple http server
@@ -12,8 +13,12 @@ class HttpServer {
    * @param {number} config.port - The port to serve at
    */
   constructor ({dir, port}) {
-    this._server = express();
-    this._server.use(express.static(dir))
+    this._server = http.createServer((request, response) => {
+      return handler(request, response, {
+        "public": dir
+      });
+    });
+
     this._port = port;
   }
 
@@ -21,14 +26,14 @@ class HttpServer {
    * Starts the server
    */
   start () {
-    this._server.listen(this._port)
+    this._server.listen(this._port);
   }
 
   /**
    * Shuts down the server
    */
   shutdown () {
-
+    this._server.close();
   }
 }
 
