@@ -5,7 +5,7 @@ const StandardPageNavigator = require('./standardpagenavigator');
 const IframePageNavigator = require('./iframepagenavigator');
 const Camera = require('./camera');
 
-const PORT = 5042;
+const PORT = 4000;
 
 PercyScript.run(async (page, percySnapshot) => {
   const server = new HttpServer({
