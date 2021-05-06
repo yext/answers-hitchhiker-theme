@@ -126,7 +126,7 @@
       let iframeJWTResolve;
       window.iframeJWT = new Promise(resolve => {
         iframeJWTResolve = resolve;
-      })
+      });
       window.iFrameResizer = {
         onReady: function() {
           window.parentIFrame.sendMessage(JSON.stringify({
