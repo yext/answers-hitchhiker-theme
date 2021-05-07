@@ -34,19 +34,21 @@ module.exports = function () {
   }
 
   const useJWT = globalConfig && globalConfig.useJWT
-  const jamboInjectedData = process.env.JAMBO_INJECTED_DATA || null;
+  let jamboInjectedData = process.env.JAMBO_INJECTED_DATA || null;
+  jamboInjectedData = jamboInjectedData && JSON.parse(jamboInjectedData);
 
-  console.log('injected data: ' + jamboInjectedData);
   const getSecuredJamboInjectedData =
     require(`./${jamboConfig.dirs.output}/static/webpack/getSecuredJamboInjectedData.js`);
+
+  const updatedJamboInjectedData = useJWT 
+    ? getSecuredJamboInjectedData(jamboInjectedData)
+    : jamboInjectedData
 
   const plugins = [
     new MiniCssExtractPlugin({ filename: '[name].css' }),
     ...htmlPlugins,
     new webpack.DefinePlugin({
-      'process.env.JAMBO_INJECTED_DATA': useJWT 
-        ? getSecuredJamboInjectedData(jamboInjectedData)
-        : jamboInjectedData
+      'process.env.JAMBO_INJECTED_DATA': JSON.stringify(JSON.stringify(updatedJamboInjectedData))
     }),
     new RemovePlugin({
       after: {
