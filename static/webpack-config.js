@@ -27,30 +27,28 @@ module.exports = function () {
   }
 
   const globalConfigPath = `./${jamboConfig.dirs.config}/global_config.json`;
-  let globalConfig = null;
+  let globalConfig = {};
   if (fs.existsSync(globalConfigPath)) {
     globalConfigRaw = fs.readFileSync(globalConfigPath, 'utf-8');
     globalConfig = parse(globalConfigRaw);
   }
 
-  const useJWT = globalConfig && globalConfig.useJWT
+  const { useJWT } = globalConfig;
+
   let jamboInjectedData = process.env.JAMBO_INJECTED_DATA || null;
-  jamboInjectedData = (jamboInjectedData && JSON.parse(jamboInjectedData));
-
-  const getCleanedJamboInjectedData =
-    require(`./${jamboConfig.dirs.output}/static/webpack/getCleanedJamboInjectedData.js`);
-
-  let updatedJamboInjectedData = useJWT 
-    ? getCleanedJamboInjectedData(jamboInjectedData)
-    : jamboInjectedData
+  if (useJWT && jamboInjectedData) {
+    const getCleanedJamboInjectedData =
+      require(`./${jamboConfig.dirs.output}/static/webpack/getCleanedJamboInjectedData.js`);
+    jamboInjectedData = JSON.parse(jamboInjectedData)
+    jamboInjectedData = getCleanedJamboInjectedData(jamboInjectedData)
+    jamboInjectedData = JSON.stringify(jamboInjectedData)
+  }
 
   const plugins = [
     new MiniCssExtractPlugin({ filename: '[name].css' }),
     ...htmlPlugins,
     new webpack.DefinePlugin({
-      'process.env.JAMBO_INJECTED_DATA': updatedJamboInjectedData
-        ? JSON.stringify(JSON.stringify(updatedJamboInjectedData))
-        : null
+      'process.env.JAMBO_INJECTED_DATA': JSON.stringify(jamboInjectedData)
     }),
     new RemovePlugin({
       after: {
