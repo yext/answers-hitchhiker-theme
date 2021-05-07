@@ -32,11 +32,11 @@
     };
     {{#if global_config.useJWT}}
       const jwtNotProvidedTimeout = setTimeout(() => {
-        console.error(
+        console.warn(
           'A JWT is required to initialize this Answers experience because "useJWT" is set to true.\n' +
           'Load the experience by calling initAnswersJWT(token) or initAnswersFrameJWT(token).'
         );
-      }, 2000);
+      }, 5000);
       window.answersJWT.then(token => {
         clearTimeout(jwtNotProvidedTimeout);
         initAnswersInstance({
