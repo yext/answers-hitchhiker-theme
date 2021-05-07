@@ -1,3 +1,4 @@
+const getSecuredJamboInjectedData = require('../static/webpack/getSecuredJamboInjectedData');
 /**
  * Formats the data sent to the handlebars templates during Jambo builds.
  *
@@ -26,6 +27,9 @@ module.exports = function (pageMetadata, siteLevelAttributes, pageNameToConfig) 
       JAMBO_INJECTED_DATA: env.JAMBO_INJECTED_DATA
     }
   };
+  if (globalConfig.useJWT) {
+    return getSecuredTemplateData(templateData);
+  }
   return templateData;
 }
 
@@ -50,4 +54,16 @@ function getLocalizedGlobalConfig(globalConfig, currentLocaleConfig, locale) {
     localizedGlobalConfig.locale = locale;
   }
   return localizedGlobalConfig;
+}
+
+function getSecuredTemplateData(templateData) {
+  const jamboInjectedData = templateData.env.JAMBO_INJECTED_DATA;
+  const globalConfig = templateData.global_config;
+  return {
+    ...templateData,
+    global_config: Object.assign({}, globalConfig, { apiKey: undefined }),
+    env: {
+      JAMBO_INJECTED_DATA: getSecuredJamboInjectedData(jamboInjectedData)
+    }
+  }
 }

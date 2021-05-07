@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
 const RemovePlugin = require('remove-files-webpack-plugin');
 const { merge } = require('webpack-merge');
+const { parse } = require('comment-json');
 
 module.exports = function () {
   const jamboConfig = require('./jambo.json');
@@ -25,11 +26,27 @@ module.exports = function () {
     });
   }
 
+  const globalConfigPath = `./${jamboConfig.dirs.config}/global_config.json`;
+  let globalConfig = null;
+  if (fs.existsSync(globalConfigPath)) {
+    globalConfigRaw = fs.readFileSync(globalConfigPath, 'utf-8');
+    globalConfig = parse(globalConfigRaw);
+  }
+
+  const useJWT = globalConfig && globalConfig.useJWT
+  const jamboInjectedData = process.env.JAMBO_INJECTED_DATA || null;
+
+  console.log('injected data: ' + jamboInjectedData);
+  const getSecuredJamboInjectedData =
+    require(`./${jamboConfig.dirs.output}/static/webpack/getSecuredJamboInjectedData.js`);
+
   const plugins = [
     new MiniCssExtractPlugin({ filename: '[name].css' }),
     ...htmlPlugins,
-    new webpack.EnvironmentPlugin({
-      JAMBO_INJECTED_DATA: null
+    new webpack.DefinePlugin({
+      'process.env.JAMBO_INJECTED_DATA': useJWT 
+        ? getSecuredJamboInjectedData(jamboInjectedData)
+        : jamboInjectedData
     }),
     new RemovePlugin({
       after: {
