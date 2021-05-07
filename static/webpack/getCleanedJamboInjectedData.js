@@ -21,10 +21,9 @@ function getCleanedJamboInjectedData (data) {
 
   Object.values(experiences).forEach(config => {
     removeApiKeyFromConfig(config);
-    if (!('configByLabel' in config)) {
-      return;
+    if ('configByLabel' in config) {
+      Object.values(config.configByLabel).forEach(removeApiKeyFromConfig);
     }
-    Object.values(config.configByLabel).forEach(removeApiKeyFromConfig);
   });
   return updatedData;
 }
