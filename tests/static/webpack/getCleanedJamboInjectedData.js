@@ -1,4 +1,4 @@
-import getSecuredJamboInjectedData from '../../../static/webpack/getSecuredJamboInjectedData';
+import getCleanedJamboInjectedData from '../../../static/webpack/getCleanedJamboInjectedData';
 
 describe('secures the injected data', () => {
   const sampleConfig = {
@@ -27,7 +27,7 @@ describe('secures the injected data', () => {
   };
   
   it('removes instances of the apiKey', () => {
-     const securedInjectedData = getSecuredJamboInjectedData(mockInjectedData);
+     const securedInjectedData = getCleanedJamboInjectedData(mockInjectedData);
      expect(securedInjectedData).toEqual(expect.not.objectContaining({apiKey: 999}));
   });
 });

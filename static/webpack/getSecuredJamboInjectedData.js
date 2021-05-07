@@ -6,7 +6,7 @@ const _ = require('lodash');
  * @param {Object} data JAMBO_INJECTED_DATA
  * @returns {Object}
  */
-function getSecuredJamboInjectedData (data) {
+function getCleanedJamboInjectedData (data) {
   if (!data || !data.answers || !data.answers.experiences) {
     return;
   }
@@ -29,4 +29,4 @@ function getSecuredJamboInjectedData (data) {
   return updatedData;
 }
 
-module.exports = getSecuredJamboInjectedData;
+module.exports = getCleanedJamboInjectedData;

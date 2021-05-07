@@ -37,11 +37,11 @@ module.exports = function () {
   let jamboInjectedData = process.env.JAMBO_INJECTED_DATA || null;
   jamboInjectedData = jamboInjectedData && JSON.parse(jamboInjectedData);
 
-  const getSecuredJamboInjectedData =
-    require(`./${jamboConfig.dirs.output}/static/webpack/getSecuredJamboInjectedData.js`);
+  const getCleanedJamboInjectedData =
+    require(`./${jamboConfig.dirs.output}/static/webpack/getCleanedJamboInjectedData.js`);
 
   const updatedJamboInjectedData = useJWT 
-    ? getSecuredJamboInjectedData(jamboInjectedData)
+    ? getCleanedJamboInjectedData(jamboInjectedData)
     : jamboInjectedData
 
   const plugins = [

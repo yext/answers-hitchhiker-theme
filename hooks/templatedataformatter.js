@@ -1,4 +1,4 @@
-const getSecuredJamboInjectedData = require('../static/webpack/getSecuredJamboInjectedData');
+const getCleanedJamboInjectedData = require('../static/webpack/getCleanedJamboInjectedData');
 /**
  * Formats the data sent to the handlebars templates during Jambo builds.
  *
@@ -63,7 +63,7 @@ function getSecuredTemplateData(templateData) {
     ...templateData,
     global_config: Object.assign({}, globalConfig, { apiKey: undefined }),
     env: {
-      JAMBO_INJECTED_DATA: getSecuredJamboInjectedData(jamboInjectedData)
+      JAMBO_INJECTED_DATA: getCleanedJamboInjectedData(jamboInjectedData)
     }
   }
 }
