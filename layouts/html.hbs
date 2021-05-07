@@ -123,9 +123,8 @@
       window.iframeLoaded = new Promise(resolve => {
         iframeLoadedResolve = resolve;
       });
-      let iframeJWTResolve;
-      window.iframeJWT = new Promise(resolve => {
-        iframeJWTResolve = resolve;
+      window.answersJWT = new Promise(resolve => {
+        window.initAnswersJWT = resolve;
       });
       window.iFrameResizer = {
         onReady: function() {
@@ -138,7 +137,7 @@
         },
         onMessage: (message) => {
           if (message.token) {
-            iframeJWTResolve(message.token);
+            initAnswersJWT(message.token);
             return;
           }
           window.isOverlay && window.Overlay.onMessage(message);

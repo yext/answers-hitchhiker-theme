@@ -3,6 +3,6 @@ import InjectedData from './models/InjectedData';
 
 const stagingDomain = new InjectedData().getStagingDomain();
 
-window.initAnswersFrame = function (token) {
+window.initAnswersFrameJWT = function (token) {
   generateIFrame(stagingDomain, null, null, token);
 }

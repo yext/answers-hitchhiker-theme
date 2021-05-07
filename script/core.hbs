@@ -34,10 +34,10 @@
       const jwtNotProvidedTimeout = setTimeout(() => {
         console.error(
           'A JWT is required to initialize this Answers experience because "useJWT" is set to true.\n' +
-          'To specify a JWT, this page must be loaded through iframe-jwt.js or similar.'
+          'Load the experience by calling initAnswersJWT(token) or initAnswersFrameJWT(token).'
         );
       }, 2000);
-      window.iframeJWT.then(token => {
+      window.answersJWT.then(token => {
         clearTimeout(jwtNotProvidedTimeout);
         initAnswersInstance({
           ...injectedConfig,

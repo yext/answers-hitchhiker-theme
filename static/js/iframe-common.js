@@ -83,7 +83,7 @@ export function generateIFrame(domain, queryParam, urlParam, token) {
   iFrameResize({
     checkOrigin: false,
     onInit: function(iframe) {
-      iframe.iFrameResizer.sendMessage({
+      token && iframe.iFrameResizer.sendMessage({
         token: token
       }); 
     },
