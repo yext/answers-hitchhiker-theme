@@ -1,6 +1,6 @@
 require('iframe-resizer');
 
-export function generateIFrame(domain, queryParam, urlParam) {
+export function generateIFrame(domain, queryParam, urlParam, token) {
   var isLocalHost = window.location.host.split(':')[0] === 'localhost';
   var containerEl = document.querySelector('#answers-container');
   var iframe = document.createElement('iframe');
@@ -82,6 +82,11 @@ export function generateIFrame(domain, queryParam, urlParam) {
   // For dynamic iFrame resizing
   iFrameResize({
     checkOrigin: false,
+    onInit: function(iframe) {
+      token && iframe.iFrameResizer.sendMessage({
+        token: token
+      }); 
+    },
     onMessage: function(messageData) {
       const message = JSON.parse(messageData.message);
       if (message.action === "paginate") {

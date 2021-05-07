@@ -12,7 +12,9 @@
     const IS_STAGING = HitchhikerJS.isStaging(JAMBO_INJECTED_DATA?.pages?.stagingDomains || []);
     const injectedConfig = {
       experienceVersion: IS_STAGING ? 'STAGING' : 'PRODUCTION',
-      apiKey: HitchhikerJS.getInjectedProp('{{{global_config.experienceKey}}}', ['apiKey']),
+      {{#unless global_config.useJWT}} 
+        apiKey: HitchhikerJS.getInjectedProp('{{{global_config.experienceKey}}}', ['apiKey']),
+      {{/unless}}
       {{#with env.JAMBO_INJECTED_DATA}}
         {{#if businessId}}businessId: "{{businessId}}",{{/if}}
       {{/with}}
@@ -28,10 +30,32 @@
         {{/if}}
       {{/with}}
     };
+    {{#if global_config.useJWT}}
+      const jwtNotProvidedTimeout = setTimeout(() => {
+        console.warn(
+          'A JWT has not been received within 5 seconds of page load, and "useJWT" is set to true.\n' + 
+          'Load the experience by calling initAnswersJWT(token).'
+        );
+      }, 5000);
+      window.answersJWT.then(token => {
+        clearTimeout(jwtNotProvidedTimeout);
+        initAnswersInstance({
+          ...injectedConfig,
+          ...userConfig,
+          apiKey: token
+        });
+      });
+    {{else}}
+      initAnswersInstance({
+        ...injectedConfig, 
+        ...userConfig
+      });
+    {{/if}}
+  }
+  function initAnswersInstance (config) {
     ANSWERS.init({
       templateBundle: TemplateBundle.default,
-      ...injectedConfig,
-      ...userConfig,
+      ...config,
       querySource: window.isOverlay ? 'OVERLAY' : 'STANDARD',
       onStateChange: (objParams, stringParams, replaceHistory) => {
         if ('parentIFrame' in window) {
