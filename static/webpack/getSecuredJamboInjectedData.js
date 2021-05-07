@@ -3,7 +3,8 @@ const _ = require('lodash');
 /**
  * Returns JAMBO_INJECTED_DATA with instances of the global config's apiKey removed
  * 
- * @param {Object} data JAMBO_INJECTED_DATA 
+ * @param {Object} data JAMBO_INJECTED_DATA
+ * @returns {Object}
  */
 function getSecuredJamboInjectedData (data) {
   if (!data || !data.answers || !data.answers.experiences) {
