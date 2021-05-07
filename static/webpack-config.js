@@ -35,12 +35,12 @@ module.exports = function () {
 
   const useJWT = globalConfig && globalConfig.useJWT
   let jamboInjectedData = process.env.JAMBO_INJECTED_DATA || null;
-  jamboInjectedData = jamboInjectedData && JSON.parse(jamboInjectedData);
+  jamboInjectedData = (jamboInjectedData && JSON.parse(jamboInjectedData));
 
   const getCleanedJamboInjectedData =
     require(`./${jamboConfig.dirs.output}/static/webpack/getCleanedJamboInjectedData.js`);
 
-  const updatedJamboInjectedData = useJWT 
+  let updatedJamboInjectedData = useJWT 
     ? getCleanedJamboInjectedData(jamboInjectedData)
     : jamboInjectedData
 
@@ -48,7 +48,9 @@ module.exports = function () {
     new MiniCssExtractPlugin({ filename: '[name].css' }),
     ...htmlPlugins,
     new webpack.DefinePlugin({
-      'process.env.JAMBO_INJECTED_DATA': JSON.stringify(JSON.stringify(updatedJamboInjectedData))
+      'process.env.JAMBO_INJECTED_DATA': updatedJamboInjectedData
+        ? JSON.stringify(JSON.stringify(updatedJamboInjectedData))
+        : null
     }),
     new RemovePlugin({
       after: {
