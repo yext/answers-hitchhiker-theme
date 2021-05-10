@@ -26,7 +26,14 @@ module.exports = function () {
   }
 
   const plugins = [
-    new MiniCssExtractPlugin({ filename: '[name].css' }),
+    new MiniCssExtractPlugin({
+      filename: pathData => {
+        const chunkName = pathData.chunk.name;
+        return {
+          HitchhikerJS: 'bundle.css',
+        }[chunkName] || '[name].css'
+      }
+    }),
     ...htmlPlugins,
     new webpack.EnvironmentPlugin({
       JAMBO_INJECTED_DATA: null
@@ -50,7 +57,6 @@ module.exports = function () {
     target: ['web', 'es5'],
     entry: {
       'HitchhikerJS': `./${jamboConfig.dirs.output}/static/entry.js`,
-      'HitchhikerCSS': `./${jamboConfig.dirs.output}/static/css-entry.js`,
       'iframe': `./${jamboConfig.dirs.output}/static/js/iframe.js`,
       'answers': `./${jamboConfig.dirs.output}/static/js/iframe.js`,
       'overlay-button': `./${jamboConfig.dirs.output}/static/js/overlay/button-frame/entry.js`,
@@ -65,7 +71,13 @@ module.exports = function () {
       }
     },
     output: {
-      filename: '[name].js',
+      filename: pathData => {
+        const chunkName = pathData.chunk.name;
+        return {
+          VerticalFullPageMap: 'locator-bundle.js',
+          HitchhikerJS: 'bundle.js',
+        }[chunkName] || '[name].js'
+      },
       library: '[name]',
       path: path.resolve(__dirname, jamboConfig.dirs.output),
       libraryTarget: 'window',
