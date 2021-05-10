@@ -23,7 +23,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
-    - run: npx jest --coverage
+    - run: npx jest tests/static/ --coverage
     - name: Coveralls
       uses: coverallsapp/github-action@master
       with:
