@@ -1,0 +1,25 @@
+From add95334d01d9e5247f2808aa88575198926773d Mon Sep 17 00:00:00 2001
+From: Tom Meyer <tmeyer@yext.com>
+Date: Mon, 26 Apr 2021 16:56:39 -0400
+Subject: [PATCH] Add the .npmrc file to the repository (#97)
+
+This PR adds an .npmrc file to the repository. This file configures how `npm` works in the project. The `engine-strict` attribute was enabled in the config file. With this attribute enabled, if the current Node version does not match the Node version required by a dependency, `npm install` will fail. An error message will be shown indicating the package and version mismatch. A minimum required Node version was recently added to Jambo. That change, paired with this, will give users helpful errors in CBD if the container's Node version doesn't work with the Jambo version.
+
+TEST=manual
+
+Cloned this repo and attempted to run the `ci/install_deps.sh` script with Node 10. Saw an error indicating this Node version was incompatible with Jambo v10. I switched to Node 12 and the `ci/install_deps.sh` script worked without issue.
+---
+ .npmrc | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 .npmrc
+
+diff --git a/.npmrc b/.npmrc
+new file mode 100644
+index 0000000..b6f27f1
+--- /dev/null
++++ b/.npmrc
+@@ -0,0 +1 @@
++engine-strict=true
+-- 
+2.29.2
+
