@@ -19,14 +19,14 @@ class IframePageNavigator extends PageNavigator {
 
   async gotoUniversalPage(queryParams = {}) {
     const queryParamsString = getQueryParamsString(queryParams);
-    const url = `${this._siteUrl}/${this._iframePage}?${queryParamsString}`;
+    const url = `${this._siteUrl}/${this._iframePage}.html?${queryParamsString}`;
     await this._page.goto(url);
     await waitTillHTMLRendered(this._page);
   }
 
   async gotoVerticalPage(vertical, queryParams = {}) {
     const queryParamsString = getQueryParamsString(queryParams);
-    const url = `${this._siteUrl}/${this._iframePage}?verticalUrl=${vertical}&${queryParamsString}`;
+    const url = `${this._siteUrl}/${this._iframePage}.html?verticalUrl=${vertical}.html&${queryParamsString}`;
     await this._page.goto(url);
     await waitTillHTMLRendered(this._page);
   }

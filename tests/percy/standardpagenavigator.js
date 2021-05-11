@@ -24,7 +24,7 @@ class StandardPageNavigator extends PageNavigator {
 
   async gotoVerticalPage(vertical, queryParams = {}) {
     const queryParamsString = getQueryParamsString(queryParams);
-    const url = `${this._siteUrl}/${vertical}?${queryParamsString}`;
+    const url = `${this._siteUrl}/${vertical}.html?${queryParamsString}`;
     await this._page.goto(url);
     await waitTillHTMLRendered(this._page);
   }
