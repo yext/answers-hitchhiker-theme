@@ -3,13 +3,13 @@ function addFullPageMap() {
   {{> theme-components/vertical-full-page-map/script}}
 }
 
-if (window.verticalFullPageMapBundleLoaded) {
+if (window.locatorBundleLoaded) {
   addFullPageMap();
 } else {
-  const verticalFullPageMapScript = document.querySelector('script#js-verticalFullPageMapScript');
-  verticalFullPageMapScript.onload = () => {
-    window.verticalFullPageMapBundleLoaded = true;
-    verticalFullPageMapScript.dispatchEvent(new Event('vertical-full-page-map-bundle-loaded'));
+  const locatorBundleScript = document.querySelector('script#js-answersLocatorBundleScript');
+  locatorBundleScript.onload = () => {
+    window.locatorBundleLoaded = true;
+    locatorBundleScript.dispatchEvent(new Event('vertical-full-page-map-bundle-loaded'));
     addFullPageMap();
   }
 }
@@ -20,7 +20,7 @@ if (window.verticalFullPageMapBundleLoaded) {
  * @param {ANSWERS.Component} card A location card
  */
 function registerVerticalFullPageMapCardListeners(card) {
-  if (window.verticalFullPageMapBundleLoaded) {
+  if (window.locatorBundleLoaded) {
     new VerticalFullPageMap.CardListenerAssigner({card: card}).addListenersToCard();
     return;
   }
