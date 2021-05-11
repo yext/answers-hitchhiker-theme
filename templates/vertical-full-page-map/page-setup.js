@@ -1,16 +1,16 @@
-function loadFullPageMap() {
+function addFullPageMap() {
   {{> theme-components/theme-map/script}}
   {{> theme-components/vertical-full-page-map/script}}
 }
 
 if (window.locatorBundleLoaded) {
-  loadFullPageMap();
+  addFullPageMap();
 } else {
   const locatorBundleScript = document.querySelector('script#js-answersLocatorBundleScript');
   locatorBundleScript.onload = () => {
     window.locatorBundleLoaded = true;
-    locatorBundleScript.dispatchEvent(new Event('locator-bundle-loaded'));
-    loadFullPageMap();
+    locatorBundleScript.dispatchEvent(new Event('vertical-full-page-map-bundle-loaded'));
+    addFullPageMap();
   }
 }
 
@@ -24,8 +24,8 @@ function registerVerticalFullPageMapCardListeners(card) {
     new VerticalFullPageMap.CardListenerAssigner({card: card}).addListenersToCard();
     return;
   }
-  const locatorBundleScript = document.querySelector('script#js-answersLocatorBundleScript');
-  locatorBundleScript.addEventListener('locator-bundle-loaded', () => {
+  const verticalFullPageMapScript = document.querySelector('script#js-verticalFullPageMapScript');
+  verticalFullPageMapScript.addEventListener('vertical-full-page-map-bundle-loaded', () => {
     new VerticalFullPageMap.CardListenerAssigner({card: card}).addListenersToCard();
   });
 }

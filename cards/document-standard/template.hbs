@@ -1,0 +1,91 @@
+<div class="HitchhikerDocumentStandard {{cardName}}">
+  {{> image }}
+  <div class="HitchhikerDocumentStandard-body">
+    {{> title }}
+    {{> subtitle }}
+    <div class="HitchhikerDocumentStandard-contentWrapper">
+      <div class="HitchhikerDocumentStandard-info">
+        {{> details }}
+      </div>
+      {{> ctas }}
+    </div>
+  </div>
+</div>
+
+{{#*inline 'image'}}
+{{#if card.image}}
+<div class="HitchhikerDocumentStandard-imgWrapper">
+  <img class="HitchhikerDocumentStandard-img" src="{{#unless (isNonRelativeUrl card.image)}}{{@root.relativePath}}/{{/unless}}{{card.image}}" alt="{{#if card.altText}}{{card.altText}}{{/if}}"/>
+</div>
+{{/if}}
+{{/inline}}
+
+{{#*inline 'title'}}
+{{#if card.title}}
+<div class="HitchhikerDocumentStandard-title">
+  {{#if card.url}}
+  <a class="HitchhikerDocumentStandard-titleLink js-HitchhikerDocumentStandard-titleLink"
+     href="{{#unless (isNonRelativeUrl card.url)}}{{@root.relativePath}}/{{/unless}}{{card.url}}"
+     data-eventtype="TITLE_CLICK"
+     data-eventoptions='{{json card.titleEventOptions}}'
+     target={{#if card.target}}"{{card.target}}"{{else}}"_top"{{/if}}>
+    {{card.title}}
+  </a>
+  {{else}}
+  {{card.title}}
+  {{/if}}
+</div>
+{{/if}}
+{{/inline}}
+
+{{#*inline 'subtitle'}}
+{{#if card.subtitle}}
+<div class="HitchhikerDocumentStandard-subtitle">
+  {{card.subtitle}}
+</div>
+{{/if}}
+{{/inline}}
+
+{{#*inline 'details'}}
+{{#if card.details}}
+<div class="HitchhikerDocumentStandard-cardDetails">
+  <div class="HitchhikerDocumentStandard-detailsText js-HitchhikerCard-detailsText">
+    {{{card.details}}}
+  </div>
+</div>
+{{/if}}
+{{/inline}}
+
+{{#*inline 'ctas'}}
+{{#if (any (all card.CTA1 card.CTA1.url card.CTA1.label) (all card.CTA2 card.CTA2.url card.CTA2.label))}}
+<div class="HitchhikerDocumentStandard-ctasWrapper">
+  {{> CTA card.CTA1 ctaName="primaryCTA" }}
+  {{> CTA card.CTA2 ctaName="secondaryCTA" }}
+</div>
+{{/if}}
+{{/inline}}
+
+{{#*inline 'CTA'}}
+{{#if (all url label)}}
+<div class="HitchhikerDocumentStandard-{{ctaName}}">
+  <a class="HitchhikerCTA js-HitchhikerCTA{{#if modifiers}} {{modifiers}}{{/if}}"
+    href="{{#unless (isNonRelativeUrl url)}}{{@root.relativePath}}/{{/unless}}{{url}}"
+    data-eventtype="{{eventType}}"
+    data-eventoptions='{{json eventOptions}}'
+    target="{{#if target}}{{target}}{{else}}_top{{/if}}"
+    {{#if ariaLabel}}aria-label="{{ariaLabel}}"{{/if}}>
+    {{#if (any iconName iconUrl)}}
+    <div class="HitchhikerCTA-iconWrapper">
+      <div class="HitchhikerCTA-icon" data-component="IconComponent" data-opts='{
+        "iconUrl": "{{#if iconUrl}}{{#unless (isNonRelativeUrl iconUrl)}}{{@root.relativePath}}/{{/unless}}{{iconUrl}}{{/if}}",
+        "iconName": "{{iconName}}"
+      }'></div>
+    </div>
+    {{/if}}
+    <div class='HitchhikerCTA-iconLabel'>
+      {{label}}
+    </div>
+  </a>
+</div>
+{{/if}}
+{{/inline}}

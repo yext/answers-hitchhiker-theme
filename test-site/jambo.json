@@ -9,7 +9,10 @@
       "cards",
       "directanswercards"
     ],
-    "preservedFiles": []
+    "preservedFiles": [
+      "public/overlay.html",
+      "public/iframe_test.html"
+    ]
   },
   "defaultTheme": "answers-hitchhiker-theme"
 }

@@ -164,7 +164,8 @@ describe('handles verticalLabel correctly', () => {
 function evalComponentConfig(templateData, mockGetInjectedProp) {
   const output = compiledTemplate(templateData);
   const ANSWERS = {
-    addComponent: jest.fn()
+    addComponent: jest.fn(),
+    registerTemplate: jest.fn()
   };
   const HitchhikerJS = {
     getInjectedProp: mockGetInjectedProp || jest.fn()
