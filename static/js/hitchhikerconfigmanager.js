@@ -43,7 +43,7 @@ export class HitchhikerConfigManager {
 }
 
 /**
- * 
+ * Puts a setter on the window which allows the hitchhiker config to be updated
  *  
  * @param {HitchhikerConfigManager} hitchhikerConfigManager 
  */
