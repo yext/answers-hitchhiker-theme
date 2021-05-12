@@ -15,7 +15,7 @@ class standardCardComponent extends BaseCard['standard'] {
     return {
       title: profile.name, // The header text of the card
       url: profile.website || profile.landingPageUrl, // If the card title is a clickable link, set URL here
-      target: '_top', // If the title's URL should open in a new tab, etc.
+      target: HitchhikerConfig.defaultTarget, // If the title's URL should open in a new tab, etc.
       // image: '', // The URL of the image to display on the card
       // altText: '', // The alternate text for the image
       titleEventOptions: this.addDefaultEventOptions(),
@@ -33,7 +33,7 @@ class standardCardComponent extends BaseCard['standard'] {
         label: profile.c_primaryCTA ? profile.c_primaryCTA.label : null, // The CTA's label
         iconName: 'chevron', // The icon to use for the CTA
         url: Formatter.generateCTAFieldTypeLink(profile.c_primaryCTA), // The URL a user will be directed to when clicking
-        target: '_top', // Where the new URL will be opened
+        target: HitchhikerConfig.defaultTarget, // Where the new URL will be opened
         eventType: 'CTA_CLICK', // Type of Analytics event fired when clicking the CTA
         eventOptions: this.addDefaultEventOptions(),
         // ariaLabel: '', // Accessible text providing a descriptive label for the CTA
@@ -43,7 +43,7 @@ class standardCardComponent extends BaseCard['standard'] {
         label: profile.c_secondaryCTA ? profile.c_secondaryCTA.label : null,
         iconName: 'chevron',
         url: Formatter.generateCTAFieldTypeLink(profile.c_secondaryCTA),
-        target: '_top',
+        target: HitchhikerConfig.defaultTarget,
         eventType: 'CTA_CLICK',
         eventOptions: this.addDefaultEventOptions(),
         // ariaLabel: '',
