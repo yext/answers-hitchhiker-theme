@@ -126,6 +126,10 @@
       window.answersJWT = new Promise(resolve => {
         window.initAnswersJWT = resolve;
       });
+      const hhConfigMetadata = {
+        lastReceived: -1,
+        hasInitializedWithJWT: false
+      };
       window.iFrameResizer = {
         onReady: function() {
           window.parentIFrame.sendMessage(JSON.stringify({
@@ -136,8 +140,20 @@
           iframeLoadedResolve();
         },
         onMessage: (message) => {
-          if (message.token) {
-            initAnswersJWT(message.token);
+          // Due to the async nature of the iframe resizer messaging, ensure
+          // that we only update the HH config if it is more recent than the last one
+          const messageContainsNewHHConfig = message.hitchhikerConfig
+             && message.timestamp >= hhConfigMetadata.lastReceived;
+          if (messageContainsNewHHConfig) {
+            window.HitchhikerConfig = {
+              ...window.HitchhikerConfig,
+              ...message.hitchhikerConfig
+            };
+            hhConfigMetadata.lastReceived = message.timestamp;
+          }
+          if (message.hitchhikerConfig?.token && !hhConfigMetadata.hasInitializedWithJWT) {
+            initAnswersJWT(message.hitchhikerConfig.token);
+            hhConfigMetadata.hasInitializedWithJWT = true;
             return;
           }
           window.isOverlay && window.Overlay.onMessage(message);

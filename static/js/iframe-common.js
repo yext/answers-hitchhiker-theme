@@ -1,6 +1,16 @@
 require('iframe-resizer');
 
-export function generateIFrame(domain, queryParam, urlParam, token) {
+/**
+ * @typedef {import('./hitchhikerconfigmanager')} HitchhikerConfigManager
+ */
+
+/**
+ * Puts on iframe on the page of an Answers experience and sets up resizing and cross-domain communication
+ * 
+ * @param {string} domain The location of the answers experience
+ * @param {HitchhikerConfigManager} hitchhikerConfigManager used for passing dyamic config to the iframe
+ */
+export function generateIFrame(domain, hitchhikerConfigManager) {
   var isLocalHost = window.location.host.split(':')[0] === 'localhost';
   var containerEl = document.querySelector('#answers-container');
   var iframe = document.createElement('iframe');
@@ -8,8 +18,6 @@ export function generateIFrame(domain, queryParam, urlParam, token) {
   iframe.allow = 'geolocation';
 
   domain = domain || '';
-  queryParam = queryParam || 'query';
-  urlParam = urlParam || 'verticalUrl';
 
   var calcFrameSrc = function() {
     var paramString = window.location.search;
@@ -82,10 +90,8 @@ export function generateIFrame(domain, queryParam, urlParam, token) {
   // For dynamic iFrame resizing
   iFrameResize({
     checkOrigin: false,
-    onInit: function(iframe) {
-      token && iframe.iFrameResizer.sendMessage({
-        token: token
-      }); 
+    onInit: function() {
+      hitchhikerConfigManager && hitchhikerConfigManager.sendConfigToIframe();
     },
     onMessage: function(messageData) {
       const message = JSON.parse(messageData.message);
