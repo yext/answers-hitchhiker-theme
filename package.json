@@ -43,6 +43,9 @@
     "yargs": "^17.0"
   },
   "jest": {
+    "collectCoverageFrom": [
+      "static/**/*.js"
+    ],
     "verbose": true,
     "moduleFileExtensions": [
       "js"
