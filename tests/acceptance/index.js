@@ -27,10 +27,7 @@ async function runTests (browsers) {
       .src('tests/acceptance/suites/*.js')
       .browsers(browsers)
       .startApp(`npx serve -p ${PORT} test-site/public`, 4000)
-      .run({
-        quarantineMode: true,
-        pageLoadTimeout: 25000
-      });
+      .run({ quarantineMode: true });
     if (result > 0) {
       process.exit(1);
     }
