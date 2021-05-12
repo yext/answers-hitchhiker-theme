@@ -23,11 +23,17 @@ runTests(argv.browsers);
 async function runTests (browsers) {
   const testcafe = await createTestCafe();
   try {
-    await testcafe.createRunner()
+    const result = await testcafe.createRunner()
       .src('tests/acceptance/suites/*.js')
       .browsers(browsers)
       .startApp(`npx serve -p ${PORT} test-site/public`, 4000)
-      .run({ quarantineMode: true });
+      .run({
+        quarantineMode: true,
+        pageLoadTimeout: 25000
+      });
+    if (result > 0) {
+      process.exit(1);
+    }
   }
   finally {
     await testcafe.close();
