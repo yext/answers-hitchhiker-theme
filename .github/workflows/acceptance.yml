@@ -1,4 +1,4 @@
-name: BrowserStack Acceptance Tests
+name: Acceptance Tests
 
 on: push
 
@@ -31,4 +31,4 @@ jobs:
       - run: npm run setup-test-site
       - run: npm run build-test-site
       - name: Run Acceptance Tests
-        run: npm run acceptance -- --browsers chrome:headless firefox:headless
+        run: npm run acceptance -- --browsers chrome:headless
