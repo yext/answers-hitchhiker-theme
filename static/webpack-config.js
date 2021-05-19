@@ -26,6 +26,14 @@ module.exports = function () {
   }
 
   const plugins = [
+    new MiniCssExtractPlugin({
+      filename: pathData => {
+        const chunkName = pathData.chunk.name;
+        return {
+          HitchhikerJS: 'bundle.css',
+        }[chunkName] || '[name].css'
+      }
+    }),
     ...htmlPlugins,
     new webpack.EnvironmentPlugin({
       JAMBO_INJECTED_DATA: null
@@ -81,6 +89,7 @@ module.exports = function () {
         {
           test: /\.scss$/,
           use: [
+            MiniCssExtractPlugin.loader,
             'css-loader',
             {
               loader: "postcss-loader",
