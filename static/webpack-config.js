@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const HtmlPlugin = require('html-webpack-plugin');
 const RemovePlugin = require('remove-files-webpack-plugin');
 const { merge } = require('webpack-merge');
+const cssnano = require('cssnano');
 
 module.exports = function () {
   const jamboConfig = require('./jambo.json');
