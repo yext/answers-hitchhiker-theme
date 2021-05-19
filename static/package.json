@@ -32,6 +32,7 @@
     "html-webpack-plugin": "^4.3.0",
     "jambo": "^1.11.0",
     "jsdom": "^16.4.0",
+    "mini-css-extract-plugin": "^1.6.0",
     "node-sass": "^4.13.1",
     "postcss": "^8.2.10",
     "postcss-loader": "^5.3.0",
