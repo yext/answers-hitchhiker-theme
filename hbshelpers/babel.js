@@ -3,7 +3,7 @@ const { transformSync } = require('@babel/core');
 /**
  * Babel-ifies the enclosed code, using the config below. Note that if the 
  * IS_DEVELOPMENT_PREVIEW environment variable is set to 'true', the enclosed
- * code is return verbatim. This is an optimization for the build preview. 
+ * code is returned verbatim. This is an optimization for the build preview. 
  * 
  * @param {import('handlebars').HelperOptions} options 
  * @returns {string|null}
