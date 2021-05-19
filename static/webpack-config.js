@@ -1,7 +1,6 @@
 const path = require('path');
 const fs = require('file-system');
 const webpack = require('webpack');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
 const RemovePlugin = require('remove-files-webpack-plugin');
 const { merge } = require('webpack-merge');
@@ -26,14 +25,6 @@ module.exports = function () {
   }
 
   const plugins = [
-    new MiniCssExtractPlugin({
-      filename: pathData => {
-        const chunkName = pathData.chunk.name;
-        return {
-          HitchhikerJS: 'bundle.css',
-        }[chunkName] || '[name].css'
-      }
-    }),
     ...htmlPlugins,
     new webpack.EnvironmentPlugin({
       JAMBO_INJECTED_DATA: null
@@ -89,8 +80,17 @@ module.exports = function () {
         {
           test: /\.scss$/,
           use: [
-            MiniCssExtractPlugin.loader,
             'css-loader',
+            {
+              loader: "postcss-loader",
+              options: {
+                postcssOptions: {
+                  plugins: [
+                    cssnano({ preset: 'default'})
+                  ],
+                },
+              },
+            },
             'resolve-url-loader',
             {
               loader: 'sass-loader',
