@@ -274,10 +274,10 @@ export default class HoursTransformer {
    */
 
   /**
-   * Gets the holiday hours for the provided date given a holidayHours list
+   * Gets the holiday hours for the provided date given a HoldiayHourInfo list
    * @param {HolidayHourInfo[]} holidayHours
    * @param {Date} date
-   * @returns {Object}
+   * @returns {Object|null}
    */
   static _getDailyHolidayHours (holidayHours = [], date) {
     const holidayHoursForDate = holidayHours.find(holiday => {
