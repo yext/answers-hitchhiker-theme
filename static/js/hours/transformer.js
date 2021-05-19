@@ -1,4 +1,3 @@
-import clonedeep from 'lodash.clonedeep';
 import { DayNames } from './constants.js';
 import Hours from './models/hours.js';
 import { OpenStatusTypes } from './open-status/constants.js';
@@ -177,6 +176,8 @@ export default class HoursTransformer {
   }
 
   /**
+   * Transforms the hours data into the shape needed by the front-end
+   *
    * @param {Object} days e.g.
    * {
    *   monday: {
@@ -193,43 +194,28 @@ export default class HoursTransformer {
    * @returns {Object[]}
    */
   static _formatHoursForAnswers(days, timezone) {
-    const formattedDays = clonedeep(days);
     const daysOfWeek = Object.values(DayNames);
-    const holidayHours = formattedDays.holidayHours || [];
-    for (let day in formattedDays) {
-      if (day === 'holidayHours' || day === 'reopenDate') {
-        delete formattedDays[day];
-      } else {
+    return Object.entries(days)
+      .filter(([day]) => day !== 'holidayHours' && day !== 'reopenDate')
+      .reduce((formattedDays, [day, dayInfo]) => {
         const currentDayName = day.toUpperCase();
         const numberTimezone = this._convertTimezoneToNumber(timezone);
-        const userDateToEntityDate = this._getDateWithUTCOffset(numberTimezone);
-        const dayNameToDate = this._getNextDayOfWeek(userDateToEntityDate, daysOfWeek.indexOf(currentDayName));
+        const userDate = this._getDateWithUTCOffset(numberTimezone);
+        const nextDayOfWeek = this._getNextDayOfWeek(userDate, daysOfWeek.indexOf(currentDayName));
+        const dailyHolidayHours = this._getDailyHolidayHours(days.holidayHours, nextDayOfWeek);
+        const openIntervals = (dayInfo.openIntervals || []).map(this._formatInterval);
 
-        for (let holiday of holidayHours) {
-          let holidayDate = new Date(holiday.date + 'T00:00:00.000');
-          if (dayNameToDate.toDateString() == holidayDate.toDateString()) {
-            holiday.intervals = this._formatIntervals(holiday.openIntervals);
-            formattedDays[day].dailyHolidayHours = holiday;
-          }
+        const formattedDay = {
+          day: currentDayName,
+          ...dailyHolidayHours && { dailyHolidayHours },
+          openIntervals: openIntervals,
+          intervals: openIntervals,
+          isClosed: dayInfo.isClosed
         }
 
-        formattedDays[day].day = day.toUpperCase();
-
-        let intervals = formattedDays[day].openIntervals;
-        if (intervals) {
-          for (let interval of intervals) {
-            for (let period in interval) {
-              interval[period] = parseInt(interval[period].replace(':', ''));
-            }
-          }
-        } else {
-          formattedDays[day].openIntervals = [];
-        }
-        formattedDays[day].intervals = formattedDays[day].openIntervals;
-      }
-    }
-
-    return Object.values(formattedDays);
+        formattedDays.push(formattedDay);
+        return formattedDays;
+      }, []);
   }
 
   /**
@@ -272,24 +258,66 @@ export default class HoursTransformer {
   }
 
   /**
-   * Returns the hours intervals array with hours parsed into a number
-   * e.g. "09:00" turning into 900.
-   * @param {Object[]} intervals
-   * @param {string} intervals[].start start time like "09:00"
-   * @param {string} intervals[].end end time like "17:00"
-   * @returns {Object[]}
+   * @typedef HolidayHourInfo
+   * @type {Object}
+   * @property {string} date the date of the holiday
+   * @property {boolean} isClosed indicates whether or not the location is closed
+   * @property {boolean} isRegularHours indicates whether or not the location has regular hours on the holiday
+   * @property {OpenInterval[]} openIntervals intervals of time when the location is open
    */
-  static _formatIntervals(intervals) {
-    if (!intervals) {
-      return [];
+
+  /**
+   * @typedef OpenInterval
+   * @type {Object}
+   * @property {string} start start time, e.g. '03:00'
+   * @property {string} end end time, e.g '09:00'
+   */
+
+  /**
+   * Gets the holiday hours for the provided date given a HoldiayHourInfo list
+   * @param {HolidayHourInfo[]} holidayHours
+   * @param {Date} date
+   * @returns {Object|null}
+   */
+  static _getDailyHolidayHours (holidayHours = [], date) {
+    const holidayHoursForDate = holidayHours.find(holiday => {
+      const holidayDate = new Date(holiday.date + 'T00:00:00.000');
+      return date.toDateString() == holidayDate.toDateString();
+    });
+
+    if (!holidayHoursForDate) {
+      return null;
     }
-    let formatted = Array.from(intervals);
-    for (let interval of formatted) {
-      for (let period in interval) {
-        interval[period] = parseInt(interval[period].replace(':', ''));
-      }
-    }
-    return formatted;
+
+    const formattedIntervals = (holidayHoursForDate.openIntervals || []).map(this._formatInterval);
+
+    return {
+      date: holidayHoursForDate.date,
+      intervals: formattedIntervals,
+      openIntervals: formattedIntervals,
+      ...holidayHoursForDate.isClosed && { isClosed: true },
+      ...holidayHoursForDate.isRegularHours && { isRegularHours: true }
+    };
+  }
+
+  /**
+   * @typedef NumericOpenInterval
+   * @type {Object}
+   * @property {number} start start time, e.g. '300'
+   * @property {number} end end time, e.g '900'
+   */
+
+  /**
+   * Returns the hours intervals object with hours parsed into a number
+   * e.g. "09:00" turning into 900.
+   * @param {OpenInterval} interval
+   * @returns {NumericOpenInterval}
+   */
+  static _formatInterval (interval) {
+    return Object.entries(interval).reduce((formattedInterval, [period, value]) => {
+      formattedInterval[period] = parseInt(value.replace(':', ''));
+      return formattedInterval;
+    }, {});
   }
 
   /**
