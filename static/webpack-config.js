@@ -1,6 +1,7 @@
 const path = require('path');
 const fs = require('file-system');
 const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
 const RemovePlugin = require('remove-files-webpack-plugin');
 const { merge } = require('webpack-merge');
