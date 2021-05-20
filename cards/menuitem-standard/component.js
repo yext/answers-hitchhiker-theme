@@ -37,7 +37,7 @@ class menuitem_standardCardComponent extends BaseCard['menuitem-standard'] {
       CTA1: {
         label: 'Order Now', // The CTA's label
         iconName: 'chevron', // The icon to use for the CTA
-        url: profile.orderUrl, // The URL a user will be directed to when clicking
+        url: profile.orderUrl && profile.orderUrl.url, // The URL a user will be directed to when clicking
         target: '_top', // Where the new URL will be opened
         eventType: 'CTA_CLICK', // Type of Analytics event fired when clicking the CTA
         eventOptions: this.addDefaultEventOptions(),
