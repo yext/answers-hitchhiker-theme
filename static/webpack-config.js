@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
 const RemovePlugin = require('remove-files-webpack-plugin');
 const { merge } = require('webpack-merge');
+const cssnano = require('cssnano');
 
 module.exports = function () {
   const jamboConfig = require('./jambo.json');
@@ -91,6 +92,16 @@ module.exports = function () {
           use: [
             MiniCssExtractPlugin.loader,
             'css-loader',
+            {
+              loader: 'postcss-loader',
+              options: {
+                postcssOptions: {
+                  plugins: [
+                    cssnano({ preset: 'default'})
+                  ],
+                },
+              },
+            },
             'resolve-url-loader',
             {
               loader: 'sass-loader',
