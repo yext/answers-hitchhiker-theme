@@ -78,9 +78,11 @@
         href="{{#unless (isNonRelativeUrl global_config.favicon)}}{{relativePath}}/{{/unless}}{{global_config.favicon}}" />
     {{/if}}
     <script>
+      {{#babel}}
       document.addEventListener('DOMContentLoaded', function () {
         {{> script/on-document-load}}
       });
+      {{/babel}}
     </script>
     <script src="{{relativePath}}/bundle.js" data-webpack-inline></script>
     {{#if global_config.googleAnalyticsId}}
