@@ -6,11 +6,11 @@
 <script
   src="{{> script/partials/sdk-url sdkAsset="answers-modern.min.js" locale=locale sdkVersion=sdkVersion}}"
   type="module"
-  onload="initAnswers()"
+  onload="onAnswersScriptLoad()"
 ></script>
 <script
   src="{{> script/partials/sdk-url sdkAsset="answers.min.js" locale=locale sdkVersion=sdkVersion}}"
   nomodule
-  onload="initAnswers()"
+  onload="onAnswersScriptLoad()"
   defer
 ></script>
