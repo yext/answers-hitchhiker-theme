@@ -93,7 +93,7 @@ module.exports = function () {
             MiniCssExtractPlugin.loader,
             'css-loader',
             {
-              loader: "postcss-loader",
+              loader: 'postcss-loader',
               options: {
                 postcssOptions: {
                   plugins: [
