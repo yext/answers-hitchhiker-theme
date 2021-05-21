@@ -33,6 +33,3 @@ export { StorageKeys };
 
 import transformFacets from './js/transform-facets';
 export { transformFacets }
-
-import pageSpecificScriptsLoaded from './js/page-specific-scripts-loaded.js'
-export { pageSpecificScriptsLoaded };

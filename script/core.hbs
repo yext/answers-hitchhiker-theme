@@ -7,16 +7,6 @@
 <script src="https://assets.sitescdn.net/answers/v{{global_config.sdkVersion}}/{{#if params.sdkLocaleOverride}}{{#unless (eq params.sdkLocaleOverride 'en')}}{{params.sdkLocaleOverride}}-{{/unless}}{{else if global_config.locale}}{{#unless (eq global_config.locale 'en')}}{{global_config.locale}}-{{/unless}}{{/if}}answerstemplates.compiled.min.js" defer></script>
 <script>
 {{#babel}}
-  function onAnswersScriptLoad () {
-    const waitBeforeInitPromises = [
-      new Promise(HitchhikerJS.pageSpecificScriptsLoaded)
-    ];
-    Promise.all(waitBeforeInitPromises).catch(error => {
-      console.error(error);
-    }).finally(() => {
-      initAnswers();
-    })
-  }
   function initAnswers() {
     const JAMBO_INJECTED_DATA = {{{ json env.JAMBO_INJECTED_DATA }}} || {};
     const IS_STAGING = HitchhikerJS.isStaging(JAMBO_INJECTED_DATA?.pages?.stagingDomains || []);
@@ -97,4 +87,6 @@
   sdkVersion=global_config.sdkVersion
 }}
 
-{{> script/partials/page-specific-scripts pageTemplate=pageTemplate}}
+{{#ifeq pageTemplate 'vertical-full-page-map'}}
+  <script id="js-answersLocatorBundleScript" src="{{relativePath}}/locator-bundle.js" defer></script>
+{{/ifeq}}
