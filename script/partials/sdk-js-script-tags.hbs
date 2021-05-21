@@ -4,12 +4,12 @@
   @param sdkVersion
 --}}
 <script
-  src="{{> script/partials/sdk-url sdkAsset="answers-modern.min.js" locale=locale sdkVersion=sdkVersion}}"
+  src="{{sdkAssetUrl assetName="answers-modern.min.js" locale=locale branch=sdkVersion}}"
   type="module"
   onload="initAnswers()"
 ></script>
 <script
-  src="{{> script/partials/sdk-url sdkAsset="answers.min.js" locale=locale sdkVersion=sdkVersion}}"
+  src="{{sdkAssetUrl assetName="answers.min.js" locale=locale branch=sdkVersion}}"
   nomodule
   onload="initAnswers()"
   defer
