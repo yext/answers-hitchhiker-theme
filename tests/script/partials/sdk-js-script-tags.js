@@ -23,6 +23,7 @@ it('creates correct tags when no locale specified', () => {
   const partialUsage = '{{> script/partials/sdk-js-script-tags sdkVersion=1.8}}'
   expect(hbs.compile(partialUsage)()).toEqual(defaultOutput);
 });
+
 it('creates correct tags for en', () => {
   const partialUsage = `{{> script/partials/sdk-js-script-tags
     sdkVersion=1.8
@@ -30,6 +31,7 @@ it('creates correct tags for en', () => {
   }}`
   expect(hbs.compile(partialUsage)()).toEqual(defaultOutput);
 });
+
 it('creates correct tags for ja', () => {
   const partialUsage = `{{> script/partials/sdk-js-script-tags
     sdkVersion=1.8
