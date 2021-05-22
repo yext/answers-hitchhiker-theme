@@ -3,7 +3,6 @@
 !config/index.json
 !pages/index.html.hbs
 !public/iframe_test.html
-!public/iframe_dynamic_test.html
 !public/overlay.html
 public/
 config/

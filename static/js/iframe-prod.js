@@ -6,9 +6,7 @@ import { RuntimeConfig } from './runtimeconfig';
 const runtimeConfig = new RuntimeConfig();
 window.setRuntimeConfig = (key, value) => {
   runtimeConfig.set(key, value);
-  sendToIframe({
-    runtimeConfig: runtimeConfig.getObject()
-  });
+  sendToIframe({ runtimeConfig: runtimeConfig.getObject() });
 }
 
 const prodDomain = new InjectedData().getProdDomain();
