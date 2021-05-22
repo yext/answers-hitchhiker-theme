@@ -77,11 +77,6 @@
       <link rel="shortcut icon"
         href="{{#unless (isNonRelativeUrl global_config.favicon)}}{{relativePath}}/{{/unless}}{{global_config.favicon}}" />
     {{/if}}
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        {{> script/on-document-load}}
-      });
-    </script>
     <script src="{{relativePath}}/HitchhikerJS.js" data-webpack-inline></script>
     {{#if global_config.googleAnalyticsId}}
       <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -123,12 +118,35 @@
       window.iframeLoaded = new Promise(resolve => {
         iframeLoadedResolve = resolve;
       });
-      window.answersJWT = new Promise(resolve => {
-        window.initAnswersJWT = resolve;
+      window.RuntimeConfig = {
+        lastUpdated: -1
+      };
+      const updateRuntimeConfig = config => {
+        window.RuntimeConfig = {
+          ...window.RuntimeConfig,
+          ...config
+        };
+      };
+      document.addEventListener('DOMContentLoaded', function () {
+        {{> script/on-document-load}}
+        {{#if global_config.waitForRuntimeConfig}}
+          const runtimeConfigNotProvidedTimeout = setTimeout(() => {
+            console.warn(
+              'Runtime config has not been received within 5 seconds of page load, and "waitForRuntimeConfig" is set to true.\n' + 
+              'Load the experience by calling initAnswersExperience(config).'
+            );
+          }, 5000);
+          window.initAnswersExperience = config => {
+            updateRuntimeConfig(config);
+            clearTimeout(runtimeConfigNotProvidedTimeout);
+            initAnswers();
+          };
+        {{else}}
+          initAnswers();
+        {{/if}}
       });
-      const hhConfigMetadata = {
-        lastReceived: -1,
-        hasInitializedWithJWT: false
+      const answersMetadata = {
+        hasInitialized: false
       };
       window.iFrameResizer = {
         onReady: function() {
@@ -141,19 +159,18 @@
         },
         onMessage: (message) => {
           // Due to the async nature of the iframe resizer messaging, ensure
-          // that we only update the HH config if it is more recent than the last one
-          const messageContainsNewHHConfig = message.hitchhikerConfig
-             && message.timestamp >= hhConfigMetadata.lastReceived;
-          if (messageContainsNewHHConfig) {
-            window.HitchhikerConfig = {
-              ...window.HitchhikerConfig,
-              ...message.hitchhikerConfig
-            };
-            hhConfigMetadata.lastReceived = message.timestamp;
-          }
-          if (message.hitchhikerConfig?.token && !hhConfigMetadata.hasInitializedWithJWT) {
-            initAnswersJWT(message.hitchhikerConfig.token);
-            hhConfigMetadata.hasInitializedWithJWT = true;
+          // that we only update the runtime config if it is more recent than the last one
+          const messageContainsNewRuntimeConfig =
+            message.runtimeConfig?.lastUpdated >= window.RuntimeConfig?.lastUpdated;
+          {{#if global_config.waitForRuntimeConfig}} 
+            if (messageContainsNewRuntimeConfig && !answersMetadata.hasInitialized) {
+              initAnswersExperience(message.runtimeConfig);
+              answersMetadata.hasInitialized = true;
+              return;
+            }
+          {{/if}}
+          if (messageContainsNewRuntimeConfig) {
+            updateRuntimeConfig(message.runtimeConfig);
             return;
           }
           window.isOverlay && window.Overlay.onMessage(message);

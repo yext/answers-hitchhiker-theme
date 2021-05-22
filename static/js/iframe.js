@@ -1,9 +1,20 @@
-import { generateIFrame } from './iframe-common';
+import { generateIFrame, sendToIframe } from './iframe-common';
 import InjectedData from './models/InjectedData';
-import { HitchhikerConfigManager , exposeOnWindow } from './hitchhikerconfigmanager';
+import generateInitAnswersFrame from './utils/generateInitAnswersFrame';
+import { RuntimeConfig } from './runtimeconfig';
 
-const hitchhikerConfigManager = new HitchhikerConfigManager();
-exposeOnWindow(hitchhikerConfigManager);
+const runtimeConfig = new RuntimeConfig();
+window.setRuntimeConfig = (key, value) => {
+  runtimeConfig.set(key, value);
+  sendToIframe({
+    runtimeConfig: runtimeConfig.getObject()
+  });
+}
 
 const domain = new InjectedData().getDomain();
-generateIFrame(domain, hitchhikerConfigManager);
+
+if (runtimeConfig.get('waitForRuntimeConfig') === 'true') {
+  window.initAnswersExperienceFrame = generateInitAnswersFrame(domain, runtimeConfig);
+} else {
+  generateIFrame(domain, runtimeConfig);
+}

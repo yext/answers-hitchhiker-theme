@@ -30,32 +30,12 @@
         {{/if}}
       {{/with}}
     };
-    {{#if global_config.useJWT}}
-      const jwtNotProvidedTimeout = setTimeout(() => {
-        console.warn(
-          'A JWT has not been received within 5 seconds of page load, and "useJWT" is set to true.\n' + 
-          'Load the experience by calling initAnswersJWT(token).'
-        );
-      }, 5000);
-      window.answersJWT.then(token => {
-        clearTimeout(jwtNotProvidedTimeout);
-        initAnswersInstance({
-          ...injectedConfig,
-          ...userConfig,
-          apiKey: token
-        });
-      });
-    {{else}}
-      initAnswersInstance({
-        ...injectedConfig, 
-        ...userConfig
-      });
-    {{/if}}
-  }
-  function initAnswersInstance (config) {
+    const token = window.RuntimeConfig?.token;
     ANSWERS.init({
       templateBundle: TemplateBundle.default,
-      ...config,
+      ...injectedConfig,
+      ...userConfig,
+      ...token && { apiKey: token },
       querySource: window.isOverlay ? 'OVERLAY' : 'STANDARD',
       onStateChange: (objParams, stringParams, replaceHistory) => {
         if ('parentIFrame' in window) {
@@ -88,9 +68,9 @@
         });
 
         /**
-         * Determine whether a URL is absolute or not.
-         * Common examples: "mailto:slapshot@gmail.com", "//yext.com", "https://yext.com"
-         */
+          * Determine whether a URL is absolute or not.
+          * Common examples: "mailto:slapshot@gmail.com", "//yext.com", "https://yext.com"
+          */
         ANSWERS.registerHelper('isNonRelativeUrl', function(str) {
           const absoluteURLRegex = /^(\/|[a-zA-Z]+:)/;
           return str && str.match(absoluteURLRegex);

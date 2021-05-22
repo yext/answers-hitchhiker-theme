@@ -1,16 +1,16 @@
 require('iframe-resizer');
 
 /**
- * @typedef {import('./hitchhikerconfigmanager')} HitchhikerConfigManager
+ * @typedef {import('./runtimeconfig')} RuntimeConfig
  */
 
 /**
  * Puts on iframe on the page of an Answers experience and sets up resizing and cross-domain communication
  * 
  * @param {string} domain The location of the answers experience
- * @param {HitchhikerConfigManager} hitchhikerConfigManager used for passing dyamic config to the iframe
+ * @param {RuntimeConfig} runtimeConfig used for passing runtime config to the iframe
  */
-export function generateIFrame(domain, hitchhikerConfigManager) {
+export function generateIFrame(domain, runtimeConfig) {
   var isLocalHost = window.location.host.split(':')[0] === 'localhost';
   var containerEl = document.querySelector('#answers-container');
   var iframe = document.createElement('iframe');
@@ -91,7 +91,9 @@ export function generateIFrame(domain, hitchhikerConfigManager) {
   iFrameResize({
     checkOrigin: false,
     onInit: function() {
-      hitchhikerConfigManager && hitchhikerConfigManager.sendConfigToIframe();
+      runtimeConfig && sendToIframe({
+        runtimeConfig: runtimeConfig.getObject()
+      });
     },
     onMessage: function(messageData) {
       const message = JSON.parse(messageData.message);
@@ -112,4 +114,12 @@ export function generateIFrame(domain, hitchhikerConfigManager) {
       }
     }
   }, '#answers-frame');
+}
+
+export function sendToIframe (obj) {
+  const iframe = document.querySelector('#answers-frame');
+  if (!iframe || !iframe.iFrameResizer) {
+    return;
+  }
+  iframe.iFrameResizer.sendMessage(obj);
 }
