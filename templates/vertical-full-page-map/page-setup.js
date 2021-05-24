@@ -1,3 +1,6 @@
+{{> theme-components/theme-map/script}}
+{{> theme-components/vertical-full-page-map/script}}
+
 /**
  * Registers listeners on the card
  *
