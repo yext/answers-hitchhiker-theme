@@ -155,9 +155,9 @@ module.exports = function () {
     )();
     return merge(commonConfig, devConfig);
   } else {
-    const prodConfig = require(
+    const { legacyProdConfig, modernProdConfig } = require(
       `./${jamboConfig.dirs.output}/static/webpack/webpack.prod.js`
     )();
-    return merge(commonConfig, prodConfig);
+    return [ merge(commonConfig, legacyProdConfig), merge(commonConfig, modernProdConfig) ];
   }
 };

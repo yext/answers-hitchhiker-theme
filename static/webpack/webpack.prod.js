@@ -1,10 +1,12 @@
+const InlineAssetHtmlPlugin = require('./InlineAssetHtmlPlugin');
+
 module.exports = () => {
-  const InlineAssetHtmlPlugin = require('./InlineAssetHtmlPlugin');
-  return {
-    mode: 'production',
-    plugins: [
-      new InlineAssetHtmlPlugin()
-    ],
+  const mode = 'production';
+  const plugins = [ new InlineAssetHtmlPlugin() ];
+
+  const legacyProdConfig = {
+    mode,
+    plugins,
     module: {
       rules: [
         {
@@ -31,4 +33,23 @@ module.exports = () => {
       ]
     }
   };
+  const modernProdConfig = { 
+    mode, 
+    plugins,
+    output: {
+      filename: pathData => {
+        const chunkName = pathData.chunk.name;
+        return {
+          VerticalFullPageMap: 'locator-bundle-modern.js',
+          HitchhikerJS: 'bundle-modern.js',
+        }[chunkName] || '[name]-modern.js'
+      },
+      library: '[name]',
+      path: path.resolve(__dirname, jamboConfig.dirs.output),
+      libraryTarget: 'window',
+      publicPath: ''
+    }
+  };
+
+  return { legacyProdConfig, modernProdConfig };
 }
