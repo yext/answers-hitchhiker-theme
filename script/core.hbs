@@ -86,7 +86,3 @@
   locale=(findFirst params.sdkLocaleOverride global_config.locale 'en')
   sdkVersion=global_config.sdkVersion
 }}
-
-{{#ifeq pageTemplate 'vertical-full-page-map'}}
-  <script id="js-answersLocatorBundleScript" src="{{relativePath}}/locator-bundle.js" defer></script>
-{{/ifeq}}
