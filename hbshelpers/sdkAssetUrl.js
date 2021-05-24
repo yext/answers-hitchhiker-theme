@@ -1,6 +1,15 @@
 const RELEASE_BRANCH_REGEX = /^release\/v[0-9.]+$/;
 const SEM_VER_REGEX = /^[1-9]+$|^[1-9]+\.[0-9]+$|^[1-9]+\.[0-9]+\.[0-9]+$/;
 
+/**
+ * Given a branch (or release) of the SDK and a locale, this helper provides the correct
+ * URL in the CDN for the asset.
+ * 
+ * @param {string} branch The branch (or release) of the SDK.
+ * @param {string} locale The locale to use.
+ * @param {string} assetName The name of the desired asset.
+ * @returns {string} The CDN URL of the localized asset.
+ */
 module.exports = function sdkAssetUrl(branch, locale, assetName) {
   const isReleasedBranch = SEM_VER_REGEX.test(branch);
 
