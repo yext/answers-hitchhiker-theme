@@ -3,24 +3,20 @@ const hbs = require('../../test-utils/hbs');
 const defaultOutput = `<script
   src="https://assets.sitescdn.net/answers/v1.8/answers-modern.min.js"
   type="module"
-  onload="initAnswers()"
 ></script>
 <script
   src="https://assets.sitescdn.net/answers/v1.8/answers.min.js"
   nomodule
-  onload="initAnswers()"
   defer
 ></script>`;
 
 const jaOutput = `<script
   src="https://assets.sitescdn.net/answers/v1.8/ja-answers-modern.min.js"
   type="module"
-  onload="initAnswers()"
 ></script>
 <script
   src="https://assets.sitescdn.net/answers/v1.8/ja-answers.min.js"
   nomodule
-  onload="initAnswers()"
   defer
 ></script>`;
 

@@ -1,5 +1,5 @@
---- locations_full_page_map_with_filters.html.hbs
-+++ locations_full_page_map_with_filters.html.hbs
+--- templates/vertical-full-page-map/page.html.hbs	2021-05-24 14:53:55.000000000 -0400
++++ test-site/pages/locations_full_page_map_with_filters.html.hbs	2021-05-24 14:58:17.000000000 -0400
 @@ -1,7 +1,7 @@
  {{#> layouts/html pageWrapperCss="YxtPage-wrapper--mobileListView" }}
    {{#> script/core }}
