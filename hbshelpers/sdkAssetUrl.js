@@ -1,4 +1,5 @@
 const RELEASE_BRANCH_REGEX = /^release\/v[0-9.]+$/;
+const HOTFIX_BRANCH_REGEX = /^hotfix\/v[0-9.]+$/;
 const SEM_VER_REGEX = /^[1-9]+$|^[1-9]+\.[0-9]+$|^[1-9]+\.[0-9]+\.[0-9]+$/;
 
 /**
@@ -20,7 +21,8 @@ module.exports = function sdkAssetUrl(branch, locale, assetName) {
     parsedBranch = `dev/${branch.replace(/\//g, '-')}`;
   }
 
-  const isPreReleaseBranch = RELEASE_BRANCH_REGEX.test(branch);
+  const isPreReleaseBranch = 
+    RELEASE_BRANCH_REGEX.test(branch) || HOTFIX_BRANCH_REGEX.test(branch);
   const isLocalizationSupported = 
     (isReleasedBranch || isPreReleaseBranch) && 
     !(locale.startsWith('en') || assetName === 'answers.css') ;
