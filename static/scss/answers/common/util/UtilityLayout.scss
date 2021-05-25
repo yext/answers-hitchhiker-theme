@@ -85,39 +85,4 @@ $splitting-points: (sm, md, lg) !default;
   {
     @include l-Split($bp, $col-gap, '.l-Split');
   }
-
-  .l-centeredColumn
-  {
-    @include l-centeredColumn;
-  }
-}
-
-.l-container
-{
-  @include l-container;
-}
-
-.l-visible-only-xs
-{
-  @include visible-only-xs;
-}
-
-.l-hidden-xs
-{
-  @include hidden-xs;
-}
-
-.l-hidden-sm
-{
-  @include hidden-sm;
-}
-
-.l-hidden-md
-{
-  @include hidden-md;
-}
-
-.l-hidden-lg
-{
-  @include hidden-lg;
 }

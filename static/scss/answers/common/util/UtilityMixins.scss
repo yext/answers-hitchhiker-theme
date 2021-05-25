@@ -122,36 +122,6 @@
   }
 }
 
-@mixin l-container
-{
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: $grid-gutter-width-xs/2;
-  padding-right: $grid-gutter-width-xs/2;
-  width: 100%;
-
-  @include bpgte(sm)
-  {
-    width: $container-tablet-base;
-    padding-left: $grid-gutter-width-sm/2;
-    padding-right: $grid-gutter-width-sm/2;
-  }
-
-  @include bpgte(md)
-  {
-    width: $container-desktop-base;
-    padding-left: $grid-gutter-width-md/2;
-    padding-right: $grid-gutter-width-md/2;
-  }
-
-  @include bpgte(lg)
-  {
-    width: $container-large-desktop-base;
-    padding-left: $grid-gutter-width-lg/2;
-    padding-right: $grid-gutter-width-lg/2;
-  }
-}
-
 @mixin l-row
 {
   display: flex;
@@ -224,13 +194,6 @@
   }
 }
 
-@mixin l-centeredColumn
-{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 $names: (
   1: one,
   2: two,
@@ -279,46 +242,6 @@ $grids: (
   }
 }
 
-@mixin hidden-xs
-{
-  @include bplte(xs)
-  {
-    display: none;
-  }
-}
-
-@mixin hidden-sm
-{
-  @include bp(sm, sm)
-  {
-    display: none;
-  }
-}
-
-@mixin hidden-md
-{
-  @include bp(md, md)
-  {
-    display: none;
-  }
-}
-
-@mixin hidden-lg
-{
-  @include bpgte(lg)
-  {
-    display: none;
-  }
-}
-
-@mixin visible-only-xs
-{
-  @include bpgte(sm)
-  {
-    display: none;
-  }
-}
-
 @mixin font-sizes($font-size, $line-height: 'normal', $font-size-xs: $font-size, $line-height-xs: $line-height, $bp: sm)
 {
   font-size: $font-size-xs;
@@ -332,69 +255,6 @@ $grids: (
       line-height: $line-height;
     }
   }
-}
-
-@mixin word-wrap()
-{
-  word-break: break-word;
-  hyphens: auto;
-}
-
-@mixin hideBR
-{
-  br
-  {
-    content: ' ';
-
-    &::after
-    {
-      content: ', ';
-    }
-  }
-}
-
-@mixin break($pseudo:'after')
-{
-  &:#{$pseudo}
-  {
-    content: "\000A";
-    white-space: pre;
-    // fixes weird flebox edgecase where the before grows to whole line
-    display: block;
-    height: 0;
-  }
-}
-
-@mixin break-after
-{
-  @include break();
-}
-
-@mixin break-before
-{
-  @include break('before');
-}
-
-@mixin fa-icon($placement, $icon, $font-size:inherit)
-{
-  &:#{$placement}
-  {
-    content: $icon;
-    font-family: 'FontAwesome';
-    font-size: $font-size;
-
-    @content;
-  }
-}
-
-@mixin fa-icon-before($icon, $font-size:inherit)
-{
-  @include fa-icon(before, $icon, $font-size) { @content; }
-}
-
-@mixin fa-icon-after($icon, $font-size:inherit)
-{
-  @include fa-icon(after, $icon, $font-size) { @content; }
 }
 
 @mixin link($color-default, $color-visited:$color-default, $color-hover:$color-default, $color-active:$color-default)
@@ -420,30 +280,6 @@ $grids: (
   {
     color: $color-active;
   }
-}
-
-@mixin link-states($selector:'&')
-{
-  #{$selector},
-  #{$selector}:hover,
-  #{$selector}:visited,
-  #{$selector}:active,
-  #{$selector}:link
-  {
-    @content;
-  }
-}
-
-@mixin vertical-center
-{
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-@mixin disable-collapse
-{
-  height: auto !important;
-  display: block;
 }
 
 @mixin sr-only()
@@ -474,33 +310,5 @@ $grids: (
     margin: 0;
     overflow: visible;
     clip: auto;
-  }
-}
-
-@mixin reset-list
-{
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-@mixin anti-aliased
-{
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-@mixin clearfix()
-{
-  &::before,
-  &::after
-  {
-    content: " ";
-    display: table;
-  }
-
-  &::after
-  {
-    clear: both;
   }
 }
