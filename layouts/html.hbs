@@ -6,6 +6,10 @@
       if (window.name == 'overlay') {
         window.isOverlay = true;
       }
+      let waitForRuntimeConfig = false;
+      {{#if global_config.waitForRuntimeConfig}}
+        waitForRuntimeConfig = true;
+      {{/if}}
       {{/babel}}
     </script>
     {{> layouts/headincludes }}
@@ -105,8 +109,12 @@
     {{/if}}
 
     <script>
-      {{#babel}}
-      function iframeGetSearchParams() {
+    {{#babel}}
+      document.addEventListener('DOMContentLoaded', function () {
+        {{> script/on-document-load}}
+      });
+
+      function iframeGetSearchParams () {
         let params = new URLSearchParams(window.location.search);
         let verticalUrl = window.location.pathname.substr(1)
         if (verticalUrl) {
@@ -118,37 +126,8 @@
       window.iframeLoaded = new Promise(resolve => {
         iframeLoadedResolve = resolve;
       });
-      window.RuntimeConfig = {
-        lastUpdated: -1
-      };
-      const updateRuntimeConfig = config => {
-        window.RuntimeConfig = {
-          ...window.RuntimeConfig,
-          ...config
-        };
-      };
-      document.addEventListener('DOMContentLoaded', function () {
-        {{> script/on-document-load}}
-        {{#if global_config.waitForRuntimeConfig}}
-          const runtimeConfigNotProvidedTimeout = setTimeout(() => {
-            console.warn(
-              'Runtime config has not been received within 5 seconds of page load, and "waitForRuntimeConfig" is set to true.\n' + 
-              'Load the experience by calling initAnswersExperience(config).'
-            );
-          }, 5000);
-          window.initAnswersExperience = config => {
-            updateRuntimeConfig(config);
-            clearTimeout(runtimeConfigNotProvidedTimeout);
-            initAnswers();
-          };
-        {{else}}
-          initAnswers();
-        {{/if}}
-      });
-      const answersMetadata = {
-        hasInitialized: false
-      };
-      window.iFrameResizer = {
+      const runtimeConfigReceiver = new HitchhikerJS.RuntimeConfigReceiver(waitForRuntimeConfig);
+      window.iFrameResizer =  {
         onReady: function() {
           window.parentIFrame.sendMessage(JSON.stringify({
             params: iframeGetSearchParams(),
@@ -158,24 +137,14 @@
           iframeLoadedResolve();
         },
         onMessage: (message) => {
-          // Due to the async nature of the iframe resizer messaging, ensure
-          // that we only update the runtime config if it is more recent than the last one
-          const messageContainsNewRuntimeConfig =
-            message.runtimeConfig?.lastUpdated >= window.RuntimeConfig?.lastUpdated;
-          {{#if global_config.waitForRuntimeConfig}} 
-            if (messageContainsNewRuntimeConfig && !answersMetadata.hasInitialized) {
-              initAnswersExperience(message.runtimeConfig);
-              answersMetadata.hasInitialized = true;
-              return;
-            }
-          {{/if}}
-          if (messageContainsNewRuntimeConfig) {
-            updateRuntimeConfig(message.runtimeConfig);
-            return;
+          if (message.runtimeConfig) {
+            runtimeConfigReceiver.handle(message.runtimeConfig)
+          } else if (window.isOverlay) {
+            window.Overlay.onMessage(message);
           }
-          window.isOverlay && window.Overlay.onMessage(message);
         }
       };
+      const experienceInitializer = new HitchhikerJS.ExperienceInitializer(waitForRuntimeConfig).start();
     {{/babel}}
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.10/iframeResizer.contentWindow.min.js"></script>

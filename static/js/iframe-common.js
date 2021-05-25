@@ -1,7 +1,7 @@
 require('iframe-resizer');
 
 /**
- * @typedef {import('./runtimeconfig')} RuntimeConfig
+ * @typedef {import('./runtime-config')} RuntimeConfig
  */
 
 /**

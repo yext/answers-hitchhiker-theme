@@ -17,7 +17,7 @@ export default function generateInitAnswersFrame (domain, runtimeConfig) {
   }, 5000);
 
   /**
-   * @param {Object} config Run time config which is set within the iframe
+   * @param {Object} config Runtime config which is set within the iframe
    */
   return function (config = {}) {
     clearTimeout(initNotCalledTimeout);

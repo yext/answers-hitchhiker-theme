@@ -1,7 +1,7 @@
 import { generateIFrame, sendToIframe } from './iframe-common';
 import InjectedData from './models/InjectedData';
 import generateInitAnswersFrame from './utils/generateInitAnswersFrame';
-import { RuntimeConfig } from './runtimeconfig';
+import { RuntimeConfig } from './runtime-config';
 
 const runtimeConfig = new RuntimeConfig();
 window.setRuntimeConfig = (key, value) => {
