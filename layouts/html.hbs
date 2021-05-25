@@ -78,9 +78,11 @@
         href="{{#unless (isNonRelativeUrl global_config.favicon)}}{{relativePath}}/{{/unless}}{{global_config.favicon}}" />
     {{/if}}
     <script>
+      {{#babel}}
       document.addEventListener('DOMContentLoaded', function () {
         {{> script/on-document-load}}
       });
+      {{/babel}}
     </script>
     <script src="{{relativePath}}/bundle.js" data-webpack-inline></script>
     {{#if global_config.googleAnalyticsId}}
@@ -137,7 +139,7 @@
     {{/babel}}
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.10/iframeResizer.contentWindow.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://assets.sitescdn.net/answers/v{{global_config.sdkVersion}}/answers.css">
+    <link rel="stylesheet" type="text/css" href="{{sdkAssetUrl global_config.sdkVersion 'en' 'answers.css'}}">
     <link rel="stylesheet" type="text/css" href="{{relativePath}}/bundle.css" data-webpack-inline>
   </head>
   <body>
