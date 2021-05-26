@@ -5,7 +5,7 @@ require('iframe-resizer');
  */
 
 /**
- * Puts on iframe on the page of an Answers experience and sets up resizing and cross-domain communication
+ * Puts an iframe on the page of an Answers experience and sets up resizing and cross-domain communication
  * 
  * @param {string} domain The location of the answers experience
  * @param {RuntimeConfig} runtimeConfig used for passing runtime config to the iframe
