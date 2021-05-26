@@ -10,17 +10,29 @@ export default class ExperienceInitializer {
   }
 
   /**
-   * Initializes immediately, or puts an init function on the window if initializeManually is true
+   * Initializes on DOM load, or puts an init function on the window if initializeManually is true
    */
   setup () {
-    document.addEventListener('DOMContentLoaded', () => {
-      if (this._initializeManually) {
-        window.initAnswersExperience = this._generateInitFunction();
-      } else {
+    if (this._initializeManually) {
+      window.initAnswersExperience = this._generateInitFunction();
+    } else {
+      this._fireOnDomLoad(() => {
         initAnswers();
         this._hasAnswersInitialized = true;
-      }
-    });
+      })
+    }
+  }
+
+  /**
+   * Executes the provided function on DOM load
+   * @param {Function} cb 
+   */
+  _fireOnDomLoad (cb) {
+    if  (document.readyState == 'loading') {
+      document.addEventListener('DOMContentLoaded', cb);
+    } else {
+      cb();
+    }
   }
 
   /**
@@ -35,12 +47,14 @@ export default class ExperienceInitializer {
       );
     }, 5000);
     return runtimeConfig => {
-      updateRuntimeConfig(runtimeConfig);
-      clearTimeout(runtimeConfigNotProvidedTimeout);
-      if (!this._hasAnswersInitialized) {
-        initAnswers();
-      }
-      this._hasAnswersInitialized = true;
+      this._fireOnDomLoad(() => {
+        updateRuntimeConfig(runtimeConfig);
+        clearTimeout(runtimeConfigNotProvidedTimeout);
+        if (!this._hasAnswersInitialized) {
+          initAnswers();
+        }
+        this._hasAnswersInitialized = true;
+      });
     };
   }
 }
