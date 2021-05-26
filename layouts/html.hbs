@@ -142,11 +142,12 @@
         }
       };
       {{#if global_config.initializeManually}}
-        const initializeManually = true;
+        new HitchhikerJS.ManualInitializer().setup();
       {{else}}
-        const initializeManually = false;
+        document.addEventListener('DOMContentLoaded', () => {
+          initAnswers();
+        });
       {{/if}}
-      const experienceInitializer = new HitchhikerJS.ExperienceInitializer(initializeManually).setup();
     {{/babel}}
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.10/iframeResizer.contentWindow.min.js"></script>

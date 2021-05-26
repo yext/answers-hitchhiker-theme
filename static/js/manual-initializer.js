@@ -1,38 +1,18 @@
 import updateRuntimeConfig from './utils/update-runtime-config';
 
 /**
- * Responsible for initializing the answers experience
+ * Responsible for setting up manual initialization of the experience
  */
-export default class ExperienceInitializer {
-  constructor (initializeManually) {
-    this._initializeManually = initializeManually;
+export default class ManualInitializer {
+  constructor () {
     this._hasAnswersInitialized = false;
   }
 
   /**
-   * Initializes on DOM load, or puts an init function on the window if initializeManually is true
+   * Puts an init function on the window if initializeManually is true
    */
   setup () {
-    if (this._initializeManually) {
-      window.initAnswersExperience = this._generateInitFunction();
-    } else {
-      this._fireOnDomLoad(() => {
-        initAnswers();
-        this._hasAnswersInitialized = true;
-      })
-    }
-  }
-
-  /**
-   * Executes the provided function on DOM load
-   * @param {Function} cb 
-   */
-  _fireOnDomLoad (cb) {
-    if (document.readyState == 'loading') {
-      document.addEventListener('DOMContentLoaded', cb);
-    } else {
-      cb();
-    }
+    window.initAnswersExperience = this._generateInitFunction();
   }
 
   /**
@@ -56,5 +36,17 @@ export default class ExperienceInitializer {
         this._hasAnswersInitialized = true;
       });
     };
+  }
+
+  /**
+   * Executes the provided function on DOM load
+   * @param {Function} cb 
+   */
+   _fireOnDomLoad (cb) {
+    if (document.readyState == 'loading') {
+      document.addEventListener('DOMContentLoaded', cb);
+    } else {
+      cb();
+    }
   }
 }
