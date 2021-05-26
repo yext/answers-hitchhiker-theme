@@ -8,7 +8,7 @@ import { sendToIframe } from '../iframe-common';
  * @param {RuntimeConfig} runtimeConfig 
  * @returns {Function}
  */
-export default function generateInitAnswersFrame (runtimeConfig) {
+export default function generateInitAnswersExperienceFrameFunction (runtimeConfig) {
   /**
    * @param {Object} config runtime config which is set within the iframe
    */

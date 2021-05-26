@@ -28,7 +28,7 @@ export default class ExperienceInitializer {
    * @param {Function} cb 
    */
   _fireOnDomLoad (cb) {
-    if  (document.readyState == 'loading') {
+    if (document.readyState == 'loading') {
       document.addEventListener('DOMContentLoaded', cb);
     } else {
       cb();
