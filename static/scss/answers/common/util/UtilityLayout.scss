@@ -1,10 +1,6 @@
 @import "../variables";
 @import "./Spacing.scss";
 
-$generate-classes: false !default;
-$col-gap: spacing(base) !default;
-$splitting-points: (sm, md, lg) !default;
-
 .l-container
 {
   @include l-container;
