@@ -9,7 +9,7 @@ export default class ManualInitializer {
   }
 
   /**
-   * Puts an init function on the window
+   * Puts a manual initializaiton function on the window
    */
   setup () {
     window.initAnswersExperience = this._generateInitFunction();
