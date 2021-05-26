@@ -6,9 +6,9 @@
       if (window.name == 'overlay') {
         window.isOverlay = true;
       }
-      let waitForRuntimeConfig = false;
-      {{#if global_config.waitForRuntimeConfig}}
-        waitForRuntimeConfig = true;
+      let initializeManually = false;
+      {{#if global_config.initializeManually}}
+        initializeManually = true;
       {{/if}}
       {{/babel}}
     </script>
@@ -126,7 +126,7 @@
       window.iframeLoaded = new Promise(resolve => {
         iframeLoadedResolve = resolve;
       });
-      const runtimeConfigReceiver = new HitchhikerJS.RuntimeConfigReceiver(waitForRuntimeConfig);
+     
       window.iFrameResizer =  {
         onReady: function() {
           window.parentIFrame.sendMessage(JSON.stringify({
@@ -138,13 +138,13 @@
         },
         onMessage: (message) => {
           if (message.runtimeConfig) {
-            runtimeConfigReceiver.handle(message.runtimeConfig)
+            HitchhikerJS.RuntimeConfigReceiver.handle(message.runtimeConfig);
           } else if (window.isOverlay) {
             window.Overlay.onMessage(message);
           }
         }
       };
-      const experienceInitializer = new HitchhikerJS.ExperienceInitializer(waitForRuntimeConfig).start();
+      const experienceInitializer = new HitchhikerJS.ExperienceInitializer(initializeManually).setup();
     {{/babel}}
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.10/iframeResizer.contentWindow.min.js"></script>

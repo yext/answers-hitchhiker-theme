@@ -10,9 +10,6 @@ window.setRuntimeConfig = (key, value) => {
 }
 
 const prodDomain = new InjectedData().getProdDomain();
+generateIFrame(prodDomain, runtimeConfig);
 
-if (runtimeConfig.get('waitForRuntimeConfig') === 'true') {
-  window.initAnswersExperienceFrame = generateInitAnswersFrame(prodDomain, runtimeConfig);
-} else {
-  generateIFrame(prodDomain, runtimeConfig);
-}
+window.initAnswersExperienceFrame = generateInitAnswersFrame(runtimeConfig);
