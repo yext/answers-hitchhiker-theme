@@ -242,6 +242,46 @@ $grids: (
   }
 }
 
+@mixin font-sizes($font-size, $line-height: 'normal', $font-size-xs: $font-size, $line-height-xs: $line-height, $bp: sm)
+{
+  font-size: $font-size-xs;
+  line-height: $line-height-xs;
+
+  @if $font-size != $font-size-xs or $line-height != $line-height-xs
+  {
+    @include bpgte($bp)
+    {
+      font-size: $font-size;
+      line-height: $line-height;
+    }
+  }
+}
+
+@mixin link($color-default, $color-visited:$color-default, $color-hover:$color-default, $color-active:$color-default)
+{
+  color: $color-default;
+
+  &:link
+  {
+    color: $color-default;
+  }
+
+  &:visited
+  {
+    color: $color-visited;
+  }
+
+  &:hover
+  {
+    color: $color-hover;
+  }
+
+  &:active
+  {
+    color: $color-active;
+  }
+}
+
 @mixin sr-only()
 {
   position: absolute;
