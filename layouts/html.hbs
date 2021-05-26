@@ -111,7 +111,7 @@
 
     <script>
     {{#babel}}
-      function iframeGetSearchParams () {
+      function iframeGetSearchParams() {
         let params = new URLSearchParams(window.location.search);
         let verticalUrl = window.location.pathname.substr(1)
         if (verticalUrl) {
@@ -141,9 +141,10 @@
           }
         }
       };
-      let initializeManually = false;
       {{#if global_config.initializeManually}}
-        initializeManually = true;
+        const initializeManually = true;
+      {{else}}
+        const initializeManually = false;
       {{/if}}
       const experienceInitializer = new HitchhikerJS.ExperienceInitializer(initializeManually).setup();
     {{/babel}}
