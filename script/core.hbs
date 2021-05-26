@@ -83,6 +83,13 @@
     });
     {{> script/after-init}}
   }
+  {{#if global_config.initializeManually}}
+    new HitchhikerJS.ManualInitializer(initAnswers).setup();
+  {{else}}
+    document.addEventListener('DOMContentLoaded', () => {
+      initAnswers();
+    });
+  {{/if}}
 {{/babel}}
 </script>
 
