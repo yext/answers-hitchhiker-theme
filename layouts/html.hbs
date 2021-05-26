@@ -6,10 +6,6 @@
       if (window.name == 'overlay') {
         window.isOverlay = true;
       }
-      let initializeManually = false;
-      {{#if global_config.initializeManually}}
-        initializeManually = true;
-      {{/if}}
       {{/babel}}
     </script>
     {{> layouts/headincludes }}
@@ -144,6 +140,10 @@
           }
         }
       };
+      let initializeManually = false;
+      {{#if global_config.initializeManually}}
+        initializeManually = true;
+      {{/if}}
       const experienceInitializer = new HitchhikerJS.ExperienceInitializer(initializeManually).setup();
     {{/babel}}
     </script>

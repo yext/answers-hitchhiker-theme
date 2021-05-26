@@ -1,7 +1,8 @@
 import { sendToIframe } from '../iframe-common';
 
 /**
- * Returns a function which generates an iframed Answers experience.
+ * Returns a function which sends a message to the iframe to initialize Answers
+ * with the provided runtimeConfig
  * 
  * @param {string} domain 
  * @param {RuntimeConfig} runtimeConfig 
@@ -9,7 +10,7 @@ import { sendToIframe } from '../iframe-common';
  */
 export default function generateInitAnswersFrame (runtimeConfig) {
   /**
-   * @param {Object} config Runtime config which is set within the iframe
+   * @param {Object} config runtime config which is set within the iframe
    */
   return function (config = {}) {
     Object.entries(config).forEach(([key, value]) => {
