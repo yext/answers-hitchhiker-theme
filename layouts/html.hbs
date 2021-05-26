@@ -77,6 +77,11 @@
       <link rel="shortcut icon"
         href="{{#unless (isNonRelativeUrl global_config.favicon)}}{{relativePath}}/{{/unless}}{{global_config.favicon}}" />
     {{/if}}
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        {{> script/on-document-load}}
+      });
+    </script>
     <script src="{{relativePath}}/HitchhikerJS.js" data-webpack-inline></script>
     {{#if global_config.googleAnalyticsId}}
       <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -106,10 +111,6 @@
 
     <script>
     {{#babel}}
-      document.addEventListener('DOMContentLoaded', function () {
-        {{> script/on-document-load}}
-      });
-
       function iframeGetSearchParams () {
         let params = new URLSearchParams(window.location.search);
         let verticalUrl = window.location.pathname.substr(1)
