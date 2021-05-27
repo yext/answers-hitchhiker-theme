@@ -1,25 +1,25 @@
 @import "../variables";
 @import "set-properties";
 
-$spacing-base: $grid-gutter-width/2 !default;
+$spacing-base: math.div($grid-gutter-width, 2) !default;
 
 // see https://www.viget.com/articles/sass-with-maps
 // for explanation of why sass maps are great for stuff like spacing
 $spacing: (
   zero: 0,
-  oneFifth: $spacing-base / 5,            // 3px
-  oneThird: $spacing-base / 3,            // 5px
-  half: $spacing-base / 2,                // 7.5px
-  twoFifths: $spacing-base * (2 / 5),     // 6px
-  twoThirds: $spacing-base * (2 / 3),     // 10px
-  fourFifths: $spacing-base * (4 / 5),    // 12px
+  oneFifth: math.div($spacing-base, 5),            // 3px
+  oneThird: math.div($spacing-base, 3),            // 5px
+  half: math.div($spacing-base, 2),                // 7.5px
+  twoFifths: $spacing-base * math.div(2, 5),     // 6px
+  twoThirds: $spacing-base * math.div(2, 3),     // 10px
+  fourFifths: $spacing-base * math.div(4, 5),    // 12px
   base: $spacing-base,                    // 15px **
-  fourThirds: $spacing-base * (4 / 3),    // 20px
+  fourThirds: $spacing-base * math.div(4, 3),    // 20px
   double: $spacing-base * 2,              // 30px
-  buttonHeight: $spacing-base * (7 / 3),  // 35px
-  eightThirds: $spacing-base * (8 / 3),   // 40px
+  buttonHeight: $spacing-base * math.div(7, 3),  // 35px
+  eightThirds: $spacing-base * math.div(8, 3),   // 40px
   triple: $spacing-base * 3,              // 45px
-  tenThirds: $spacing-base * (10 / 3),    // 50px
+  tenThirds: $spacing-base * math.div(10, 3),    // 50px
   quadruple: $spacing-base * 4,           // 60px
 );
 

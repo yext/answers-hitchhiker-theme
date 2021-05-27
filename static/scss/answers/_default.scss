@@ -1,5 +1,4 @@
-@import "vendor";
-@import "~font-awesome/scss/variables";
+@use "sass:math";
 
 // Core variables and mixins
 @import "overlay/module";
