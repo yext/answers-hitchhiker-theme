@@ -12,7 +12,6 @@
   {
     display: flex;
     flex-direction: column;
-    width: 100%;
     padding: calc(var(--yxt-base-spacing) * 3/4) var(--yxt-base-spacing);
   }
 
@@ -20,7 +19,6 @@
   {
     display: flex;
     flex-direction: column;
-    width: 100%;
     justify-content: space-between;
     padding: calc(var(--yxt-base-spacing) * 3/4) var(--yxt-base-spacing);
   }
@@ -42,11 +40,6 @@
   {
     color: var(--yxt-color-text-secondary);
     padding-bottom: 0;
-  }
-
-  &-video {
-    width: 100%;
-    height: 100%;
   }
 
   &-detailsText

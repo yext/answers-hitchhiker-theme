@@ -12,21 +12,17 @@ class multilang_product_prominentvideoCardComponent extends BaseCard['multilang-
    * @param profile profile of the entity in the card
    */
   dataForRender(profile) {    
-    profile.featuredMessage = {
-      description: 'subtitle'
-    }
-    
     const videoUrl = profile.videos && profile.videos[0]?.video?.url;
     const youtubeVideoId = videoUrl?.split('watch?v=')[1];
     const youtubeUrl = youtubeVideoId ? 'https://www.youtube.com/embed/' + youtubeVideoId : null;
-    const vimeoUrl = profile.c_vimeo;
+    // const vimeoUrl = profile.c_vimeo;
 
     return {
       title: profile.name, // The header text of the card
       url: profile.landingPageUrl, // If the card title is a clickable link, set URL here
       target: '_top', // If the title's URL should open in a new tab, etc.
       titleEventOptions: this.addDefaultEventOptions(),
-      subtitle: profile.featuredMessage.description, // The sub-header text of the card
+      subtitle: profile.featuredMessage?.description, // The sub-header text of the card
       videoUrl: youtubeUrl,
       details: profile.richTextDescription ? ANSWERS.formatRichText(profile.richTextDescription, 'richTextDescription', '_top') : null, // The text in the body of the card
       // If the card's details are longer than a certain character count, you can truncate the
