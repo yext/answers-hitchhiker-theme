@@ -39,7 +39,10 @@ verticalPages: [
   }{{#unless @last}},{{/unless}}
 {{/if}}
 {{/each}}
-]
+],
+onCreate: function() {
+  this._container.textContent = '';
+}
 }, {{{ json componentSettings.Navigation }}}));
 
 {{!--
@@ -56,7 +59,6 @@ verticalPages: [
     HitchhikerJS.getInjectedProp(
       "{{{@root.global_config.experienceKey}}}",
       ["verticals", "{{{verticalKey}}}", "displayName"])
-    {{~#if verticalKey ~}} || "{{{verticalKey}}}" {{~/if ~}}
-    {{~#if fallback ~}} || "{{{fallback}}}" {{~/if ~}}
+    || "{{{verticalKey}}}" || "{{{fallback}}}"
   {{~/if ~}}
 {{/inline}}
