@@ -12,7 +12,6 @@ class multilang_product_prominentvideoCardComponent extends BaseCard['multilang-
    * @param profile profile of the entity in the card
    */
   dataForRender(profile) {
-
     return {
       title: profile.name, // The header text of the card
       url: profile.landingPageUrl, // If the card title is a clickable link, set URL here
