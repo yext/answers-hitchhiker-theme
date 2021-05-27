@@ -37,10 +37,11 @@
 {{#if card.videoUrl}}
   <div class="HitchhikerProductProminentVideo-videoWrapper">
     <iframe class="HitchhikerProductProminentVideo-video"
-      width="100%"
-      height="100%"
       src="{{card.videoUrl}}"
-      allowfullscreen>
+      allowfullscreen
+      frameBorder='0'
+      webkitAllowFullScreen
+      mozallowfullscreen>
     </iframe>
   </div>
 {{/if}}

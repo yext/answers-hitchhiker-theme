@@ -11,11 +11,7 @@ class multilang_product_prominentvideoCardComponent extends BaseCard['multilang-
    *
    * @param profile profile of the entity in the card
    */
-  dataForRender(profile) {    
-    const videoUrl = profile.videos && profile.videos[0]?.video?.url;
-    const youtubeVideoId = videoUrl?.split('watch?v=')[1];
-    const youtubeUrl = youtubeVideoId ? 'https://www.youtube.com/embed/' + youtubeVideoId : null;
-    // const vimeoUrl = profile.c_vimeo;
+  dataForRender(profile) {
 
     return {
       title: profile.name, // The header text of the card
@@ -23,7 +19,7 @@ class multilang_product_prominentvideoCardComponent extends BaseCard['multilang-
       target: '_top', // If the title's URL should open in a new tab, etc.
       titleEventOptions: this.addDefaultEventOptions(),
       subtitle: profile.featuredMessage?.description, // The sub-header text of the card
-      videoUrl: youtubeUrl,
+      videoUrl: Formatter.getYoutubeUrl(profile.videos),
       details: profile.richTextDescription ? ANSWERS.formatRichText(profile.richTextDescription, 'richTextDescription', '_top') : null, // The text in the body of the card
       // If the card's details are longer than a certain character count, you can truncate the
       // text. A toggle will be supplied that can show or hide the truncated text.
