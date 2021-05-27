@@ -30,32 +30,12 @@
         {{/if}}
       {{/with}}
     };
-    {{#if global_config.useJWT}}
-      const jwtNotProvidedTimeout = setTimeout(() => {
-        console.warn(
-          'A JWT has not been received within 5 seconds of page load, and "useJWT" is set to true.\n' + 
-          'Load the experience by calling initAnswersJWT(token).'
-        );
-      }, 5000);
-      window.answersJWT.then(token => {
-        clearTimeout(jwtNotProvidedTimeout);
-        initAnswersInstance({
-          ...injectedConfig,
-          ...userConfig,
-          apiKey: token
-        });
-      });
-    {{else}}
-      initAnswersInstance({
-        ...injectedConfig, 
-        ...userConfig
-      });
-    {{/if}}
-  }
-  function initAnswersInstance (config) {
+    const token = window.RuntimeConfig?.token;
     ANSWERS.init({
       templateBundle: TemplateBundle.default,
-      ...config,
+      ...injectedConfig,
+      ...userConfig,
+      ...token && { apiKey: token },
       querySource: window.isOverlay ? 'OVERLAY' : 'STANDARD',
       onStateChange: (objParams, stringParams, replaceHistory) => {
         if ('parentIFrame' in window) {
@@ -103,6 +83,13 @@
     });
     {{> script/after-init}}
   }
+  {{#if global_config.initializeManually}}
+    new HitchhikerJS.ManualInitializer(initAnswers).setup();
+  {{else}}
+    document.addEventListener('DOMContentLoaded', () => {
+      initAnswers();
+    });
+  {{/if}}
 {{/babel}}
 </script>
 

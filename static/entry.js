@@ -30,3 +30,9 @@ export { StorageKeys };
 
 import transformFacets from './js/transform-facets';
 export { transformFacets }
+
+import ManualInitializer from './js/manual-initializer';
+export { ManualInitializer };
+
+import RuntimeConfigReceiver from './js/runtime-config-receiver';
+export { RuntimeConfigReceiver };
