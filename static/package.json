@@ -44,12 +44,10 @@
     "webpack-merge": "^5.7.3"
   },
   "dependencies": {
-    "bootstrap-sass": "^3.4.1",
     "comment-json": "^3.0.2",
     "core-js": "^3.6.5",
     "css-vars-ponyfill": "^2.3.1",
     "file-system": "^2.2.2",
-    "font-awesome": "^4.7.0",
     "fs-extra": "^8.1.0",
     "iframe-resizer": "^4.1.1",
     "is-mobile": "^2.2.2",
