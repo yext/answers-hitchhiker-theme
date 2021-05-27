@@ -3,13 +3,15 @@ import InjectedData from './models/InjectedData';
 import generateInitAnswersExperienceFrameFunction from './utils/generateInitAnswersExperienceFrameFunction';
 import { RuntimeConfig } from './runtime-config';
 
-const runtimeConfig = new RuntimeConfig();
-window.setRuntimeConfig = (key, value) => {
-  runtimeConfig.set(key, value);
+const answersDataAttributes = document.querySelector('#answers-container')?.dataset;
+const runtimeConfig = new RuntimeConfig(answersDataAttributes);
+runtimeConfig.onUpdate(() => {
   sendToIframe({ runtimeConfig: runtimeConfig.getObject() });
-}
+});
+window.AnswersExperienceFrame = {
+  runtimeConfig: runtimeConfig,
+  init: generateInitAnswersExperienceFrameFunction(runtimeConfig)
+};
 
 const prodDomain = new InjectedData().getProdDomain();
 generateIFrame(prodDomain, runtimeConfig);
-
-window.initAnswersExperienceFrame = generateInitAnswersExperienceFrameFunction(runtimeConfig);

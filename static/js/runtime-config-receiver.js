@@ -15,7 +15,7 @@ export default class RuntimeConfigReceiver {
     }
     
     if (configReceived.initAnswersExperience) {
-      initAnswersExperience(configReceived);
+      window.AnswersExperience.init(configReceived);
     } else {
       updateRuntimeConfig(configReceived);
     }

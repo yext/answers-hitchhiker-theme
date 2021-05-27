@@ -23,7 +23,7 @@ export default class ManualInitializer {
         'Load the experience by calling initAnswersExperience() or initAnswersExperienceFrame() for iframe integrations.'
       );
     }, 5000);
-    window.initAnswersExperience = (config) => {
+    window.AnswersExperience.init = (config) => {
       this._fireOnDomLoad(() => {
         updateRuntimeConfig(config);
         clearTimeout(runtimeConfigNotProvidedTimeout);
