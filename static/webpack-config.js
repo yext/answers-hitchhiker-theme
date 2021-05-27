@@ -78,9 +78,6 @@ module.exports = function () {
     entry: {
       'HitchhikerJS': `./${jamboConfig.dirs.output}/static/entry.js`,
       'iframe': `./${jamboConfig.dirs.output}/static/js/iframe.js`,
-      'iframe-jwt': `./${jamboConfig.dirs.output}/static/js/iframe-jwt.js`,
-      'iframe-jwt-prod': `./${jamboConfig.dirs.output}/static/js/iframe-jwt-prod.js`,
-      'iframe-jwt-staging': `./${jamboConfig.dirs.output}/static/js/iframe-jwt-staging.js`,
       'answers': `./${jamboConfig.dirs.output}/static/js/iframe.js`,
       'overlay-button': `./${jamboConfig.dirs.output}/static/js/overlay/button-frame/entry.js`,
       'overlay': `./${jamboConfig.dirs.output}/static/js/overlay/parent-frame/yxtanswersoverlay.js`,

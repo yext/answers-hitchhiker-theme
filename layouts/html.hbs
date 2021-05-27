@@ -112,7 +112,7 @@
     {{/if}}
 
     <script>
-      {{#babel}}
+    {{#babel}}
       function iframeGetSearchParams() {
         let params = new URLSearchParams(window.location.search);
         let verticalUrl = window.location.pathname.substr(1)
@@ -125,10 +125,8 @@
       window.iframeLoaded = new Promise(resolve => {
         iframeLoadedResolve = resolve;
       });
-      window.answersJWT = new Promise(resolve => {
-        window.initAnswersJWT = resolve;
-      });
-      window.iFrameResizer = {
+     
+      window.iFrameResizer =  {
         onReady: function() {
           window.parentIFrame.sendMessage(JSON.stringify({
             params: iframeGetSearchParams(),
@@ -138,11 +136,11 @@
           iframeLoadedResolve();
         },
         onMessage: (message) => {
-          if (message.token) {
-            initAnswersJWT(message.token);
-            return;
+          if (message.runtimeConfig) {
+            HitchhikerJS.RuntimeConfigReceiver.handle(message.runtimeConfig);
+          } else if (window.isOverlay) {
+            window.Overlay.onMessage(message);
           }
-          window.isOverlay && window.Overlay.onMessage(message);
         }
       };
     {{/babel}}
