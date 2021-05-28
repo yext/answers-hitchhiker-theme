@@ -61,6 +61,7 @@ class Photographer {
     await this._pageNavigator.gotoVerticalPage('locations_google', { query: 'virginia' });
     await this._camera.snapshot('vertical-map-search--google');
   }
+
   async _captureVerticalFullPageMapSearch () {
     await this._pageNavigator
       .gotoVerticalPage('locations_full_page_map', { query: '' });
