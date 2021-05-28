@@ -13,6 +13,7 @@ class documentsearch_standardComponent extends BaseDirectAnswerCard['documentsea
    */
   dataForRender(type, answer, relatedItem, snippet) {
     const relatedItemData = relatedItem.data || {};
+    const linkTarget = AnswersExperience.runtimeConfig.get('linkTarget') || '_top';
 
     return {
       value: answer.value,
@@ -22,12 +23,12 @@ class documentsearch_standardComponent extends BaseDirectAnswerCard['documentsea
       viewDetailsEventOptions: this.addDefaultEventOptions({
         ctaLabel: 'VIEW_DETAILS'
       }), // The event options for viewDetails click analytics
-      linkTarget: '_top', // Target for all links in the direct answer
+      linkTarget: linkTarget, // Target for all links in the direct answer
       // CTA: {
       //   label: '', // The CTA's label
       //   iconName: 'chevron', // The icon to use for the CTA
       //   url: '', // The URL a user will be directed to when clicking
-      //   target: '_top', // Where the new URL will be opened
+      //   target: linkTarget, // Where the new URL will be opened
       //   eventType: 'CTA_CLICK', // Type of Analytics event fired when clicking the CTA
       //   eventOptions: this.addDefaultEventOptions() // The event options for CTA click analytics
       // },
