@@ -95,11 +95,11 @@ export function generateIFrame(domain, runtimeConfig) {
     checkOrigin: false,
     onInit: function() {
       iframeInitialized = true;
+      runtimeConfig && iframeMessageQueue.push({
+        runtimeConfig: runtimeConfig.getAll()
+      });
       iframeMessageQueue.forEach(message => {
         sendToIframe(message);
-      })
-      runtimeConfig && sendToIframe({
-        runtimeConfig: runtimeConfig.getAll()
       });
     },
     onMessage: function(messageData) {
