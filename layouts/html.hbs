@@ -136,7 +136,9 @@
           iframeLoadedResolve();
         },
         onMessage: (message) => {
-          if (message.runtimeConfig) {
+          if (message.initAnswersExperience) {
+            window.AnswersExperience.init(message.runtimeConfig);
+          } else if (message.runtimeConfig) {
             HitchhikerJS.RuntimeConfigReceiver.handle(message.runtimeConfig);
           } else if (window.isOverlay) {
             window.Overlay.onMessage(message);
