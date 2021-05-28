@@ -36,3 +36,8 @@ export { ManualInitializer };
 
 import RuntimeConfigReceiver from './js/runtime-config-receiver';
 export { RuntimeConfigReceiver };
+
+import RuntimeConfig from './js/runtime-config';
+window.AnswersExperience = {
+  runtimeConfig: new RuntimeConfig()
+};
