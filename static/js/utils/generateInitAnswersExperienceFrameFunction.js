@@ -1,8 +1,7 @@
 import { sendToIframe } from '../iframe-common';
 
 /**
- * Returns a function which sends a message to the iframe to initialize Answers
- * with the provided runtimeConfig
+ * Returns a function which updates the runtime config and initializes answers
  * 
  * @param {string} domain 
  * @param {RuntimeConfig} runtimeConfig 
@@ -16,7 +15,9 @@ export default function generateInitAnswersExperienceFrameFunction (runtimeConfi
     Object.entries(config).forEach(([key, value]) => {
       runtimeConfig.set(key, value);
     });
-    runtimeConfig.set('initAnswersExperience', true);
-    sendToIframe({ runtimeConfig: runtimeConfig.getObject() });
+    sendToIframe({ 
+      initAnswersExperience: true,
+      runtimeConfig: runtimeConfig.getAll()
+    });
   }
 }

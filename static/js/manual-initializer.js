@@ -1,5 +1,3 @@
-import updateRuntimeConfig from './utils/update-runtime-config';
-
 /**
  * Responsible for setting up manual initialization of the experience
  */
@@ -20,12 +18,14 @@ export default class ManualInitializer {
     const runtimeConfigNotProvidedTimeout = setTimeout(() => {
       console.warn(
         'An initialization function has not been called within 5 seconds of page load, and "initializeManually" is set to true.\n' +
-        'Load the experience by calling initAnswersExperience() or initAnswersExperienceFrame() for iframe integrations.'
+        'Load the experience by calling AnswersExperience.init() or AnswersExperienceFrame.init() for iframe integrations.'
       );
     }, 5000);
-    window.AnswersExperience.init = (config) => {
+    window.AnswersExperience.init = (config = {}) => {
       this._fireOnDomLoad(() => {
-        updateRuntimeConfig(config);
+        Object.entries(config).forEach(([key, value]) => {
+          window.AnswersExperience.runtimeConfig.set(key, value);
+        });
         clearTimeout(runtimeConfigNotProvidedTimeout);
         if (!this._hasAnswersInitialized) {
           this._initAnswers();

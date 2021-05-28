@@ -30,7 +30,7 @@
         {{/if}}
       {{/with}}
     };
-    const token = window.RuntimeConfig?.token;
+    const token = window.AnswersExperience.runtimeConfig?.get('token');
     ANSWERS.init({
       templateBundle: TemplateBundle.default,
       ...injectedConfig,
