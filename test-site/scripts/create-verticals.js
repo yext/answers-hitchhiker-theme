@@ -20,6 +20,11 @@ const verticalConfiguration = {
     template: 'vertical-map',
     cardName: 'location-standard'
   },
+  locations_google: {
+    verticalKey: 'KM',
+    template: 'vertical-map',
+    cardName: 'location-standard'
+  },
   locations_full_page_map: {
     verticalKey: 'KM',
     template: 'vertical-full-page-map',
