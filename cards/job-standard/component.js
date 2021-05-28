@@ -12,10 +12,12 @@ class job_standardCardComponent extends BaseCard['job-standard'] {
    * @param profile profile of the entity in the card
    */
   dataForRender(profile) {
+    const linkTarget = AnswersExperience.runtimeConfig.get('linkTarget') || '_top';
+
     return {
       title: profile.name, // The header text of the card
       url: profile.landingPageUrl, // If the card title is a clickable link, set URL here
-      target: '_top', // If the title's URL should open in a new tab, etc.
+      target: linkTarget, // If the title's URL should open in a new tab, etc.
       // image: '', // The URL of the image to display on the card
       // tagLabel: '', // The label of the displayed image
       titleEventOptions: this.addDefaultEventOptions(),
@@ -33,7 +35,7 @@ class job_standardCardComponent extends BaseCard['job-standard'] {
         label: 'Apply Now', // The CTA's label
         iconName: 'briefcase', // The icon to use for the CTA
         url: profile.applicationUrl || profile.landingPageUrl, // The URL a user will be directed to when clicking
-        target: '_top', // Where the new URL will be opened
+        target: linkTarget, // Where the new URL will be opened
         eventType: 'CTA_CLICK', // Type of Analytics event fired when clicking the CTA
         eventOptions: this.addDefaultEventOptions(),
         // ariaLabel: '', // Accessible text providing a descriptive label for the CTA

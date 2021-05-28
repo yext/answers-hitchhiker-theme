@@ -13,6 +13,7 @@ class multilang_allfields_standardComponent extends BaseDirectAnswerCard['multil
   dataForRender(type, answer, relatedItem) {
     let isArray = Array.isArray(answer.value);
     let value, arrayValue, regularValue;
+    const linkTarget = AnswersExperience.runtimeConfig.get('linkTarget') || '_top';
 
     switch (answer.fieldType) {
       case 'url':
@@ -131,9 +132,9 @@ class multilang_allfields_standardComponent extends BaseDirectAnswerCard['multil
         break;
       case 'rich_text':
         if (isArray) {
-          arrayValue = answer.value.map((value) => ANSWERS.formatRichText(value));
+          arrayValue = answer.value.map((value) => ANSWERS.formatRichText(value, null, linkTarget));
         } else {
-          regularValue = ANSWERS.formatRichText(answer.value);
+          regularValue = ANSWERS.formatRichText(answer.value, null, linkTarget);
         }
         value = isArray ? arrayValue : regularValue;
       case 'single_line_text':
@@ -162,7 +163,6 @@ class multilang_allfields_standardComponent extends BaseDirectAnswerCard['multil
     //     break;
     // }
 
-
     return {
       // iconName: '', // Icon that appears on the top left of the direct answer card
       // iconUrl: '', // URL for Icon that appears on the top left of the direct answer card
@@ -176,12 +176,12 @@ class multilang_allfields_standardComponent extends BaseDirectAnswerCard['multil
       viewDetailsEventOptions: this.addDefaultEventOptions({
         ctaLabel: 'VIEW_DETAILS'
       }), // The event options for viewDetails click analytics
-      linkTarget: '_top', // Target for all links in the direct answer
+      linkTarget: linkTarget, // Target for all links in the direct answer
       // CTA: {
       //   label: '', // The CTA's label
       //   iconName: 'chevron', // The icon to use for the CTA
       //   url: '', // The URL a user will be directed to when clicking
-      //   target: '_top', // Where the new URL will be opened
+      //   target: linkTarget, // Where the new URL will be opened
       //   eventType: 'CTA_CLICK', // Type of Analytics event fired when clicking the CTA
       //   eventOptions: this.addDefaultEventOptions() // The event options for CTA click analytics
       // },
