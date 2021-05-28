@@ -1,34 +1,53 @@
 /**
- * Responsible for managing the RuntimeConfig object from the parent of an iframe
+ * A data model for runtime configuration
  */
-export class RuntimeConfig {
-  constructor () {
-    this._runtimeConfig = document.querySelector('#answers-container')?.dataset ?? {};
-    this._lastUpdated = Date.now();
+export default class RuntimeConfig {
+  constructor (initialConfig = {}) {
+    this._data = { ...initialConfig };
+    this._onUpdateListener = () => {};
   }
 
-  getObject () {
-    return { 
-      ...this._runtimeConfig,
-      lastUpdated: this._lastUpdated
-    };
-  }
-
-  set (key, value) {
-    this._validate(key, value);
-    this._runtimeConfig[key] = value;
-    this._lastUpdated = Date.now();
-  }
-
+  /**
+   * Returns the value assocaited with a key
+   * @param {string} key 
+   * @returns {*}
+   */
   get (key) {
-    return this._runtimeConfig[key];
+    return this._data[key];
   }
 
-  _validate (key, value) {
+  /**
+   * Returns an object representation of the runtime config
+   * @returns {*}
+   */
+  getAll () {
+    return { ...this._data };
+  }
+
+  /**
+   * Sets a value of the config
+   * @param {string} key 
+   * @param {*} value 
+   */
+  set (key, value) {
+    this._validateSet(key, value);
+    this._data[key] = value;
+    this._onUpdateListener(this.getAll());
+  }
+
+  /**
+   * A function which is called any time the RuntimeConfig is updated
+   * @param {Function} cb 
+   */
+  _onUpdate (cb) {
+    this._onUpdateListener = cb;
+  }
+
+  _validateSet (key, value) {
     const newConfig = {
-      ...this._runtimeConfig,
+      ...this._data,
       [key]: value
-    }
+    };
     try {
       JSON.stringify(newConfig);
     } catch (e) {

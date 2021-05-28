@@ -1,5 +1,8 @@
 require('iframe-resizer');
 
+let iframeInitialized = false;
+const iframeMessageQueue = [];
+
 /**
  * @typedef {import('./runtime-config')} RuntimeConfig
  */
@@ -91,8 +94,12 @@ export function generateIFrame(domain, runtimeConfig) {
   iFrameResize({
     checkOrigin: false,
     onInit: function() {
-      runtimeConfig && sendToIframe({
-        runtimeConfig: runtimeConfig.getObject()
+      iframeInitialized = true;
+      runtimeConfig && iframeMessageQueue.push({
+        runtimeConfig: runtimeConfig.getAll()
+      });
+      iframeMessageQueue.forEach(message => {
+        sendToIframe(message);
       });
     },
     onMessage: function(messageData) {
@@ -116,10 +123,17 @@ export function generateIFrame(domain, runtimeConfig) {
   }, '#answers-frame');
 }
 
+/**
+ * Sends data to the answers iframe if possible. Otherwise the message is queued
+ * so that it can be sent when the iframe initializes.
+ * @param {Object} obj 
+ */
 export function sendToIframe (obj) {
   const iframe = document.querySelector('#answers-frame');
-  if (!iframe || !iframe.iFrameResizer) {
-    return;
+  if (!iframe || !iframe.iFrameResizer || !iframeInitialized) {
+    iframeMessageQueue.push(obj);
   }
-  iframe.iFrameResizer.sendMessage(obj);
+  else {
+    iframe.iFrameResizer.sendMessage(obj);
+  }
 }

@@ -1,15 +1,10 @@
-import { generateIFrame, sendToIframe } from './iframe-common';
+import { generateIFrame } from './iframe-common';
 import InjectedData from './models/InjectedData';
-import generateInitAnswersExperienceFrameFunction from './utils/generateInitAnswersExperienceFrameFunction';
-import { RuntimeConfig } from './runtime-config';
+import RuntimeConfig from './runtime-config';
+import AnswersExperienceFrame from './answers-experience-frame';
 
 const runtimeConfig = new RuntimeConfig();
-window.setRuntimeConfig = (key, value) => {
-  runtimeConfig.set(key, value);
-  sendToIframe({ runtimeConfig: runtimeConfig.getObject() });
-}
+window.AnswersExperienceFrame = new AnswersExperienceFrame(runtimeConfig);
 
 const stagingDomain = new InjectedData().getStagingDomain();
 generateIFrame(stagingDomain, runtimeConfig);
-
-window.initAnswersExperienceFrame = generateInitAnswersExperienceFrameFunction(runtimeConfig);
