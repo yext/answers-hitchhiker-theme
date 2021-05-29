@@ -4,7 +4,8 @@ import RuntimeConfig from './runtime-config';
 import AnswersExperienceFrame from './answers-experience-frame';
 
 const runtimeConfig = new RuntimeConfig();
-window.AnswersExperienceFrame = new AnswersExperienceFrame(runtimeConfig);
+const answersExperienceFrame = new AnswersExperienceFrame(runtimeConfig);
+window.AnswersExperienceFrame = answersExperienceFrame;
 
 const stagingDomain = new InjectedData().getStagingDomain();
-generateIFrame(stagingDomain, runtimeConfig);
+generateIFrame(stagingDomain, answersExperienceFrame);

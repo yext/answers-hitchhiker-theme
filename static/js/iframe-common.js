@@ -11,9 +11,9 @@ const iframeMessageQueue = [];
  * Puts an iframe on the page of an Answers experience and sets up resizing and cross-domain communication
  * 
  * @param {string} domain The location of the answers experience
- * @param {RuntimeConfig} runtimeConfig used for passing runtime config to the iframe
+ * @param {AnswersExperienceFrame} answersExperienceFrame
  */
-export function generateIFrame(domain, runtimeConfig) {
+export function generateIFrame(domain, answersExperienceFrame) {
   var isLocalHost = window.location.host.split(':')[0] === 'localhost';
   var containerEl = document.querySelector('#answers-container');
   var iframe = document.createElement('iframe');
@@ -95,12 +95,13 @@ export function generateIFrame(domain, runtimeConfig) {
     checkOrigin: false,
     onInit: function() {
       iframeInitialized = true;
-      runtimeConfig && iframeMessageQueue.push({
-        runtimeConfig: runtimeConfig.getAll()
+      iframeMessageQueue.push({
+        initAnswersExperience: answersExperienceFrame.hasManuallyInitialized(),
+        runtimeConfig: answersExperienceFrame.runtimeConfig.getAll()
       });
-      iframeMessageQueue.forEach(message => {
-        sendToIframe(message);
-      });
+      while (iframeMessageQueue.length !== 0) {
+        sendToIframe(iframeMessageQueue.shift());
+      }
     },
     onMessage: function(messageData) {
       const message = JSON.parse(messageData.message);
