@@ -36,7 +36,10 @@
     },
     "KM": {
       "universalSectionTemplate": "grid-two-columns",
-      "cardType": "multilang-financial-professional-location"
+      "cardType": "multilang-financial-professional-location",
+      "mapConfig": {
+        "mapProvider": "Google"
+      }
     }
   }
 }
