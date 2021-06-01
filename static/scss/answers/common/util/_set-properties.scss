@@ -14,12 +14,12 @@
     }
   }
 
-  @elseif type-of($subproperties) == 'string'
+  @else if type-of($subproperties) == 'string'
   {
     @include set-property('#{$property}-#{$subproperties}', $value);
   }
 
-  @elseif type-of($subproperties) == 'null'
+  @else if type-of($subproperties) == 'null'
   {
     @include set-property($property, $value);
   }
