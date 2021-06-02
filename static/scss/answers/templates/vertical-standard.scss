@@ -5,13 +5,13 @@
   }
 
   &-resultsLeftContainer {
-    flex: 1;
+    flex: 1 1 0;
     display: flex;
     justify-content: flex-end;
   }
   
   &-resultsRightContainer {
-    flex: 1;
+    flex: 1 1 0;
   }
   &-resultsMidContainer {
     max-width: var(--hh-answers-container-width);
