@@ -39,7 +39,10 @@ verticalPages: [
   }{{#unless @last}},{{/unless}}
 {{/if}}
 {{/each}}
-]
+],
+onCreate: function() {
+  this._container.textContent = '';
+}
 }, {{{ json componentSettings.Navigation }}}));
 
 {{!--

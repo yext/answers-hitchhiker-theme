@@ -92,6 +92,10 @@
     min-height: 950px;
     border-left: var(--yxt-border-default);
 
+    img {
+      max-height: none;
+    }
+
     @include bplte(xs)
     {
       display: none;
