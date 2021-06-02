@@ -57,7 +57,13 @@
       position: relative;
     }
 
-    &-resultsLeftContainer, &-resultsRightContainer {
+    &-resultsLeftContainer {
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+    }
+    
+    &-resultsRightContainer {
       flex: 1;
     }
 
@@ -83,7 +89,6 @@
 
     &-filtersWrapper {
       margin-bottom: 20px;
-      float: right;
 
       .Answers-facets,
       .Answers-filterBox,

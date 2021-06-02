@@ -1,25 +1,25 @@
 {{#> layouts/html }}
   {{#> script/core }}
     {{> cards/all }}
-    {{!-- {{> templates/vertical-grid/collapsible-filters/page-setup }} --}}
-    {{> templates/vertical-grid/script/appliedfilters }}
-    {{> templates/vertical-grid/script/verticalresultscount }}
-    {{> templates/vertical-grid/script/searchbar }}
-    {{> templates/vertical-grid/script/spellcheck }}
-    {{> templates/vertical-grid/script/navigation }}
-    {{> templates/vertical-grid/script/verticalresults }}
-    {{> templates/vertical-grid/script/pagination }}
-    {{> templates/vertical-grid/script/locationbias }}
-    {{!-- {{> templates/vertical-grid/script/sortoptions }} --}}
-    {{!-- {{> templates/vertical-grid/script/facets }} --}}
-    {{!-- {{> templates/vertical-grid/script/filterbox }} --}}
-    {{!-- {{> templates/vertical-grid/script/qasubmission }} --}}
+    {{!-- {{> templates/vertical-standard/collapsible-filters/page-setup }} --}}
+    {{> templates/vertical-standard/script/appliedfilters }}
+    {{> templates/vertical-standard/script/verticalresultscount }}
+    {{> templates/vertical-standard/script/searchbar }}
+    {{> templates/vertical-standard/script/spellcheck }}
+    {{> templates/vertical-standard/script/navigation }}
+    {{> templates/vertical-standard/script/verticalresults }}
+    {{> templates/vertical-standard/script/pagination }}
+    {{> templates/vertical-standard/script/locationbias }}
+    {{!-- {{> templates/vertical-standard/script/sortoptions }} --}}
+    {{!-- {{> templates/vertical-standard/script/facets }} --}}
+    {{!-- {{> templates/vertical-standard/script/filterbox }} --}}
+    {{!-- {{> templates/vertical-standard/script/qasubmission }} --}}
   {{/script/core }}
   <div class="Answers AnswersVerticalStandard CollapsibleFilters">
     <div class="Answers-navWrapper">
       <div class="Answers-container">
-        {{> templates/vertical-grid/markup/searchbar }}
-        {{> templates/vertical-grid/markup/navigation }}
+        {{> templates/vertical-standard/markup/searchbar }}
+        {{> templates/vertical-standard/markup/navigation }}
       </div>
     </div>
     <!-- Uncomment the following if this page should be searched from the Answers Overlay panel. 
@@ -30,24 +30,24 @@
       <div class="Answers-resultsLeftContainer">
         <!-- Uncomment the following div if you want to include filters, facets, or sort options  -->
         {{!-- <div class="Answers-filtersWrapper js-answersFiltersWrapper CollapsibleFilters-inactive"> --}}
-          {{!-- {{> templates/vertical-grid/markup/sortoptions }} --}}
-          {{!-- {{> templates/vertical-grid/markup/filterbox }} --}}
-          {{!-- {{> templates/vertical-grid/markup/facets }} --}}
+          {{!-- {{> templates/vertical-standard/markup/sortoptions }} --}}
+          {{!-- {{> templates/vertical-standard/markup/filterbox }} --}}
+          {{!-- {{> templates/vertical-standard/markup/facets }} --}}
         {{!-- </div> --}}
       </div>
       <div class="Answers-resultsMidContainer">
         <div class="Answers-resultsHeader">
-          {{> templates/vertical-grid/markup/verticalresultscount }}
-          {{> templates/vertical-grid/markup/appliedfilters }}
-          {{!-- {{> templates/vertical-grid/collapsible-filters/markup/filterlink }} --}}
-          {{!-- {{> templates/vertical-grid/collapsible-filters/markup/viewresultsbutton }} --}}
+          {{> templates/vertical-standard/markup/verticalresultscount }}
+          {{> templates/vertical-standard/markup/appliedfilters }}
+          {{!-- {{> templates/vertical-standard/collapsible-filters/markup/filterlink }} --}}
+          {{!-- {{> templates/vertical-standard/collapsible-filters/markup/viewresultsbutton }} --}}
         </div>
         
         <div class="Answers-results js-answersResults">
-          {{> templates/vertical-grid/markup/spellcheck }}
-          {{> templates/vertical-grid/markup/verticalresults }}
-          {{> templates/vertical-grid/markup/pagination }}
-          {{!-- {{> templates/vertical-grid/markup/qasubmission }} --}}
+          {{> templates/vertical-standard/markup/spellcheck }}
+          {{> templates/vertical-standard/markup/verticalresults }}
+          {{> templates/vertical-standard/markup/pagination }}
+          {{!-- {{> templates/vertical-standard/markup/qasubmission }} --}}
         </div>
       </div>
       <div class="Answers-resultsRightContainer">
@@ -57,7 +57,7 @@
     </div>
     <div class="Answers-footer js-answersFooter">
       {{> layouts/yext-logo }}
-      {{> templates/vertical-grid/markup/locationbias }}
+      {{> templates/vertical-standard/markup/locationbias }}
     </div>
   </div>
 {{/layouts/html }}
