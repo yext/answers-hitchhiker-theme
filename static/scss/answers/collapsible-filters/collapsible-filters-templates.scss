@@ -47,7 +47,7 @@
 
   .Answers-resultsHeader, .Answers-results {
     @media (min-width: #{$breakpoint-expanded-filters}) {
-      width: math.div($container-width-at-collapsed-filters-breakpoint, $breakpoint-collapsed-filters) * 100%;
+      width: $answers-container-width-percentage;
     }
     width: var(--hh-answers-container-width);
     max-width: var(--hh-answers-container-width);
