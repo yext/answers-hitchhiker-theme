@@ -23,7 +23,7 @@ class ClusterPinImages {
    * @param {number} pin.width The width of the pin
    * @param {number} pin.height The height of the pin
    * @param {string} pin.labelText The label text for the cluster pin (normally size of cluster)
-   * @return string The SVG of the pin
+   * @return {Object} The SVG of the pin, and its width and height
    */
   generatePin ({
     backgroundColor = '#00759e',
@@ -42,7 +42,7 @@ class ClusterPinImages {
           </text>
         </g>
       </svg>`;
-    return { svg, width, height }
+    return { svg, width, height };
   };
 
   /**

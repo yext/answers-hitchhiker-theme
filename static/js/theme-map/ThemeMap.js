@@ -302,12 +302,12 @@ class ThemeMap extends ANSWERS.Component {
       .withIconTemplate('selected', (pinDetails) => {
         return getEncodedSvg(this.config.pinClusterImages.getSelectedPin(pinDetails.pinCount).svg);
       })
-      .withPropertiesForStatus(status => {
-        const defaultPinDimensions = this.config.pinClusterImages.getDefaultPin();
+      .withPropertiesForStatus((status, pinCount) => {
+        const defaultPin = this.config.pinClusterImages.getDefaultPin(pinCount);
         const properties = new PinProperties()
           .setIcon(status.hovered || status.focused || status.selected ? 'hovered' : 'default')
-          .setWidth(defaultPinDimensions.width)
-          .setHeight(defaultPinDimensions.height)
+          .setWidth(defaultPin.width)
+          .setHeight(defaultPin.height)
           .setAnchorX(this.config.pinClusterAnchors.anchorX)
           .setAnchorY(this.config.pinClusterAnchors.anchorY);
 
