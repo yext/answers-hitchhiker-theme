@@ -36,6 +36,10 @@ class Photographer {
 
     await this._pageNavigator.gotoUniversalPage({ query: 'office sparce'});
     await this._camera.snapshot('universal-search--spellcheck');
+
+    await this._pageNavigator.gotoUniversalPage({ query: 'what if i forget my password?'});
+    await this._pageNavigator.click('.HitchhikerFaqAccordion-toggle')
+    await this._camera.snapshot('universal-search--faq-accordion');
   }
   
   async _captureVerticalSearch () {
