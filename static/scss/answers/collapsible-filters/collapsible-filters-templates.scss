@@ -55,7 +55,7 @@
 
   .Answers-resultsHeader {
     @media (min-width: #{$breakpoint-expanded-filters}) {
-      margin: 0 math.div((100% - $answers-container-width-percentage),2);
+      margin: 0 math.div(100% - $answers-container-width-percentage,2);
     }
   }
 
