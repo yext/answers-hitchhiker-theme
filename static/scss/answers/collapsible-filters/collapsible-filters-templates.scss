@@ -53,6 +53,12 @@
     max-width: var(--hh-answers-container-width);
   }
 
+  .Answers-resultsHeader {
+    @media (min-width: #{$breakpoint-expanded-filters}) {
+      margin: 0 math.div((100% - $answers-container-width-percentage),2);
+    }
+  }
+
   .Answers-resultsWrapper {
     width: 100%;
     max-width: none;
