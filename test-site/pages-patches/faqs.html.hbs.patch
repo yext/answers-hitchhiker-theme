@@ -1,5 +1,5 @@
---- faqs.html.hbs	2021-06-02 18:19:32.000000000 -0400
-+++ faqs.updated.html.hbs	2021-06-02 18:25:55.000000000 -0400
+--- faqs.html.hbs	2021-04-08 17:56:25.000000000 -0400
++++ faqs.updated.html.hbs	2021-04-08 17:56:25.000000000 -0400
 @@ -13,7 +13,7 @@
      {{!-- {{> templates/vertical-standard/script/sortoptions }} --}}
      {{!-- {{> templates/vertical-standard/script/facets }} --}}
@@ -9,12 +9,12 @@
    {{/script/core }}
    <div class="Answers AnswersVerticalStandard CollapsibleFilters">
      <div class="Answers-navWrapper">
-@@ -37,7 +37,7 @@
+@@ -43,7 +43,7 @@
          {{> templates/vertical-standard/markup/spellcheck }}
          {{> templates/vertical-standard/markup/verticalresults }}
          {{> templates/vertical-standard/markup/pagination }}
 -        {{!-- {{> templates/vertical-standard/markup/qasubmission }} --}}
 +        {{> templates/vertical-standard/markup/qasubmission }}
        </div>
-       <!-- Uncomment the following div if you want to include filters, facets, or sort options  -->
-       {{!-- <div class="Answers-filtersWrapper js-answersFiltersWrapper CollapsibleFilters-inactive"> --}}
+     </div>
+     <div class="Answers-footer js-answersFooter">

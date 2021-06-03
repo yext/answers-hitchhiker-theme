@@ -1,5 +1,5 @@
---- people.html.hbs	2021-06-02 18:19:57.000000000 -0400
-+++ people.updated.html.hbs	2021-06-02 18:13:51.000000000 -0400
+--- people.html.hbs	2021-04-08 20:51:02.000000000 -0400
++++ people.updated.html.hbs	2021-04-08 20:52:20.000000000 -0400
 @@ -1,7 +1,7 @@
  {{#> layouts/html }}
    {{#> script/core }}
@@ -20,7 +20,18 @@
      {{!-- {{> templates/vertical-grid/script/filterbox }} --}}
      {{!-- {{> templates/vertical-grid/script/qasubmission }} --}}
    {{/script/core }}
-@@ -30,8 +30,8 @@
+@@ -22,23 +22,23 @@
+         {{> templates/vertical-grid/markup/navigation }}
+       </div>
+     </div>
+-    <!-- Uncomment the following if this page should be searched from the Answers Overlay panel. 
+-    The overlay partial should only be added to ONE page of your site, e.g. if you uncomment the 
+-    partial for this page, you should not use it on any other page.  -->
++    <!-- Uncomment the following if you want to include an overlay on the page -->
++    <!-- The overlay should be used on at most one page of your site, e.g. if you use uncomment the
++    partial for a location page, you should not use it on any other page.  -->
+     {{!-- {{> layouts/overlay-suggestions }} --}}
+     <div class="Answers-container Answers-resultsWrapper Hitchhiker-3-columns">
        <div class="Answers-resultsHeader">
          {{> templates/vertical-grid/markup/verticalresultscount }}
          {{> templates/vertical-grid/markup/appliedfilters }}
@@ -29,22 +40,16 @@
 +        {{> templates/vertical-grid/collapsible-filters/markup/filterlink }}
 +        {{> templates/vertical-grid/collapsible-filters/markup/viewresultsbutton }}
        </div>
-       <div class="Answers-results js-answersResults">
-         {{> templates/vertical-grid/markup/spellcheck }}
-@@ -40,11 +40,11 @@
-         {{!-- {{> templates/vertical-grid/markup/qasubmission }} --}}
-       </div>
        <!-- Uncomment the following div if you want to include filters, facets, or sort options  -->
 -      {{!-- <div class="Answers-filtersWrapper js-answersFiltersWrapper CollapsibleFilters-inactive"> --}}
 -        {{!-- {{> templates/vertical-grid/markup/sortoptions }} --}}
--        {{!-- {{> templates/vertical-grid/markup/filterbox }} --}}
--        {{!-- {{> templates/vertical-grid/markup/facets }} --}}
--      {{!-- </div> --}}
 +      <div class="Answers-filtersWrapper js-answersFiltersWrapper CollapsibleFilters-inactive">
 +        {{> templates/vertical-grid/markup/sortoptions }}
-+        {{> templates/vertical-grid/markup/filterbox }}
+         {{!-- {{> templates/vertical-grid/markup/filterbox }} --}}
+-        {{!-- {{> templates/vertical-grid/markup/facets }} --}}
+-      {{!-- </div> --}}
 +        {{> templates/vertical-grid/markup/facets }}
 +      </div>
-     </div>
-     <div class="Answers-footer js-answersFooter">
-       {{> layouts/yext-logo }}
+       <div class="Answers-results js-answersResults">
+         {{> templates/vertical-grid/markup/spellcheck }}
+         {{> templates/vertical-grid/markup/verticalresults }}
