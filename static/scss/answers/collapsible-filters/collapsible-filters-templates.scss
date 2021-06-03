@@ -50,6 +50,7 @@
       width: math.div($container-width-at-collapsed-filters-breakpoint, $breakpoint-collapsed-filters) * 100%;
     }
     width: var(--hh-answers-container-width);
+    max-width: var(--hh-answers-container-width);
   }
 
   .Answers-resultsWrapper {
