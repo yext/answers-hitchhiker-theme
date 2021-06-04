@@ -38,6 +38,9 @@ class Photographer {
     await this._pageNavigator.gotoUniversalPage({ query: 'what if i forget my password?'});
     await this._pageNavigator.click('.HitchhikerFaqAccordion-toggle')
     await this._camera.snapshot('universal-search--faq-accordion');
+     
+    await this._pageNavigator.gotoUniversalPage({ query: 'yext answers'});
+    await this._camera.snapshot('universal-search--product-prominentimage');
   }
   
   async _captureVerticalSearch () {
@@ -57,6 +60,12 @@ class Photographer {
 
     await this._pageNavigator.gotoVerticalPage('people', { query: 'vrginia' });
     await this._camera.snapshot('vertical-grid-search--spellcheck');
+
+    await this._pageNavigator.gotoVerticalPage('products', { query: 'yext answers' });
+    await this._camera.snapshot('vertical-grid-search--product-prominentvideo');
+
+    await this._pageNavigator.gotoVerticalPage('products_clickable_image', { query: 'yext answers' });
+    await this._camera.snapshot('vertical-grid-search--product-prominentimage-clickable');
   }
   
   async _captureVerticalMapSearch () {

@@ -40,6 +40,10 @@
       "mapConfig": {
         "mapProvider": "Google"
       }
+    },
+    "products": {
+      "universalSectionTemplate": "grid-three-columns",
+      "cardType": "product-prominentimage"
     }
   }
 }
