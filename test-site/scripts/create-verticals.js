@@ -39,6 +39,16 @@ const verticalConfiguration = {
     verticalKey: 'people',
     template: 'vertical-grid',
     cardName: 'standard'
+  },
+  products: {
+    verticalKey: 'products',
+    template: 'vertical-grid',
+    cardName: 'multilang-product-prominentvideo'
+  },
+  products_clickable_image: {
+    verticalKey: 'products',
+    template: 'vertical-grid',
+    cardName: 'product-prominentimage-clickable'
   }
 };
 
