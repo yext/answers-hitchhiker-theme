@@ -64,6 +64,11 @@ const verticalConfiguration = {
     verticalKey: 'jobs',
     template: 'vertical-standard',
     cardName: 'job-standard'
+  },
+  help_articles: {
+    verticalKey: 'help_articles',
+    template: 'vertical-standard',
+    cardName: 'document-standard'
   }
 };
 

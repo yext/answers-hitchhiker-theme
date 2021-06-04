@@ -58,6 +58,9 @@ class Photographer {
     
     await this._pageNavigator.gotoVerticalPage('jobs', { query: 'job' });
     await this._camera.snapshot('vertical-search--job-standard');
+
+    await this._pageNavigator.gotoVerticalPage('help_articles', { query: 'slap chop' });
+    await this._camera.snapshot('vertical-search--document-standard');
   }
   
   async _captureVerticalGridSearch () {
