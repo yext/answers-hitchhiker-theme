@@ -17,30 +17,30 @@ class Photographer {
   }
 
   async captureSnapshots() {
-    await this._captureHomepage();
     await this._captureUniversalSearch();
     await this._captureVerticalSearch();
     await this._captureVerticalGridSearch();
     await this._captureVerticalMapSearch();
     await this._captureVerticalFullPageMapSearch();
   }
-
-  async _captureHomepage () {
-    await this._pageNavigator.gotoUniversalPage();
-    await this._camera.snapshot('homepage');
-  }
   
   async _captureUniversalSearch () {
-    await this._pageNavigator.gotoUniversalPage({ query: 'a' });
+    await this._pageNavigator.gotoUniversalPage();
     await this._camera.snapshot('universal-search');
+
+    await this._pageNavigator.gotoUniversalPage({ query: 'a' });
+    await this._camera.snapshot('universal-search--no-results');
 
     await this._pageNavigator.gotoUniversalPage({ query: 'office sparce'});
     await this._camera.snapshot('universal-search--spellcheck');
   }
   
   async _captureVerticalSearch () {
-    await this._pageNavigator.gotoVerticalPage('events', { query: 'a' });
+    await this._pageNavigator.gotoVerticalPage('events');
     await this._camera.snapshot('vertical-search');
+
+    await this._pageNavigator.gotoVerticalPage('events', { query: 'a' });
+    await this._camera.snapshot('vertical-search--no-results');
 
     await this._pageNavigator.gotoVerticalPage('events',{ query: 'vrginia' });
     await this._camera.snapshot('vertical-search--spellcheck');
