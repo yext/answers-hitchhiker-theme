@@ -55,6 +55,9 @@ class Photographer {
 
     await this._pageNavigator.gotoVerticalPage('financial_professionals', { query: 'connor' });
     await this._camera.snapshot('vertical-search--financial-professional-location');
+    
+    await this._pageNavigator.gotoVerticalPage('jobs', { query: 'job' });
+    await this._camera.snapshot('vertical-search--job-standard');
   }
   
   async _captureVerticalGridSearch () {

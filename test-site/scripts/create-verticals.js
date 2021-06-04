@@ -60,6 +60,11 @@ const verticalConfiguration = {
     template: 'vertical-grid',
     cardName: 'professional-standard'
   },
+  jobs: {
+    verticalKey: 'jobs',
+    template: 'vertical-standard',
+    cardName: 'job-standard'
+  }
 };
 
 const pagesDir = path.resolve(__dirname, '../pages');
