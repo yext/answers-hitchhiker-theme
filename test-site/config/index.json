@@ -40,6 +40,9 @@
       "mapConfig": {
         "mapProvider": "Google"
       }
+    },
+    "healthcare_professionals": {
+      "cardType": "professional-location"
     }
   }
 }

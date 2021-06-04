@@ -39,7 +39,17 @@ const verticalConfiguration = {
     verticalKey: 'people',
     template: 'vertical-grid',
     cardName: 'standard'
-  }
+  },
+  financial_professionals: {
+    verticalKey: 'financial_professionals',
+    template: 'vertical-standard',
+    cardName: 'financial-professional-location'
+  },
+  healthcare_professionals: {
+    verticalKey: 'healthcare_professionals',
+    template: 'vertical-grid',
+    cardName: 'professional-standard'
+  },
 };
 
 const pagesDir = path.resolve(__dirname, '../pages');

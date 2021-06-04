@@ -49,6 +49,9 @@ class Photographer {
 
     await this._pageNavigator.gotoVerticalPage('events',{ query: 'vrginia' });
     await this._camera.snapshot('vertical-search--spellcheck');
+
+    await this._pageNavigator.gotoVerticalPage('financial_professionals',{ query: 'connor' });
+    await this._camera.snapshot('vertical-search--financial-professional-location');
   }
   
   async _captureVerticalGridSearch () {
