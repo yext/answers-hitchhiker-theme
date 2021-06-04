@@ -44,6 +44,9 @@
     "products": {
       "universalSectionTemplate": "grid-three-columns",
       "cardType": "product-prominentimage"
+    },
+    "links": {
+      "cardType": "link-standard"
     }
   }
 }
