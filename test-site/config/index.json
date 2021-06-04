@@ -47,6 +47,9 @@
     },
     "links": {
       "cardType": "link-standard"
+    },
+    "healthcare_professionals": {
+      "cardType": "professional-location"
     }
   }
 }
