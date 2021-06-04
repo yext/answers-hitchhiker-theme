@@ -22,6 +22,7 @@ class Photographer {
     await this._captureVerticalGridSearch();
     await this._captureVerticalMapSearch();
     await this._captureVerticalFullPageMapSearch();
+    await this._captureDirectAnswers();
   }
   
   async _captureUniversalSearch () {
@@ -87,6 +88,14 @@ class Photographer {
     await this._pageNavigator
       .gotoVerticalPage('locations_full_page_map_with_filters', { query: 'virginia' });
     await this._camera.snapshotDesktopOnly('vertical-full-page-map-with-filters--nlp-filters__desktop-view');
+  }
+
+  async _captureDirectAnswers () {
+    await this._pageNavigator.gotoUniversalPage({ query: 'bryan reed phone number' });
+    await this._camera.snapshot('field-direct-answer');
+
+    await this._pageNavigator.gotoUniversalPage({ query: 'where was joe exotic born?' });
+    await this._camera.snapshot('documentsearch-direct-answer')
   }
 }
 
