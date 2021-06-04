@@ -45,9 +45,6 @@
       "universalSectionTemplate": "grid-three-columns",
       "cardType": "product-prominentimage"
     },
-    "healthcare_professionals": {
-      "cardType": "professional-location"
-    },
     "links": {
       "cardType": "link-standard"
     }
