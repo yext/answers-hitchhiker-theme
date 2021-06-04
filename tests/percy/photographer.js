@@ -59,7 +59,7 @@ class Photographer {
     await this._pageNavigator.gotoVerticalPage('jobs', { query: 'job' });
     await this._camera.snapshot('vertical-search--job-standard');
 
-    await this._pageNavigator.gotoVerticalPage('menu_items', { query: 'sushi' });
+    await this._pageNavigator.gotoVerticalPage('menu_items', { query: 'roll' });
     await this._camera.snapshot('vertical-search--menuitem-standard');
   }
   
