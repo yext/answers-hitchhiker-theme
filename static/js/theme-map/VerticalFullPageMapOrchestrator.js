@@ -597,6 +597,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       useFacets: true
     });
     this.updateMostRecentSearchState();
+    this.core.clearStaticFilterNode('SearchThisArea');
   }
 
   /**
