@@ -39,6 +39,41 @@ const verticalConfiguration = {
     verticalKey: 'people',
     template: 'vertical-grid',
     cardName: 'standard'
+  },
+  products: {
+    verticalKey: 'products',
+    template: 'vertical-grid',
+    cardName: 'multilang-product-prominentvideo'
+  },
+  products_clickable_image: {
+    verticalKey: 'products',
+    template: 'vertical-grid',
+    cardName: 'product-prominentimage-clickable'
+  },
+  financial_professionals: {
+    verticalKey: 'financial_professionals',
+    template: 'vertical-standard',
+    cardName: 'financial-professional-location'
+  },
+  healthcare_professionals: {
+    verticalKey: 'healthcare_professionals',
+    template: 'vertical-grid',
+    cardName: 'professional-standard'
+  },
+  jobs: {
+    verticalKey: 'jobs',
+    template: 'vertical-standard',
+    cardName: 'job-standard'
+  },
+  help_articles: {
+    verticalKey: 'help_articles',
+    template: 'vertical-standard',
+    cardName: 'document-standard'
+  },
+  menu_items: {
+    verticalKey: 'menu_items',
+    template: 'vertical-grid',
+    cardName: 'menuitem-standard'
   }
 };
 
