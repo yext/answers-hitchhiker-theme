@@ -61,6 +61,9 @@ class Photographer {
 
     await this._pageNavigator.gotoVerticalPage('help_articles', { query: 'slap chop' });
     await this._camera.snapshot('vertical-search--document-standard');
+
+    await this._pageNavigator.gotoVerticalPage('menu_items', { query: 'roll' });
+    await this._camera.snapshot('vertical-search--menuitem-standard');
   }
   
   async _captureVerticalGridSearch () {

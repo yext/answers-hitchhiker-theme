@@ -69,6 +69,11 @@ const verticalConfiguration = {
     verticalKey: 'help_articles',
     template: 'vertical-standard',
     cardName: 'document-standard'
+  },
+  menu_items: {
+    verticalKey: 'menu_items',
+    template: 'vertical-grid',
+    cardName: 'menuitem-standard'
   }
 };
 
