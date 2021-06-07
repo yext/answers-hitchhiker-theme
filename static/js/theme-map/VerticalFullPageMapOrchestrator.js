@@ -67,7 +67,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
      * The default zoom level for the map
      * @type {number}
      */
-    this.defaultZoom = this.providerOptions.zoom || 14;
+    this.defaultZoom = this.providerOptions.zoom || 4;
 
     /**
      * The current zoom level of the map
@@ -597,6 +597,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       useFacets: true
     });
     this.updateMostRecentSearchState();
+    this.core.clearStaticFilterNode('SearchThisArea');
   }
 
   /**
