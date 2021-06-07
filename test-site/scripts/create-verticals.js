@@ -64,6 +64,11 @@ const verticalConfiguration = {
     verticalKey: 'jobs',
     template: 'vertical-standard',
     cardName: 'job-standard'
+  },
+  menu_items: {
+    verticalKey: 'menu_items',
+    template: 'vertical-grid',
+    cardName: 'menuitem-standard'
   }
 };
 
