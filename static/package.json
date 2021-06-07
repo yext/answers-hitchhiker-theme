@@ -1,6 +1,6 @@
 {
   "name": "answers-hitchhiker-theme",
-  "version": "1.21.0",
+  "version": "1.21.1",
   "description": "Toolchain for use with the HH Theme",
   "main": "Gruntfile.js",
   "scripts": {
