@@ -1,3 +1,5 @@
+const { ESBuildMinifyPlugin } = require('esbuild-loader')
+
 module.exports = () => {
   const InlineAssetHtmlPlugin = require('./InlineAssetHtmlPlugin');
   return {
@@ -29,6 +31,14 @@ module.exports = () => {
           }
         }
       ]
-    }
+    },
+    optimization: {
+      minimizer: [
+        new ESBuildMinifyPlugin({
+          target: 'es5',
+          css: true
+        })
+      ]
+    },
   };
 }

@@ -6,6 +6,7 @@ const HtmlPlugin = require('html-webpack-plugin');
 const RemovePlugin = require('remove-files-webpack-plugin');
 const { merge } = require('webpack-merge');
 const cssnano = require('cssnano');
+const { execSync } = require('child_process');
 
 module.exports = function () {
   const jamboConfig = require('./jambo.json');
@@ -155,9 +156,14 @@ module.exports = function () {
     )();
     return merge(commonConfig, devConfig);
   } else {
+    // When the static files are copied into the output folder, the executable bit is not maintained
+    // so we must set it in order to use esbuild
+    execSync(`chmod +x ./${jamboConfig.dirs.output}/static/node_modules/esbuild/bin/esbuild`);
+
     const prodConfig = require(
       `./${jamboConfig.dirs.output}/static/webpack/webpack.prod.js`
     )();
+
     return merge(commonConfig, prodConfig);
   }
 };
