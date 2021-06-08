@@ -156,10 +156,6 @@ module.exports = function () {
     )();
     return merge(commonConfig, devConfig);
   } else {
-    // When the static files are copied into the output folder, the executable bit is not maintained
-    // so we must set it in order to use esbuild
-    execSync(`chmod +x ./${jamboConfig.dirs.output}/static/node_modules/esbuild/bin/esbuild`);
-
     const prodConfig = require(
       `./${jamboConfig.dirs.output}/static/webpack/webpack.prod.js`
     )();
