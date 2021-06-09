@@ -23,16 +23,18 @@ class Photographer {
     await this._captureVerticalMapSearch();
     await this._captureVerticalFullPageMapSearch();
     await this._captureDirectAnswers();
+  }
 
+  async captureSnapshotsES() {
     await this._captureUniversalSearchES();
   }
 
   async _captureUniversalSearchES () {
     await this._pageNavigator.gotoUniversalPage();
-    await this._camera.snapshot('universal-search');
+    await this._camera.snapshot('es-universal-search');
 
     await this._pageNavigator.gotoUniversalPage({ query: 'a' });
-    await this._camera.snapshot('universal-search--no-results');
+    await this._camera.snapshot('es-universal-search--no-results');
   }
   
   async _captureUniversalSearch () {

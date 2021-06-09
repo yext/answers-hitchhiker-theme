@@ -93,4 +93,6 @@ Object.entries(verticalConfiguration).forEach(([pageName, config]) => {
   execSync(`npx jambo vertical --name ${pageName} --verticalKey ${config.verticalKey} --template ${config.template} --cardName ${config.cardName} --locales es`);
   configMerger.mergeConfigForPage(pageName);
   pagePatcher.applyPatchToPage(pageName);
+  configMerger.mergeConfigForPage(pageName + '.es');
+  pagePatcher.applyPatchToPage(pageName + '.es');
 });

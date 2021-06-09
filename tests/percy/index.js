@@ -22,14 +22,15 @@ PercyScript.run(async (page, percySnapshot) => {
   const es_iframePageNavigator = new IframePageNavigator(page, `http://localhost:${PORT}/es/`, 'iframe_test');
 
   const standardCamera = new Camera(percySnapshot);
-  const iframeCamera = new Camera(percySnapshot, true);
+  // const iframeCamera = new Camera(percySnapshot, true);
 
-  await (new Photographer(standardPageNavigator, standardCamera).captureSnapshots());
-  await (new Photographer(iframePageNavigator, iframeCamera).captureSnapshots());
+  await (new Photographer(es_standardPageNavigator, standardCamera).captureSnapshotsES());
 
-
-  await (new Photographer(es_standardPageNavigator, standardCamera).captureSnapshots());
-  await (new Photographer(es_iframePageNavigator, iframeCamera).captureSnapshots());
+  
+  // await (new Photographer(standardPageNavigator, standardCamera).captureSnapshots());
+  
+  // await (new Photographer(iframePageNavigator, iframeCamera).captureSnapshots());
+  // await (new Photographer(es_iframePageNavigator, iframeCamera).captureSnapshotsES());
 
   server.shutdown();
 });
