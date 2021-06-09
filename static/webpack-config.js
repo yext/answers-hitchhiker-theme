@@ -6,7 +6,6 @@ const HtmlPlugin = require('html-webpack-plugin');
 const RemovePlugin = require('remove-files-webpack-plugin');
 const { merge } = require('webpack-merge');
 const cssnano = require('cssnano');
-const { execSync } = require('child_process');
 
 module.exports = function () {
   const jamboConfig = require('./jambo.json');
@@ -159,7 +158,6 @@ module.exports = function () {
     const prodConfig = require(
       `./${jamboConfig.dirs.output}/static/webpack/webpack.prod.js`
     )();
-
     return merge(commonConfig, prodConfig);
   }
 };
