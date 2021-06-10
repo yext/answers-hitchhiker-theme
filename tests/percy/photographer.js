@@ -38,7 +38,7 @@ class Photographer {
     await this._pageNavigator.gotoUniversalPage({ query: 'what if i forget my password?'});
     await this._pageNavigator.click('.HitchhikerFaqAccordion-toggle')
     await this._camera.snapshot('universal-search--faq-accordion');
-     
+
     await this._pageNavigator.gotoUniversalPage({ query: 'yext answers'});
     await this._camera.snapshot('universal-search--product-prominentimage');
   }

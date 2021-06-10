@@ -15,11 +15,17 @@ class StandardPageNavigator extends PageNavigator {
     this._page = page;
     this._siteUrl = siteUrl;
     this._defaultLocale = defaultLocale;
+
+    /**
+     * Locale param for the site's url during page navigation
+     * 
+     * @type {string}
+     */
     this._localeUrlPath = '';
   }
 
   /**
-   * Set locale param for the site's url
+   * Sets locale param for the site's url based on given locale
    * 
    * @param {string} locale 
    */
