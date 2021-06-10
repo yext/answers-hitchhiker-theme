@@ -6,7 +6,7 @@
 /**
  * Responsible for determining which snapshots to take
  */
-class Photographer {
+ class Photographer {
   /**
    * @param {PageNavigator} pageNavigator
    * @param {Camera} camera
@@ -23,18 +23,6 @@ class Photographer {
     await this._captureVerticalMapSearch();
     await this._captureVerticalFullPageMapSearch();
     await this._captureDirectAnswers();
-  }
-
-  async captureSnapshotsES() {
-    await this._captureUniversalSearchES();
-  }
-
-  async _captureUniversalSearchES () {
-    await this._pageNavigator.gotoUniversalPage();
-    await this._camera.snapshot('es-universal-search');
-
-    await this._pageNavigator.gotoUniversalPage({ query: 'a' });
-    await this._camera.snapshot('es-universal-search--no-results');
   }
   
   async _captureUniversalSearch () {
@@ -82,8 +70,8 @@ class Photographer {
     await this._pageNavigator.gotoVerticalPage('people', { query: 'a' });
     await this._camera.snapshot('vertical-grid-search');
 
-    await this._pageNavigator.gotoVerticalPage('people', { query: 'vrginia' });
-    await this._camera.snapshot('vertical-grid-search--spellcheck');
+    // await this._pageNavigator.gotoVerticalPage('people', { query: 'vrginia' });
+    // await this._camera.snapshot('vertical-grid-search--spellcheck');
 
     await this._pageNavigator.gotoVerticalPage('products', { query: 'yext answers' });
     await this._camera.snapshot('vertical-grid-search--product-prominentvideo');
