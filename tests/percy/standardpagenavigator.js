@@ -19,12 +19,12 @@ class StandardPageNavigator extends PageNavigator {
   }
 
   /**
-   * Set locale for the site
+   * Set locale param for the site's url
    * 
    * @param {string} locale 
    */
   setCurrentLocale(locale) {
-    this._localeUrlPath = locale === this.defaultLocale? '' : '/' + locale;
+    this._localeUrlPath = locale === this._defaultLocale? '' : '/' + locale;
   }
 
   async gotoUniversalPage(queryParams = {}) {

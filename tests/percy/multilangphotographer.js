@@ -81,6 +81,9 @@ class MultilangPhotographer {
     await this._pageNavigator.gotoVerticalPage('people', { query: 'vrginia' });
     await this._camera.snapshot(this._locale + '--vertical-grid-search--spellcheck');
 
+    await this._pageNavigator.gotoVerticalPage('products', { query: 'yext answers' });
+    await this._camera.snapshot('vertical-grid-search--product-prominentvideo');
+
     await this._pageNavigator.gotoVerticalPage('products_clickable_image', { query: 'yext answers' });
     await this._camera.snapshot(this._locale + '--vertical-grid-search--product-prominentimage-clickable');
   }
@@ -118,6 +121,14 @@ class MultilangPhotographer {
     await this._pageNavigator
       .gotoVerticalPage('locations_full_page_map_with_filters', { query: 'virginia' });
     await this._camera.snapshotDesktopOnly(this._locale + '--vertical-full-page-map-with-filters--nlp-filters__desktop-view');
+  }
+
+  async _captureDirectAnswers () {
+    await this._pageNavigator.gotoUniversalPage({ query: 'bryan reed phone number' });
+    await this._camera.snapshot(this._locale + '--field-direct-answer');
+
+    await this._pageNavigator.gotoUniversalPage({ query: 'where was joe exotic born?' });
+    await this._camera.snapshot(this._locale + '--documentsearch-direct-answer')
   }
 }
   

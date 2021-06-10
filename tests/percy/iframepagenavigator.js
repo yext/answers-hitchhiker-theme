@@ -17,28 +17,28 @@ class IframePageNavigator extends PageNavigator {
     this._siteUrl = siteUrl;
     this._iframePage = iframePage;
     this._defaultLocale = defaultLocale;
-    this._localeUrlPath = '';
+    this._localeUrlPath = '&verticalUrl=';
   }
   
   /**
-   * Set locale for the site
+   * Set locale param for the site's url
    * 
    * @param {string} locale 
    */
   setCurrentLocale(locale) {
-    this._localeUrlPath = locale === this.defaultLocale? '' : '/' + locale;
+    this._localeUrlPath = locale === this._defaultLocale? '&verticalUrl=' : '&verticalUrl=' + locale + "/";
   }
 
   async gotoUniversalPage(queryParams = {}) {
     const queryParamsString = getQueryParamsString(queryParams);
-    const url = `${this._siteUrl}${this._localeUrlPath}/${this._iframePage}.html?${queryParamsString}`;
+    const url = `${this._siteUrl}/${this._iframePage}.html?${queryParamsString}${this._localeUrlPath}`;
     await this._page.goto(url);
     await waitTillHTMLRendered(this._page);
   }
 
   async gotoVerticalPage(vertical, queryParams = {}) {
     const queryParamsString = getQueryParamsString(queryParams);
-    const url = `${this._siteUrl}${this._localeUrlPath}/${this._iframePage}.html?verticalUrl=${vertical}.html&${queryParamsString}`;
+    const url = `${this._siteUrl}/${this._iframePage}.html?${this._localeUrlPath}${vertical}.html&${queryParamsString}`;
     await this._page.goto(url);
     await waitTillHTMLRendered(this._page);
   }
