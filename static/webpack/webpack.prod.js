@@ -1,10 +1,13 @@
 const { ESBuildMinifyPlugin } = require('esbuild-loader')
 
-module.exports = () => {
+module.exports = (jamboConfig) => {
   const InlineAssetHtmlPlugin = require('./InlineAssetHtmlPlugin');
   return {
     mode: 'production',
     devtool: 'source-map',
+    entry: {
+      'bundle-legacy': `./${jamboConfig.dirs.output}/static/entry-legacy.js`,
+    },
     plugins: [
       new InlineAssetHtmlPlugin()
     ],
