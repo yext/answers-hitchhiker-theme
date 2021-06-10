@@ -36,20 +36,20 @@
     },
     "KM": {
       "universalSectionTemplate": "grid-two-columns",
-      "cardType": "financial-professional-location",
+      "cardType": "multilang-financial-professional-location",
       "mapConfig": {
         "mapProvider": "Google"
       }
     },
     "products": {
       "universalSectionTemplate": "grid-three-columns",
-      "cardType": "product-prominentimage"
+      "cardType": "multilang-product-prominentimage"
     },
     "links": {
-      "cardType": "link-standard"
+      "cardType": "multilang-link-standard"
     },
     "healthcare_professionals": {
-      "cardType": "professional-location"
+      "cardType": "multilang-professional-location"
     }
   }
 }

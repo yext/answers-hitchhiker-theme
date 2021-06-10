@@ -18,27 +18,27 @@ const verticalConfiguration = {
   locations: {
     verticalKey: 'KM',
     template: 'vertical-map',
-    cardName: 'location-standard'
+    cardName: 'multilang-location-standard'
   },
   locations_google: {
     verticalKey: 'KM',
     template: 'vertical-map',
-    cardName: 'location-standard'
+    cardName: 'multilang-location-standard'
   },
   locations_full_page_map: {
     verticalKey: 'KM',
     template: 'vertical-full-page-map',
-    cardName: 'location-standard'
+    cardName: 'multilang-location-standard'
   },
   locations_full_page_map_with_filters: {
     verticalKey: 'KM',
     template: 'vertical-full-page-map',
-    cardName: 'location-standard'
+    cardName: 'multilang-location-standard'
   },
   people: {
     verticalKey: 'people',
     template: 'vertical-grid',
-    cardName: 'standard'
+    cardName: 'multilang-standard'
   },
   products: {
     verticalKey: 'products',
@@ -48,22 +48,22 @@ const verticalConfiguration = {
   products_clickable_image: {
     verticalKey: 'products',
     template: 'vertical-grid',
-    cardName: 'product-prominentimage-clickable'
+    cardName: 'multilang-product-prominentimage-clickable'
   },
   financial_professionals: {
     verticalKey: 'financial_professionals',
     template: 'vertical-standard',
-    cardName: 'financial-professional-location'
+    cardName: 'multilang-financial-professional-location'
   },
   healthcare_professionals: {
     verticalKey: 'healthcare_professionals',
     template: 'vertical-grid',
-    cardName: 'professional-standard'
+    cardName: 'multilang-professional-standard'
   },
   jobs: {
     verticalKey: 'jobs',
     template: 'vertical-standard',
-    cardName: 'job-standard'
+    cardName: 'multilang-job-standard'
   },
   help_articles: {
     verticalKey: 'help_articles',
@@ -73,7 +73,7 @@ const verticalConfiguration = {
   menu_items: {
     verticalKey: 'menu_items',
     template: 'vertical-grid',
-    cardName: 'menuitem-standard'
+    cardName: 'multilang-menuitem-standard'
   }
 };
 
