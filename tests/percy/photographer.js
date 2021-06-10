@@ -6,7 +6,7 @@
 /**
  * Responsible for determining which snapshots to take
  */
- class Photographer {
+class Photographer {
   /**
    * @param {PageNavigator} pageNavigator
    * @param {Camera} camera
