@@ -9,24 +9,36 @@ class IframePageNavigator extends PageNavigator {
    * @param {import('puppeteer').Page} page A Pupeteer Page
    * @param {string} siteUrl A url to the index of the site
    * @param {string} iframePage The name of the iframe page
+   * @param {string} defaultLocale default locale config of the site
    */
-  constructor(page, siteUrl, iframePage) {
+  constructor(page, siteUrl, iframePage, defaultLocale='en') {
     super();
     this._page = page;
     this._siteUrl = siteUrl;
     this._iframePage = iframePage;
+    this._defaultLocale = defaultLocale;
+    this._localeUrlPath = '';
+  }
+  
+  /**
+   * Set locale for the site
+   * 
+   * @param {string} locale 
+   */
+  setCurrentLocale(locale) {
+    this._localeUrlPath = locale === this.defaultLocale? '' : '/' + locale;
   }
 
   async gotoUniversalPage(queryParams = {}) {
     const queryParamsString = getQueryParamsString(queryParams);
-    const url = `${this._siteUrl}/${this._iframePage}.html?${queryParamsString}`;
+    const url = `${this._siteUrl}${this._localeUrlPath}/${this._iframePage}.html?${queryParamsString}`;
     await this._page.goto(url);
     await waitTillHTMLRendered(this._page);
   }
 
   async gotoVerticalPage(vertical, queryParams = {}) {
     const queryParamsString = getQueryParamsString(queryParams);
-    const url = `${this._siteUrl}/${this._iframePage}.html?verticalUrl=${vertical}.html&${queryParamsString}`;
+    const url = `${this._siteUrl}${this._localeUrlPath}/${this._iframePage}.html?verticalUrl=${vertical}.html&${queryParamsString}`;
     await this._page.goto(url);
     await waitTillHTMLRendered(this._page);
   }
