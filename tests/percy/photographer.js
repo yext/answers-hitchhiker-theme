@@ -70,8 +70,8 @@
     await this._pageNavigator.gotoVerticalPage('people', { query: 'a' });
     await this._camera.snapshot('vertical-grid-search');
 
-    // await this._pageNavigator.gotoVerticalPage('people', { query: 'vrginia' });
-    // await this._camera.snapshot('vertical-grid-search--spellcheck');
+    await this._pageNavigator.gotoVerticalPage('people', { query: 'vrginia' });
+    await this._camera.snapshot('vertical-grid-search--spellcheck');
 
     await this._pageNavigator.gotoVerticalPage('products', { query: 'yext answers' });
     await this._camera.snapshot('vertical-grid-search--product-prominentvideo');

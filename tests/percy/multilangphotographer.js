@@ -82,9 +82,6 @@
       await this._pageNavigator.gotoVerticalPage('people', { query: 'vrginia' });
       await this._camera.snapshot(this._locale + '--vertical-grid-search--spellcheck');
   
-      await this._pageNavigator.gotoVerticalPage('products', { query: 'yext answers' });
-      await this._camera.snapshot(this._locale + '--vertical-grid-search--product-prominentvideo');
-  
       await this._pageNavigator.gotoVerticalPage('products_clickable_image', { query: 'yext answers' });
       await this._camera.snapshot(this._locale + '--vertical-grid-search--product-prominentimage-clickable');
     }
