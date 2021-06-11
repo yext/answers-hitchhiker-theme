@@ -60,21 +60,27 @@ class ThemeMap {
   async waitForZoomStabilization () {
     const pollingIntervalMsecs = 500;
     const minNumStableIntervals = 3;
+    const maxNumIntervals= 10;
     let previousZoom = await this.getZoom();
     let numStableIntervals = 0;
+    let numIntervals = 0;
     let isZoomStabilized = false;
+    let isMaxIntervalsReached = false;
 
-    while (!isZoomStabilized) {
+    while (!isZoomStabilized && !isMaxIntervalsReached) {
       await t.wait(pollingIntervalMsecs);
       const currentZoom = await this.getZoom();
 
-      if (currentZoomSize === previousZoom) {
+      if (currentZoom === previousZoom) {
         numStableIntervals++;
       } else {
         numStableIntervals = 0;
       }
 
+      numIntervals++;
+
       isZoomStabilized = (numStableIntervals >= minNumStableIntervals);
+      isMaxIntervalsReached = (numIntervals >= maxNumIntervals);
       previousZoom = currentZoom;
     }
   }
