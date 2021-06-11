@@ -43,6 +43,10 @@ class ThemeMap {
     await t.click(this._canvas);
   }
 
+  /**
+   * Gets the current zoom of the map
+   * @returns {Promise<number>}
+   */
   async getZoom () {
     const zoom = await ClientFunction(() => {
       return ANSWERS
@@ -55,7 +59,7 @@ class ThemeMap {
   }
 
   /**
-   * Waits for the map zoom to sabilize
+   * Waits for the map zoom to stabilize
    */
   async waitForZoomStabilization () {
     const pollingIntervalMsecs = 500;
