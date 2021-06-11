@@ -2,16 +2,16 @@ import { PORT } from '../constants';
 import SearchBar from '../blocks/searchbar';
 import VerticalResults from '../blocks/verticalresults';
 import ThemeMap from '../blocks/thememap';
-import Filters from '../blocks/filters';
+import CollapsibleFilters from '../blocks/collapsiblefilters';
 
 fixture`Vertical Full Page Map with Filters and Clusters`
   .page(`http://localhost:${PORT}/locations_full_page_map_with_filters`)
 
 test('Clicking on a pin closes the filter view', async t => {
   await SearchBar.submitQuery('virginia');
-  await Filters.viewFilters();
+  await CollapsibleFilters.viewFilters();
   await ThemeMap.selectPin();
-  const isFilterViewOpen = await Filters.isFilterViewOpen();
+  const isFilterViewOpen = await CollapsibleFilters.isFilterViewOpen();
   await t.expect(isFilterViewOpen).notOk();
 });
 

@@ -1,9 +1,9 @@
 import { Selector, t } from 'testcafe';
 
 /**
- * Models the user interaction with filters
+ * Models the user interaction with collapsible filters
  */
-class Filters {
+class CollapsibleFilters {
   constructor () {
     this._viewFiltersButton = Selector('.js-changeFilters');
     this._viewResultsButton = Selector('.Hitchhiker-ViewResultsButton');
@@ -33,4 +33,4 @@ class Filters {
   }
 }
 
-export default new Filters();
+export default new CollapsibleFilters();
