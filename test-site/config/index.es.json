@@ -12,7 +12,7 @@
           "cardType": "documentsearch-standard"
         },
         "FIELD_VALUE": {
-          "cardType": "allfields-custom"
+          "cardType": "multilang-allfields-standard"
         }
       }
     },
