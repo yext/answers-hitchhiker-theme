@@ -1,4 +1,4 @@
-import { Selector } from 'testcafe';
+import { Selector, t } from 'testcafe';
 
 /**
  * Models the user interaction with a {import('@yext/answers-search-ui').VerticalResultsComponent}.
@@ -6,9 +6,12 @@ import { Selector } from 'testcafe';
 class VerticalResults {
   constructor () {
     this._selector = Selector('.yxt-Results')
+    this._resultsWrapper = Selector('.Answers-resultsWrapper');
     this._focusedCard = Selector('.yxt-Card--pinFocused');
+    this._firstCard = Selector('.yxt-Card');
     this._noResults = Selector('.yxt-AlternativeVerticals-noResultsInfo');
     this._resultsCount = Selector('.yxt-VerticalResultsCount-total');
+    this._resultsCountStart = Selector('.yxt-VerticalResultsCount-start');
   }
 
   /**
@@ -23,7 +26,7 @@ class VerticalResults {
   }
 
   /**
-   * Returns the number of results from the VerticalResultsCount.
+   * Returns the number of results from the VerticalResultsCount-total.
    * @returns {Promise<number>}
    */
   async getResultsCountTotal () {
@@ -32,19 +35,47 @@ class VerticalResults {
   }
 
   /**
-   * Gets a selector for the card associated with the currently focused map pin.
-   * @returns {Selector}
+   * Returns the number of results from the VerticalResultsCount-start.
+   * @returns {Promise<number>}
    */
-  getFocusedCard () {
-    return this._focusedCard;
+   async getResultsCountStart () {
+    const countText = await this._resultsCountStart.innerText;
+    return Number.parseInt(countText);
   }
 
   /**
-   * Gets a selector for the results div.
-   * @returns {Selector}
+   * Returns true if a card from the vertical results is focused
+   * @returns {Promise<boolean>}
    */
-  getResults () {
-    return this._selector;
+  async isCardFocused () {
+    return this._focusedCard.exists;
+  }
+
+  /**
+   * Clicks the first result card
+   */
+  async clickFirstCard () {
+    await t.click(this._firstCard);
+  }
+
+  /**
+   * Returns true if results are present
+   * @returns {Promise<boolean>}
+   */
+  async isResultsPresent () {
+    return this._selector.exists;
+  }
+
+  /**
+   * Gets the number of pixels that the element's content is scrolled upward
+   * @returns {Promise<number>}
+   */
+  async getScrollTop () {
+    return this._resultsWrapper.scrollTop
+  }
+
+  async scrollToBottom () {
+    await t.scroll(this._resultsWrapper, 'bottom');
   }
 }
 

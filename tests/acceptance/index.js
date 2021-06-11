@@ -21,7 +21,11 @@ runTests(argv.browsers);
  * @param {string[]} browsers The browsers to run the tests on
  */
 async function runTests (browsers) {
-  const testcafe = await createTestCafe();
+  const testcafe = await createTestCafe({
+    hostname: 'localhost',
+    port1:    1337,
+    port2:    1338
+  });
   try {
     const numberTestsFailed = await testcafe.createRunner()
       .src('tests/acceptance/suites/*.js')
@@ -31,8 +35,10 @@ async function runTests (browsers) {
     if (numberTestsFailed > 0) {
       process.exit(1);
     }
-  }
-  finally {
+  } catch (e) {
+    console.error(e);
+    process.exit(1);
+  } finally {
     await testcafe.close();
   }
 }

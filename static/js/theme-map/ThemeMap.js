@@ -309,7 +309,9 @@ class ThemeMap extends ANSWERS.Component {
           .setWidth(defaultPin.width)
           .setHeight(defaultPin.height)
           .setAnchorX(this.config.pinClusterAnchors.anchorX)
-          .setAnchorY(this.config.pinClusterAnchors.anchorY);
+          .setAnchorY(this.config.pinClusterAnchors.anchorY)
+          .setClass('yxt-PinCluster')
+          .setSRText(`Cluster of ${pinCount} results`);
 
         return properties;
       })
@@ -347,7 +349,8 @@ class ThemeMap extends ANSWERS.Component {
       .withPropertiesForStatus(status => {
         const properties = new PinProperties()
           .setIcon(status.selected ? 'selected' : ((status.hovered || status.focused) ? 'hovered' : 'default'))
-          .setSRText(index)
+          .setClass('yxt-Pin')
+          .setSRText(`Result number ${index}`)
           .setZIndex(status.selected ? 1 : ((status.hovered || status.focused) ? 2 : 0))
           .setAnchorX(this.config.pinAnchors.anchorX)
           .setAnchorY(this.config.pinAnchors.anchorY);
