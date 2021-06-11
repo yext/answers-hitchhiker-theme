@@ -10,7 +10,7 @@ class MultilangPhotographer {
   /**
    * @param {PageNavigator} pageNavigator
    * @param {Camera} camera
-   * @param {locale} locate locate set for the site when taking snapshot
+   * @param {locale} locale locale set for the site when taking snapshot
    */
   constructor(pageNavigator, camera, locale) {
     this._pageNavigator = pageNavigator;
@@ -54,14 +54,16 @@ class MultilangPhotographer {
         this._queries = {
           faq: '¿Qué pasa si olvidé mi contraseña?',
           job: 'trabajo',
-          menu_item: 'rollo'
+          menu_item: 'rollo',
+          field_direct_answers: 'descripción de bryan reed'
         }
         break;
       default:
         this._queries = {
           faq: 'what if i forgot my password?',
           job: 'job',
-          menu_item: 'roll'
+          menu_item: 'roll',
+          field_direct_answers: 'bryan reed description'
         }
     }
   }
@@ -160,11 +162,8 @@ class MultilangPhotographer {
   }
 
   async _captureDirectAnswers () {
-    await this._pageNavigator.gotoUniversalPage({ query: 'bryan reed phone number' });
+    await this._pageNavigator.gotoUniversalPage({ query: this._queries.field_direct_answers });
     await this._camera.snapshot(this.localeSnapshotTag + 'field-direct-answer');
-
-    await this._pageNavigator.gotoUniversalPage({ query: 'where was joe exotic born?' });
-    await this._camera.snapshot(this.localeSnapshotTag + 'documentsearch-direct-answer')
   }
 }
   
