@@ -48,7 +48,7 @@ test('Default initial search works and is enabled by default', async t => {
 
 test('Clicking off of a card removes the focus', async t => {
   await SearchBar.submitQuery('virginia');
-  await VerticalResults.clickFirstCard();
+  await VerticalResults.clickCard(1);
   const isCardFocused = await VerticalResults.isCardFocused();
   await t.expect(isCardFocused).ok();
   await ThemeMap.clickMap();

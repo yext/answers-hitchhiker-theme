@@ -8,7 +8,7 @@ class VerticalResults {
     this._selector = Selector('.yxt-Results')
     this._resultsWrapper = Selector('.Answers-resultsWrapper');
     this._focusedCard = Selector('.yxt-Card--pinFocused');
-    this._firstCard = Selector('.yxt-Card');
+    this._getNthCard = index => Selector(`.yxt-Card[data-opts*="${index}"]`);
     this._noResults = Selector('.yxt-AlternativeVerticals-noResultsInfo');
     this._resultsCount = Selector('.yxt-VerticalResultsCount-total');
     this._resultsCountStart = Selector('.yxt-VerticalResultsCount-start');
@@ -52,10 +52,10 @@ class VerticalResults {
   }
 
   /**
-   * Clicks the first result card
+   * Clicks the card specified by the card index
    */
-  async clickFirstCard () {
-    await t.click(this._firstCard);
+  async clickCard (cardIndex) {
+    await t.click(this._getNthCard(cardIndex));
   }
 
   /**
