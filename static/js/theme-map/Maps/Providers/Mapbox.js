@@ -38,10 +38,6 @@ class MapboxMap extends ProviderMap {
     this.map.on('zoomstart', () => this._zoomChangedHandler());
     this.map.on('zoomend', () => this._zoomEndHandler());
     this.map.on('click', (e) => {
-      document.querySelector('.YxtPage-content').remove();
-      let p = document.createElement('p');
-      p.innerText = e.originalEvent.target.nodeName;
-      document.querySelector('.YxtPage-wrapper').append(p);
       if (e.originalEvent.target.nodeName === 'CANVAS') {
         this._canvasClickHandler();
       }
