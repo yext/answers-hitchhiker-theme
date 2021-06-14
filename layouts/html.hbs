@@ -85,8 +85,7 @@
       });
       {{/babel}}
     </script>
-    <script src="{{relativePath}}/bundle.js" type="module" data-webpack-inline></script>
-    <script src="{{relativePath}}/bundle-legacy.js" nomodule></script>
+    {{> script/partials/bundle-script-tags }}
     {{#if global_config.googleAnalyticsId}}
       <!-- Global site tag (gtag.js) - Google Analytics -->
       <script async src="https://www.googletagmanager.com/gtag/js?id={{global_config.googleAnalyticsId}}"></script>
