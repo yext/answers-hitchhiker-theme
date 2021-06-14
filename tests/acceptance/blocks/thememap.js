@@ -7,7 +7,7 @@ class ThemeMap {
   constructor () {
     this._pin = Selector('.yxt-Pin button');
     this._pinCluster = Selector('.yxt-PinCluster button');
-    this._canvas = Selector('.Answers-map');
+    this._canvas = Selector('.Answers-mapWrapper');
     this._searchThisAreaToggle = Selector('.Answers-searchThisAreaToggleLabel');
     this._searchThisAreaButton = Selector('.js-searchThisAreaButton');
   }
