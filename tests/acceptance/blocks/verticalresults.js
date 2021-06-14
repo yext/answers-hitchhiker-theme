@@ -56,7 +56,6 @@ class VerticalResults {
    */
   async clickCard (cardIndex) {
     await t.click(this._getNthCard(cardIndex));
-    await t.wait(1000); // Added to allow the tests to pass in IE11
   }
 
   /**
