@@ -5,6 +5,7 @@ const MultilangPhotographer = require('./multilangphotographer');
 const StandardPageNavigator = require('./standardpagenavigator');
 const IframePageNavigator = require('./iframepagenavigator');
 const Camera = require('./camera');
+const queryConfig = require('./queries.json');
 
 const PORT = 5042;
 
@@ -27,8 +28,12 @@ PercyScript.run(async (page, percySnapshot) => {
 
   standardPageNavigator.setCurrentLocale('es');
   iframePageNavigator.setCurrentLocale('es');
-  await (new MultilangPhotographer(standardPageNavigator, standardCamera, 'es').captureSnapshots());
-  await (new MultilangPhotographer(iframePageNavigator, iframeCamera, 'es').captureSnapshots());
+
+  standardCamera.setLocale('es');
+  iframeCamera.setLocale('es');
+  
+  await (new MultilangPhotographer(standardPageNavigator, standardCamera, queryConfig.es).captureSnapshots());
+  await (new MultilangPhotographer(iframePageNavigator, iframeCamera, queryConfig.es).captureSnapshots());
 
 
   server.shutdown();
