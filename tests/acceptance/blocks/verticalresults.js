@@ -22,25 +22,25 @@ class VerticalResults {
     if (await this._noResults.exists) {
       return 0;
     }
-    return await this.getResultsCountTotal();
+    return await this.getResultsCount();
   }
 
   /**
    * Returns the number of results from the VerticalResultsCount-total.
    * @returns {Promise<number>}
    */
-  async getResultsCountTotal () {
+  async getResultsCount () {
     const countText = await this._resultsCount.innerText;
     return Number.parseInt(countText);
   }
 
   /**
-   * Returns the number of results from the VerticalResultsCount-start.
+   * Returns the offset between the first result and the first result displayed
    * @returns {Promise<number>}
    */
-   async getResultsCountStart () {
+   async getResultsOffset () {
     const countText = await this._resultsCountStart.innerText;
-    return Number.parseInt(countText);
+    return Number.parseInt(countText) - 1;
   }
 
   /**

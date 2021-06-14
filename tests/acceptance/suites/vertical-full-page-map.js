@@ -56,10 +56,10 @@ test('Clicking off of a card removes the focus', async t => {
 });
 
 // test('Pagination works', async t => {
-//   const initialResultsStartIndex = await VerticalResults.getResultsCountStart();
+//   const initialResultsOffset = await VerticalResults.getResultsOffset();
 //   await Pagination.nextResults();
-//   const updatedResultsStartIndex = await VerticalResults.getResultsCountStart();
-//   await t.expect(initialResultsStartIndex).notEql(updatedResultsStartIndex);
+//   const updatedResultsOffset = await VerticalResults.getResultsOffset();
+//   await t.expect(initialResultsOffset).notEql(updatedResultsOffset);
 // });
 
 // test('Pagination scrolls the results to the top', async t => {
