@@ -4,6 +4,7 @@ module.exports = () => {
   const InlineAssetHtmlPlugin = require('./InlineAssetHtmlPlugin');
   return {
     mode: 'production',
+    devtool: 'source-map',
     plugins: [
       new InlineAssetHtmlPlugin()
     ],
