@@ -41,7 +41,6 @@ class ThemeMap {
 
   async clickMap () {
     await t.click(this._canvas);
-    await t.wait(1000);
   }
 
   /**

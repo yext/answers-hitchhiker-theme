@@ -7,44 +7,44 @@ import Pagination from '../blocks/pagination';
 fixture`Vertical Full Page Map`
   .page(`http://localhost:${PORT}/locations_full_page_map`)
 
-test('Can search and get results', async t => {
-  await SearchBar.submitQuery('virginia');
-  const isResultsPresent = await VerticalResults.isResultsPresent();
-  await t.expect(isResultsPresent).ok();
-});
+// test('Can search and get results', async t => {
+//   await SearchBar.submitQuery('virginia');
+//   const isResultsPresent = await VerticalResults.isResultsPresent();
+//   await t.expect(isResultsPresent).ok();
+// });
 
-test('Clicking on a pin focuses on a results card', async t => {
-  await SearchBar.submitQuery('virginia');
-  let isCardFocused = await VerticalResults.isCardFocused();
-  await t.expect(isCardFocused).notOk();
-  await ThemeMap.selectPin();
-  isCardFocused = await VerticalResults.isCardFocused();
-  await t.expect(isCardFocused).ok();
-});
+// test('Clicking on a pin focuses on a results card', async t => {
+//   await SearchBar.submitQuery('virginia');
+//   let isCardFocused = await VerticalResults.isCardFocused();
+//   await t.expect(isCardFocused).notOk();
+//   await ThemeMap.selectPin();
+//   isCardFocused = await VerticalResults.isCardFocused();
+//   await t.expect(isCardFocused).ok();
+// });
 
-test('Search when map moves works', async t => {
-  await SearchBar.submitQuery('virginia');
-  const resultsCountBeforeDrag = await VerticalResults.getNumResults();
-  await ThemeMap.dragLeft();
-  await ThemeMap.dragLeft();
-  const resultsCountAfterDrag = await VerticalResults.getNumResults();
-  await t.expect(resultsCountBeforeDrag !== resultsCountAfterDrag).ok();
-});
+// test('Search when map moves works', async t => {
+//   await SearchBar.submitQuery('virginia');
+//   const resultsCountBeforeDrag = await VerticalResults.getNumResults();
+//   await ThemeMap.dragLeft();
+//   await ThemeMap.dragLeft();
+//   const resultsCountAfterDrag = await VerticalResults.getNumResults();
+//   await t.expect(resultsCountBeforeDrag !== resultsCountAfterDrag).ok();
+// });
 
-test('Search this area button works', async t => {
-  await SearchBar.submitQuery('virginia');
-  await ThemeMap.toggleSearchThisArea();
-  const resultsCountBeforeDrag = await VerticalResults.getNumResults();
-  await ThemeMap.dragLeft();
-  await ThemeMap.clickSearchThisAreaButton();
-  const resultsCountAfterDrag = await VerticalResults.getNumResults();
-  await t.expect(resultsCountBeforeDrag !== resultsCountAfterDrag).ok();
-});
+// test('Search this area button works', async t => {
+//   await SearchBar.submitQuery('virginia');
+//   await ThemeMap.toggleSearchThisArea();
+//   const resultsCountBeforeDrag = await VerticalResults.getNumResults();
+//   await ThemeMap.dragLeft();
+//   await ThemeMap.clickSearchThisAreaButton();
+//   const resultsCountAfterDrag = await VerticalResults.getNumResults();
+//   await t.expect(resultsCountBeforeDrag !== resultsCountAfterDrag).ok();
+// });
 
-test('Default initial search works and is enabled by default', async t => {
-  const resultsCount = await VerticalResults.getNumResults();
-  await t.expect(resultsCount).ok();
-});
+// test('Default initial search works and is enabled by default', async t => {
+//   const resultsCount = await VerticalResults.getNumResults();
+//   await t.expect(resultsCount).ok();
+// });
 
 test('Clicking off of a card removes the focus', async t => {
   await VerticalResults.clickCard(0);
@@ -55,18 +55,18 @@ test('Clicking off of a card removes the focus', async t => {
   await t.expect(isCardFocusedAfterMapClick).notOk();
 });
 
-test('Pagination works', async t => {
-  const initialResultsStartIndex = await VerticalResults.getResultsCountStart();
-  await Pagination.nextResults();
-  const updatedResultsStartIndex = await VerticalResults.getResultsCountStart();
-  await t.expect(initialResultsStartIndex).notEql(updatedResultsStartIndex);
-});
+// test('Pagination works', async t => {
+//   const initialResultsStartIndex = await VerticalResults.getResultsCountStart();
+//   await Pagination.nextResults();
+//   const updatedResultsStartIndex = await VerticalResults.getResultsCountStart();
+//   await t.expect(initialResultsStartIndex).notEql(updatedResultsStartIndex);
+// });
 
-test('Pagination scrolls the results to the top', async t => {
-  await VerticalResults.scrollToBottom();
-  const scrollTop = await VerticalResults.getScrollTop();
-  await t.expect(scrollTop).notEql(0);
-  await Pagination.nextResults();
-  const scrollTopAfterPagination = await VerticalResults.getScrollTop();
-  await t.expect(scrollTopAfterPagination).eql(0);
-});
+// test('Pagination scrolls the results to the top', async t => {
+//   await VerticalResults.scrollToBottom();
+//   const scrollTop = await VerticalResults.getScrollTop();
+//   await t.expect(scrollTop).notEql(0);
+//   await Pagination.nextResults();
+//   const scrollTopAfterPagination = await VerticalResults.getScrollTop();
+//   await t.expect(scrollTopAfterPagination).eql(0);
+// });
