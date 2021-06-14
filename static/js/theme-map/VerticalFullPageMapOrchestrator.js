@@ -443,6 +443,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
    * updating global storage.
    */
   deselectAllResults () {
+    alert('canvas was clicked');
     this.removeCssClassesForState(MobileStates.DETAIL_SHOWN);
 
     document.querySelectorAll('.yxt-Card--pinFocused').forEach((el) => {
