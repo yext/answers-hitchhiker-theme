@@ -39,7 +39,8 @@
       "cardType": "financial-professional-location",
       "mapConfig": {
         "mapProvider": "Google"
-      }
+      },
+      "icon": "static/assets/slapshot.png"
     },
     "products": {
       "universalSectionTemplate": "grid-three-columns",
