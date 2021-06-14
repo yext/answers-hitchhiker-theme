@@ -53,8 +53,7 @@ class ThemeMap {
     const zoom = await ClientFunction(() => {
       return ANSWERS
         .components
-        ._activeComponents
-        .find(component => component.name === 'VerticalFullPageMapOrchestrator')
+        .getActiveComponent('VerticalFullPageMapOrchestrator')
         .currentZoom
     })();
     return zoom;
