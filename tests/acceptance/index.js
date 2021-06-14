@@ -29,10 +29,12 @@ async function runTests (browsers) {
       .startApp(`npx serve -p ${PORT} test-site/public`, 4000)
       .run({ quarantineMode: true });
     if (numberTestsFailed > 0) {
+      await testcafe.close();
       process.exit(1);
     }
   } catch (e) {
     console.error(e);
+    await testcafe.close();
     process.exit(1);
   } finally {
     await testcafe.close();
