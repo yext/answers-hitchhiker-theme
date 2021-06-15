@@ -2,22 +2,24 @@ import { PORT } from '../constants';
 import SearchBar from '../blocks/searchbar';
 import VerticalResults from '../blocks/verticalresults';
 import ThemeMap from '../blocks/thememap';
+import Pagination from '../blocks/pagination';
 
 fixture`Vertical Full Page Map`
   .page(`http://localhost:${PORT}/locations_full_page_map`)
 
 test('Can search and get results', async t => {
   await SearchBar.submitQuery('virginia');
-  const results = VerticalResults.getResults();
-  await t.expect(results.exists).ok();
+  const isResultsPresent = await VerticalResults.isResultsPresent();
+  await t.expect(isResultsPresent).ok();
 });
 
 test('Clicking on a pin focuses on a results card', async t => {
   await SearchBar.submitQuery('virginia');
-  const focusedCard = VerticalResults.getFocusedCard();
-  await t.expect(focusedCard.exists).notOk();
-  await ThemeMap.selectMapboxPin();
-  await t.expect(focusedCard.exists).ok();
+  let isCardFocused = await VerticalResults.isCardFocused();
+  await t.expect(isCardFocused).notOk();
+  await ThemeMap.selectPin();
+  isCardFocused = await VerticalResults.isCardFocused();
+  await t.expect(isCardFocused).ok();
 });
 
 test('Search when map moves works', async t => {
@@ -37,4 +39,25 @@ test('Search this area button works', async t => {
   await ThemeMap.clickSearchThisAreaButton();
   const resultsCountAfterDrag = await VerticalResults.getNumResults();
   await t.expect(resultsCountBeforeDrag !== resultsCountAfterDrag).ok();
+});
+
+test('Default initial search works and is enabled by default', async t => {
+  const resultsCount = await VerticalResults.getNumResults();
+  await t.expect(resultsCount).ok();
+});
+
+test('Pagination works', async t => {
+  const initialResultsOffset = await VerticalResults.getResultsOffset();
+  await Pagination.nextResults();
+  const updatedResultsOffset = await VerticalResults.getResultsOffset();
+  await t.expect(initialResultsOffset).notEql(updatedResultsOffset);
+});
+
+test('Pagination scrolls the results to the top', async t => {
+  await VerticalResults.scrollToBottom();
+  const scrollTop = await VerticalResults.getScrollTop();
+  await t.expect(scrollTop).notEql(0);
+  await Pagination.nextResults();
+  const scrollTopAfterPagination = await VerticalResults.getScrollTop();
+  await t.expect(scrollTopAfterPagination).eql(0);
 });
