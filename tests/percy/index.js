@@ -27,14 +27,9 @@ PercyScript.run(async (page, percySnapshot) => {
   await (new Photographer(iframePageNavigator, iframeCamera).captureSnapshots());
 
   standardPageNavigator.setCurrentLocale('es');
-  iframePageNavigator.setCurrentLocale('es');
-
   standardCamera.setLocale('es');
-  iframeCamera.setLocale('es');
   
   await (new MultilangPhotographer(standardPageNavigator, standardCamera, queryConfig.es).captureSnapshots());
-  await (new MultilangPhotographer(iframePageNavigator, iframeCamera, queryConfig.es).captureSnapshots());
-
 
   server.shutdown();
 });
