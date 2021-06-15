@@ -7,7 +7,7 @@ class ThemeMap {
   constructor () {
     this._pin = Selector('.yxt-Pin button');
     this._pinCluster = Selector('.yxt-PinCluster button');
-    this._canvas = Selector('.mapboxgl-canvas');
+    this._canvas = Selector('.Answers-map');
     this._searchThisAreaToggle = Selector('.Answers-searchThisAreaToggleLabel');
     this._searchThisAreaButton = Selector('.js-searchThisAreaButton');
   }
@@ -43,19 +43,22 @@ class ThemeMap {
     await t.click(this._canvas);
   }
 
+  /**
+   * Gets the current zoom of the map
+   * @returns {Promise<number>}
+   */
   async getZoom () {
     const zoom = await ClientFunction(() => {
       return ANSWERS
         .components
-        ._activeComponents
-        .find(component => component.name === 'VerticalFullPageMapOrchestrator')
+        .getActiveComponent('VerticalFullPageMapOrchestrator')
         .currentZoom
     })();
     return zoom;
   }
 
   /**
-   * Waits for the map zoom to sabilize
+   * Waits for the map zoom to stabilize
    */
   async waitForZoomStabilization () {
     const pollingIntervalMsecs = 500;

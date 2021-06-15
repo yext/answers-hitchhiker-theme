@@ -9,6 +9,10 @@ const pageTemplates = [
   'vertical-full-page-map'
 ];
 
+const tempToVertPath = 'templates/common-partials/script/verticalresults';
+const partialPath = path.resolve(__dirname, `../../../${tempToVertPath}.hbs`);
+hbs.registerPartial(tempToVertPath, fs.readFileSync(partialPath, 'utf-8'));
+
 for (const pageTemplate of pageTemplates) {
   const compiledTemplate = getCompiledVerticalResultsTemplate(pageTemplate);
 

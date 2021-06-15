@@ -33,7 +33,7 @@ export default class OpenStatusMessageFactory {
               <span class="Hours-statusText Hours-opensToday">
                 <span class="Hours-statusText--current Hours-closed">
                   ${this._localizer.getTranslation(OpenStatusStrings.CLOSED)}
-                </span> · ${OpenStatusStrings.OPENS_AT} <span class="HoursInterval-time Hours-opensAtTime">
+                </span> · ${this._localizer.getTranslation(OpenStatusStrings.OPENS_AT)} <span class="HoursInterval-time Hours-opensAtTime">
                   ${time}
                 </span>
               </span>`;

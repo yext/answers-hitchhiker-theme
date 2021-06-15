@@ -46,21 +46,11 @@ test('Default initial search works and is enabled by default', async t => {
   await t.expect(resultsCount).ok();
 });
 
-test('Clicking off of a card removes the focus', async t => {
-  await SearchBar.submitQuery('virginia');
-  await VerticalResults.clickCard(1);
-  const isCardFocused = await VerticalResults.isCardFocused();
-  await t.expect(isCardFocused).ok();
-  await ThemeMap.clickMap();
-  const isCardFocusedAfterMapClick = await VerticalResults.isCardFocused();
-  await t.expect(isCardFocusedAfterMapClick).notOk();
-});
-
 test('Pagination works', async t => {
-  const initialResultsStartIndex = await VerticalResults.getResultsCountStart();
+  const initialResultsOffset = await VerticalResults.getResultsOffset();
   await Pagination.nextResults();
-  const updatedResultsStartIndex = await VerticalResults.getResultsCountStart();
-  await t.expect(initialResultsStartIndex).notEql(updatedResultsStartIndex);
+  const updatedResultsOffset = await VerticalResults.getResultsOffset();
+  await t.expect(initialResultsOffset).notEql(updatedResultsOffset);
 });
 
 test('Pagination scrolls the results to the top', async t => {
