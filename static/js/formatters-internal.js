@@ -575,6 +575,8 @@ export function getYoutubeUrl(videos = []) {
   }
   const videoUrl = videos[0]?.video?.url;
   const youtubeVideoId = videoUrl?.split('watch?v=')[1];
-  const youtubeVideoUrl = youtubeVideoId ? 'https://www.youtube.com/embed/' + youtubeVideoId : null;
+  const youtubeVideoUrl = youtubeVideoId
+    ? 'https://www.youtube.com/embed/' + youtubeVideoId + '?enablejsapi=1' 
+    : null;
   return youtubeVideoUrl;
 }

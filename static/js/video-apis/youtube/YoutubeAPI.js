@@ -1,0 +1,23 @@
+import YoutubePlayer from './YoutubePlayer';
+
+/**
+ * Interacts with the Youtube Iframe API.
+ */
+export default class YoutubeAPI {
+  /**
+   * @param {YT} YT the youtube iframe api
+   */
+  constructor(YT) {
+    this.YT = YT;
+  }
+
+  /**
+   * Adds a new YT iframe player using the given element.
+   *
+   * @param {HTMLElement} el 
+   * @param {Function} onPlay 
+   */
+  addPlayer(el, { onPlay }) {
+    new YoutubePlayer(this.YT, el, onPlay);
+  }
+}
