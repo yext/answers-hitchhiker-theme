@@ -6,6 +6,12 @@
       // "translationFile": "<filepath>.po", // the filepath for the translation file
       // "urlOverride": "", // provide an override for the url path for this locale if you want it to be different than specified in the urlFormat object
       "experienceKey": "slanswers" //  the unique key of your search configuration for this locale
+    },
+    "es": {
+      // "fallback": [""], // allows you to specify locale fallbacks for this locale
+      // "translationFile": "../../translation/es.po", // the filepath for the translation file
+      // "urlOverride": "", // provide an override for the url path for this locale if you want it to be different than specified in the urlFormat object
+      "experienceKey": "slanswers-es" //  the unique key of your search configuration for this locale
     }
   },
   "urlFormat": {

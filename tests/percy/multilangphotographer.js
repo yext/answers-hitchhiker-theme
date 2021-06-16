@@ -4,16 +4,27 @@
  */
 
 /**
- * Responsible for determining which snapshots to take
+ * Responsible for determining which snapshots to take for specific locale
  */
-class Photographer {
+class MultilangPhotographer {
   /**
    * @param {PageNavigator} pageNavigator
    * @param {Camera} camera
+   * @param {Object<string, string>} queries custom queries for specific locale
    */
-  constructor(pageNavigator, camera) {
+  constructor(pageNavigator, camera, queries) {
     this._pageNavigator = pageNavigator;
     this._camera = camera;
+    this._queries = queries;
+  }
+
+  /**
+   * Sets custom queries based on locale
+   * 
+   * @param {Object<string, string>} queries
+   */
+  setLocaleQueries(queries) {
+    this._queries = queries;
   }
 
   async captureSnapshots() {
@@ -24,7 +35,7 @@ class Photographer {
     await this._captureVerticalFullPageMapSearch();
     await this._captureDirectAnswers();
   }
-  
+
   async _captureUniversalSearch () {
     await this._pageNavigator.gotoUniversalPage();
     await this._camera.snapshot('universal-search');
@@ -32,17 +43,14 @@ class Photographer {
     await this._pageNavigator.gotoUniversalPage({ query: 'a' });
     await this._camera.snapshot('universal-search--no-results');
 
-    await this._pageNavigator.gotoUniversalPage({ query: 'office sparce'});
-    await this._camera.snapshot('universal-search--spellcheck');
-
-    await this._pageNavigator.gotoUniversalPage({ query: 'what if i forget my password?'});
+    await this._pageNavigator.gotoUniversalPage({ query: this._queries.faq });
     await this._pageNavigator.click('.HitchhikerFaqAccordion-toggle')
     await this._camera.snapshot('universal-search--faq-accordion');
 
     await this._pageNavigator.gotoUniversalPage({ query: 'yext answers'});
     await this._camera.snapshot('universal-search--product-prominentimage');
   }
-  
+
   async _captureVerticalSearch () {
     await this._pageNavigator.gotoVerticalPage('events');
     await this._camera.snapshot('vertical-search');
@@ -50,19 +58,16 @@ class Photographer {
     await this._pageNavigator.gotoVerticalPage('events', { query: 'a' });
     await this._camera.snapshot('vertical-search--no-results');
 
-    await this._pageNavigator.gotoVerticalPage('events', { query: 'vrginia' });
-    await this._camera.snapshot('vertical-search--spellcheck');
-
     await this._pageNavigator.gotoVerticalPage('financial_professionals', { query: 'connor' });
     await this._camera.snapshot('vertical-search--financial-professional-location');
     
-    await this._pageNavigator.gotoVerticalPage('jobs', { query: 'job' });
+    await this._pageNavigator.gotoVerticalPage('jobs', { query: this._queries.job });
     await this._camera.snapshot('vertical-search--job-standard');
 
     await this._pageNavigator.gotoVerticalPage('help_articles', { query: 'slap chop' });
     await this._camera.snapshot('vertical-search--document-standard');
 
-    await this._pageNavigator.gotoVerticalPage('menu_items', { query: 'roll' });
+    await this._pageNavigator.gotoVerticalPage('menu_items', { query: this._queries.menu_item });
     await this._camera.snapshot('vertical-search--menuitem-standard');
   }
   
@@ -116,12 +121,9 @@ class Photographer {
   }
 
   async _captureDirectAnswers () {
-    await this._pageNavigator.gotoUniversalPage({ query: 'bryan reed phone number' });
+    await this._pageNavigator.gotoUniversalPage({ query: this._queries.field_direct_answers });
     await this._camera.snapshot('field-direct-answer');
-
-    await this._pageNavigator.gotoUniversalPage({ query: 'where was joe exotic born?' });
-    await this._camera.snapshot('documentsearch-direct-answer')
   }
 }
-
-module.exports = Photographer;
+  
+module.exports = MultilangPhotographer;
