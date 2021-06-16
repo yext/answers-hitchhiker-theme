@@ -115,11 +115,11 @@
     <script>
       {{#babel}}
       function iframeGetSearchParams() {
-        let params = new URLSearchParams(window.location.search);
+        let params = window.location.search.substr(1);
         let verticalUrl = window.location.pathname.substr(1);
         return verticalUrl 
-          ? params.toString() + '&verticalUrl=' + verticalUrl
-          : params.toString();
+          ? params + '&verticalUrl=' + verticalUrl
+          : params;
       }
       let iframeLoadedResolve;
       window.iframeLoaded = new Promise(resolve => {
