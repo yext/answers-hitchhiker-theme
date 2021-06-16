@@ -115,8 +115,8 @@
     <script>
       {{#babel}}
       function iframeGetSearchParams() {
-        let params = window.location.search.substr(1);
-        let verticalUrl = window.location.pathname.substr(1);
+        const params = window.location.search.substr(1);
+        const verticalUrl = window.location.pathname.substr(1);
         return verticalUrl 
           ? params + '&verticalUrl=' + verticalUrl
           : params;
