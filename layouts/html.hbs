@@ -116,11 +116,10 @@
       {{#babel}}
       function iframeGetSearchParams() {
         let params = new URLSearchParams(window.location.search);
-        let verticalUrl = window.location.pathname.substr(1)
-        if (verticalUrl) {
-          params.set('verticalUrl', verticalUrl);
-        }
-        return params.toString();
+        let verticalUrl = window.location.pathname.substr(1);
+        return verticalUrl 
+          ? params.toString() + '&verticalUrl=' + verticalUrl
+          : params.toString();
       }
       let iframeLoadedResolve;
       window.iframeLoaded = new Promise(resolve => {

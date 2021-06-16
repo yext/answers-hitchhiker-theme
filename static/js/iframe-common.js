@@ -16,7 +16,7 @@ export function generateIFrame(domain, queryParam, urlParam) {
     paramString = paramString.substr(1, paramString.length);
 
     // Decode ASCII forward slash to avod repeat encodings on page refreshes
-    paramString = paramString.replace("%2F", "/");
+    paramString = paramString.replaceAll("%2F", "/");
 
     // Parse the params out of the URL
     var params = paramString.split('&'),
