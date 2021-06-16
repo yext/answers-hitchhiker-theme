@@ -1,5 +1,8 @@
 import Player from '@vimeo/player';
 
+/**
+ * Interacts with the Vimeo Player API.
+ */
 class VimeoAPI {
   /**
    * Adds a new Vimeo iframe player using the given element.

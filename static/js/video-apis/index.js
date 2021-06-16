@@ -1,6 +1,4 @@
 /**
- * See https://developers.google.com/youtube/iframe_api_reference
- *
  * @returns {Promise<YoutubeAPI>}
  */
 export async function requireYoutubeAPI() {

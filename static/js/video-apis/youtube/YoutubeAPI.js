@@ -2,6 +2,7 @@ import YoutubePlayer from './YoutubePlayer';
 
 /**
  * Interacts with the Youtube Iframe API.
+ * See https://developers.google.com/youtube/iframe_api_reference
  */
 export default class YoutubeAPI {
   /**
