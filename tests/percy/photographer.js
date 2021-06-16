@@ -73,7 +73,7 @@ class Photographer {
     await this._pageNavigator.gotoVerticalPage('people', { query: 'vrginia' });
     await this._camera.snapshot('vertical-grid-search--spellcheck');
 
-    await this._pageNavigator.gotoVerticalPage('products');
+    await this._pageNavigator.gotoVerticalPage('products', { query: 'yext answers' });
     await this._camera.snapshot('vertical-grid-search--product-prominentvideo');
 
     await this._pageNavigator.gotoVerticalPage('products_clickable_image', { query: 'yext answers' });
