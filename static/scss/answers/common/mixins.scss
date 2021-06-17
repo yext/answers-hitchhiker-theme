@@ -11,12 +11,12 @@
 
 @mixin list_styling
 {
-  display: flex;
+  display: block;
   flex-direction: column;
   list-style-position: outside;
   margin-left: var(--yxt-base-spacing);
-  margin-top: var(--yxt-base-spacing);
-  margin-bottom: var(--yxt-base-spacing);
+  margin-top: calc(var(--yxt-base-spacing) / 2);
+  margin-bottom: calc(var(--yxt-base-spacing) / 2);
 }
 
 @mixin strong_styling
@@ -36,7 +36,7 @@
   margin-block-end: .33em;
   margin-inline-start: 0px;
   margin-inline-end: 0px;
-  font-weight: bold;
+  font-weight: var(--yxt-font-weight-semibold);
 }
 
 @mixin rich_text_formatting
@@ -55,7 +55,7 @@
 
   li
   {
-    margin-bottom: 0;
+    margin-bottom: calc(var(--yxt-base-spacing) / 2);
     margin-left: var(--yxt-base-spacing);
   }
 
@@ -92,7 +92,7 @@
 
   p
   {
-    margin-bottom: var(--yxt-base-spacing);
+    margin-bottom: 0;
   }
 
   s
@@ -135,7 +135,7 @@
     margin-inline-end: var(--yxt-base-spacing);
   }
 
-  h1 
+  h1, .js-yxt-rtfValue > *:first-child // The first item should also get h1 styling
   {
     @include header_styling;
     font-size: var(--yxt-font-size-xlg);
@@ -169,6 +169,10 @@
   {
     @include header_styling;
     font-size: var(--yxt-font-size-xs);
+  }
+
+  img {
+    margin-top: calc(var(--yxt-base-spacing) / 2);
   }
 }
 
