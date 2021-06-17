@@ -28,4 +28,4 @@ export { StorageKeys };
 import transformFacets from './transform-facets';
 export { transformFacets }
 
-export * from './video-apis/index';
+export * from './video-apis';

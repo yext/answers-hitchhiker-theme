@@ -13,7 +13,7 @@ class VimeoAPI {
   addPlayer(el, { onPlay }) {
     const player = new Player(el);
     player.on('play', () => {
-      onPlay()
+      onPlay();
     });
   }
 }
