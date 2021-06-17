@@ -5,6 +5,57 @@ class documentsearch_standardComponent extends BaseDirectAnswerCard['documentsea
     super(config, systemConfig);
   }
 
+  onMount() {
+    super.onMount();
+    // this.snipToHeight(document.querySelector('.js-yxt-rtfValue'), 200);
+  }
+
+  snipToHeight(element, height) {
+    if (!element) {
+      console.log('no element. returning');
+      return;
+    }
+    // We should proabably use element.childNodes instead so that we can also handle text nodes,
+    // however we will need to handle those appropriately since we cannot set `display: none` on those.
+    // Also we can't use offset height since that doesn't account for margin. We will need to update to
+    // account for that as well
+    if (element.children.length === 0 && element.offsetHeight > height) {
+      element.style.display = 'none';
+    }
+    console.log(`executing snip with height ${height}`);
+    const getTotalHeightOfElements = elements => {
+      return elements.reduce((acc, ele) => {
+        acc += ele.offsetHeight;
+        return acc;
+      }, 0);
+    };
+    const childrenWithinHeight = Array.prototype.reduce.call(element.children, (acc, child) => {
+      if (getTotalHeightOfElements(acc) + child.offsetHeight <= height) {
+        acc.push(child);
+      }
+      return acc;
+    }, []);
+    console.log('children within height: ');
+    console.log(childrenWithinHeight);
+    const childrenOutsideOfHeight = Array.prototype.slice.call(element.children, childrenWithinHeight.length);
+
+    const firstChildOutsideOfHeight = childrenOutsideOfHeight.length > 0 && childrenOutsideOfHeight[0];
+    const remainingChildrenOutsideOfHeight = Array.prototype.slice.call(childrenOutsideOfHeight, 1);
+
+    console.log('first child out of height: ' + firstChildOutsideOfHeight);
+    console.log('remaining children out of height: ');
+    console.log(remainingChildrenOutsideOfHeight);
+
+    Array.prototype.forEach.call(remainingChildrenOutsideOfHeight, child => {
+      child.style.display = 'none';
+    });
+
+    const heightRemaining = height - getTotalHeightOfElements(childrenWithinHeight);
+    if (childrenOutsideOfHeight.length > 0 && heightRemaining > 0) {
+      this.snipToHeight(firstChildOutsideOfHeight, heightRemaining);
+    }
+  }
+
   /**
    * @param type the type of direct answer
    * @param answer the full answer returned from the API, corresponds to response.directAnswer.answer.
