@@ -1,3 +1,6 @@
+@import '../answers-variables-default';
+@import '../../answers-variables';
+
 $grid-gutter-width: 32px !default;
 $grid-gutter-width-xs: $grid-gutter-width !default;
 $grid-gutter-width-sm: $grid-gutter-width !default;
@@ -9,8 +12,8 @@ $vertical-margin-top: $grid-gutter-width !default;
 $vertical-margin-bottom: $grid-gutter-width !default;
 
 $screen-xs-min: 480px;
-$screen-xs-max: 767px;
-$screen-sm-min: 768px;
+$screen-xs-max: $breakpoint-mobile-max;
+$screen-sm-min: $breakpoint-mobile-min;
 $screen-sm-max: 991px;
 $screen-md-min: 992px;
 $screen-md-max: 1199px;

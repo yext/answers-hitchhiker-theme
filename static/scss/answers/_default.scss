@@ -1,10 +1,7 @@
 @use "sass:math";
-
 // Core variables and mixins
 @import "overlay/module";
 @import "common/variables";
-@import 'answers-variables-default';
-@import '../answers-variables';
 @import "common/fonts-default";
 @import "../fonts";
 @import "common/mixins";

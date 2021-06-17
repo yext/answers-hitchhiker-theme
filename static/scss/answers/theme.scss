@@ -156,6 +156,7 @@
 
     &-suggestionLink
     {
+      //This media query value is the same one that the SDK uses because the alternative verticals font sizes shrink below this breakpoint
       @media (min-width: 47.9375rem)
       {
         font-size: var(--yxt-font-size-md-lg);
