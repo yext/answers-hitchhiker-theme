@@ -12,8 +12,8 @@ $vertical-margin-top: $grid-gutter-width !default;
 $vertical-margin-bottom: $grid-gutter-width !default;
 
 $screen-xs-min: 480px;
-$screen-xs-max: $breakpoint-mobile-max;
-$screen-sm-min: $breakpoint-mobile-min;
+$screen-xs-max: 768px;
+$screen-sm-min: 769px;
 $screen-sm-max: 991px;
 $screen-md-min: 992px;
 $screen-md-max: 1199px;
