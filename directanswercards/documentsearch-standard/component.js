@@ -13,8 +13,8 @@ class documentsearch_standardComponent extends BaseDirectAnswerCard['documentsea
    */
   dataForRender(type, answer, relatedItem, snippet) {
     const relatedItemData = relatedItem.data || {};
-    let snippetValue = "";
-    if (answer.fieldType == "rich_text" && snippet) {
+    let snippetValue = '';
+    if (answer.fieldType === "rich_text" && snippet) {
       snippetValue = ANSWERS.formatRichText(snippet.value, 'snippet');
     } else if (snippet) {
       snippetValue = Formatter.highlightField(snippet.value, snippet.matchedSubstrings);

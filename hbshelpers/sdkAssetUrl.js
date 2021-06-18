@@ -19,8 +19,7 @@ module.exports = function sdkAssetUrl(branch, locale, assetName) {
     parsedBranch = `v${branch}`;
   } else if (branch === 'develop') {
     parsedBranch = 'canary/latest';
-  }
-  else {
+  } else {
     parsedBranch = `dev/${branch.replace(/\//g, '-')}`;
   }
 
