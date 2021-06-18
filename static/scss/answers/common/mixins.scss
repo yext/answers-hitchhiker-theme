@@ -95,6 +95,13 @@
     margin-bottom: var(--yxt-base-spacing);
   }
 
+  // If a 'p' is a child a 'li', set margin-bottom to 0 and instead rely on the
+  // margin-bottom of the 'li'
+  li > p
+  {
+    margin-bottom: 0;
+  }
+
   s
   {
     text-decoration: line-through;
