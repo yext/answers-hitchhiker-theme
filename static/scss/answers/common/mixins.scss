@@ -135,7 +135,7 @@
     margin-inline-end: var(--yxt-base-spacing);
   }
 
-  h1, .js-yxt-rtfValue > *:first-child // The first item should also get h1 styling
+  h1
   {
     @include header_styling;
     font-size: var(--yxt-font-size-xlg);
