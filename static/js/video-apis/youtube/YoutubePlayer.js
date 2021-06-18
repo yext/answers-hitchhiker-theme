@@ -12,7 +12,7 @@ export default class YoutubePlayer {
     this.YT = YT;
     this.player = new YT.Player(el, {
       events: {
-        onStateChange: event => this.onStateChange(event)
+        onStateChange: event => this.handleStateChange(event)
       }
     });
     this.playerState = YT.PlayerState.UNSTARTED;
@@ -23,7 +23,7 @@ export default class YoutubePlayer {
    * @param {Object} param0 
    * @param {PlayerState} param0.data
    */
-  onStateChange({ data }) {
+   handleStateChange({ data }) {
     const isPlayingVideo = this.videoIsPlayingForState(data);
     const wasAlreadyPlayingVideo = this.videoIsPlayingForState(this.playerState);
     if (isPlayingVideo && !wasAlreadyPlayingVideo) {

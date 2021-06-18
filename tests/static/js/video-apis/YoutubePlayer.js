@@ -32,9 +32,9 @@ describe('onPlay', () => {
   for (const state of videoNotPlayingStates) {
     it(`calls onPlay when going from ${state} to PLAYING`, () => {
       const player = createPlayer();
-      player.onStateChange({ data: PlayerState[state] });
+      player.handleStateChange({ data: PlayerState[state] });
       expect(player.onPlay).toHaveBeenCalledTimes(0);
-      player.onStateChange({ data: PlayerState.PLAYING });
+      player.handleStateChange({ data: PlayerState.PLAYING });
       expect(player.onPlay).toHaveBeenCalledTimes(1);
     });
   }
@@ -43,9 +43,9 @@ describe('onPlay', () => {
   for (const state of videoPlayingStates) {
     it(`does NOT call onPlay when going from ${state} to PLAYING`, () => {
       const player = createPlayer();
-      player.onStateChange({ data: PlayerState[state] });
+      player.handleStateChange({ data: PlayerState[state] });
       expect(player.onPlay).toHaveBeenCalledTimes(1);
-      player.onStateChange({ data: PlayerState.PLAYING });
+      player.handleStateChange({ data: PlayerState.PLAYING });
       expect(player.onPlay).toHaveBeenCalledTimes(1);
     });
   }
