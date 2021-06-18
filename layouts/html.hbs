@@ -81,10 +81,11 @@
       {{#babel}}
       document.addEventListener('DOMContentLoaded', function () {
         {{> script/on-document-load}}
+        initAnswers();
       });
       {{/babel}}
     </script>
-    <script src="{{relativePath}}/bundle.js" data-webpack-inline></script>
+    {{> script/partials/bundle-script-tags }}
     {{#if global_config.googleAnalyticsId}}
       <!-- Global site tag (gtag.js) - Google Analytics -->
       <script async src="https://www.googletagmanager.com/gtag/js?id={{global_config.googleAnalyticsId}}"></script>
@@ -114,12 +115,11 @@
     <script>
     {{#babel}}
       function iframeGetSearchParams() {
-        let params = new URLSearchParams(window.location.search);
-        let verticalUrl = window.location.pathname.substr(1)
-        if (verticalUrl) {
-          params.set('verticalUrl', verticalUrl);
-        }
-        return params.toString();
+        const params = window.location.search.substr(1);
+        const verticalUrl = window.location.pathname.substr(1);
+        return verticalUrl 
+          ? params + '&verticalUrl=' + verticalUrl
+          : params;
       }
       let iframeLoadedResolve;
       window.iframeLoaded = new Promise(resolve => {

@@ -17,4 +17,4 @@ npx jambo directanswercard --name allfields-custom --templateCardFolder directan
 
 node scripts/create-verticals.js
 
-npx jambo build && grunt webpack
+npx jambo build && npx grunt webpack

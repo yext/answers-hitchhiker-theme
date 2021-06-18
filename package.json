@@ -1,13 +1,14 @@
 {
   "name": "answers-hitchhiker-theme",
-  "version": "1.21.0",
+  "version": "1.21.1",
   "description": "A starter answers theme for hitchhikers",
   "scripts": {
     "test": "cross-env NODE_ICU_DATA=node_modules/full-icu jest --verbose",
     "setup-test-site": "./test-site/scripts/setup.sh",
     "build-test-site": "./test-site/scripts/build.sh",
     "serve-test-site": "serve -p 5042 test-site/public",
-    "acceptance": "node ./tests/acceptance/index.js"
+    "acceptance": "node ./tests/acceptance/index.js",
+    "percy": "npx percy exec -- node tests/percy/index.js"
   },
   "repository": {
     "type": "git",
