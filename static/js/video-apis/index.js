@@ -2,7 +2,7 @@
  * @returns {Promise<YoutubeAPI>}
  */
 export async function requireYoutubeAPI() {
-  const { default: YoutubeAPI } = await import('./youtube/loadYoutubeAPI');
+  const { default: YoutubeAPI } = await import('./youtube/youtubeApiPromise');
   return YoutubeAPI;
 }
 

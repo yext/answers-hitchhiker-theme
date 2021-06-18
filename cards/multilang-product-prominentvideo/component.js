@@ -60,8 +60,8 @@ class multilang_product_prominentvideoCardComponent extends BaseCard['multilang-
     if (!videoEl) {
       return;
     }
-    const addPlayer = api => {
-      api.addPlayer(videoEl, {
+    const addPlayer = videoApi => {
+      videoApi.addPlayer(videoEl, {
         onPlay: () => this.onPlay()
       });
     };
@@ -76,7 +76,7 @@ class multilang_product_prominentvideoCardComponent extends BaseCard['multilang-
     const event = new ANSWERS.AnalyticsEvent('CTA_CLICK')
       .addOptions({
         verticalKey: this.verticalKey,
-        entityId: this.result._raw.id,
+        entityId: this.result?._raw?.id,
         searcher: this._config.isUniversal ? 'UNIVERSAL' : 'VERTICAL',
         ctaLabel: 'video_played'
       });
