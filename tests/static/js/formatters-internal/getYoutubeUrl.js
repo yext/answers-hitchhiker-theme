@@ -15,7 +15,7 @@ describe('getYoutubeUrl formatter', () => {
       }
     ];
     const actualUrl = Formatters.getYoutubeUrl(videos);
-    const expectedUrl = 'https://www.youtube.com/embed/Ww4EqJ1YUmw'
+    const expectedUrl = 'https://www.youtube.com/embed/Ww4EqJ1YUmw?enablejsapi=1'
     expect(actualUrl).toEqual(expectedUrl);
   })
 });
