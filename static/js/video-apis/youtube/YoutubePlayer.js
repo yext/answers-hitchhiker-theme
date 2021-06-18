@@ -19,6 +19,10 @@ export default class YoutubePlayer {
     this.onPlay = onPlay;
   }
 
+  /**
+   * @param {Object} param0 
+   * @param {PlayerState} param0.data
+   */
   onStateChange({ data }) {
     const isPlayingVideo = this.videoIsPlayingForState(data);
     const wasAlreadyPlayingVideo = this.videoIsPlayingForState(this.playerState);
@@ -28,6 +32,12 @@ export default class YoutubePlayer {
     this.playerState = data;
   }
 
+  /**
+   * Whether the given player state has video playing.
+   *
+   * @param {PlayerState} playerState 
+   * @returns {boolean}
+   */
   videoIsPlayingForState(playerState) {
     return [
       this.YT.PlayerState.PLAYING,

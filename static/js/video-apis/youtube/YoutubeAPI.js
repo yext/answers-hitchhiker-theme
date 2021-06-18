@@ -15,8 +15,9 @@ export default class YoutubeAPI {
   /**
    * Adds a new YT iframe player using the given element.
    *
-   * @param {HTMLElement} el 
-   * @param {Function} onPlay 
+   * @param {HTMLElement} el
+   * @param {Object} param1
+   * @param {Function} param1.onPlay
    */
   addPlayer(el, { onPlay }) {
     new YoutubePlayer(this.YT, el, onPlay);
