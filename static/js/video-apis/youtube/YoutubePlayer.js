@@ -9,6 +9,7 @@ export default class YoutubePlayer {
    * @param {Function} onPlay runs when the play button is hit
    */
   constructor(YT, el, onPlay) {
+    this.YT = YT;
     this.player = new YT.Player(el, {
       events: {
         onStateChange: event => this.onStateChange(event)
@@ -19,10 +20,18 @@ export default class YoutubePlayer {
   }
 
   onStateChange({ data }) {
-    const isPlaying = data === YT.PlayerState.PLAYING;
-    if (isPlaying && this.playerState !== YT.PlayerState.PLAYING) {
+    const isPlayingVideo = this.videoIsPlayingForState(data);
+    const wasAlreadyPlayingVideo = this.videoIsPlayingForState(this.playerState);
+    if (isPlayingVideo && !wasAlreadyPlayingVideo) {
       this.onPlay();
     }
     this.playerState = data;
+  }
+
+  videoIsPlayingForState(playerState) {
+    return [
+      this.YT.PlayerState.PLAYING,
+      this.YT.PlayerState.BUFFERING
+    ].includes(playerState);
   }
 }
