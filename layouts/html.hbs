@@ -79,10 +79,14 @@
     {{/if}}
     <script>
       {{#babel}}
-      document.addEventListener('DOMContentLoaded', function () {
-        {{> script/on-document-load}}
-        initAnswers();
-      });
+        document.addEventListener('DOMContentLoaded', () => {
+          {{> script/on-document-load}}
+          {{#if global_config.initializeManually}}
+            new HitchhikerJS.ManualInitializer(initAnswers).setup();
+          {{else}}
+            initAnswers();
+          {{/if}}
+        });
       {{/babel}}
     </script>
     {{> script/partials/bundle-script-tags }}
