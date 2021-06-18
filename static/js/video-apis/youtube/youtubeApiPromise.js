@@ -1,7 +1,10 @@
 import YoutubeAPI from './YoutubeAPI';
 
 /**
- * Loads the youtube iframe_api.
+ * Loads the youtube iframe_api, and when
+ * the API is ready wraps it with YoutubeAPI.
+ *
+ * @type {Promise<YoutubeAPI>}
  */
 export default new Promise(resolve => {
   window.onYouTubeIframeAPIReady = () => {
