@@ -79,10 +79,14 @@
     {{/if}}
     <script>
       {{#babel}}
-      document.addEventListener('DOMContentLoaded', function () {
-        {{> script/on-document-load}}
-        initAnswers();
-      });
+        document.addEventListener('DOMContentLoaded', () => {
+          {{> script/on-document-load}}
+          {{#if global_config.initializeManually}}
+            new HitchhikerJS.ManualInitializer(initAnswers).setup();
+          {{else}}
+            initAnswers();
+          {{/if}}
+        });
       {{/babel}}
     </script>
     {{> script/partials/bundle-script-tags }}
@@ -113,7 +117,7 @@
     {{/if}}
 
     <script>
-      {{#babel}}
+    {{#babel}}
       function iframeGetSearchParams() {
         const params = window.location.search.substr(1);
         const verticalUrl = window.location.pathname.substr(1);
@@ -125,7 +129,8 @@
       window.iframeLoaded = new Promise(resolve => {
         iframeLoadedResolve = resolve;
       });
-      window.iFrameResizer = {
+     
+      window.iFrameResizer =  {
         onReady: function() {
           window.parentIFrame.sendMessage(JSON.stringify({
             params: iframeGetSearchParams(),
@@ -134,7 +139,15 @@
           }));
           iframeLoadedResolve();
         },
-        onMessage: window.isOverlay ? window.Overlay.onMessage : function() {},
+        onMessage: (message) => {
+          if (message.initAnswersExperience) {
+            window.AnswersExperience.init(message.runtimeConfig);
+          } else if (message.runtimeConfig) {
+            HitchhikerJS.RuntimeConfigReceiver.handle(message.runtimeConfig);
+          } else if (window.isOverlay) {
+            window.Overlay.onMessage(message);
+          }
+        }
       };
     {{/babel}}
     </script>

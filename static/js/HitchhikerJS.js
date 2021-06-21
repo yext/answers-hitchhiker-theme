@@ -28,4 +28,15 @@ export { StorageKeys };
 import transformFacets from './transform-facets';
 export { transformFacets }
 
+import ManualInitializer from './manual-initializer';
+export { ManualInitializer };
+
+import RuntimeConfigReceiver from './runtime-config-receiver';
+export { RuntimeConfigReceiver };
+
+import RuntimeConfig from './runtime-config';
+window.AnswersExperience = {
+  runtimeConfig: new RuntimeConfig()
+};
+
 export * from './video-apis';

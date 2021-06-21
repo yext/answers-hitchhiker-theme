@@ -10,8 +10,8 @@
       "directanswercards"
     ],
     "preservedFiles": [
-      "public/overlay.html",
-      "public/iframe_test.html"
+      "public/iframe_test.html",
+      "public/overlay.html"
     ]
   },
   "defaultTheme": "answers-hitchhiker-theme"

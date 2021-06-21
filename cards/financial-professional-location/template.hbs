@@ -145,7 +145,7 @@
     href="tel:{{card.phone}}"
     data-eventtype="TAP_TO_CALL"
     data-eventoptions='{{json card.phoneEventOptions}}'
-    target="_top">
+    target={{#if card.target}}"{{card.target}}"{{else}}"_top"{{/if}}>
     {{card.phone}}
   </a>
 </div>

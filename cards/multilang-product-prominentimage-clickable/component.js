@@ -27,16 +27,18 @@ class multilang_product_prominentimage_clickableCardComponent
       imageUrl = Formatter.image(profile.photoGallery[0]).url;
       alternateText = Formatter.image(profile.photoGallery[0]).alternateText;
     }
+     
+    const linkTarget = AnswersExperience.runtimeConfig.get('linkTarget') || '_top';
 
     return {
       title: profile.name, // The header text of the card
       url: cardUrl, // If the card is a clickable link, set URL here
-      target: '_top', // If the card URL should open in a new tab, etc.
+      target: linkTarget, // If the card URL should open in a new tab, etc.
       titleEventOptions: this.addDefaultEventOptions(),
       subtitle: Formatter.price(profile.price), // The sub-header text of the card
       image: imageUrl, // The URL of the image to display on the card
       altText: alternateText,  // The alternate text for the image
-      details: profile.richTextDescription ? ANSWERS.formatRichText(profile.richTextDescription, 'richTextDescription', '_top') : null, // The text in the body of the card, Warning: cannot contain links
+      details: profile.richTextDescription ? ANSWERS.formatRichText(profile.richTextDescription, 'richTextDescription', linkTarget) : null, // The text in the body of the card, Warning: cannot contain links
       // tag: profile.stockStatus ? profile.stockStatus : '', // The tag text for the card
     };
   }

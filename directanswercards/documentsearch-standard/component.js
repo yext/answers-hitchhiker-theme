@@ -13,9 +13,10 @@ class documentsearch_standardComponent extends BaseDirectAnswerCard['documentsea
    */
   dataForRender(type, answer, relatedItem, snippet) {
     const relatedItemData = relatedItem.data || {};
+    const linkTarget = AnswersExperience.runtimeConfig.get('linkTarget') || '_top';
     let snippetValue = '';
     if (answer.fieldType === "rich_text" && snippet) {
-      snippetValue = ANSWERS.formatRichText(snippet.value, 'snippet');
+      snippetValue = ANSWERS.formatRichText(snippet.value, 'snippet', linkTarget);
     } else if (snippet) {
       snippetValue = Formatter.highlightField(snippet.value, snippet.matchedSubstrings);
     }
@@ -29,12 +30,12 @@ class documentsearch_standardComponent extends BaseDirectAnswerCard['documentsea
         ctaLabel: 'VIEW_DETAILS',
         fieldName: 'snippet'
       }), // The event options for viewDetails click analytics
-      linkTarget: '_top', // Target for all links in the direct answer
+      linkTarget: linkTarget, // Target for all links in the direct answer
       // CTA: {
       //   label: '', // The CTA's label
       //   iconName: 'chevron', // The icon to use for the CTA
       //   url: '', // The URL a user will be directed to when clicking
-      //   target: '_top', // Where the new URL will be opened
+      //   target: linkTarget, // Where the new URL will be opened
       //   eventType: 'CTA_CLICK', // Type of Analytics event fired when clicking the CTA
       //   eventOptions: this.addDefaultEventOptions({ fieldName: 'snippet' }) // The event options for CTA click analytics
       // },
