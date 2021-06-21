@@ -121,6 +121,12 @@ class Photographer {
 
     await this._pageNavigator.gotoUniversalPage({ query: 'where was joe exotic born?' });
     await this._camera.snapshot('documentsearch-direct-answer')
+
+    await this._pageNavigator.gotoUniversalPage({ query: 'how to get rich text' });
+    await this._camera.snapshot('documentsearch-rich-text-direct-answer')
+
+    await this._pageNavigator.gotoUniversalPage({ query: 'who is howard?' });
+    await this._camera.snapshot('documentsearch-rich-text-picture-direct-answer')
   }
 }
 

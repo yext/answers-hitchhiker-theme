@@ -11,12 +11,12 @@
 
 @mixin list_styling
 {
-  display: flex;
+  display: block;
   flex-direction: column;
   list-style-position: outside;
   margin-left: var(--yxt-base-spacing);
-  margin-top: var(--yxt-base-spacing);
-  margin-bottom: var(--yxt-base-spacing);
+  margin-top: calc(var(--yxt-base-spacing) / 2);
+  margin-bottom: calc(var(--yxt-base-spacing) / 2);
 }
 
 @mixin strong_styling
@@ -36,7 +36,7 @@
   margin-block-end: .33em;
   margin-inline-start: 0px;
   margin-inline-end: 0px;
-  font-weight: bold;
+  font-weight: var(--yxt-font-weight-semibold);
 }
 
 @mixin rich_text_formatting
@@ -55,7 +55,7 @@
 
   li
   {
-    margin-bottom: 0;
+    margin-bottom: calc(var(--yxt-base-spacing) / 2);
     margin-left: var(--yxt-base-spacing);
   }
 
@@ -93,6 +93,13 @@
   p
   {
     margin-bottom: var(--yxt-base-spacing);
+  }
+
+  // If a 'p' is a child of a 'li', set margin-bottom to 0 and instead rely on the
+  // margin-bottom of the 'li'
+  li > p
+  {
+    margin-bottom: 0;
   }
 
   s
@@ -169,6 +176,10 @@
   {
     @include header_styling;
     font-size: var(--yxt-font-size-xs);
+  }
+
+  img {
+    margin-top: calc(var(--yxt-base-spacing) / 2);
   }
 }
 
