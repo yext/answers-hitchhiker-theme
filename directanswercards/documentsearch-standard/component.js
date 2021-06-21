@@ -16,7 +16,7 @@ class documentsearch_standardComponent extends BaseDirectAnswerCard['documentsea
     const linkTarget = AnswersExperience.runtimeConfig.get('linkTarget') || '_top';
     let snippetValue = '';
     if (answer.fieldType === "rich_text" && snippet) {
-      snippetValue = ANSWERS.formatRichText(snippet.value, 'snippet');
+      snippetValue = ANSWERS.formatRichText(snippet.value, 'snippet', linkTarget);
     } else if (snippet) {
       snippetValue = Formatter.highlightField(snippet.value, snippet.matchedSubstrings);
     }
