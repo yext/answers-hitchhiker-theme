@@ -5,7 +5,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
 const RemovePlugin = require('remove-files-webpack-plugin');
 const { merge } = require('webpack-merge');
-const cssnano = require('cssnano');
 const { parse } = require('comment-json');
 
 module.exports = function () {
@@ -68,7 +67,6 @@ module.exports = function () {
   ];
 
   const commonConfig = {
-    devtool: 'source-map',
     stats: 'errors-warnings',
     performance: {
       maxAssetSize: 1536000,
@@ -76,7 +74,7 @@ module.exports = function () {
     },
     target: ['web', 'es5'],
     entry: {
-      'HitchhikerJS': `./${jamboConfig.dirs.output}/static/entry.js`,
+      'bundle': `./${jamboConfig.dirs.output}/static/entry.js`,
       'iframe': `./${jamboConfig.dirs.output}/static/js/iframe.js`,
       'answers': `./${jamboConfig.dirs.output}/static/js/iframe.js`,
       'overlay-button': `./${jamboConfig.dirs.output}/static/js/overlay/button-frame/entry.js`,
@@ -94,8 +92,7 @@ module.exports = function () {
       filename: pathData => {
         const chunkName = pathData.chunk.name;
         return {
-          VerticalFullPageMap: 'locator-bundle.js',
-          HitchhikerJS: 'bundle.js',
+          VerticalFullPageMap: 'locator-bundle.js'
         }[chunkName] || '[name].js'
       },
       library: '[name]',
@@ -111,16 +108,6 @@ module.exports = function () {
           use: [
             MiniCssExtractPlugin.loader,
             'css-loader',
-            {
-              loader: 'postcss-loader',
-              options: {
-                postcssOptions: {
-                  plugins: [
-                    cssnano({ preset: 'default'})
-                  ],
-                },
-              },
-            },
             'resolve-url-loader',
             {
               loader: 'sass-loader',
@@ -171,12 +158,12 @@ module.exports = function () {
   if (isDevelopment) {
     const devConfig = require(
       `./${jamboConfig.dirs.output}/static/webpack/webpack.dev.js`
-    )();
+    )(jamboConfig);
     return merge(commonConfig, devConfig);
   } else {
     const prodConfig = require(
       `./${jamboConfig.dirs.output}/static/webpack/webpack.prod.js`
-    )();
+    )(jamboConfig);
     return merge(commonConfig, prodConfig);
   }
 };

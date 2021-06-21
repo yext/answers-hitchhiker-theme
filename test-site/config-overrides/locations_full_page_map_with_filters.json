@@ -5,5 +5,12 @@
       "showMore": false,
       "searchOnChange": true
     }
+  },
+  "verticalsToConfig": {
+    "KM": { 
+      "mapConfig": {
+        "enablePinClustering": true
+      }
+    }
   }
 }

@@ -294,22 +294,24 @@ class ThemeMap extends ANSWERS.Component {
         this.config.pinClusterClickListener();
       })
       .withIconTemplate('default', (pinDetails) => {
-        return getEncodedSvg(this.config.pinClusterImages.getDefaultPin(pinDetails.pinCount));
+        return getEncodedSvg(this.config.pinClusterImages.getDefaultPin(pinDetails.pinCount).svg);
       })
       .withIconTemplate('hovered', (pinDetails) => {
-        return getEncodedSvg(this.config.pinClusterImages.getHoveredPin(pinDetails.pinCount));
+        return getEncodedSvg(this.config.pinClusterImages.getHoveredPin(pinDetails.pinCount).svg);
       })
       .withIconTemplate('selected', (pinDetails) => {
-        return getEncodedSvg(this.config.pinClusterImages.getSelectedPin(pinDetails.pinCount));
+        return getEncodedSvg(this.config.pinClusterImages.getSelectedPin(pinDetails.pinCount).svg);
       })
-      .withPropertiesForStatus(status => {
+      .withPropertiesForStatus((status, pinCount) => {
+        const defaultPin = this.config.pinClusterImages.getDefaultPin(pinCount);
         const properties = new PinProperties()
           .setIcon(status.hovered || status.focused || status.selected ? 'hovered' : 'default')
-          .setWidth(28)
-          .setHeight(28)
+          .setWidth(defaultPin.width)
+          .setHeight(defaultPin.height)
           .setAnchorX(this.config.pinClusterAnchors.anchorX)
-          .setAnchorY(this.config.pinClusterAnchors.anchorY);
-
+          .setAnchorY(this.config.pinClusterAnchors.anchorY)
+          .setClass('yxt-PinCluster')
+          .setSRText(`Cluster of ${pinCount} results`);
 
         return properties;
       })
@@ -328,33 +330,37 @@ class ThemeMap extends ANSWERS.Component {
    */
   buildPin(pinOptions, entity, index) {
     const id = 'js-yl-' + entity.profile.meta.id;
+    const defaultPin = this.config.pinImages.getDefaultPin(index, entity.profile);
+    const hoveredPin = this.config.pinImages.getHoveredPin(index, entity.profile);
+    const selectedPin = this.config.pinImages.getSelectedPin(index, entity.profile);
     const pin = pinOptions
       .withId(id)
       .withIcon(
         'default',
-        getEncodedSvg(this.config.pinImages.getDefaultPin(index, entity.profile)))
+        getEncodedSvg(defaultPin.svg))
       .withIcon(
         'hovered',
-        getEncodedSvg(this.config.pinImages.getHoveredPin(index, entity.profile)))
+        getEncodedSvg(hoveredPin.svg))
       .withIcon(
         'selected',
-        getEncodedSvg(this.config.pinImages.getSelectedPin(index, entity.profile)))
+        getEncodedSvg(selectedPin.svg))
       .withHideOffscreen(false)
       .withCoordinate(new Coordinate(entity.profile.yextDisplayCoordinate))
       .withPropertiesForStatus(status => {
         const properties = new PinProperties()
           .setIcon(status.selected ? 'selected' : ((status.hovered || status.focused) ? 'hovered' : 'default'))
-          .setSRText(index)
+          .setClass('yxt-Pin')
+          .setSRText(`Result number ${index}`)
           .setZIndex(status.selected ? 1 : ((status.hovered || status.focused) ? 2 : 0))
           .setAnchorX(this.config.pinAnchors.anchorX)
           .setAnchorY(this.config.pinAnchors.anchorY);
 
-        properties.setWidth(24);
-        properties.setHeight(28);
+        properties.setWidth(defaultPin.width);
+        properties.setHeight(defaultPin.height);
 
         if (status.selected) {
-          properties.setWidth(24);
-          properties.setHeight(34);
+          properties.setWidth(selectedPin.width);
+          properties.setHeight(selectedPin.height);
         }
 
         return properties;

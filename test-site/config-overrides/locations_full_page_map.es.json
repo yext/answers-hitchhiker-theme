@@ -1,0 +1,33 @@
+{
+  "verticalsToConfig": {
+    "KM": { 
+      "cardType": "multilang-location-standard", // The name of the card to use - e.g. accordion, location, customcard
+      "icon": "pin", // The icon to use on the card for this vertical
+      "mapConfig": {
+        //"enablePinClustering": true, // Cluster pins on the map that are close together. Defaults false
+        "mapProvider": "MapBox", // The name of the provider (e.g. Mapbox, Google)
+        "noResults": {
+          "displayAllResults": false // Set to FALSE to hide results on the map when a search returns no results
+        },
+        "pin": {
+          "default": { // The pin in its normal state
+            "backgroundColor": "#5387d7", // Enter a hex value or color for the pin background
+            "strokeColor": "#2a446b",
+            "labelColor": "white"
+          },
+          "hovered": { // The pin when it is hovered
+            "backgroundColor": "#2f4d71",
+            "strokeColor": "#172638",
+            "labelColor": "white"
+          },
+          "selected": { // The pin when it is selected by mouse click or through a card click
+            "backgroundColor": "#2f4d71",
+            "strokeColor": "#172638",
+            "labelColor": "white"
+          }
+        }
+      },
+      "universalSectionTemplate": "standard"
+    }
+  }
+}

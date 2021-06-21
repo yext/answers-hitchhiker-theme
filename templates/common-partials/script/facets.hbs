@@ -1,0 +1,15 @@
+ANSWERS.addComponent('Facets', {
+  container: '#js-answersFacets',
+  {{#if verticalKey}}
+    verticalKey: "{{{verticalKey}}}",
+  {{/if}}
+  onMount: function() {
+    if (typeof IS_COLLAPSIBLE_FILTERS !== 'undefined') {
+      facetsDecorator.onMount(this);
+    }
+  },
+  {{#if componentSettings.Facets.fields}}
+    transformFacets: HitchhikerJS.transformFacets,
+  {{/if}}
+  ...{{{ json componentSettings.Facets }}},
+});

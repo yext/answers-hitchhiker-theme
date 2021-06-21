@@ -342,7 +342,7 @@ class PinClusterer {
         const pinOptions = this._map.newPinOptions()
           .withCoordinate(GeoBounds.fit(coordinates).getCenter(this._mapProjection))
           .withHideOffscreen(this._hideOffscreen)
-          .withPropertiesForStatus(this._propertiesForStatus);
+          .withPropertiesForStatus(status => this._propertiesForStatus(status, pinCluster.length));
 
         // Build cluster icon(s) from template
         for (const [icon, template] of Object.entries(this._iconTemplates)) {

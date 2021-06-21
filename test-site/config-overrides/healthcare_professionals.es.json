@@ -1,0 +1,10 @@
+{
+  "verticalsToConfig": {
+    "healthcare_professionals": { // The vertical key from your search configuration
+      "label": "Profesionales de la salud", // The name of the vertical in the section header and the navigation bar
+      "cardType": "multilang-professional-standard", // The name of the card to use - e.g. accordion, location, customcard
+      "icon": "star", // The icon to use on the card for this vertical
+      "universalSectionTemplate": "standard"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "verticalsToConfig": {
+    "events": { // The vertical key from your search configuration
+      // "label": "", // The name of the vertical in the section header and the navigation bar
+      // "verticalLimit": 15, // The result count limit for vertical search
+      // "universalLimit": 5, // The result count limit for universal search
+      "cardType": "multilang-event-standard", // The name of the card to use - e.g. accordion, location, customcard
+      "icon": "star", // The icon to use on the card for this vertical
+      "universalSectionTemplate": "standard",
+      "label": "Eventos"
+    }
+  }
+}
