@@ -12,13 +12,13 @@
     $mq: "";
 
     $maxes: (
-      xs: "(max-width: #{$screen-xs-max})",
+      xs: "(max-width: #{$breakpoint-mobile-max})",
       sm: "(max-width: #{$screen-sm-max})",
       md: "(max-width: #{$screen-md-max})"
     );
 
     $mins: (
-      sm: "(min-width: #{$screen-sm-min})",
+      sm: "(min-width: #{$breakpoint-mobile-min})",
       md: "(min-width: #{$screen-md-min})",
       lg: "(min-width: #{$screen-lg-min})"
     );

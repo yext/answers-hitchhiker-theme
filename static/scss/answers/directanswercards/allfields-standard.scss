@@ -2,7 +2,7 @@
 {
   margin-top: calc(var(--yxt-base-spacing) * 1.5);
 
-  @media (min-width: $breakpoint-mobile-min) {
+  @include bpgte(sm) {
     margin-top: calc(var(--yxt-base-spacing) * 2.35);
   }
 
@@ -87,7 +87,7 @@
     margin-top: calc(var(--yxt-base-spacing) / 2);
     justify-content: center;
 
-    @media (min-width: $breakpoint-mobile-max)
+    @include bpgte(sm)
     {
       margin-top: 0;
       margin-left: calc(var(--yxt-base-spacing) / 2);
