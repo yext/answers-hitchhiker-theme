@@ -5,7 +5,7 @@ import RuntimeConfig from './runtime-config';
  * 
  * @returns {Promise} When resolved, Answers exists in window
  */
-function waitForAnswerInit() {
+function waitForAnswersInit() {
   return new Promise((resolve, reject) => {
     let timeElapsed = 0;
     const duration = 5000;
@@ -39,7 +39,7 @@ function updateAnswersConfig(updatedConfig) {
 const runtimeConfig = new RuntimeConfig();
 
 runtimeConfig._onUpdate(updatedConfig => {
-  waitForAnswerInit()
+  waitForAnswersInit()
     .then(() => updateAnswersConfig(updatedConfig))
     .catch(err => console.warn(err));
 });
