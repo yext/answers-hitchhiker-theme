@@ -7,8 +7,7 @@
         window.isOverlay = true;
       }
       function onDocumentReady(cb) {
-        if (document.readyState === "complete"
-          || document.readyState === "loaded") {
+        if (document.readyState === 'complete' || document.readyState === 'loaded') {
           cb.bind(this)();
         } else {
           document.addEventListener('DOMContentLoaded', cb.bind(this));
