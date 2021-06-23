@@ -57,6 +57,7 @@ class multilang_product_prominentvideoCardComponent extends BaseCard['multilang-
   }
 
   onMount() {
+    super.onMount();
     const videoSelector = '.js-HitchhikerProductProminentVideo-video';
     const videoEl = this._container.querySelector(videoSelector);
     if (!videoEl) {

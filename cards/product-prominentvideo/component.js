@@ -57,6 +57,7 @@ class product_prominentvideoCardComponent extends BaseCard['product-prominentvid
   }
 
   onMount() {
+    super.onMount();
     const videoSelector = '.js-HitchhikerProductProminentVideo-video';
     const videoEl = this._container.querySelector(videoSelector);
     if (!videoEl) {
