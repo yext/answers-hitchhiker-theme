@@ -140,6 +140,15 @@
     }
   }
 
+  &-fieldset
+  {
+    display: inline;
+    margin-inline-start: 2px;
+    margin-inline-end: 2px;
+    line-height: 0;
+    min-inline-size: min-content;
+  }
+
   &-feedback
   {
     @include Text(
