@@ -129,7 +129,7 @@
       window.iframeLoaded = new Promise(resolve => {
         iframeLoadedResolve = resolve;
       });
-
+    
       window.iFrameResizer =  {
         onReady: function() {
           window.parentIFrame.sendMessage(JSON.stringify({
@@ -148,7 +148,7 @@
             window.Overlay.onMessage(message);
           }
         }
-      }
+      };
     {{/babel}}
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.10/iframeResizer.contentWindow.min.js"></script>
