@@ -6,15 +6,6 @@
       if (window.name == 'overlay') {
         window.isOverlay = true;
       }
-      function onDocumentReady(cb) {
-        if (document.readyState === 'complete' 
-          || document.readyState === 'loaded'
-          || document.readyState === 'interactive') {
-          cb.bind(this)();
-        } else {
-          document.addEventListener('DOMContentLoaded', cb.bind(this));
-        }
-      }
       {{/babel}}
     </script>
     {{> layouts/headincludes }}
@@ -88,7 +79,7 @@
     {{/if}}
     <script>
       {{#babel}}
-        onDocumentReady(() => {
+        document.addEventListener('DOMContentLoaded', () => {
           {{> script/on-document-load}}
           {{#if global_config.initializeManually}}
             new HitchhikerJS.ManualInitializer(initAnswers).setup();
@@ -138,18 +129,18 @@
       window.iframeLoaded = new Promise(resolve => {
         iframeLoadedResolve = resolve;
       });
-     
-      window.iFrameResizer =  {
-        onReady: function() {
-          window.parentIFrame.sendMessage(JSON.stringify({
-            params: iframeGetSearchParams(),
-            replaceHistory: true,
-            pageTitle: document.title
-          }));
-          iframeLoadedResolve();
-        },
-        onMessage: (message) => {
-          onDocumentReady(() => {
+
+      document.addEventListener('DOMContentLoaded', () => {
+        window.iFrameResizer =  {
+          onReady: function() {
+            window.parentIFrame.sendMessage(JSON.stringify({
+              params: iframeGetSearchParams(),
+              replaceHistory: true,
+              pageTitle: document.title
+            }));
+            iframeLoadedResolve();
+          },
+          onMessage: (message) => {
             if (message.initAnswersExperience) {
               window.AnswersExperience.init(message.runtimeConfig);
             } else if (message.runtimeConfig) {
@@ -157,9 +148,9 @@
             } else if (window.isOverlay) {
               window.Overlay.onMessage(message);
             }
-          });
-        }
-      };
+          }
+        };
+      });
     {{/babel}}
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.10/iframeResizer.contentWindow.min.js"></script>
