@@ -1,5 +1,4 @@
-@import "vendor";
-@import "~font-awesome/scss/variables";
+@use "sass:math";
 
 // Core variables and mixins
 @import "overlay/module";
@@ -45,6 +44,7 @@
 @import "cards/link-standard";
 @import "cards/menuitem-standard";
 @import "cards/product-prominentimage";
+@import "cards/product-prominentvideo";
 @import "cards/professional-standard";
 @import "cards/product-standard";
 @import "cards/professional-location";

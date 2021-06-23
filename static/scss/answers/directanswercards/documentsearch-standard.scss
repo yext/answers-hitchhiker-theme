@@ -47,16 +47,27 @@
     justify-content: space-between;
 
     padding-top: calc(var(--yxt-base-spacing) * 0.7);
-    padding-bottom: var(--yxt-base-spacing);
+    padding-bottom: calc(var(--yxt-base-spacing) * 0.7);
     padding-left: var(--yxt-base-spacing);
     padding-right: var(--yxt-base-spacing);
 
     @include Text(
-      $size: var(--yxt-direct-answer-footer-font-size),
+      $size: var(--yxt-font-size-md-lg),
       $line-height: var(--yxt-direct-answer-footer-line-height),
-      $weight: var(--yxt-direct-answer-footer-font-weight),
-      $color: var(--yxt-direct-answer-footer-color)
+      $weight: var(--yxt-font-weight-light),
+      $color: var(--yxt-color-text-primary)
     );
+  } 
+
+  &-snippet
+  {
+    @include rich_text_formatting;
+
+    .js-yxt-rtfValue > *:first-child // The first RTF item should also get h1 styling
+    {
+      @include header_styling;
+      font-size: var(--yxt-font-size-xlg);
+    }
   }
 
   &-cta
@@ -129,6 +140,15 @@
     }
   }
 
+  &-fieldset
+  {
+    display: inline;
+    margin-inline-start: 2px;
+    margin-inline-end: 2px;
+    line-height: 0;
+    min-inline-size: min-content;
+  }
+
   &-feedback
   {
     @include Text(
@@ -153,6 +173,8 @@
 
   &-viewMoreWrapper
   {
+    font-size: var(--yxt-direct-answer-view-details-font-size);
+
     &:not(:first-child)
     {
       margin-top: calc(var(--yxt-base-spacing) / 2);

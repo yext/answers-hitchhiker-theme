@@ -13,23 +13,31 @@ class documentsearch_standardComponent extends BaseDirectAnswerCard['documentsea
    */
   dataForRender(type, answer, relatedItem, snippet) {
     const relatedItemData = relatedItem.data || {};
+    const linkTarget = AnswersExperience.runtimeConfig.get('linkTarget') || '_top';
+    let snippetValue = '';
+    if (answer.fieldType === "rich_text" && snippet) {
+      snippetValue = ANSWERS.formatRichText(snippet.value, 'snippet', linkTarget);
+    } else if (snippet) {
+      snippetValue = Formatter.highlightField(snippet.value, snippet.matchedSubstrings);
+    }
 
     return {
       value: answer.value,
-      snippet: snippet && Formatter.highlightField(snippet.value, snippet.matchedSubstrings), // Text snippet to include alongside the answer
+      snippet: snippetValue, // Text snippet to include alongside the answer
       viewDetailsText: relatedItemData.fieldValues && relatedItemData.fieldValues.name, // Text below the direct answer and snippet
       viewDetailsLink: relatedItemData.website || (relatedItemData.fieldValues && relatedItemData.fieldValues.landingPageUrl), // Link for the "view details" text
       viewDetailsEventOptions: this.addDefaultEventOptions({
-        ctaLabel: 'VIEW_DETAILS'
+        ctaLabel: 'VIEW_DETAILS',
+        fieldName: 'snippet'
       }), // The event options for viewDetails click analytics
-      linkTarget: '_top', // Target for all links in the direct answer
+      linkTarget: linkTarget, // Target for all links in the direct answer
       // CTA: {
       //   label: '', // The CTA's label
       //   iconName: 'chevron', // The icon to use for the CTA
       //   url: '', // The URL a user will be directed to when clicking
-      //   target: '_top', // Where the new URL will be opened
+      //   target: linkTarget, // Where the new URL will be opened
       //   eventType: 'CTA_CLICK', // Type of Analytics event fired when clicking the CTA
-      //   eventOptions: this.addDefaultEventOptions() // The event options for CTA click analytics
+      //   eventOptions: this.addDefaultEventOptions({ fieldName: 'snippet' }) // The event options for CTA click analytics
       // },
       footerTextOnSubmission: 'Thank you for your feedback!', // Text to display in the footer when a thumbs up/down is clicked
       footerText: 'Was this the answer you were looking for?', // Text to display in the footer

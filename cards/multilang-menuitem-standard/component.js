@@ -12,10 +12,12 @@ class multilang_menuitem_standardCardComponent extends BaseCard['multilang-menui
    * @param profile profile of the entity in the card
    */
   dataForRender(profile) {
+    const linkTarget = AnswersExperience.runtimeConfig.get('linkTarget') || '_top';
+
     return {
       title: profile.name, // The header text of the card
       url: profile.landingPageUrl, // If the card title is a clickable link, set URL here
-      target: '_top', // If the title's URL should open in a new tab, etc.
+      target: linkTarget, // If the title's URL should open in a new tab, etc.
       image: Formatter.image(profile.c_photo).url, // The URL of the image to display on the card
       altText: Formatter.image(profile.c_photo).alternateText,  // The alternate text for the image
       // tagLabel: '', // The label of the displayed image
@@ -37,8 +39,8 @@ class multilang_menuitem_standardCardComponent extends BaseCard['multilang-menui
       CTA1: {
         label: {{ translateJS phrase='Order Now' }}, // The CTA's label
         iconName: 'chevron', // The icon to use for the CTA
-        url: profile.orderUrl, // The URL a user will be directed to when clicking
-        target: '_top', // Where the new URL will be opened
+        url: profile.orderUrl && profile.orderUrl.url, // The URL a user will be directed to when clicking
+        target: linkTarget, // Where the new URL will be opened
         eventType: 'CTA_CLICK', // Type of Analytics event fired when clicking the CTA
         eventOptions: this.addDefaultEventOptions(),
         // ariaLabel: '', // Accessible text providing a descriptive label for the CTA
@@ -48,7 +50,7 @@ class multilang_menuitem_standardCardComponent extends BaseCard['multilang-menui
         label: {{ translateJS phrase='View Menu' }},
         iconName: 'magnifying_glass',
         url: profile.landingPageUrl,
-        target: '_top',
+        target: linkTarget,
         eventType: 'CTA_CLICK',
         eventOptions: this.addDefaultEventOptions(),
         // ariaLabel: '',

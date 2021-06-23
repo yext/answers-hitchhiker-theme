@@ -561,3 +561,22 @@ export function highlightField(fieldValue, matchedSubstrings = []) {
 
   return highlightedString;
 }
+
+/**
+ * Given an array of youtube videos from the KG, returns an embed link for the first video.
+ * If it is not possible to get an embed link, null is returned instead.
+ *
+ * @param {Object[]} videos 
+ * @returns {string|null}
+ */
+export function getYoutubeUrl(videos = []) {
+  if (videos.length === 0) {
+    return null;
+  }
+  const videoUrl = videos[0]?.video?.url;
+  const youtubeVideoId = videoUrl?.split('watch?v=')[1];
+  const youtubeVideoUrl = youtubeVideoId
+    ? 'https://www.youtube.com/embed/' + youtubeVideoId + '?enablejsapi=1' 
+    : null;
+  return youtubeVideoUrl;
+}

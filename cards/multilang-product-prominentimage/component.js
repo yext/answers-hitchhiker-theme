@@ -18,16 +18,17 @@ class multilang_product_prominentimageCardComponent extends BaseCard['multilang-
       imageUrl = Formatter.image(profile.photoGallery[0]).url;
       alternateText = Formatter.image(profile.photoGallery[0]).alternateText;
     }
+    const linkTarget = AnswersExperience.runtimeConfig.get('linkTarget') || '_top';
 
     return {
       title: profile.name, // The header text of the card
       url: profile.landingPageUrl, // If the card title is a clickable link, set URL here
-      target: '_top', // If the title's URL should open in a new tab, etc.
+      target: linkTarget, // If the title's URL should open in a new tab, etc.
       titleEventOptions: this.addDefaultEventOptions(),
       subtitle: Formatter.price(profile.price), // The sub-header text of the card
       image: imageUrl, // The URL of the image to display on the card
       altText: alternateText,  // The alternate text for the image
-      details: profile.richTextDescription ? ANSWERS.formatRichText(profile.richTextDescription, 'richTextDescription', '_top') : null, // The text in the body of the card
+      details: profile.richTextDescription ? ANSWERS.formatRichText(profile.richTextDescription, 'richTextDescription', linkTarget) : null, // The text in the body of the card
       // tag: profile.stockStatus ? profile.stockStatus : '', // The tag text for the card
       // If the card's details are longer than a certain character count, you can truncate the
       // text. A toggle will be supplied that can show or hide the truncated text.
@@ -42,7 +43,7 @@ class multilang_product_prominentimageCardComponent extends BaseCard['multilang-
         label: profile.c_primaryCTA ? profile.c_primaryCTA.label : null, // The CTA's label
         iconName: 'chevron', // The icon to use for the CTA
         url: Formatter.generateCTAFieldTypeLink(profile.c_primaryCTA), // The URL a user will be directed to when clicking
-        target: '_top', // Where the new URL will be opened
+        target: linkTarget, // Where the new URL will be opened
         eventType: 'CTA_CLICK', // Type of Analytics event fired when clicking the CTA
         eventOptions: this.addDefaultEventOptions(),
         // ariaLabel: '', // Accessible text providing a descriptive label for the CTA
@@ -52,7 +53,7 @@ class multilang_product_prominentimageCardComponent extends BaseCard['multilang-
         label: profile.c_secondaryCTA ? profile.c_secondaryCTA.label : null,
         iconName: 'chevron',
         url: Formatter.generateCTAFieldTypeLink(profile.c_secondaryCTA),
-        target: '_top',
+        target: linkTarget,
         eventType: 'CTA_CLICK',
         eventOptions: this.addDefaultEventOptions(),
         // ariaLabel: '',

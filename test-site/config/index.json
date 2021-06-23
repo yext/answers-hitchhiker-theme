@@ -36,7 +36,21 @@
     },
     "KM": {
       "universalSectionTemplate": "grid-two-columns",
-      "cardType": "multilang-financial-professional-location"
+      "cardType": "financial-professional-location",
+      "mapConfig": {
+        "mapProvider": "Google"
+      },
+      "icon": "static/assets/slapshot.png"
+    },
+    "products": {
+      "universalSectionTemplate": "grid-three-columns",
+      "cardType": "product-prominentimage"
+    },
+    "links": {
+      "cardType": "link-standard"
+    },
+    "healthcare_professionals": {
+      "cardType": "professional-location"
     }
   }
 }

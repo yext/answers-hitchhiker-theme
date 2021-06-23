@@ -20,6 +20,11 @@ const verticalConfiguration = {
     template: 'vertical-map',
     cardName: 'location-standard'
   },
+  locations_google: {
+    verticalKey: 'KM',
+    template: 'vertical-map',
+    cardName: 'location-standard'
+  },
   locations_full_page_map: {
     verticalKey: 'KM',
     template: 'vertical-full-page-map',
@@ -34,6 +39,41 @@ const verticalConfiguration = {
     verticalKey: 'people',
     template: 'vertical-grid',
     cardName: 'standard'
+  },
+  products: {
+    verticalKey: 'products',
+    template: 'vertical-grid',
+    cardName: 'multilang-product-prominentvideo'
+  },
+  products_clickable_image: {
+    verticalKey: 'products',
+    template: 'vertical-grid',
+    cardName: 'product-prominentimage-clickable'
+  },
+  financial_professionals: {
+    verticalKey: 'financial_professionals',
+    template: 'vertical-standard',
+    cardName: 'financial-professional-location'
+  },
+  healthcare_professionals: {
+    verticalKey: 'healthcare_professionals',
+    template: 'vertical-grid',
+    cardName: 'professional-standard'
+  },
+  jobs: {
+    verticalKey: 'jobs',
+    template: 'vertical-standard',
+    cardName: 'job-standard'
+  },
+  help_articles: {
+    verticalKey: 'help_articles',
+    template: 'vertical-standard',
+    cardName: 'document-standard'
+  },
+  menu_items: {
+    verticalKey: 'menu_items',
+    template: 'vertical-grid',
+    cardName: 'menuitem-standard'
   }
 };
 
@@ -50,7 +90,9 @@ const testSiteDir = path.resolve(__dirname, '..');
 process.chdir(testSiteDir);
 
 Object.entries(verticalConfiguration).forEach(([pageName, config]) => {
-  execSync(`npx jambo vertical --name ${pageName} --verticalKey ${config.verticalKey} --template ${config.template} --cardName ${config.cardName}`);
+  execSync(`npx jambo vertical --name ${pageName} --verticalKey ${config.verticalKey} --template ${config.template} --cardName ${config.cardName} --locales es`);
   configMerger.mergeConfigForPage(pageName);
   pagePatcher.applyPatchToPage(pageName);
+  configMerger.mergeConfigForPage(pageName + '.es');
+  pagePatcher.applyPatchToPage(pageName + '.es');
 });

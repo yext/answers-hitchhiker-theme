@@ -4,7 +4,7 @@
     console.error('ERROR: no sdkVersion specified, please specify an sdkVersion in the global_config.');
   }
 </script>
-<script src="https://assets.sitescdn.net/answers/v{{global_config.sdkVersion}}/{{#if params.sdkLocaleOverride}}{{#unless (eq params.sdkLocaleOverride 'en')}}{{params.sdkLocaleOverride}}-{{/unless}}{{else if global_config.locale}}{{#unless (eq global_config.locale 'en')}}{{global_config.locale}}-{{/unless}}{{/if}}answerstemplates.compiled.min.js" defer></script>
+<script src="{{sdkAssetUrl global_config.sdkVersion (findFirst params.sdkLocaleOverride global_config.locale 'en') 'answerstemplates.compiled.min.js'}}" defer></script>
 <script>
 {{#babel}}
   function initAnswers() {
@@ -12,7 +12,9 @@
     const IS_STAGING = HitchhikerJS.isStaging(JAMBO_INJECTED_DATA?.pages?.stagingDomains || []);
     const injectedConfig = {
       experienceVersion: IS_STAGING ? 'STAGING' : 'PRODUCTION',
-      apiKey: HitchhikerJS.getInjectedProp('{{{global_config.experienceKey}}}', ['apiKey']),
+      {{#unless global_config.useJWT}} 
+        apiKey: HitchhikerJS.getInjectedProp('{{{global_config.experienceKey}}}', ['apiKey']),
+      {{/unless}}
       {{#with env.JAMBO_INJECTED_DATA}}
         {{#if businessId}}businessId: "{{businessId}}",{{/if}}
       {{/with}}
@@ -28,10 +30,12 @@
         {{/if}}
       {{/with}}
     };
+    const token = window.AnswersExperience.runtimeConfig?.get('token');
     ANSWERS.init({
       templateBundle: TemplateBundle.default,
       ...injectedConfig,
       ...userConfig,
+      ...token && { apiKey: token },
       querySource: window.isOverlay ? 'OVERLAY' : 'STANDARD',
       onStateChange: (objParams, stringParams, replaceHistory) => {
         if ('parentIFrame' in window) {

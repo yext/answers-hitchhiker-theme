@@ -1,6 +1,19 @@
 require('iframe-resizer');
 
-export function generateIFrame(domain, queryParam, urlParam) {
+let iframeInitialized = false;
+const iframeMessageQueue = [];
+
+/**
+ * @typedef {import('./runtime-config')} RuntimeConfig
+ */
+
+/**
+ * Puts an iframe on the page of an Answers experience and sets up resizing and cross-domain communication
+ * 
+ * @param {string} domain The location of the answers experience
+ * @param {AnswersExperienceFrame} answersExperienceFrame
+ */
+export function generateIFrame(domain, answersExperienceFrame) {
   var isLocalHost = window.location.host.split(':')[0] === 'localhost';
   var containerEl = document.querySelector('#answers-container');
   var iframe = document.createElement('iframe');
@@ -8,15 +21,10 @@ export function generateIFrame(domain, queryParam, urlParam) {
   iframe.allow = 'geolocation';
 
   domain = domain || '';
-  queryParam = queryParam || 'query';
-  urlParam = urlParam || 'verticalUrl';
 
   var calcFrameSrc = function() {
     var paramString = window.location.search;
     paramString = paramString.substr(1, paramString.length);
-
-    // Decode ASCII forward slash to avod repeat encodings on page refreshes
-    paramString = paramString.replace("%2F", "/");
 
     // Parse the params out of the URL
     var params = paramString.split('&'),
@@ -82,6 +90,16 @@ export function generateIFrame(domain, queryParam, urlParam) {
   // For dynamic iFrame resizing
   iFrameResize({
     checkOrigin: false,
+    onInit: function() {
+      iframeInitialized = true;
+      iframeMessageQueue.push({
+        initAnswersExperience: answersExperienceFrame.hasManuallyInitialized(),
+        runtimeConfig: answersExperienceFrame.runtimeConfig.getAll()
+      });
+      while (iframeMessageQueue.length !== 0) {
+        sendToIframe(iframeMessageQueue.shift());
+      }
+    },
     onMessage: function(messageData) {
       const message = JSON.parse(messageData.message);
       if (message.action === "paginate") {
@@ -101,4 +119,19 @@ export function generateIFrame(domain, queryParam, urlParam) {
       }
     }
   }, '#answers-frame');
+}
+
+/**
+ * Sends data to the answers iframe if possible. Otherwise the message is queued
+ * so that it can be sent when the iframe initializes.
+ * @param {Object} obj 
+ */
+export function sendToIframe (obj) {
+  const iframe = document.querySelector('#answers-frame');
+  if (!iframe || !iframe.iFrameResizer || !iframeInitialized) {
+    iframeMessageQueue.push(obj);
+  }
+  else {
+    iframe.iFrameResizer.sendMessage(obj);
+  }
 }

@@ -33,6 +33,10 @@
   {
     height: 300px;
     border-bottom: var(--yxt-border-default);
+
+    img {
+      max-height: none;
+    }
   }
 
   &-items {

@@ -1,0 +1,11 @@
+{
+  "verticalsToConfig": {
+    "people": { // The vertical key from your search configuration
+      // "label": "", // The name of the vertical in the section header and the navigation bar
+      "cardType": "multilang-standard", // The name of the card to use - e.g. accordion, location, customcard
+      "icon": "star", // The icon to use on the card for this vertical
+      "universalSectionTemplate": "standard",
+      "label": "Personas"
+    }
+  }
+}

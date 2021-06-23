@@ -1,5 +1,11 @@
 # Answers Hitchhiker Theme
 
+<div>
+  <a href='https://coveralls.io/github/yext/answers-hitchhiker-theme?branch=master'>
+    <img src='https://coveralls.io/repos/github/yext/answers-hitchhiker-theme/badge.svg?branch=master' alt='Coverage Status' />
+  </a>
+</div>
+
 A [Jambo](https://github.com/yext/jambo) theme for building Answers experiences.
 
 Additonal resources for integrating Answers can be found at https://hitchhikers.yext.com/.

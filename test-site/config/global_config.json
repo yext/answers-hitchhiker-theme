@@ -1,8 +1,10 @@
 {
-  "sdkVersion": "1.8", // The version of the Answers SDK to use
+  "sdkVersion": "1.9", // The version of the Answers SDK to use
   "apiKey": "2d8c550071a64ea23e263118a2b0680b", // The answers api key found on the experiences page. This will be provided automatically by the Yext CI system
   // "experienceVersion": "<REPLACE ME>", // the Answers Experience version to use for API requests. This will be provided automatically by the Yext CI system
   // "businessId": "<REPLACE ME>", // The business ID of the account. This will be provided automatically by the Yext CI system
+  // "initializeManually": true, // If true, the experience must be started by calling AnswersExperience.init() or AnswersExperienceFrame.init() for iframe integrations.
+  // "useJWT": true, // Whether or not to enable JWT. If true, the apiKey will be hidden from the build and the token must be specified through the runtime config.
   "logo": "", // The link to the logo for open graph meta tag - og:image.
   "favicon": "",
   "googleTagManagerName": "dataLayer", // The name of your Google Tag Manager data layer

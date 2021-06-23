@@ -78,12 +78,18 @@
         href="{{#unless (isNonRelativeUrl global_config.favicon)}}{{relativePath}}/{{/unless}}{{global_config.favicon}}" />
     {{/if}}
     <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        {{> script/on-document-load}}
-        initAnswers();
-      });
+      {{#babel}}
+        document.addEventListener('DOMContentLoaded', () => {
+          {{> script/on-document-load}}
+          {{#if global_config.initializeManually}}
+            new HitchhikerJS.ManualInitializer(initAnswers).setup();
+          {{else}}
+            initAnswers();
+          {{/if}}
+        });
+      {{/babel}}
     </script>
-    <script src="{{relativePath}}/bundle.js" data-webpack-inline></script>
+    {{> script/partials/bundle-script-tags }}
     {{#if global_config.googleAnalyticsId}}
       <!-- Global site tag (gtag.js) - Google Analytics -->
       <script async src="https://www.googletagmanager.com/gtag/js?id={{global_config.googleAnalyticsId}}"></script>
@@ -111,20 +117,20 @@
     {{/if}}
 
     <script>
-      {{#babel}}
+    {{#babel}}
       function iframeGetSearchParams() {
-        let params = new URLSearchParams(window.location.search);
-        let verticalUrl = window.location.pathname.substr(1)
-        if (verticalUrl) {
-          params.set('verticalUrl', verticalUrl);
-        }
-        return params.toString();
+        const params = window.location.search.substr(1);
+        const verticalUrl = window.location.pathname.substr(1);
+        return verticalUrl 
+          ? params + '&verticalUrl=' + verticalUrl
+          : params;
       }
       let iframeLoadedResolve;
       window.iframeLoaded = new Promise(resolve => {
         iframeLoadedResolve = resolve;
       });
-      window.iFrameResizer = {
+     
+      window.iFrameResizer =  {
         onReady: function() {
           window.parentIFrame.sendMessage(JSON.stringify({
             params: iframeGetSearchParams(),
@@ -133,12 +139,20 @@
           }));
           iframeLoadedResolve();
         },
-        onMessage: window.isOverlay ? window.Overlay.onMessage : function() {},
+        onMessage: (message) => {
+          if (message.initAnswersExperience) {
+            window.AnswersExperience.init(message.runtimeConfig);
+          } else if (message.runtimeConfig) {
+            HitchhikerJS.RuntimeConfigReceiver.handle(message.runtimeConfig);
+          } else if (window.isOverlay) {
+            window.Overlay.onMessage(message);
+          }
+        }
       };
     {{/babel}}
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.10/iframeResizer.contentWindow.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://assets.sitescdn.net/answers/v{{global_config.sdkVersion}}/answers.css">
+    <link rel="stylesheet" type="text/css" href="{{sdkAssetUrl global_config.sdkVersion 'en' 'answers.css'}}">
     <link rel="stylesheet" type="text/css" href="{{relativePath}}/bundle.css" data-webpack-inline>
   </head>
   <body>
