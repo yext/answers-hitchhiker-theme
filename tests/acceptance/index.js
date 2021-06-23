@@ -21,7 +21,9 @@ runTests(argv.browsers);
  * @param {string[]} browsers The browsers to run the tests on
  */
 async function runTests (browsers) {
-  const testcafe = await createTestCafe();
+  const testcafe = await createTestCafe({
+    configFile: './testcafe.json'
+  });
   try {
     const numberTestsFailed = await testcafe.createRunner()
       .src('tests/acceptance/suites/*.js')
