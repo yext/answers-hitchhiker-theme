@@ -1,6 +1,6 @@
-{{> cards/card_component componentName='multilang-product-prominentvideo' }}
+{{> cards/card_component componentName='product-prominentvideo' }}
 
-class multilang_product_prominentvideoCardComponent extends BaseCard['multilang-product-prominentvideo'] {
+class product_prominentvideoCardComponent extends BaseCard['product-prominentvideo'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
   }
@@ -30,8 +30,8 @@ class multilang_product_prominentvideoCardComponent extends BaseCard['multilang-
       // Note: If you are using rich text for the details, you should not enable this feature.
       // showMoreDetails: {
       //   showMoreLimit: 24, // Character count limit
-      //   showMoreText: {{ translateJS phrase='Show more' }}, // Label when toggle will show truncated text
-      //   showLessText: {{ translateJS phrase='Show less' }} // Label when toggle will hide truncated text
+      //   showMoreText: 'Show more', // Label when toggle will show truncated text
+      //   showLessText: 'Show less' // Label when toggle will hide truncated text
       // },
       // The primary CTA of the card
       CTA1: {
@@ -92,12 +92,12 @@ class multilang_product_prominentvideoCardComponent extends BaseCard['multilang-
    * @override
    */
   static defaultTemplateName (config) {
-    return 'cards/multilang-product-prominentvideo';
+    return 'cards/product-prominentvideo';
   }
 }
 
 ANSWERS.registerTemplate(
-  'cards/multilang-product-prominentvideo',
-  {{{stringifyPartial (read 'cards/multilang-product-prominentvideo/template') }}}
+  'cards/product-prominentvideo',
+  {{{stringifyPartial (read 'cards/product-prominentvideo/template') }}}
 );
-ANSWERS.registerComponentType(multilang_product_prominentvideoCardComponent);
+ANSWERS.registerComponentType(product_prominentvideoCardComponent);
