@@ -129,7 +129,7 @@
       window.iframeLoaded = new Promise(resolve => {
         iframeLoadedResolve = resolve;
       });
-    
+     
       window.iFrameResizer =  {
         onReady: function() {
           window.parentIFrame.sendMessage(JSON.stringify({
