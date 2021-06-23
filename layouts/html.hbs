@@ -130,27 +130,25 @@
         iframeLoadedResolve = resolve;
       });
 
-      document.addEventListener('DOMContentLoaded', () => {
-        window.iFrameResizer =  {
-          onReady: function() {
-            window.parentIFrame.sendMessage(JSON.stringify({
-              params: iframeGetSearchParams(),
-              replaceHistory: true,
-              pageTitle: document.title
-            }));
-            iframeLoadedResolve();
-          },
-          onMessage: (message) => {
-            if (message.initAnswersExperience) {
-              window.AnswersExperience.init(message.runtimeConfig);
-            } else if (message.runtimeConfig) {
-              HitchhikerJS.RuntimeConfigReceiver.handle(message.runtimeConfig);
-            } else if (window.isOverlay) {
-              window.Overlay.onMessage(message);
-            }
+      window.iFrameResizer =  {
+        onReady: function() {
+          window.parentIFrame.sendMessage(JSON.stringify({
+            params: iframeGetSearchParams(),
+            replaceHistory: true,
+            pageTitle: document.title
+          }));
+          iframeLoadedResolve();
+        },
+        onMessage: (message) => {
+          if (message.initAnswersExperience) {
+            window.AnswersExperience.init(message.runtimeConfig);
+          } else if (message.runtimeConfig) {
+            HitchhikerJS.RuntimeConfigReceiver.handle(message.runtimeConfig);
+          } else if (window.isOverlay) {
+            window.Overlay.onMessage(message);
           }
-        };
-      });
+        }
+      }
     {{/babel}}
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.10/iframeResizer.contentWindow.min.js"></script>
