@@ -34,7 +34,16 @@ export { ManualInitializer };
 import RuntimeConfigReceiver from './runtime-config-receiver';
 export { RuntimeConfigReceiver };
 
+import DeferredPromise from './deferred-promise';
+window.AnswersInitialized = new DeferredPromise((resolve, reject) => {
+  setTimeout(reject, 5000, 
+    'Timed out waiting on Answers initialization. Unable to update Answer\'s configuration(s).');
+});
+
+import RuntimeConfig from './runtime-config';
 import AnswersExperience from './answers-experience';
-window.AnswersExperience = AnswersExperience;
+const runtimeConfig = new RuntimeConfig();
+const answersExperience = new AnswersExperience(runtimeConfig);
+window.AnswersExperience = answersExperience;
 
 export * from './video-apis';

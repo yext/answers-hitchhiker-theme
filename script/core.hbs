@@ -46,6 +46,8 @@
         }
       },
       onReady: () => {
+        window.AnswersInitialized.resolve();
+
         {{> @partial-block }}
 
         {{> script/on-ready}}
