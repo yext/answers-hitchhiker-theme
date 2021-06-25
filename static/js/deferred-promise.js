@@ -10,7 +10,7 @@ export default class DeferredPromise {
       this.resolve = resolve;
       this.reject = reject;
       
-      if(stateHandler) {
+      if (stateHandler) {
         stateHandler(resolve, reject);
       }
     });

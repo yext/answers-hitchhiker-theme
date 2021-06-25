@@ -32,7 +32,7 @@ export default class RuntimeConfig {
   set (key, value) {
     this._validateSet(key, value);
     this._data[key] = value;
-    if(!this._onUpdateListeners[key]) {
+    if (!this._onUpdateListeners[key]) {
       this._onUpdate(key, () => {});
     }
     this._onUpdateListeners[key](value);
