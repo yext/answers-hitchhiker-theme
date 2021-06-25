@@ -1,22 +1,36 @@
+import DeferredPromise from './deferred-promise';
+
 export default class AnswersExperience {
   constructor (runtimeConfig) {
     this.runtimeConfig = runtimeConfig;
 
-    runtimeConfig._onUpdate(updatedConfig => {
-      window.AnswersInitialized
-        .then(() => updateAnswersConfig(updatedConfig))
-        .catch(err => console.warn(err));
+    this.AnswersInitializedPromise = new DeferredPromise((resolve, reject) => {
+      setTimeout(reject, 5000, 
+        'Timed out waiting on Answers initialization. Unable to update Answer\'s configuration(s).');
     });
 
-		/**
-     * Update Answer's runtime configurations
-     * 
-     * @param {Object} updatedConfig An object representation of the runtime config
-     */
-    function updateAnswersConfig(updatedConfig) {
-      if (updatedConfig['analyticsEventsEnabled']) {
-        ANSWERS.setAnalyticsOptIn(updatedConfig['analyticsEventsEnabled'] === 'true');
-      }
+    runtimeConfig._onUpdate('analyticsEventsEnabled', updatedConfigOption => {
+      this.AnswersInitializedPromise
+        .then(() => this.updateAnswersAnalyticsEventsConfig(updatedConfigOption))
+        .catch(err => console.warn(err));
+    });
+  }
+
+  /**
+   * Update Answer's analytics events config based on new value 
+   * of 'analyticsEventsEnabled' key in runtimeConfig
+   * 
+   * @param {string|boolean} updatedConfigOption
+   */
+  updateAnswersAnalyticsEventsConfig (updatedConfigOption) {
+    let option = null;
+    if (typeof(updatedConfigOption) === 'string') {
+      option = updatedConfigOption.toLowerCase() === 'true';
+    } else if (typeof(updatedConfigOption) === 'boolean') {
+      option = updatedConfigOption;
+    }
+    if (option != null) {
+      ANSWERS.setAnalyticsOptIn(option);
     }
   }
 }
