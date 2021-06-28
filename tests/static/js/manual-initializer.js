@@ -4,7 +4,7 @@ describe('The manual initializer works', () => {
   let initAnswers;
 
   beforeEach(() => {
-    global.window.AnswersExperience = {
+    window.AnswersExperience = {
       runtimeConfig: {
         get: jest.fn(),
         set: jest.fn()
@@ -16,16 +16,16 @@ describe('The manual initializer works', () => {
   })
 
   it('The manual init function calls initAnswers', () => {
-    global.window.AnswersExperience.init();
+    window.AnswersExperience.init();
     expect(initAnswers).toHaveBeenCalledTimes(1);
   });
 
   it('Data passed into the init function is set on the runtimeConfig', () => {
-    global.window.AnswersExperience.init({ 
+    window.AnswersExperience.init({ 
       token: '123abc',
       linkTarget: '_blank'
     });
-    const runtimeConfigSet = global.window.AnswersExperience.runtimeConfig.set;
+    const runtimeConfigSet = window.AnswersExperience.runtimeConfig.set;
     expect(runtimeConfigSet).toHaveBeenCalledWith('token', '123abc');
     expect(runtimeConfigSet).toHaveBeenCalledWith('linkTarget', '_blank');
   });
