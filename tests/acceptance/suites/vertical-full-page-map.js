@@ -56,10 +56,10 @@ test('Pagination works', async t => {
 test('Pagination scrolls the results to the top', async t => {
   await VerticalResults.scrollToBottom();
   const scrollTop = await VerticalResults.getScrollTop();
-  console.log(scrollTop);
+  console.log('scrollTop', scrollTop);
   await t.expect(scrollTop).notEql(0);
   await Pagination.nextResults();
   const scrollTopAfterPagination = await VerticalResults.getScrollTop();
-  console.log(scrollTopAfterPagination);
+  console.log('scrollTopAfterPagination', scrollTopAfterPagination);
   await t.expect(scrollTopAfterPagination).eql(0);
 });

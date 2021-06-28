@@ -39,7 +39,7 @@ async function runTests (browsers, useLiveMode) {
         return testName === 'Pagination scrolls the results to the top'
       })
       .startApp(`npx serve -p ${PORT} test-site/public`, 4000)
-      .run({ quarantineMode: true });
+      .run();
     if (numberTestsFailed > 0) {
       await testcafe.close();
       process.exit(1);
