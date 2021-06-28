@@ -28,7 +28,7 @@ async function runTests (browsers) {
     const numberTestsFailed = await testcafe.createRunner()
       .src('tests/acceptance/suites/*.js')
       .browsers(browsers)
-      .startApp(`npx serve -p ${PORT} test-site/public`, 4000)
+      .startApp(`npx serve -l tcp://0.0.0.0:${PORT} test-site/public`, 4000)
       .run({ quarantineMode: true });
     if (numberTestsFailed > 0) {
       await testcafe.close();
