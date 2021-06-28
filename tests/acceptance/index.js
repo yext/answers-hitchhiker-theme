@@ -27,9 +27,7 @@ runTests(argv.browsers, argv.live);
  * @param {boolean} useLiveMode whether to use a live mode runner
  */
 async function runTests (browsers, useLiveMode) {
-  const testcafe = await createTestCafe({
-    configFile: './testcafe.json'
-  });
+  const testcafe = await createTestCafe();
   try {
     const runner = useLiveMode ? await testcafe.createLiveModeRunner() : await testcafe.createRunner();
     const numberTestsFailed = await runner
