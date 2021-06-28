@@ -27,7 +27,7 @@ async function runTests (browsers) {
       .src('tests/acceptance/suites/*.js')
       .browsers(browsers)
       .startApp(`npx serve -p ${PORT} test-site/public`, 4000)
-      .run({ quarantineMode: true });
+      .run();
     if (numberTestsFailed > 0) {
       await testcafe.close();
       process.exit(1);
