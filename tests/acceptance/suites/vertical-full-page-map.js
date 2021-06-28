@@ -8,7 +8,6 @@ fixture`Vertical Full Page Map`
   .page(`http://localhost:${PORT}/locations_full_page_map`)
 
 test('Pagination scrolls the results to the top', async t => {
-  await t.setTestSpeed(0.05);
   await VerticalResults.scrollToBottom();
   const scrollTop = await VerticalResults.getScrollTop();
   console.log(scrollTop)
