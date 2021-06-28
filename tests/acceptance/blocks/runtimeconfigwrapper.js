@@ -6,8 +6,8 @@ import { ClientFunction } from 'testcafe';
 class RuntimeConfigWrapper {
   constructor({ isParent = false }) {
     /**
-     * If true, indicates that the interaction with the runtimeConfig should happen
-     * on the parent site of an Answers iframe integration.
+     * If true, indicates that the runtimeConfig is on a parent site of an 
+     * Answers iframe integration.
      */
     this._isParent = isParent;
   }
