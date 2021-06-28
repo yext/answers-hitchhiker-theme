@@ -26,11 +26,11 @@ BaseCard["{{componentName}}"] = class extends ANSWERS.Component {
         })
       );
     }
-
-    const rtfElement = DOM.query(this._container, '.js-yxt-rtfValue');
+    
+    const rtfElement = this._container.querySelector('.js-yxt-rtfValue');
     if (rtfElement) {
       const fieldName = rtfElement.dataset.fieldName;
-      DOM.on(rtfElement, 'click', e => this._handleRtfClickAnalytics(e, fieldName));
+      rtfElement.addEventListener('click', e => this._handleRtfClickAnalytics(e, fieldName));
     }
   }
 
