@@ -67,6 +67,9 @@ BaseDirectAnswerCard["{{componentName}}"] = class extends ANSWERS.Component {
         });
       }
     }
+
+    const rtfElement = this._container.querySelector('.js-yxt-rtfValue');
+    rtfElement && rtfElement.addEventListener('click', e => this._handleRtfClickAnalytics(e));
   }
 
   /**
@@ -143,6 +146,32 @@ BaseDirectAnswerCard["{{componentName}}"] = class extends ANSWERS.Component {
         ...eventOptions
       },
     );
+  }
+
+  /**
+   * A click handler for links in a Rich Text Direct Answer. When such a link
+   * is clicked, an {@link AnalyticsEvent} needs to be fired.
+   *
+   * @param {MouseEvent} event The click event.
+   */
+  _handleRtfClickAnalytics (event) {
+    if (!event.target.dataset.ctaType) {
+      return;
+    }
+    const ctaType = event.target.dataset.ctaType;
+
+    const analyticsOptions = {
+      verticalKey: this.verticalConfigId,
+      directAnswer: true,
+      fieldName: this.answer.fieldApiName,
+      searcher: 'UNIVERSAL',
+      entityId: this.associatedEntityId,
+      url: event.target.href
+    };
+
+    const analyticsEvent = new ANSWERS.AnalyticsEvent(ctaType);
+    analyticsEvent.addOptions(analyticsOptions);
+    this.analyticsReporter.report(analyticsEvent);
   }
 
   /**
