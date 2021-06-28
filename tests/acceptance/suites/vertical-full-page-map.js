@@ -10,8 +10,10 @@ fixture`Vertical Full Page Map`
 test('Pagination scrolls the results to the top', async t => {
   await VerticalResults.scrollToBottom();
   const scrollTop = await VerticalResults.getScrollTop();
+  console.log(scrollTop)
   await t.expect(scrollTop).notEql(0);
   await Pagination.nextResults();
   const scrollTopAfterPagination = await VerticalResults.getScrollTop();
+  console.log(scrollTopAfterPagination)
   await t.expect(scrollTopAfterPagination).eql(0);
 });
