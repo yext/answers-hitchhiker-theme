@@ -1,6 +1,6 @@
 name: Translation Test
 
-on: [push, pull_request]
+on: push
 
 jobs:
   build:
@@ -21,6 +21,7 @@ jobs:
       env:
         IGNORED_FOLDERS: '!{commands,hbshelpers,patches,postupgrade,static,tests,test-site,translations}/**'
         OUTPUT_FILE: 'translations/messages.pot'
+    - run: sudo apt-get install -qq gettext
     - run: |
         cd translations
         for po_file in *.po
