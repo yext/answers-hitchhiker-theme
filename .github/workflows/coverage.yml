@@ -3,10 +3,10 @@
 
 name: Code Coverage
 
-on:
+on: 
   push:
-    branches-ignore: dev/*
-  pull_request:
+    branches:
+      - main
 
 jobs:
   Coveralls:
