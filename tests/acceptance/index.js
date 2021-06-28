@@ -25,7 +25,6 @@ async function runTests (browsers) {
   try {
     const numberTestsFailed = await testcafe.createRunner()
       .src('tests/acceptance/suites/*.js')
-      .setTestSpeed(0.1)
       .browsers(browsers)
       .startApp(`npx serve -p ${PORT} test-site/public`, 4000)
       .run();
