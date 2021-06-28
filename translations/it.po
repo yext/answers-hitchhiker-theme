@@ -159,6 +159,7 @@ msgid "<em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">No resul
 msgstr "<em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">Non ci sono risultati disponibili</em> in [[currentVerticalLabel]]."
 
 #: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:5
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:47
 msgid "Alternatively, you can <a class=\"yxt-AlternativeVerticals-universalLink\" href=\"[[universalUrl]]\"> view results across all search categories</a>."
 msgstr "Altrimenti, può <a class=\"yxt-AlternativeVerticals-universalLink\" href=[[universalUrl]]> vedere i risultati su tutte le categorie di ricerca</a>."
 
@@ -173,7 +174,3 @@ msgid "([[resultsCount]] result)"
 msgid_plural "([[resultsCount]] results)"
 msgstr[0] "[[resultsCount]] risultato"
 msgstr[1] "[[resultsCount]] risultati"
-
-#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:47
-msgid "Alternatively, you can <a class=\"yxt-AlternativeVerticals-universalLink\" href=\"[[universalUrl]]\"> view results across all search categories</a>."
-msgstr "Altrimenti, può <a class=\"yxt-AlternativeVerticals-universalLink\" href=[[universalUrl]]> vedere i risultati su tutte le categorie di ricerca</a>."
