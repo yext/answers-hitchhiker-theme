@@ -7,6 +7,7 @@ module.exports = (jamboConfig) => {
     devtool: 'source-map',
     entry: {
       'bundle-legacy': `./${jamboConfig.dirs.output}/static/entry-legacy.js`,
+      'overlay-button-legacy': `./${jamboConfig.dirs.output}/static/js/overlay/button-frame/entry-legacy.js`,
     },
     plugins: [
       new InlineAssetHtmlPlugin()
