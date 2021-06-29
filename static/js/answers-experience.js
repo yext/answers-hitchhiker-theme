@@ -3,16 +3,16 @@ import DeferredPromise from './deferred-promise';
 export default class AnswersExperience {
   constructor (runtimeConfig) {
     this.runtimeConfig = runtimeConfig;
+    this.AnswersInitializedPromise = new DeferredPromise();
 
-    this.AnswersInitializedPromise = new DeferredPromise((resolve, reject) => {
-      setTimeout(reject, 5000, 
-        'Timed out waiting on Answers initialization. Unable to update Answer\'s configuration(s).');
-    });
-
-    runtimeConfig._onUpdate('analyticsEventsEnabled', updatedConfigOption => {
-      this.AnswersInitializedPromise
-        .then(() => this.updateAnswersAnalyticsEventsConfig(updatedConfigOption))
-        .catch(err => console.warn(err));
+    runtimeConfig.registerListener({
+      eventType: 'update',
+      key: 'analyticsEventsEnabled',
+      callback: updatedConfigOption => {
+        this.AnswersInitializedPromise
+          .then(() => this.updateAnswersAnalyticsEventsConfig(updatedConfigOption))
+          .catch(err => console.warn(err));
+      }
     });
   }
 

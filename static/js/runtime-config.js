@@ -4,7 +4,7 @@
 export default class RuntimeConfig {
   constructor (initialConfig = {}) {
     this._data = { ...initialConfig };
-    this._onUpdateListeners = {};
+    this._listeners = [];
   }
 
   /**
@@ -32,19 +32,41 @@ export default class RuntimeConfig {
   set (key, value) {
     this._validateSet(key, value);
     this._data[key] = value;
-    if (!this._onUpdateListeners[key]) {
-      this._onUpdate(key, () => {});
-    }
-    this._onUpdateListeners[key](value);
+    this._callListeners('update', key);
   }
 
   /**
-   * A function which is called any time a specific key in RuntimeConfig is updated
-   * @param {string} key
-   * @param {Function} cb 
+   * Adds a listener for a given key, or any time RuntimeConfig is 
+   * updated if there's no key provided.
+   *
+   * @param {*} listener the listener to add
+   * @param {string} listener.eventType event type to trigger this listener
+   * @param {string} listener.key if given, listener is attached to this key. Otherwise, listener is attached to all keys.
+   * @param {Function} listener.callback function to invoke on event triggered
    */
-  _onUpdate (key, cb) {
-    this._onUpdateListeners[key] = cb;
+  registerListener (listener) {
+    if (!listener.eventType || !listener.callback || typeof listener.callback !== 'function') {
+      throw new Error(`Invalid listener applied in runtimeConfig: ${listener}`);
+    }
+    this._listeners.push(listener);
+  }
+
+  /**
+   * Trigger all generic and key-specific listener(s) that match the event type
+   * 
+   * @param {string} eventType
+   * @param {string} key
+   */
+  _callListeners (eventType, key) {
+    this._listeners.forEach((listener) => {
+      if (listener.eventType === eventType) {
+        if (!listener.key) {
+          listener.callback(this.getAll());
+        } else if (listener.key === key) {
+          listener.callback(this.get(key));
+        }
+      }
+    });
   }
 
   _validateSet (key, value) {

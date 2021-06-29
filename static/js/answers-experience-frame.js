@@ -4,11 +4,12 @@ export default class AnswersExperienceFrame {
   constructor (runtimeConfig) {
     this.runtimeConfig = runtimeConfig;
     this._hasManuallyInitialized = false;
-    
-    Object.entries(runtimeConfig.getAll()).forEach(([key, value]) => {
-      runtimeConfig._onUpdate(key, configOption => {
-        sendToIframe({ runtimeConfig: {key: configOption} });
-      });
+
+    runtimeConfig.registerListener({
+      eventType: 'update',
+      callback: updatedConfig => {
+        sendToIframe({ runtimeConfig: updatedConfig });
+      }
     });
   }
 

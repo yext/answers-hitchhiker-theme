@@ -82,6 +82,8 @@
           return ANSWERS.renderer.SafeString({{{stringifyPartial (read 'static/assets/images/close-card') }}});
         });
       }
+    }).catch(err => {
+      window.AnswersExperience.AnswersInitializedPromise.reject('Answers failed to initialized.');
     });
     {{> script/after-init}}
   }
