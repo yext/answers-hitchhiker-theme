@@ -1,0 +1,33 @@
+name: Translation Test
+
+on:
+  pull_request:
+    branches:
+      - master
+      - release/*
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [15.x]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm ci
+    - name: 'extract translations'
+      run: npx jambo extract-translations --globs '*/**/*{.hbs,.js}' '!**/node_modules' $IGNORED_FOLDERS --output $OUTPUT_FILE
+      env:
+        IGNORED_FOLDERS: '!{commands,hbshelpers,patches,postupgrade,static,tests,test-site,translations}/**'
+        OUTPUT_FILE: 'translations/messages.pot'
+    - run: sudo apt-get install -qq gettext
+    - run: |
+        cd translations
+        for po_file in *.po
+          do msgcmp $po_file messages.pot
+        done
