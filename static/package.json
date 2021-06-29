@@ -39,6 +39,7 @@
     "sass-loader": "^8.0.2",
     "simple-git": "^2.15.0",
     "webpack": "^5.37.1",
+    "webpack-bundle-analyzer": "^4.4.2",
     "webpack-cli": "^4.2.0",
     "webpack-merge": "^5.7.3"
   },
