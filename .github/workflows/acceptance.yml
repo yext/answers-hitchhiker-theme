@@ -11,7 +11,7 @@ jobs:
       BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
     strategy:
       matrix:
-        node-version: [15.x, 15.x, 15.x, 15.x, 15.x, 15.x, 15.x, 15.x, 15.x, 15.x, 15.x, 15.x, 15.x, 15.x, 15.x, 15.x]
+        node-version: [15.x, 15.x, 15.x, 15.x, 15.x]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1

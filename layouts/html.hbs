@@ -156,7 +156,7 @@
     <link rel="stylesheet" type="text/css" href="{{relativePath}}/bundle.css" data-webpack-inline>
   </head>
   <body>
-    <div id="status" style="position:fixed;top:0;left:0;z-index:100;background:white;padding-right:0.5em;padding-bottom:0.5em;font-size:40px;">N/A</div>
+    <div id="status" style="position:fixed;top:0;right:0;z-index:100;background:white;padding-right:0.5em;padding-bottom:0.5em;font-size:40px;">N/A</div>
     {{#if global_config.googleTagManagerId}}
       <!-- Google Tag Manager (noscript) -->
       <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{global_config.googleTagManagerId}}{{#ifeq googleTagManagerId 'dataLayer'}}{{else}}&l={{global_config.googleTagManagerName}}{{/ifeq}}"
