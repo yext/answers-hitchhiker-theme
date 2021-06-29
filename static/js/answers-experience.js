@@ -6,7 +6,6 @@ export default class AnswersExperience {
     this.AnswersInitializedPromise = new DeferredPromise();
 
     runtimeConfig.registerListener({
-      eventType: 'update',
       key: 'analyticsEventsEnabled',
       callback: updatedConfigOption => {
         this.AnswersInitializedPromise

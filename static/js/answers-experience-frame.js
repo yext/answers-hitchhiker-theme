@@ -6,7 +6,6 @@ export default class AnswersExperienceFrame {
     this._hasManuallyInitialized = false;
 
     runtimeConfig.registerListener({
-      eventType: 'update',
       callback: updatedConfig => {
         sendToIframe({ runtimeConfig: updatedConfig });
       }
