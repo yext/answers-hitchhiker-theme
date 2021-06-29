@@ -6,13 +6,13 @@ export default class RuntimeConfig {
     this._data = { ...initialConfig };
     
     /**
-     * Hold listeners that applies to all keys
+     * Listeners that apply to all keys
      * @type {Object[]}
      */
     this._generalListeners = [];
     
     /**
-     * Hold listeners that applies to specific keys
+     * Listeners that apply to specific keys
      * @type {Map<string:Object[]>}
      */
     this._keySpecificListeners = {};
