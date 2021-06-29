@@ -23,7 +23,7 @@ runTests(argv.browsers);
 async function runTests (browsers) {
   const testcafe = await createTestCafe();
   try {
-    const numberTestsFailed = await testcafe.createRunner()
+    const numberTestsFailed = await testcafe.createLiveModeRunner()
       .src('tests/acceptance/suites/*.js')
       .browsers(browsers)
       .startApp(`npx serve -p ${PORT} test-site/public`, 4000)
