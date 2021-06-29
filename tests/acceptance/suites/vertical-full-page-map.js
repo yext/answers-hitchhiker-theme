@@ -27,6 +27,7 @@ test('Search when map moves works', async t => {
   const resultsCountBeforeDrag = await VerticalResults.getNumResults();
   await ThemeMap.dragLeft();
   await ThemeMap.dragLeft();
+  await t.wait(500); // Wait longer than the debouncer to allow a new search to be triggered
   const resultsCountAfterDrag = await VerticalResults.getNumResults();
   await t.expect(resultsCountBeforeDrag !== resultsCountAfterDrag).ok();
 });
