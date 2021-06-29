@@ -6,6 +6,7 @@ pull_request:
     - master
     - 'release/*'
     - boop
+    - dev/*
 
 jobs:
   build:
