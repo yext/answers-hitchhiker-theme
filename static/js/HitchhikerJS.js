@@ -35,8 +35,8 @@ import RuntimeConfigReceiver from './runtime-config-receiver';
 export { RuntimeConfigReceiver };
 
 import RuntimeConfig from './runtime-config';
-window.AnswersExperience = {
-  runtimeConfig: new RuntimeConfig()
-};
+import AnswersExperience from './answers-experience';
+const runtimeConfig = new RuntimeConfig();
+window.AnswersExperience = new AnswersExperience(runtimeConfig);
 
 export * from './video-apis';

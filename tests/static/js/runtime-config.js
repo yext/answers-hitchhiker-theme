@@ -20,10 +20,25 @@ describe('Runtime config data model functionality', () => {
     expect(actualData).toEqual(expectedData);
   });
 
-  it('The _onUpdate callback is called when data is set', () => {
+  it('generic listener callback is called when data is set', () => {
     const runtimeConfig = new RuntimeConfig();
     const mockCallback = jest.fn();
-    runtimeConfig._onUpdate(mockCallback);
+    runtimeConfig.registerListener({
+      eventType: 'update',
+      callback: mockCallback});
+    runtimeConfig.set('linkTarget', '_blank');
+    expect(mockCallback).toHaveBeenCalled();
+  });
+
+  it('key-specific listener callback is called only when the corresponding key\'s data is set', () => {
+    const runtimeConfig = new RuntimeConfig();
+    const mockCallback = jest.fn();
+    runtimeConfig.registerListener({
+      eventType: 'update',
+      key: 'linkTarget',
+      callback: mockCallback});
+    runtimeConfig.set('someConfig', 'someValue');
+    expect(mockCallback).not.toHaveBeenCalled();
     runtimeConfig.set('linkTarget', '_blank');
     expect(mockCallback).toHaveBeenCalled();
   });
