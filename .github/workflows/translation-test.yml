@@ -1,6 +1,5 @@
 name: Translation Test
 
-
 on:
   pull_request:
     branches:
