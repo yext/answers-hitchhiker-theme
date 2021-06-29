@@ -156,6 +156,7 @@
     <link rel="stylesheet" type="text/css" href="{{relativePath}}/bundle.css" data-webpack-inline>
   </head>
   <body>
+    <div id="status">N/A</div>
     {{#if global_config.googleTagManagerId}}
       <!-- Google Tag Manager (noscript) -->
       <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{global_config.googleTagManagerId}}{{#ifeq googleTagManagerId 'dataLayer'}}{{else}}&l={{global_config.googleTagManagerName}}{{/ifeq}}"
