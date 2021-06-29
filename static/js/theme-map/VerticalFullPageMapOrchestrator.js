@@ -1,7 +1,7 @@
 import { Coordinate } from './Geo/Coordinate.js';
 import { smoothScroll } from './Util/SmoothScroll.js';
-import { getLanguageForProvider, isViewableWithinContainer, removeElement } from './Util/helpers.js';
-import { SearchDebouncer } from './SearchDebouncer';
+import { isViewableWithinContainer, removeElement, debounce } from './Util/helpers.js';
+import { SearchPreventer } from './SearchPreventer';
 import { defaultCenterCoordinate } from './constants.js';
 
 import ZoomTriggers from './Maps/ZoomTriggers.js';
@@ -126,9 +126,14 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
 
     /**
      * Determines whether or not another search should be ran
-     * @type {SearchDebouncer}
+     * @type {SearchPreventer}
      */
-    this.searchDebouncer = new SearchDebouncer();
+    this.searchPreventer = new SearchPreventer();
+
+    /**
+     * A search this area function with a debounce applied
+     */
+    this.debouncedSearchThisArea = debounce(this.searchThisArea.bind(this), 250);
 
     /**
      * The detail card which apears on mobile after clicking a pin
@@ -365,8 +370,8 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       return;
     }
 
-    if (!this.shouldSearchBeDebouncedBasedOnCenter()) {
-      this.searchThisArea();
+    if (!this.shouldSearchBePreventedBasedOnCenter()) {
+      this.debouncedSearchThisArea();
     }
   }
 
@@ -379,19 +384,19 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       return;
     }
 
-    if (!this.shouldSearchBeDebouncedBasedOnZoom()) {
-      this.searchThisArea();
+    if (!this.shouldSearchBePreventedBasedOnZoom()) {
+      this.debouncedSearchThisArea();
     }
   }
 
   /**
-   * Returns true if a search should be debounced based on the center of the current map
+   * Returns true if a search should be prevented based on the center of the current map
    * and the center of the map during the most recent search
    * 
    * @returns {boolean}
    */
-  shouldSearchBeDebouncedBasedOnCenter () {
-    return this.searchDebouncer.isWithinDistanceThreshold({
+  shouldSearchBePreventedBasedOnCenter () {
+    return this.searchPreventer.isWithinDistanceThreshold({
       mostRecentSearchMapCenter: this.mostRecentSearchLocation,
       currentMapCenter: this.getCurrentMapCenter(),
       currentZoom: this.currentZoom
@@ -399,13 +404,13 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
   }
 
   /**
-   * Returns true if a search should be debounced based on the previous search zoom level and
+   * Returns true if a search should be prevented based on the previous search zoom level and
    * the current zoom level
    * 
    * @returns {boolean}
    */
-  shouldSearchBeDebouncedBasedOnZoom () {
-    return this.searchDebouncer.isWithinZoomThreshold({
+  shouldSearchBePreventedBasedOnZoom () {
+    return this.searchPreventer.isWithinZoomThreshold({
       mostRecentSearchZoom: this.mostRecentSearchZoom,
       currentZoom: this.currentZoom
     });

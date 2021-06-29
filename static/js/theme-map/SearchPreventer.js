@@ -4,7 +4,7 @@ import { Coordinate } from './Geo/Coordinate.js';
  * Responsible for determining whether or not a new search should be ran based on the
  * location of the most recent search, the current center of the map, and the zoom level.
  */
-class SearchDebouncer {
+class SearchPreventer {
   constructor () {
     /**
      * The threshold for allowing a new search based on the distance to the previous search.
@@ -28,7 +28,7 @@ class SearchDebouncer {
   }
 
   /**
-   * Determines if a search should be debounced based on the relative distance of the current map
+   * Determines if a search should be prevented based on the relative distance of the current map
    * center to the previous map center.
    * 
    * @param {Coordinate} mostRecentSearchMapCenter
@@ -40,12 +40,11 @@ class SearchDebouncer {
     const distanceToLastSearch = currentMapCenter.distanceTo(mostRecentSearchMapCenter);
     const relativeDistance = this._calculateRelativeDistance(distanceToLastSearch, currentZoom);
 
-
     return relativeDistance <= this.relativeDistanceThreshold;
   }
 
   /**
-   * Determines if a search should be debounced based on the difference between the map zoom during
+   * Determines if a search should be prevented based on the difference between the map zoom during
    * the most recent search and the current map zoom.
    * 
    * @param {number} mostRecentSearchZoom
@@ -78,4 +77,4 @@ class SearchDebouncer {
   }
 }
 
-export { SearchDebouncer };
+export { SearchPreventer };
