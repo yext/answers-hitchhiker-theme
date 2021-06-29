@@ -1,12 +1,13 @@
 name: Translation Test
 
 
-pull_request:
-  branches:
-    - master
-    - 'release/*'
-    - boop
-    - 'dev/*'
+on:
+  pull_request:
+    branches:
+      - master
+      - 'release/*'
+      - boop
+      - 'dev/*'
 
 jobs:
   build:
