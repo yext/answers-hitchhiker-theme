@@ -9,7 +9,7 @@
     color: var(--yxt-text-snippet-font-color);
   }
 
-  @media (min-width: $breakpoint-mobile-min) {
+  @include bpgte(sm) {
     margin-top: calc(var(--yxt-base-spacing) * 2.35);
   }
 
@@ -76,7 +76,7 @@
     margin-top: calc(var(--yxt-base-spacing) / 2);
     justify-content: center;
 
-    @media (min-width: $breakpoint-mobile-max)
+    @include bpgte(sm)
     {
       margin-top: 0;
       margin-left: calc(var(--yxt-base-spacing) / 2);
@@ -138,6 +138,15 @@
     {
       margin-left: 8px;
     }
+  }
+
+  &-fieldset
+  {
+    display: inline;
+    margin-inline-start: 2px;
+    margin-inline-end: 2px;
+    line-height: 0;
+    min-inline-size: min-content;
   }
 
   &-feedback

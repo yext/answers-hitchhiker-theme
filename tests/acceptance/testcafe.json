@@ -1,0 +1,5 @@
+{
+  "selectorTimeout": 20000, // default is 10000
+  "assertionTimeout": 6000, // default is 3000
+  "pageLoadTimeout": 6000 // default is 3000
+}

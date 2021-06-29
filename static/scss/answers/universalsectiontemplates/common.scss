@@ -4,7 +4,7 @@
   width: 100%;
   margin-top: calc(var(--yxt-base-spacing) * 1.5);
 
-  @media (min-width: $breakpoint-mobile-min) {
+  @include bpgte(sm) {
     margin-top: calc(var(--yxt-base-spacing) * 2.35);
   }
 
@@ -219,7 +219,7 @@
       padding-left: 1px;
     }
 
-    @media (max-width: $breakpoint-mobile-max) {
+    @include bplte(xs) {
       margin-bottom: 0;
       & + & {
         border-top: 0;
@@ -231,7 +231,7 @@
 @mixin column-grid-items {
   background-color: var(--yxt-color-background-highlight);
 
-  @media (min-width: $breakpoint-mobile-min) {
+  @include bpgte(sm) {
     padding: calc(var(--yxt-base-spacing) * 3/4);
 
     border-left: var(--yxt-border-default);

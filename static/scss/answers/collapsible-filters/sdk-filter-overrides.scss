@@ -33,7 +33,7 @@
     }
   }
   
-  @media (max-width: $container-tablet-base) {
+  @include bplte(xs) {
     .yxt-SortOptions-option,
     .yxt-FilterOptions-option {
       margin: 8px 0px;
@@ -80,7 +80,7 @@
       margin-top: 8px;
       border-top: none;
   
-      @media (min-width: $container-tablet-base) {
+      @include bpgte(sm) {
         margin-top: 12px;
       }
     }

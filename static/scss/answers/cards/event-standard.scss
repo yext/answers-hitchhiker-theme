@@ -49,7 +49,7 @@
     flex-direction: column;
     width: 100%;
 
-    @media (min-width: $breakpoint-mobile-max)
+    @include bpgte(sm)
     {
       justify-content: space-between;
       flex-direction: row;
@@ -91,7 +91,7 @@
     text-transform: uppercase;
     margin-top: calc(var(--yxt-base-spacing) / 2);
 
-    @media (min-width: $breakpoint-mobile-max)
+    @include bpgte(sm)
     {
       margin-left: 1.5rem;
       margin-top: 0;

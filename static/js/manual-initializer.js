@@ -22,28 +22,14 @@ export default class ManualInitializer {
       );
     }, 5000);
     window.AnswersExperience.init = (config = {}) => {
-      this._fireOnDomLoad(() => {
-        Object.entries(config).forEach(([key, value]) => {
-          window.AnswersExperience.runtimeConfig.set(key, value);
-        });
-        clearTimeout(runtimeConfigNotProvidedTimeout);
-        if (!this._hasAnswersInitialized) {
-          this._initAnswers();
-        }
-        this._hasAnswersInitialized = true;
+      Object.entries(config).forEach(([key, value]) => {
+        window.AnswersExperience.runtimeConfig.set(key, value);
       });
-    }
-  }
-
-  /**
-   * Executes the provided function on DOM load
-   * @param {Function} cb 
-   */
-   _fireOnDomLoad (cb) {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', cb);
-    } else {
-      cb();
+      clearTimeout(runtimeConfigNotProvidedTimeout);
+      if (!this._hasAnswersInitialized) {
+        this._initAnswers();
+      }
+      this._hasAnswersInitialized = true;
     }
   }
 }
