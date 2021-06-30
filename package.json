@@ -47,7 +47,8 @@
   },
   "jest": {
     "collectCoverageFrom": [
-      "static/**/*.js"
+      "static/**/*.js",
+      "hbshelpers/*.js"
     ],
     "verbose": true,
     "moduleFileExtensions": [
