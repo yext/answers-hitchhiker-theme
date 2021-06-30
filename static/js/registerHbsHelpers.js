@@ -1,7 +1,7 @@
-import all from 'HbsHelpers/all';
-import any from 'HbsHelpers/any';
-import isNonRelativeUrl from 'HbsHelpers/isNonRelativeUrl';
-import relativePathHandler from 'HbsHelpers/relativePathHandler';
+const all = require('HbsHelpers/all') ;
+const any = require('HbsHelpers/any');
+const isNonRelativeUrl = require('HbsHelpers/isNonRelativeUrl');
+const relativePathHandler = require('HbsHelpers/relativePathHandler');
 
 export default function registerHbsHelpers() {
   ANSWERS.registerHelper('all', all);

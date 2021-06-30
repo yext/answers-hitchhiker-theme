@@ -37,9 +37,11 @@ class multilang_location_standardCardComponent extends BaseCard['multilang-locat
       // image: '', // The URL of the image to display on the card
       showOrdinal: true, // Show the map pin number on the card. Only supported for universal search
       CTA1: { // The primary call to action for the card
-        label: {{ translateJS phrase='Call' context='Call is a verb' }}, // The label of the CTA
-        iconName: 'phone', // The icon to use for the CTA
-        url: Formatter.phoneLink(profile), // The URL a user will be directed to when clicking
+
+        label: 'RSVP', // The CTA's label
+        iconName: 'calendar', // The icon to use for the CTA
+        iconUrl: 'static/assets/slapshot.png',
+        url: '123',
         target: linkTarget, // If the URL will be opened in a new tab, etc.
         eventType: 'TAP_TO_CALL', // Type of Analytics event fired when clicking the CTA
         eventOptions: this.addDefaultEventOptions(), // The analytics event options for CTA clicks

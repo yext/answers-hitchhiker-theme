@@ -33,7 +33,8 @@ class event_standardCardComponent extends BaseCard['event-standard'] {
       CTA1: {
         label: 'RSVP', // The CTA's label
         iconName: 'calendar', // The icon to use for the CTA
-        url: profile.ticketUrl || profile.website, // The URL a user will be directed to when clicking
+        iconUrl: 'static/assets/slapshot.png',
+        url: '123', // The URL a user will be directed to when clicking
         target: linkTarget, // Where the new URL will be opened
         eventType: 'RSVP', // Type of Analytics event fired when clicking the CTA
         eventOptions: this.addDefaultEventOptions(),
