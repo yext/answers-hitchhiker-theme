@@ -13,7 +13,7 @@ export default class AnswersExperience {
     this._runtimeConfigListeners = [
       analyticsListener,
       sessionTrackingListener
-    ]
+    ];
 
     this._registerRuntimeConfigListeners();
   }

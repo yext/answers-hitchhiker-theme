@@ -6,9 +6,9 @@
  * @returns {boolean}
  */
 export function canonicalizeBoolean (value) {
-  if (typeof(value) === 'string') {
+  if (typeof value === 'string') {
     return value.toLowerCase() === 'true';
-  } else if (typeof(value) === 'boolean') {
+  } else if (typeof value === 'boolean') {
     return value;
   } else {
     return false;

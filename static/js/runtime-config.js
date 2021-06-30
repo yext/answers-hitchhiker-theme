@@ -2,12 +2,13 @@ import { canonicalizeBoolean } from './utils';
 
 /**
  * @typedef {Object} RuntimeConfigListener
- * @property {string} eventType Event type to trigger this listener. Otherwise, default event is 'update'
- * @property {string} key If supplied, the listener is associated with this key. Otherwise, listener is
- *                    attached to all keys.
- * @property {string} valueType Indicates that when a value is set on the associated key, the value should be
- *                    canonicalized to the specified type. For example, for valueType of 'boolean', values
- *                    will be canoncicalized to boolean. Only applicable when a key is also specified.
+ * @property {string} eventType Event type to trigger this listener. Defaults to 'update'
+ * @property {string} key If supplied, the listener is associated with this key.
+ *                    Otherwise, listener is attached to all keys.
+ * @property {string} valueType Indicates that when a value is set on the associated key,
+ *                    the value should be canonicalized to the specified type. For
+ *                    example, for valueType of 'boolean', values will be canoncicalized
+ *                    to boolean. Only applicable when a key is specified.
  * @property {Function} callback Function to invoke upon event trigger
  */
 
