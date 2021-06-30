@@ -40,10 +40,4 @@ const runtimeConfig = new RuntimeConfig();
 import AnswersExperience from './answers-experience';
 window.AnswersExperience = new AnswersExperience(runtimeConfig);
 
-import analyticsListener from './runtime-config-listeners/analytics';
-import sessionTrackingListener from './runtime-config-listeners/session-tracking';
-
-runtimeConfig.registerListener(analyticsListener);
-runtimeConfig.registerListener(sessionTrackingListener);
-
 export * from './video-apis';

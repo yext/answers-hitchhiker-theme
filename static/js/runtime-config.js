@@ -1,3 +1,16 @@
+import { canonicalizeBoolean } from './utils';
+
+/**
+ * @typedef {Object} RuntimeConfigListener
+ * @property {string} eventType Event type to trigger this listener. Otherwise, default event is 'update'
+ * @property {string} key If supplied, the listener is associated with this key. Otherwise, listener is
+ *                    attached to all keys.
+ * @property {string} valueType Indicates that when a value is set on the associated key, the value should be
+ *                    canonicalized to the specified type. For example, for valueType of 'boolean', values
+ *                    will be canoncicalized to boolean. Only applicable when a key is also specified.
+ * @property {Function} callback Function to invoke upon event trigger
+ */
+
 /**
  * A data model for runtime configuration
  */
@@ -51,10 +64,7 @@ export default class RuntimeConfig {
    * Adds a listener for a given key, or any time RuntimeConfig is 
    * updated if there's no key provided.
    *
-   * @param {Object} listener the listener to add
-   * @param {string} listener.eventType event type to trigger this listener. Otherwise, default event is 'update'
-   * @param {string} listener.key if given, listener is attached to this key. Otherwise, listener is attached to all keys.
-   * @param {Function} listener.callback function to invoke on event triggered
+   * @param {RuntimeConfigListener}
    */
   registerListener (listener) {
     if (!listener.callback || typeof listener.callback !== 'function') {
@@ -94,9 +104,14 @@ export default class RuntimeConfig {
   _callKeySpecificListeners (eventType, key) {
     if (this._keySpecificListeners[key]) {
       this._keySpecificListeners[key].forEach((listener) => {
-        if (listener.eventType === eventType) {
-          listener.callback(this.get(key));
+        if (listener.eventType !== eventType) {
+          return;
         }
+        let value = this.get(key);
+        if (listener.valueType === 'boolean') {
+          value = canonicalizeBoolean(value);
+        }
+        listener.callback(value);
       });
     }
   }

@@ -5,7 +5,7 @@
  * @param {string|boolean} value
  * @returns {boolean}
  */
- export function canonicalizeBoolean (value) {
+export function canonicalizeBoolean (value) {
   if (typeof(value) === 'string') {
     return value.toLowerCase() === 'true';
   } else if (typeof(value) === 'boolean') {

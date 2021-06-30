@@ -1,13 +1,7 @@
-import { canonicalizeBoolean } from '../utils';
-
 export default {
   key: 'sessionTrackingEnabled',
+  valueType: 'boolean',
   callback: value => {
-    window.AnswersExperience.AnswersInitializedPromise
-      .then(() => {
-        const canonicalizedValue = canonicalizeBoolean(value);
-        ANSWERS.setSessionsOptIn(canonicalizedValue);
-      })
-      .catch(err => console.warn(err));
+    ANSWERS.setSessionsOptIn(value);
   }
 }

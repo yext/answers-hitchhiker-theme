@@ -1,6 +1,6 @@
 import { canonicalizeBoolean } from '../../../static/js/utils';
  
- describe('canonicalizeBoolean works properly', () => {
+describe('canonicalizeBoolean works properly', () => {
   it('case-insensitive string representations of "true" return true', () => {
     const result = canonicalizeBoolean('TrUe');
     expect(result).toEqual(true);
