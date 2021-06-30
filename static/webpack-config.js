@@ -43,8 +43,19 @@ module.exports = function () {
     jamboInjectedData = getCleanedJamboInjectedData(jamboInjectedData)
     jamboInjectedData = JSON.stringify(jamboInjectedData)
   }
+  const baseHbsHelpersPath = path.resolve(
+    __dirname, jamboConfig.dirs.themes, jamboConfig.defaultTheme, 'hbshelpers');
+  fs.copySync(baseHbsHelpersPath, path.join(jamboConfig.dirs.output, 'hbshelpers'));
 
   const plugins = [
+    // new CopyWebpackPlugin({
+    //   patterns: [
+    //     {
+    //       from: path.resolve(__dirname, jamboConfig.dirs.themes, jamboConfig.defaultTheme, 'hbshelpers'),
+    //       to: path.join(jamboConfig.dirs.output, 'hbshelpers')
+    //     },
+    //   ],
+    // }),
     new MiniCssExtractPlugin({
       filename: pathData => {
         const chunkName = pathData.chunk.name;
@@ -86,7 +97,7 @@ module.exports = function () {
     resolve: {
       alias: {
         static: path.resolve(__dirname, jamboConfig.dirs.output, 'static'),
-        HbsHelpers: path.resolve(__dirname, jamboConfig.dirs.themes, jamboConfig.defaultTheme, 'hbshelpers'),
+        HbsHelpers: path.resolve(__dirname, jamboConfig.dirs.output, 'hbshelpers'),
       }
     },
     output: {
