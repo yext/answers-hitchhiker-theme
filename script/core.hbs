@@ -47,6 +47,11 @@
       },
       onReady: () => {
         window.AnswersExperience.AnswersInitializedPromise.resolve();
+        
+        HitchhikerJS.registerHbsHelpers();
+        ANSWERS.registerHelper('close-card-svg', () => {
+          return ANSWERS.renderer.SafeString({{{stringifyPartial (read 'static/assets/images/close-card') }}});
+        });
 
         {{> @partial-block }}
 
@@ -55,32 +60,6 @@
         {{#if global_config.conversionTrackingEnabled}}
           ANSWERS.setConversionsOptIn(true);
         {{/if}}
-
-        ANSWERS.registerHelper('all', function (...args) {
-          return args.filter(item => item).length === args.length;
-        });
-
-        ANSWERS.registerHelper('any', function (...args) {
-          return args.filter(item => item).length > 1;
-        });
-
-        ANSWERS.registerHelper('matches', function(str, regexPattern) {
-          const regex = new RegExp(regexPattern)
-          return str && str.match(regex);
-        });
-
-        /**
-         * Determine whether a URL is absolute or not.
-         * Common examples: "mailto:slapshot@gmail.com", "//yext.com", "https://yext.com"
-         */
-        ANSWERS.registerHelper('isNonRelativeUrl', function(str) {
-          const absoluteURLRegex = /^(\/|[a-zA-Z]+:)/;
-          return str && str.match(absoluteURLRegex);
-        });
-
-        ANSWERS.registerHelper('close-card-svg', () => {
-          return ANSWERS.renderer.SafeString({{{stringifyPartial (read 'static/assets/images/close-card') }}});
-        });
       }
     }).catch(err => {
       window.AnswersExperience.AnswersInitializedPromise.reject('Answers failed to initialized.');

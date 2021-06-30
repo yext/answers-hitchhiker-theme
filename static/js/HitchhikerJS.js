@@ -40,3 +40,6 @@ const runtimeConfig = new RuntimeConfig();
 window.AnswersExperience = new AnswersExperience(runtimeConfig);
 
 export * from './video-apis';
+
+import registerHbsHelpers from './registerHbsHelpers';
+export { registerHbsHelpers };

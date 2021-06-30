@@ -86,6 +86,7 @@ module.exports = function () {
     resolve: {
       alias: {
         static: path.resolve(__dirname, jamboConfig.dirs.output, 'static'),
+        HbsHelpers: path.resolve(__dirname, jamboConfig.dirs.themes, jamboConfig.defaultTheme, 'hbshelpers'),
       }
     },
     output: {
