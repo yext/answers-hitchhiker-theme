@@ -40,7 +40,7 @@
       "mapConfig": {
         "mapProvider": "Google"
       },
-      "icon": "static/assets/slapshot.png"
+      "iconUrl": "static/assets/slapshot.png"
     },
     "products": {
       "universalSectionTemplate": "grid-three-columns",
