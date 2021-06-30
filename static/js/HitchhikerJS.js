@@ -37,10 +37,13 @@ export { RuntimeConfigReceiver };
 import RuntimeConfig from './runtime-config';
 const runtimeConfig = new RuntimeConfig();
 
-import RuntimeConfigListenerRegistrant from './runtime-config-listener-registrant';
-new RuntimeConfigListenerRegistrant(runtimeConfig).registerListeners();
-
 import AnswersExperience from './answers-experience';
 window.AnswersExperience = new AnswersExperience(runtimeConfig);
+
+import analyticsListener from './runtime-config-listeners/analytics';
+import sessionTrackingListener from './runtime-config-listeners/session-tracking';
+
+runtimeConfig.registerListener(analyticsListener);
+runtimeConfig.registerListener(sessionTrackingListener);
 
 export * from './video-apis';
