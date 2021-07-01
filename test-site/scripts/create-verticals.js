@@ -10,6 +10,10 @@ const verticalConfiguration = {
     template: 'vertical-standard',
     cardName: 'event-custom'
   },
+  events_custom_cta_icons: {
+    verticalKey: 'events',
+    template: 'vertical-standard'
+  },
   faqs: {
     verticalKey: 'faq',
     template: 'vertical-standard',
@@ -90,7 +94,12 @@ const testSiteDir = path.resolve(__dirname, '..');
 process.chdir(testSiteDir);
 
 Object.entries(verticalConfiguration).forEach(([pageName, config]) => {
-  execSync(`npx jambo vertical --name ${pageName} --verticalKey ${config.verticalKey} --template ${config.template} --cardName ${config.cardName} --locales es`);
+  let verticalCommand =
+    `npx jambo vertical --name ${pageName} --verticalKey ${config.verticalKey} --template ${config.template} --locales es`
+  if (config.cardName) {
+    verticalCommand += ` --cardName ${config.cardName}`
+  }
+  execSync(verticalCommand);
   configMerger.mergeConfigForPage(pageName);
   pagePatcher.applyPatchToPage(pageName);
   configMerger.mergeConfigForPage(pageName + '.es');
