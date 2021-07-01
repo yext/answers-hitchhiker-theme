@@ -105,6 +105,10 @@ class Photographer {
     await this._camera.snapshotMobileOnly('vertical-full-page-map__mobile-detail-view');
 
     await this._pageNavigator
+      .gotoVerticalPage('locations_full_page_map_with_filters', { query: 'people' });
+    await this._camera.snapshot('vertical-full-page-map--alternative-verticals');
+
+    await this._pageNavigator
       .gotoVerticalPage('locations_full_page_map', { query: 'office sparce'});
     await this._camera.snapshotDesktopOnly('vertical-full-page-map--spellcheck__desktop-view');
     await this._camera.snapshotMobileOnly('vertical-full-page-map--spellcheck__mobile-list-view');
