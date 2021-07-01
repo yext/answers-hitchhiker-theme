@@ -7,10 +7,8 @@
     <h3 class="HitchhikerFaqAccordion-title">
       {{{card.title}}}
     </h3>
-    <div class="HitchhikerFaqAccordion-icon js-HitchhikerFaqAccordion-icon{{#if card.isExpanded}} HitchhikerFaqAccordion-icon--expanded{{/if}}"
-      data-component="IconComponent"
-      data-opts='{"iconName": "chevron"}'
-      data-prop="icon">
+    <div class="HitchhikerFaqAccordion-icon js-HitchhikerFaqAccordion-icon{{#if card.isExpanded}} HitchhikerFaqAccordion-icon--expanded{{/if}}">
+      {{> icons/bakedInIcon iconName='chevron' }}
     </div>
   </button>
   <div class="HitchhikerFaqAccordion-content js-HitchhikerFaqAccordion-content"
