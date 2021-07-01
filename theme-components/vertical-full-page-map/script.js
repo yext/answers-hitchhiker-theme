@@ -32,7 +32,7 @@ ANSWERS.addComponent('VerticalFullPageMapOrchestrator', Object.assign({},
         {{#with (lookup verticalsToConfig verticalKey)}}
         {{#if isFirst}}isFirst: {{isFirst}},{{/if}}
         {{#if icon}}icon: "{{{icon}}}",{{/if}}
-        {{#if iconUrl}}iconUrl: "{{{relativePathHandler url=iconUrl relativePath=root.relativePath}}}",{{/if}}
+        {{#if iconUrl}}iconUrl: "{{{relativePathHandler url=iconUrl relativePath=@root.relativePath}}}",{{/if}}
         label: {{> verticalLabel overridedLabel=label verticalKey=../verticalKey fallback=@key}},
         url: "{{#if url}}{{{url}}}{{else if ../url}}{{@root.relativePath}}/{{{../url}}}{{else}}{{{@key}}}.html{{/if}}",
         {{/with}}
