@@ -101,10 +101,12 @@
       target="{{#if target}}{{target}}{{else}}{{#if linkTarget}}{{linkTarget}}{{else}}_blank{{/if}}{{/if}}">
       {{#if (any iconName iconUrl)}}
       <div class="HitchhikerCTA-iconWrapper">
-        <div class="HitchhikerCTA-icon" data-component="IconComponent" data-opts='{
-          "iconUrl": "{{#if iconUrl}}{{#unless (isNonRelativeUrl iconUrl)}}{{@root.relativePath}}/{{/unless}}{{iconUrl}}{{/if}}",
-          "iconName": "{{iconName}}"
-        }'></div>
+        <div class="HitchhikerCTA-icon" data-component="IconComponent">
+          {{> icons/iconPartial
+            iconName=iconName
+            iconUrl=(relativePathHandler url=iconUrl relativePath=@root.relativePath)
+          }}
+        </div>
       </div>
       {{/if}}
       <div class='HitchhikerCTA-iconLabel'>
