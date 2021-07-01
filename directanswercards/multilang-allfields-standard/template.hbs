@@ -130,11 +130,9 @@
         {{footerText}}
       </legend>
       <label class="HitchhikerAllFieldsStandard-thumb">
-        <span class="HitchhikerAllFieldsStandard-thumbUpIcon"
-              data-component="IconComponent"
-              data-opts='{"iconName": "thumb"}'
-              data-prop="icon"
-        ></span>
+        <span class="HitchhikerAllFieldsStandard-thumbUpIcon">
+          {{> icons/bakedInIcon iconName='thumb' }}
+        </span>
         <input type="radio"
                 name="feedback"
                 value="true"
