@@ -73,13 +73,15 @@
   {{#if showExcessDetailsToggle}}
   <button class="HitchhikerCard-detailsToggle js-HitchhikerCard-detailsToggle">
     {{card.showMoreDetails.showMoreText}}
-    <span data-component="IconComponent"
-      data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseDown" }'></span>
+    <span>
+      {{> icons/bakedInIcon iconName='chevron' classNames='Icon--sm Icon--collapseDown' }}
+    </span>
   </button>
   <button class="HitchhikerCard-detailsToggle js-HitchhikerCard-detailsToggle js-hidden">
     {{card.showMoreDetails.showLessText}}
-    <span data-component="IconComponent"
-      data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseUp" }'></span>
+    <span>
+      {{> icons/bakedInIcon iconName='chevron' classNames='Icon--sm Icon--collapseUp' }}
+    </span>
   </button>
   {{/if}}
 </div>
