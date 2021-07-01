@@ -19,14 +19,12 @@
 
 {{#*inline 'icon'}}
 {{#if (any iconName iconUrl)}}
-<div class="HitchhikerAllFieldsStandard-titleIconWrapper"
-  data-component="IconComponent"
-  data-opts='{
-    "iconName": "{{iconName}}",
-    "iconUrl": "{{#if iconUrl}}{{#unless (isNonRelativeUrl iconUrl)}}{{@root.relativePath}}/{{/unless}}{{iconUrl}}{{/if}}"
-  }'
-  data-prop="icon"
-></div>
+<div class="HitchhikerAllFieldsStandard-titleIconWrapper"></div>
+  {{> icons/iconPartial
+    iconName=iconName
+    iconUrl=(relativePathHandler url=iconUrl relativePath=@root.relativePath)
+  }}
+</div>
 {{/if}}
 {{/inline}}
 
