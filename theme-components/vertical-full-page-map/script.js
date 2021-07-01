@@ -32,9 +32,9 @@ ANSWERS.addComponent('VerticalFullPageMapOrchestrator', Object.assign({},
         {{#with (lookup verticalsToConfig verticalKey)}}
         {{#if isFirst}}isFirst: {{isFirst}},{{/if}}
         {{#if icon}}icon: "{{{icon}}}",{{/if}}
-        {{#if iconUrl}}iconUrl: "{{#unless (isNonRelativeUrl iconUrl)}}{{relativePath}}/{{/unless}}{{{iconUrl}}}",{{/if}}
+        {{#if iconUrl}}iconUrl: "{{{relativePathHandler url=iconUrl relativePath=root.relativePath}}}",{{/if}}
         label: {{> verticalLabel overridedLabel=label verticalKey=../verticalKey fallback=@key}},
-        url: "{{#if url}}{{{url}}}{{else if ../url}}{{../../relativePath}}/{{{../url}}}{{else}}{{{@key}}}.html{{/if}}",
+        url: "{{#if url}}{{{url}}}{{else if ../url}}{{@root.relativePath}}/{{{../url}}}{{else}}{{{@key}}}.html{{/if}}",
         {{/with}}
       }{{#unless @last}},{{/unless}}
       {{else}}
@@ -43,7 +43,7 @@ ANSWERS.addComponent('VerticalFullPageMapOrchestrator', Object.assign({},
         {{#if isFirst}}isFirst: {{isFirst}},{{/if}}
         {{#if icon}}icon: "{{{icon}}}",{{/if}}
         label: {{#if label}}"{{{label}}}"{{else}}"{{{@key}}}"{{/if}},
-        url: "{{#if url}}{{{url}}}{{else if ../url}}{{../../relativePath}}/{{{../url}}}{{else}}{{{@key}}}.html{{/if}}",
+        url: "{{#if url}}{{{url}}}{{else if ../url}}{{@root.relativePath}}/{{{../url}}}{{else}}{{{@key}}}.html{{/if}}",
       {{/with}}
       }{{#unless @last}},{{/unless}}
       {{/if}}
