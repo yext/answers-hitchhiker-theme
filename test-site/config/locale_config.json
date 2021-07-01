@@ -16,6 +16,6 @@
   },
   "urlFormat": {
     "baseLocale": "{locale}/{pageName}.{pageExt}",
-    "default": "{locale}/{pageName}.{pageExt}"
+    "default": "{pageName}.{pageExt}"
   }
 }
