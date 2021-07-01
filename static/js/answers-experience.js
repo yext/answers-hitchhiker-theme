@@ -1,35 +1,51 @@
 import DeferredPromise from './deferred-promise';
+import analyticsListener from './runtime-config-listeners/analytics';
+import sessionTrackingListener from './runtime-config-listeners/session-tracking';
+
+/**
+ * @typedef {import('./runtime-config.js').RuntimeConfigListener} RuntimeConfigListener
+ */
 
 export default class AnswersExperience {
   constructor (runtimeConfig) {
     this.runtimeConfig = runtimeConfig;
     this.AnswersInitializedPromise = new DeferredPromise();
+    this._runtimeConfigListeners = [
+      analyticsListener,
+      sessionTrackingListener
+    ];
 
-    runtimeConfig.registerListener({
-      key: 'analyticsEventsEnabled',
-      callback: updatedConfigOption => {
-        this.AnswersInitializedPromise
-          .then(() => this.updateAnswersAnalyticsEventsConfig(updatedConfigOption))
-          .catch(err => console.warn(err));
-      }
-    });
+    this._registerRuntimeConfigListeners();
   }
 
   /**
-   * Update Answer's analytics events config based on new value 
-   * of 'analyticsEventsEnabled' key in runtimeConfig
-   * 
-   * @param {string|boolean} updatedConfigOption
+   * Registers runtime config listeners and ensures that they execute
+   * after Answers has initialized
    */
-  updateAnswersAnalyticsEventsConfig (updatedConfigOption) {
-    let option = null;
-    if (typeof(updatedConfigOption) === 'string') {
-      option = updatedConfigOption.toLowerCase() === 'true';
-    } else if (typeof(updatedConfigOption) === 'boolean') {
-      option = updatedConfigOption;
-    }
-    if (option != null) {
-      ANSWERS.setAnalyticsOptIn(option);
+  _registerRuntimeConfigListeners() {
+    this._runtimeConfigListeners
+      .map(listener => {
+        return this._makeListenerWaitForAnswersInit(listener);
+      })
+      .forEach(listener => {
+        this.runtimeConfig.registerListener(listener);
+      });
+  }
+
+  /**
+   * Creates a RuntimeConfigListener which will wait for Answers initialization before
+   * executing its callback
+   * @param {RuntimeConfigListener} listener
+   * @returns {RuntimeConfigListener}
+   */
+  _makeListenerWaitForAnswersInit (listener) {
+    return {
+      ...listener,
+      callback: value => {
+        this.AnswersInitializedPromise.then(() => {
+          listener.callback(value);
+        });
+      },
     }
   }
 }
