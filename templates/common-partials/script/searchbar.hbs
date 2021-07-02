@@ -26,6 +26,9 @@ ANSWERS.addComponent("SearchBar", Object.assign({}, {
   {{#if verticalKey}}
     verticalKey: "{{{verticalKey}}}",
   {{/if}}
+  loadingIndicator: {
+    display: true
+  },
   ...(shouldAddOverlayConfig ? overlayConfig : {}),
   onCreate: function() {
     this._container.textContent = '';
