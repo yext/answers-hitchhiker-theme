@@ -23,7 +23,7 @@
   <div class="HitchhikerResultsStandard-title">
     {{#if _config.icon}}
       {{#if iconIsBuiltIn}}
-        <div>{{> icons/bakedInIcon iconName=_config.icon }}</div>
+        <div>{{> icons/builtInIcon iconName=_config.icon }}</div>
       {{else}}
         <div>{{> icons/iconPartial iconUrl=_config.icon }}</div>
       {{/if}}
@@ -62,7 +62,7 @@
          data-eventoptions='{{eventOptions}}'
       >
         <div class="HitchhikerResultsStandard-viewMoreLabel">{{_config.viewMoreLabel}}</div>
-        <div>{{> icons/bakedInIcon iconName='chevron' }}</div>
+        <div>{{> icons/builtInIcon iconName='chevron' }}</div>
       </a>
     </div>
   {{/if}}
