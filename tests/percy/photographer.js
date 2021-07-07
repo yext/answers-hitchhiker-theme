@@ -53,6 +53,9 @@ class Photographer {
     await this._pageNavigator.gotoVerticalPage('events', { query: 'vrginia' });
     await this._camera.snapshot('vertical-search--spellcheck');
 
+    await this._pageNavigator.gotoVerticalPage('events_custom_cta_icons');
+    await this._camera.snapshot('vertical-search--custom-cta-icons');
+
     await this._pageNavigator.gotoVerticalPage('financial_professionals', { query: 'connor' });
     await this._camera.snapshot('vertical-search--financial-professional-location');
     
@@ -100,6 +103,10 @@ class Photographer {
     const mapboxPinSelector = '.js-answersMap button';
     await this._pageNavigator.click(mapboxPinSelector);
     await this._camera.snapshotMobileOnly('vertical-full-page-map__mobile-detail-view');
+
+    await this._pageNavigator
+      .gotoVerticalPage('locations_full_page_map_with_filters', { query: 'people' });
+    await this._camera.snapshot('vertical-full-page-map--alternative-verticals');
 
     await this._pageNavigator
       .gotoVerticalPage('locations_full_page_map', { query: 'office sparce'});
