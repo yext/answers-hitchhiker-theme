@@ -27,10 +27,11 @@ module.exports = function sdkAssetUrl(branch, locale, assetName) {
   const isPreReleaseBranch = 
     RELEASE_BRANCH_REGEX.test(branch) || HOTFIX_BRANCH_REGEX.test(branch);
   const isI18nFeatureBranch = I18N_FEATURE_BRANCH_REGEX.test(branch);
-  const isLocalizationSupported = 
-    (isReleasedBranch || isPreReleaseBranch || isI18nFeatureBranch) && 
-    !(locale.startsWith('en') || assetName === 'answers.css') ;
-  
+  const isDevelop = branch === 'develop';
+  const isLocalizationSupported =
+    (isReleasedBranch || isPreReleaseBranch || isI18nFeatureBranch || isDevelop) && 
+    !(locale.startsWith('en') || assetName === 'answers.css');
+
   const parsedAssetName = isLocalizationSupported ?
     `${locale}-${assetName}` :
     assetName;
