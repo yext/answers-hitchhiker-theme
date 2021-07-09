@@ -48,8 +48,12 @@ class PostUpgradeHandler {
    * @return {string} The comment-json merged global config
    */
   async mergeThemeGlobalConfig(userGlobalConfigPath, themeGlobalConfigPath) {
+    console.log('merging global config files')
     const updatedCommentJson = fs.readFileSync(themeGlobalConfigPath, 'utf-8');
     const originalCommentJson = fs.readFileSync(userGlobalConfigPath, 'utf-8');
+    console.log('theme global config:', updatedCommentJson)
+    console.log('original global config:', originalCommentJson)
+    console.log('merged', mergeJson(updatedCommentJson, originalCommentJson))
     return mergeJson(updatedCommentJson, originalCommentJson);
   }
 
