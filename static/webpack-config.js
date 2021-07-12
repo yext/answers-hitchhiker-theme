@@ -6,6 +6,7 @@ const HtmlPlugin = require('html-webpack-plugin');
 const RemovePlugin = require('remove-files-webpack-plugin');
 const { merge } = require('webpack-merge');
 const { parse } = require('comment-json');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = function () {
   const jamboConfig = require('./jambo.json');
@@ -65,6 +66,14 @@ module.exports = function () {
       }
     })
   ];
+
+  const analyzeBundle = (process.env || {}).ANALYZE_BUNDLE === 'true';
+
+  if (analyzeBundle) {
+    plugins.push(new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
+    }));
+  }
 
   const commonConfig = {
     stats: 'errors-warnings',
