@@ -9,6 +9,7 @@ fixture`Vertical Full Page Map with Filters and Clusters`
 
 test('Clicking on a pin closes the filter view', async t => {
   await SearchBar.submitQuery('virginia');
+  await VerticalResults.waitOnSearchComplete();
   await CollapsibleFilters.viewFilters();
   await ThemeMap.selectPin();
   const isFilterViewOpen = await CollapsibleFilters.isFilterViewOpen();
@@ -17,6 +18,7 @@ test('Clicking on a pin closes the filter view', async t => {
 
 test('Clicking on a cluster causes the map to zoom in', async t => {
   await SearchBar.submitQuery('virginia');
+  await VerticalResults.waitOnSearchComplete();
   const zoom = await ThemeMap.getZoom();
   await ThemeMap.selectPinCluster();
   const zoomAfterSelectingCluster = await ThemeMap.getZoom();
@@ -25,6 +27,7 @@ test('Clicking on a cluster causes the map to zoom in', async t => {
 
 test('Clicking on a cluster causes a new search to be ran', async t => {
   await SearchBar.submitQuery('virginia');
+  await VerticalResults.waitOnSearchComplete();
   const numResults = await VerticalResults.getNumResults();
   await ThemeMap.selectPinCluster();
   const numResultsAfterSelectingCluster = await VerticalResults.getNumResults();

@@ -5,7 +5,10 @@ import { Selector, t } from 'testcafe';
  */
 class VerticalResults {
   constructor () {
-    this._selector = Selector('.yxt-Results')
+    this._selector = Selector('.yxt-Results');
+    this._searchComplete = Selector('.yxt-Results--searchComplete');
+    this._searchLoading = Selector('.yxt-Results--searchLoading');
+    this._preSearch = Selector('.yxt-Results--preSearch');
     this._resultsWrapper = Selector('.Answers-resultsWrapper');
     this._focusedCard = Selector('.yxt-Card--pinFocused');
     this._getNthCard = index => Selector(`.yxt-Card[data-opts*="${index}"]`);
@@ -64,6 +67,19 @@ class VerticalResults {
    */
   async isResultsPresent () {
     return this._selector.exists;
+  }
+
+  /**
+   * wait for results to return based on search complete state 
+   * (default selector timeout of 10 seconds)
+   */
+   async waitOnSearchComplete () {
+    if(!this._preSearch.exists) {
+      await this._searchLoading();
+      await t.expect(this._searchLoading.exists).ok();
+    }
+    await this._searchComplete();
+    await t.expect(this._searchComplete.exists).ok();
   }
 
   /**

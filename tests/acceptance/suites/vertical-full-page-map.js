@@ -9,12 +9,14 @@ fixture`Vertical Full Page Map`
 
 test('Can search and get results', async t => {
   await SearchBar.submitQuery('virginia');
+  await VerticalResults.waitOnSearchComplete();
   const isResultsPresent = await VerticalResults.isResultsPresent();
   await t.expect(isResultsPresent).ok();
 });
 
 test('Clicking on a pin focuses on a results card', async t => {
   await SearchBar.submitQuery('virginia');
+  await VerticalResults.waitOnSearchComplete();
   let isCardFocused = await VerticalResults.isCardFocused();
   await t.expect(isCardFocused).notOk();
   await ThemeMap.selectPin();
@@ -24,9 +26,12 @@ test('Clicking on a pin focuses on a results card', async t => {
 
 test('Search when map moves works', async t => {
   await SearchBar.submitQuery('virginia');
+  await VerticalResults.waitOnSearchComplete();
   const resultsCountBeforeDrag = await VerticalResults.getNumResults();
   await ThemeMap.dragLeft();
+  await VerticalResults.waitOnSearchComplete();
   await ThemeMap.dragLeft();
+  await VerticalResults.waitOnSearchComplete();
   const resultsCountAfterDrag = await VerticalResults.getNumResults();
   await t.expect(resultsCountBeforeDrag !== resultsCountAfterDrag).ok();
 });
@@ -34,14 +39,17 @@ test('Search when map moves works', async t => {
 test('Search this area button works', async t => {
   await SearchBar.submitQuery('virginia');
   await ThemeMap.toggleSearchThisArea();
+  await VerticalResults.waitOnSearchComplete();
   const resultsCountBeforeDrag = await VerticalResults.getNumResults();
   await ThemeMap.dragLeft();
   await ThemeMap.clickSearchThisAreaButton();
+  await VerticalResults.waitOnSearchComplete();
   const resultsCountAfterDrag = await VerticalResults.getNumResults();
   await t.expect(resultsCountBeforeDrag !== resultsCountAfterDrag).ok();
 });
 
 test('Default initial search works and is enabled by default', async t => {
+  await VerticalResults.waitOnSearchComplete();
   const resultsCount = await VerticalResults.getNumResults();
   await t.expect(resultsCount).ok();
 });
@@ -54,6 +62,7 @@ test('Pagination works', async t => {
 });
 
 test('Pagination scrolls the results to the top', async t => {
+  await VerticalResults.waitOnSearchComplete();
   await VerticalResults.scrollToBottom();
   const scrollTop = await VerticalResults.getScrollTop();
   await t.expect(scrollTop).notEql(0);
