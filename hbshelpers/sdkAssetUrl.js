@@ -27,8 +27,9 @@ module.exports = function sdkAssetUrl(branch, locale, assetName) {
   const isPreReleaseBranch = 
     RELEASE_BRANCH_REGEX.test(branch) || HOTFIX_BRANCH_REGEX.test(branch);
   const isI18nFeatureBranch = I18N_FEATURE_BRANCH_REGEX.test(branch);
+  const isDevelopBranch = branch === 'develop';
   const isLocalizationSupported = 
-    (isReleasedBranch || isPreReleaseBranch || isI18nFeatureBranch) && 
+    (isReleasedBranch || isPreReleaseBranch || isI18nFeatureBranch || isDevelopBranch) && 
     !(locale.startsWith('en') || assetName === 'answers.css') ;
   
   const parsedAssetName = isLocalizationSupported ?
