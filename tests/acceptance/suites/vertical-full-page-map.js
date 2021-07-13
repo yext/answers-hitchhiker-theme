@@ -6,6 +6,7 @@ import Pagination from '../blocks/pagination';
 
 fixture`Vertical Full Page Map`
   .page(`http://localhost:${PORT}/locations_full_page_map`)
+  .requestHooks(VerticalResults.getLogger())
 
 test('Can search and get results', async t => {
   await SearchBar.submitQuery('virginia');
@@ -29,7 +30,6 @@ test('Search when map moves works', async t => {
   await VerticalResults.waitOnSearchComplete();
   const resultsCountBeforeDrag = await VerticalResults.getNumResults();
   await ThemeMap.dragLeft();
-  await VerticalResults.waitOnSearchComplete();
   await ThemeMap.dragLeft();
   await VerticalResults.waitOnSearchComplete();
   const resultsCountAfterDrag = await VerticalResults.getNumResults();
