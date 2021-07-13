@@ -99,6 +99,19 @@
           }
           return relativePath + '/' + url;
         });
+
+        // Send the queryId to the parent frame for iframe integrations
+        window.iframeLoaded.then(() => {
+          ANSWERS.core.storage.registerListener({
+            eventType: 'update',
+            storageKey: 'query-id',
+            callback: id => {
+              window.parentIFrame.sendMessage(JSON.stringify({
+                queryId: id
+              }));
+            }
+          });
+        });
       }
     }).catch(err => {
       window.AnswersExperience.AnswersInitializedPromise.reject('Answers failed to initialized.');
