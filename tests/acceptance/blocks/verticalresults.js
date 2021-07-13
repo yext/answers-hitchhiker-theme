@@ -74,14 +74,21 @@ class VerticalResults {
     const responseWaitTimeout = 10000;
     const waitTimeInterval = 200;
     let totalWaitTime = 0;
-    while (totalWaitTime < responseWaitTimeout 
-      && this._queryRequestLogger.requests.find(r => !r.response || r.response.statusCode !== 200)) {
+    while (totalWaitTime < responseWaitTimeout && !this.isLoggerResultsPresent()) {
       await t.wait(waitTimeInterval);
       totalWaitTime += waitTimeInterval;
     }
     await t.expect(this._searchComplete.exists).ok();
+    this._queryRequestLogger.clear();
   }
 
+  /**
+   * Returns true if there exists a query response from logger with status code 200
+   * @returns {boolean}
+   */
+   isLoggerResultsPresent() {
+    return this._queryRequestLogger.contains(r => r.response.statusCode == 200);
+  }
 
   /**
    * Register a RequestLogger that tracks vertical query requests to given test.

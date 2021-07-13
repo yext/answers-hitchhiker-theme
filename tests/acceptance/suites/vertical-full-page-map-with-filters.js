@@ -8,8 +8,8 @@ import { registerIE11NoCacheHook } from '../../test-utils/testcafe';
 fixture`Vertical Full Page Map with Filters and Clusters`
   .page(`http://localhost:${PORT}/locations_full_page_map_with_filters`)
   .beforeEach(async t => {
-    VerticalResults.registerLogger(t);
-    registerIE11NoCacheHook(t);
+    await VerticalResults.registerLogger(t);
+    await registerIE11NoCacheHook(t);
   });
 
 test('Clicking on a pin closes the filter view', async t => {

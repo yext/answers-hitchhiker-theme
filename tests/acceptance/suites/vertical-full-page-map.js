@@ -8,8 +8,8 @@ import { registerIE11NoCacheHook } from '../../test-utils/testcafe';
 fixture`Vertical Full Page Map`
   .page(`http://localhost:${PORT}/locations_full_page_map`)
   .beforeEach(async t => {
-    VerticalResults.registerLogger(t);
-    registerIE11NoCacheHook(t);
+    await VerticalResults.registerLogger(t);
+    await registerIE11NoCacheHook(t);
   });
 
 test('Can search and get results', async t => {
