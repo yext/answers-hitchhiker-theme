@@ -6,7 +6,9 @@ import CollapsibleFilters from '../blocks/collapsiblefilters';
 
 fixture`Vertical Full Page Map with Filters and Clusters`
   .page(`http://localhost:${PORT}/locations_full_page_map_with_filters`)
-  .requestHooks(VerticalResults.getLogger())
+  .beforeEach(async t => {
+    VerticalResults.registerLogger(t);
+  });
 
 test('Clicking on a pin closes the filter view', async t => {
   await SearchBar.submitQuery('virginia');

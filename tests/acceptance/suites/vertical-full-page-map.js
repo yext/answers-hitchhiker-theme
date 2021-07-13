@@ -6,7 +6,9 @@ import Pagination from '../blocks/pagination';
 
 fixture`Vertical Full Page Map`
   .page(`http://localhost:${PORT}/locations_full_page_map`)
-  .requestHooks(VerticalResults.getLogger())
+  .beforeEach(async t => {
+    VerticalResults.registerLogger(t);
+  });
 
 test('Can search and get results', async t => {
   await SearchBar.submitQuery('virginia');
