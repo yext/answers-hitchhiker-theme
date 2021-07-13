@@ -1,6 +1,4 @@
-import { Selector, RequestLogger, ClientFunction, t } from 'testcafe';
-import IE11NoCacheHook from '../ie11nocachehook';
-
+import { Selector, RequestLogger, t } from 'testcafe';
 /**
  * Models the user interaction with a {import('@yext/answers-search-ui').VerticalResultsComponent}.
  */
@@ -84,23 +82,16 @@ class VerticalResults {
     await t.expect(this._searchComplete.exists).ok();
   }
 
-/**
- * Register a RequestLogger that track vertical query requests to given test.
- * If the current browser is IE11, register Ie11NoCacheHook instead of default RequestLogger.
- *
- * @param {import('testcafe').TestController} testInstance
- */
+
+  /**
+   * Register a RequestLogger that tracks vertical query requests to given test.
+   * 
+   * @param {import('testcafe').TestController} testInstance
+   */
   async registerLogger(testInstance) {
-    const isIE11 = await ClientFunction(() => {
-      return !!window.MSInputMethodContext && !!document.documentMode;
-    })();
-    if (isIE11) {
-      this._queryRequestLogger = new IE11NoCacheHook(/v2\/accounts\/me\/answers\/vertical\/query/);
-    } else {
-      this._queryRequestLogger = RequestLogger({
-        url: /v2\/accounts\/me\/answers\/vertical\/query/
-      });
-    }
+    this._queryRequestLogger = RequestLogger({
+      url: /v2\/accounts\/me\/answers\/vertical\/query/
+    });
     await testInstance.addRequestHooks(this._queryRequestLogger);
   }
 
