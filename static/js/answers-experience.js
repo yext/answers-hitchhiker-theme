@@ -1,6 +1,7 @@
 import DeferredPromise from './deferred-promise';
 import analyticsListener from './runtime-config-listeners/analytics';
 import sessionTrackingListener from './runtime-config-listeners/session-tracking';
+import querySourceListener from './runtime-config-listeners/query-source';
 
 /**
  * @typedef {import('./runtime-config.js').RuntimeConfigListener} RuntimeConfigListener
@@ -12,7 +13,8 @@ export default class AnswersExperience {
     this.AnswersInitializedPromise = new DeferredPromise();
     this._runtimeConfigListeners = [
       analyticsListener,
-      sessionTrackingListener
+      sessionTrackingListener,
+      querySourceListener
     ];
 
     this._registerRuntimeConfigListeners();
