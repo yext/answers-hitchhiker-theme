@@ -90,7 +90,7 @@ class VerticalResults {
    * @returns {boolean}
    */
    isLoggerResultsPresent() {
-    return this._queryRequestLogger.contains(r => r.response.statusCode == 200);
+    return this._queryRequestLogger.contains(r => r.response.statusCode === 200);
   }
 
   /**
