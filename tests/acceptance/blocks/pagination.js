@@ -17,7 +17,6 @@ class Pagination {
     await Page.scrollToBottom(); // We must scroll to the bottom of the page to be able to click the next results page button
     await VerticalResults.scrollToBottom();
     await t.click(this._nextResultsButton);
-    await VerticalResults.waitOnSearchComplete();
   }
 }
 
