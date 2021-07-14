@@ -89,8 +89,8 @@ class VerticalResults {
    * Returns true if there exists a query response from logger with status code 200
    * @returns {boolean}
    */
-   isLoggerResultsPresent() {
-    return this._queryRequestLogger.contains(r => r.response.statusCode === 200);
+  async isLoggerResultsPresent() {
+    return await this._queryRequestLogger.contains(r => r.response.statusCode === 200);
   }
 
   /**
