@@ -1,4 +1,4 @@
-import { VERTICAL_SEARCH_QUERY_URL, UNIVERSAL_SEARCH_QUERY_URL } from './constants';
+import { VERTICAL_SEARCH_URL_REGEX, UNIVERSAL_SEARCH_URL_REGEX } from './constants';
 import { Selector, RequestLogger, t } from 'testcafe';
 import { registerIE11NoCacheHook } from '../test-utils/testcafe';
 
@@ -18,10 +18,10 @@ class SearchRequestLogger {
    */
   async registerVerticalSearchLogger(testInstance) {
     this._queryRequestLogger = RequestLogger({
-      url: VERTICAL_SEARCH_QUERY_URL
+      url: VERTICAL_SEARCH_URL_REGEX
     });
     await testInstance.addRequestHooks(this._queryRequestLogger);
-    await registerIE11NoCacheHook(testInstance, VERTICAL_SEARCH_QUERY_URL);
+    await registerIE11NoCacheHook(testInstance, VERTICAL_SEARCH_URL_REGEX);
   }
 
   /**
@@ -32,10 +32,10 @@ class SearchRequestLogger {
    */
   async registerUniversalSearchLogger(testInstance) {
     this._queryRequestLogger = RequestLogger({
-      url: UNIVERSAL_SEARCH_QUERY_URL
+      url: UNIVERSAL_SEARCH_URL_REGEX
     });
     await testInstance.addRequestHooks(this._queryRequestLogger);
-    await registerIE11NoCacheHook(testInstance, UNIVERSAL_SEARCH_QUERY_URL);
+    await registerIE11NoCacheHook(testInstance, UNIVERSAL_SEARCH_URL_REGEX);
   }
 
   /**
