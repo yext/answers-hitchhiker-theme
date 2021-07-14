@@ -1,14 +1,11 @@
 import { VERTICAL_SEARCH_URL_REGEX, UNIVERSAL_SEARCH_URL_REGEX } from './constants';
-import { Selector, RequestLogger, t } from 'testcafe';
+import { RequestLogger, t } from 'testcafe';
 import { registerIE11NoCacheHook } from '../test-utils/testcafe';
 
 /**
  * Handles request logger registration and request/response data received during test execution.
  */
 class SearchRequestLogger {
-  constructor () {
-    this._searchComplete = Selector('.yxt-Results--searchComplete');
-  }
 
   /**
    * Register a RequestLogger that tracks vertical query requests to given test.
@@ -39,7 +36,7 @@ class SearchRequestLogger {
   }
 
   /**
-   * Wait for results to load on page by checking query response status and searchComplete state
+   * Wait for results to load on page by checking query response status
    * (timeout is set to 10 seconds)
    */
   async waitOnSearchComplete() {
@@ -50,7 +47,6 @@ class SearchRequestLogger {
       await t.wait(waitTimeInterval);
       totalWaitTime += waitTimeInterval;
     }
-    await t.expect(this._searchComplete.exists).ok();
     this._queryRequestLogger.clear();
   }
 
