@@ -21,13 +21,22 @@ const overlayConfig = {
 };
 const shouldAddOverlayConfig = window.isOverlay && document.querySelector('.js-Answers-overlaySuggestions');
 
-ANSWERS.addComponent("SearchBar", Object.assign({}, {
-  container: ".js-answersSearch",
-  {{#if verticalKey}}
-    verticalKey: "{{{verticalKey}}}",
-  {{/if}}
-  ...(shouldAddOverlayConfig ? overlayConfig : {}),
-  onCreate: function() {
-    this._container.textContent = '';
-  }
-}, {{{ json componentSettings.SearchBar }}}));
+ANSWERS.addComponent("SearchBar", 
+{{#assign}}[
+  {
+    "container": ".js-answersSearch"
+    {{#if verticalKey}}
+    ,
+    "verticalKey": "{{{verticalKey}}}"
+    {{/if}}
+    {{#if shouldAddOverlayConfig}}
+    ,
+    "overlayConfig": "{}"
+    {{/if}}
+    ,
+    "onCreate": "~function() {this._container.textContent = '';}~"
+  },
+  {{{json componentSettings.SearchBar}}}
+]
+{{/assign}}
+);
