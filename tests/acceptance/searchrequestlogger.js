@@ -57,7 +57,7 @@ class SearchRequestLogger {
 
   /**
    * Returns true if there exists a query response from logger with status code 200
-   * @returns {boolean}
+   * @returns {Promise<boolean>}
    */
   async isLoggerResultsPresent() {
     return await this._queryRequestLogger.contains(r => r.response.statusCode === 200);
