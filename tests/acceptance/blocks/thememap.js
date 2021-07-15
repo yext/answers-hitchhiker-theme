@@ -29,7 +29,6 @@ class ThemeMap {
 
   async dragLeft () {
     await t.drag(this._canvas, 750, 0);
-    await t.wait(1000); // Wait longer than the debouncer to allow a new search to be triggered
   }
 
   async toggleSearchThisArea () {
