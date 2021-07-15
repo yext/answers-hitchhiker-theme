@@ -31,24 +31,22 @@ test('Clicking on a pin focuses on a results card', async t => {
 test('Search when map moves works', async t => {
   await SearchBar.submitQuery('virginia');
   await SearchRequestLogger.waitOnSearchComplete(t);
-  const resultsCountBeforeDrag = await VerticalResults.getNumResults();
   await ThemeMap.dragLeft();
   await ThemeMap.dragLeft();
-  await SearchRequestLogger.waitOnSearchComplete(t);
-  const resultsCountAfterDrag = await VerticalResults.getNumResults();
-  await t.expect(resultsCountBeforeDrag !== resultsCountAfterDrag).ok();
+  const isSearchFired = await SearchRequestLogger.waitOnSearchComplete(t);
+  await t.expect(isSearchFired).ok();
 });
 
 test('Search this area button works', async t => {
   await SearchBar.submitQuery('virginia');
   await ThemeMap.toggleSearchThisArea();
   await SearchRequestLogger.waitOnSearchComplete(t);
-  const resultsCountBeforeDrag = await VerticalResults.getNumResults();
   await ThemeMap.dragLeft();
+  let isSearchFired = await SearchRequestLogger.waitOnSearchComplete(t);
+  await t.expect(isSearchFired).notOk();
   await ThemeMap.clickSearchThisAreaButton();
-  await SearchRequestLogger.waitOnSearchComplete(t);
-  const resultsCountAfterDrag = await VerticalResults.getNumResults();
-  await t.expect(resultsCountBeforeDrag !== resultsCountAfterDrag).ok();
+  isSearchFired = await SearchRequestLogger.waitOnSearchComplete(t);
+  await t.expect(isSearchFired).ok();
 });
 
 test('Default initial search works and is enabled by default', async t => {
