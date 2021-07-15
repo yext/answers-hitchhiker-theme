@@ -9,7 +9,8 @@ ANSWERS.core.storage.registerListener({
   storageKey: 'query-id',
   callback: id => {
     window.parentIFrame.sendMessage(JSON.stringify({
-      queryId: id
+      queryId: id,
+      sessionId: ANSWERS.core.getOrSetupSessionId()
     }));
   }
 });
