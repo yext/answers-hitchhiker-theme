@@ -60,7 +60,16 @@ module.exports = function () {
     new RemovePlugin({
       after: {
         root: `${jamboConfig.dirs.output}`,
-        include: ['static'],
+        test: [
+          {
+            folder: 'static',
+            method: absoluteFilePath => {
+              const filePathRelativeToOutput = path.relative(jamboConfig.dirs.output, absoluteFilePath);
+              return !filePathRelativeToOutput.startsWith('static/assets');
+            },
+            recursive: true
+          }
+        ],
         log: false
       }
     })
