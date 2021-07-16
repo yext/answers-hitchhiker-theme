@@ -1,38 +1,33 @@
 import { VERTICAL_SEARCH_URL_REGEX, UNIVERSAL_SEARCH_URL_REGEX } from './constants';
 import { RequestLogger } from 'testcafe';
-import { registerIE11NoCacheHook } from '../test-utils/testcafe';
 
 /**
- * Handles request logger registration and request/response data received during test execution.
+ * Handles request logger creation and request/response data received during test execution.
  */
 class SearchRequestLogger {
 
   /**
-   * Register a RequestLogger that tracks vertical query requests to given test.
-   * If browser is IE11, register an Ie11NoCacheHook.
+   * Create a RequestLogger that tracks vertical query requests to given test.
    * 
-   * @param {import('testcafe').TestController} testInstance
+   * @returns {import('testcafe').RequestLogger}
    */
-  async registerVerticalSearchLogger(testInstance) {
+  createVerticalSearchLogger() {
     this._queryRequestLogger = RequestLogger({
       url: VERTICAL_SEARCH_URL_REGEX
     });
-    await testInstance.addRequestHooks(this._queryRequestLogger);
-    await registerIE11NoCacheHook(testInstance, VERTICAL_SEARCH_URL_REGEX);
+    return this._queryRequestLogger;
   }
 
   /**
-   * Register a RequestLogger that tracks universal query requests to given test.
-   * If browser is IE11, register an Ie11NoCacheHook.
+   * Create a RequestLogger that tracks universal query requests to given test.
    * 
-   * @param {import('testcafe').TestController} testInstance
+   * @returns {import('testcafe').RequestLogger}
    */
-  async registerUniversalSearchLogger(testInstance) {
+  createUniversalSearchLogger() {
     this._queryRequestLogger = RequestLogger({
       url: UNIVERSAL_SEARCH_URL_REGEX
     });
-    await testInstance.addRequestHooks(this._queryRequestLogger);
-    await registerIE11NoCacheHook(testInstance, UNIVERSAL_SEARCH_URL_REGEX);
+    return this._queryRequestLogger;
   }
 
   /**
@@ -49,11 +44,8 @@ class SearchRequestLogger {
     while (totalWaitTime < responseWaitTimeout && !await this.isLoggerResultsPresent()) {
       await testInstance.wait(waitTimeInterval);
       totalWaitTime += waitTimeInterval;
-      console.log('waiting');
     }
     const isResultsPresent = await this.isLoggerResultsPresent();
-    console.log(this._queryRequestLogger.requests);
-    console.log(isResultsPresent);
     this._queryRequestLogger.clear();
     return isResultsPresent;
   }

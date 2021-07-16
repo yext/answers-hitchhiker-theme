@@ -4,12 +4,15 @@ import VerticalResults from '../blocks/verticalresults';
 import ThemeMap from '../blocks/thememap';
 import Pagination from '../blocks/pagination';
 import SearchRequestLogger from '../searchrequestlogger';
+import { VERTICAL_SEARCH_URL_REGEX } from '../constants';
+import { registerIE11NoCacheHook } from '../../test-utils/testcafe';
 
 fixture`Vertical Full Page Map`
   .page(`http://localhost:${PORT}/locations_full_page_map`)
+  .requestHooks(SearchRequestLogger.createVerticalSearchLogger())
   .beforeEach(async t => {
-    await SearchRequestLogger.registerVerticalSearchLogger(t);
-  });
+    await registerIE11NoCacheHook(t, VERTICAL_SEARCH_URL_REGEX);
+  })
 
 test('Can search and get results', async t => {
   await SearchBar.submitQuery('virginia');
