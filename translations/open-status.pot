@@ -1,0 +1,25 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgctxt "Whether a store is open or closed"
+msgid "Open 24 Hours"
+msgstr ""
+
+msgctxt "Whether a store is open or closed"
+msgid "Closed"
+msgstr ""
+
+msgctxt "Whether a store is open or closed"
+msgid "Opens at"
+msgstr ""
+
+msgctxt "Whether a store is open or closed"
+msgid "Open now"
+msgstr ""
+
+msgctxt "Whether a store is open or closed"
+msgid "Closes at"
+msgstr ""
+
+
