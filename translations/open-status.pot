@@ -21,5 +21,3 @@ msgstr ""
 msgctxt "Whether a store is open or closed"
 msgid "Closes at"
 msgstr ""
-
-
