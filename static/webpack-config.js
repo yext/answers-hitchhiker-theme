@@ -128,9 +128,6 @@ module.exports = function () {
           test: /\.html$/i,
           use: [
             {
-              loader: path.resolve(__dirname, `./${jamboConfig.dirs.output}/static/webpack/html-asset-loader.js`),
-            },
-            {
               loader: 'html-loader',
               options: {
                 minimize: {
