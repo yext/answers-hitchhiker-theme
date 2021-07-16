@@ -132,29 +132,6 @@ module.exports = function () {
           options: {
             name: '[name].[contenthash].[ext]'
           }
-        },
-        {
-          test: /\.html$/i,
-          use: [
-            {
-              loader: 'html-loader',
-              options: {
-                minimize: {
-                  removeAttributeQuotes: false,
-                  collapseWhitespace: true,
-                  conservativeCollapse: true,
-                  keepClosingSlash: true,
-                  minifyCSS: false,
-                  minifyJS: false,
-                  removeComments: true,
-                  removeScriptTypeAttributes: true,
-                  removeStyleLinkTypeAttributes: true,
-                  useShortDoctype: true
-                },
-                attributes: false
-              }
-            }
-          ]
         }
       ],
     },
