@@ -42,10 +42,8 @@ test('Search this area button works', async t => {
   await ThemeMap.toggleSearchThisArea();
   await SearchRequestLogger.waitOnSearchComplete(t);
   await ThemeMap.dragLeft();
-  let isSearchFired = await SearchRequestLogger.waitOnSearchComplete(t);
-  await t.expect(isSearchFired).notOk();
   await ThemeMap.clickSearchThisAreaButton();
-  isSearchFired = await SearchRequestLogger.waitOnSearchComplete(t);
+  const isSearchFired = await SearchRequestLogger.waitOnSearchComplete(t);
   await t.expect(isSearchFired).ok();
 });
 

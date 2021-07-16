@@ -49,8 +49,11 @@ class SearchRequestLogger {
     while (totalWaitTime < responseWaitTimeout && !await this.isLoggerResultsPresent()) {
       await testInstance.wait(waitTimeInterval);
       totalWaitTime += waitTimeInterval;
+      console.log('waiting');
     }
     const isResultsPresent = await this.isLoggerResultsPresent();
+    console.log(this._queryRequestLogger.requests);
+    console.log(isResultsPresent);
     this._queryRequestLogger.clear();
     return isResultsPresent;
   }
