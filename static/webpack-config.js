@@ -128,10 +128,41 @@ module.exports = function () {
           ],
         },
         {
-          test: /\.(png|ico|gif|jpe?g|svg|webp|eot|otf|ttf|woff2?)$/,
-          loader: 'file-loader',
-          options: {
-            name: '[name].[contenthash].[ext]'
+          test: /\.html$/i,
+          use: [
+            {
+              loader: 'html-loader',
+              options: {
+                sources: {
+                  list: [
+                    {
+                      tag: 'link',
+                      attribute: 'href',
+                      type: 'src',
+                      filter: (tag, attribute, attributes) => {
+                        const isPreload = attributes.find(attr => {
+                          return attr.name === 'rel' && attr.value === 'preload';
+                        });
+                        const isFont = attributes.find(attr => {
+                          return attr.name === 'as' && attr.value === 'font';
+                        });
+                        return isPreload && isFont;
+                      }
+                    }
+                  ],
+                  urlFilter: (attribute, value) => {
+                    return /^[./]*static\/assets\//.test(value);
+                  }
+                },
+              }
+            }
+          ]
+        },
+        {
+          test: /\.(eot|otf|ttf|woff2?)$/,
+          type: 'asset/resource',
+          generator: {
+            filename: '[name].[hash].[ext]'
           }
         }
       ],
