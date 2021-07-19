@@ -51,8 +51,11 @@ function isPageVerticalConfigValid(pageData, jamboConfig) {
     }
     const universalSectionTemplate = pageData.verticalsToConfig[key].universalSectionTemplate;
     const cardType = pageData.verticalsToConfig[key].cardType;
-    if (!isUniversalSectionTemplateValid(key, themeDirectory, universalSectionTemplate)
-      | !isCardTypeValid(key, themeDirectory, cardType)) {
+    const validatorResults = [
+      isUniversalSectionTemplateValid(key, themeDirectory, universalSectionTemplate), 
+      isCardTypeValid(key, themeDirectory, cardType)
+    ];
+    if(validatorResults.some((result) => !result)) {
       isValid = false;
     }
   });
