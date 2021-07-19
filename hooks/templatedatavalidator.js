@@ -10,7 +10,12 @@ const { error } = require('../commands/helpers/utils/logger');
  */
 module.exports = function (pageData) {
   const jamboConfig = parseJamboConfig();
-  return isGlobalConfigValid(pageData.global_config) & isPageVerticalConfigValid(pageData, jamboConfig);
+  const validatorResults = [
+    isGlobalConfigValid(pageData.global_config), 
+    isPageVerticalConfigValid(pageData, jamboConfig)
+  ];
+  const isValid = !validatorResults.some((result) => !result);
+  return isValid;
 }
 
 /**
