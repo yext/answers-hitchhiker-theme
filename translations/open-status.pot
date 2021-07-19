@@ -2,22 +2,22 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 
-msgctxt "Whether a store is open or closed"
+msgctxt "Indicates the time a store will open"
 msgid "Open 24 Hours"
 msgstr ""
 
-msgctxt "Whether a store is open or closed"
+msgctxt "Indicates that a store is closed"
 msgid "Closed"
 msgstr ""
 
-msgctxt "Whether a store is open or closed"
+msgctxt "Indicates the time a store will open"
 msgid "Opens at"
 msgstr ""
 
-msgctxt "Whether a store is open or closed"
+msgctxt "Indicates that a store is open"
 msgid "Open now"
 msgstr ""
 
-msgctxt "Whether a store is open or closed"
+msgctxt "Indicates the time a store will close"
 msgid "Closes at"
 msgstr ""
