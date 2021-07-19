@@ -1,4 +1,4 @@
-import provideOpenStatusTranslation from '../open-status-18n';
+import provideOpenStatusTranslation from '../open-status-i18n';
 import provideTableHeadersTranslation from './table/table-strings-i18n';
 
 /**
