@@ -1,0 +1,115 @@
+var fs = require('fs');
+var path = require('path');
+const { parseJamboConfig } = require('../commands/helpers/utils/jamboconfigutils');
+const { error } = require('../commands/helpers/utils/logger');
+/**
+ * Validates page template's data configuration
+ * 
+ * @param {Object} pageData configuration of a page template
+ * @returns {boolean} false if validator should throw an error
+ */
+module.exports = function (pageData) {
+  const jamboConfig = parseJamboConfig();
+  return isGlobalConfigValid(pageData.global_config) && isPageVerticalConfigValid(pageData, jamboConfig);
+}
+
+/**
+ * Validates global config for the page template
+ * 
+ * @param {Object} global_config 
+ * @returns {boolean}
+ */
+function isGlobalConfigValid(global_config) {
+  if (!global_config.experienceKey) {
+    error('Missing Info: no experienceKey found in config file.');
+    return false;
+  }
+  return true;
+}
+
+/**
+ * Valivates vertical config for current page template
+ * 
+ * @param {Object} pageData 
+ * @param {Object} jamboConfig 
+ * @returns {boolean}
+ */
+function isPageVerticalConfigValid(pageData, jamboConfig) {
+  let isValid = true;
+  const themeDirectory = path.resolve(process.cwd(), jamboConfig.dirs.themes, jamboConfig.defaultTheme);
+  Object.keys(pageData.verticalsToConfig).forEach(key => {
+    if (key === 'Universal') {
+      console.log(pageData);
+      if (!isAllVerticalConfigsValid(pageData.verticalConfigs, jamboConfig)) {
+        isValid = false;
+      }
+      return;
+    }
+    const universalSectionTemplate = pageData.verticalsToConfig[key].universalSectionTemplate;
+    const cardType = pageData.verticalsToConfig[key].cardType;
+    if (!isUniversalSectionTemplateValid(key, themeDirectory, universalSectionTemplate)
+      | !isCardTypeValid(key, themeDirectory, cardType)) {
+      isValid = false;
+    }
+  });
+  return isValid;
+}
+
+/**
+ * If universalsectiontemplate is defined, check whether the corresponding file exists in theme
+ * 
+ * @param {string} verticalName
+ * @param {string} themeDir
+ * @param {string} template
+ * @returns {boolean}
+ */
+function isUniversalSectionTemplateValid(verticalName, themeDir, template) {
+  if (template) {
+    const universalSectionPath = path.resolve(themeDir, 'universalsectiontemplates/', template + '.hbs');
+    if (!fs.existsSync(universalSectionPath)) {
+      error(`Invalid universalSectionTemplate: can't find "${template}" at the expected path "${universalSectionPath}" for vertical "${verticalName}".`);
+      return false;
+    }
+  }
+  return true;
+}
+
+/**
+ * If cardType is defined, check whether the corresponding file exists in theme or custom card folder
+ * 
+ * @param {string} verticalName
+ * @param {string} themeDir
+ * @param {string} cardType
+ * @returns {boolean}
+ */
+function isCardTypeValid(verticalName, themeDir, cardType) {
+  if (cardType) {
+    const cardTypePath = path.resolve(themeDir, 'cards/', cardType);
+    const customCardTypePath = path.resolve('cards/', cardType);
+    if (!fs.existsSync(cardTypePath) && !fs.existsSync(customCardTypePath)) {
+      error(`Invalid cardType: can't find "${cardType}" at at the expected paths "${cardTypePath}" or "${customCardTypePath}" for vertical "${verticalName}".`);
+      return false;
+    }
+  }
+  return true;
+}
+
+/**
+ * Validate all vertical configs for the page templates
+ * 
+ * @param {Object} verticalConfigs
+ * @param {Object} jamboConfig
+ * @returns {boolean}
+ */
+function isAllVerticalConfigsValid(verticalConfigs, jamboConfig) {
+  if (!verticalConfigs) {
+    return true;
+  }
+  let isValid = true;
+  Object.keys(verticalConfigs).forEach(key => {
+    if (!isPageVerticalConfigValid(verticalConfigs[key], jamboConfig)) {
+      isValid = false;
+    }
+  });
+  return isValid;
+}
