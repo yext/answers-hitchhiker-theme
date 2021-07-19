@@ -65,7 +65,8 @@ module.exports = function () {
             folder: 'static',
             method: absoluteFilePath => {
               const filePathRelativeToOutput = path.relative(jamboConfig.dirs.output, absoluteFilePath);
-              return !filePathRelativeToOutput.startsWith('static/assets');
+              const isFileWithinStaticAssetOutputDir = filePathRelativeToOutput.startsWith('static/assets');
+              return !isFileWithinStaticAssetOutputDir;
             },
             recursive: true
           }
