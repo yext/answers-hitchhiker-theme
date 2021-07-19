@@ -34,6 +34,18 @@ module.exports = (jamboConfig) => {
               '@babel/plugin-transform-object-assign',
             ]
           }
+        },
+        {
+          test: /\.html$/i,
+          use: [
+            {
+              loader: 'html-loader',
+              options: {
+                minimize: true,
+                sources: false
+              }
+            }
+          ]
         }
       ]
     },

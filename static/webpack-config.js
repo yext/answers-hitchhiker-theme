@@ -60,7 +60,17 @@ module.exports = function () {
     new RemovePlugin({
       after: {
         root: `${jamboConfig.dirs.output}`,
-        include: ['static'],
+        test: [
+          {
+            folder: 'static',
+            method: absoluteFilePath => {
+              const filePathRelativeToOutput = path.relative(jamboConfig.dirs.output, absoluteFilePath);
+              const isFileWithinStaticAssetOutputDir = filePathRelativeToOutput.startsWith('static/assets');
+              return !isFileWithinStaticAssetOutputDir;
+            },
+            recursive: true
+          }
+        ],
         log: false
       }
     })
@@ -123,32 +133,6 @@ module.exports = function () {
           options: {
             name: '[name].[contenthash].[ext]'
           }
-        },
-        {
-          test: /\.html$/i,
-          use: [
-            {
-              loader: path.resolve(__dirname, `./${jamboConfig.dirs.output}/static/webpack/html-asset-loader.js`),
-            },
-            {
-              loader: 'html-loader',
-              options: {
-                minimize: {
-                  removeAttributeQuotes: false,
-                  collapseWhitespace: true,
-                  conservativeCollapse: true,
-                  keepClosingSlash: true,
-                  minifyCSS: false,
-                  minifyJS: false,
-                  removeComments: true,
-                  removeScriptTypeAttributes: true,
-                  removeStyleLinkTypeAttributes: true,
-                  useShortDoctype: true
-                },
-                attributes: false
-              }
-            }
-          ]
         }
       ],
     },
