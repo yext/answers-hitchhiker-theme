@@ -5,23 +5,23 @@ const { error } = require('../commands/helpers/utils/logger');
 /**
  * Validates page template's data configuration
  * 
- * @param {Object} pageData configuration of a page template
+ * @param {Object} pageData data that gets passed into a page template
  * @returns {boolean} false if validator should throw an error
  */
 module.exports = function (pageData) {
   const jamboConfig = parseJamboConfig();
-  return isGlobalConfigValid(pageData.global_config) && isPageVerticalConfigValid(pageData, jamboConfig);
+  return isGlobalConfigValid(pageData.global_config) & isPageVerticalConfigValid(pageData, jamboConfig);
 }
 
 /**
  * Validates global config for the page template
  * 
- * @param {Object} global_config 
+ * @param {Object} globalConfig 
  * @returns {boolean}
  */
-function isGlobalConfigValid(global_config) {
-  if (!global_config.experienceKey) {
-    error('Missing Info: no experienceKey found in config file.');
+function isGlobalConfigValid(globalConfig) {
+  if (!globalConfig.experienceKey) {
+    error('Missing Info: no experienceKey found.');
     return false;
   }
   return true;
@@ -36,10 +36,9 @@ function isGlobalConfigValid(global_config) {
  */
 function isPageVerticalConfigValid(pageData, jamboConfig) {
   let isValid = true;
-  const themeDirectory = path.resolve(process.cwd(), jamboConfig.dirs.themes, jamboConfig.defaultTheme);
+  const themeDirectory = path.resolve(jamboConfig.dirs.themes, jamboConfig.defaultTheme);
   Object.keys(pageData.verticalsToConfig).forEach(key => {
     if (key === 'Universal') {
-      console.log(pageData);
       if (!isAllVerticalConfigsValid(pageData.verticalConfigs, jamboConfig)) {
         isValid = false;
       }
