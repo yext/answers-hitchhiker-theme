@@ -159,7 +159,7 @@ module.exports = function () {
           ]
         },
         {
-          test: /\.(eot|otf|ttf|woff2?)$/,
+          test: /\.(png|ico|gif|jpe?g|svg|webp|eot|otf|ttf|woff2?)$/,
           type: 'asset/resource',
           generator: {
             filename: '[name].[hash].[ext]'
