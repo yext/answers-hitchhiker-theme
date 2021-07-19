@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 
-msgctxt "Indicates the time a store will open"
+msgctxt "The hours that a store is open"
 msgid "Open 24 Hours"
 msgstr ""
 
