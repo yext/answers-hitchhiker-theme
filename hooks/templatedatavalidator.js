@@ -43,7 +43,7 @@ function isPageVerticalConfigValid(pageData, jamboConfig) {
   const themeDirectory = path.join(jamboConfig.dirs.themes, jamboConfig.defaultTheme);
   return Object.keys(pageData.verticalsToConfig).reduce((isValid, key) => {
     if (key === 'Universal') {
-      return isValid && isAllVerticalConfigsValid(pageData.verticalConfigs, jamboConfig);
+      return isAllVerticalConfigsValid(pageData.verticalConfigs, jamboConfig) && isValid;
     }
     const universalSectionTemplate = pageData.verticalsToConfig[key].universalSectionTemplate;
     const cardType = pageData.verticalsToConfig[key].cardType;
@@ -51,7 +51,7 @@ function isPageVerticalConfigValid(pageData, jamboConfig) {
       isUniversalSectionTemplateValid(key, themeDirectory, universalSectionTemplate), 
       isCardTypeValid(key, themeDirectory, cardType)
     ];
-    return isValid && !validatorResults.some((result) => !result);
+    return !validatorResults.some((result) => !result) && isValid;
   }, true);
 }
 
@@ -106,6 +106,6 @@ function isAllVerticalConfigsValid(verticalConfigs, jamboConfig) {
     return true;
   }
   return Object.keys(verticalConfigs).reduce((isValid, key) => {
-    return isValid && isPageVerticalConfigValid(verticalConfigs[key], jamboConfig);
+    return isPageVerticalConfigValid(verticalConfigs[key], jamboConfig) && isValid;
   }, true);
 }
