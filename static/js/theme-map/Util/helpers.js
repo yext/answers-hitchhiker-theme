@@ -17,7 +17,7 @@ const getLanguageForProvider = (localeStr, mapProvider) => {
   } 
 
   if (localeStr.length > 2) {
-    const provider = (mapProvider === 'google') ? GoogleMaps : MapboxMaps;
+    const provider = getMapProvider(mapProvider);
     const formattedLocaleStr = localeStr.replace('_', '-');
     if (provider.getSupportedLocales().includes(formattedLocaleStr)) {
       return formattedLocaleStr;
@@ -26,6 +26,23 @@ const getLanguageForProvider = (localeStr, mapProvider) => {
   }
   return 'en';
 };
+
+/**
+ * Returns the corresponding MapProvider instance (Default to MapBox)
+ * 
+ * @param {string} mapProvider
+ * @return {MapProvider}
+ */
+const getMapProvider = (mapProvider) => {
+  if (mapProvider === 'google') {
+    return GoogleMaps;
+  }
+  if (mapProvider === 'mapbox') {
+    return MapboxMaps;
+  }
+  console.warn(`Map provider ${mapProvider} is not supported in the theme. Default to MapBox.`);
+  return MapboxMaps;
+}
 
 /**
  * Returns a utf-8 encoding of an SVG
@@ -128,6 +145,7 @@ const removeElement = (element) => {
 
 export {
   getLanguageForProvider,
+  getMapProvider,
   getEncodedSvg,
   getNormalizedLongitude,
   isViewableWithinContainer,

@@ -1,4 +1,7 @@
-import { getNormalizedLongitude, getLanguageForProvider } from 'static/js/theme-map/Util/helpers.js';
+import { getNormalizedLongitude, getLanguageForProvider, getMapProvider } from 'static/js/theme-map/Util/helpers.js';
+import { GoogleMaps } from 'static/js/theme-map/Maps/Providers/Google.js';
+import { MapboxMaps } from 'static/js/theme-map//Maps/Providers/Mapbox.js';
+
 
 describe('getNormalizedLongitude', () => {
   describe('it works within normal longitude bounds', () => {
@@ -50,6 +53,19 @@ describe('getNormalizedLongitude', () => {
       expect(getNormalizedLongitude(-540)).toEqual(-180);
       expect(getNormalizedLongitude(-720)).toEqual(0);
     });
+  });
+});
+
+describe('getMapProvider', () => {
+  it('returns the right mapProvider instance', () => {
+      expect(getMapProvider('google')).toEqual(GoogleMaps);
+      expect(getMapProvider('mapbox')).toEqual(MapboxMaps);
+  }); 
+
+  it('returns MapBox on unsupported mapProvider name', () => {
+    const consoleWarn = jest.spyOn(console, 'warn').mockImplementation();
+    expect(getMapProvider('unknown')).toEqual(MapboxMaps);
+    expect(consoleWarn).toHaveBeenCalled();
   });
 });
 

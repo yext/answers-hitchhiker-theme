@@ -5,10 +5,7 @@ import { RendererOptions } from './Renderer/Renderer.js';
 import { PinProperties } from './Maps/PinProperties.js';
 import { PinClustererOptions } from './PinClusterer/PinClusterer.js';
 import { transformDataToUniversalData, transformDataToVerticalData } from './Util/transformers.js';
-import { getEncodedSvg } from './Util/helpers.js';
-
-import { GoogleMaps } from './Maps/Providers/Google.js';
-import { MapboxMaps } from './Maps/Providers/Mapbox.js';
+import { getEncodedSvg, getMapProvider } from './Util/helpers.js';
 
 import ThemeMapConfig from './ThemeMapConfig.js'
 import StorageKeys from '../constants/storage-keys.js';
@@ -106,7 +103,7 @@ class ThemeMap extends ANSWERS.Component {
    * Load the map provider scripts and initialize the map with the configuration options
    */
   async loadAndInitializeMap () {
-    const mapProviderImpl = (this.config.mapProvider === 'google') ? GoogleMaps : MapboxMaps;
+    const mapProviderImpl = getMapProvider(this.config.mapProvider);
     await mapProviderImpl.load(this.config.apiKey, {
       client: this.config.clientId,
       language: this.config.language,
