@@ -1,4 +1,4 @@
-import { getNormalizedLongitude } from 'static/js/theme-map/Util/helpers.js';
+import { getNormalizedLongitude, getLanguageForProvider } from 'static/js/theme-map/Util/helpers.js';
 
 describe('getNormalizedLongitude', () => {
   describe('it works within normal longitude bounds', () => {
@@ -49,6 +49,28 @@ describe('getNormalizedLongitude', () => {
       expect(getNormalizedLongitude(-450)).toEqual(-90);
       expect(getNormalizedLongitude(-540)).toEqual(-180);
       expect(getNormalizedLongitude(-720)).toEqual(0);
+    });
+  });
+});
+
+describe('getLanguageForProvider', () => {
+  describe('it works with different language/locale pairs', () => {
+    it('works with 0', () => {
+      expect(getNormalizedLongitude(0)).toEqual(0);
+    });
+
+    it('works with map provider google', () => {
+      expect(getLanguageForProvider('en', 'google')).toEqual('en');
+      expect(getLanguageForProvider('a', 'google')).toEqual('en');
+      expect(getLanguageForProvider('en-IDK', 'google')).toEqual('en');
+      expect(getLanguageForProvider('en-GB', 'google')).toEqual('en-GB');
+      expect(getLanguageForProvider('en_GB', 'google')).toEqual('en-GB');
+    });
+
+    it('works with map provider mapbox', () => {
+      expect(getLanguageForProvider('a', 'mapbox')).toEqual('en');
+      expect(getLanguageForProvider('fr', 'mapbox')).toEqual('fr');
+      expect(getLanguageForProvider('fr-CA', 'mapbox')).toEqual('fr');
     });
   });
 });
