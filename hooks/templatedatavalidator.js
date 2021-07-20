@@ -41,7 +41,7 @@ function isGlobalConfigValid(globalConfig) {
  */
 function isPageVerticalConfigValid(pageData, jamboConfig) {
   let isValid = true;
-  const themeDirectory = path.resolve(jamboConfig.dirs.themes, jamboConfig.defaultTheme);
+  const themeDirectory = path.join(jamboConfig.dirs.themes, jamboConfig.defaultTheme);
   Object.keys(pageData.verticalsToConfig).forEach(key => {
     if (key === 'Universal') {
       if (!isAllVerticalConfigsValid(pageData.verticalConfigs, jamboConfig)) {
@@ -72,7 +72,7 @@ function isPageVerticalConfigValid(pageData, jamboConfig) {
  */
 function isUniversalSectionTemplateValid(verticalName, themeDir, template) {
   if (template) {
-    const universalSectionPath = path.resolve(themeDir, 'universalsectiontemplates/', template + '.hbs');
+    const universalSectionPath = path.join(themeDir, 'universalsectiontemplates/', template + '.hbs');
     if (!fs.existsSync(universalSectionPath)) {
       error(`Invalid universalSectionTemplate: can't find "${template}" at the expected path "${universalSectionPath}" for vertical "${verticalName}".`);
       return false;
@@ -91,8 +91,8 @@ function isUniversalSectionTemplateValid(verticalName, themeDir, template) {
  */
 function isCardTypeValid(verticalName, themeDir, cardType) {
   if (cardType) {
-    const cardTypePath = path.resolve(themeDir, 'cards/', cardType);
-    const customCardTypePath = path.resolve('cards/', cardType);
+    const cardTypePath = path.join(themeDir, 'cards/', cardType);
+    const customCardTypePath = path.join('cards/', cardType);
     if (!fs.existsSync(cardTypePath) && !fs.existsSync(customCardTypePath)) {
       error(`Invalid cardType: can't find "${cardType}" at at the expected paths "${cardTypePath}" or "${customCardTypePath}" for vertical "${verticalName}".`);
       return false;
