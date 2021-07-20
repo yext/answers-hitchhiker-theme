@@ -14,7 +14,7 @@ module.exports = function (pageData) {
     isGlobalConfigValid(pageData.global_config), 
     isPageVerticalConfigValid(pageData, jamboConfig)
   ];
-  const isValid = !validatorResults.some((result) => !result);
+  const isValid = validatorResults.every(result => result);
   return isValid;
 }
 
@@ -41,18 +41,20 @@ function isGlobalConfigValid(globalConfig) {
  */
 function isPageVerticalConfigValid(pageData, jamboConfig) {
   const themeDirectory = path.join(jamboConfig.dirs.themes, jamboConfig.defaultTheme);
-  return Object.keys(pageData.verticalsToConfig).reduce((isValid, key) => {
-    if (key === 'Universal') {
-      return isAllVerticalConfigsValid(pageData.verticalConfigs, jamboConfig) && isValid;
-    }
-    const universalSectionTemplate = pageData.verticalsToConfig[key].universalSectionTemplate;
-    const cardType = pageData.verticalsToConfig[key].cardType;
-    const validatorResults = [
-      isUniversalSectionTemplateValid(key, themeDirectory, universalSectionTemplate), 
-      isCardTypeValid(key, themeDirectory, cardType)
-    ];
-    return !validatorResults.some((result) => !result) && isValid;
-  }, true);
+  return Object.keys(pageData.verticalsToConfig)
+    .map(key => {
+      if (key === 'Universal') {
+        return isAllVerticalConfigsValid(pageData.verticalConfigs, jamboConfig);
+      }
+      const universalSectionTemplate = pageData.verticalsToConfig[key].universalSectionTemplate;
+      const cardType = pageData.verticalsToConfig[key].cardType;
+      const validatorResults = [
+        isUniversalSectionTemplateValid(key, themeDirectory, universalSectionTemplate), 
+        isCardTypeValid(key, themeDirectory, cardType)
+      ];
+      return validatorResults.every(result => result);
+    })
+    .every(result => result);
 }
 
 /**
@@ -105,7 +107,9 @@ function isAllVerticalConfigsValid(verticalConfigs, jamboConfig) {
   if (!verticalConfigs) {
     return true;
   }
-  return Object.keys(verticalConfigs).reduce((isValid, key) => {
-    return isPageVerticalConfigValid(verticalConfigs[key], jamboConfig) && isValid;
-  }, true);
+  return Object.keys(verticalConfigs)
+    .map(key => {
+      return isPageVerticalConfigValid(verticalConfigs[key], jamboConfig);
+    })
+    .every(result => result);
 }
