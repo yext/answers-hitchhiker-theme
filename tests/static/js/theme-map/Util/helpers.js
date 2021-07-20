@@ -55,10 +55,6 @@ describe('getNormalizedLongitude', () => {
 
 describe('getLanguageForProvider', () => {
   describe('it works with different language/locale pairs', () => {
-    it('works with 0', () => {
-      expect(getNormalizedLongitude(0)).toEqual(0);
-    });
-
     it('works with map provider google', () => {
       expect(getLanguageForProvider('en', 'google')).toEqual('en');
       expect(getLanguageForProvider('a', 'google')).toEqual('en');
