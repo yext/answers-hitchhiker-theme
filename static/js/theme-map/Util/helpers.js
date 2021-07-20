@@ -1,3 +1,6 @@
+import { GoogleMaps } from '../Maps/Providers/Google.js';
+import { MapboxMaps } from '../Maps/Providers/Mapbox.js';
+
 /**
  * Gets the language locale according to specific fallback logic
  * 1. The user-specified locale to the component
@@ -5,21 +8,22 @@
  * 3. If still invalid, providers fallback to en
  *
  * @param {string} localeStr The user-defined locale string
- * @param {string[]} supportedLocales The locales supported by the current map provider
+ * @param {string} mapProvider name of the current map provider
  * @return {string} The language locale for the map
  */
-const getLanguageForProvider = (localeStr, supportedLocales) => {
+const getLanguageForProvider = (localeStr, mapProvider) => {
   if (localeStr.length == 2) {
     return localeStr;
   } 
 
   if (localeStr.length > 2) {
-    if (supportedLocalesForProvider.includes(localeStr)) {
-      return localeStr;
-    } 
+    const provider = (mapProvider === 'google') ? GoogleMaps : MapboxMaps;
+    const formattedLocaleStr = localeStr.replace('_', '-');
+    if (provider.getSupportedLocales().includes(formattedLocaleStr)) {
+      return formattedLocaleStr;
+    }
     return localeStr.substring(0, 2);
   }
-
   return 'en';
 };
 
