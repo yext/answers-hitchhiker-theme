@@ -63,9 +63,7 @@ describe('getMapProvider', () => {
   }); 
 
   it('returns MapBox on unsupported mapProvider name', () => {
-    const consoleWarn = jest.spyOn(console, 'warn').mockImplementation();
     expect(getMapProvider('unknown')).toEqual(MapboxMaps);
-    expect(consoleWarn).toHaveBeenCalled();
   });
 });
 

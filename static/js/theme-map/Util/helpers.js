@@ -40,7 +40,6 @@ const getMapProvider = (mapProvider) => {
   if (mapProvider === 'mapbox') {
     return MapboxMaps;
   }
-  console.warn(`Map provider ${mapProvider} is not supported in the theme. Default to MapBox.`);
   return MapboxMaps;
 }
 
