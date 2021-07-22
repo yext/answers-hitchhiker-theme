@@ -1,5 +1,5 @@
 ANSWERS.addComponent("LocationBias", 
-{{#assign}}[
+{{#shallowMergeConfig}}[
   {
     "container": "#js-answersLocationBias{{#if modifier}}--{{modifier}}{{/if}}",
     "updateLocationEl": "#js-answersLocationBias{{#if modifier}}--{{modifier}}{{/if}} .js-locationBias-update-location"
@@ -10,5 +10,5 @@ ANSWERS.addComponent("LocationBias",
   },
   {{{json componentSettings.LocationBias}}}
 ]
-{{/assign}}
+{{/shallowMergeConfig}}
 );

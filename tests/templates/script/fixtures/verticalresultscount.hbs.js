@@ -1,2 +1,2 @@
 ANSWERS.addComponent('VerticalResultsCount', 
-{"container":"#js-answersVerticalResultsCount"});
+{"container":"#js-answersVerticalResultsCount","a":"testVRC"});

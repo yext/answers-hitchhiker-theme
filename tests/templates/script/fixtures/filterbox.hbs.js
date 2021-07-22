@@ -1,2 +1,2 @@
 ANSWERS.addComponent("FilterBox", 
-{"container":"#js-answersFilterBox"}));
+{"container":"#js-answersFilterBox","verticalKey":"testKey","a":"testFB"}));

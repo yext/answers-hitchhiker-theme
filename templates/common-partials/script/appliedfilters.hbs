@@ -1,5 +1,5 @@
 ANSWERS.addComponent('AppliedFilters', 
-  {{#assign}}[
+  {{#shallowMergeConfig}}[
   {
     "container": "#js-answersAppliedFilters"
     {{#if verticalKey}}
@@ -9,5 +9,5 @@ ANSWERS.addComponent('AppliedFilters',
   },
   {{{json componentSettings.AppliedFilters}}}
 ]
-{{/assign}}
+{{/shallowMergeConfig}}
 );

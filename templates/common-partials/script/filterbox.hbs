@@ -1,5 +1,5 @@
 ANSWERS.addComponent("FilterBox", 
-{{#assign}}[
+{{#shallowMergeConfig}}[
   {
     "container": "#js-answersFilterBox"
     {{#if verticalKey}}
@@ -9,5 +9,5 @@ ANSWERS.addComponent("FilterBox",
   },
   {{{json componentSettings.FilterBox}}}
 ]
-{{/assign}}
+{{/shallowMergeConfig}}
 ));

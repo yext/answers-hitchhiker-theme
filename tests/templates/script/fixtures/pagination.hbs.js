@@ -9,4 +9,5 @@ ANSWERS.addComponent("Pagination", Object.assign({}, {
       document.body.scrollTop = 0; // Safari
     }
   },
+    verticalKey: "testKey",
 }, {}));

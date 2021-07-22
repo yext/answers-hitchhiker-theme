@@ -23,8 +23,9 @@ const shouldAddOverlayConfig = window.isOverlay && document.querySelector('.js-A
 
 ANSWERS.addComponent("SearchBar", Object.assign({}, {
   container: ".js-answersSearch",
+    verticalKey: "testKey",
   ...(shouldAddOverlayConfig ? overlayConfig : {}),
   onCreate: function() {
     this._container.textContent = '';
   }
-}, {}));
+}, {"a":"testSB"}));

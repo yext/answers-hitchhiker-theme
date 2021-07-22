@@ -1,2 +1,2 @@
 ANSWERS.addComponent("SortOptions", 
-{"container":"#js-answersSortOptions"});
+{"container":"#js-answersSortOptions","verticalKey":"testKey","a":"testSO"});

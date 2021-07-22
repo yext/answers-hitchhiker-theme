@@ -1,3 +1,3 @@
 ANSWERS.addComponent("QASubmission", 
-{"container":"#js-answersQASubmission"});
+{"container":"#js-answersQASubmission","a":"testQAS"});
 

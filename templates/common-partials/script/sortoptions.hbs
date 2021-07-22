@@ -1,5 +1,5 @@
 ANSWERS.addComponent("SortOptions", 
-{{#assign}}[
+{{#shallowMergeConfig}}[
   {
     "container": "#js-answersSortOptions"
     {{#if verticalKey}}
@@ -9,5 +9,5 @@ ANSWERS.addComponent("SortOptions",
   },
   {{{json componentSettings.SortOptions}}}
 ]
-{{/assign}}
+{{/shallowMergeConfig}}
 );

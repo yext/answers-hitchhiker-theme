@@ -5,5 +5,5 @@ verticalPages: [
 onCreate: function() {
   this._container.textContent = '';
 }
-}, {}));
+}, {"a":"testN"}));
 

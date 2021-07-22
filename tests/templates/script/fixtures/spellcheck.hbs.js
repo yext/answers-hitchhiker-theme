@@ -1,3 +1,3 @@
 ANSWERS.addComponent("SpellCheck", 
-{"container":"#js-answersSpellCheck"});
+{"container":"#js-answersSpellCheck","a":"testSC"});
 
