@@ -1,6 +1,6 @@
 module.exports = function shallowMergeConfig(...options) {
-  var parsedData = JSON.parse(options[options.length - 1].fn(this));
-  var stringFormat;
+  const parsedData = JSON.parse(options[options.length - 1].fn(this));
+  let stringFormat;
   if (parsedData.length) {
     stringFormat = JSON.stringify(Object.assign({}, ...parsedData));
   }
