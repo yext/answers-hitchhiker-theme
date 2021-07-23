@@ -5,12 +5,12 @@ const directoryPath = 'templates/common-partials/script'
 const partialPath = path.resolve(__dirname, `../../../${directoryPath}`);
 const files = fs.readdirSync(partialPath);
 
-it('checks all common partials', () => {
-    files.forEach(function (file) {
-        const filename = file.concat('.js')
-        const tempPath = path.join(__dirname, "fixtures", filename);
-        const fixture = fs.readFileSync(tempPath, 'utf-8')
-        const partial = fs.readFileSync(path.join(partialPath, file), 'utf-8')
+files.forEach(function (file) {
+    const filename = file.concat('.js')
+    const tempPath = path.join(__dirname, "fixtures", filename);
+    const fixture = fs.readFileSync(tempPath, 'utf-8')
+    const partial = fs.readFileSync(path.join(partialPath, file), 'utf-8')
+    it(`checks ${file} is equal to fixture`, () => {
         expect(fixture).toEqual(hbs.compile(partial)({
             "verticalKey": "testKey",
             "componentSettings": {
@@ -27,5 +27,5 @@ it('checks all common partials', () => {
                 "VerticalResultsCount": {"a":"testVRC"}
             }
         }));
-    });
+    });    
 });
