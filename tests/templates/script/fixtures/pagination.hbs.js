@@ -8,13 +8,6 @@ ANSWERS.addComponent("Pagination", Object.assign({}, {
       document.documentElement.scrollTop = 0;
       document.body.scrollTop = 0; // Safari
     }
-    const resultsColumn = document.querySelector(".js-locator-resultsWrapper");
-    if (resultsColumn) {
-      resultsColumn.scrollTop = 0;
-    }
   },
-  {{#if verticalKey}}
-    verticalKey: "{{{verticalKey}}}",
-  {{/if}}
-}, {{{ json componentSettings.Pagination }}}));
-
+    verticalKey: "testKey",
+}, {}));

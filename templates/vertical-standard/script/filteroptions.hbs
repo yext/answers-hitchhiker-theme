@@ -1,3 +1,9 @@
-ANSWERS.addComponent("FilterOptions", Object.assign({}, {
-  container: "#standard-filteroptions-container"
-}, {{{ json componentSettings.FilterOptions }}}));
+ANSWERS.addComponent("FilterOptions", 
+{{#shallowMergeConfig}}[
+  {
+    "container": "#standard-filteroptions-container"
+  },
+  {{{json componentSettings.FilterOptions}}}
+]
+{{/shallowMergeConfig}}
+);
