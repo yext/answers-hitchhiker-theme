@@ -1,6 +1,8 @@
 
 #!/bin/bash
 
+set -e
+
 # Verifiy that the messages.pot file in the repo is up to date
 # If there are any git diffs after translations are extracted, the checked-in file is out of date
 npm run extract-translations
