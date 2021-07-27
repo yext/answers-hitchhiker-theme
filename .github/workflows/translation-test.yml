@@ -2,9 +2,6 @@ name: Translation Test
 
 on:
   pull_request:
-    branches:
-      - master
-      - release/*
 
 jobs:
   build:
@@ -20,14 +17,5 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
-    - name: 'extract translations'
-      run: npx jambo extract-translations --globs '*/**/*{.hbs,.js}' '!**/node_modules' $IGNORED_FOLDERS --output $OUTPUT_FILE
-      env:
-        IGNORED_FOLDERS: '!{commands,hbshelpers,patches,postupgrade,static,tests,test-site,translations}/**'
-        OUTPUT_FILE: 'translations/messages.pot'
-    - run: sudo apt-get install -qq gettext
-    - run: |
-        cd translations
-        for po_file in *.po
-          do msgcmp $po_file messages.pot
-        done
+    - name: 'translation verification'
+      run: ./.github/run_translation_verification.sh
