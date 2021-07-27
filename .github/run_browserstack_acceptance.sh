@@ -9,7 +9,7 @@ export BROWSERSTACK_TEST_RUN_NAME=$COMMIT_MSG_TITLE
 if [[ $GITHUB_BRANCH == release/*
   || $GITHUB_BRANCH == hotfix/*
   || $GITHUB_BRANCH == master
-  || $GITHUB_BRANCH == support* ]]
+  || $GITHUB_BRANCH == support/* ]]
 then
   npm run acceptance -- --browsers browserstack:ie@11.0 browserstack:safari browserstack:firefox
 else
