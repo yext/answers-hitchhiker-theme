@@ -19,10 +19,10 @@ fi
 
 # Verify that translations are present for all languages
 cd translations
-if [[ $GITHUB_BRANCH == release/*
-  || $GITHUB_BRANCH == hotfix/*
-  || $GITHUB_BRANCH == master
-  || $GITHUB_BRANCH == support/* ]]
+if [[ $GITHUB_BASE_REF == refs/heads/release/*
+  || $GITHUB_BASE_REF == refs/heads/hotfix/*
+  || $GITHUB_BASE_REF == refs/heads/master
+  || $GITHUB_BASE_REF == refs/heads/support/* ]]
 then
   for po_file in *.po
     do msgcmp $po_file messages.pot
