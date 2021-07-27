@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 
-#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:31
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:32
 msgid "([[resultsCount]] result)"
 msgid_plural "([[resultsCount]] results)"
 msgstr[0] ""
