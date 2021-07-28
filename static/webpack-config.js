@@ -6,6 +6,7 @@ const HtmlPlugin = require('html-webpack-plugin');
 const RemovePlugin = require('remove-files-webpack-plugin');
 const { merge } = require('webpack-merge');
 const { parse } = require('comment-json');
+const RtlCssPlugin = require('rtlcss-webpack-plugin');
 
 module.exports = function () {
   const jamboConfig = require('./jambo.json');
@@ -24,6 +25,19 @@ module.exports = function () {
         inject: false
       }));
     });
+  }
+
+  const cssrtlPlugins = [];
+  const localeConfigPath = `./${jamboConfig.dirs.config}/locale_config.json`;
+  if (fs.existsSync(localeConfigPath)) {
+    localeConfigRaw = fs.readFileSync(localeConfigPath, 'utf-8');
+    localeConfig = parse(localeConfigRaw);
+    const hasRtlLocale = Object.keys(localeConfig.localeConfig).some((locale) => locale === 'ar');
+    if(hasRtlLocale) {
+      cssrtlPlugins.push(new RtlCssPlugin({
+        filename: '[name].rtl.css'
+      }));
+    }
   }
 
   const globalConfigPath = `./${jamboConfig.dirs.config}/global_config.json`;
@@ -53,6 +67,7 @@ module.exports = function () {
         }[chunkName] || '[name].css'
       }
     }),
+    ...cssrtlPlugins,
     ...htmlPlugins,
     new webpack.DefinePlugin({
       'process.env.JAMBO_INJECTED_DATA': JSON.stringify(jamboInjectedData)
