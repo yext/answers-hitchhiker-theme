@@ -5,7 +5,7 @@
  * @returns {boolean}
  */
 module.exports = function isRTL (locale) {
-  if(locale === 'ar') {
+  if (locale === 'ar') {
     return true;
   }
   return false;

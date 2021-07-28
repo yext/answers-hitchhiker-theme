@@ -7,7 +7,6 @@ const RemovePlugin = require('remove-files-webpack-plugin');
 const { merge } = require('webpack-merge');
 const { parse } = require('comment-json');
 const RtlCssPlugin = require('rtlcss-webpack-plugin');
-const isRTL = require('./js/rtl');
 
 module.exports = function () {
   const jamboConfig = require('./jambo.json');
@@ -36,6 +35,7 @@ module.exports = function () {
   }
 
   const cssRtlPlugin = [];
+  const isRTL = require(`./${jamboConfig.dirs.output}/static/webpack/rtl`);
   const localeConfigPath = `./${jamboConfig.dirs.config}/locale_config.json`;
   if (fs.existsSync(localeConfigPath)) {
     localeConfigRaw = fs.readFileSync(localeConfigPath, 'utf-8');
