@@ -1,12 +1,11 @@
+const checkRTL = require('../static/js/rtl');
+
 /**
  * Returns true if the given language is written from right to left (requires rtl css)
  * 
  * @param {string} locale 
  * @returns {boolean}
  */
-module.exports = function cssrtl(locale) {
-  if(locale === 'ar') {
-    return true;
-  }
-  return false;
+module.exports = function isRTL(locale) {
+  return checkRTL(locale);
 }

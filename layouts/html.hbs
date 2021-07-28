@@ -145,7 +145,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.10/iframeResizer.contentWindow.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{{sdkAssetUrl global_config.sdkVersion 'en' 'answers.css'}}">
     <link rel="stylesheet" type="text/css"
-      {{#if (cssrtl global_config.locale) }}
+      {{#if (isRTL global_config.locale) }}
         href="{{relativePath}}/bundle.rtl.css"
       {{else}}
         href="{{relativePath}}/bundle.css"
@@ -159,7 +159,7 @@
       height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <!-- End Google Tag Manager (noscript) -->
     {{/if}}
-    <div {{#if (cssrtl global_config.locale) }}dir="rtl"{{/if}} class="YxtPage-wrapper {{pageWrapperCss}}">
+    <div {{#if (isRTL global_config.locale) }}dir="rtl"{{/if}} class="YxtPage-wrapper {{pageWrapperCss}}">
       {{> overlay/markup/overlay-header }}
       {{> layouts/header }}
       <div class="YxtPage-content">
