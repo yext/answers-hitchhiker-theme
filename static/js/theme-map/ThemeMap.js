@@ -118,18 +118,10 @@ class ThemeMap extends ANSWERS.Component {
       .withProvider(mapProviderImpl)
       .withProviderOptions(this.config.providerOptions || {})
       .withPadding(this.config.padding)
+      .withLanguage(this.config.language)
       .build();
     this.map = map;
     this.addMapInteractions(map);
-    this.localizeMapLanguage(map);
-  }
-
-  /**
-   * Sets the language displayed on map
-   * @param {Map} map 
-   */
-  localizeMapLanguage(map) {
-    map.setLanguage(this.config.language);
   }
 
   /**

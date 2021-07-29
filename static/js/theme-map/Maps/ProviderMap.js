@@ -24,6 +24,15 @@ class ProviderMapOptions {
     this.zoomEndHandler = () => {};
     this.canvasClickHandler = () => {};
     this.providerOptions = {};
+    this.language = 'en';
+  }
+
+  /**
+   * @param {string} language The language displayed on map
+   */
+  withLanguage(language) {
+    this.language = language;
+    return this;
   }
 
   /**

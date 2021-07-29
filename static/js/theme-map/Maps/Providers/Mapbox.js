@@ -5,6 +5,7 @@ import { Coordinate } from '../../Geo/Coordinate.js';
 import { MapProviderOptions } from '../MapProvider.js';
 import { ProviderMap } from '../ProviderMap.js';
 import { ProviderPin } from '../ProviderPin.js';
+import isRTL from '../../../../webpack/rtl';
 
 // TODO (jronkin) call map resize method when hidden/shown (CoreBev, used to be done in Core.js)
 
@@ -27,10 +28,16 @@ class MapboxMap extends ProviderMap {
       ...options.providerOptions
     });
 
+    this.map.addControl(new MapboxLanguage({
+      defaultLanguage: options.language
+    }));
+
     // Add the zoom control
     if (options.controlEnabled) {
       const zoomControl = new mapboxgl.NavigationControl({showCompass: false})
-      this.map.addControl(zoomControl);
+      isRTL(options.language)
+      ? this.map.addControl(zoomControl, 'top-left') 
+      : this.map.addControl(zoomControl);
     }
 
     this.map.on('movestart', () => this._panStartHandler());
@@ -43,12 +50,6 @@ class MapboxMap extends ProviderMap {
         this._canvasClickHandler();
       }
     });
-  }
-
-  setLanguage(language) {
-    this.map.addControl(new MapboxLanguage({
-      defaultLanguage: language
-    }));
   }
 
   getCenter() {
