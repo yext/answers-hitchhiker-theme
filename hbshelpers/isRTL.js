@@ -1,4 +1,4 @@
-const checkRTL = require('../static/webpack/rtl');
+const checkRTL = require('../static/common/rtl');
 
 /**
  * Returns true if the given language is written from right to left (requires rtl css)

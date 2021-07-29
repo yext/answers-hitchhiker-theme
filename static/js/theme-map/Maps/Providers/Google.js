@@ -6,7 +6,7 @@ import { MapProviderOptions } from '../MapProvider.js';
 import { ProviderMap } from '../ProviderMap.js';
 import { ProviderPin } from '../ProviderPin.js';
 import { debounce } from '../../Util/helpers';
-import isRTL from '../../../../webpack/rtl';
+import isRTL from '../../../../common/rtl';
 
 /**
  * @static

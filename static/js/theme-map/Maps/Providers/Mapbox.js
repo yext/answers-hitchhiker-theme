@@ -5,7 +5,7 @@ import { Coordinate } from '../../Geo/Coordinate.js';
 import { MapProviderOptions } from '../MapProvider.js';
 import { ProviderMap } from '../ProviderMap.js';
 import { ProviderPin } from '../ProviderPin.js';
-import isRTL from '../../../../webpack/rtl';
+import isRTL from '../../../../common/rtl';
 
 // TODO (jronkin) call map resize method when hidden/shown (CoreBev, used to be done in Core.js)
 
@@ -183,7 +183,7 @@ const yextAPIKey = 'pk.eyJ1IjoieWV4dCIsImEiOiJqNzVybUhnIn0.hTOO5A1yqfpN42-_z_GuL
  * @see {MapProvider~loadFunction}
  */
 function load(resolve, reject, apiKey, {
-  version = 'v1.13.0'
+  version = 'v1.13.1'
 }) {
   const baseUrl = `https://api.mapbox.com/mapbox-gl-js/${version}/mapbox-gl`;
 

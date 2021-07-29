@@ -35,7 +35,7 @@ module.exports = function () {
   }
 
   const cssRtlPlugin = [];
-  const isRTL = require(`./${jamboConfig.dirs.output}/static/webpack/rtl`);
+  const isRTL = require(`./${jamboConfig.dirs.output}/static/common/rtl`);
   const localeConfigPath = `./${jamboConfig.dirs.config}/locale_config.json`;
   if (fs.existsSync(localeConfigPath)) {
     localeConfigRaw = fs.readFileSync(localeConfigPath, 'utf-8');
