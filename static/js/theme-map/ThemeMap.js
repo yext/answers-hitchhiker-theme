@@ -121,6 +121,15 @@ class ThemeMap extends ANSWERS.Component {
       .build();
     this.map = map;
     this.addMapInteractions(map);
+    this.localizeMapLanguage(map);
+  }
+
+  /**
+   * Sets the language displayed on map
+   * @param {Map} map 
+   */
+  localizeMapLanguage(map) {
+    map.setLanguage(this.config.language);
   }
 
   /**

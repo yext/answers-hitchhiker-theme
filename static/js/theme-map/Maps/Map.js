@@ -325,6 +325,14 @@ class Map {
   }
 
   /**
+   * Sets the language displayed on map
+   * @param {*} language 
+   */
+  setLanguage(language) {
+    this._map.setLanguage(language);
+  }
+
+  /**
    * Set the map bounds so that all the given coordinates are within the [padded]{@link MapOptions#withPadding} view.
    * @param {Coordinate[]} coordinates
    * @param {boolean} [animated=false] Whether to transition smoothly to the new bounds

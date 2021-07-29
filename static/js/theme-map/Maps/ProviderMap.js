@@ -207,6 +207,13 @@ class ProviderMap {
     throw new Error('not implemented');
   }
 
+
+  /**
+   * Sets language displayed on map
+   * @param {string} language 
+   */
+  setLanguage(language) { }
+
   /**
    * @param {number} zoom
    * @param {Object} center Must be convertible to {@link Coordinate}
