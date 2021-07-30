@@ -143,11 +143,13 @@
     {{/babel}}
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.10/iframeResizer.contentWindow.min.js"></script>
-    {{#if (isRTL global_config.locale) }}
-      <link rel="stylesheet" type="text/css" href="{{sdkAssetUrl global_config.sdkVersion 'en' 'answers.rtl.css'}}">
-    {{else}}
-      <link rel="stylesheet" type="text/css" href="{{sdkAssetUrl global_config.sdkVersion 'en' 'answers.css'}}">
-    {{/if}}
+    <link rel="stylesheet" type="text/css"
+      {{#if (isRTL global_config.locale) }}
+        href="{{sdkAssetUrl global_config.sdkVersion 'en' 'answers.rtl.css'}}"
+      {{else}}
+        href="{{sdkAssetUrl global_config.sdkVersion 'en' 'answers.css'}}"
+      {{/if}}
+      >
     <link rel="stylesheet" type="text/css"
       {{#if (isRTL global_config.locale) }}
         href="{{relativePath}}/bundle.rtl.css"
