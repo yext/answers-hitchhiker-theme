@@ -53,14 +53,14 @@ class MapOptions {
     this.providerOptions = {};
     this.singlePinZoom = 14;
     this.wrapper = null;
-    this.language = 'en';
+    this.locale = 'en';
   }
 
   /**
-   * @param {string} language The language displayed on map
+   * @param {string} locale The locale used in map
    */
-  withLanguage(language) {
-    this.language = language;
+  withLocale(locale) {
+    this.locale = locale;
     return this;
   }
 
@@ -327,7 +327,7 @@ class Map {
       .withCanvasClickHandler(() => this._canvasClickHandler())
       .withPanStartHandler(() => this.panStartHandler())
       .withProviderOptions(options.providerOptions)
-      .withLanguage(options.language)
+      .withLocale(options.locale)
       .build();
 
     this.setZoomCenter(this._defaultZoom, this._defaultCenter);

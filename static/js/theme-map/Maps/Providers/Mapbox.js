@@ -29,7 +29,7 @@ class MapboxMap extends ProviderMap {
     });
 
     this.map.addControl(new MapboxLanguage({
-      defaultLanguage: options.language
+      defaultLanguage: options.locale
     }));
 
     // Add the zoom control
