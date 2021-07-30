@@ -6,6 +6,7 @@ import { MapProviderOptions } from '../MapProvider.js';
 import { ProviderMap } from '../ProviderMap.js';
 import { ProviderPin } from '../ProviderPin.js';
 import { debounce } from '../../Util/helpers';
+import isRTL from '../../../../common/rtl';
 
 /**
  * @static
@@ -27,6 +28,10 @@ class GoogleMap extends ProviderMap {
   constructor(options) {
     super(options);
 
+    const zoomControlPosition = isRTL(options.language) 
+      ? google.maps.ControlPosition.LEFT_TOP 
+      : google.maps.ControlPosition.RIGHT_TOP;
+
     this.map = new google.maps.Map(options.wrapper, {
       disableDefaultUI: !options.controlEnabled,
       fullscreenControl: false,
@@ -37,7 +42,7 @@ class GoogleMap extends ProviderMap {
       streetViewControl: false,
       zoomControl: options.controlEnabled,
       zoomControlOptions: {
-        position: google.maps.ControlPosition.RIGHT_TOP
+        position: zoomControlPosition
       },
       ...options.providerOptions
     });
