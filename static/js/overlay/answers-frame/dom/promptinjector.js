@@ -117,14 +117,17 @@ export default class PromptInjector {
   _appendChevronRight(el) {
     const iconEl = document.createElement('div');
     iconEl.classList.add('OverlayPrompt-buttonIcon');
-    iconEl.innerHTML = `<?xml version="1.0" encoding="UTF-8"?>
-      <svg viewBox="0.5 0 6 9"
-        version="1.1" xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink">
-        <g fill-rule="evenodd" transform="translate(-1 -8)">
-          <path d="m2.6417004 8-1.1417004 1.0575 3.70850202 3.4425-3.70850202 3.4425 1.1417004 1.0575 4.8582996-4.5z"/>
-        </g>
-      </svg>`;
+    iconEl.innerHTML = `
+      <div class="Icon Icon--chevron">
+        <?xml version="1.0" encoding="UTF-8"?>
+        <svg viewBox="0.5 0 6 9"
+          version="1.1" xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink">
+          <g fill-rule="evenodd" transform="translate(-1 -8)">
+            <path d="m2.6417004 8-1.1417004 1.0575 3.70850202 3.4425-3.70850202 3.4425 1.1417004 1.0575 4.8582996-4.5z"/>
+          </g>
+        </svg>
+      </div>`;
 
     el.appendChild(iconEl);
   }
