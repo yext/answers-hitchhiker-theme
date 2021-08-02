@@ -6,6 +6,7 @@
     "pages": "pages",
     "partials": [
       "script/on-ready.js",
+      "script/custom-init-config.js",
       "cards",
       "directanswercards"
     ],
