@@ -1,7 +1,13 @@
-ANSWERS.addComponent('AppliedFilters', {
-  container: '#js-answersAppliedFilters',
-  {{#if verticalKey}}
-    verticalKey: '{{{verticalKey}}}',
-  {{/if}}
-  ...{{{ json componentSettings.AppliedFilters }}}
-});
+ANSWERS.addComponent('AppliedFilters', 
+  {{#shallowMergeConfig}}[
+  {
+    "container": "#js-answersAppliedFilters"
+    {{#if verticalKey}}
+    ,
+    "verticalKey": "{{{verticalKey}}}"
+    {{/if}}
+  },
+  {{{json componentSettings.AppliedFilters}}}
+]
+{{/shallowMergeConfig}}
+);

@@ -1,9 +1,11 @@
 /** @module Maps/Providers/Mapbox */
 
+import DeferredPromise from '../../../deferred-promise.js';
 import { Coordinate } from '../../Geo/Coordinate.js';
 import { MapProviderOptions } from '../MapProvider.js';
 import { ProviderMap } from '../ProviderMap.js';
 import { ProviderPin } from '../ProviderPin.js';
+import isRTL from '../../../../common/rtl';
 
 // TODO (jronkin) call map resize method when hidden/shown (CoreBev, used to be done in Core.js)
 
@@ -26,10 +28,16 @@ class MapboxMap extends ProviderMap {
       ...options.providerOptions
     });
 
+    this.map.addControl(new MapboxLanguage({
+      defaultLanguage: options.locale
+    }));
+
     // Add the zoom control
     if (options.controlEnabled) {
       const zoomControl = new mapboxgl.NavigationControl({showCompass: false})
-      this.map.addControl(zoomControl);
+      isRTL(options.language)
+        ? this.map.addControl(zoomControl, 'top-left') 
+        : this.map.addControl(zoomControl);
     }
 
     this.map.on('movestart', () => this._panStartHandler());
@@ -175,7 +183,7 @@ const yextAPIKey = 'pk.eyJ1IjoieWV4dCIsImEiOiJqNzVybUhnIn0.hTOO5A1yqfpN42-_z_GuL
  * @see {MapProvider~loadFunction}
  */
 function load(resolve, reject, apiKey, {
-  version = 'v1.6.1'
+  version = 'v1.13.1'
 }) {
   const baseUrl = `https://api.mapbox.com/mapbox-gl-js/${version}/mapbox-gl`;
 
@@ -183,14 +191,30 @@ function load(resolve, reject, apiKey, {
   mapStyle.rel = 'stylesheet';
   mapStyle.href = baseUrl + '.css';
 
-  const mapScript = document.createElement('script');
-  mapScript.src = baseUrl + '.js';
-  mapScript.onload = () => {
-    mapboxgl.accessToken = apiKey || yextAPIKey;
-    resolve();
+  const mapLanguageScript = document.createElement('script');
+  mapLanguageScript.src = 'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-language/v0.10.1/mapbox-gl-language.js';
+  const mapLanguageScriptPromise = new DeferredPromise();
+  mapLanguageScript.onload = () => {
+    mapLanguageScriptPromise.resolve();
   };
 
+  const mapScript = document.createElement('script');
+  mapScript.src = baseUrl + '.js';
+  const mapScriptPromise = new DeferredPromise();
+  mapScript.onload = () => {
+    mapboxgl.accessToken = apiKey || yextAPIKey;
+    mapboxgl.setRTLTextPlugin(
+      'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js',
+      null,
+      true // Lazy load the plugin
+    );      
+    mapScriptPromise.resolve();
+  };
+
+  Promise.all([mapScriptPromise, mapLanguageScriptPromise]).then(() => resolve());
+
   document.head.appendChild(mapStyle);
+  document.head.appendChild(mapLanguageScript);
   document.head.appendChild(mapScript);
 }
 

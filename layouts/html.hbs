@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="YxtPage-doc">
+<html class="YxtPage-doc" {{#if (isRTL global_config.locale) }}dir="rtl"{{/if}}>
   <head>
     <script>
       {{#babel}}
@@ -143,8 +143,20 @@
     {{/babel}}
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.10/iframeResizer.contentWindow.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="{{sdkAssetUrl global_config.sdkVersion 'en' 'answers.css'}}">
-    <link rel="stylesheet" type="text/css" href="{{relativePath}}/bundle.css" data-webpack-inline>
+    <link rel="stylesheet" type="text/css"
+      {{#if (isRTL global_config.locale) }}
+        href="{{sdkAssetUrl global_config.sdkVersion 'en' 'answers.rtl.css'}}"
+      {{else}}
+        href="{{sdkAssetUrl global_config.sdkVersion 'en' 'answers.css'}}"
+      {{/if}}
+      >
+    <link rel="stylesheet" type="text/css"
+      {{#if (isRTL global_config.locale) }}
+        href="{{relativePath}}/bundle.rtl.css"
+      {{else}}
+        href="{{relativePath}}/bundle.css"
+      {{/if}}
+      data-webpack-inline>
   </head>
   <body>
     {{#if global_config.googleTagManagerId}}
