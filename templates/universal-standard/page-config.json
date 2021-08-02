@@ -27,9 +27,9 @@
         // "iconUrl": "" //Optional, use custom icon url instead of the default loading indicator animation
       },
       "voiceSearch": {
-        "enabled": false
-        // "customMicIconUrl": "", // Optional, display a custom microphone icon
-        // "customListeningIconUrl": "" // Optional, displays a custom while voice search is active
+        "enabled": false // Whether or not voice search is enabled
+        // "customMicIconUrl": "", // Path to override the voice start icon
+        // "customListeningIconUrl": "" // Path to override the voice stop icon
       }
     }
   },
