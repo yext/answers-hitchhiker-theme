@@ -62,6 +62,9 @@
     "testMatch": [
       "<rootDir>/tests/**/*.js"
     ],
+    "modulePathIgnorePatterns": [
+      "/test-site/"
+    ],
     "testPathIgnorePatterns": [
       "/fixtures/",
       "/test-utils/",
