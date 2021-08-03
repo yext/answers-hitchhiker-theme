@@ -46,6 +46,12 @@
       padding-right: var(--yxt-base-spacing);
       font-size: var(--yxt-font-size-lg);
     }
+
+    .yxt-SearchBar-voiceSearch svg, img
+    {
+      max-width: none;
+      max-height: none;
+    }
   }
 
   &-nav
