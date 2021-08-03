@@ -45,6 +45,7 @@
           }));
         }
       },
+      ...{{#stripJsComments}}{{> script/additional-answers-config }}{{/stripJsComments}},
       onReady: () => {
         window.AnswersExperience.AnswersInitializedPromise.resolve();
 
@@ -103,8 +104,7 @@
         window.iframeLoaded.then(() => {
           {{> script/iframe-messaging}}
         });
-      },
-      ...{{#stripJsComments}}{{> script/custom-init-config }}{{/stripJsComments}}
+      }
     }).catch(err => {
       window.AnswersExperience.AnswersInitializedPromise.reject('Answers failed to initialized.');
     });
