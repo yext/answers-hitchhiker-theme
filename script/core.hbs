@@ -45,7 +45,7 @@
           }));
         }
       },
-      ...{{#stripJsComments}}{{> script/additional-answers-config }}{{/stripJsComments}},
+      ...{{> script/additional-answers-config }},
       onReady: () => {
         window.AnswersExperience.AnswersInitializedPromise.resolve();
 
