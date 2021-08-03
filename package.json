@@ -39,7 +39,6 @@
     "postcss": "^8.2.1",
     "serve": "^11.3.2",
     "simple-git": "^2.24.0",
-    "strip-comments": "^2.0.1",
     "testcafe": "^1.15.0",
     "testcafe-browser-provider-browserstack": "^1.13.1",
     "underscore.string": "^3.3.5",
