@@ -1,3 +1,4 @@
+const webpackConfig = require('./webpack-config');
 const { spawnSync } = require("child_process");
 const jamboConfig = require('./jambo.json');
 
@@ -5,6 +6,9 @@ const outputDir = jamboConfig.dirs.output;
 
 module.exports = function (grunt) {
   grunt.initConfig({
+    webpack: {
+      myConfig: webpackConfig
+    },
     watch: {
       all: {
         files: ['**', '!**/node_modules/**', `!${outputDir}/**`],
@@ -13,6 +17,7 @@ module.exports = function (grunt) {
     },
   });
 
+  grunt.loadNpmTasks('grunt-webpack');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.registerTask('jambobuild', 'Jambo build.', jambobuild);
 }
