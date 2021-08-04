@@ -1,45 +1,36 @@
-const webpackConfig = require('./webpack-config');
-const { exec } = require("child_process");
+const { spawnSync } = require("child_process");
 const jamboConfig = require('./jambo.json');
 
 const outputDir = jamboConfig.dirs.output;
 
 module.exports = function (grunt) {
   grunt.initConfig({
-    webpack: {
-      myConfig: webpackConfig
-    },
     watch: {
       all: {
         files: ['**', '!**/node_modules/**', `!${outputDir}/**`],
-        tasks: ['jambobuild', 'webpack',],
-        options: {
-          spawn: false,
-        },
+        tasks: ['jambobuild']
       },
     },
   });
 
-  grunt.loadNpmTasks('grunt-webpack');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.registerTask('jambobuild', 'Jambo build.', jambobuild);
+}
 
-  grunt.registerTask('jambobuild', 'Jambo build.',
-  function() {
-    // Force task into async mode and grab a handle to the "done" function.
-    var done = this.async();
-    // Run some sync stuff.
-    grunt.log.writeln('Processing task...');
-    // And some async stuff.
-    exec('npx jambo build', (error, stdout, stderr) => {
-      if (error) {
-        console.log(error.message);
-        done(false);
-        return;
-      }
-
-      stderr && console.error(stderr);
-      stdout && console.log(stdout);
-      done();
-    });
+/**
+ * Spawns a jambo and webpack build and prints sends all output to the console
+ */
+function jambobuild () {
+  const spawnedProcess = spawnSync('npx jambo build && npx webpack --config webpack-config.js', {
+    shell: true,
+    stdio: 'inherit'
   });
+
+  if (spawnedProcess.error) {
+    console.error(spawnedProcess.error.message);
+  }
+
+  const { stderr, stdout } = spawnedProcess;
+  stderr && console.error(stderr);
+  stdout && console.log(stdout);
 }
