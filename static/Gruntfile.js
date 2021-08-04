@@ -12,20 +12,20 @@ module.exports = function (grunt) {
     watch: {
       all: {
         files: ['**', '!**/node_modules/**', `!${outputDir}/**`],
-        tasks: ['jambobuild']
+        tasks: ['build-site']
       },
     },
   });
 
   grunt.loadNpmTasks('grunt-webpack');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.registerTask('jambobuild', 'Jambo build.', jambobuild);
+  grunt.registerTask('build-site', 'Builds the site.', buildSite);
 }
 
 /**
- * Spawns a jambo and webpack build and prints sends all output to the console
+ * Builds the site by spawning a jambo and webpack build
  */
-function jambobuild () {
+function buildSite () {
   const spawnedProcess = spawnSync('npx jambo build && npx webpack --config webpack-config.js', {
     shell: true,
     stdio: 'inherit'
