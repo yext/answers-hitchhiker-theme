@@ -12,18 +12,17 @@ module.exports = function (grunt) {
     watch: {
       all: {
         files: ['**', '!**/node_modules/**', `!${outputDir}/**`],
-        tasks: ['build',],
+        tasks: ['build-site'],
         options: {
           spawn: false,
         },
       },
     },
   });
-
   grunt.loadNpmTasks('grunt-webpack');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
-  grunt.registerTask('build', 'jambo build -> grunt webpack', () => {
+  grunt.registerTask('build-site', 'Builds the site', () => {
     spawnSync('npm', ['run',  'build', '--silent'], { stdio: 'inherit' });
   });
 }
