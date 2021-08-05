@@ -5,7 +5,7 @@
   "main": "Gruntfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "jambo build && grunt webpack"
+    "build": "jambo build && webpack --config webpack-config.js"
   },
   "author": "tmeyer@yext.com",
   "license": "BSD-3-Clause",
