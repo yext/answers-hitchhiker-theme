@@ -1,0 +1,65 @@
+From 88e185914a5d8d0739277d62e60e47b69f93a6d8 Mon Sep 17 00:00:00 2001
+From: Connor Anderson <canderson@yext.com>
+Date: Thu, 5 Aug 2021 13:19:38 -0400
+Subject: [PATCH] Gruntfile Memory Leak Fix for v1.17 through v1.22.2
+
+---
+ Gruntfile.js | 32 +++++++-------------------------
+ 1 file changed, 7 insertions(+), 25 deletions(-)
+
+diff --git a/Gruntfile.js b/Gruntfile.js
+index b8b8e95..0bd44d4 100644
+--- a/Gruntfile.js
++++ b/Gruntfile.js
+@@ -1,5 +1,5 @@
+ const webpackConfig = require('./webpack-config');
+-const { exec } = require("child_process");
++const { spawnSync } = require('child_process');
+ const jamboConfig = require('./jambo.json');
+ 
+ const outputDir = jamboConfig.dirs.output;
+@@ -12,34 +12,16 @@ module.exports = function (grunt) {
+     watch: {
+       all: {
+         files: ['**', '!**/node_modules/**', `!${outputDir}/**`],
+-        tasks: ['jambobuild', 'webpack',],
+-        options: {
+-          spawn: false,
+-        },
++        tasks: ['build-site']
+       },
+     },
+   });
+-
+   grunt.loadNpmTasks('grunt-webpack');
+   grunt.loadNpmTasks('grunt-contrib-watch');
+-
+-  grunt.registerTask('jambobuild', 'Jambo build.',
+-  function() {
+-    // Force task into async mode and grab a handle to the "done" function.
+-    var done = this.async();
+-    // Run some sync stuff.
+-    grunt.log.writeln('Processing task...');
+-    // And some async stuff.
+-    exec('npx jambo build', (error, stdout, stderr) => {
+-      if (error) {
+-        console.log(error.message);
+-        done(false);
+-        return;
+-      }
+-
+-      stderr && console.error(stderr);
+-      stdout && console.log(stdout);
+-      done();
++  grunt.registerTask('build-site', 'Builds the site.', () => {
++    spawnSync('npx jambo build && npx webpack --config webpack-config.js', {
++      shell: true,
++      stdio: 'inherit'
+     });
+   });
+-}
++}
+\ No newline at end of file
+-- 
+2.32.0
+
