@@ -15,7 +15,7 @@ class PostUpgradeHandler {
   }
 
   async handlePostUpgrade() {
-    const isSubmodule = await isGitSubmodule(this.themeDir)
+    const isSubmodule = await isGitSubmodule(this.themeDir);
     if (!isSubmodule) {
       this.removeFromTheme('.gitignore', 'tests', 'test-site');
     }
