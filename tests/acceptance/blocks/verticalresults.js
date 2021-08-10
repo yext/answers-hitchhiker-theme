@@ -1,11 +1,11 @@
-import { Selector, t } from 'testcafe';
+import { Selector, RequestLogger, t } from 'testcafe';
 
 /**
  * Models the user interaction with a {import('@yext/answers-search-ui').VerticalResultsComponent}.
  */
 class VerticalResults {
   constructor () {
-    this._selector = Selector('.yxt-Results')
+    this._selector = Selector('.yxt-Results');
     this._resultsWrapper = Selector('.Answers-resultsWrapper');
     this._focusedCard = Selector('.yxt-Card--pinFocused');
     this._getNthCard = index => Selector(`.yxt-Card[data-opts*="${index}"]`);

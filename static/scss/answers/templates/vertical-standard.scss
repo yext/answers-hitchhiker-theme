@@ -11,7 +11,7 @@
     padding-top: calc(var(--yxt-base-spacing) * 1.5);
     flex-direction: column;
 
-    @media (max-width: $breakpoint-mobile-max)
+    @include bplte(xs)
     {
       padding-top: calc(var(--yxt-base-spacing) / 2)
     }
@@ -134,7 +134,7 @@
       margin-bottom: calc(var(--yxt-base-spacing) * 1.5);
       margin-left: var(--yxt-base-spacing);
 
-      @media (min-width: $breakpoint-mobile-min) {
+      @include bpgte(sm) {
         margin-left: 0px;
       }
     }

@@ -29,7 +29,7 @@
       margin-top: calc(var(--yxt-base-spacing) * 1.5);
       margin-bottom: calc(var(--yxt-base-spacing) * -0.85);
 
-      @media (max-width: $breakpoint-mobile-max) {
+      @include bplte(xs) {
         margin-left: var(--yxt-base-spacing);
         margin-bottom: 0px;
       }

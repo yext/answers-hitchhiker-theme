@@ -16,9 +16,9 @@ Object.freeze(ArgumentType);
 class ArgumentMetadata {
   constructor(type, description, isRequired, defaultValue, itemType) {
     this._type = type;
+    this._description = description;
     this._isRequired = isRequired;
     this._defaultValue = defaultValue;
-    this._description = description;
     this._itemType = itemType;
   }
 

@@ -1,0 +1,8 @@
+{
+  "verticalsToConfig": {
+    "events": {
+      "cardType": "custom-cta-icons",
+      "label": "Eventos"
+    }
+  }
+}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="YxtPage-doc">
+<html class="YxtPage-doc" {{#if (isRTL global_config.locale) }}dir="rtl"{{/if}}>
   <head>
     <script>
       {{#babel}}
@@ -22,17 +22,8 @@
     <link rel="dns-prefetch" href="//dynm.mktgcdn.com">
     <link rel="dns-prefetch" href="//www.google-analytics.com">
     <link rel="dns-prefetch" href="//assets.sitescdn.net">
-
-    <!-- Uncomment this block if you use the legacy OpenSans fonts -->
-    {{!-- <link rel="preload" as="font" href="{{relativePath}}/static/assets/fonts/opensans-bold-webfont.woff" type="font/woff" crossorigin="anonymous">
-    <link rel="preload" as="font" href="{{relativePath}}/static/assets/fonts/opensans-regular-webfont.woff" type="font/woff" crossorigin="anonymous">
-    <link rel="preload" as="font" href="{{relativePath}}/static/assets/fonts/opensans-semibold-webfont.woff" type="font/woff" crossorigin="anonymous"> --}}
     
-    <!-- Preload the SourceSans fonts used by default in the Theme -->
-    <link rel="preload" as="font" href="{{relativePath}}/static/assets/fonts/source-sans-pro-v14-latin-300.woff" type="font/woff" crossorigin="anonymous">
-    <link rel="preload" as="font" href="{{relativePath}}/static/assets/fonts/source-sans-pro-v14-latin-600.woff" type="font/woff" crossorigin="anonymous">
-    <link rel="preload" as="font" href="{{relativePath}}/static/assets/fonts/source-sans-pro-v14-latin-700.woff" type="font/woff" crossorigin="anonymous">
-    <link rel="preload" as="font" href="{{relativePath}}/static/assets/fonts/source-sans-pro-v14-latin-regular.woff" type="font/woff" crossorigin="anonymous">
+    {{> layouts/preload-fonts }}
 
     <script>
       document.documentElement.lang = {{#if global_config.locale}}"{{global_config.locale}}"{{else}}'en'{{/if}};
@@ -152,8 +143,20 @@
     {{/babel}}
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.10/iframeResizer.contentWindow.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="{{sdkAssetUrl global_config.sdkVersion 'en' 'answers.css'}}">
-    <link rel="stylesheet" type="text/css" href="{{relativePath}}/bundle.css" data-webpack-inline>
+    <link rel="stylesheet" type="text/css"
+      {{#if (isRTL global_config.locale) }}
+        href="{{sdkAssetUrl global_config.sdkVersion 'en' 'answers.rtl.css'}}"
+      {{else}}
+        href="{{sdkAssetUrl global_config.sdkVersion 'en' 'answers.css'}}"
+      {{/if}}
+      >
+    <link rel="stylesheet" type="text/css"
+      {{#if (isRTL global_config.locale) }}
+        href="{{relativePath}}/bundle.rtl.css"
+      {{else}}
+        href="{{relativePath}}/bundle.css"
+      {{/if}}
+      data-webpack-inline>
   </head>
   <body>
     {{#if global_config.googleTagManagerId}}

@@ -43,7 +43,16 @@
     },
     "SearchBar": {
       "placeholderText": "Search", // The placeholder text in the answers search bar
-      "allowEmptySearch": true // Allows users to submit an empty search in the searchbar
+      "allowEmptySearch": true, // Allows users to submit an empty search in the searchbar
+      "loadingIndicator": {
+        "display": true //Optional, whether to include a loading indicator on seachbar
+        // "iconUrl": "" //Optional, use custom icon url instead of the default loading indicator animation
+      },
+      "voiceSearch": {
+        "enabled": false // Whether or not voice search is enabled
+        // "customMicIconUrl": "", // Path to override the voice start icon
+        // "customListeningIconUrl": "" // Path to override the voice stop icon
+      }
     },
     "Pagination": {
       "noResults": {

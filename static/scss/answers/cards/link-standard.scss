@@ -19,7 +19,7 @@
     flex-direction: column;
     width: 100%;
 
-    @media (min-width: $breakpoint-mobile-max)
+    @include bpgte(sm)
     {
       justify-content: space-between;
       flex-direction: row;

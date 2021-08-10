@@ -5,8 +5,10 @@ export default class AnswersExperienceFrame {
     this.runtimeConfig = runtimeConfig;
     this._hasManuallyInitialized = false;
 
-    runtimeConfig._onUpdate(updatedConfig => {
-      sendToIframe({ runtimeConfig: updatedConfig });
+    runtimeConfig.registerListener({
+      callback: updatedConfig => {
+        sendToIframe({ runtimeConfig: updatedConfig });
+      }
     });
   }
 

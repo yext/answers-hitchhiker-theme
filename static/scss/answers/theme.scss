@@ -46,6 +46,12 @@
       padding-right: var(--yxt-base-spacing);
       font-size: var(--yxt-font-size-lg);
     }
+
+    .yxt-SearchBar-voiceSearch svg, img
+    {
+      max-width: none;
+      max-height: none;
+    }
   }
 
   &-nav
@@ -119,6 +125,10 @@
       margin-top: calc(var(--yxt-base-spacing) / 2);
       margin-bottom: calc(var(--yxt-base-spacing) / 4);
     }
+
+    span {
+      display: inline-block;
+    }
   }
 
   &-results {
@@ -156,6 +166,7 @@
 
     &-suggestionLink
     {
+      //This media query value is the same one that the SDK uses because the alternative verticals font sizes shrink below this breakpoint
       @media (min-width: 47.9375rem)
       {
         font-size: var(--yxt-font-size-md-lg);
@@ -179,5 +190,9 @@
       background-color: unset;
       font-weight: var(--yxt-font-weight-medium);
     }
+  }
+
+  .yxt-Results--searchLoading {
+    opacity: var(--yxt-search-loading-opacity);
   }
 }

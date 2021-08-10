@@ -18,21 +18,13 @@
      data-eventoptions='{{json card.titleEventOptions}}'
      target={{#if card.target}}"{{card.target}}"{{else}}"_top"{{/if}}>
     {{{card.title}}}
-    {{> chevron_icon }}
+    {{> icons/builtInIcon iconName='chevron'}}
   </a>
   {{else}}
   {{{card.title}}}
   {{/if}}
 </div>
 {{/if}}
-{{/inline}}
-
-{{#*inline 'chevron_icon'}}
-<svg viewBox="0 0 7 9" xmlns="http://www.w3.org/2000/svg">
-  <g transform="translate(-1 -8)">
-    <path d="m2.6417004 8-1.1417004 1.0575 3.70850202 3.4425-3.70850202 3.4425 1.1417004 1.0575 4.8582996-4.5z"></path>
-  </g>
-</svg>
 {{/inline}}
 
 {{#*inline 'subtitle'}}
@@ -62,13 +54,15 @@
   {{#if showExcessDetailsToggle}}
   <button class="HitchhikerCard-detailsToggle js-HitchhikerCard-detailsToggle">
     {{card.showMoreDetails.showMoreText}}
-    <span data-component="IconComponent"
-      data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseDown" }'></span>
+    <span>
+      {{> icons/builtInIcon iconName='chevron' classNames='Icon--sm Icon--collapseDown' }}
+    </span>
   </button>
   <button class="HitchhikerCard-detailsToggle js-HitchhikerCard-detailsToggle js-hidden">
     {{card.showMoreDetails.showLessText}}
-    <span data-component="IconComponent"
-      data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseUp" }'></span>
+    <span>
+      {{> icons/builtInIcon iconName='chevron' classNames='Icon--sm Icon--collapseUp' }}
+    </span>
   </button>
   {{/if}}
 </div>

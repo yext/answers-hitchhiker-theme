@@ -29,7 +29,8 @@
   },
   "verticalsToConfig": {
     "people": {
-      "label": "People"
+      "label": "People",
+      "iconUrl": "static/assets/ayaya.png"
     }
   }
 }

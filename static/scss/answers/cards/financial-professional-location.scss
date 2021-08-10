@@ -27,7 +27,7 @@ $financial-professional-location-ordinal-dimensions: 18px !default;
     flex-direction: column;
     width: 100%;
 
-    @media (min-width: $breakpoint-mobile-max)
+    @include bpgte(sm)
     {
       justify-content: space-between;
       flex-direction: row;
@@ -135,7 +135,7 @@ $financial-professional-location-ordinal-dimensions: 18px !default;
   &-phone--desktop {
     display: none;
 
-    @media (min-width: $breakpoint-mobile-max)
+    @include bpgte(sm)
     {
       display: flex;
     }
@@ -145,7 +145,7 @@ $financial-professional-location-ordinal-dimensions: 18px !default;
     @include Link;
     display: flex;
 
-    @media (min-width: $breakpoint-mobile-max)
+    @include bpgte(sm)
     {
       display: none;
     }
@@ -156,7 +156,7 @@ $financial-professional-location-ordinal-dimensions: 18px !default;
     text-transform: uppercase;
     margin-top: calc(var(--hh-financial-professional-location-spacing) / 2);
 
-    @media (min-width: $breakpoint-mobile-max)
+    @include bpgte(sm)
     {
       margin-top: 0;
       margin-left: calc(var(--hh-financial-professional-location-spacing) / 2);

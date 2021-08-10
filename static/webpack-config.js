@@ -6,6 +6,7 @@ const HtmlPlugin = require('html-webpack-plugin');
 const RemovePlugin = require('remove-files-webpack-plugin');
 const { merge } = require('webpack-merge');
 const { parse } = require('comment-json');
+const RtlCssPlugin = require('rtlcss-webpack-plugin');
 
 module.exports = function () {
   const jamboConfig = require('./jambo.json');
@@ -33,6 +34,20 @@ module.exports = function () {
     globalConfig = parse(globalConfigRaw);
   }
 
+  const cssRtlPlugin = [];
+  const isRTL = require(`./${jamboConfig.dirs.output}/static/common/rtl`);
+  const localeConfigPath = `./${jamboConfig.dirs.config}/locale_config.json`;
+  if (fs.existsSync(localeConfigPath)) {
+    localeConfigRaw = fs.readFileSync(localeConfigPath, 'utf-8');
+    localeConfig = parse(localeConfigRaw);
+    const hasRtlLocale = Object.keys(localeConfig.localeConfig).some((locale) => isRTL(locale));
+    if(hasRtlLocale) {
+      cssRtlPlugin.push(new RtlCssPlugin({
+        filename: '[name].rtl.css'
+      }));
+    }
+  }
+
   const { useJWT } = globalConfig;
 
   let jamboInjectedData = process.env.JAMBO_INJECTED_DATA || null;
@@ -53,6 +68,7 @@ module.exports = function () {
         }[chunkName] || '[name].css'
       }
     }),
+    ...cssRtlPlugin,
     ...htmlPlugins,
     new webpack.DefinePlugin({
       'process.env.JAMBO_INJECTED_DATA': JSON.stringify(jamboInjectedData)
@@ -60,7 +76,17 @@ module.exports = function () {
     new RemovePlugin({
       after: {
         root: `${jamboConfig.dirs.output}`,
-        include: ['static'],
+        test: [
+          {
+            folder: 'static',
+            method: absoluteFilePath => {
+              const filePathRelativeToOutput = path.relative(jamboConfig.dirs.output, absoluteFilePath);
+              const isFileWithinStaticAssetOutputDir = filePathRelativeToOutput.startsWith('static/assets');
+              return !isFileWithinStaticAssetOutputDir;
+            },
+            recursive: true
+          }
+        ],
         log: false
       }
     })
@@ -118,37 +144,42 @@ module.exports = function () {
           ],
         },
         {
-          test: /\.(png|ico|gif|jpe?g|svg|webp|eot|otf|ttf|woff2?)$/,
-          loader: 'file-loader',
-          options: {
-            name: '[name].[contenthash].[ext]'
-          }
-        },
-        {
           test: /\.html$/i,
           use: [
             {
-              loader: path.resolve(__dirname, `./${jamboConfig.dirs.output}/static/webpack/html-asset-loader.js`),
-            },
-            {
               loader: 'html-loader',
               options: {
-                minimize: {
-                  removeAttributeQuotes: false,
-                  collapseWhitespace: true,
-                  conservativeCollapse: true,
-                  keepClosingSlash: true,
-                  minifyCSS: false,
-                  minifyJS: false,
-                  removeComments: true,
-                  removeScriptTypeAttributes: true,
-                  removeStyleLinkTypeAttributes: true,
-                  useShortDoctype: true
+                sources: {
+                  list: [
+                    {
+                      tag: 'link',
+                      attribute: 'href',
+                      type: 'src',
+                      filter: (tag, attribute, attributes) => {
+                        const isPreload = attributes.find(attr => {
+                          return attr.name === 'rel' && attr.value === 'preload';
+                        });
+                        const isFont = attributes.find(attr => {
+                          return attr.name === 'as' && attr.value === 'font';
+                        });
+                        return isPreload && isFont;
+                      }
+                    }
+                  ],
+                  urlFilter: (attribute, value) => {
+                    return /^[./]*static\/assets\//.test(value);
+                  }
                 },
-                attributes: false
               }
             }
           ]
+        },
+        {
+          test: /\.(png|ico|gif|jpe?g|svg|webp|eot|otf|ttf|woff2?)$/,
+          type: 'asset/resource',
+          generator: {
+            filename: '[name].[hash].[ext]'
+          }
         }
       ],
     },
