@@ -3,7 +3,7 @@ const { parseJamboConfig } = require('../commands/helpers/utils/jamboconfigutils
 const { error } = require('../commands/helpers/utils/logger');
 
 /**
- * Validates page template's data configuration
+ * Validates the template data and partials used during jambo build.
  * 
  * @param {Object} pageData data that gets passed into a page template
  * @param {Object<string, Function|string>} partials
