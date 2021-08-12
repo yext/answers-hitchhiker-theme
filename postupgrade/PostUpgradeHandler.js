@@ -15,8 +15,9 @@ class PostUpgradeHandler {
   }
 
   async handlePostUpgrade() {
-    if (!isGitSubmodule(this.themeDir)) {
-      this.removeFromTheme('.gitignore', 'tests');
+    const isSubmodule = await isGitSubmodule(this.themeDir);
+    if (!isSubmodule) {
+      this.removeFromTheme('.gitignore', 'tests', 'test-site');
     }
     this.copyStaticFilesToTopLevel(
       'package.json', 'Gruntfile.js', 'webpack-config.js', 'package-lock.json');
