@@ -4,7 +4,11 @@ log.heading = 'jambo';
 log.headingStyle = { fg: 'magenta' };
 
 // Don't display a log prefix.
-const PREFIX = '';
+let PREFIX = '';
+
+exports.setPrefix = function(prefix) {
+  PREFIX = prefix;
+}
 
 /**
  * Sets the global logging level.
