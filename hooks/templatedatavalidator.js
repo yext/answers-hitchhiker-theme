@@ -126,7 +126,7 @@ function logThatPartialDNE(partialName, defaultLocations = []) {
   } else if (defaultLocations.length > 1) {
     const lastLocation = defaultLocations[defaultLocations.length - 1];
     const commaSeparatedLocations = defaultLocations.slice(0, -1).join(', ');
-    const parsedLocations = `${commaSeparatedLocations}, or ${lastLocation}`
+    const parsedLocations = `${commaSeparatedLocations} or ${lastLocation}`
     msg += `\nBy default this partial is located in ${parsedLocations}`;
   }
   error(msg);
