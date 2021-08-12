@@ -3,7 +3,7 @@ const log = require('npmlog');
 log.heading = 'jambo';
 log.headingStyle = { fg: 'magenta' };
 
-// Don't display a log prefix.
+// Don't display a log prefix by default.
 let PREFIX = '';
 
 exports.setPrefix = function(prefix) {
