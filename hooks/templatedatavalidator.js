@@ -1,6 +1,6 @@
 const path = require('path');
 const { parseJamboConfig } = require('../commands/helpers/utils/jamboconfigutils');
-const { error, setPrefix } = require('../commands/helpers/utils/logger');
+const { error } = require('../commands/helpers/utils/logger');
 
 /**
  * Validates the template data and partials used during jambo build.
@@ -12,8 +12,6 @@ const { error, setPrefix } = require('../commands/helpers/utils/logger');
  * @returns {boolean} false if validator should throw an error
  */
 module.exports = function (pageData, partials) {
-  const { pageName } = pageData.pageMetadata;
-  setPrefix(`${pageName}.json`);
   const jamboConfig = parseJamboConfig();
   const validatorResults = [
     isGlobalConfigValid(pageData.global_config), 
@@ -55,8 +53,8 @@ function isPageVerticalConfigValid(pageData, jamboConfig, partials) {
       const universalSectionTemplate = pageData.verticalsToConfig[key].universalSectionTemplate;
       const cardType = pageData.verticalsToConfig[key].cardType;
       const validatorResults = [
-        isUniversalSectionTemplateValid(themeDirectory, universalSectionTemplate, partials), 
-        isCardTypeValid(themeDirectory, cardType, partials)
+        isUniversalSectionTemplateValid(key, themeDirectory, universalSectionTemplate, partials), 
+        isCardTypeValid(key, themeDirectory, cardType, partials)
       ];
       return validatorResults.every(result => result);
     })
@@ -65,17 +63,18 @@ function isPageVerticalConfigValid(pageData, jamboConfig, partials) {
 
 /**
  * If universalsectiontemplate is defined, check whether the corresponding file exists in theme
- * 
+ *
+ * @param {string} verticalName
  * @param {string} themeDir
  * @param {string} template
  * @param {Object<string, Function|string>} partials mapping of partial name to partial
  * @returns {boolean}
  */
-function isUniversalSectionTemplateValid(themeDir, template, partials) {
+function isUniversalSectionTemplateValid(verticalName, themeDir, template, partials) {
   const partialName = `universalsectiontemplates/${template}`;
   if (template && !partials[partialName]) {
     const universalSectionPath = path.join(themeDir, 'universalsectiontemplates/', template + '.hbs');
-    logThatPartialDNE(partialName, [universalSectionPath]);
+    logThatPartialDNE(partialName, verticalName, [universalSectionPath]);
     return false;
   }
   return true;
@@ -84,17 +83,18 @@ function isUniversalSectionTemplateValid(themeDir, template, partials) {
 /**
  * If cardType is defined, check whether the corresponding file exists in theme or custom card folder
  * 
+ * @param {string} verticalName
  * @param {string} themeDir
  * @param {string} cardType
  * @param {Object<string, Function|string>} partials mapping of partial name to partial
  * @returns {boolean}
  */
-function isCardTypeValid(themeDir, cardType, partials) {
+function isCardTypeValid(verticalName, themeDir, cardType, partials) {
   const partial = `cards/${cardType}/component`;
   if (cardType && !partials[partial]) {
     const cardTypePath = path.join(themeDir, 'cards/', cardType, 'component.js');
     const customCardTypePath = path.join('cards/', cardType, 'component.js');
-    logThatPartialDNE(partial, [cardTypePath, customCardTypePath]);
+    logThatPartialDNE(partial, verticalName, [cardTypePath, customCardTypePath]);
     return false;
   }
   return true;
@@ -119,8 +119,8 @@ function isAllVerticalConfigsValid(verticalConfigs, jamboConfig, partials) {
     .every(result => result);
 }
 
-function logThatPartialDNE(partialName, defaultLocations = []) {
-  let msg = `Cannot find partial ${partialName}.`
+function logThatPartialDNE(partialName, verticalName, defaultLocations = []) {
+  let msg = `Cannot find partial \`${partialName}\` for vertical \`${verticalName}\`.`
   if (defaultLocations.length === 1) {
     msg += `\nBy default this partial is located in ${defaultLocations[0]}`;
   } else if (defaultLocations.length > 1) {
