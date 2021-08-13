@@ -3,7 +3,7 @@ import { PinImages } from './PinImages.js';
 import { ClusterPinImages } from './ClusterPinImages.js';
 import { getLanguageForProvider } from './Util/helpers.js';
 import { defaultCenterCoordinate } from './constants.js';
-
+import isRTL from '../../common/rtl';
 /**
  * The configuration for the ThemeMap component.
  */
@@ -100,8 +100,8 @@ export default class ThemeMapConfig {
     this.padding = {
       top: () => window.innerWidth <= this.mobileBreakpointMax ? 150 : 50,
       bottom: () => 50,
-      right: () => 50,
-      left: () => this.getLeftVisibleBoundary(),
+      right: () => isRTL(this.language) ? this.getVisibleBoundary() : 50,
+      left: () => !isRTL(this.language) ? this.getVisibleBoundary() : 50
     };
 
     /**
@@ -238,11 +238,12 @@ export default class ThemeMapConfig {
   }
 
   /**
-   * Get the leftmost point on the map, such that pins will still be visible
+   * Get the leftmost or rightmost point on the map, such that pins will still be visible
    * @return {Number} The boundary (in pixels) for the visible area of the map, from the left
-   *                  hand side of the viewport
+   *                  or right hand side of the viewport depending on if the language displayed
+   *                  is left-to-right or right-to-left
    */
-  getLeftVisibleBoundary () {
+  getVisibleBoundary () {
     if (window.innerWidth <= this.mobileBreakpointMax) {
       return 50;
     }

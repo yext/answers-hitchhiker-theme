@@ -35,7 +35,7 @@ class MapboxMap extends ProviderMap {
     // Add the zoom control
     if (options.controlEnabled) {
       const zoomControl = new mapboxgl.NavigationControl({showCompass: false})
-      isRTL(options.language)
+      isRTL(options.locale)
         ? this.map.addControl(zoomControl, 'top-left') 
         : this.map.addControl(zoomControl);
     }

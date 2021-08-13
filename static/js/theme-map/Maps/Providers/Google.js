@@ -28,7 +28,7 @@ class GoogleMap extends ProviderMap {
   constructor(options) {
     super(options);
 
-    const zoomControlPosition = isRTL(options.language) 
+    const zoomControlPosition = isRTL(options.locale) 
       ? google.maps.ControlPosition.LEFT_TOP 
       : google.maps.ControlPosition.RIGHT_TOP;
 
