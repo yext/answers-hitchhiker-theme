@@ -2,144 +2,125 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 
-#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:31
-msgid "([[resultsCount]] result)"
-msgid_plural "([[resultsCount]] results)"
-msgstr[0] "([[resultsCount]] risultato)"
-msgstr[1] "([[resultsCount]] risultati)"
-
-#: cards/multilang-menuitem-standard/component.js:29
+#: cards/multilang-menuitem-standard/component.js:27
 msgid "[[calorieCount]] calories"
 msgstr "[[calorieCount]] calorie"
 
-#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:3
-msgid "<em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">No results found</em> in [[currentVerticalLabel]]."
-msgstr "<em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">Nessun risultato trovato</em> in [[currentVerticalLabel]]."
-
-#: cards/multilang-menuitem-standard/component.js:25
+#: cards/multilang-menuitem-standard/component.js:23
 msgid "Allergens"
 msgstr "Allergeni"
 
-#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:43
-msgid "Alternatively, you can <a class=\"yxt-AlternativeVerticals-universalLink\" href=\"[[universalUrl]]\"> view results across all search categories</a>."
-msgstr "In alternativa, è possibile <a class=\"yxt-AlternativeVerticals-universalLink\" href=\"[[universalUrl]]\">visualizzare i risultati in tutte le categorie"
-" di ricerca</a>."
-
-#: cards/multilang-job-standard/component.js:35
+#: cards/multilang-job-standard/component.js:33
 msgid "Apply Now"
 msgstr "Richiedi subito"
 
-#: theme-components/collapsible-filters/filter-link/component.js:4
-msgid "clear search"
-msgstr "Cancella ricerca"
-
-#: cards/multilang-event-standard/component.js:44
+#: cards/multilang-event-standard/component.js:42
 msgid "Directions"
 msgstr "Indicazioni stradali"
 
-#: cards/multilang-location-standard/component.js:49
+#: cards/multilang-location-standard/component.js:41
 msgid "Get Directions"
 msgstr "Ottieni indicazioni"
 
-#: templates/vertical-full-page-map/page.html.hbs:23
-msgid "Main location search"
-msgstr "Ricerca posizione principale"
-
-#: templates/vertical-full-page-map/page.html.hbs:67
-msgid "Map"
-msgstr "Mappa"
-
-#: templates/vertical-full-page-map/page.html.hbs:62
-msgid "Map controls"
-msgstr "Controlli mappa"
-
-#: theme-components/collapsible-filters/view-results-button/template.hbs:3
-msgid "No results found."
-msgstr "Nessun risultato trovato."
-
-#: cards/multilang-menuitem-standard/component.js:40
+#: cards/multilang-menuitem-standard/component.js:38
 msgid "Order Now"
 msgstr "Ordina ora"
-
-#: theme-components/collapsible-filters/filter-link/component.js:3
-msgid "reset filters"
-msgstr "ripristina filtri"
 
 #: cards/multilang-location-standard/template.hbs:140
 msgid "Services:"
 msgstr "Servizi:"
 
-#: cards/multilang-event-standard/component.js:30
-#: cards/multilang-financial-professional-location/component.js:44
-#: cards/multilang-job-standard/component.js:31
-#: cards/multilang-link-standard/component.js:28
-#: cards/multilang-menuitem-standard/component.js:36
-#: cards/multilang-product-prominentimage/component.js:39
-#: cards/multilang-product-prominentvideo/component.js:34
-#: cards/multilang-product-standard/component.js:38
-#: cards/multilang-professional-location/component.js:44
-#: cards/multilang-professional-standard/component.js:36
-#: cards/multilang-standard/component.js:31
+#: cards/multilang-event-standard/component.js:28
+#: cards/multilang-job-standard/component.js:29
+#: cards/multilang-link-standard/component.js:26
+#: cards/multilang-menuitem-standard/component.js:34
+#: cards/multilang-product-prominentimage/component.js:29
+#: cards/multilang-product-standard/component.js:34
+#: cards/multilang-professional-location/component.js:36
+#: cards/multilang-professional-standard/component.js:34
+#: cards/multilang-standard/component.js:29
 msgid "Show less"
 msgstr "Mostra meno"
 
-#: cards/multilang-event-standard/component.js:29
-#: cards/multilang-financial-professional-location/component.js:43
-#: cards/multilang-job-standard/component.js:30
-#: cards/multilang-link-standard/component.js:27
-#: cards/multilang-menuitem-standard/component.js:35
-#: cards/multilang-product-prominentimage/component.js:38
-#: cards/multilang-product-prominentvideo/component.js:33
-#: cards/multilang-product-standard/component.js:37
-#: cards/multilang-professional-location/component.js:43
-#: cards/multilang-professional-standard/component.js:35
-#: cards/multilang-standard/component.js:30
+#: cards/multilang-event-standard/component.js:27
+#: cards/multilang-job-standard/component.js:28
+#: cards/multilang-link-standard/component.js:25
+#: cards/multilang-menuitem-standard/component.js:33
+#: cards/multilang-product-prominentimage/component.js:28
+#: cards/multilang-product-standard/component.js:33
+#: cards/multilang-professional-location/component.js:35
+#: cards/multilang-professional-standard/component.js:33
+#: cards/multilang-standard/component.js:28
 msgid "Show more"
 msgstr "Mostra altro"
 
-#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:5
-msgid "Showing <em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">all [[currentVerticalLabel]]</em> instead."
-msgstr "Visualizzazione di <em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">tutti i [[currentVerticalLabel]]</em>."
+#: directanswercards/multilang-allfields-standard/component.js:177
+msgid "Thank you for your feedback!"
+msgstr "Grazie per il tuo feedback!"
+
+#: directanswercards/multilang-allfields-standard/component.js:179
+msgid "This answered my question"
+msgstr "La risposta è stata esauriente"
+
+#: directanswercards/multilang-allfields-standard/component.js:180
+msgid "This did not answer my question"
+msgstr "La risposta non è stata esauriente"
+
+#: directanswercards/multilang-allfields-standard/component.js:163
+msgid "View Details"
+msgstr "Visualizza dettagli"
+
+#: cards/multilang-menuitem-standard/component.js:48
+msgid "View Menu"
+msgstr "Visualizzare il menu"
+
+#: directanswercards/multilang-allfields-standard/component.js:178
+msgid "Was this the answer you were looking for?"
+msgstr "È la risposta che ti aspettavi?"
+
+#: cards/multilang-location-standard/component.js:33
+msgctxt "Call is a verb"
+msgid "Call"
+msgstr "Chiama"
+
+#: cards/multilang-event-standard/component.js:32
+msgctxt "RSVP is a verb"
+msgid "RSVP"
+msgstr "Dare conferma"
+
+#: templates/universal-standard/script/universalresults.hbs:74
+msgctxt "View is a verb"
+msgid "View All"
+msgstr "Visualizza tutti"
+
+#: theme-components/collapsible-filters/filter-link/component.js:4
+msgid "clear search"
+msgstr "Cancella ricerca"
+
+#: theme-components/collapsible-filters/view-results-button/template.hbs:3
+msgid "No results found."
+msgstr "Nessun risultato trovato."
+
+#: theme-components/collapsible-filters/filter-link/component.js:3
+msgid "reset filters"
+msgstr "ripristina filtri"
 
 #: theme-components/collapsible-filters/filter-link/component.js:2
 msgid "sorts and filters"
 msgstr "ordinamenti e filtri"
 
-#: directanswercards/multilang-allfields-standard/component.js:188
-msgid "Thank you for your feedback!"
-msgstr "Grazie per il tuo feedback!"
-
-#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:11
-msgid "The following search category yielded results for <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"
-msgid_plural "The following search categories yielded results for <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"
-msgstr[0] "La seguente categoria di ricerca ha prodotto risultati per <span class=\"yxt-AlternativeVerticals-details--query\">&quot;[[query]]&quot;</span>:"
-msgstr[1] "Le seguenti categorie di ricerca hanno prodotto risultati per <span class=\"yxt-AlternativeVerticals-details--query\">&quot;[[query]]&quot;</span>:"
-
-#: directanswercards/multilang-allfields-standard/component.js:190
-msgid "This answered my question"
-msgstr "La risposta è stata esauriente"
-
-#: directanswercards/multilang-allfields-standard/component.js:191
-msgid "This did not answer my question"
-msgstr "La risposta non è stata esauriente"
-
 #: theme-components/collapsible-filters/view-results-button/template.hbs:5
 msgid "View 1 Result"
-msgid_plural "View [[resultsCount]] Results"
+msgid_plural "View [[count]] Results"
 msgstr[0] "Visualizza 1 risultato"
-msgstr[1] "Visualizza [[resultsCount]] risultati"
+msgstr[1] "Visualizza [[count]] risultati"
 
-#: directanswercards/multilang-allfields-standard/component.js:174
-msgid "View Details"
-msgstr "Visualizza dettagli"
-
-#: cards/multilang-menuitem-standard/component.js:50
-msgid "View Menu"
-msgstr "Visualizzare il menu"
-
-#: directanswercards/multilang-allfields-standard/component.js:189
-msgid "Was this the answer you were looking for?"
-msgstr "È la risposta che ti aspettavi?"
+#: cards/multilang-financial-professional-location/template.hbs:198
+#: cards/multilang-location-standard/template.hbs:209
+#: cards/multilang-professional-location/template.hbs:195
+msgctxt "Close is a verb"
+msgid "Close Card"
+msgstr "Chiudi scheda"
 
 #: templates/vertical-full-page-map/markup/searchthisareatoggle.hbs:10
 msgctxt "A button that conducts a search in the current map area"
@@ -151,23 +132,6 @@ msgctxt "A toggle for automatically searching when the map moves"
 msgid "Search This Area"
 msgstr "Cerca in questa area"
 
-#: cards/multilang-location-standard/component.js:40
-msgctxt "Call is a verb"
-msgid "Call"
-msgstr "Chiama"
-
-#: cards/multilang-financial-professional-location/template.hbs:198
-#: cards/multilang-location-standard/template.hbs:209
-#: cards/multilang-professional-location/template.hbs:195
-msgctxt "Close is a verb"
-msgid "Close Card"
-msgstr "Chiudi scheda"
-
-#: cards/multilang-event-standard/component.js:34
-msgctxt "RSVP is a verb"
-msgid "RSVP"
-msgstr "Dare conferma"
-
 #: templates/vertical-full-page-map/markup/mobilelisttoggles.hbs:5
 msgctxt "The label of a toggle for displaying a list of results"
 msgid "List"
@@ -178,7 +142,38 @@ msgctxt "The label of a toggle for viewing a visual map"
 msgid "Map"
 msgstr "Mappa"
 
-#: templates/universal-standard/script/universalresults.hbs:78
-msgctxt "View is a verb"
-msgid "View All"
-msgstr "Visualizza tutti"
+#: templates/vertical-interactive-map/page.html.hbs:23
+msgid "Main location search"
+msgstr "Ricerca posizione principale"
+
+#: templates/vertical-interactive-map/page.html.hbs:64
+msgid "Map"
+msgstr "Mappa"
+
+#: templates/vertical-interactive-map/page.html.hbs:59
+msgid "Map controls"
+msgstr "Controlli mappa"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:3
+msgid "<em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">No results found</em> in [[currentVerticalLabel]]."
+msgstr "<em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">Non ci sono risultati disponibili</em> in [[currentVerticalLabel]]."
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:5
+msgid "Showing <em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">all [[currentVerticalLabel]]</em> instead."
+msgstr "Visualizzazione di <em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">tutti i [[currentVerticalLabel]]</em>."
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:11
+msgid "The following search category yielded results for <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"
+msgid_plural "The following search categories yielded results for <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"
+msgstr[0] "La categoria di ricerca ha generato risultati per <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"
+msgstr[1] "La categorie di ricerca ha generato risultati per <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:31
+msgid "([[resultsCount]] result)"
+msgid_plural "([[resultsCount]] results)"
+msgstr[0] "[[resultsCount]] risultato"
+msgstr[1] "[[resultsCount]] risultati"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:43
+msgid "Alternatively, you can <a class=\"yxt-AlternativeVerticals-universalLink\" href=\"[[universalUrl]]\"> view results across all search categories</a>."
+msgstr "Altrimenti, può <a class=\"yxt-AlternativeVerticals-universalLink\" href=[[universalUrl]]> vedere i risultati su tutte le categorie di ricerca</a>."

@@ -2,140 +2,124 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 
-#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:31
-msgid "([[resultsCount]] result)"
-msgid_plural "([[resultsCount]] results)"
-msgstr[0] "（[[resultsCount]]件の結果）"
-
-#: cards/multilang-menuitem-standard/component.js:29
+#: cards/multilang-menuitem-standard/component.js:27
 msgid "[[calorieCount]] calories"
 msgstr "[[calorieCount]]カロリー"
 
-#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:3
-msgid "<em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">No results found</em> in [[currentVerticalLabel]]."
-msgstr "[[currentVerticalLabel]] で<em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">結果は見つかりませんでした</em>。"
-
-#: cards/multilang-menuitem-standard/component.js:25
+#: cards/multilang-menuitem-standard/component.js:23
 msgid "Allergens"
 msgstr "アレルゲン"
 
-#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:43
-msgid "Alternatively, you can <a class=\"yxt-AlternativeVerticals-universalLink\" href=\"[[universalUrl]]\"> view results across all search categories</a>."
-msgstr "代わりに<a class=\"yxt-AlternativeVerticals-universalLink\" href=\"[[universalUrl]]\">すべての検索カテゴリーの結果を表示することもできます</a>。"
-
-#: cards/multilang-job-standard/component.js:35
+#: cards/multilang-job-standard/component.js:33
 msgid "Apply Now"
 msgstr "今すぐ適用"
 
-#: theme-components/collapsible-filters/filter-link/component.js:4
-msgid "clear search"
-msgstr "検索をクリア"
-
-#: cards/multilang-event-standard/component.js:44
+#: cards/multilang-event-standard/component.js:42
 msgid "Directions"
 msgstr "ルート"
 
-#: cards/multilang-location-standard/component.js:49
+#: cards/multilang-location-standard/component.js:41
 msgid "Get Directions"
 msgstr "ルート検索"
 
-#: templates/vertical-full-page-map/page.html.hbs:23
-msgid "Main location search"
-msgstr "主なロケーション検索"
-
-#: templates/vertical-full-page-map/page.html.hbs:67
-msgid "Map"
-msgstr "マップ"
-
-#: templates/vertical-full-page-map/page.html.hbs:62
-msgid "Map controls"
-msgstr "マップコントロール"
-
-#: theme-components/collapsible-filters/view-results-button/template.hbs:3
-msgid "No results found."
-msgstr "結果が見つかりませんでした。"
-
-#: cards/multilang-menuitem-standard/component.js:40
+#: cards/multilang-menuitem-standard/component.js:38
 msgid "Order Now"
 msgstr "今すぐ注文"
-
-#: theme-components/collapsible-filters/filter-link/component.js:3
-msgid "reset filters"
-msgstr "フィルタをリセット"
 
 #: cards/multilang-location-standard/template.hbs:140
 msgid "Services:"
 msgstr "サービス："
 
-#: cards/multilang-event-standard/component.js:30
-#: cards/multilang-financial-professional-location/component.js:44
-#: cards/multilang-job-standard/component.js:31
-#: cards/multilang-link-standard/component.js:28
-#: cards/multilang-menuitem-standard/component.js:36
-#: cards/multilang-product-prominentimage/component.js:39
-#: cards/multilang-product-prominentvideo/component.js:34
-#: cards/multilang-product-standard/component.js:38
-#: cards/multilang-professional-location/component.js:44
-#: cards/multilang-professional-standard/component.js:36
-#: cards/multilang-standard/component.js:31
+#: cards/multilang-event-standard/component.js:28
+#: cards/multilang-job-standard/component.js:29
+#: cards/multilang-link-standard/component.js:26
+#: cards/multilang-menuitem-standard/component.js:34
+#: cards/multilang-product-prominentimage/component.js:29
+#: cards/multilang-product-standard/component.js:34
+#: cards/multilang-professional-location/component.js:36
+#: cards/multilang-professional-standard/component.js:34
+#: cards/multilang-standard/component.js:29
 msgid "Show less"
 msgstr "表示数を減らす"
 
-#: cards/multilang-event-standard/component.js:29
-#: cards/multilang-financial-professional-location/component.js:43
-#: cards/multilang-job-standard/component.js:30
-#: cards/multilang-link-standard/component.js:27
-#: cards/multilang-menuitem-standard/component.js:35
-#: cards/multilang-product-prominentimage/component.js:38
-#: cards/multilang-product-prominentvideo/component.js:33
-#: cards/multilang-product-standard/component.js:37
-#: cards/multilang-professional-location/component.js:43
-#: cards/multilang-professional-standard/component.js:35
-#: cards/multilang-standard/component.js:30
+#: cards/multilang-event-standard/component.js:27
+#: cards/multilang-job-standard/component.js:28
+#: cards/multilang-link-standard/component.js:25
+#: cards/multilang-menuitem-standard/component.js:33
+#: cards/multilang-product-prominentimage/component.js:28
+#: cards/multilang-product-standard/component.js:33
+#: cards/multilang-professional-location/component.js:35
+#: cards/multilang-professional-standard/component.js:33
+#: cards/multilang-standard/component.js:28
 msgid "Show more"
 msgstr "さらに表示"
 
-#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:5
-msgid "Showing <em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">all [[currentVerticalLabel]]</em> instead."
-msgstr "代わりに<em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">すべての[[currentVerticalLabel]]</em>を表示しています。"
+#: directanswercards/multilang-allfields-standard/component.js:177
+msgid "Thank you for your feedback!"
+msgstr "ご意見ありがとうございました!"
+
+#: directanswercards/multilang-allfields-standard/component.js:179
+msgid "This answered my question"
+msgstr "この内容で疑問が解決した"
+
+#: directanswercards/multilang-allfields-standard/component.js:180
+msgid "This did not answer my question"
+msgstr "この内容で疑問が解決しなかった"
+
+#: directanswercards/multilang-allfields-standard/component.js:163
+msgid "View Details"
+msgstr "詳細を表示"
+
+#: cards/multilang-menuitem-standard/component.js:48
+msgid "View Menu"
+msgstr "メニューの表示"
+
+#: directanswercards/multilang-allfields-standard/component.js:178
+msgid "Was this the answer you were looking for?"
+msgstr "これはあなたが探していた答えですか？"
+
+#: cards/multilang-location-standard/component.js:33
+msgctxt "Call is a verb"
+msgid "Call"
+msgstr "電話"
+
+#: cards/multilang-event-standard/component.js:32
+msgctxt "RSVP is a verb"
+msgid "RSVP"
+msgstr "RSVP"
+
+#: templates/universal-standard/script/universalresults.hbs:74
+msgctxt "View is a verb"
+msgid "View All"
+msgstr "すべて表示"
+
+#: theme-components/collapsible-filters/filter-link/component.js:4
+msgid "clear search"
+msgstr "検索をクリア"
+
+#: theme-components/collapsible-filters/view-results-button/template.hbs:3
+msgid "No results found."
+msgstr "結果が見つかりませんでした。"
+
+#: theme-components/collapsible-filters/filter-link/component.js:3
+msgid "reset filters"
+msgstr "フィルタをリセット"
 
 #: theme-components/collapsible-filters/filter-link/component.js:2
 msgid "sorts and filters"
 msgstr "並べ替えとフィルタ"
 
-#: directanswercards/multilang-allfields-standard/component.js:188
-msgid "Thank you for your feedback!"
-msgstr "ご意見ありがとうございました!"
-
-#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:11
-msgid "The following search category yielded results for <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"
-msgid_plural "The following search categories yielded results for <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"
-msgstr[0] "以下の検索カテゴリーで<span class=\"yxt-AlternativeVerticals-details--query\">「[[query]]」</span>の結果が見つかりました。"
-
-#: directanswercards/multilang-allfields-standard/component.js:190
-msgid "This answered my question"
-msgstr "この内容で疑問が解決した"
-
-#: directanswercards/multilang-allfields-standard/component.js:191
-msgid "This did not answer my question"
-msgstr "この内容で疑問が解決しなかった"
-
 #: theme-components/collapsible-filters/view-results-button/template.hbs:5
 msgid "View 1 Result"
-msgid_plural "View [[resultsCount]] Results"
-msgstr[0] "[[resultsCount]]件の結果を表示"
+msgid_plural "View [[count]] Results"
+msgstr[0] "[[count]]件の結果を表示"
 
-#: directanswercards/multilang-allfields-standard/component.js:174
-msgid "View Details"
-msgstr "詳細を表示"
-
-#: cards/multilang-menuitem-standard/component.js:50
-msgid "View Menu"
-msgstr "メニューの表示"
-
-#: directanswercards/multilang-allfields-standard/component.js:189
-msgid "Was this the answer you were looking for?"
-msgstr "これはあなたが探していた答えですか？"
+#: cards/multilang-financial-professional-location/template.hbs:198
+#: cards/multilang-location-standard/template.hbs:209
+#: cards/multilang-professional-location/template.hbs:195
+msgctxt "Close is a verb"
+msgid "Close Card"
+msgstr "カードを閉じる"
 
 #: templates/vertical-full-page-map/markup/searchthisareatoggle.hbs:10
 msgctxt "A button that conducts a search in the current map area"
@@ -147,23 +131,6 @@ msgctxt "A toggle for automatically searching when the map moves"
 msgid "Search This Area"
 msgstr "このエリアを検索"
 
-#: cards/multilang-location-standard/component.js:40
-msgctxt "Call is a verb"
-msgid "Call"
-msgstr "電話"
-
-#: cards/multilang-financial-professional-location/template.hbs:198
-#: cards/multilang-location-standard/template.hbs:209
-#: cards/multilang-professional-location/template.hbs:195
-msgctxt "Close is a verb"
-msgid "Close Card"
-msgstr "カードを閉じる"
-
-#: cards/multilang-event-standard/component.js:34
-msgctxt "RSVP is a verb"
-msgid "RSVP"
-msgstr "RSVP"
-
 #: templates/vertical-full-page-map/markup/mobilelisttoggles.hbs:5
 msgctxt "The label of a toggle for displaying a list of results"
 msgid "List"
@@ -174,7 +141,36 @@ msgctxt "The label of a toggle for viewing a visual map"
 msgid "Map"
 msgstr "マップ"
 
-#: templates/universal-standard/script/universalresults.hbs:78
-msgctxt "View is a verb"
-msgid "View All"
-msgstr "すべて表示"
+#: templates/vertical-interactive-map/page.html.hbs:23
+msgid "Main location search"
+msgstr "主なロケーション検索"
+
+#: templates/vertical-interactive-map/page.html.hbs:64
+msgid "Map"
+msgstr "マップ"
+
+#: templates/vertical-interactive-map/page.html.hbs:59
+msgid "Map controls"
+msgstr "マップコントロール"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:3
+msgid "<em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">No results found</em> in [[currentVerticalLabel]]."
+msgstr "[[currentVerticalLabel]] で<em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">結果は見つかりませんでした</em>。"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:5
+msgid "Showing <em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">all [[currentVerticalLabel]]</em> instead."
+msgstr "代わりに<em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">すべての[[currentVerticalLabel]]</em>を表示しています。"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:11
+msgid "The following search category yielded results for <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"
+msgid_plural "The following search categories yielded results for <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"
+msgstr[0] "以下の検索カテゴリーで<span class=\"yxt-AlternativeVerticals-details--query\">「[[query]]」</span>の検索結果が見つかりました。"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:31
+msgid "([[resultsCount]] result)"
+msgid_plural "([[resultsCount]] results)"
+msgstr[0] "（[[resultsCount]]件の結果）"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:43
+msgid "Alternatively, you can <a class=\"yxt-AlternativeVerticals-universalLink\" href=\"[[universalUrl]]\"> view results across all search categories</a>."
+msgstr "代わりに<a class=\"yxt-AlternativeVerticals-universalLink\" href=\"[[universalUrl]]\">すべての検索カテゴリーの結果を表示することもできます</a>。"
