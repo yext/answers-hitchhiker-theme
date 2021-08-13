@@ -13,7 +13,7 @@ const simpleGit = require('simple-git/promise')();
  */
 exports.mergeGlobalConfigs = function (newJson, originalJson) {
   const originalParsed = parse(originalJson);
-  const commentsFromOriginal = parseCommentedOutConfig(originalParsed);
+  const commentsFromOriginal = parseCommentedOutProps(originalParsed);
   const newPruned = pruneDuplicatedComments(parse(newJson), commentsFromOriginal);
   const merged = assign(newPruned, originalParsed);
   return stringify(merged, null, 2);
@@ -25,7 +25,7 @@ exports.mergeGlobalConfigs = function (newJson, originalJson) {
  * @param {import('comment-json').CommentJSONValue} jsonWithComments
  * @returns {import('comment-json').CommentToken[]}
  */
-function parseCommentedOutConfig(commentJsonValue) {
+function parseCommentedOutProps(commentJsonValue) {
   return getPropCommentSymbols(commentJsonValue).flatMap(symbol => {
     const commentArr = commentJsonValue[symbol] || [];
     // We only care about non-inline LineComments that "look like" a config option
@@ -34,7 +34,7 @@ function parseCommentedOutConfig(commentJsonValue) {
     })
   });
 }
-exports.parseCommentedOutConfig = parseCommentedOutConfig;
+exports.parseCommentedOutProps = parseCommentedOutProps;
 
 /**
  * Removes all comments in CommentJSONValue that have the same value and type as the given

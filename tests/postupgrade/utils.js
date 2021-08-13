@@ -1,7 +1,7 @@
 const { parse, stringify } = require('comment-json');
 const fs = require('fs');
 const {
-  parseCommentedOutConfig,
+  parseCommentedOutProps,
   mergeGlobalConfigs,
   getPropCommentSymbols,
   pruneDuplicatedComments
@@ -32,26 +32,40 @@ it('getPropCommentSymbols ', () => {
   ]);
 });
 
-it('parseCommentedOutConfig parses correctly', () => {
-  const commentJson = parse(`{
-    // "sdkVersion": "1.9", // sdkVersion comment
-    "experienceVersion": "<REPLACE ME>", // experienceVersion comment
-    "businessId": "<REPLACE ME>", // businessId comment
-    // "initializeManually": true, // manualInit comment
-  }`);
-  const commentTokens = parseCommentedOutConfig(commentJson);
-  expect(commentTokens).toMatchObject([
-    {
-      'inline': false,
-      'type': 'LineComment',
-      'value': ' "sdkVersion": "1.9", // sdkVersion comment'
-    },
-    {
-      'inline': false,
-      'type': 'LineComment',
-      'value': ' "initializeManually": true, // manualInit comment'
-    }
-  ]);
+describe('parseCommentedOutProps', () => {
+  it('parses comments correctly', () => {
+    const commentJson = parse(`{
+      // "sdkVersion": "1.9", // sdkVersion comment
+      "experienceVersion": "<REPLACE ME>", // experienceVersion comment
+      "businessId": "<REPLACE ME>", // businessId comment
+      // "initializeManually": true, // manualInit comment
+    }`);
+    const commentTokens = parseCommentedOutProps(commentJson);
+    expect(commentTokens).toMatchObject([
+      {
+        'inline': false,
+        'type': 'LineComment',
+        'value': ' "sdkVersion": "1.9", // sdkVersion comment'
+      },
+      {
+        'inline': false,
+        'type': 'LineComment',
+        'value': ' "initializeManually": true, // manualInit comment'
+      }
+    ]);
+  });
+
+  it('ignores block comments, and comments that dont "look like" config props', () => {
+    const commentJson = parse(`{
+      // ignore me
+      "experienceVersion": "<REPLACE ME>",
+      /* ignore me too */
+      "businessId": "<REPLACE ME>",
+      // 'lol': "only double quotes are valid json"
+    }`);
+    const commentTokens = parseCommentedOutProps(commentJson);
+    expect(commentTokens).toEqual([]);
+  });
 });
 
 it('pruneDuplicatedComments prunes all comments that match value, type, and inlining', () => {
