@@ -6,7 +6,9 @@ import { OpenStatusStrings } from './hours/open-status/constants.js';
  * @param {string} locale
  */
 export default function provideOpenStatusTranslation (locale) {
-  const language = locale.substring(0,2);
+  const language = (locale === 'zh-CN' || locale === 'zh-TW') ? 
+    locale :
+    locale.substring(0,2);
   return {
     ...provideTodaysMessageTranslation(language),
     ...provideDayTranslation(language)
@@ -54,6 +56,86 @@ function provideTodaysMessageTranslation(language) {
         [OpenStatusStrings.OPENS_AT]: '営業開始',
         [OpenStatusStrings.OPEN_NOW]: '現在営業中',
         [OpenStatusStrings.CLOSES_AT]: '営業終了',
+      }
+    case 'ar':
+      return {
+        [OpenStatusStrings.CLOSED]: 'مغلق',
+        [OpenStatusStrings.OPEN_24_HOURS]: 'مفتوح على مدار 24 ساعة',
+        [OpenStatusStrings.OPENS_AT]: 'يُفتح في',
+        [OpenStatusStrings.OPEN_NOW]: 'مفتوح الآن',
+        [OpenStatusStrings.CLOSES_AT]: 'يُغلق في',
+      }
+    case 'hi':
+      return {
+        [OpenStatusStrings.CLOSED]: 'बंद हो गया',
+        [OpenStatusStrings.OPEN_24_HOURS]: '24 घंटे खुला रहता है',
+        [OpenStatusStrings.OPENS_AT]: 'इस समय खुलता है',
+        [OpenStatusStrings.OPEN_NOW]: 'अभी खुला है',
+        [OpenStatusStrings.CLOSES_AT]: 'इस समय बंद होता है',
+      }
+    case 'ko':
+      return {
+        [OpenStatusStrings.CLOSED]: '닫힘',
+        [OpenStatusStrings.OPEN_24_HOURS]: '24시간 영업',
+        [OpenStatusStrings.OPENS_AT]: '개장 시간:',
+        [OpenStatusStrings.OPEN_NOW]: 'अ지금 열기',
+        [OpenStatusStrings.CLOSES_AT]: '종료 시간:',
+      }
+    case 'nl':
+      return {
+        [OpenStatusStrings.CLOSED]: 'Gesloten',
+        [OpenStatusStrings.OPEN_24_HOURS]: '24 uur geopend',
+        [OpenStatusStrings.OPENS_AT]: 'Geopend vanaf',
+        [OpenStatusStrings.OPEN_NOW]: 'Nu geopend',
+        [OpenStatusStrings.CLOSES_AT]: 'Gesloten vanaf',
+      }
+    case 'pl':
+      return {
+        [OpenStatusStrings.CLOSED]: 'Zamknięte',
+        [OpenStatusStrings.OPEN_24_HOURS]: 'Otwarte całodobowo',
+        [OpenStatusStrings.OPENS_AT]: 'Zamknięcie',
+        [OpenStatusStrings.OPEN_NOW]: 'Czynne teraz',
+        [OpenStatusStrings.CLOSES_AT]: 'Otwarcie',
+      }
+    case 'pt':
+      return {
+        [OpenStatusStrings.CLOSED]: 'Fechado',
+        [OpenStatusStrings.OPEN_24_HOURS]: 'Aberto 24 horas',
+        [OpenStatusStrings.OPENS_AT]: 'Abre às',
+        [OpenStatusStrings.OPEN_NOW]: 'Aberto agora',
+        [OpenStatusStrings.CLOSES_AT]: 'Fecha às',
+      }
+    case 'ru':
+      return {
+        [OpenStatusStrings.CLOSED]: 'Закрыто',
+        [OpenStatusStrings.OPEN_24_HOURS]: 'Открыто круглосуточно',
+        [OpenStatusStrings.OPENS_AT]: 'Открывается в',
+        [OpenStatusStrings.OPEN_NOW]: 'Открыто',
+        [OpenStatusStrings.CLOSES_AT]: 'Закрывается в',
+      }
+    case 'sv':
+      return {
+        [OpenStatusStrings.CLOSED]: 'Stängt',
+        [OpenStatusStrings.OPEN_24_HOURS]: 'Öppet 24 timmar om dygnet',
+        [OpenStatusStrings.OPENS_AT]: 'Öppnar kl.',
+        [OpenStatusStrings.OPEN_NOW]: 'Öppet nu',
+        [OpenStatusStrings.CLOSES_AT]: 'Stänger kl.',
+      }
+    case 'zh-CN':
+      return {
+        [OpenStatusStrings.CLOSED]: '休业中',
+        [OpenStatusStrings.OPEN_24_HOURS]: '24 小时营业',
+        [OpenStatusStrings.OPENS_AT]: '开店时间：',
+        [OpenStatusStrings.OPEN_NOW]: '现正营业',
+        [OpenStatusStrings.CLOSES_AT]: '闭店时间：',
+      }
+    case 'zh-TW':
+      return {
+        [OpenStatusStrings.CLOSED]: '休息',
+        [OpenStatusStrings.OPEN_24_HOURS]: '24 小時營業',
+        [OpenStatusStrings.OPENS_AT]: '營業時間：',
+        [OpenStatusStrings.OPEN_NOW]: '營業中',
+        [OpenStatusStrings.CLOSES_AT]: '休息時間：',
       }
     default:
       return {
