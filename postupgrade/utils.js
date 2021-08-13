@@ -81,7 +81,7 @@ exports.getPropCommentSymbols = getPropCommentSymbols;
  * @param {string} param 
  * @returns {string}
  */
-exports.getJamboParam = function (param) {
+exports.getJamboParam = function(param) {
   const getProcessArgument = (param) => {
     const nameIndex = process.argv.indexOf(param);
     if (nameIndex === -1) {
