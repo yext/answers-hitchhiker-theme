@@ -13,19 +13,19 @@ const simpleGit = require('simple-git/promise')();
  */
 exports.mergeGlobalConfigs = function (newJson, originalJson) {
   const originalParsed = parse(originalJson);
-  const commentsFromOriginal = parseCommentedOutProps(originalParsed);
-  const newPruned = pruneDuplicatedComments(parse(newJson), commentsFromOriginal);
+  const commentsFromOriginal = parseAllCommentedOutProps(originalParsed);
+  const newPruned = pruneComments(parse(newJson), commentsFromOriginal);
   const merged = assign(newPruned, originalParsed);
   return stringify(merged, null, 2);
 }
 
 /**
- * Parses "commented out" config values.
+ * Parses all "commented out" config values from a CommentJSONValue.
  *
  * @param {import('comment-json').CommentJSONValue} jsonWithComments
  * @returns {import('comment-json').CommentToken[]}
  */
-function parseCommentedOutProps(commentJsonValue) {
+function parseAllCommentedOutProps(commentJsonValue) {
   return getPropCommentSymbols(commentJsonValue).flatMap(symbol => {
     const commentArr = commentJsonValue[symbol] || [];
     // We only care about non-inline LineComments that "look like" a config option
@@ -34,23 +34,23 @@ function parseCommentedOutProps(commentJsonValue) {
     })
   });
 }
-exports.parseCommentedOutProps = parseCommentedOutProps;
+exports.parseAllCommentedOutProps = parseAllCommentedOutProps;
 
 /**
  * Removes all comments in CommentJSONValue that have the same value and type as the given
- * commentsToDedupe.
+ * comments.
  *
  * @param {import('comment-json').CommentJSONValue} commentJsonValue
- * @param {import('comment-json').CommentToken[]} commentsToDedupe
+ * @param {import('comment-json').CommentToken[]} comments
  * @returns {import('comment-json').CommentJSONValue} the updated value
  */
-function pruneDuplicatedComments(commentJsonValue, commentsToDedupe) {
+function pruneComments(commentJsonValue, comments) {
   return getPropCommentSymbols(commentJsonValue).reduce((prunedJson, symbol) => {
     if (!commentJsonValue[symbol]) {
       return prunedJson;
     }
     prunedJson[symbol] = commentJsonValue[symbol].filter(commentToCheck => {
-      return !commentsToDedupe.find(c => {
+      return !comments.find(c => {
         return c.value === commentToCheck.value
           && c.type === commentToCheck.type
           && c.inline === commentToCheck.inline;
@@ -59,7 +59,7 @@ function pruneDuplicatedComments(commentJsonValue, commentsToDedupe) {
     return prunedJson;
   }, { ...commentJsonValue });
 }
-exports.pruneDuplicatedComments = pruneDuplicatedComments
+exports.pruneComments = pruneComments
 
 /**
  * Returns an array of global symbols for before, before:[prop], and after:[prop] comments.

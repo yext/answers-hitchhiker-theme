@@ -1,10 +1,10 @@
 const { parse, stringify } = require('comment-json');
 const fs = require('fs');
 const {
-  parseCommentedOutProps,
+  parseAllCommentedOutProps,
   mergeGlobalConfigs,
   getPropCommentSymbols,
-  pruneDuplicatedComments
+  pruneComments
 } = require('../../postupgrade/utils');
 
 it('mergeGlobalConfigs merges together two global configs, and removes duplicated comments', () => {
@@ -20,7 +20,7 @@ it('getPropCommentSymbols ', () => {
     // "sdkVersion": "1.9", // sdkVersion comment
     "experienceVersion": "<REPLACE ME>", // experienceVersion comment
     "businessId": "<REPLACE ME>", // businessId comment
-    // "initializeManually": true, // manualInit comment
+    // "initializeManually": true // manualInit comment
   }`);
   const commentSymbols = getPropCommentSymbols(testJson);
   expect(commentSymbols).toEqual([
@@ -32,15 +32,15 @@ it('getPropCommentSymbols ', () => {
   ]);
 });
 
-describe('parseCommentedOutProps', () => {
+describe('parseAllCommentedOutProps', () => {
   it('parses comments correctly', () => {
     const commentJson = parse(`{
       // "sdkVersion": "1.9", // sdkVersion comment
       "experienceVersion": "<REPLACE ME>", // experienceVersion comment
       "businessId": "<REPLACE ME>", // businessId comment
-      // "initializeManually": true, // manualInit comment
+      // "initializeManually": true // manualInit comment
     }`);
-    const commentTokens = parseCommentedOutProps(commentJson);
+    const commentTokens = parseAllCommentedOutProps(commentJson);
     expect(commentTokens).toMatchObject([
       {
         'inline': false,
@@ -50,7 +50,7 @@ describe('parseCommentedOutProps', () => {
       {
         'inline': false,
         'type': 'LineComment',
-        'value': ' "initializeManually": true, // manualInit comment'
+        'value': ' "initializeManually": true // manualInit comment'
       }
     ]);
   });
@@ -60,15 +60,15 @@ describe('parseCommentedOutProps', () => {
       // ignore me
       "experienceVersion": "<REPLACE ME>",
       /* ignore me too */
-      "businessId": "<REPLACE ME>",
+      "businessId": "<REPLACE ME>"
       // 'lol': "only double quotes are valid json"
     }`);
-    const commentTokens = parseCommentedOutProps(commentJson);
+    const commentTokens = parseAllCommentedOutProps(commentJson);
     expect(commentTokens).toEqual([]);
   });
 });
 
-it('pruneDuplicatedComments prunes all comments that match value, type, and inlining', () => {
+it('pruneComments prunes all comments that match value, type, and inlining', () => {
   const jsonToPrune = parse(`{
     //a comment
     "experienceVersion": "<REPLACE ME>", //a comment
@@ -83,7 +83,7 @@ it('pruneDuplicatedComments prunes all comments that match value, type, and inli
       'value': 'a comment'
     }
   ];
-  const prunedJson = stringify(pruneDuplicatedComments(jsonToPrune, commentsToDedupe), null, 2);
+  const prunedJson = stringify(pruneComments(jsonToPrune, commentsToDedupe), null, 2);
   const expected = stringify(parse(`{
     "experienceVersion": "<REPLACE ME>", //a comment
     /*a comment*/
