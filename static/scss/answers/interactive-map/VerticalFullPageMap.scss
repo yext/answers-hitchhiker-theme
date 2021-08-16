@@ -335,10 +335,11 @@
         left: -20px;
         width: 4px;
         height: 12px;
-        transform: rotate(45deg) translateY(-50%);
+        transform: rotate(45deg) translateY(-50%) #{"/*rtl:rotate(45deg) translateX(-100%)*/"};
         border-left-color: var(--yxt-filter-options-checkmark-color);
         border-bottom: .0625rem solid #0c5ecb;
         border-bottom-color: var(--yxt-filter-options-checkmark-color);
+        /*!rtl:ignore*/
         border-right: .0625rem solid #0c5ecb;
         border-right-color: var(--yxt-filter-options-checkmark-color);
         border-top-color: var(--yxt-filter-options-checkmark-color);
