@@ -43,7 +43,7 @@ class PinImages {
               font-family="Arial-BoldMT,Arial"
               font-size="12"
               font-weight="bold">
-          <tspan x="50%" y="15" text-anchor="middle">${index}</tspan>
+          <tspan x="50%" y="15" fill="${labelColor}" text-anchor="middle">${index}</tspan>
         </text>
         </g>
       </svg>`;
