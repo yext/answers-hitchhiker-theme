@@ -200,6 +200,106 @@ function provideDayTranslation(language) {
         [DayNames.SATURDAY]: '土曜日',
         [DayNames.SUNDAY]: '日曜日',
       }
+    case 'ar':
+      return {
+        [DayNames.MONDAY]: 'الاثنين',
+        [DayNames.TUESDAY]: 'يوم الثلاثاء',
+        [DayNames.WEDNESDAY]: 'الأربعاء',
+        [DayNames.THURSDAY]: 'يوم الخميس',
+        [DayNames.FRIDAY]: 'يوم الجمعة',
+        [DayNames.SATURDAY]: 'يوم السبت',
+        [DayNames.SUNDAY]: 'يوم الأحد',
+      }
+    case 'hi':
+      return {
+        [DayNames.MONDAY]: 'सोमवार',
+        [DayNames.TUESDAY]: 'मंगलवार',
+        [DayNames.WEDNESDAY]: 'बुधवार',
+        [DayNames.THURSDAY]: 'गुरुवार',
+        [DayNames.FRIDAY]: 'शुक्रवार',
+        [DayNames.SATURDAY]: 'शनिवार',
+        [DayNames.SUNDAY]: 'रविवार का दिन',
+      }
+    case 'ko':
+      return {
+        [DayNames.MONDAY]: '월요일',
+        [DayNames.TUESDAY]: '화요일',
+        [DayNames.WEDNESDAY]: '수요일',
+        [DayNames.THURSDAY]: '목요일',
+        [DayNames.FRIDAY]: '금요일',
+        [DayNames.SATURDAY]: '토요일',
+        [DayNames.SUNDAY]: '일요일',
+      }
+    case 'nl':
+      return {
+        [DayNames.MONDAY]: 'Maandag',
+        [DayNames.TUESDAY]: 'Dinsdag',
+        [DayNames.WEDNESDAY]: 'Woensdag',
+        [DayNames.THURSDAY]: 'Donderdag',
+        [DayNames.FRIDAY]: 'Vrijdag',
+        [DayNames.SATURDAY]: 'Zaterdag',
+        [DayNames.SUNDAY]: 'Zondag',
+      }
+    case 'pl':
+      return {
+        [DayNames.MONDAY]: 'Poniedziałek',
+        [DayNames.TUESDAY]: 'Wtorek',
+        [DayNames.WEDNESDAY]: 'Środa',
+        [DayNames.THURSDAY]: 'Czwartek',
+        [DayNames.FRIDAY]: 'Piątek',
+        [DayNames.SATURDAY]: 'Sobota',
+        [DayNames.SUNDAY]: 'Niedziela',
+      }
+    case 'pt':
+      return {
+        [DayNames.MONDAY]: 'Segunda-feira',
+        [DayNames.TUESDAY]: 'Terça-feira',
+        [DayNames.WEDNESDAY]: 'Quarta-feira',
+        [DayNames.THURSDAY]: 'quinta-feira',
+        [DayNames.FRIDAY]: 'Sexta-feira',
+        [DayNames.SATURDAY]: 'Sábado',
+        [DayNames.SUNDAY]: 'Domingo',
+      }
+    case 'ru':
+      return {
+        [DayNames.MONDAY]: 'понедельник',
+        [DayNames.TUESDAY]: 'вторник',
+        [DayNames.WEDNESDAY]: 'среда',
+        [DayNames.THURSDAY]: 'четверг',
+        [DayNames.FRIDAY]: 'Пятница',
+        [DayNames.SATURDAY]: 'Суббота',
+        [DayNames.SUNDAY]: 'Воскресенье',
+      }
+    case 'sv':
+      return {
+        [DayNames.MONDAY]: 'Måndag',
+        [DayNames.TUESDAY]: 'Tisdag',
+        [DayNames.WEDNESDAY]: 'Onsdag',
+        [DayNames.THURSDAY]: 'Torsdag',
+        [DayNames.FRIDAY]: 'Fredag',
+        [DayNames.SATURDAY]: 'Lördag',
+        [DayNames.SUNDAY]: 'Söndag',
+      }
+    case 'zh-CN':
+      return {
+        [DayNames.MONDAY]: '周一',
+        [DayNames.TUESDAY]: '周二',
+        [DayNames.WEDNESDAY]: '周三',
+        [DayNames.THURSDAY]: '周四',
+        [DayNames.FRIDAY]: '星期五',
+        [DayNames.SATURDAY]: '周六',
+        [DayNames.SUNDAY]: '星期日',
+      }
+    case 'zh-TW':
+      return {
+        [DayNames.MONDAY]: '週一',
+        [DayNames.TUESDAY]: '週二',
+        [DayNames.WEDNESDAY]: '週三',
+        [DayNames.THURSDAY]: '週四',
+        [DayNames.FRIDAY]: '星期五',
+        [DayNames.SATURDAY]: '週六',
+        [DayNames.SUNDAY]: '星期日',
+      }
     default:
       return {
         [DayNames.MONDAY]: 'Monday',
