@@ -6,9 +6,16 @@ import { OpenStatusStrings } from './hours/open-status/constants.js';
  * @param {string} locale
  */
 export default function provideOpenStatusTranslation (locale) {
-  const language = (locale === 'zh-CN' || locale === 'zh-TW') ? 
-    locale :
-    locale.substring(0,2);
+  const getLanguageFromLocale = () => {
+    if (locale.startsWith('zh-Hans')) {
+      return 'zh-Hans';
+    } else if (locale.startsWith('zh-Hant')) {
+      return 'zh-Hant';
+    } else {
+      return locale.substring(0,2);
+    }
+  }
+  const language = getLanguageFromLocale(locale);
   return {
     ...provideTodaysMessageTranslation(language),
     ...provideDayTranslation(language)
@@ -121,7 +128,7 @@ function provideTodaysMessageTranslation(language) {
         [OpenStatusStrings.OPEN_NOW]: 'Öppet nu',
         [OpenStatusStrings.CLOSES_AT]: 'Stänger kl.',
       }
-    case 'zh-CN':
+    case 'zh-Hans':
       return {
         [OpenStatusStrings.CLOSED]: '休业中',
         [OpenStatusStrings.OPEN_24_HOURS]: '24 小时营业',
@@ -129,7 +136,7 @@ function provideTodaysMessageTranslation(language) {
         [OpenStatusStrings.OPEN_NOW]: '现正营业',
         [OpenStatusStrings.CLOSES_AT]: '闭店时间：',
       }
-    case 'zh-TW':
+    case 'zh-Hant':
       return {
         [OpenStatusStrings.CLOSED]: '休息',
         [OpenStatusStrings.OPEN_24_HOURS]: '24 小時營業',
@@ -280,7 +287,7 @@ function provideDayTranslation(language) {
         [DayNames.SATURDAY]: 'Lördag',
         [DayNames.SUNDAY]: 'Söndag',
       }
-    case 'zh-CN':
+    case 'zh-Hans':
       return {
         [DayNames.MONDAY]: '周一',
         [DayNames.TUESDAY]: '周二',
@@ -290,7 +297,7 @@ function provideDayTranslation(language) {
         [DayNames.SATURDAY]: '周六',
         [DayNames.SUNDAY]: '星期日',
       }
-    case 'zh-TW':
+    case 'zh-Hant':
       return {
         [DayNames.MONDAY]: '週一',
         [DayNames.TUESDAY]: '週二',
