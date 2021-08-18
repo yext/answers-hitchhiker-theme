@@ -43,7 +43,7 @@ function generateSwitchStatement(potfilepath) {
   const stringsToTranslate = parsePOTfile(potfilepath);
   const enums = generateEnums(stringsToTranslate);
   const translationsFolder = `${themePath}/translations/`;
-  let data = '\tswitch (language) {\n';
+  let data = '  switch (language) {\n';
   fs.readdirSync(translationsFolder)
     .forEach(file => {
       if(file.endsWith('.po')) {
@@ -53,7 +53,7 @@ function generateSwitchStatement(potfilepath) {
       }
     });
   data += generateDefaultSwitchCase(stringsToTranslate, enums);
-  data += '\t}\n';
+  data += '  }\n';
   return data;
 }
 
@@ -74,16 +74,16 @@ function generateSwitchCase(language, translations, enums) {
   if(Object.keys(translations).length == 0) {
     return '';
   }
-  let switchcase = `\t\tcase '${language}':\n\t\t\treturn {\n`;
-  Object.values(translations).forEach((msgstr, index) => switchcase += `\t\t\t\t[${enums[index]}]: '${msgstr}',\n`);
-  switchcase += '\t\t\t}\n';
+  let switchcase = `    case '${language}':\n      return {\n`;
+  Object.values(translations).forEach((msgstr, index) => switchcase += `        [${enums[index]}]: '${msgstr}',\n`);
+  switchcase += '      }\n';
   return switchcase;
 }
 
 function generateDefaultSwitchCase(translations, enums) {
-  let switchcase = `\t\tdefault:\n\t\t\treturn {\n`;
-  translations.forEach((msgstr, index) => switchcase += `\t\t\t\t[${enums[index]}]: '${msgstr}',\n`);
-  switchcase += '\t\t\t}\n';
+  let switchcase = `    default:\n      return {\n`;
+  translations.forEach((msgstr, index) => switchcase += `        [${enums[index]}]: '${msgstr}',\n`);
+  switchcase += '      }\n';
   return switchcase;
 }
 
