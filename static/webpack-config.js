@@ -10,6 +10,7 @@ const RtlCssPlugin = require('rtlcss-webpack-plugin');
 
 module.exports = function () {
   const jamboConfig = require('./jambo.json');
+  const BeforeRunPlugin = require(`./${jamboConfig.dirs.output}/static/webpack/BeforeRunPlugin`);
   const htmlPlugins = [];
 
   const htmlAssetPathToOutputFilename = {
@@ -59,6 +60,10 @@ module.exports = function () {
     jamboInjectedData = JSON.stringify(jamboInjectedData)
   }
 
+  const outputPath = jamboConfig.dirs.output;
+  const themePath = path.resolve(__dirname, jamboConfig.dirs.themes, jamboConfig.defaultTheme);
+  const generateTranslationScriptPath = `./${jamboConfig.dirs.output}/static/js/generate-translation.js`;
+
   const plugins = [
     new MiniCssExtractPlugin({
       filename: pathData => {
@@ -89,7 +94,10 @@ module.exports = function () {
         ],
         log: false
       }
-    })
+    }),
+    new BeforeRunPlugin([
+      `node ${generateTranslationScriptPath} ${themePath} ${themePath}`, 
+      `node ${generateTranslationScriptPath} ${themePath} ${outputPath}`])
   ];
 
   const commonConfig = {
