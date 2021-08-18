@@ -14,3 +14,15 @@ export function canonicalizeBoolean (value) {
     return false;
   }
 }
+
+/**
+ * returns language extracted from the provided locale
+ * @param {string} locale 
+ * @returns {string} language
+ */
+export function getLanguageFromLocale(locale) {
+  const language = (locale === 'zh-CN' || locale === 'zh-TW')
+    ? locale
+    : locale.substring(0,2);
+  return language;
+}
