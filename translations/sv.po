@@ -195,7 +195,7 @@ msgid "Opens at"
 msgstr "Öppnar kl."
 
 msgctxt "Indicates that a store is open"
-msgid "Open now"
+msgid "Open Now"
 msgstr "Öppet nu"
 
 msgctxt "Indicates the time a store will close"

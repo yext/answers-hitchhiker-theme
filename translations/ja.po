@@ -188,7 +188,7 @@ msgid "Opens at"
 msgstr "営業開始"
 
 msgctxt "Indicates that a store is open"
-msgid "Open now"
+msgid "Open Now"
 msgstr "現在営業中"
 
 msgctxt "Indicates the time a store will close"

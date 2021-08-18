@@ -236,7 +236,7 @@ export default function provideOpenStatusTranslation (locale) {
         [OpenStatusStrings.CLOSED]: 'Closed',
         [OpenStatusStrings.OPEN_24_HOURS]: 'Open 24 Hours',
         [OpenStatusStrings.OPENS_AT]: 'Opens at',
-        [OpenStatusStrings.OPEN_NOW]: 'Open now',
+        [OpenStatusStrings.OPEN_NOW]: 'Open Now',
         [OpenStatusStrings.CLOSES_AT]: 'Closes at',
         [DayNames.MONDAY]: 'Monday',
         [DayNames.TUESDAY]: 'Tuesday',

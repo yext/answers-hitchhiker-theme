@@ -192,7 +192,7 @@ msgid "Opens at"
 msgstr "營業時間："
 
 msgctxt "Indicates that a store is open"
-msgid "Open now"
+msgid "Open Now"
 msgstr "營業中"
 
 msgctxt "Indicates the time a store will close"

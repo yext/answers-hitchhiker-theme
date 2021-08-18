@@ -192,7 +192,7 @@ msgid "Opens at"
 msgstr "개장 시간:"
 
 msgctxt "Indicates that a store is open"
-msgid "Open now"
+msgid "Open Now"
 msgstr "अ지금 열기"
 
 msgctxt "Indicates the time a store will close"
