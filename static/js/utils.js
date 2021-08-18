@@ -44,7 +44,7 @@ export function parseLocale(localeCode) {
         region: localeCodeSections[2]
       };
     } else if (numSections > 3) {
-      throw new UserError(
+      console.error(
         `Encountered strangely formatted locale "${localeCode}", ` +
         `with ${numSections} sections.`);
     }
