@@ -47,6 +47,7 @@ export function parseLocale(localeCode) {
       console.error(
         `Encountered strangely formatted locale "${localeCode}", ` +
         `with ${numSections} sections.`);
+      return { language: 'en' };
     }
   }
   const capitalizeFirstLetterOnly = raw => {
