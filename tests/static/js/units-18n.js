@@ -16,11 +16,3 @@ describe('getDistanceUnit', () => {
     expect(unit).toEqual('km');
   });
 });
-
-describe('unit map', () => {
-  it('All languages must have a default unit', () => {
-    Object.entries(LOCALE_UNIT_MAP).forEach(([languageMap, regionMap]) => {
-      expect('default' in regionMap).toBeTruthy();
-    });
-  });
-});

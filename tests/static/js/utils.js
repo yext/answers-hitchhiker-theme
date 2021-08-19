@@ -1,4 +1,4 @@
-import { canonicalizeBoolean } from '../../../static/js/utils';
+import { canonicalizeBoolean, parseLocale } from '../../../static/js/utils';
  
 describe('canonicalizeBoolean works properly', () => {
   it('case-insensitive string representations of "true" return true', () => {
@@ -26,3 +26,40 @@ describe('canonicalizeBoolean works properly', () => {
     expect(result).toEqual(false);
   });
 })
+
+describe('parseLocale', () => {
+  it('performs case formatting', () => {
+    expect(parseLocale('Zh-hans-Ch')).toEqual({
+      language: 'zh',
+      modifier: 'Hans',
+      region: 'CH'
+    })
+  });
+
+  it('chinese with modifier only', () => {
+    expect(parseLocale('ZH_HANS')).toEqual({
+      language: 'zh',
+      modifier: 'Hans'
+    })
+  });
+
+  it('chinese with region only', () => {
+    expect(parseLocale('ZH-cH')).toEqual({
+      language: 'zh',
+      region: 'CH'
+    })
+  });
+
+  it('2 section non-chinese locale', () => {
+    expect(parseLocale('FR-freE')).toEqual({
+      language: 'fr',
+      region: 'FREE'
+    });
+  });
+
+  it('simple language', () => {
+    expect(parseLocale('FR')).toEqual({
+      language: 'fr'
+    });
+  });
+});

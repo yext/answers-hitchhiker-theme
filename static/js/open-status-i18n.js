@@ -1,12 +1,21 @@
 
 import { DayNames } from './hours/constants.js';
 import { OpenStatusStrings } from './hours/open-status/constants.js';
-import { getLanguageFromLocale } from './utils';
+import { parseLocale } from './utils';
 
 export default function provideOpenStatusTranslation (locale) {
-  const language = getLanguageFromLocale(locale);
-  switch (language) {
-    case 'ar':
+  const { language, modifier }  = parseLocale(locale);
+  const languageAndModifier =  modifier ? `${language}-${modifier}` : language;
+
+  return {
+    ...provideTodaysMessageTranslation(languageAndModifier),
+    ...provideDayTranslation(languageAndModifier)
+  }
+}
+
+function provideTodaysMessageTranslation(languageAndModifier) {
+  switch (languageAndModifier) {
+    case 'fr':
       return {
         [OpenStatusStrings.CLOSED]: 'مغلق',
         [OpenStatusStrings.OPEN_24_HOURS]: 'مفتوح على مدار 24 ساعة',
@@ -201,7 +210,7 @@ export default function provideOpenStatusTranslation (locale) {
         [DayNames.SATURDAY]: 'Lördag',
         [DayNames.SUNDAY]: 'Söndag',
       }
-    case 'zh_CN':
+    case 'zh-Hans':
       return {
         [OpenStatusStrings.CLOSED]: '休业中',
         [OpenStatusStrings.OPEN_24_HOURS]: '24 小时营业',
@@ -216,7 +225,7 @@ export default function provideOpenStatusTranslation (locale) {
         [DayNames.SATURDAY]: '周六',
         [DayNames.SUNDAY]: '星期日',
       }
-    case 'zh_TW':
+    case 'zh-Hant':
       return {
         [OpenStatusStrings.CLOSED]: '休息',
         [OpenStatusStrings.OPEN_24_HOURS]: '24 小時營業',
