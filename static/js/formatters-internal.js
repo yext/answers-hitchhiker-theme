@@ -264,6 +264,7 @@ export function prettyPrintObject(obj, locale) {
  * @returns {string} The localized affirmative or negative.
  */
 function _prettyPrintBoolean(value, locale) {
+  // TODO: Use utility method for getting lanugage as this logic doesn't work for Chinese.
   const language = locale.substring(0,2);
   switch (language) {
     case 'es':
