@@ -28,7 +28,7 @@ const openstatustranslation = {
 const tablestringtranslation = {
   generatedfilepath: `${outputPath}/static/js/hours/table/table-strings-i18n.js`,
   header: tableStringHeader,
-  potfilepath: `${themePath}/translations/table-strings.pot`
+  potfilepath: `${themePath}/translations/table-headers.pot`
 }
 
 function generateStaticTranslationFile({generatedfilepath, header, potfilepath}) {
