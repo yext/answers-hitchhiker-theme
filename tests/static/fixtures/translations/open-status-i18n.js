@@ -1,11 +1,12 @@
 
 import { DayNames } from './hours/constants.js';
 import { OpenStatusStrings } from './hours/open-status/constants.js';
-import { getLanguageFromLocale } from './utils';
+import { parseLocale } from './utils';
 
 export default function provideOpenStatusTranslation (locale) {
-  const language = getLanguageFromLocale(locale);
-  switch (language) {
+  const { language, modifier }  = parseLocale(locale);
+  const writtenLanguage =  modifier ? `${language}-${modifier}` : language;
+  switch (writtenLanguage) {
     case 'es':
       return {
         [OpenStatusStrings.CLOSED]: 'Cerrado',

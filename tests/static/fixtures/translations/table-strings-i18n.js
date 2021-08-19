@@ -1,10 +1,11 @@
 
 import { TableHeaders } from '../constants';
-import { getLanguageFromLocale } from '../../utils';
+import { parseLocale } from '../../utils';
 
 export default function provideTableHeadersTranslation(locale) {
-  const language = getLanguageFromLocale(locale);
-  switch (language) {
+  const { language, modifier } = parseLocale(locale);
+  const writtenLanguage =  modifier ? `${language}-${modifier}` : language;
+  switch (writtenLanguage) {
     case 'es':
       return {
         [TableHeaders.DAY_OF_WEEK]: 'Día de la semana',

@@ -6,17 +6,19 @@ const outputPath = process.argv[3];
 const openStatusHeader = `
 import { DayNames } from './hours/constants.js';
 import { OpenStatusStrings } from './hours/open-status/constants.js';
-import { getLanguageFromLocale } from './utils';
+import { parseLocale } from './utils';
 
 export default function provideOpenStatusTranslation (locale) {
-  const language = getLanguageFromLocale(locale);\n`;
+  const { language, modifier }  = parseLocale(locale);
+  const writtenLanguage =  modifier ? \`\${language}-\${modifier}\` : language;\n`;
 
 const tableStringHeader = `
 import { TableHeaders } from '../constants';
-import { getLanguageFromLocale } from '../../utils';
+import { parseLocale } from '../../utils';
 
 export default function provideTableHeadersTranslation(locale) {
-  const language = getLanguageFromLocale(locale);\n`;
+  const { language, modifier } = parseLocale(locale);
+  const writtenLanguage =  modifier ? \`\${language}-\${modifier}\` : language;\n`;
 
 
 const openstatustranslation = {
@@ -43,7 +45,7 @@ function generateSwitchStatement(potfilepath) {
   const stringsToTranslate = parsePOTfile(potfilepath);
   const enums = generateEnums(stringsToTranslate);
   const translationsFolder = `${themePath}/translations/`;
-  let data = '  switch (language) {\n';
+  let data = '  switch (writtenLanguage) {\n';
   fs.readdirSync(translationsFolder)
     .forEach(file => {
       if(file.endsWith('.po')) {
