@@ -48,7 +48,7 @@ function generateSwitchStatement(potfilepath) {
   let data = '  switch (writtenLanguage) {\n';
   fs.readdirSync(translationsFolder)
     .forEach(file => {
-      if(file.endsWith('.po')) {
+      if (file.endsWith('.po')) {
         const language = file.substring(0, file.length - 3);
         const translations = parsePOfile(stringsToTranslate, path.join(translationsFolder, file));
         data += generateSwitchCase(language, translations, enums);
@@ -62,7 +62,7 @@ function generateSwitchStatement(potfilepath) {
 function generateEnums(stringsToTranslate) {
   return stringsToTranslate.map((str) => {
     const val = str.replace('the ', '').replace(/ /g, '_').toUpperCase();
-    if(val.endsWith('DAY')) {
+    if (val.endsWith('DAY')) {
       return 'DayNames.' + val;
     } else if (val.includes('CLOSE') || val.includes('OPEN')) {
       return 'OpenStatusStrings.' + val;
@@ -73,7 +73,7 @@ function generateEnums(stringsToTranslate) {
 }
 
 function generateSwitchCase(language, translations, enums) {
-  if(Object.keys(translations).length == 0) {
+  if (Object.keys(translations).length == 0) {
     return '';
   }
   let switchcase = `    case '${language}':\n      return {\n`;
@@ -113,7 +113,7 @@ function parsePOfile(stringsToTranslate, pofilepath) {
     const msgid = `msgid "${msg}"`;
     const msgstr = 'msgstr "';
     const msgidIndex = filedata.indexOf(msgid);
-    if(msgidIndex != -1) {
+    if (msgidIndex != -1) {
       const pos = filedata.indexOf(msgstr, msgidIndex) + msgstr.length;
       translations[msg] = filedata.substring(pos, filedata.indexOf('"\n', pos));
     }
