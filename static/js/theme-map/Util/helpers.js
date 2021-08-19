@@ -14,17 +14,17 @@ import { parseLocale } from '../../utils.js';
  */
 const getLanguageForProvider = (localeStr, mapProvider) => {
   const { language, modifier, region } = parseLocale(localeStr);
-  if(language.length != 2) {
+  if (language.length !== 2) {
     return 'en';
   }
   const provider = getMapProvider(mapProvider);
-  let formattedLocaleStr = modifier? `${language}-${modifier}` : language;
-  if(provider === GoogleMaps) {
-    if(region) {
+  let formattedLocaleStr = modifier ? `${language}-${modifier}` : language;
+  if (provider === GoogleMaps) {
+    if (region) {
       formattedLocaleStr = `${language}-${region}`;
-    } else if(modifier === 'Hant') {
+    } else if (modifier === 'Hant') {
       formattedLocaleStr = `${language}-TW`;
-    } else if(modifier === 'Hans') {
+    } else if (modifier === 'Hans') {
       formattedLocaleStr = `${language}-CN`;
     }
   }
