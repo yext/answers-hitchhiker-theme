@@ -8,6 +8,7 @@ import { ProviderPinOptions, ProviderPin } from './ProviderPin';
 class MapProviderOptions {
   constructor() {
     this.loadFunction = (resolve, reject, apiKey, options) => resolve();
+    this.formatLocaleFunction = (locale) => locale;
     this.mapClass = ProviderMap;
     this.pinClass = ProviderPin;
     this.providerName = '';
@@ -31,6 +32,17 @@ class MapProviderOptions {
     assertType(loadFunction, Type.FUNCTION);
 
     this.loadFunction = loadFunction;
+    return this;
+  }
+
+  /**
+   * @param {MapProvider~formatLocaleFunction}
+   * @returns {MapProviderOptions}
+   */
+   withFormatLocaleFunction(formatLocaleFunction) {
+    assertType(formatLocaleFunction, Type.FUNCTION);
+
+    this.formatLocaleFunction = formatLocaleFunction;
     return this;
   }
 
@@ -93,6 +105,7 @@ class MapProvider {
     assertInstance(options, MapProviderOptions);
 
     this._loadFunction = options.loadFunction;
+    this._formatLocaleFunction = options.formatLocaleFunction;
     this._mapClass = options.mapClass;
     this._pinClass = options.pinClass;
     this._providerName = options.providerName;
@@ -161,6 +174,15 @@ class MapProvider {
 
     await this.ready();
     this._loaded = true;
+  }
+
+  /**
+   * Call {@link MapProviderOptions~formatLocaleFunction}
+   * @param {string} locale The user-defined locale string
+   * @returns {string} formatted locale string
+   */
+  formatLocale(locale) {
+    return this._formatLocaleFunction(locale);
   }
 
   /**
