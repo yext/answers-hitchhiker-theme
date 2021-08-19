@@ -1,9 +1,11 @@
 import { TableHeaders } from '../constants';
-import { getLanguageFromLocale } from '../../utils';
+import { parseLocale } from '../../utils';
 
 export default function provideTableHeadersTranslation(locale) {
-  const language = getLanguageFromLocale(locale);
-  switch (language) {
+  const { language, modifier } = parseLocale(locale);
+  const languageAndModifier =  modifier ? `${language}-${modifier}` : language;
+
+  switch (languageAndModifier) {
     case 'fr':
       return {
         [TableHeaders.DAY_OF_WEEK]: 'Jour de la semaine',
@@ -69,12 +71,12 @@ export default function provideTableHeadersTranslation(locale) {
         [TableHeaders.DAY_OF_WEEK]: 'Veckodag',
         [TableHeaders.HOURS]: 'Timmar'
       }
-    case 'zh-CH':
+    case 'zh-Hans':
       return {
         [TableHeaders.DAY_OF_WEEK]: '一周中的天',
         [TableHeaders.HOURS]: '小时'
       }
-    case 'zh-TW':
+    case 'zh-Hant':
       return {
         [TableHeaders.DAY_OF_WEEK]: '一週中的天',
         [TableHeaders.HOURS]: '小時'
