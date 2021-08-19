@@ -16,13 +16,54 @@ export function canonicalizeBoolean (value) {
 }
 
 /**
- * returns language extracted from the provided locale
- * @param {string} locale 
- * @returns {string} language
+ * Parses a locale code into its constituent parts.
+ * Performs case formatting on the result.
+ * 
+ * @param {string} localeCode 
+ * @returns { language: string, modifier?: string, region?: string } 
  */
-export function getLanguageFromLocale(locale) {
-  const language = (locale === 'zh-CN' || locale === 'zh-TW')
-    ? locale
-    : locale.substring(0,2);
-  return language;
+export function parseLocale(localeCode) {
+  const localeCodeSections = localeCode.replace(/-/g, '_').split('_');
+  const language = localeCodeSections[0].toLowerCase();
+  const parseModifierAndRegion = () => {
+    const numSections = localeCodeSections.length;
+    if (numSections === 1) {
+      return {};
+    } else if (numSections === 2 && language === 'zh') {
+      const ambiguous = localeCodeSections[1].toLowerCase();
+      if (['hans', 'hant'].includes(ambiguous)) {
+        return { modifier: ambiguous };
+      } else {
+        return { region: ambiguous };
+      }
+    } else if (numSections === 2) {
+      return { region: localeCodeSections[1] };
+    } else if (numSections === 3) {
+      return {
+        modifier: localeCodeSections[1],
+        region: localeCodeSections[2]
+      };
+    } else if (numSections > 3) {
+      console.error(
+        `Encountered strangely formatted locale "${localeCode}", ` +
+        `with ${numSections} sections.`);
+      return { language: 'en' };
+    }
+  }
+  const capitalizeFirstLetterOnly = raw => {
+    return raw.charAt(0).toUpperCase() + raw.slice(1).toLowerCase();
+  }
+  const parsedLocale = {
+    language,
+    ...parseModifierAndRegion()
+  };
+
+  if (parsedLocale.modifier) {
+    parsedLocale.modifier = capitalizeFirstLetterOnly(parsedLocale.modifier);
+  }
+  if (parsedLocale.region) {
+    parsedLocale.region = parsedLocale.region.toUpperCase();
+  }
+
+  return parsedLocale;
 }
