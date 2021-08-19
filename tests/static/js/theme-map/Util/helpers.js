@@ -75,12 +75,28 @@ describe('getLanguageForProvider', () => {
       expect(getLanguageForProvider('en-IDK', 'google')).toEqual('en');
       expect(getLanguageForProvider('en-GB', 'google')).toEqual('en-GB');
       expect(getLanguageForProvider('en_GB', 'google')).toEqual('en-GB');
+
+      expect(getLanguageForProvider('zh-Hant', 'google')).toEqual('zh-TW');
+      expect(getLanguageForProvider('zh-Hans', 'google')).toEqual('zh-CN');
+      expect(getLanguageForProvider('zh-CN', 'google')).toEqual('zh-CN');
+      expect(getLanguageForProvider('zh-TW', 'google')).toEqual('zh-TW');
+      expect(getLanguageForProvider('zh-HK', 'google')).toEqual('zh-HK');
+      expect(getLanguageForProvider('zh-Hans_CN', 'google')).toEqual('zh-CN');
+      expect(getLanguageForProvider('zh-Hant_TW', 'google')).toEqual('zh-TW');
     });
 
     it('works with map provider mapbox', () => {
       expect(getLanguageForProvider('a', 'mapbox')).toEqual('en');
       expect(getLanguageForProvider('fr', 'mapbox')).toEqual('fr');
       expect(getLanguageForProvider('fr-CA', 'mapbox')).toEqual('fr');
+
+      expect(getLanguageForProvider('zh-Hant', 'mapbox')).toEqual('zh');
+      expect(getLanguageForProvider('zh-Hans', 'mapbox')).toEqual('zh');
+      expect(getLanguageForProvider('zh-CN', 'mapbox')).toEqual('zh');
+      expect(getLanguageForProvider('zh-TW', 'mapbox')).toEqual('zh');
+      expect(getLanguageForProvider('zh-HK', 'mapbox')).toEqual('zh');
+      expect(getLanguageForProvider('zh-Hans_CN', 'mapbox')).toEqual('zh');
+      expect(getLanguageForProvider('zh-Hant_TW', 'mapbox')).toEqual('zh');
     });
   });
 });

@@ -227,7 +227,7 @@ function load(resolve, reject, apiKey, {
  * @type {MapProvider}
  */
 const GoogleMaps = new MapProviderOptions()
-  .withSupportedLocales(['zh-CN', 'zn-HK', 'zh-TW', 'en-AU', 'en-GB', 'fr-CA', 'pt-BR', 'pt-PT', 'es-419'])
+  .withSupportedLocales(['zh-CN', 'zh-HK', 'zh-TW', 'en-AU', 'en-GB', 'fr-CA', 'pt-BR', 'pt-PT', 'es-419'])
   .withLoadFunction(load)
   .withMapClass(GoogleMap)
   .withPinClass(GooglePin)
