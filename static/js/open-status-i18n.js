@@ -1,22 +1,23 @@
 import { DayNames } from './hours/constants.js';
 import { OpenStatusStrings } from './hours/open-status/constants.js';
+import { parseLocale } from './utils';
 
 /**
  * Provides translation data for the openStatus formatter.
  * @param {string} locale
  */
 export default function provideOpenStatusTranslation (locale) {
-  const language = (locale === 'zh-CN' || locale === 'zh-TW') ? 
-    locale :
-    locale.substring(0,2);
+  const { language, modifier }  = parseLocale(locale);
+  const languageAndModifier =  modifier ? `${language}-${modifier}` : language;
+
   return {
-    ...provideTodaysMessageTranslation(language),
-    ...provideDayTranslation(language)
+    ...provideTodaysMessageTranslation(languageAndModifier),
+    ...provideDayTranslation(languageAndModifier)
   }
 }
 
-function provideTodaysMessageTranslation(language) {
-  switch (language) {
+function provideTodaysMessageTranslation(languageAndModifier) {
+  switch (languageAndModifier) {
     case 'fr':
       return {
         [OpenStatusStrings.CLOSED]: 'Fermé',
@@ -121,7 +122,7 @@ function provideTodaysMessageTranslation(language) {
         [OpenStatusStrings.OPEN_NOW]: 'Öppet nu',
         [OpenStatusStrings.CLOSES_AT]: 'Stänger kl.',
       }
-    case 'zh-CN':
+    case 'zh-Hans':
       return {
         [OpenStatusStrings.CLOSED]: '休业中',
         [OpenStatusStrings.OPEN_24_HOURS]: '24 小时营业',
@@ -129,7 +130,7 @@ function provideTodaysMessageTranslation(language) {
         [OpenStatusStrings.OPEN_NOW]: '现正营业',
         [OpenStatusStrings.CLOSES_AT]: '闭店时间：',
       }
-    case 'zh-TW':
+    case 'zh-Hant':
       return {
         [OpenStatusStrings.CLOSED]: '休息',
         [OpenStatusStrings.OPEN_24_HOURS]: '24 小時營業',
@@ -148,8 +149,8 @@ function provideTodaysMessageTranslation(language) {
   }
 }
 
-function provideDayTranslation(language) {
-  switch (language) {
+function provideDayTranslation(languageAndModifier) {
+  switch (languageAndModifier) {
     case 'fr':
       return {
         [DayNames.MONDAY]: 'Lundi',
@@ -280,7 +281,7 @@ function provideDayTranslation(language) {
         [DayNames.SATURDAY]: 'Lördag',
         [DayNames.SUNDAY]: 'Söndag',
       }
-    case 'zh-CN':
+    case 'zh-Hans':
       return {
         [DayNames.MONDAY]: '周一',
         [DayNames.TUESDAY]: '周二',
@@ -290,7 +291,7 @@ function provideDayTranslation(language) {
         [DayNames.SATURDAY]: '周六',
         [DayNames.SUNDAY]: '星期日',
       }
-    case 'zh-TW':
+    case 'zh-Hant':
       return {
         [DayNames.MONDAY]: '週一',
         [DayNames.TUESDAY]: '週二',
