@@ -276,6 +276,26 @@ function _prettyPrintBoolean(value, locale) {
       return value ? 'Ja' : 'Nein';
     case 'ja':
       return value ? 'はい' : '番号';
+    case 'ar':
+      return value ? 'نعم' : 'رقم';
+    case 'hi':
+      return value ? 'हाँ' : 'नहीं';
+    case 'ko':
+      return value ? '예' : '아니요';
+    case 'nl':
+      return value ? 'Ja' : 'Nee';
+    case 'pl':
+      return value ? 'TAk' : 'Nie';
+    case 'pt': 
+      return value ? 'Sim' : 'Não';
+    case 'ru': 
+      return value ? 'да' : 'Нет';
+    case 'sv':
+      return value ? 'Ja' : 'Nej';
+    case 'zh-Hans':
+      return value ? '是的' : '不';
+    case 'zh-Hant':
+      return value ? '是的' : '不';
     default:
       return value ? 'Yes' : 'No';
   }
