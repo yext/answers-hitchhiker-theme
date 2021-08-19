@@ -1,12 +1,14 @@
 import { DayNames } from './hours/constants.js';
 import { OpenStatusStrings } from './hours/open-status/constants.js';
-import { getLanguageFromLocale } from './utils'; 
+
 /**
  * Provides translation data for the openStatus formatter.
  * @param {string} locale
  */
 export default function provideOpenStatusTranslation (locale) {
-  const language = getLanguageFromLocale(locale);
+  const language = (locale === 'zh-CN' || locale === 'zh-TW') ? 
+    locale :
+    locale.substring(0,2);
   return {
     ...provideTodaysMessageTranslation(language),
     ...provideDayTranslation(language)
