@@ -13,21 +13,12 @@ import { parseLocale } from '../../utils.js';
  * @return {string} The language locale for the map
  */
 const getLanguageForProvider = (localeStr, mapProvider) => {
-  const { language, modifier, region } = parseLocale(localeStr);
+  const language = localeStr.split(/[\-_]/)[0];
   if (language.length !== 2) {
     return 'en';
   }
   const provider = getMapProvider(mapProvider);
-  let formattedLocaleStr = modifier ? `${language}-${modifier}` : language;
-  if (provider === GoogleMaps) {
-    if (region) {
-      formattedLocaleStr = `${language}-${region}`;
-    } else if (modifier === 'Hant') {
-      formattedLocaleStr = `${language}-TW`;
-    } else if (modifier === 'Hans') {
-      formattedLocaleStr = `${language}-CN`;
-    }
-  }
+  const formattedLocaleStr = provider.formatLocale(localeStr);
   if (provider.getSupportedLocales().includes(formattedLocaleStr)) {
     return formattedLocaleStr;
   }

@@ -6,6 +6,7 @@ import { MapProviderOptions } from '../MapProvider.js';
 import { ProviderMap } from '../ProviderMap.js';
 import { ProviderPin } from '../ProviderPin.js';
 import isRTL from '../../../../common/rtl';
+import { parseLocale } from '../../../utils.js';
 
 // TODO (jronkin) call map resize method when hidden/shown (CoreBev, used to be done in Core.js)
 
@@ -218,6 +219,11 @@ function load(resolve, reject, apiKey, {
   document.head.appendChild(mapScript);
 }
 
+function formatLocale(locale) {
+  const { language, modifier } = parseLocale(locale);
+  return modifier ? `${language}-${modifier}` : language;
+}
+
 // Exports
 
 /**
@@ -227,6 +233,7 @@ function load(resolve, reject, apiKey, {
 const MapboxMaps = new MapProviderOptions()
   .withSupportedLocales(['zh-Hans', 'zh-Hant'])
   .withLoadFunction(load)
+  .withFormatLocaleFunction(formatLocale)
   .withMapClass(MapboxMap)
   .withPinClass(MapboxPin)
   .withProviderName('Mapbox')
