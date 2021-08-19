@@ -26,8 +26,7 @@ export const LOCALE_UNIT_MAP = {
     default: IMPERIAL
   },
   es: {
-    US: IMPERIAL,
-    default: METRIC
+    US: IMPERIAL
   }
 };
 
@@ -58,7 +57,7 @@ function getUnitsForLocale(locale) {
 
   const isKnownRegion = (region in LOCALE_UNIT_MAP[language]);
   if (!isKnownRegion) {
-    return Object.assign({}, LOCALE_UNIT_MAP[language]['default']);
+    return Object.assign({}, LOCALE_UNIT_MAP[language]['default'] || unitSystemFallback);
   }
 
   return Object.assign({}, LOCALE_UNIT_MAP[language][region]);

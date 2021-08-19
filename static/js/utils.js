@@ -44,9 +44,10 @@ export function parseLocale(localeCode) {
         region: localeCodeSections[2]
       };
     } else if (numSections > 3) {
-      throw new UserError(
-        `Encountered strangely formatted locale "${localeCode}", ` +
+      console.error(
+        `Encountered unsupported locale "${localeCode}", ` +
         `with ${numSections} sections.`);
+      return {};
     }
   }
   const capitalizeFirstLetterOnly = raw => {
