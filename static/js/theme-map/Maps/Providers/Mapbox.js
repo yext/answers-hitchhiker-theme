@@ -225,6 +225,7 @@ function load(resolve, reject, apiKey, {
  * @type {MapProvider}
  */
 const MapboxMaps = new MapProviderOptions()
+  .withSupportedLocales(['zh-Hans', 'zh-Hant'])
   .withLoadFunction(load)
   .withMapClass(MapboxMap)
   .withPinClass(MapboxPin)

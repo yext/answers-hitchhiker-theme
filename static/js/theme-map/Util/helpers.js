@@ -18,7 +18,7 @@ const getLanguageForProvider = (localeStr, mapProvider) => {
     return 'en';
   }
   const provider = getMapProvider(mapProvider);
-  let formattedLocaleStr = localeStr.replace('_', '-');
+  let formattedLocaleStr = modifier? `${language}-${modifier}` : language;
   if(provider === GoogleMaps) {
     if(region) {
       formattedLocaleStr = `${language}-${region}`;

@@ -90,13 +90,13 @@ describe('getLanguageForProvider', () => {
       expect(getLanguageForProvider('fr', 'mapbox')).toEqual('fr');
       expect(getLanguageForProvider('fr-CA', 'mapbox')).toEqual('fr');
 
-      expect(getLanguageForProvider('zh-Hant', 'mapbox')).toEqual('zh');
-      expect(getLanguageForProvider('zh-Hans', 'mapbox')).toEqual('zh');
+      expect(getLanguageForProvider('zh-Hant', 'mapbox')).toEqual('zh-Hant');
+      expect(getLanguageForProvider('zh-Hans', 'mapbox')).toEqual('zh-Hans');
       expect(getLanguageForProvider('zh-CN', 'mapbox')).toEqual('zh');
       expect(getLanguageForProvider('zh-TW', 'mapbox')).toEqual('zh');
       expect(getLanguageForProvider('zh-HK', 'mapbox')).toEqual('zh');
-      expect(getLanguageForProvider('zh-Hans_CN', 'mapbox')).toEqual('zh');
-      expect(getLanguageForProvider('zh-Hant_TW', 'mapbox')).toEqual('zh');
+      expect(getLanguageForProvider('zh-Hans_CN', 'mapbox')).toEqual('zh-Hans');
+      expect(getLanguageForProvider('zh-Hant_TW', 'mapbox')).toEqual('zh-Hant');
     });
   });
 });
