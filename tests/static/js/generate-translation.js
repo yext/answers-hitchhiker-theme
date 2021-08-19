@@ -5,7 +5,7 @@ describe('generate-translation script works as expected', () => {
   const outputPath = './tests/static/js/generate-translation-output';
   const translationPath = './tests/static/fixtures';
 
-  it('append exports field to input file', () => {
+  it('generate open status and table header js files', () => {
     fs.mkdirSync(`${outputPath}/static/js/hours/table`, { recursive: true });
     execSync(`node ./static/js/generate-translation.js ${translationPath} ${outputPath}`);
     const openStatusOutput = fs.readFileSync(`${outputPath}/static/js/open-status-i18n.js`).toString();
