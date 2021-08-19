@@ -265,8 +265,10 @@ export function prettyPrintObject(obj, locale) {
  * @returns {string} The localized affirmative or negative.
  */
 function _prettyPrintBoolean(value, locale) {
-  const { language } = parseLocale(locale);
-  switch (language) {
+  const { language, modifier } = parseLocale(locale);
+  const languageAndModifier =  modifier ? `${language}-${modifier}` : language;
+
+  switch (languageAndModifier) {
     case 'es':
       return value ? 'Sí' : 'No';
     case 'fr':
