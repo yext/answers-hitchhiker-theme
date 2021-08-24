@@ -115,6 +115,7 @@ class ThemeMap extends ANSWERS.Component {
       .withProvider(mapProviderImpl)
       .withProviderOptions(this.config.providerOptions || {})
       .withPadding(this.config.padding)
+      .withLocale(this.config.language)
       .build();
     this.map = map;
     this.addMapInteractions(map);

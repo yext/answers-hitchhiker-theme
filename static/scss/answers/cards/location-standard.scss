@@ -14,7 +14,7 @@ $location-standard-ordinal-dimensions: calc(var(--hh-location-standard-base-spac
     {
       flex-direction: column;
 
-      @media (min-width: $screen-lg-min)
+      @include bpgte(lg)
       {
         flex-direction: row;
       }
@@ -24,7 +24,7 @@ $location-standard-ordinal-dimensions: calc(var(--hh-location-standard-base-spac
     {
       width: 100%;
 
-      @media (min-width: $breakpoint-mobile-max)
+      @include bpgte(sm)
       {
         width: 350px;
       }
@@ -34,7 +34,7 @@ $location-standard-ordinal-dimensions: calc(var(--hh-location-standard-base-spac
     {
       flex-direction: column;
 
-      @media (min-width: $screen-lg-min)
+      @include bpgte(lg)
       {
         flex-direction: row;
       }
@@ -44,7 +44,7 @@ $location-standard-ordinal-dimensions: calc(var(--hh-location-standard-base-spac
     {
       margin-left: 0;
 
-      @media (min-width: $screen-lg-min)
+      @include bpgte(lg)
       {
         margin-left: calc(var(--hh-location-standard-base-spacing) / 2);
       }
@@ -137,7 +137,7 @@ $location-standard-ordinal-dimensions: calc(var(--hh-location-standard-base-spac
     display: flex;
     flex-direction: column;
 
-    @media (min-width: $breakpoint-mobile-max)
+    @include bpgte(sm)
     {
       flex-direction: row;
       justify-content: space-between;
@@ -171,7 +171,7 @@ $location-standard-ordinal-dimensions: calc(var(--hh-location-standard-base-spac
     display: flex;
     flex-direction: column;
 
-    @media (min-width: $breakpoint-mobile-max)
+    @include bpgte(sm)
     {
       flex-direction: row;
       flex-wrap: wrap;
@@ -182,7 +182,7 @@ $location-standard-ordinal-dimensions: calc(var(--hh-location-standard-base-spac
   {
     margin-top: calc(var(--hh-location-standard-base-spacing) / 4);
 
-    @media (min-width: $breakpoint-mobile-max)
+    @include bpgte(sm)
     {
       width: 200px;
       padding-right: calc(var(--hh-location-standard-base-spacing) * 2);
@@ -193,7 +193,7 @@ $location-standard-ordinal-dimensions: calc(var(--hh-location-standard-base-spac
   {
     width: 100%;
 
-    @media (min-width: $breakpoint-mobile-max)
+    @include bpgte(sm)
     {
       width: 320px;
     }
@@ -220,7 +220,7 @@ $location-standard-ordinal-dimensions: calc(var(--hh-location-standard-base-spac
   &-phone--desktop {
     display: none;
 
-    @media (min-width: $breakpoint-mobile-max)
+    @include bpgte(sm)
     {
       display: flex;
     }
@@ -230,7 +230,7 @@ $location-standard-ordinal-dimensions: calc(var(--hh-location-standard-base-spac
     @include Link;
     display: flex;
 
-    @media (min-width: $breakpoint-mobile-max)
+    @include bpgte(sm)
     {
       display: none;
     }
@@ -269,7 +269,7 @@ $location-standard-ordinal-dimensions: calc(var(--hh-location-standard-base-spac
     text-transform: uppercase;
     margin-top: calc(var(--hh-location-standard-base-spacing) / 2);
 
-    @media (min-width: $breakpoint-mobile-max)
+    @include bpgte(sm)
     {
       margin-left: calc(var(--hh-location-standard-base-spacing) / 2);
       justify-content: center;

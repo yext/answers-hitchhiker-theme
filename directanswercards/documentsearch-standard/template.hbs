@@ -61,11 +61,9 @@
           {{footerText}}
         </legend>
         <label class="HitchhikerDocumentSearchStandard-thumb">
-          <span class="HitchhikerDocumentSearchStandard-thumbUpIcon"
-                data-component="IconComponent"
-                data-opts='{"iconName": "thumb"}'
-                data-prop="icon"
-          ></span>
+          <span class="HitchhikerDocumentSearchStandard-thumbUpIcon">
+            {{> icons/builtInIcon iconName='thumb' }}
+          </span>
           <input type="radio"
                   name="feedback"
                   value="true"
@@ -75,11 +73,9 @@
           </span>
         </label>
         <label class="HitchhikerDocumentSearchStandard-thumb">
-          <span class="HitchhikerDocumentSearchStandard-thumbDownIcon"
-                data-component="IconComponent"
-                data-opts='{"iconName": "thumb"}'
-                data-prop="icon"
-          ></span>
+          <span class="HitchhikerDocumentSearchStandard-thumbDownIcon">
+            {{> icons/builtInIcon iconName='thumb' }}
+          </span>
           <input type="radio"
                   name="feedback"
                   value="false"
@@ -105,10 +101,12 @@
       target="{{#if target}}{{target}}{{else}}{{#if linkTarget}}{{linkTarget}}{{else}}_blank{{/if}}{{/if}}">
       {{#if (any iconName iconUrl)}}
       <div class="HitchhikerCTA-iconWrapper">
-        <div class="HitchhikerCTA-icon" data-component="IconComponent" data-opts='{
-          "iconUrl": "{{#if iconUrl}}{{#unless (isNonRelativeUrl iconUrl)}}{{@root.relativePath}}/{{/unless}}{{iconUrl}}{{/if}}",
-          "iconName": "{{iconName}}"
-        }'></div>
+        <div class="HitchhikerCTA-icon">
+          {{> icons/iconPartial
+              iconName=iconName
+              iconUrl=(relativePathHandler url=iconUrl relativePath=@root.relativePath)
+          }}
+        </div>
       </div>
       {{/if}}
       <div class='HitchhikerCTA-iconLabel'>

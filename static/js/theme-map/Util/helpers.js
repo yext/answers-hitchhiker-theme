@@ -1,30 +1,28 @@
 import { GoogleMaps } from '../Maps/Providers/Google.js';
 import { MapboxMaps } from '../Maps/Providers/Mapbox.js';
+import { parseLocale } from '../../utils.js';
 
 /**
- * Gets the language locale according to specific fallback logic
- * 1. The user-specified locale to the component
- * 2. If invalid, try using only the first two characters
- * 3. If still invalid, providers fallback to en
+ * Gets the language locale according to user-specified locale to the component.
+ * If language code is not 2 character, default to en. If map provider doesn't
+ * support the specific language locale (with modifier and region), then default
+ * to the 2 character language code.
  *
  * @param {string} localeStr The user-defined locale string
  * @param {string} mapProvider name of the current map provider
  * @return {string} The language locale for the map
  */
 const getLanguageForProvider = (localeStr, mapProvider) => {
-  if (localeStr.length == 2) {
-    return localeStr;
-  } 
-
-  if (localeStr.length > 2) {
-    const provider = getMapProvider(mapProvider);
-    const formattedLocaleStr = localeStr.replace('_', '-');
-    if (provider.getSupportedLocales().includes(formattedLocaleStr)) {
-      return formattedLocaleStr;
-    }
-    return localeStr.substring(0, 2);
+  const language = localeStr.split(/[\-_]/)[0];
+  if (language.length !== 2) {
+    return 'en';
   }
-  return 'en';
+  const provider = getMapProvider(mapProvider);
+  const formattedLocaleStr = provider.formatLocale(localeStr);
+  if (provider.getSupportedLocales().includes(formattedLocaleStr)) {
+    return formattedLocaleStr;
+  }
+  return language;
 };
 
 /**

@@ -26,7 +26,12 @@
       }
     },
     "SearchBar": {
-      "placeholderText": "Search" // The placeholder text in the answers search bar
+      "placeholderText": "Search", // The placeholder text in the answers search bar
+      "voiceSearch": {
+        "enabled": false
+        // "customMicIconUrl": "", // Optional, display a custom microphone icon
+        // "customListeningIconUrl": "" // Optional, displays a custom while voice search is active
+      }
     }
   },
   "verticalsToConfig": {
@@ -40,7 +45,7 @@
       "mapConfig": {
         "mapProvider": "Google"
       },
-      "icon": "static/assets/slapshot.png"
+      "iconUrl": "static/assets/slapshot.png"
     },
     "products": {
       "universalSectionTemplate": "grid-three-columns",

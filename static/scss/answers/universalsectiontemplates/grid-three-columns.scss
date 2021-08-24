@@ -15,7 +15,7 @@
   {
     &--universal
     {
-      @media (min-width: $breakpoint-mobile-min) {
+      @include bpgte(sm) {
         margin: var(--hh-universal-grid-margin);
         flex-basis: var(--hh-universal-grid-three-columns-width);
         max-width: var(--hh-universal-grid-three-columns-width);

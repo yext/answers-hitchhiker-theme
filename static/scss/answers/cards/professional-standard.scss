@@ -23,7 +23,7 @@ $professional-standard-spacing: var(--yxt-base-spacing) !default;
     flex-direction: column;
     width: 100%;
 
-    @media (min-width: $breakpoint-mobile-max)
+    @include bpgte(sm)
     {
       justify-content: space-between;
       flex-direction: row;
@@ -94,7 +94,7 @@ $professional-standard-spacing: var(--yxt-base-spacing) !default;
   &-phone--desktop {
     display: none;
 
-    @media (min-width: $breakpoint-mobile-max)
+    @include bpgte(sm)
     {
       display: flex;
     }
@@ -104,7 +104,7 @@ $professional-standard-spacing: var(--yxt-base-spacing) !default;
     @include Link;
     display: flex;
 
-    @media (min-width: $breakpoint-mobile-max)
+    @include bpgte(sm)
     {
       display: none;
     }
@@ -115,7 +115,7 @@ $professional-standard-spacing: var(--yxt-base-spacing) !default;
     text-transform: uppercase;
     margin-top: calc(var(--hh-professional-standard-spacing) / 2);
 
-    @media (min-width: $breakpoint-mobile-max)
+    @include bpgte(sm)
     {
       margin-top: 0;
       margin-left: calc(var(--hh-professional-standard-spacing) / 2);

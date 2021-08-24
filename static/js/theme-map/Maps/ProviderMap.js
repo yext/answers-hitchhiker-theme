@@ -24,6 +24,15 @@ class ProviderMapOptions {
     this.zoomEndHandler = () => {};
     this.canvasClickHandler = () => {};
     this.providerOptions = {};
+    this.locale = 'en';
+  }
+
+  /**
+   * @param {string} locale The locale used in map
+   */
+   withLocale(locale) {
+    this.locale = locale;
+    return this;
   }
 
   /**

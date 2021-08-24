@@ -117,6 +117,8 @@ export default class PromptInjector {
   _appendChevronRight(el) {
     const iconEl = document.createElement('div');
     iconEl.classList.add('OverlayPrompt-buttonIcon');
+    iconEl.classList.add('Icon')
+    iconEl.classList.add('Icon--chevron')
     iconEl.innerHTML = `<?xml version="1.0" encoding="UTF-8"?>
       <svg viewBox="0.5 0 6 9"
         version="1.1" xmlns="http://www.w3.org/2000/svg"

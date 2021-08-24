@@ -45,7 +45,10 @@
           }));
         }
       },
+      ...{{> script/additional-answers-config }},
       onReady: () => {
+        window.AnswersExperience.AnswersInitializedPromise.resolve();
+
         {{> @partial-block }}
 
         {{> script/on-ready}}
@@ -71,15 +74,39 @@
          * Determine whether a URL is absolute or not.
          * Common examples: "mailto:slapshot@gmail.com", "//yext.com", "https://yext.com"
          */
-        ANSWERS.registerHelper('isNonRelativeUrl', function(str) {
+        function isNonRelativeUrl(str) {
           const absoluteURLRegex = /^(\/|[a-zA-Z]+:)/;
           return str && str.match(absoluteURLRegex);
-        });
+        }
+        ANSWERS.registerHelper('isNonRelativeUrl', isNonRelativeUrl);
 
         ANSWERS.registerHelper('close-card-svg', () => {
           return ANSWERS.renderer.SafeString({{{stringifyPartial (read 'static/assets/images/close-card') }}});
         });
+
+        /**
+        * If the url is not relative, return it. If it is relative,
+        * append relativePath to it.
+        *
+        * @param {import('handlebars').HelperOptions} options
+        * @param {string} options.hash.relativePath
+        * @param {string} options.hash.url
+        * @returns {string}
+        */
+        ANSWERS.registerHelper('relativePathHandler', function relativePathHandler(options) {
+          const { relativePath, url } = options.hash || {};
+          if (isNonRelativeUrl(url) || !relativePath || !url) {
+            return url;
+          }
+          return relativePath + '/' + url;
+        });
+
+        window.iframeLoaded.then(() => {
+          {{> script/iframe-messaging}}
+        });
       }
+    }).catch(err => {
+      window.AnswersExperience.AnswersInitializedPromise.reject('Answers failed to initialized.');
     });
     {{> script/after-init}}
   }

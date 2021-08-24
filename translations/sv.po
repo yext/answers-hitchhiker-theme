@@ -1,0 +1,183 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:31
+msgid "([[resultsCount]] result)"
+msgid_plural "([[resultsCount]] results)"
+msgstr[0] "([[resultsCount]] resultat)"
+msgstr[1] "([[resultsCount]] resultat)"
+
+#: cards/multilang-menuitem-standard/component.js:29
+msgid "[[calorieCount]] calories"
+msgstr "[[calorieCount]] kalorier"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:3
+msgid "<em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">No results found</em> in [[currentVerticalLabel]]."
+msgstr "<em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">Inga resultat hittades</em> i [[currentVerticalLabel]]."
+
+#: cards/multilang-menuitem-standard/component.js:25
+msgid "Allergens"
+msgstr "Allergener"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:43
+msgid "Alternatively, you can <a class=\"yxt-AlternativeVerticals-universalLink\" href=\"[[universalUrl]]\"> view results across all search categories</a>."
+msgstr "Alternativt kan du <a class=\"yxt-AlternativeVerticals-universalLink\" href=\"[[universalUrl]]\">visa resultat från alla sökkategorier</a>."
+
+#: cards/multilang-job-standard/component.js:35
+msgid "Apply Now"
+msgstr "Ansök nu"
+
+#: theme-components/collapsible-filters/filter-link/component.js:4
+msgid "clear search"
+msgstr "Rensa sökning"
+
+#: cards/multilang-event-standard/component.js:44
+msgid "Directions"
+msgstr "Vägbeskrivning"
+
+#: cards/multilang-location-standard/component.js:49
+msgid "Get Directions"
+msgstr "Få vägbeskrivningar"
+
+#: templates/vertical-full-page-map/page.html.hbs:23
+msgid "Main location search"
+msgstr "Huvudsaklig platssökning"
+
+#: templates/vertical-full-page-map/page.html.hbs:67
+msgid "Map"
+msgstr "Karta"
+
+#: templates/vertical-full-page-map/page.html.hbs:62
+msgid "Map controls"
+msgstr "Kartkontroller"
+
+#: theme-components/collapsible-filters/view-results-button/template.hbs:3
+msgid "No results found."
+msgstr "Hittade inga resultat."
+
+#: cards/multilang-menuitem-standard/component.js:40
+msgid "Order Now"
+msgstr "Beställ nu"
+
+#: theme-components/collapsible-filters/filter-link/component.js:3
+msgid "reset filters"
+msgstr "återställ filter"
+
+#: cards/multilang-location-standard/template.hbs:140
+msgid "Services:"
+msgstr "Tjänster:"
+
+#: cards/multilang-event-standard/component.js:30
+#: cards/multilang-financial-professional-location/component.js:44
+#: cards/multilang-job-standard/component.js:31
+#: cards/multilang-link-standard/component.js:28
+#: cards/multilang-menuitem-standard/component.js:36
+#: cards/multilang-product-prominentimage/component.js:39
+#: cards/multilang-product-prominentvideo/component.js:34
+#: cards/multilang-product-standard/component.js:38
+#: cards/multilang-professional-location/component.js:44
+#: cards/multilang-professional-standard/component.js:36
+#: cards/multilang-standard/component.js:31
+msgid "Show less"
+msgstr "Visa mindre"
+
+#: cards/multilang-event-standard/component.js:29
+#: cards/multilang-financial-professional-location/component.js:43
+#: cards/multilang-job-standard/component.js:30
+#: cards/multilang-link-standard/component.js:27
+#: cards/multilang-menuitem-standard/component.js:35
+#: cards/multilang-product-prominentimage/component.js:38
+#: cards/multilang-product-prominentvideo/component.js:33
+#: cards/multilang-product-standard/component.js:37
+#: cards/multilang-professional-location/component.js:43
+#: cards/multilang-professional-standard/component.js:35
+#: cards/multilang-standard/component.js:30
+msgid "Show more"
+msgstr "Visa mer"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:5
+msgid "Showing <em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">all [[currentVerticalLabel]]</em> instead."
+msgstr "Visar <em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">alla [[currentVerticalLabel]]</em> istället."
+
+#: theme-components/collapsible-filters/filter-link/component.js:2
+msgid "sorts and filters"
+msgstr "sorterar och filtrerar"
+
+#: directanswercards/multilang-allfields-standard/component.js:188
+msgid "Thank you for your feedback!"
+msgstr "Tack för din feedback!"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:11
+msgid "The following search category yielded results for <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"
+msgid_plural "The following search categories yielded results for <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"
+msgstr[0] "Följande sökkategori gav svar för <span class=\"yxt-AlternativeVerticals-details--query\">”[[query]]”</span>:"
+msgstr[1] "Följande sökkategorier gav svar för <span class=\"yxt-AlternativeVerticals-details--query\">”[[query]]”</span>:"
+
+#: directanswercards/multilang-allfields-standard/component.js:190
+msgid "This answered my question"
+msgstr "Detta besvarade min fråga"
+
+#: directanswercards/multilang-allfields-standard/component.js:191
+msgid "This did not answer my question"
+msgstr "Detta besvarade inte min fråga"
+
+#: theme-components/collapsible-filters/view-results-button/template.hbs:5
+msgid "View 1 Result"
+msgid_plural "View [[resultsCount]] Results"
+msgstr[0] "Visa ett resultat"
+msgstr[1] "Visa [[resultsCount]] resultat"
+
+#: directanswercards/multilang-allfields-standard/component.js:174
+msgid "View Details"
+msgstr "Se detaljer"
+
+#: cards/multilang-menuitem-standard/component.js:50
+msgid "View Menu"
+msgstr "Visa meny"
+
+#: directanswercards/multilang-allfields-standard/component.js:189
+msgid "Was this the answer you were looking for?"
+msgstr "Var det här det svar du letade efter?"
+
+#: templates/vertical-full-page-map/markup/searchthisareatoggle.hbs:10
+msgctxt "A button that conducts a search in the current map area"
+msgid "Search When Map Moves"
+msgstr "Sök när kartan flyttas"
+
+#: templates/vertical-full-page-map/markup/searchthisareabutton.hbs:3
+msgctxt "A toggle for automatically searching when the map moves"
+msgid "Search This Area"
+msgstr "Sök i området"
+
+#: cards/multilang-location-standard/component.js:40
+msgctxt "Call is a verb"
+msgid "Call"
+msgstr "Samtal"
+
+#: cards/multilang-financial-professional-location/template.hbs:198
+#: cards/multilang-location-standard/template.hbs:209
+#: cards/multilang-professional-location/template.hbs:195
+msgctxt "Close is a verb"
+msgid "Close Card"
+msgstr "Stäng kort"
+
+#: cards/multilang-event-standard/component.js:34
+msgctxt "RSVP is a verb"
+msgid "RSVP"
+msgstr "RSVP"
+
+#: templates/vertical-full-page-map/markup/mobilelisttoggles.hbs:5
+msgctxt "The label of a toggle for displaying a list of results"
+msgid "List"
+msgstr "Lista"
+
+#: templates/vertical-full-page-map/markup/mobilelisttoggles.hbs:9
+msgctxt "The label of a toggle for viewing a visual map"
+msgid "Map"
+msgstr "Karta"
+
+#: templates/universal-standard/script/universalresults.hbs:78
+msgctxt "View is a verb"
+msgid "View All"
+msgstr "Visa alla"
