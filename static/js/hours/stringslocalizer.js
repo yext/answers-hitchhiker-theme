@@ -24,11 +24,11 @@ export default class HoursStringsLocalizer {
    * @returns {string}
    */
   getTranslation(text) {
-    if (!window.translations.hasOwnProperty(text)) {
+    if (!window.hitchhiker_theme_translations.hasOwnProperty(text)) {
       console.error(`Could not translate "${text}".`);
       return text;
     }
-    return window.translations[text];
+    return window.hitchhiker_theme_translations[text];
   }
 
   /**

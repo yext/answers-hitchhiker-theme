@@ -1,4 +1,4 @@
-window.translations = {
+window.hitchhiker_theme_translations = {
   "Closed": {{ translateJS phrase="Closed" context="Indicates that a store is closed" }},
   "Open 24 Hours": {{ translateJS phrase="Open 24 Hours" context="The hours that a store is open" }},
   "Opens at": {{ translateJS phrase="Opens at" context="Indicates the time a store will open" }},
