@@ -146,9 +146,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.10/iframeResizer.contentWindow.min.js"></script>
     <link rel="stylesheet" type="text/css"
       {{#if (isRTL global_config.locale) }}
-        href="http://localhost:5000/answers.rtl.css"
+        href="{{sdkAssetUrl global_config.sdkVersion 'en' 'answers.rtl.css'}}"
       {{else}}
-        href="http://localhost:5000/answers.css"
+        href="{{sdkAssetUrl global_config.sdkVersion 'en' 'answers.css'}}"
       {{/if}}
       >
     <link rel="stylesheet" type="text/css"
