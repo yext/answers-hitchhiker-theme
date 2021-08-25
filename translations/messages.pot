@@ -181,3 +181,35 @@ msgstr ""
 msgctxt "View is a verb"
 msgid "View All"
 msgstr ""
+
+msgctxt "Indicates that a store is closed"
+msgid "Closed"
+msgstr ""
+
+msgctxt "The hours that a store is open"
+msgid "Open 24 Hours"
+msgstr ""
+
+msgctxt "Indicates the time a store will open"
+msgid "Opens at"
+msgstr ""
+
+msgctxt "Indicates that a store is open"
+msgid "Open Now"
+msgstr ""
+
+msgctxt "Indicates the time a store will close"
+msgid "Closes at"
+msgstr ""
+
+msgid "Day of the Week"
+msgstr ""
+
+msgid "Hours"
+msgstr ""
+
+msgid "Yes"
+msgstr ""
+
+msgid "No"
+msgstr ""

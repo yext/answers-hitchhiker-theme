@@ -11,6 +11,6 @@ export const OpenStatusStrings = {
   OPEN_24_HOURS: 'Open 24 Hours',
   CLOSED: 'Closed',
   OPENS_AT: 'Opens at',
-  OPEN_NOW: 'Open now',
+  OPEN_NOW: 'Open Now',
   CLOSES_AT: 'Closes at'
 };
