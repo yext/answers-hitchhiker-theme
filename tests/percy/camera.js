@@ -6,11 +6,13 @@ const { SnapshotWidths } = require('./constants');
 class Camera {
   /**
    * @param {function} percySnapshot The percy snapshot function
+   * @param {import('puppeteer').Page} page A Pupeteer Page
    * @param {boolean} iframeMode Enables capturing iframe snapshots
    * @param {string} locale Enables capturing locale specific snapshots
    */
-  constructor(percySnapshot, iframeMode, locale='en') {
+  constructor(percySnapshot, page, iframeMode, locale='en') {
     this._percySnapshot = percySnapshot;
+    this._page = page;
     this._iframeMode = iframeMode;
     this._locale = locale;
   }
@@ -31,7 +33,7 @@ class Camera {
    */
   async snapshot(snapshotName) {
     const updatedSnapshotName = this._getSnapshotName(snapshotName);
-    await this._percySnapshot(updatedSnapshotName);
+    await this._percySnapshot(this._page, updatedSnapshotName);
   }
 
   /**
@@ -41,7 +43,7 @@ class Camera {
    */
   async snapshotDesktopOnly(snapshotName) {
     const updatedSnapshotName = this._getSnapshotName(snapshotName);
-    await this._percySnapshot(updatedSnapshotName, { widths: [SnapshotWidths.Desktop] });
+    await this._percySnapshot(this._page, updatedSnapshotName, { widths: [SnapshotWidths.Desktop] });
   }
 
   /**
@@ -51,7 +53,7 @@ class Camera {
    */
   async snapshotMobileOnly(snapshotName) {
     const updatedSnapshotName = this._getSnapshotName(snapshotName);
-    await this._percySnapshot(updatedSnapshotName, { widths: [SnapshotWidths.Mobile] });
+    await this._percySnapshot(this._page, updatedSnapshotName, { widths: [SnapshotWidths.Mobile] });
   }
 
   /**
