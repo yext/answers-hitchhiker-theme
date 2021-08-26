@@ -181,3 +181,56 @@ msgstr "Karta"
 msgctxt "View is a verb"
 msgid "View All"
 msgstr "Visa alla"
+
+msgctxt "Indicates that a store is closed"
+msgid "Closed"
+msgstr "Stängt"
+
+msgctxt "The hours that a store is open"
+msgid "Open 24 Hours"
+msgstr "Öppet 24 timmar om dygnet"
+
+msgctxt "Indicates the time a store will open"
+msgid "Opens at"
+msgstr "Öppnar kl."
+
+msgctxt "Indicates that a store is open"
+msgid "Open Now"
+msgstr "Öppet nu"
+
+msgctxt "Indicates the time a store will close"
+msgid "Closes at"
+msgstr "Stänger kl."
+
+msgid "Monday"
+msgstr "Måndag"
+
+msgid "Tuesday"
+msgstr "Tisdag"
+
+msgid "Wednesday"
+msgstr "Onsdag"
+
+msgid "Thursday"
+msgstr "Torsdag"
+
+msgid "Friday"
+msgstr "Fredag"
+
+msgid "Saturday"
+msgstr "Lördag"
+
+msgid "Sunday"
+msgstr "Söndag"
+
+msgid "Day of the Week"
+msgstr "Veckodag"
+
+msgid "Hours"
+msgstr "Timmar"
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "No"
+msgstr "Nej"

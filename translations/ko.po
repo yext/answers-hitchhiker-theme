@@ -178,3 +178,56 @@ msgstr "지도"
 msgctxt "View is a verb"
 msgid "View All"
 msgstr "전체 보기"
+
+msgctxt "Indicates that a store is closed"
+msgid "Closed"
+msgstr "닫힘"
+
+msgctxt "The hours that a store is open"
+msgid "Open 24 Hours"
+msgstr "24시간 영업"
+
+msgctxt "Indicates the time a store will open"
+msgid "Opens at"
+msgstr "개장 시간:"
+
+msgctxt "Indicates that a store is open"
+msgid "Open Now"
+msgstr "अ지금 열기"
+
+msgctxt "Indicates the time a store will close"
+msgid "Closes at"
+msgstr "종료 시간:"
+
+msgid "Monday"
+msgstr "월요일"
+
+msgid "Tuesday"
+msgstr "화요일"
+
+msgid "Wednesday"
+msgstr "수요일"
+
+msgid "Thursday"
+msgstr "목요일"
+
+msgid "Friday"
+msgstr "금요일"
+
+msgid "Saturday"
+msgstr "토요일"
+
+msgid "Sunday"
+msgstr "일요일"
+
+msgid "Day of the Week"
+msgstr "요일"
+
+msgid "Hours"
+msgstr "시간"
+
+msgid "Yes"
+msgstr "예"
+
+msgid "No"
+msgstr "아니요"

@@ -198,7 +198,7 @@ export default class HoursTransformer {
     return Object.entries(days)
       .filter(([day]) => day !== 'holidayHours' && day !== 'reopenDate')
       .reduce((formattedDays, [day, dayInfo]) => {
-        const currentDayName = day.toUpperCase();
+        const currentDayName = day.charAt(0).toUpperCase() + day.slice(1).toLowerCase();
         const numberTimezone = this._convertTimezoneToNumber(timezone);
         const userDate = this._getDateWithUTCOffset(numberTimezone);
         const nextDayOfWeek = this._getNextDayOfWeek(userDate, daysOfWeek.indexOf(currentDayName));

@@ -177,3 +177,56 @@ msgstr[1] "[[resultsCount]] risultati"
 #: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:43
 msgid "Alternatively, you can <a class=\"yxt-AlternativeVerticals-universalLink\" href=\"[[universalUrl]]\"> view results across all search categories</a>."
 msgstr "Altrimenti, può <a class=\"yxt-AlternativeVerticals-universalLink\" href=[[universalUrl]]> vedere i risultati su tutte le categorie di ricerca</a>."
+
+msgctxt "Indicates that a store is closed"
+msgid "Closed"
+msgstr "Chiuso"
+
+msgctxt "The hours that a store is open"
+msgid "Open 24 Hours"
+msgstr "Aperto 24 ore su 24"
+
+msgctxt "Indicates the time a store will open"
+msgid "Opens at"
+msgstr "Apre alle"
+
+msgctxt "Indicates that a store is open"
+msgid "Open Now"
+msgstr "Aperto ora"
+
+msgctxt "Indicates the time a store will close"
+msgid "Closes at"
+msgstr "Chiude alle"
+
+msgid "Monday"
+msgstr "Lunedí"
+
+msgid "Tuesday"
+msgstr "Martedí"
+
+msgid "Wednesday"
+msgstr "Mercoledí"
+
+msgid "Thursday"
+msgstr "Giovedí"
+
+msgid "Friday"
+msgstr "Venerdí"
+
+msgid "Saturday"
+msgstr "Sabato"
+
+msgid "Sunday"
+msgstr "Domenica"
+
+msgid "Day of the Week"
+msgstr "Giorno della settimana"
+
+msgid "Hours"
+msgstr "Orari"
+
+msgid "Yes"
+msgstr "Sì"
+
+msgid "No"
+msgstr "No"

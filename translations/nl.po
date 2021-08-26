@@ -181,3 +181,56 @@ msgstr "Kaart"
 msgctxt "View is a verb"
 msgid "View All"
 msgstr "Alles bekijken"
+
+msgctxt "Indicates that a store is closed"
+msgid "Closed"
+msgstr "Gesloten"
+
+msgctxt "The hours that a store is open"
+msgid "Open 24 Hours"
+msgstr "24 uur geopend"
+
+msgctxt "Indicates the time a store will open"
+msgid "Opens at"
+msgstr "Geopend vanaf"
+
+msgctxt "Indicates that a store is open"
+msgid "Open Now"
+msgstr "Nu geopend"
+
+msgctxt "Indicates the time a store will close"
+msgid "Closes at"
+msgstr "Gesloten vanaf"
+
+msgid "Monday"
+msgstr "Maandag"
+
+msgid "Tuesday"
+msgstr "Dinsdag"
+
+msgid "Wednesday"
+msgstr "Woensdag"
+
+msgid "Thursday"
+msgstr "Donderdag"
+
+msgid "Friday"
+msgstr "Vrijdag"
+
+msgid "Saturday"
+msgstr "Zaterdag"
+
+msgid "Sunday"
+msgstr "Zondag"
+
+msgid "Day of the Week"
+msgstr "dag van de week"
+
+msgid "Hours"
+msgstr "uur"
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "No"
+msgstr "Nee"

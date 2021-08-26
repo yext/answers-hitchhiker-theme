@@ -7,7 +7,6 @@ import HoursStringsLocalizer from './hours/stringslocalizer.js';
 import HoursTableBuilder from './hours/table/builder.js';
 import { DayNames } from './hours/constants.js';
 import { generateCTAFieldTypeLink } from './formatters/generate-cta-field-type-link';
-import { parseLocale } from './utils.js';
 
 
 export function address(profile) {
@@ -240,7 +239,7 @@ export function prettyPrintObject(obj, locale) {
     case 'bigint':
       return obj.toLocaleString(locale);
     case 'boolean':
-      return _prettyPrintBoolean(obj, locale)
+      return _prettyPrintBoolean(obj);
     case 'object':
       // check for null
       if (!obj) {
@@ -261,47 +260,11 @@ export function prettyPrintObject(obj, locale) {
  * in English, it would return either 'Yes' for True or 'No' for False.
  *
  * @param {boolean} value The boolean value.
- * @param {string} locale The locale indicating which language to use.
  * @returns {string} The localized affirmative or negative.
  */
-function _prettyPrintBoolean(value, locale) {
-  const { language, modifier } = parseLocale(locale);
-  const languageAndModifier =  modifier ? `${language}-${modifier}` : language;
-
-  switch (languageAndModifier) {
-    case 'es':
-      return value ? 'Sí' : 'No';
-    case 'fr':
-      return value ? 'Oui' : 'Non';
-    case 'it':
-      return value ? 'Sì' : 'No';
-    case 'de':
-      return value ? 'Ja' : 'Nein';
-    case 'ja':
-      return value ? 'はい' : '番号';
-    case 'ar':
-      return value ? 'نعم' : 'رقم';
-    case 'hi':
-      return value ? 'हाँ' : 'नहीं';
-    case 'ko':
-      return value ? '예' : '아니요';
-    case 'nl':
-      return value ? 'Ja' : 'Nee';
-    case 'pl':
-      return value ? 'TAk' : 'Nie';
-    case 'pt': 
-      return value ? 'Sim' : 'Não';
-    case 'ru': 
-      return value ? 'да' : 'Нет';
-    case 'sv':
-      return value ? 'Ja' : 'Nej';
-    case 'zh-Hans':
-      return value ? '是的' : '不';
-    case 'zh-Hant':
-      return value ? '是的' : '不';
-    default:
-      return value ? 'Yes' : 'No';
-  }
+function _prettyPrintBoolean(value) {
+  const text = value ? 'Yes' : 'No';
+  return window.translations[text];
 }
 
 export function joinList(list, separator) {
