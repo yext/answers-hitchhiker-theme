@@ -53,7 +53,7 @@ export default class HoursStringsLocalizer {
     time.setHours(Math.floor(yextTime / 100));
     time.setMinutes(yextTime % 100);
 
-    return time.toLocaleString(this.locale, {
+    return time.toLocaleString(this._locale, {
       hour: 'numeric',
       minute: 'numeric',
       ...this._isTwentyFourHourClock && { hourCycle: this._isTwentyFourHourClock ? 'h24' : 'h12' }
