@@ -7,7 +7,10 @@
       <div class="HitchhikerStandard-info">
         {{> details }}
       </div>
-      {{> ctas }}
+      <div class="HitchhikerStandard-actions">
+        {{> ctas }}
+        {{> feedback }}
+      </div>
     </div>
   </div>
 </div>
@@ -114,4 +117,20 @@
   </a>
 </div>
 {{/if}}
+{{/inline}}
+
+{{#*inline 'feedback'}}
+  <div class="HitchhikerStandard-feedbackWrapper">
+    <div class="HitchhikerStandard-feedback">
+    {{#if feedbackSubmitted}}
+      <div class="HitchhikerStandard-feedbackText">
+        {{card.feedbackTextOnSubmission}}
+      </div>
+    {{else}}
+      <div class="HitchhikerStandard-thumbsWrapper">
+        {{> thumbsfeedback }}
+      </div>
+    {{/if}}
+    </div>
+  </div>
 {{/inline}}

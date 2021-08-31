@@ -8,16 +8,19 @@
         {{> list }}
         {{> details }}
       </div>
-      {{#if (any (all card.CTA1 card.CTA1.url) (all card.CTA2 card.CTA2.url))}}
-      <div class="HitchhikerMenuItemStandard-ctasWrapper">
-        {{#with card.CTA1}}
-        {{> CTA ctaName="primaryCTA" }}
-        {{/with}}
-        {{#with card.CTA2}}
-        {{> CTA ctaName="secondaryCTA" }}
-        {{/with}}
+      <div class="HitchhikerMenuItemStandard-actions">
+        {{#if (any (all card.CTA1 card.CTA1.url) (all card.CTA2 card.CTA2.url))}}
+          <div class="HitchhikerMenuItemStandard-ctasWrapper">
+            {{#with card.CTA1}}
+            {{> CTA ctaName="primaryCTA" }}
+            {{/with}}
+            {{#with card.CTA2}}
+            {{> CTA ctaName="secondaryCTA" }}
+            {{/with}}
+          </div>
+        {{/if}}
+        {{> feedback }}
       </div>
-      {{/if}}
     </div>
   </div>
 </div>
@@ -132,4 +135,20 @@
   </a>
 </div>
 {{/if}}
+{{/inline}}
+
+{{#*inline 'feedback'}}
+  <div class="HitchhikerMenuItemStandard-feedbackWrapper">
+    <div class="HitchhikerMenuItemStandard-feedback">
+    {{#if feedbackSubmitted}}
+      <div class="HitchhikerMenuItemStandard-feedbackText">
+        {{card.feedbackTextOnSubmission}}
+      </div>
+    {{else}}
+      <div class="HitchhikerMenuItemStandard-thumbsWrapper">
+        {{> thumbsfeedback }}
+      </div>
+    {{/if}}
+    </div>
+  </div>
 {{/inline}}

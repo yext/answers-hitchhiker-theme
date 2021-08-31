@@ -9,7 +9,10 @@
         {{> list }}
         {{> phone }}
       </div>
-      {{> ctas }}
+      <div class="HitchhikerProfessionalStandard-actions">
+        {{> ctas }}
+        {{> feedback }}
+      </div>
     </div>
   </div>
 </div>
@@ -149,4 +152,20 @@
   </a>
 </div>
 {{/if}}
+{{/inline}}
+
+{{#*inline 'feedback'}}
+  <div class="HitchhikerProfessionalStandard-feedbackWrapper">
+    <div class="HitchhikerProfessionalStandard-feedback">
+    {{#if feedbackSubmitted}}
+      <div class="HitchhikerProfessionalStandard-feedbackText">
+        {{card.feedbackTextOnSubmission}}
+      </div>
+    {{else}}
+      <div class="HitchhikerProfessionalStandard-thumbsWrapper">
+        {{> thumbsfeedback }}
+      </div>
+    {{/if}}
+    </div>
+  </div>
 {{/inline}}

@@ -19,24 +19,27 @@
       </div>
     {{/if}}
     {{> 'details'}}
-    {{#if (any (all card.CTA1 card.CTA1.url card.CTA1.label) (all card.CTA2 card.CTA2.url card.CTA2.label))}}
-      <div class="HitchhikerFaqAccordion-ctasWrapper">
-        {{#if card.CTA1.url}}
-        <div class="HitchhikerFaqAccordion-primaryCTA">
-          {{#with card.CTA1}}
-            {{> CTA }}
-          {{/with}}
+    <div class="HitchhikerFaqAccordion-actions">
+      {{#if (any (all card.CTA1 card.CTA1.url card.CTA1.label) (all card.CTA2 card.CTA2.url card.CTA2.label))}}
+        <div class="HitchhikerFaqAccordion-ctasWrapper">
+          {{#if card.CTA1.url}}
+          <div class="HitchhikerFaqAccordion-primaryCTA">
+            {{#with card.CTA1}}
+              {{> CTA }}
+            {{/with}}
+          </div>
+          {{/if}}
+          {{#if card.CTA2.url}}
+          <div class="HitchhikerFaqAccordion-secondaryCTA">
+            {{#with card.CTA2}}
+              {{> CTA }}
+            {{/with}}
+          </div>
+          {{/if}}
         </div>
-        {{/if}}
-        {{#if card.CTA2.url}}
-        <div class="HitchhikerFaqAccordion-secondaryCTA">
-          {{#with card.CTA2}}
-            {{> CTA }}
-          {{/with}}
-        </div>
-        {{/if}}
-      </div>
-    {{/if}}
+      {{/if}}
+      {{> feedback }}
+    </div>
   </div>
 </div>
 
@@ -95,4 +98,20 @@
     {{label}}
   </div>
 </a>
+{{/inline}}
+
+{{#*inline 'feedback'}}
+  <div class="HitchhikerFaqAccordion-feedbackWrapper">
+    <div class="HitchhikerFaqAccordion-feedback">
+    {{#if feedbackSubmitted}}
+      <div class="HitchhikerFaqAccordion-feedbackText">
+        {{card.feedbackTextOnSubmission}}
+      </div>
+    {{else}}
+      <div class="HitchhikerFaqAccordion-thumbsWrapper">
+        {{> thumbsfeedback }}
+      </div>
+    {{/if}}
+    </div>
+  </div>
 {{/inline}}

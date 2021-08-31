@@ -1,0 +1,29 @@
+<form class="HitchhikerCard-thumbs js-HitchhikerCard-feedbackForm">
+  <fieldset class="HitchhikerCard-fieldset">
+    <label class="HitchhikerCard-thumb">
+      <span class="HitchhikerCard-thumbUpIcon">
+        {{> icons/builtInIcon iconName='thumb' }}
+      </span>
+      <input type="radio"
+        name="feedback"
+        value="true"
+        class="HitchhikerCard-feedback HitchhikerCard-thumbUpButton js-HitchhikerCard-thumbInput">
+      <span class="sr-only">
+        {{positiveFeedbackSrText}}
+      </span>
+    </label>
+    <label class="HitchhikerCard-thumb">
+      <span class="HitchhikerCard-thumbDownIcon">
+        {{> icons/builtInIcon iconName='thumb' }}
+      </span>
+      <input type="radio"
+        name="feedback"
+        value="false"
+        class="HitchhikerCard-feedback HitchhikerCard-thumbDownButton js-HitchhikerCard-thumbInput">
+      <span class="sr-only">
+        {{negativeFeedbackSrText}}
+      </span>
+    </label>
+  </fieldset>
+  <button type="submit" class="sr-only sr-only-focusable">Send feedback</button>
+</form>

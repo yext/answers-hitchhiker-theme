@@ -19,7 +19,10 @@
         {{> list }}
         {{> phone }}
       </div>
-      {{> ctas }}
+      <div class="HitchhikerFinancialProfessionalLocation-actions">
+        {{> ctas }}
+        {{> feedback }}
+      </div>
     </div>
   </div>
 </div>
@@ -197,4 +200,20 @@
   </span>
   <span class="sr-only">Close Card</span>
 </button>
+{{/inline}}
+
+{{#*inline 'feedback'}}
+  <div class="HitchhikerFinancialProfessionalLocation-feedbackWrapper">
+    <div class="HitchhikerFinancialProfessionalLocation-feedback">
+    {{#if feedbackSubmitted}}
+      <div class="HitchhikerFinancialProfessionalLocation-feedbackText">
+        {{card.feedbackTextOnSubmission}}
+      </div>
+    {{else}}
+      <div class="HitchhikerFinancialProfessionalLocation-thumbsWrapper">
+        {{> thumbsfeedback }}
+      </div>
+    {{/if}}
+    </div>
+  </div>
 {{/inline}}

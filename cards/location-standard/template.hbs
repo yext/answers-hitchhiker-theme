@@ -24,7 +24,10 @@
         {{> contactInfo }}
         {{> details }}
       </div>
-      {{> ctas }}
+      <div class="HitchhikerLocationStandard-actions">
+        {{> ctas }}
+        {{> feedback }}
+      </div>
     </div>
   </div>
 </div>
@@ -208,4 +211,20 @@
   </span>
   <span class="sr-only">Close Card</span>
 </button>
+{{/inline}}
+
+{{#*inline 'feedback'}}
+  <div class="HitchhikerLocationStandard-feedbackWrapper">
+    <div class="HitchhikerLocationStandard-feedback">
+    {{#if feedbackSubmitted}}
+      <div class="HitchhikerLocationStandard-feedbackText">
+        {{card.feedbackTextOnSubmission}}
+      </div>
+    {{else}}
+      <div class="HitchhikerLocationStandard-thumbsWrapper">
+        {{> thumbsfeedback }}
+      </div>
+    {{/if}}
+    </div>
+  </div>
 {{/inline}}
