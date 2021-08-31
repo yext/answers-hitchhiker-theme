@@ -7,7 +7,7 @@
   {{> content }}
   <div class="HitchhikerProductProminentVideo-actions">
     {{> ctas }}
-    {{> feedback }}
+    {{> thumbsfeedback cardType="HitchhikerProductProminentVideo"}}
   </div>
 </div>
 
@@ -129,20 +129,4 @@
   </a>
 </div>
 {{/if}}
-{{/inline}}
-
-{{#*inline 'feedback'}}
-  <div class="HitchhikerProductProminentVideo-feedbackWrapper">
-    <div class="HitchhikerProductProminentVideo-feedback">
-    {{#if feedbackSubmitted}}
-      <div class="HitchhikerProductProminentVideo-feedbackText">
-        {{card.feedbackTextOnSubmission}}
-      </div>
-    {{else}}
-      <div class="HitchhikerProductProminentVideo-thumbsWrapper">
-        {{> thumbsfeedback }}
-      </div>
-    {{/if}}
-    </div>
-  </div>
 {{/inline}}

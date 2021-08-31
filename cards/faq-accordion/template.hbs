@@ -38,7 +38,7 @@
           {{/if}}
         </div>
       {{/if}}
-      {{> feedback }}
+      {{> thumbsfeedback cardType="HitchhikerFaqAccordion"}}
     </div>
   </div>
 </div>
@@ -98,20 +98,4 @@
     {{label}}
   </div>
 </a>
-{{/inline}}
-
-{{#*inline 'feedback'}}
-  <div class="HitchhikerFaqAccordion-feedbackWrapper">
-    <div class="HitchhikerFaqAccordion-feedback">
-    {{#if feedbackSubmitted}}
-      <div class="HitchhikerFaqAccordion-feedbackText">
-        {{card.feedbackTextOnSubmission}}
-      </div>
-    {{else}}
-      <div class="HitchhikerFaqAccordion-thumbsWrapper">
-        {{> thumbsfeedback }}
-      </div>
-    {{/if}}
-    </div>
-  </div>
 {{/inline}}

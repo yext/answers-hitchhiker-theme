@@ -21,7 +21,7 @@
       </div>
       <div class="HitchhikerProfessionalLocation-actions">
         {{> ctas }}
-        {{> feedback }}
+        {{> thumbsfeedback cardType="HitchhikerProfessionalLocation"}}
       </div>
     </div>
   </div>
@@ -197,20 +197,4 @@
   </span>
   <span class="sr-only">Close Card</span>
 </button>
-{{/inline}}
-
-{{#*inline 'feedback'}}
-  <div class="HitchhikerProfessionalLocation-feedbackWrapper">
-    <div class="HitchhikerProfessionalLocation-feedback">
-    {{#if feedbackSubmitted}}
-      <div class="HitchhikerProfessionalLocation-feedbackText">
-        {{card.feedbackTextOnSubmission}}
-      </div>
-    {{else}}
-      <div class="HitchhikerProfessionalLocation-thumbsWrapper">
-        {{> thumbsfeedback }}
-      </div>
-    {{/if}}
-    </div>
-  </div>
 {{/inline}}

@@ -9,7 +9,7 @@
       </div>
       <div class="HitchhikerJobStandard-actions">
         {{> ctas }}
-        {{> feedback }}
+        {{> thumbsfeedback cardType="HitchhikerJobStandard"}}
       </div>
     </div>
   </div>
@@ -115,20 +115,4 @@
   </a>
 </div>
 {{/if}}
-{{/inline}}
-
-{{#*inline 'feedback'}}
-  <div class="HitchhikerJobStandard-feedbackWrapper">
-    <div class="HitchhikerJobStandard-feedback">
-    {{#if feedbackSubmitted}}
-      <div class="HitchhikerJobStandard-feedbackText">
-        {{card.feedbackTextOnSubmission}}
-      </div>
-    {{else}}
-      <div class="HitchhikerJobStandard-thumbsWrapper">
-        {{> thumbsfeedback }}
-      </div>
-    {{/if}}
-    </div>
-  </div>
 {{/inline}}

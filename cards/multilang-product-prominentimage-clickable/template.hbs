@@ -14,7 +14,7 @@
       <div class="HitchhikerProductProminentImage-contentWrapper">
         {{> details }}
         <div class="HitchhikerProductProminentImage-actions">
-          {{> feedback }}
+          {{> thumbsfeedback cardType="HitchhikerProductProminentImage"}}
         </div>
       </div>
     </div>
@@ -65,20 +65,4 @@
   </div>
 </div>
 {{/if}}
-{{/inline}}
-
-{{#*inline 'feedback'}}
-  <div class="HitchhikerProductProminentImage-feedbackWrapper">
-    <div class="HitchhikerProductProminentImage-feedback">
-    {{#if feedbackSubmitted}}
-      <div class="HitchhikerProductProminentImage-feedbackText">
-        {{card.feedbackTextOnSubmission}}
-      </div>
-    {{else}}
-      <div class="HitchhikerProductProminentImage-thumbsWrapper">
-        {{> thumbsfeedback }}
-      </div>
-    {{/if}}
-    </div>
-  </div>
 {{/inline}}

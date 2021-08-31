@@ -19,7 +19,7 @@
           {{/with}}
         </div>
         {{/if}}
-        {{> feedback }}
+        {{> thumbsfeedback cardType="HitchhikerMenuItemStandard"}}
       </div>
     </div>
   </div>
@@ -135,20 +135,4 @@
   </a>
 </div>
 {{/if}}
-{{/inline}}
-
-{{#*inline 'feedback'}}
-  <div class="HitchhikerMenuItemStandard-feedbackWrapper">
-    <div class="HitchhikerMenuItemStandard-feedback">
-    {{#if feedbackSubmitted}}
-      <div class="HitchhikerMenuItemStandard-feedbackText">
-        {{card.feedbackTextOnSubmission}}
-      </div>
-    {{else}}
-      <div class="HitchhikerMenuItemStandard-thumbsWrapper">
-        {{> thumbsfeedback }}
-      </div>
-    {{/if}}
-    </div>
-  </div>
 {{/inline}}
