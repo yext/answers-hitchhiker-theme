@@ -9,7 +9,9 @@
       </div>
       <div class="HitchhikerDocumentStandard-actions">
         {{> ctas }}
-        {{> thumbsfeedback cardType="HitchhikerDocumentStandard"}}
+        {{#if card.feedback}}
+          {{> thumbsfeedback card cardType="HitchhikerDocumentStandard"}}
+        {{/if}}
       </div>
     </div>
   </div>

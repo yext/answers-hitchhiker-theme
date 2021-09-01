@@ -1,11 +1,15 @@
-{{#if card.feedback}}
-  <div class="{{cardType}}-feedbackWrapper">
-    <div class="{{cardType}}-feedback">
+<div class="{{cardType}}-feedbackWrapper">
+  <div class="{{cardType}}-feedback">
     {{#if feedbackSubmitted}}
       <div class="{{cardType}}-feedbackText">
-        {{card.feedbackTextOnSubmission}}
+        {{feedbackTextOnSubmission}}
       </div>
     {{else}}
+      {{#if footerText}}
+        <div class="{{cardType}}-feedbackText">
+          {{footerText}}
+        </div>
+      {{/if}}
       <div class="{{cardType}}-thumbsWrapper">
         <form class="HitchhikerCard-thumbs js-HitchhikerCard-feedbackForm">
           <fieldset class="HitchhikerCard-fieldset">
@@ -18,7 +22,7 @@
                 value="true"
                 class="HitchhikerCard-feedback HitchhikerCard-thumbUpButton js-HitchhikerCard-thumbInput">
               <span class="sr-only">
-                {{card.positiveFeedbackSrText}}
+                {{positiveFeedbackSrText}}
               </span>
             </label>
             <label class="HitchhikerCard-thumb">
@@ -30,7 +34,7 @@
                 value="false"
                 class="HitchhikerCard-feedback HitchhikerCard-thumbDownButton js-HitchhikerCard-thumbInput">
               <span class="sr-only">
-                {{card.negativeFeedbackSrText}}
+                {{negativeFeedbackSrText}}
               </span>
             </label>
           </fieldset>
@@ -38,6 +42,5 @@
         </form>
       </div>
     {{/if}}
-    </div>
   </div>
-{{/if}}
+</div>

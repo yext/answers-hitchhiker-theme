@@ -51,7 +51,7 @@ class multilang_standardCardComponent extends BaseCard['multilang-standard'] {
         // ariaLabel: '',
       },
       feedback: false, // Shows thumbs up/down buttons to provide feedback on the result card
-      feedbackTextOnSubmission: {{ translateJS phrase='Thanks for the feedback!' }}, // Text to display after a thumbs up/down is clicked
+      feedbackTextOnSubmission: {{ translateJS phrase='Thank you for your feedback!' }}, // Text to display after a thumbs up/down is clicked
       positiveFeedbackSrText: {{ translateJS phrase='This answered my question' }}, // Screen reader only text for thumbs-up
       negativeFeedbackSrText: {{ translateJS phrase='This did not answer my question' }} // Screen reader only text for thumbs-down
     };

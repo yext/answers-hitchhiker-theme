@@ -51,7 +51,9 @@
           {{/if}}
         </div>
         {{/if}}
-        {{> thumbsfeedback cardType="HitchhikerEventStandard"}}
+        {{#if card.feedback}}
+          {{> thumbsfeedback card cardType="HitchhikerEventStandard"}}
+        {{/if}}
       </div>
     </div>
   </div>

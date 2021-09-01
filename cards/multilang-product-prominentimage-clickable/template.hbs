@@ -14,7 +14,9 @@
       <div class="HitchhikerProductProminentImage-contentWrapper">
         {{> details }}
         <div class="HitchhikerProductProminentImage-actions">
-          {{> thumbsfeedback cardType="HitchhikerProductProminentImage"}}
+          {{#if card.feedback}}
+            {{> thumbsfeedback card cardType="HitchhikerProductProminentImage"}}
+          {{/if}}
         </div>
       </div>
     </div>

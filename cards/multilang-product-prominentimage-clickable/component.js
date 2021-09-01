@@ -41,7 +41,7 @@ class multilang_product_prominentimage_clickableCardComponent
       details: profile.richTextDescription ? ANSWERS.formatRichText(profile.richTextDescription, 'richTextDescription', linkTarget) : null, // The text in the body of the card, Warning: cannot contain links
       // tag: profile.stockStatus ? profile.stockStatus : '', // The tag text for the card
       feedback: false, // Shows thumbs up/down buttons to provide feedback on the result card
-      feedbackTextOnSubmission: {{ translateJS phrase='Thanks for the feedback!' }}, // Text to display after a thumbs up/down is clicked
+      feedbackTextOnSubmission: {{ translateJS phrase='Thank you for your feedback!' }}, // Text to display after a thumbs up/down is clicked
       positiveFeedbackSrText: {{ translateJS phrase='This answered my question' }}, // Screen reader only text for thumbs-up
       negativeFeedbackSrText: {{ translateJS phrase='This did not answer my question' }} // Screen reader only text for thumbs-down
     };

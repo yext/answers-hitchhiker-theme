@@ -21,7 +21,9 @@
       </div>
       <div class="HitchhikerFinancialProfessionalLocation-actions">
         {{> ctas }}
-        {{> thumbsfeedback cardType="HitchhikerFinancialProfessionalLocation"}}
+        {{#if card.feedback}}
+          {{> thumbsfeedback card cardType="HitchhikerFinancialProfessionalLocation"}}
+        {{/if}}
       </div>
     </div>
   </div>

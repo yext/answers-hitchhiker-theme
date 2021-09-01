@@ -6,7 +6,9 @@
   {{> video }}
   {{> content }}
   <div class="HitchhikerProductProminentVideo-actions">
-    {{> thumbsfeedback cardType="HitchhikerProductProminentVideo"}}
+    {{#if card.feedback}}
+      {{> thumbsfeedback card cardType="HitchhikerProductProminentVideo"}}
+    {{/if}}
   </div>
 </div>
 

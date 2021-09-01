@@ -19,7 +19,9 @@
             {{/with}}
           </div>
         {{/if}}
-        {{> thumbsfeedback cardType="HitchhikerMenuItemStandard"}}
+        {{#if card.feedback}}
+          {{> thumbsfeedback card cardType="HitchhikerMenuItemStandard"}}
+        {{/if}}
       </div>
     </div>
   </div>

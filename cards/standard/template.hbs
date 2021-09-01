@@ -9,7 +9,9 @@
       </div>
       <div class="HitchhikerStandard-actions">
         {{> ctas }}
-        {{> thumbsfeedback cardType="HitchhikerStandard"}}
+        {{#if card.feedback}}
+          {{> thumbsfeedback card cardType="HitchhikerStandard"}}
+        {{/if}}
       </div>
     </div>
   </div>
@@ -118,21 +120,3 @@
 </div>
 {{/if}}
 {{/inline}}
-
-{{!-- {{#*inline 'feedback'}}
-  {{#if card.feedback}}
-    <div class="HitchhikerStandard-feedbackWrapper">
-      <div class="HitchhikerStandard-feedback">
-      {{#if feedbackSubmitted}}
-        <div class="HitchhikerStandard-feedbackText">
-          {{card.feedbackTextOnSubmission}}
-        </div>
-      {{else}}
-        <div class="HitchhikerStandard-thumbsWrapper">
-          {{> thumbsfeedback }}
-        </div>
-      {{/if}}
-      </div>
-    </div>
-  {{/if}}
-{{/inline}} --}}

@@ -7,7 +7,9 @@
       {{> details }}
       <div class="HitchhikerProductProminentImage-actions">
         {{> ctas }}
-        {{> thumbsfeedback cardType="HitchhikerProductProminentImage"}}
+        {{#if card.feedback}}
+          {{> thumbsfeedback card cardType="HitchhikerProductProminentImage"}}
+        {{/if}}
       </div>
     </div>
   </div>
