@@ -19,7 +19,12 @@
         {{> list }}
         {{> phone }}
       </div>
-      {{> ctas }}
+      <div class="HitchhikerProfessionalLocation-actions">
+        {{> ctas }}
+        {{#if card.feedback}}
+          {{> thumbsfeedback card cardType="HitchhikerProfessionalLocation"}}
+        {{/if}}
+      </div>
     </div>
   </div>
 </div>

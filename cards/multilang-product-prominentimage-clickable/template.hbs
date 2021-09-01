@@ -13,6 +13,11 @@
       {{> subtitle }}
       <div class="HitchhikerProductProminentImage-contentWrapper">
         {{> details }}
+        <div class="HitchhikerProductProminentImage-actions">
+          {{#if card.feedback}}
+            {{> thumbsfeedback card cardType="HitchhikerProductProminentImage"}}
+          {{/if}}
+        </div>
       </div>
     </div>
   {{#if card.url}}</a>{{/if}}

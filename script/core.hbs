@@ -84,6 +84,11 @@
           return ANSWERS.renderer.SafeString({{{stringifyPartial (read 'static/assets/images/close-card') }}});
         });
 
+        ANSWERS.registerPartial(
+          'thumbsfeedback',
+          {{{stringifyPartial (read 'cards/common-partials/thumbsfeedback') }}}
+        );
+
         /**
         * If the url is not relative, return it. If it is relative,
         * append relativePath to it.

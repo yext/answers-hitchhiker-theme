@@ -4,6 +4,11 @@
     {{> subtitle }}
     <div class="HitchhikerLinkStandard-contentWrapper">
       {{> details }}
+      <div class="HitchhikerLinkStandard-actions">
+        {{#if card.feedback}}
+          {{> thumbsfeedback card cardType="HitchhikerLinkStandard"}}
+        {{/if}}
+      </div>
     </div>
   </div>
 </div>

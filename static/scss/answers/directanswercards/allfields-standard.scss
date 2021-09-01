@@ -97,12 +97,12 @@
 
   }
 
-  &-footerWrapper
+  &-feedbackWrapper
   {
     background-color: var(--yxt-direct-answer-footer-background-color);
   }
 
-  &-footer
+  &-feedback
   {
     display: flex;
     justify-content: flex-end;
@@ -113,7 +113,7 @@
     padding-bottom: 8px;
   }
 
-  &-footerText
+  &-feedbackText
   {
     display: inline;
     margin-right: 8px;
@@ -125,44 +125,9 @@
     );
   }
 
-  &-thumbs
+  &-thumbsWrapper
   {
     display: flex;
-    margin: 0;
-  }
-
-  &-thumbUpIcon
-  {
-    transform: rotate(180deg);
-  }
-
-  &-thumbUpIcon,
-  &-thumbDownIcon
-  {
-    display: inline-flex;
-    color: var(--yxt-color-text-secondary);
-  }
-
-  &-thumb
-  {
-    display: inline;
-    flex-shrink: 0;
-    cursor: pointer;
-    font-size: 18px;
-
-    & + &
-    {
-      margin-left: 8px;
-    }
-  }
-
-  &-fieldset
-  {
-    display: inline;
-    margin-inline-start: 2px;
-    margin-inline-end: 2px;
-    line-height: 0;
-    min-inline-size: min-content;
   }
 
   &-fieldValueLink
@@ -196,15 +161,6 @@
   {
     list-style-type: disc;
     list-style-position: inside;
-  }
-
-  &-feedback
-  {
-    @include Text(
-      $color: var(--yxt-color-text-neutral),
-    );
-    background-color: var(--yxt-color-background-highlight);
-    display: none;
   }
 
   &-viewMore

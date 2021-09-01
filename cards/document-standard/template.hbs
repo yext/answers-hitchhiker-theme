@@ -7,7 +7,12 @@
       <div class="HitchhikerDocumentStandard-info">
         {{> details }}
       </div>
-      {{> ctas }}
+      <div class="HitchhikerDocumentStandard-actions">
+        {{> ctas }}
+        {{#if card.feedback}}
+          {{> thumbsfeedback card cardType="HitchhikerDocumentStandard"}}
+        {{/if}}
+      </div>
     </div>
   </div>
 </div>

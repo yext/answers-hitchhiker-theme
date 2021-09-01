@@ -17,14 +17,66 @@
   @include sr-only-focusable();
 }
 
-.HitchhikerCard-detailsToggle
+.HitchhikerCard
 {
-    text-align: left;
-    margin-top: calc(var(--yxt-base-spacing) / 4);
+  &-detailsToggle
+  {
+      text-align: left;
+      margin-top: calc(var(--yxt-base-spacing) / 4);
 
+      @include Text(
+          $color: var(--yxt-color-brand-primary),
+          $line-height: var(--yxt-line-height-md),
+          $style: italic);
+      @include TextButton($padding: 0);
+  }
+
+  &-thumbs
+  {
+    display: flex;
+    margin: 0;
+  }
+
+  &-thumbUpIcon
+  {
+    transform: rotate(180deg);
+  }
+
+  &-thumbUpIcon,
+  &-thumbDownIcon
+  {
+    display: inline-flex;
+    color: var(--yxt-color-text-secondary);
+  }
+
+  &-thumb
+  {
+    display: inline;
+    flex-shrink: 0;
+    cursor: pointer;
+    font-size: 18px;
+
+    & + &
+    {
+      margin-left: 8px;
+    }
+  }
+
+  &-fieldset
+  {
+    display: inline;
+    margin-inline-start: 2px;
+    margin-inline-end: 2px;
+    line-height: 0;
+    min-inline-size: min-content;
+  }
+
+  &-feedback
+  {
     @include Text(
-        $color: var(--yxt-color-brand-primary),
-        $line-height: var(--yxt-line-height-md),
-        $style: italic);
-    @include TextButton($padding: 0);
+      $color: var(--yxt-color-text-neutral),
+    );
+    background-color: var(--yxt-color-background-highlight);
+    display: none;
+  }
 }

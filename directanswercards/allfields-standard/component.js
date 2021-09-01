@@ -187,8 +187,8 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
       //   eventType: 'CTA_CLICK', // Type of Analytics event fired when clicking the CTA
       //   eventOptions: this.addDefaultEventOptions() // The event options for CTA click analytics
       // },
-      footerTextOnSubmission: 'Thank you for your feedback!', // Text to display in the footer when a thumbs up/down is clicked
-      footerText: 'Was this the answer you were looking for?', // Text to display in the footer
+      feedbackTextOnSubmission: 'Thank you for your feedback!', // Text to display in the footer when a thumbs up/down is clicked
+      feedbackText: 'Was this the answer you were looking for?', // Text to display in the footer
       positiveFeedbackSrText: 'This answered my question', // Screen reader only text for thumbs-up
       negativeFeedbackSrText: 'This did not answer my question', // Screen reader only text for thumbs-down
       isRichText: isRichText, // If the direct answer is sourced from a rich-text field

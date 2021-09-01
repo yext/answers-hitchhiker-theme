@@ -5,7 +5,12 @@
     {{> subtitle }}
     <div class="HitchhikerProductProminentImage-contentWrapper">
       {{> details }}
-      {{> ctas }}
+      <div class="HitchhikerProductProminentImage-actions">
+        {{> ctas }}
+        {{#if card.feedback}}
+          {{> thumbsfeedback card cardType="HitchhikerProductProminentImage"}}
+        {{/if}}
+      </div>
     </div>
   </div>
 </div>
