@@ -9,11 +9,6 @@ BaseCard["{{componentName}}"] = class extends ANSWERS.Component {
 
     this.verticalKey = data.verticalKey;
     this.result = data.result || {};
-
-    this.globalOptions = this.analyticsReporter && this.analyticsReporter._globalOptions;
-    this.experienceKey = this.globalOptions && this.globalOptions.experienceKey;
-    this.experienceVersion = this.globalOptions && this.globalOptions.experienceVersion;
-    this.queryId = this.globalOptions && this.globalOptions.queryId;
   }
 
   /**
@@ -32,15 +27,25 @@ BaseCard["{{componentName}}"] = class extends ANSWERS.Component {
       );
     }
 
-    let feedbackFormSelector = '.js-HitchhikerCard-feedbackForm';
+    this.addFeedbackListeners();
+    
+    const rtfElement = this._container.querySelector('.js-yxt-rtfValue');
+    if (rtfElement) {
+      const fieldName = rtfElement.dataset.fieldName;
+      rtfElement.addEventListener('click', e => this._handleRtfClickAnalytics(e, fieldName));
+    }
+  }
+
+  addFeedbackListeners() {
+    const feedbackFormSelector = '.js-HitchhikerCard-feedbackForm';
     let feedbackFormEl = this._container.querySelector(feedbackFormSelector);
     if (feedbackFormEl) {
       // For WCAG compliance, the feedback should be a submittable form
       feedbackFormEl.addEventListener('submit', (e) => {
-        let formTargetEl = e.target;
-        let checkedValue = formTargetEl.querySelector('input:checked').value === 'true';
+        const formTargetEl = e.target;
+        const isGood = formTargetEl.querySelector('input:checked').value === 'true';
 
-        this.reportQuality(checkedValue);
+        this.reportQuality(isGood);
         this.updateState({
           feedbackSubmitted: true
         });
@@ -54,16 +59,10 @@ BaseCard["{{componentName}}"] = class extends ANSWERS.Component {
             if (input) {
               input.checked = true;
             }
-            this._triggerCustomEvent(feedbackFormSelector, 'submit');
+            HitchhikerJS.DOM.triggerCustomEvent(this._container, feedbackFormSelector, 'submit');
           });
         });
       }
-    }
-    
-    const rtfElement = this._container.querySelector('.js-yxt-rtfValue');
-    if (rtfElement) {
-      const fieldName = rtfElement.dataset.fieldName;
-      rtfElement.addEventListener('click', e => this._handleRtfClickAnalytics(e, fieldName));
     }
   }
 
@@ -81,7 +80,7 @@ BaseCard["{{componentName}}"] = class extends ANSWERS.Component {
       cardData.titleEventOptions = updatedEventOptions;
     }
     
-    let { details, showMoreDetails } = cardData;
+    const { details, showMoreDetails } = cardData;
 
     const cardDetails = details || '';
     const cardShowMoreConfig = showMoreDetails || {};
@@ -91,7 +90,7 @@ BaseCard["{{componentName}}"] = class extends ANSWERS.Component {
     // The card's details must extend past this limit as well for the toggling to be enabled.
     const showExcessDetailsToggle = showMoreLimit && cardDetails.length > showMoreLimit;
 
-    let truncatedDetails = showExcessDetailsToggle
+    const truncatedDetails = showExcessDetailsToggle
       ? `${cardDetails.substring(0, showMoreLimit)}...`
       : '';
     
@@ -114,34 +113,6 @@ BaseCard["{{componentName}}"] = class extends ANSWERS.Component {
   }
 
   /**
-   * Triggers the event passed in dispatched from the given selector
-   * @param {string} selector selector to dispatch event from
-   * @param {string} event event to fire
-   * @param {Object} settings additional settings
-   */
-   _triggerCustomEvent(selector, event, settings) {
-    let e = this._customEvent(event, settings);
-    this._container.querySelector(selector).dispatchEvent(e);
-  }
-
-  /**
-   * _customEvent is an event constructor polyfill
-   * @param {string} event event to fire
-   * @param {Object} settings additional settings
-   */
-  _customEvent(event, settings) {
-    const _settings = {
-      bubbles: true,
-      cancelable: true,
-      detail: null,
-      ...settings
-    };
-    const evt = document.createEvent('CustomEvent');
-    evt.initCustomEvent(event, _settings.bubbles, _settings.cancelable, _settings.detail);
-    return evt;
-  }
-
-  /**
    * reportQuality will send the quality feedback to analytics
    * @param {boolean} isGood true if the answer is what you were looking for
    */
@@ -160,9 +131,6 @@ BaseCard["{{componentName}}"] = class extends ANSWERS.Component {
     const event = new ANSWERS.AnalyticsEvent(eventType)
       .addOptions({
         directAnswer: false,
-        experienceKey: this.experienceKey,
-        experienceVersion: this.experienceVersion,
-        queryId: this.queryId,
         verticalKey: this.verticalKey,
         searcher: this._config.isUniversal ? 'UNIVERSAL' : 'VERTICAL',
         entityId: this.result.id
