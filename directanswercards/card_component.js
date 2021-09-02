@@ -12,6 +12,10 @@ BaseDirectAnswerCard["{{componentName}}"] = class extends ANSWERS.Component {
     this.relatedItem = data.relatedItem || {};
     this.associatedEntityId = data.relatedItem && data.relatedItem.data && data.relatedItem.data.id;
     this.verticalConfigId = data.relatedItem && data.relatedItem.verticalConfigId;
+    this.globalOptions = this.analyticsReporter && this.analyticsReporter._globalOptions;
+    this.experienceKey = this.globalOptions && this.globalOptions.experienceKey;
+    this.experienceVersion = this.globalOptions && this.globalOptions.experienceVersion;
+    this.queryId = this.globalOptions && this.globalOptions.queryId;
   }
 
   /**
@@ -40,7 +44,7 @@ BaseDirectAnswerCard["{{componentName}}"] = class extends ANSWERS.Component {
   }
 
   onMount() {
-    let feedbackFormSelector = '.js-HitchhikerDirectAnswerCard-feedbackForm';
+    let feedbackFormSelector = '.js-HitchhikerCard-feedbackForm';
     let feedbackFormEl = this._container.querySelector(feedbackFormSelector);
     if (feedbackFormEl) {
       // For WCAG compliance, the feedback should be a submittable form
@@ -50,11 +54,11 @@ BaseDirectAnswerCard["{{componentName}}"] = class extends ANSWERS.Component {
 
         this.reportQuality(checkedValue);
         this.updateState({
-          'feedbackSubmitted': true
+          feedbackSubmitted: true
         });
       });
 
-      let thumbSelectorEls = this._container.querySelectorAll('.js-HitchhikerDirectAnswerCard-thumbInput');
+      let thumbSelectorEls = this._container.querySelectorAll('.js-HitchhikerCard-thumbInput');
       if (thumbSelectorEls) {
         thumbSelectorEls.forEach(el => {
           el.addEventListener('click', (e) => {
@@ -118,7 +122,13 @@ BaseDirectAnswerCard["{{componentName}}"] = class extends ANSWERS.Component {
     const eventType = isGood === true ? EventTypes.THUMBS_UP : EventTypes.THUMBS_DOWN;
     const event = new ANSWERS.AnalyticsEvent(eventType)
       .addOptions({
-        'directAnswer': true
+        directAnswer: true,
+        experienceKey: this.experienceKey,
+        experienceVersion: this.experienceVersion,
+        queryId: this.queryId,
+        verticalKey: this.verticalConfigId,
+        searcher: 'UNIVERSAL',
+        entityId: this.associatedEntityId
       });
 
     this.analyticsReporter.report(event);
