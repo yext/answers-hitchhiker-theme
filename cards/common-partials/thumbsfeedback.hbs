@@ -1,5 +1,5 @@
 <div class="{{cardType}}-feedbackWrapper">
-  <div class="{{cardType}}-feedback">
+  <div class="{{cardType}}-feedbackContent">
     {{#if feedbackSubmitted}}
       <div class="{{cardType}}-feedbackText">
         {{feedbackTextOnSubmission}}
@@ -11,7 +11,13 @@
         </div>
       {{/if}}
       <div class="{{cardType}}-thumbsWrapper">
-        <form class="HitchhikerCard-thumbs js-HitchhikerCard-feedbackForm">
+        <form
+          {{#if directAnswer}}
+            class="HitchhikerCard-thumbs js-HitchhikerDirectAnswerCard-feedbackForm"
+          {{else}}
+            class="HitchhikerCard-thumbs js-HitchhikerCard-feedbackForm"
+          {{/if}}
+        >
           <fieldset class="HitchhikerCard-fieldset">
             <label class="HitchhikerCard-thumb">
               <span class="HitchhikerCard-thumbUpIcon">
@@ -20,7 +26,12 @@
               <input type="radio"
                 name="feedback"
                 value="true"
-                class="HitchhikerCard-feedback HitchhikerCard-thumbUpButton js-HitchhikerCard-thumbInput">
+                {{#if directAnswer}}
+                  class="HitchhikerCard-feedback HitchhikerCard-thumbUpButton js-HitchhikerDirectAnswerCard-thumbInput"
+                {{else}}
+                  class="HitchhikerCard-feedback HitchhikerCard-thumbUpButton js-HitchhikerCard-thumbInput"
+                {{/if}}
+              >
               <span class="sr-only">
                 {{positiveFeedbackSrText}}
               </span>
@@ -32,7 +43,12 @@
               <input type="radio"
                 name="feedback"
                 value="false"
-                class="HitchhikerCard-feedback HitchhikerCard-thumbDownButton js-HitchhikerCard-thumbInput">
+                {{#if directAnswer}}
+                  class="HitchhikerCard-feedback HitchhikerCard-thumbDownButton js-HitchhikerDirectAnswerCard-thumbInput"
+                {{else}}
+                  class="HitchhikerCard-feedback HitchhikerCard-thumbDownButton js-HitchhikerCard-thumbInput"
+                {{/if}}
+              >
               <span class="sr-only">
                 {{negativeFeedbackSrText}}
               </span>
