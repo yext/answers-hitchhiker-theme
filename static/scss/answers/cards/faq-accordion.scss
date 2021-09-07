@@ -64,6 +64,11 @@
     transform: rotate(-90deg);
   }
 
+  &--stayExpanded &-icon svg
+  {
+    transition: none;
+  }
+
   &-content
   {
     height: 0;
@@ -74,6 +79,11 @@
   &--expanded &-content
   {
     height: auto;
+  }
+
+  &--stayExpanded &-content
+  {
+    transition: none;
   }
 
   &-subtitle
@@ -141,5 +151,38 @@
   .js-hidden
   {
     display: none;
+  }
+
+  &-actions
+  {
+    display: flex;
+  }
+
+  &-feedbackWrapper
+  {
+    display: flex;
+    flex-grow: 1;
+    background-color: var(--yxt-color-background-highlight);
+    margin: calc(var(--yxt-base-spacing) / 2) var(--yxt-base-spacing);
+    padding-bottom: calc(var(--yxt-base-spacing) / 2);
+  }
+
+  &-feedbackContent
+  {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex-grow: 1;
+  }
+
+  &-feedbackText
+  {
+    display: inline;
+    @include Text(
+      $size: var(--yxt-font-size-md),
+      $line-height: var(--yxt-line-height-md),
+      $weight: var(--yxt-font-weight-normal),
+      $color: var(--yxt-color-text-secondary)
+    );
   }
 }

@@ -31,6 +31,52 @@
       @include TextButton($padding: 0);
   }
 
+  &-actions
+  {
+    display: flex;
+
+    @include bpgte(sm)
+    {
+      flex-direction: column;
+    }
+  }
+
+  &-feedbackWrapper
+  {
+    display: flex;
+    flex-grow: 1;
+    background-color: var(--yxt-color-background-highlight);
+    min-width: 55px;
+    @include bpgte(sm)
+    {
+      margin-left: calc(var(--yxt-base-spacing) / 2);
+    }
+  }
+
+  &-feedbackContent
+  {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex-grow: 1;
+    @include bpgte(sm)
+    {
+      margin-top: calc(var(--yxt-base-spacing) / 2);
+    }
+  }
+
+  &-feedbackText
+  {
+    display: inline;
+    @include Text(
+      $size: var(--yxt-font-size-md),
+      $line-height: var(--yxt-line-height-md),
+      $weight: var(--yxt-font-weight-normal),
+      $color: var(--yxt-color-text-secondary)
+    );
+    text-align: right;
+  }
+
   &-thumbs
   {
     display: flex;

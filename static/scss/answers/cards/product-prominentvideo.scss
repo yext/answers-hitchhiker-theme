@@ -84,4 +84,36 @@
   {
     display: none;
   }
+
+  &-actions
+  {
+    display: flex;
+  }
+
+  &-feedbackWrapper
+  {
+    display: flex;
+    flex-grow: 1;
+    background-color: var(--yxt-color-background-highlight);
+  }
+
+  &-feedbackContent
+  {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex-grow: 1;
+    padding-top: calc(var(--yxt-base-spacing) / 2);
+  }
+
+  &-feedbackText
+  {
+    display: inline;
+    @include Text(
+      $size: var(--yxt-font-size-md),
+      $line-height: var(--yxt-line-height-md),
+      $weight: var(--yxt-font-weight-normal),
+      $color: var(--yxt-color-text-secondary)
+    );
+  }
 }

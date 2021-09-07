@@ -19,10 +19,10 @@
         {{> list }}
         {{> phone }}
       </div>
-      <div class="HitchhikerProfessionalLocation-actions">
+      <div class="HitchhikerCard-actions">
         {{> ctas }}
         {{#if card.feedback}}
-          {{> thumbsfeedback card cardType="HitchhikerProfessionalLocation" feedbackSubmitted=feedbackSubmitted}}
+          {{> thumbsfeedback card cardType="HitchhikerCard" feedbackSubmitted=feedbackSubmitted}}
         {{/if}}
       </div>
     </div>
@@ -157,6 +157,7 @@
 {{/inline}}
 
 {{#*inline 'ctas'}}
+{{!-- skdf,zksjdbvv vzxjvzlxcjk vlxj cx --}}
 {{#if (any (all card.CTA1 card.CTA1.url) (all card.CTA2 card.CTA2.url))}}
 <div class="HitchhikerProfessionalLocation-ctasWrapper HitchhikerLocationCard-ctasWrapper">
   {{> CTA card.CTA1 ctaName="primaryCTA" }}

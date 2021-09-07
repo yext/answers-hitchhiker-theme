@@ -60,6 +60,7 @@ class faq_accordionCardComponent extends BaseCard['faq-accordion'] {
     const accordionContentSelector = '.js-HitchhikerFaqAccordion-content';
     const accordionExpandedClass = 'HitchhikerFaqAccordion--expanded';
     const accordionCardSelector = '.js-HitchhikerFaqAccordion';
+    const stayExpandedClass = 'HitchhikerFaqAccordion--stayExpanded';
 
     const accordionToggleEl = self._container.querySelector(accordionToggleSelector);
     if (!accordionToggleEl) {
@@ -68,11 +69,28 @@ class faq_accordionCardComponent extends BaseCard['faq-accordion'] {
 
     const contentEl = this._container.querySelector(accordionContentSelector);
     let isExpanded = this._container.querySelector(`.${accordionExpandedClass}`);
-    contentEl.style.height = `${isExpanded ? contentEl.scrollHeight : 0}px`;
-    const linkEls = contentEl.querySelectorAll('a');
-    this._setLinksInteractivity(linkEls, isExpanded);
+    let stayExpanded = this._container.querySelector(`.${stayExpandedClass}`);
 
     const cardEl = this._container.querySelector(accordionCardSelector);
+    const linkEls = contentEl.querySelectorAll('a');
+
+    if (stayExpanded && this._state._state.feedbackSubmitted) {
+      isExpanded = true;
+      cardEl.classList.toggle(accordionExpandedClass, isExpanded);
+      accordionToggleEl.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+    }
+    cardEl.classList.toggle(stayExpandedClass, false);
+    contentEl.style.height = `${isExpanded ? contentEl.scrollHeight : 0}px`;
+    this._setLinksInteractivity(linkEls, isExpanded);
+
+    let thumbSelectorEls = this._container.querySelectorAll('.js-HitchhikerCard-thumbInput');
+    if (thumbSelectorEls) {
+      thumbSelectorEls.forEach(el => {
+        el.addEventListener('click', (e) => {
+          cardEl.classList.toggle(stayExpandedClass, true);
+        });
+      });
+    }
 
     accordionToggleEl.addEventListener('click', function() {
       isExpanded = !isExpanded;
