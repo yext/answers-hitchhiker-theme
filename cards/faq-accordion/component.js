@@ -74,7 +74,7 @@ class faq_accordionCardComponent extends BaseCard['faq-accordion'] {
     const cardEl = this._container.querySelector(accordionCardSelector);
     const linkEls = contentEl.querySelectorAll('a');
 
-    if (stayExpanded && this._state._state.feedbackSubmitted) {
+    if (stayExpanded && this.getState('feedbackSubmitted')) {
       isExpanded = true;
       cardEl.classList.toggle(accordionExpandedClass, isExpanded);
       accordionToggleEl.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');

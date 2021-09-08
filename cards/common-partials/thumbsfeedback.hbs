@@ -1,23 +1,24 @@
-<div class="{{cardType}}-feedbackWrapper">
-  <div class="{{cardType}}-feedbackContent">
+{{#if directAnswerClass}}
+  {{assign 'className' directAnswerClass}}
+  {{assign 'cardType' 'HitchhikerDirectAnswerCard'}}
+{{else}}
+  {{assign 'className' 'HitchhikerCard'}}
+  {{assign 'cardType' 'HitchhikerCard'}}
+{{/if}}
+<div class="{{@root.className}}-feedbackWrapper">
+  <div class="{{@root.className}}-feedbackContent">
     {{#if feedbackSubmitted}}
-      <div class="{{cardType}}-feedbackText">
+      <div class="{{@root.className}}-feedbackText">
         {{feedbackTextOnSubmission}}
       </div>
     {{else}}
       {{#if feedbackText}}
-        <div class="{{cardType}}-feedbackText">
+        <div class="{{@root.className}}-feedbackText">
           {{feedbackText}}
         </div>
       {{/if}}
-      <div class="{{cardType}}-thumbsWrapper">
-        <form
-          {{#if directAnswer}}
-            class="HitchhikerCard-thumbs js-HitchhikerDirectAnswerCard-feedbackForm"
-          {{else}}
-            class="HitchhikerCard-thumbs js-HitchhikerCard-feedbackForm"
-          {{/if}}
-        >
+      <div class="{{@root.className}}-thumbsWrapper">
+        <form class="HitchhikerCard-thumbs js-{{@root.cardType}}-feedbackForm">
           <fieldset class="HitchhikerCard-fieldset">
             <label class="HitchhikerCard-thumb">
               <span class="HitchhikerCard-thumbUpIcon">
@@ -26,12 +27,7 @@
               <input type="radio"
                 name="feedback"
                 value="true"
-                {{#if directAnswer}}
-                  class="HitchhikerCard-feedback HitchhikerCard-thumbUpButton js-HitchhikerDirectAnswerCard-thumbInput"
-                {{else}}
-                  class="HitchhikerCard-feedback HitchhikerCard-thumbUpButton js-HitchhikerCard-thumbInput"
-                {{/if}}
-              >
+                class="HitchhikerCard-feedback HitchhikerCard-thumbUpButton js-{{@root.cardType}}-thumbInput">
               <span class="sr-only">
                 {{positiveFeedbackSrText}}
               </span>
@@ -43,12 +39,7 @@
               <input type="radio"
                 name="feedback"
                 value="false"
-                {{#if directAnswer}}
-                  class="HitchhikerCard-feedback HitchhikerCard-thumbDownButton js-HitchhikerDirectAnswerCard-thumbInput"
-                {{else}}
-                  class="HitchhikerCard-feedback HitchhikerCard-thumbDownButton js-HitchhikerCard-thumbInput"
-                {{/if}}
-              >
+                class="HitchhikerCard-feedback HitchhikerCard-thumbDownButton js-{{@root.cardType}}-thumbInput">
               <span class="sr-only">
                 {{negativeFeedbackSrText}}
               </span>
