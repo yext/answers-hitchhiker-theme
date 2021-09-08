@@ -76,10 +76,14 @@ class faq_accordionCardComponent extends BaseCard['faq-accordion'] {
 
     if (stayExpanded && this.getState('feedbackSubmitted')) {
       isExpanded = true;
-      cardEl.classList.toggle(accordionExpandedClass, isExpanded);
+      if (!cardEl.classList.contains(accordionExpandedClass)) {
+        cardEl.classList.toggle(accordionExpandedClass, isExpanded);
+      }
       accordionToggleEl.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
     }
-    cardEl.classList.toggle(stayExpandedClass, false);
+    if (cardEl.classList.contains(stayExpandedClass)) {
+      cardEl.classList.toggle(stayExpandedClass, false);
+    }
     contentEl.style.height = `${isExpanded ? contentEl.scrollHeight : 0}px`;
     this._setLinksInteractivity(linkEls, isExpanded);
 
@@ -87,7 +91,9 @@ class faq_accordionCardComponent extends BaseCard['faq-accordion'] {
     if (thumbSelectorEls) {
       thumbSelectorEls.forEach(el => {
         el.addEventListener('click', (e) => {
-          cardEl.classList.toggle(stayExpandedClass, true);
+          if (!cardEl.classList.contains(stayExpandedClass)) {
+            cardEl.classList.toggle(stayExpandedClass, true);
+          }
         });
       });
     }
