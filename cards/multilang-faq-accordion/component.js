@@ -69,12 +69,12 @@ class multilang_faq_accordionCardComponent extends BaseCard['multilang-faq-accor
 
     const contentEl = this._container.querySelector(accordionContentSelector);
     let isExpanded = this._container.querySelector(`.${accordionExpandedClass}`);
-    let stayExpanded = this._container.querySelector(`.${stayExpandedClass}`);
+    const stayExpanded = this._container.querySelector(`.${stayExpandedClass}`);
 
     const cardEl = this._container.querySelector(accordionCardSelector);
     const linkEls = contentEl.querySelectorAll('a');
 
-    if (stayExpanded && this._state._state.feedbackSubmitted) {
+    if (stayExpanded && this.getState('feedbackSubmitted')) {
       isExpanded = true;
       cardEl.classList.toggle(accordionExpandedClass, isExpanded);
       accordionToggleEl.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
@@ -83,7 +83,7 @@ class multilang_faq_accordionCardComponent extends BaseCard['multilang-faq-accor
     contentEl.style.height = `${isExpanded ? contentEl.scrollHeight : 0}px`;
     this._setLinksInteractivity(linkEls, isExpanded);
 
-    let thumbSelectorEls = this._container.querySelectorAll('.js-HitchhikerCard-thumbInput');
+    const thumbSelectorEls = this._container.querySelectorAll('.js-HitchhikerCard-thumbInput');
     if (thumbSelectorEls) {
       thumbSelectorEls.forEach(el => {
         el.addEventListener('click', (e) => {
