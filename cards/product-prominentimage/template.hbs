@@ -21,7 +21,7 @@
 {{/if}}
   {{#if card.image}}
   <div class="HitchhikerProductProminentImage-imgWrapper">
-    <img class="HitchhikerProductProminentImage-img" src="{{#unless (isNonRelativeUrl card.image)}}{{@root.relativePath}}/{{/unless}}{{card.image}}" alt="{{#if card.altText}}{{card.altText}}{{/if}}" />
+    <div class="HitchhikerProductProminentImage-img" role="img" style="background-image: url({{#unless (isNonRelativeUrl card.image)}}{{@root.relativePath}}/{{/unless}}{{card.image}}" alt="{{#if card.altText}}{{card.altText}}{{/if}}" />
   </div>
   {{/if}}
 {{#if (all card.image card.tag) }}
