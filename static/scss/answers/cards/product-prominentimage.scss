@@ -55,6 +55,7 @@
   {
     display: flex;
     align-items: flex-start;
+    justify-content: center;
     width: 100%;
     flex-shrink: 0;
   }
@@ -62,7 +63,8 @@
   &-img
   {
     width: 100%;
-    height: auto;
+    height: 300px;
+    object-fit: cover;
   }
 
   &-title
