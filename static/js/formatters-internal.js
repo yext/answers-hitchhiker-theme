@@ -7,7 +7,7 @@ import HoursStringsLocalizer from './hours/stringslocalizer.js';
 import HoursTableBuilder from './hours/table/builder.js';
 import { DayNames } from './hours/constants.js';
 import { generateCTAFieldTypeLink } from './formatters/generate-cta-field-type-link';
-
+import { getParamByISO } from 'iso-country-currency'
 
 export function address(profile) {
   if (!profile.address) {
@@ -520,6 +520,25 @@ export function price(fieldValue = {}, locale) {
     return fieldValue.value;
   }
   return price.toLocaleString(localeForFormatting, { style: 'currency', currency: currencyCode });
+}
+
+/**
+ * Returns a localized price range string for the given price range ($-$$$$) and country code (ISO format)
+ * @param {Object} pricerange The price range from LiveAPI entity
+ * @param {string} countrycode The country code from LiveAPI entity (e.g. profile.address.countryCode)
+ * @return {string} The price range with correct currency symbol formatting according to country code
+ */
+export function priceRange(pricerange, countrycode) {
+  if (!pricerange || !countrycode) {
+    return '';
+  }
+  try {
+    const currencySymbol = getParamByISO(countrycode, 'symbol')
+    return Array(pricerange.length+1).join(currencySymbol); 
+  } catch {
+    console.warn(`invalid ISO country code ${countrycode}. Unable to determine currency symbol.`);
+    return '';
+  }
 }
 
 /**

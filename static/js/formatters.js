@@ -28,6 +28,7 @@ import {
   hoursList,
   generateCTAFieldTypeLink,
   price,
+  priceRange,
   highlightField,
   getYoutubeUrl
 } from './formatters-internal.js';
@@ -61,6 +62,7 @@ let Formatters = {
   hoursList,
   generateCTAFieldTypeLink,
   price,
+  priceRange,
   highlightField,
   getYoutubeUrl
 };
