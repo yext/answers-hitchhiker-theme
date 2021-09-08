@@ -17,7 +17,7 @@ module.exports = (jamboConfig) => {
         {
           test: /\.js$/,
           exclude: [
-            /node_modules\//
+            /node_modules\/(?!(iso-country-currency)\/).*/
           ],
           loader: 'babel-loader',
           options: {
@@ -32,6 +32,7 @@ module.exports = (jamboConfig) => {
               '@babel/plugin-transform-arrow-functions',
               '@babel/plugin-proposal-object-rest-spread',
               '@babel/plugin-transform-object-assign',
+              '@babel/plugin-transform-modules-commonjs'
             ]
           }
         }
