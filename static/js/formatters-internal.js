@@ -538,7 +538,7 @@ export function priceRange(defaultPriceRange, countryCode) {
   if (currencyCode) {
     const currencySymbol = getSymbolFromCurrency(currencyCode);
     if (currencySymbol) {
-      return Array(defaultPriceRange.length+1).join(currencySymbol); 
+      return defaultPriceRange.replace(/\$/g, currencySymbol); 
     }
   }
   console.warn(`Unable to determine currency symbol from ISO country code ${countryCode}.`);

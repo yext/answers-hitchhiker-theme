@@ -136,10 +136,7 @@ describe('Formatters', () => {
 
     it('Formats a price range in invalid input', () => {
       const price = Formatters.priceRange('$', 'IDK');
-      expect(price).toEqual('');
-      const consoleWarn = jest.spyOn(console, 'warn')
-      .mockImplementation();
-      expect(consoleWarn).toHaveBeenCalled();
+      expect(price).toEqual('$');
     });
   });
 
