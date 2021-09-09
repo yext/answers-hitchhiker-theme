@@ -85,15 +85,6 @@ class multilang_faq_accordionCardComponent extends BaseCard['multilang-faq-accor
 
     cardEl.classList.remove(stayExpandedClass);
 
-    const thumbSelectorEls = this._container.querySelectorAll('.js-HitchhikerCard-thumbInput');
-    if (thumbSelectorEls) {
-      thumbSelectorEls.forEach(el => {
-        el.addEventListener('click', (e) => {
-          cardEl.classList.add(stayExpandedClass);
-        });
-      });
-    }
-
     accordionToggleEl.addEventListener('click', function() {
       isExpanded = !isExpanded;
       cardEl.classList.toggle(accordionExpandedClass, isExpanded);
