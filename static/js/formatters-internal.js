@@ -525,12 +525,12 @@ export function price(fieldValue = {}, locale) {
 
 /**
  * Returns a localized price range string for the given price range ($-$$$$) and country code (ISO format)
- * @param {Object} pricerange The price range from LiveAPI entity
+ * @param {string} defaultPriceRange The price range from LiveAPI entity
  * @param {string} countrycode The country code from LiveAPI entity (e.g. profile.address.countryCode)
  * @return {string} The price range with correct currency symbol formatting according to country code
  */
-export function priceRange(priceRange, countryCode) {
-  if (!priceRange || !countryCode) {
+export function priceRange(defaultPriceRange, countryCode) {
+  if (!defaultPriceRange || !countryCode) {
     console.warn(`No price range or country code given.`);
     return '';
   }
@@ -538,11 +538,11 @@ export function priceRange(priceRange, countryCode) {
   if (currencyCode) {
     const currencySymbol = getSymbolFromCurrency(currencyCode);
     if (currencySymbol) {
-      return Array(priceRange.length+1).join(currencySymbol); 
+      return Array(defaultPriceRange.length+1).join(currencySymbol); 
     }
   }
   console.warn(`Unable to determine currency symbol from ISO country code ${countryCode}.`);
-  return '';
+  return defaultPriceRange;
 }
 
 /**
