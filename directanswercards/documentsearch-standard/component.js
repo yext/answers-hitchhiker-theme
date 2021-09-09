@@ -22,7 +22,7 @@ class documentsearch_standardComponent extends BaseDirectAnswerCard['documentsea
     }
 
     let viewDetailsUrl = relatedItemData.website || (relatedItemData.fieldValues && relatedItemData.fieldValues.landingPageUrl);
-    if(HitchhikerJS.useragent.isChrome()) {
+    if (HitchhikerJS.useragent.isChrome()) {
       viewDetailsUrl = this.getUrlWithTextHighlight(snippet, viewDetailsUrl);
     }
 
