@@ -16,6 +16,12 @@ BaseCard["{{componentName}}"] = class extends ANSWERS.Component {
    * only if such a toggle is present in the DOM.
    */
   onMount() {
+    //polyfill for image styling (object-fit) in ie11
+    if (['product-prominentimage', 'product-prominentimage-clickable'].includes('{{componentName}}')) {
+      var images = document.querySelectorAll('.HitchhikerProductProminentImage-img');
+      HitchhikerJS.objectFitImages(images);
+    }
+
     const showExcessDetailsToggleEls = this._container.querySelectorAll('.js-HitchhikerCard-detailsToggle');
     const excessDetailsEls = this._container.querySelectorAll('.js-HitchhikerCard-detailsText');
     if (showExcessDetailsToggleEls && excessDetailsEls) {
