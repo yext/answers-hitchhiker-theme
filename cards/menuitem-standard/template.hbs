@@ -8,7 +8,7 @@
         {{> list }}
         {{> details }}
       </div>
-      <div class="HitchhikerMenuItemStandard-actions">
+      <div class="HitchhikerCard-actions">
         {{#if (any (all card.CTA1 card.CTA1.url) (all card.CTA2 card.CTA2.url))}}
         <div class="HitchhikerMenuItemStandard-ctasWrapper">
           {{#with card.CTA1}}
@@ -20,7 +20,7 @@
         </div>
         {{/if}}
         {{#if card.feedback}}
-          {{> thumbsfeedback card cardType="HitchhikerMenuItemStandard" feedbackSubmitted=feedbackSubmitted}}
+          {{> thumbsfeedback card feedbackSubmitted=feedbackSubmitted}}
         {{/if}}
       </div>
     </div>
