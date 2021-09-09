@@ -566,3 +566,25 @@ export function getYoutubeUrl(videos = []) {
     : null;
   return youtubeVideoUrl;
 }
+
+/**
+   * construct a URL that links to a specific portion of a page, using a text snippet provided in the URL.
+   * @param {Object} snippet the snippet for the document search direct answer
+   * @param {string} baseUrl website or landingPageURL from the entity related to the snippet
+   * @returns a URL with text fragment URI component attached
+   */
+ export function getUrlWithTextHighlight(snippet, baseUrl) {
+  //Find the surrounding sentence of the snippet
+  let sentenceStart = snippet.matchedSubstrings[0].offset;
+  let sentenceEnd = sentenceStart + snippet.matchedSubstrings[0].length;
+  const sentenceEnderRegex = /[.\n!\?]/;
+  while (!sentenceEnderRegex.test(snippet.value[sentenceStart]) && sentenceStart > 0) {
+    sentenceStart -= 1;
+  }
+  while (!sentenceEnderRegex.test(snippet.value[sentenceEnd]) && sentenceEnd < snippet.value.length) {
+    sentenceEnd += 1;
+  }
+  sentenceStart = sentenceStart === 0 ? sentenceStart : sentenceStart + 2;
+  const sentence = snippet.value.slice(sentenceStart, sentenceEnd);
+  return baseUrl + `#:~:text=${encodeURIComponent(sentence)}`;
+}
