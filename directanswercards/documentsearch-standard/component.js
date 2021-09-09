@@ -21,11 +21,16 @@ class documentsearch_standardComponent extends BaseDirectAnswerCard['documentsea
       snippetValue = Formatter.highlightField(snippet.value, snippet.matchedSubstrings);
     }
 
+    let viewDetailsUrl = relatedItemData.website || (relatedItemData.fieldValues && relatedItemData.fieldValues.landingPageUrl);
+    if(HitchhikerJS.useragent.isChrome()) {
+      viewDetailsUrl = this.getUrlWithTextHighlight(snippet, viewDetailsUrl);
+    }
+
     return {
       value: answer.value,
       snippet: snippetValue, // Text snippet to include alongside the answer
       viewDetailsText: relatedItemData.fieldValues && relatedItemData.fieldValues.name, // Text below the direct answer and snippet
-      viewDetailsLink: relatedItemData.website || (relatedItemData.fieldValues && relatedItemData.fieldValues.landingPageUrl), // Link for the "view details" text
+      viewDetailsLink: viewDetailsUrl, // Link for the "view details" text
       viewDetailsEventOptions: this.addDefaultEventOptions({
         ctaLabel: 'VIEW_DETAILS',
         fieldName: 'snippet'
@@ -53,6 +58,27 @@ class documentsearch_standardComponent extends BaseDirectAnswerCard['documentsea
    */
   static defaultTemplateName (config) {
     return 'directanswercards/documentsearch-standard';
+  }
+
+  /**
+   * construct a URL that links to a specific portion of a page, using a text snippet provided in the URL.
+   * @param {Object} snippet the snippet for the document search direct answer
+   * @param {string} baseUrl website or landingPageURL from the entity related to the snippet
+   * @returns a URL with text fragment URI component attached
+   */
+  getUrlWithTextHighlight(snippet, baseUrl) {
+    // Finding the surrounding sentence of the snippet;
+    let sentenceStart = snippet.matchedSubstrings[0].offset;
+    let sentenceEnd = sentenceStart + snippet.matchedSubstrings[0].length;
+    while (!/[.\n!?]/.test(snippet.value[sentenceStart]) && sentenceStart > 0) {
+      sentenceStart -= 1;
+    }
+    while (!/[.\n!?]/.test(snippet.value[sentenceEnd]) && sentenceEnd < snippet.value.length) {
+      sentenceEnd += 1;
+    }
+    sentenceStart = sentenceStart === 0 ? sentenceStart : sentenceStart+2;
+    const sentence = snippet.value.slice(sentenceStart, sentenceEnd);
+    return baseUrl + `#:~:text=${encodeURIComponent(sentence)}`;
   }
 }
 
