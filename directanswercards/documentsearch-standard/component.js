@@ -67,7 +67,7 @@ class documentsearch_standardComponent extends BaseDirectAnswerCard['documentsea
    * @returns a URL with text fragment URI component attached
    */
   getUrlWithTextHighlight(snippet, baseUrl) {
-    // Finding the surrounding sentence of the snippet;
+    //Find the surrounding sentence of the snippet
     let sentenceStart = snippet.matchedSubstrings[0].offset;
     let sentenceEnd = sentenceStart + snippet.matchedSubstrings[0].length;
     while (!/[.\n!?]/.test(snippet.value[sentenceStart]) && sentenceStart > 0) {
@@ -76,7 +76,7 @@ class documentsearch_standardComponent extends BaseDirectAnswerCard['documentsea
     while (!/[.\n!?]/.test(snippet.value[sentenceEnd]) && sentenceEnd < snippet.value.length) {
       sentenceEnd += 1;
     }
-    sentenceStart = sentenceStart === 0 ? sentenceStart : sentenceStart+2;
+    sentenceStart = sentenceStart === 0 ? sentenceStart : sentenceStart + 2;
     const sentence = snippet.value.slice(sentenceStart, sentenceEnd);
     return baseUrl + `#:~:text=${encodeURIComponent(sentence)}`;
   }
