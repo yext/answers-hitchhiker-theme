@@ -76,24 +76,20 @@ class faq_accordionCardComponent extends BaseCard['faq-accordion'] {
 
     if (stayExpanded && this.getState('feedbackSubmitted')) {
       isExpanded = true;
-      if (!cardEl.classList.contains(accordionExpandedClass)) {
-        cardEl.classList.toggle(accordionExpandedClass, isExpanded);
-      }
-      accordionToggleEl.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
-    }
-    if (cardEl.classList.contains(stayExpandedClass)) {
-      cardEl.classList.toggle(stayExpandedClass, false);
+      cardEl.classList.add(accordionExpandedClass);
+      accordionToggleEl.setAttribute('aria-expanded', 'true');
+      contentEl.setAttribute('aria-hidden', 'false');
     }
     contentEl.style.height = `${isExpanded ? contentEl.scrollHeight : 0}px`;
     this._setLinksInteractivity(linkEls, isExpanded);
+
+    cardEl.classList.remove(stayExpandedClass);
 
     const thumbSelectorEls = this._container.querySelectorAll('.js-HitchhikerCard-thumbInput');
     if (thumbSelectorEls) {
       thumbSelectorEls.forEach(el => {
         el.addEventListener('click', (e) => {
-          if (!cardEl.classList.contains(stayExpandedClass)) {
-            cardEl.classList.toggle(stayExpandedClass, true);
-          }
+          cardEl.classList.add(stayExpandedClass);
         });
       });
     }
