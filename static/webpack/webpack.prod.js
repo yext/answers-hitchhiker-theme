@@ -17,7 +17,7 @@ module.exports = (jamboConfig) => {
         {
           test: /\.js$/,
           exclude: [
-            /node_modules\//
+            /node_modules\/(?!(currency-symbol-map)\/).*/
           ],
           loader: 'babel-loader',
           options: {

@@ -7,7 +7,8 @@ import HoursStringsLocalizer from './hours/stringslocalizer.js';
 import HoursTableBuilder from './hours/table/builder.js';
 import { DayNames } from './hours/constants.js';
 import { generateCTAFieldTypeLink } from './formatters/generate-cta-field-type-link';
-
+import LocaleCurrency from 'locale-currency'
+import getSymbolFromCurrency from 'currency-symbol-map'
 
 export function address(profile) {
   if (!profile.address) {
@@ -520,6 +521,28 @@ export function price(fieldValue = {}, locale) {
     return fieldValue.value;
   }
   return price.toLocaleString(localeForFormatting, { style: 'currency', currency: currencyCode });
+}
+
+/**
+ * Returns a localized price range string for the given price range ($-$$$$) and country code (ISO format)
+ * @param {string} defaultPriceRange The price range from LiveAPI entity
+ * @param {string} countrycode The country code from LiveAPI entity (e.g. profile.address.countryCode)
+ * @return {string} The price range with correct currency symbol formatting according to country code
+ */
+export function priceRange(defaultPriceRange, countryCode) {
+  if (!defaultPriceRange || !countryCode) {
+    console.warn(`No price range or country code given.`);
+    return '';
+  }
+  const currencyCode = LocaleCurrency.getCurrency(countryCode);
+  if (currencyCode) {
+    const currencySymbol = getSymbolFromCurrency(currencyCode);
+    if (currencySymbol) {
+      return defaultPriceRange.replace(/\$/g, currencySymbol); 
+    }
+  }
+  console.warn(`Unable to determine currency symbol from ISO country code ${countryCode}.`);
+  return defaultPriceRange;
 }
 
 /**

@@ -108,6 +108,38 @@ describe('Formatters', () => {
     });
   });
 
+  describe('priceRange', () => {
+    it('Formats a price range in USD', () => {
+      const price = Formatters.priceRange('$', 'US');
+      expect(price).toEqual('$');
+    });
+
+    it('Formats a price range in EUR', () => {
+      const price = Formatters.priceRange('$$', 'BE');
+      expect(price).toEqual('€€');
+    });
+
+    it('Formats a price range in JPY', () => {
+      const price = Formatters.priceRange('$$$', 'JP');
+      expect(price).toEqual('¥¥¥');
+    });
+
+    it('Formats a price range in KRW', () => {
+      const price = Formatters.priceRange('$$$$', 'KR');
+      expect(price).toEqual('₩₩₩₩');
+    });
+
+    it('Formats a price range in GBP', () => {
+      const price = Formatters.priceRange('$', 'GB');
+      expect(price).toEqual('£');
+    });
+
+    it('Formats a price range in invalid input', () => {
+      const price = Formatters.priceRange('$', 'IDK');
+      expect(price).toEqual('$');
+    });
+  });
+
   describe('highlightField', () => {
     it('Behaves correctly when there are no matchedSubstrings', () => {
       const plainText = 'No more straws';
