@@ -64,11 +64,6 @@
     transform: rotate(-90deg);
   }
 
-  &--stayExpanded &-icon svg
-  {
-    transition: none;
-  }
-
   &-content
   {
     height: 0;
@@ -79,11 +74,6 @@
   &--expanded &-content
   {
     height: auto;
-  }
-
-  &--stayExpanded &-content
-  {
-    transition: none;
   }
 
   &-subtitle
