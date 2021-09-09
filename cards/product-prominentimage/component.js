@@ -20,6 +20,10 @@ class product_prominentimageCardComponent extends BaseCard['product-prominentima
     }
     const linkTarget = AnswersExperience.runtimeConfig.get('linkTarget') || '_top';
 
+    //polyfill styling for ie11
+    var someImages = document.querySelectorAll('.HitchhikerProductProminentImage-img');
+    HitchhikerJS.objectFitImages(someImages);
+
     return {
       title: profile.name, // The header text of the card
       url: profile.landingPageUrl, // If the card title is a clickable link, set URL here

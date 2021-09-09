@@ -77,7 +77,6 @@
   &-imgWrapper
   {
     display: flex;
-    flex-direction: column;
     align-items: flex-start;
     justify-content: center;
     width: 100%;
@@ -88,9 +87,8 @@
   {
     width: 100%;
     height: 300px;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    object-fit: cover;
+    font-family: 'object-fit: cover;'; //polyfill css for ie11
   }
 
   &-title

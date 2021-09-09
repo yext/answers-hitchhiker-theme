@@ -54,6 +54,7 @@
     "libphonenumber-js": "^1.7.51",
     "lodash.clonedeep": "^4.5.0",
     "merge-options": "^2.0.0",
+    "object-fit-images": "^3.2.4",
     "remove-files-webpack-plugin": "^1.4.3",
     "underscore.string": "3.3.5"
   },
