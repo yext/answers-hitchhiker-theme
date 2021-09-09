@@ -17,7 +17,7 @@ BaseCard["{{componentName}}"] = class extends ANSWERS.Component {
    */
   onMount() {
     //polyfill for image styling (object-fit) in ie11
-    var images = document.querySelectorAll('.HitchhikerProductProminentImage-img');
+    const images = document.querySelectorAll('.HitchhikerProductProminentImage-img');
     HitchhikerJS.objectFitImages(images);
 
     const showExcessDetailsToggleEls = this._container.querySelectorAll('.js-HitchhikerCard-detailsToggle');
