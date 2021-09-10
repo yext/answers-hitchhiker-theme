@@ -568,22 +568,23 @@ export function getYoutubeUrl(videos = []) {
 }
 
 /**
- * construct an array of displayable category names based on given category ids from liveAPI
+ * construct a string of displayable category names based on given category ids from liveAPI
  * and a mapping of category ids to names.
  * 
  * @param {string[]} categoryIds category ids from liveAPI
  * @param {Object[]} categoryMap mapping of category ids to names
  * @param {string} categoryMap[].id id of a category entry
  * @param {string} categoryMap[].category name of a category entry
- * @returns {string[]} an array of category names based on given category ids
+ * @returns {string} category names separated by comma
  */
  export function getCategoryNames(categoryIds, categoryMap) {
   if (!categoryIds || !categoryMap) {
-    return [];
+    return '';
   }
-  return categoryIds.reduce((list, id) => {
+  const categoryNames = categoryIds.reduce((list, id) => {
     const categoryEntry = categoryMap.find(category => category.id === id);
     categoryEntry && list.push(categoryEntry.category);
     return list;
   }, []);
+  return categoryNames.join(', ');
 }
