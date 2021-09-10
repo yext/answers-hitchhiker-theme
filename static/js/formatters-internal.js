@@ -583,7 +583,7 @@ export function getYoutubeUrl(videos = []) {
   }
   const categoryNames = categoryIds.reduce((list, id) => {
     const categoryEntry = categoryMap.find(category => category.id === id);
-    categoryEntry && list.push(categoryEntry.category);
+    categoryEntry ? list.push(categoryEntry.category) : console.error(`Unable to find category name for id ${id}.`);
     return list;
   }, []);
   return categoryNames.join(', ');

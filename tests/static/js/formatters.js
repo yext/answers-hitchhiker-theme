@@ -183,8 +183,12 @@ describe('Formatters', () => {
 
     it('return empty list for no matching category names', () => {
       const categoryIds = ['5', '0'];
+      const consoleWarn = jest.spyOn(console, 'error')
+        .mockImplementation();
       const categoryNames = Formatters.getCategoryNames(categoryIds, categoryMap);
       expect(categoryNames).toEqual('');
+      expect(consoleWarn).toHaveBeenCalledTimes(2);
+      console.error.mockClear();
     });
 
     it('return a list of matching category names', () => {
@@ -195,8 +199,11 @@ describe('Formatters', () => {
 
     it('return a list of category names given non-matching and matching ids', () => {
       const categoryIds = ['1', '10', '4'];
+      const consoleWarn = jest.spyOn(console, 'error')
+        .mockImplementation();
       const categoryNames = Formatters.getCategoryNames(categoryIds, categoryMap);
       expect(categoryNames).toEqual('Neurology, Surgery');
+      expect(consoleWarn).toHaveBeenCalledTimes(1);
     });
   });
 });
