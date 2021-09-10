@@ -109,6 +109,38 @@ describe('Formatters', () => {
     });
   });
 
+  describe('priceRange', () => {
+    it('Formats a price range in USD', () => {
+      const price = Formatters.priceRange('$', 'US');
+      expect(price).toEqual('$');
+    });
+
+    it('Formats a price range in EUR', () => {
+      const price = Formatters.priceRange('$$', 'BE');
+      expect(price).toEqual('€€');
+    });
+
+    it('Formats a price range in JPY', () => {
+      const price = Formatters.priceRange('$$$', 'JP');
+      expect(price).toEqual('¥¥¥');
+    });
+
+    it('Formats a price range in KRW', () => {
+      const price = Formatters.priceRange('$$$$', 'KR');
+      expect(price).toEqual('₩₩₩₩');
+    });
+
+    it('Formats a price range in GBP', () => {
+      const price = Formatters.priceRange('$', 'GB');
+      expect(price).toEqual('£');
+    });
+
+    it('Formats a price range in invalid input', () => {
+      const price = Formatters.priceRange('$', 'IDK');
+      expect(price).toEqual('$');
+    });
+  });
+
   describe('highlightField', () => {
     it('Behaves correctly when there are no matchedSubstrings', () => {
       const plainText = 'No more straws';
@@ -245,6 +277,59 @@ describe('Formatters', () => {
       const url = link + '#:~:text=This%20is%20a%20sentence%20for%20testing%20purposes.%20and%20more%20random%20text'
       const actual = Formatters.getUrlWithTextHighlight(snippet, link);
       expect(actual).toEqual(url);
+    });
+  });
+
+  describe('getCategoryNames', () => {
+    const categoryMap = [ 
+      {
+        "id": "1",
+        "category": "Neurology"
+      },
+      {
+        "id": "2",
+        "category": "Dermatology"
+      },
+      {
+        "id": "3",
+        "category": "Psychiatry"
+      },
+      {
+        "id": "4",
+        "category": "Surgery"
+      }
+    ];
+
+    it('Handle undefined categoryIds and categoryMap', () => {
+      let categoryNames = Formatters.getCategoryNames(null, categoryMap);
+      expect(categoryNames).toEqual([]);
+      categoryNames = Formatters.getCategoryNames(['1'], null);
+      expect(categoryNames).toEqual([]);
+    });
+
+    it('return empty list for no matching category names', () => {
+      const categoryIds = ['5', '0'];
+      const consoleWarn = jest.spyOn(console, 'error')
+        .mockImplementation();
+      const categoryNames = Formatters.getCategoryNames(categoryIds, categoryMap);
+      expect(categoryNames).toEqual([]);
+      expect(consoleWarn).toHaveBeenCalledTimes(2);
+      console.error.mockClear();
+    });
+
+    it('return a list of matching category names', () => {
+      const categoryIds = ['1', '3'];
+      const categoryNames = Formatters.getCategoryNames(categoryIds, categoryMap);
+      expect(categoryNames).toEqual(['Neurology', 'Psychiatry']);
+    });
+
+    it('return a list of category names given non-matching and matching ids', () => {
+      const categoryIds = ['1', '10', '4'];
+      const consoleWarn = jest.spyOn(console, 'error')
+        .mockImplementation();
+      const categoryNames = Formatters.getCategoryNames(categoryIds, categoryMap);
+      expect(categoryNames).toEqual(['Neurology', 'Surgery']);
+      expect(consoleWarn).toHaveBeenCalledTimes(1);
     });
   });
 });

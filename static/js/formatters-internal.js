@@ -8,6 +8,8 @@ import HoursTableBuilder from './hours/table/builder.js';
 import { DayNames } from './hours/constants.js';
 import { generateCTAFieldTypeLink } from './formatters/generate-cta-field-type-link';
 import { isChrome } from './useragent.js';
+import LocaleCurrency from 'locale-currency'
+import getSymbolFromCurrency from 'currency-symbol-map'
 
 export function address(profile) {
   if (!profile.address) {
@@ -523,6 +525,28 @@ export function price(fieldValue = {}, locale) {
 }
 
 /**
+ * Returns a localized price range string for the given price range ($-$$$$) and country code (ISO format)
+ * @param {string} defaultPriceRange The price range from LiveAPI entity
+ * @param {string} countrycode The country code from LiveAPI entity (e.g. profile.address.countryCode)
+ * @return {string} The price range with correct currency symbol formatting according to country code
+ */
+export function priceRange(defaultPriceRange, countryCode) {
+  if (!defaultPriceRange || !countryCode) {
+    console.warn(`No price range or country code given.`);
+    return '';
+  }
+  const currencyCode = LocaleCurrency.getCurrency(countryCode);
+  if (currencyCode) {
+    const currencySymbol = getSymbolFromCurrency(currencyCode);
+    if (currencySymbol) {
+      return defaultPriceRange.replace(/\$/g, currencySymbol); 
+    }
+  }
+  console.warn(`Unable to determine currency symbol from ISO country code ${countryCode}.`);
+  return defaultPriceRange;
+}
+
+/**
  * Highlights snippets of the provided fieldValue according to the matched substrings.
  * Each match will be wrapped in <mark> tags.
  * 
@@ -568,13 +592,13 @@ export function getYoutubeUrl(videos = []) {
 }
 
 /**
-   * construct a URL that links to a specific portion of a page, using a text snippet provided in the URL.
-   * This feature is only available in Chrome.
-   * @param {Object} snippet the snippet for the document search direct answer
-   * @param {string} baseUrl website or landingPageURL from the entity related to the snippet
-   * @returns a URL with text fragment URI component attached
-   */
- export function getUrlWithTextHighlight(snippet, baseUrl) {
+ * construct a URL that links to a specific portion of a page, using a text snippet provided in the URL.
+ * This feature is only available in Chrome.
+ * @param {Object} snippet the snippet for the document search direct answer
+ * @param {string} baseUrl website or landingPageURL from the entity related to the snippet
+ * @returns a URL with text fragment URI component attached
+ */
+export function getUrlWithTextHighlight(snippet, baseUrl) {
   if (!isChrome()) {
     return baseUrl;
   }
@@ -591,4 +615,25 @@ export function getYoutubeUrl(videos = []) {
   sentenceStart = sentenceStart === 0 ? sentenceStart : sentenceStart + 2;
   const sentence = snippet.value.slice(sentenceStart, sentenceEnd);
   return baseUrl + `#:~:text=${encodeURIComponent(sentence)}`;
+}
+
+/**
+ * construct a list of displayable category names based on given category ids from liveAPI
+ * and a mapping of category ids to names.
+ * 
+ * @param {string[]} categoryIds category ids from liveAPI
+ * @param {Object[]} categoryMap mapping of category ids to names
+ * @param {string} categoryMap[].id id of a category entry
+ * @param {string} categoryMap[].category name of a category entry
+ * @returns {string[]} a list of category names
+ */
+export function getCategoryNames(categoryIds, categoryMap) {
+  if (!categoryIds || !categoryMap) {
+    return [];
+  }
+  return categoryIds.reduce((list, id) => {
+    const categoryEntry = categoryMap.find(category => category.id === id);
+    categoryEntry ? list.push(categoryEntry.category) : console.error(`Unable to find category name for id ${id}.`);
+    return list;
+  }, []);
 }
