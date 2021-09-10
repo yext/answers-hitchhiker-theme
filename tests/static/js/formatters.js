@@ -185,4 +185,57 @@ describe('Formatters', () => {
       expect(actual).toEqual(expected);
     });
   });
+
+  describe('getCategoryNames', () => {
+    const categoryMap = [ 
+      {
+        "id": "1",
+        "category": "Neurology"
+      },
+      {
+        "id": "2",
+        "category": "Dermatology"
+      },
+      {
+        "id": "3",
+        "category": "Psychiatry"
+      },
+      {
+        "id": "4",
+        "category": "Surgery"
+      }
+    ];
+
+    it('Handle undefined categoryIds and categoryMap', () => {
+      let categoryNames = Formatters.getCategoryNames(null, categoryMap);
+      expect(categoryNames).toEqual([]);
+      categoryNames = Formatters.getCategoryNames(['1'], null);
+      expect(categoryNames).toEqual([]);
+    });
+
+    it('return empty list for no matching category names', () => {
+      const categoryIds = ['5', '0'];
+      const consoleWarn = jest.spyOn(console, 'error')
+        .mockImplementation();
+      const categoryNames = Formatters.getCategoryNames(categoryIds, categoryMap);
+      expect(categoryNames).toEqual([]);
+      expect(consoleWarn).toHaveBeenCalledTimes(2);
+      console.error.mockClear();
+    });
+
+    it('return a list of matching category names', () => {
+      const categoryIds = ['1', '3'];
+      const categoryNames = Formatters.getCategoryNames(categoryIds, categoryMap);
+      expect(categoryNames).toEqual(['Neurology', 'Psychiatry']);
+    });
+
+    it('return a list of category names given non-matching and matching ids', () => {
+      const categoryIds = ['1', '10', '4'];
+      const consoleWarn = jest.spyOn(console, 'error')
+        .mockImplementation();
+      const categoryNames = Formatters.getCategoryNames(categoryIds, categoryMap);
+      expect(categoryNames).toEqual(['Neurology', 'Surgery']);
+      expect(consoleWarn).toHaveBeenCalledTimes(1);
+    });
+  });
 });
