@@ -31,6 +31,7 @@ import {
   priceRange,
   highlightField,
   getYoutubeUrl,
+  getUrlWithTextHighlight,
   getCategoryNames
 } from './formatters-internal.js';
 import * as CustomFormatters from './formatters-custom.js';
@@ -66,6 +67,7 @@ let Formatters = {
   priceRange,
   highlightField,
   getYoutubeUrl,
+  getUrlWithTextHighlight,
   getCategoryNames
 };
 Formatters = Object.assign(Formatters, CustomFormatters);

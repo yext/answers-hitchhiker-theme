@@ -7,6 +7,7 @@ import HoursStringsLocalizer from './hours/stringslocalizer.js';
 import HoursTableBuilder from './hours/table/builder.js';
 import { DayNames } from './hours/constants.js';
 import { generateCTAFieldTypeLink } from './formatters/generate-cta-field-type-link';
+import { isChrome } from './useragent.js';
 import LocaleCurrency from 'locale-currency'
 import getSymbolFromCurrency from 'currency-symbol-map'
 
@@ -591,6 +592,32 @@ export function getYoutubeUrl(videos = []) {
 }
 
 /**
+ * construct a URL that links to a specific portion of a page, using a text snippet provided in the URL.
+ * This feature is only available in Chrome.
+ * @param {Object} snippet the snippet for the document search direct answer
+ * @param {string} baseUrl website or landingPageURL from the entity related to the snippet
+ * @returns a URL with text fragment URI component attached
+ */
+export function getUrlWithTextHighlight(snippet, baseUrl) {
+  if (!isChrome()) {
+    return baseUrl;
+  }
+  //Find the surrounding sentence of the snippet
+  let sentenceStart = snippet.matchedSubstrings[0].offset;
+  let sentenceEnd = sentenceStart + snippet.matchedSubstrings[0].length;
+  const sentenceEnderRegex = /[.\n!\?]/;
+  while (!sentenceEnderRegex.test(snippet.value[sentenceStart]) && sentenceStart > 0) {
+    sentenceStart -= 1;
+  }
+  while (!sentenceEnderRegex.test(snippet.value[sentenceEnd]) && sentenceEnd < snippet.value.length) {
+    sentenceEnd += 1;
+  }
+  sentenceStart = sentenceStart === 0 ? sentenceStart : sentenceStart + 2;
+  const sentence = snippet.value.slice(sentenceStart, sentenceEnd);
+  return baseUrl + `#:~:text=${encodeURIComponent(sentence)}`;
+}
+
+/**
  * construct a list of displayable category names based on given category ids from liveAPI
  * and a mapping of category ids to names.
  * 
@@ -600,7 +627,7 @@ export function getYoutubeUrl(videos = []) {
  * @param {string} categoryMap[].category name of a category entry
  * @returns {string[]} a list of category names
  */
- export function getCategoryNames(categoryIds, categoryMap) {
+export function getCategoryNames(categoryIds, categoryMap) {
   if (!categoryIds || !categoryMap) {
     return [];
   }
