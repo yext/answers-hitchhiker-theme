@@ -7,7 +7,7 @@ import HoursStringsLocalizer from './hours/stringslocalizer.js';
 import HoursTableBuilder from './hours/table/builder.js';
 import { DayNames } from './hours/constants.js';
 import { generateCTAFieldTypeLink } from './formatters/generate-cta-field-type-link';
-
+import { isChrome } from './useragent.js';
 
 export function address(profile) {
   if (!profile.address) {
@@ -569,11 +569,15 @@ export function getYoutubeUrl(videos = []) {
 
 /**
    * construct a URL that links to a specific portion of a page, using a text snippet provided in the URL.
+   * This feature is only available in Chrome.
    * @param {Object} snippet the snippet for the document search direct answer
    * @param {string} baseUrl website or landingPageURL from the entity related to the snippet
    * @returns a URL with text fragment URI component attached
    */
  export function getUrlWithTextHighlight(snippet, baseUrl) {
+  if (!isChrome()) {
+    return baseUrl;
+  }
   //Find the surrounding sentence of the snippet
   let sentenceStart = snippet.matchedSubstrings[0].offset;
   let sentenceEnd = sentenceStart + snippet.matchedSubstrings[0].length;

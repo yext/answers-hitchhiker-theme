@@ -3,8 +3,6 @@ import Formatters from './formatters';
 window.Formatter = Formatters;
 
 export { Formatters };
-import * as useragent from './useragent';
-export { useragent };
 export { getDefaultMapApiKey } from './default-map-api-key';
 export { isStaging } from './is-staging';
 export { isMobile }  from 'is-mobile';

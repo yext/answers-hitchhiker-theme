@@ -1,4 +1,5 @@
 import Formatters from 'static/js/formatters.js';
+import * as useragent from 'static/js/useragent.js';
 
 describe('Formatters', () => {
   describe('toLocalizedDistance', () => {
@@ -156,6 +157,8 @@ describe('Formatters', () => {
 
   describe('getUrlWithTextHighlight', () => {
     const link = 'www.dummy-link.com/test'
+    const isChrome = jest.spyOn(useragent, 'isChrome');
+    isChrome.mockReturnValue(true);
 
     it('Behaves correctly when there is a matchedSubstring with a surrounding sentence', () => {
       const snippet = {
