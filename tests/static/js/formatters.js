@@ -192,6 +192,15 @@ describe('Formatters', () => {
     const isChrome = jest.spyOn(useragent, 'isChrome');
     isChrome.mockReturnValue(true);
 
+    it('Behaves correctly when there is no matchedSubstring', () => {
+      const snippet = {
+        value: 'this is a sentence, for testing purposes.',
+        matchedSubstrings: []
+      };
+      const actual = Formatters.getUrlWithTextHighlight(snippet, link);
+      expect(actual).toEqual(link);
+    });
+
     it('Behaves correctly when there is a matchedSubstring with a surrounding sentence', () => {
       const snippet = {
         value: 'this is a sentence, for testing purposes.',
