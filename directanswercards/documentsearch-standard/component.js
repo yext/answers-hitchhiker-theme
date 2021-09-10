@@ -26,7 +26,7 @@ class documentsearch_standardComponent extends BaseDirectAnswerCard['documentsea
       value: answer.value,
       snippet: snippetValue, // Text snippet to include alongside the answer
       viewDetailsText: relatedItemData.fieldValues && relatedItemData.fieldValues.name, // Text below the direct answer and snippet
-      viewDetailsLink: Formatter.getUrlWithTextHighlight(viewDetailsUrl), // Link for the "view details" text
+      viewDetailsLink: Formatter.getUrlWithTextHighlight(snippet, viewDetailsUrl), // Link for the "view details" text
       viewDetailsEventOptions: this.addDefaultEventOptions({
         ctaLabel: 'VIEW_DETAILS',
         fieldName: 'snippet'
