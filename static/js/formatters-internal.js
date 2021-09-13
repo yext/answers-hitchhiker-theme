@@ -525,24 +525,30 @@ export function price(fieldValue = {}, locale) {
 }
 
 /**
- * Returns a localized price range string for the given price range ($-$$$$) and country code (ISO format)
+ * Returns a localized price range string for the given price range ($-$$$$) and country code (ISO format).
+ * If country code is invalid or undefined, use locale of the site to determine the currency symbol.
+ * If all else fails, use the default priceRange with dollar sign.
  * @param {string} defaultPriceRange The price range from LiveAPI entity
  * @param {string} countrycode The country code from LiveAPI entity (e.g. profile.address.countryCode)
  * @return {string} The price range with correct currency symbol formatting according to country code
  */
 export function priceRange(defaultPriceRange, countryCode) {
-  if (!defaultPriceRange || !countryCode) {
+  if (!defaultPriceRange) {
     console.warn(`No price range or country code given.`);
     return '';
   }
-  const currencyCode = LocaleCurrency.getCurrency(countryCode);
-  if (currencyCode) {
-    const currencySymbol = getSymbolFromCurrency(currencyCode);
-    if (currencySymbol) {
+  if(countryCode) {
+    const currencySymbol = getSymbolFromCurrency(LocaleCurrency.getCurrency(countryCode));
+    if(currencySymbol) {
       return defaultPriceRange.replace(/\$/g, currencySymbol); 
     }
   }
-  console.warn(`Unable to determine currency symbol from ISO country code ${countryCode}.`);
+  const locale = _getDocumentLocale();
+  const currencySymbol = getSymbolFromCurrency(LocaleCurrency.getCurrency(locale));
+  if(currencySymbol) {
+    return defaultPriceRange.replace(/\$/g, currencySymbol); 
+  }
+  console.warn(`Unable to determine currency symbol from ISO country code "${countryCode}" or locale "${locale}".`);
   return defaultPriceRange;
 }
 
