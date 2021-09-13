@@ -534,7 +534,7 @@ export function price(fieldValue = {}, locale) {
  */
 export function priceRange(defaultPriceRange, countryCode) {
   if (!defaultPriceRange) {
-    console.warn(`No price range or country code given.`);
+    console.warn(`Price range is not provided.`);
     return '';
   }
   if (countryCode) {
