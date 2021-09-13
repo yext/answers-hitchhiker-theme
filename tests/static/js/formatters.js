@@ -142,9 +142,12 @@ describe('Formatters', () => {
     });
 
     it('Formats a price range in undefined country code, use page\'s locale', () => {
-      document.documentElement.lang = 'jp'
-      const price = Formatters.priceRange('$$$', undefined);
+      document.documentElement.lang = 'zh-CN'
+      let price = Formatters.priceRange('$$$', undefined);
       expect(price).toEqual('¥¥¥');
+      document.documentElement.lang = 'zh-Hant_TW'
+      price = Formatters.priceRange('$$$', undefined);
+      expect(price).toEqual('NT$NT$NT$');
     });
 
     it('Formats a price range in invalid country code and invalid page\'s locale', () => {

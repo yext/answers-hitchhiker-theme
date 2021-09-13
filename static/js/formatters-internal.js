@@ -10,6 +10,7 @@ import { generateCTAFieldTypeLink } from './formatters/generate-cta-field-type-l
 import { isChrome } from './useragent.js';
 import LocaleCurrency from 'locale-currency'
 import getSymbolFromCurrency from 'currency-symbol-map'
+import { parseLocale } from './utils.js';
 
 export function address(profile) {
   if (!profile.address) {
@@ -543,12 +544,13 @@ export function priceRange(defaultPriceRange, countryCode) {
       return defaultPriceRange.replace(/\$/g, currencySymbol); 
     }
   }
-  const locale = _getDocumentLocale();
-  const currencySymbol = getSymbolFromCurrency(LocaleCurrency.getCurrency(locale));
+  const { region, language } = parseLocale(_getDocumentLocale());
+  const currencySymbol = getSymbolFromCurrency(LocaleCurrency.getCurrency(region || language));
   if (currencySymbol) {
     return defaultPriceRange.replace(/\$/g, currencySymbol); 
   }
-  console.warn(`Unable to determine currency symbol from ISO country code "${countryCode}" or locale "${locale}".`);
+  console.warn('Unable to determine currency symbol from '
+    + `ISO country code "${countryCode}" or locale "${_getDocumentLocale()}".`);
   return defaultPriceRange;
 }
 
