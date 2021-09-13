@@ -537,15 +537,15 @@ export function priceRange(defaultPriceRange, countryCode) {
     console.warn(`No price range or country code given.`);
     return '';
   }
-  if(countryCode) {
+  if (countryCode) {
     const currencySymbol = getSymbolFromCurrency(LocaleCurrency.getCurrency(countryCode));
-    if(currencySymbol) {
+    if (currencySymbol) {
       return defaultPriceRange.replace(/\$/g, currencySymbol); 
     }
   }
   const locale = _getDocumentLocale();
   const currencySymbol = getSymbolFromCurrency(LocaleCurrency.getCurrency(locale));
-  if(currencySymbol) {
+  if (currencySymbol) {
     return defaultPriceRange.replace(/\$/g, currencySymbol); 
   }
   console.warn(`Unable to determine currency symbol from ISO country code "${countryCode}" or locale "${locale}".`);
