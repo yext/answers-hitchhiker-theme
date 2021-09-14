@@ -135,7 +135,23 @@ describe('Formatters', () => {
       expect(price).toEqual('£');
     });
 
-    it('Formats a price range in invalid input', () => {
+    it('Formats a price range in invalid country code, use page\'s locale', () => {
+      document.documentElement.lang = 'jp'
+      const price = Formatters.priceRange('$$$', 'IDK');
+      expect(price).toEqual('¥¥¥');
+    });
+
+    it('Formats a price range in undefined country code, use page\'s locale', () => {
+      document.documentElement.lang = 'zh-CN'
+      let price = Formatters.priceRange('$$$', undefined);
+      expect(price).toEqual('¥¥¥');
+      document.documentElement.lang = 'zh-Hant_TW'
+      price = Formatters.priceRange('$$$', undefined);
+      expect(price).toEqual('NT$NT$NT$');
+    });
+
+    it('Formats a price range in invalid country code and invalid page\'s locale', () => {
+      document.documentElement.lang = 'IDKK'
       const price = Formatters.priceRange('$', 'IDK');
       expect(price).toEqual('$');
     });

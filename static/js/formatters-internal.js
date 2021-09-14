@@ -10,6 +10,7 @@ import { generateCTAFieldTypeLink } from './formatters/generate-cta-field-type-l
 import { isChrome } from './useragent.js';
 import LocaleCurrency from 'locale-currency'
 import getSymbolFromCurrency from 'currency-symbol-map'
+import { parseLocale } from './utils.js';
 
 export function address(profile) {
   if (!profile.address) {
@@ -525,24 +526,31 @@ export function price(fieldValue = {}, locale) {
 }
 
 /**
- * Returns a localized price range string for the given price range ($-$$$$) and country code (ISO format)
+ * Returns a localized price range string for the given price range ($-$$$$) and country code (ISO format).
+ * If country code is invalid or undefined, use locale of the site to determine the currency symbol.
+ * If all else fails, use the default priceRange with dollar sign.
  * @param {string} defaultPriceRange The price range from LiveAPI entity
  * @param {string} countrycode The country code from LiveAPI entity (e.g. profile.address.countryCode)
  * @return {string} The price range with correct currency symbol formatting according to country code
  */
 export function priceRange(defaultPriceRange, countryCode) {
-  if (!defaultPriceRange || !countryCode) {
-    console.warn(`No price range or country code given.`);
+  if (!defaultPriceRange) {
+    console.warn(`Price range is not provided.`);
     return '';
   }
-  const currencyCode = LocaleCurrency.getCurrency(countryCode);
-  if (currencyCode) {
-    const currencySymbol = getSymbolFromCurrency(currencyCode);
+  if (countryCode) {
+    const currencySymbol = getSymbolFromCurrency(LocaleCurrency.getCurrency(countryCode));
     if (currencySymbol) {
       return defaultPriceRange.replace(/\$/g, currencySymbol); 
     }
   }
-  console.warn(`Unable to determine currency symbol from ISO country code ${countryCode}.`);
+  const { region, language } = parseLocale(_getDocumentLocale());
+  const currencySymbol = getSymbolFromCurrency(LocaleCurrency.getCurrency(region || language));
+  if (currencySymbol) {
+    return defaultPriceRange.replace(/\$/g, currencySymbol); 
+  }
+  console.warn('Unable to determine currency symbol from '
+    + `ISO country code "${countryCode}" or locale "${_getDocumentLocale()}".`);
   return defaultPriceRange;
 }
 
