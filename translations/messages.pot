@@ -32,12 +32,24 @@ msgstr ""
 msgid "clear search"
 msgstr ""
 
+#: script/translations.js:7
+msgid "Day of the Week"
+msgstr ""
+
 #: cards/multilang-event-standard/component.js:44
 msgid "Directions"
 msgstr ""
 
+#: script/translations.js:15
+msgid "Friday"
+msgstr ""
+
 #: cards/multilang-location-standard/component.js:49
 msgid "Get Directions"
+msgstr ""
+
+#: script/translations.js:8
+msgid "Hours"
 msgstr ""
 
 #: templates/vertical-full-page-map/page.html.hbs:23
@@ -52,6 +64,14 @@ msgstr ""
 msgid "Map controls"
 msgstr ""
 
+#: script/translations.js:11
+msgid "Monday"
+msgstr ""
+
+#: script/translations.js:10
+msgid "No"
+msgstr ""
+
 #: theme-components/collapsible-filters/view-results-button/template.hbs:3
 msgid "No results found."
 msgstr ""
@@ -62,6 +82,10 @@ msgstr ""
 
 #: theme-components/collapsible-filters/filter-link/component.js:3
 msgid "reset filters"
+msgstr ""
+
+#: script/translations.js:16
+msgid "Saturday"
 msgstr ""
 
 #: cards/multilang-location-standard/template.hbs:140
@@ -104,6 +128,10 @@ msgstr ""
 msgid "sorts and filters"
 msgstr ""
 
+#: script/translations.js:17
+msgid "Sunday"
+msgstr ""
+
 #: directanswercards/multilang-allfields-standard/component.js:188
 msgid "Thank you for your feedback!"
 msgstr ""
@@ -122,6 +150,14 @@ msgstr ""
 msgid "This did not answer my question"
 msgstr ""
 
+#: script/translations.js:14
+msgid "Thursday"
+msgstr ""
+
+#: script/translations.js:12
+msgid "Tuesday"
+msgstr ""
+
 #: theme-components/collapsible-filters/view-results-button/template.hbs:5
 msgid "View 1 Result"
 msgid_plural "View [[resultsCount]] Results"
@@ -138,6 +174,14 @@ msgstr ""
 
 #: directanswercards/multilang-allfields-standard/component.js:189
 msgid "Was this the answer you were looking for?"
+msgstr ""
+
+#: script/translations.js:13
+msgid "Wednesday"
+msgstr ""
+
+#: script/translations.js:9
+msgid "Yes"
 msgstr ""
 
 #: templates/vertical-full-page-map/markup/searchthisareatoggle.hbs:10
@@ -162,9 +206,34 @@ msgctxt "Close is a verb"
 msgid "Close Card"
 msgstr ""
 
+#: script/translations.js:2
+msgctxt "Indicates that a store is closed"
+msgid "Closed"
+msgstr ""
+
+#: script/translations.js:5
+msgctxt "Indicates that a store is open"
+msgid "Open Now"
+msgstr ""
+
+#: script/translations.js:6
+msgctxt "Indicates the time a store will close"
+msgid "Closes at"
+msgstr ""
+
+#: script/translations.js:4
+msgctxt "Indicates the time a store will open"
+msgid "Opens at"
+msgstr ""
+
 #: cards/multilang-event-standard/component.js:34
 msgctxt "RSVP is a verb"
 msgid "RSVP"
+msgstr ""
+
+#: script/translations.js:3
+msgctxt "The hours that a store is open"
+msgid "Open 24 Hours"
 msgstr ""
 
 #: templates/vertical-full-page-map/markup/mobilelisttoggles.hbs:5

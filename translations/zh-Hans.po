@@ -178,3 +178,56 @@ msgstr "地图"
 msgctxt "View is a verb"
 msgid "View All"
 msgstr "查看全部"
+
+msgctxt "Indicates that a store is closed"
+msgid "Closed"
+msgstr "休业中"
+
+msgctxt "The hours that a store is open"
+msgid "Open 24 Hours"
+msgstr "24 小时营业"
+
+msgctxt "Indicates the time a store will open"
+msgid "Opens at"
+msgstr "开店时间："
+
+msgctxt "Indicates that a store is open"
+msgid "Open Now"
+msgstr "现正营业"
+
+msgctxt "Indicates the time a store will close"
+msgid "Closes at"
+msgstr "闭店时间："
+
+msgid "Monday"
+msgstr "周一"
+
+msgid "Tuesday"
+msgstr "周二"
+
+msgid "Wednesday"
+msgstr "周三"
+
+msgid "Thursday"
+msgstr "周四"
+
+msgid "Friday"
+msgstr "星期五"
+
+msgid "Saturday"
+msgstr "周六"
+
+msgid "Sunday"
+msgstr "星期日"
+
+msgid "Day of the Week"
+msgstr "一周中的天"
+
+msgid "Hours"
+msgstr "小时"
+
+msgid "Yes"
+msgstr "是的"
+
+msgid "No"
+msgstr "不"

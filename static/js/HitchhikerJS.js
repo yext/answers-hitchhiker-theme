@@ -9,6 +9,11 @@ export { isMobile }  from 'is-mobile';
 export { getInjectedProp } from './get-injected-prop';
 export { isHighlighted } from './is-highlighted';
 
+
+//polyfill for ie11 styling
+import objectFitImages from 'object-fit-images';
+export { objectFitImages }
+
 // Used to transfigure the page for the Overlay
 import Overlay from './overlay/answers-frame/overlay';
 window.Overlay = new Overlay();

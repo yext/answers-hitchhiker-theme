@@ -174,3 +174,56 @@ msgstr[0] "（[[resultsCount]]件の結果）"
 #: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:43
 msgid "Alternatively, you can <a class=\"yxt-AlternativeVerticals-universalLink\" href=\"[[universalUrl]]\"> view results across all search categories</a>."
 msgstr "代わりに<a class=\"yxt-AlternativeVerticals-universalLink\" href=\"[[universalUrl]]\">すべての検索カテゴリーの結果を表示することもできます</a>。"
+
+msgctxt "Indicates that a store is closed"
+msgid "Closed"
+msgstr "休業"
+
+msgctxt "The hours that a store is open"
+msgid "Open 24 Hours"
+msgstr "24時間営業"
+
+msgctxt "Indicates the time a store will open"
+msgid "Opens at"
+msgstr "営業開始"
+
+msgctxt "Indicates that a store is open"
+msgid "Open Now"
+msgstr "現在営業中"
+
+msgctxt "Indicates the time a store will close"
+msgid "Closes at"
+msgstr "営業終了"
+
+msgid "Monday"
+msgstr "月曜日"
+
+msgid "Tuesday"
+msgstr "火曜日"
+
+msgid "Wednesday"
+msgstr "水曜日"
+
+msgid "Thursday"
+msgstr "木曜日"
+
+msgid "Friday"
+msgstr "金曜日"
+
+msgid "Saturday"
+msgstr "土曜日"
+
+msgid "Sunday"
+msgstr "日曜日"
+
+msgid "Day of the Week"
+msgstr "曜日"
+
+msgid "Hours"
+msgstr "営業時間"
+
+msgid "Yes"
+msgstr "はい"
+
+msgid "No"
+msgstr "番号"

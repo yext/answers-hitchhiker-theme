@@ -181,3 +181,56 @@ msgstr "मैप"
 msgctxt "View is a verb"
 msgid "View All"
 msgstr "सब देखें"
+
+msgctxt "Indicates that a store is closed"
+msgid "Closed"
+msgstr "बंद हो गया"
+
+msgctxt "The hours that a store is open"
+msgid "Open 24 Hours"
+msgstr "24 घंटे खुला रहता है"
+
+msgctxt "Indicates the time a store will open"
+msgid "Opens at"
+msgstr "इस समय खुलता है"
+
+msgctxt "Indicates that a store is open"
+msgid "Open Now"
+msgstr "अभी खुला है"
+
+msgctxt "Indicates the time a store will close"
+msgid "Closes at"
+msgstr "इस समय बंद होता है"
+
+msgid "Monday"
+msgstr "सोमवार"
+
+msgid "Tuesday"
+msgstr "मंगलवार"
+
+msgid "Wednesday"
+msgstr "बुधवार"
+
+msgid "Thursday"
+msgstr "गुरुवार"
+
+msgid "Friday"
+msgstr "शुक्रवार"
+
+msgid "Saturday"
+msgstr "शनिवार"
+
+msgid "Sunday"
+msgstr "रविवार का दिन"
+
+msgid "Day of the Week"
+msgstr "सप्ताह का दिन"
+
+msgid "Hours"
+msgstr "घंटे"
+
+msgid "Yes"
+msgstr "हाँ"
+
+msgid "No"
+msgstr "नहीं"

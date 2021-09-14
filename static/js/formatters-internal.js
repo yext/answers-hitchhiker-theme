@@ -7,8 +7,10 @@ import HoursStringsLocalizer from './hours/stringslocalizer.js';
 import HoursTableBuilder from './hours/table/builder.js';
 import { DayNames } from './hours/constants.js';
 import { generateCTAFieldTypeLink } from './formatters/generate-cta-field-type-link';
+import { isChrome } from './useragent.js';
+import LocaleCurrency from 'locale-currency'
+import getSymbolFromCurrency from 'currency-symbol-map'
 import { parseLocale } from './utils.js';
-
 
 export function address(profile) {
   if (!profile.address) {
@@ -240,7 +242,7 @@ export function prettyPrintObject(obj, locale) {
     case 'bigint':
       return obj.toLocaleString(locale);
     case 'boolean':
-      return _prettyPrintBoolean(obj, locale)
+      return _prettyPrintBoolean(obj);
     case 'object':
       // check for null
       if (!obj) {
@@ -261,47 +263,11 @@ export function prettyPrintObject(obj, locale) {
  * in English, it would return either 'Yes' for True or 'No' for False.
  *
  * @param {boolean} value The boolean value.
- * @param {string} locale The locale indicating which language to use.
  * @returns {string} The localized affirmative or negative.
  */
-function _prettyPrintBoolean(value, locale) {
-  const { language, modifier } = parseLocale(locale);
-  const languageAndModifier =  modifier ? `${language}-${modifier}` : language;
-
-  switch (languageAndModifier) {
-    case 'es':
-      return value ? 'Sí' : 'No';
-    case 'fr':
-      return value ? 'Oui' : 'Non';
-    case 'it':
-      return value ? 'Sì' : 'No';
-    case 'de':
-      return value ? 'Ja' : 'Nein';
-    case 'ja':
-      return value ? 'はい' : '番号';
-    case 'ar':
-      return value ? 'نعم' : 'رقم';
-    case 'hi':
-      return value ? 'हाँ' : 'नहीं';
-    case 'ko':
-      return value ? '예' : '아니요';
-    case 'nl':
-      return value ? 'Ja' : 'Nee';
-    case 'pl':
-      return value ? 'TAk' : 'Nie';
-    case 'pt': 
-      return value ? 'Sim' : 'Não';
-    case 'ru': 
-      return value ? 'да' : 'Нет';
-    case 'sv':
-      return value ? 'Ja' : 'Nej';
-    case 'zh-Hans':
-      return value ? '是的' : '不';
-    case 'zh-Hant':
-      return value ? '是的' : '不';
-    default:
-      return value ? 'Yes' : 'No';
-  }
+function _prettyPrintBoolean(value) {
+  const text = value ? 'Yes' : 'No';
+  return window.translations[text];
 }
 
 export function joinList(list, separator) {
@@ -560,6 +526,35 @@ export function price(fieldValue = {}, locale) {
 }
 
 /**
+ * Returns a localized price range string for the given price range ($-$$$$) and country code (ISO format).
+ * If country code is invalid or undefined, use locale of the site to determine the currency symbol.
+ * If all else fails, use the default priceRange with dollar sign.
+ * @param {string} defaultPriceRange The price range from LiveAPI entity
+ * @param {string} countrycode The country code from LiveAPI entity (e.g. profile.address.countryCode)
+ * @return {string} The price range with correct currency symbol formatting according to country code
+ */
+export function priceRange(defaultPriceRange, countryCode) {
+  if (!defaultPriceRange) {
+    console.warn(`Price range is not provided.`);
+    return '';
+  }
+  if (countryCode) {
+    const currencySymbol = getSymbolFromCurrency(LocaleCurrency.getCurrency(countryCode));
+    if (currencySymbol) {
+      return defaultPriceRange.replace(/\$/g, currencySymbol); 
+    }
+  }
+  const { region, language } = parseLocale(_getDocumentLocale());
+  const currencySymbol = getSymbolFromCurrency(LocaleCurrency.getCurrency(region || language));
+  if (currencySymbol) {
+    return defaultPriceRange.replace(/\$/g, currencySymbol); 
+  }
+  console.warn('Unable to determine currency symbol from '
+    + `ISO country code "${countryCode}" or locale "${_getDocumentLocale()}".`);
+  return defaultPriceRange;
+}
+
+/**
  * Highlights snippets of the provided fieldValue according to the matched substrings.
  * Each match will be wrapped in <mark> tags.
  * 
@@ -602,4 +597,51 @@ export function getYoutubeUrl(videos = []) {
     ? 'https://www.youtube.com/embed/' + youtubeVideoId + '?enablejsapi=1' 
     : null;
   return youtubeVideoUrl;
+}
+
+/**
+ * construct a URL that links to a specific portion of a page, using a text snippet provided in the URL.
+ * This feature is only available in Chrome.
+ * @param {Object} snippet the snippet for the document search direct answer
+ * @param {string} baseUrl website or landingPageURL from the entity related to the snippet
+ * @returns a URL with text fragment URI component attached
+ */
+export function getUrlWithTextHighlight(snippet, baseUrl) {
+  if (!isChrome() || !snippet || snippet.matchedSubstrings.length === 0) {
+    return baseUrl;
+  }
+  //Find the surrounding sentence of the snippet
+  let sentenceStart = snippet.matchedSubstrings[0].offset;
+  let sentenceEnd = sentenceStart + snippet.matchedSubstrings[0].length;
+  const sentenceEnderRegex = /[.\n!\?]/;
+  while (!sentenceEnderRegex.test(snippet.value[sentenceStart]) && sentenceStart > 0) {
+    sentenceStart -= 1;
+  }
+  while (!sentenceEnderRegex.test(snippet.value[sentenceEnd]) && sentenceEnd < snippet.value.length) {
+    sentenceEnd += 1;
+  }
+  sentenceStart = sentenceStart === 0 ? sentenceStart : sentenceStart + 2;
+  const sentence = snippet.value.slice(sentenceStart, sentenceEnd);
+  return baseUrl + `#:~:text=${encodeURIComponent(sentence)}`;
+}
+
+/**
+ * construct a list of displayable category names based on given category ids from liveAPI
+ * and a mapping of category ids to names.
+ * 
+ * @param {string[]} categoryIds category ids from liveAPI
+ * @param {Object[]} categoryMap mapping of category ids to names
+ * @param {string} categoryMap[].id id of a category entry
+ * @param {string} categoryMap[].category name of a category entry
+ * @returns {string[]} a list of category names
+ */
+export function getCategoryNames(categoryIds, categoryMap) {
+  if (!categoryIds || !categoryMap) {
+    return [];
+  }
+  return categoryIds.reduce((list, id) => {
+    const categoryEntry = categoryMap.find(category => category.id === id);
+    categoryEntry ? list.push(categoryEntry.category) : console.error(`Unable to find category name for id ${id}.`);
+    return list;
+  }, []);
 }

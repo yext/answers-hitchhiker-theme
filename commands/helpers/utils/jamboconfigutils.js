@@ -41,7 +41,7 @@ exports.parseJamboConfig = function () {
  * @param {string} partialsPath The local path to the set of partials. 
  */
 exports.addToPartials = function (partialsPath) {
-  const jamboConfig = parseJamboConfig();
+  const jamboConfig = exports.parseJamboConfig();
   const existingPartials = jamboConfig.dirs.partials;
 
   const shouldAddNewPartialsPath =

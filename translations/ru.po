@@ -184,3 +184,56 @@ msgstr "Карта"
 msgctxt "View is a verb"
 msgid "View All"
 msgstr "Смотреть все"
+
+msgctxt "Indicates that a store is closed"
+msgid "Closed"
+msgstr "Закрыто"
+
+msgctxt "The hours that a store is open"
+msgid "Open 24 Hours"
+msgstr "Открыто круглосуточно"
+
+msgctxt "Indicates the time a store will open"
+msgid "Opens at"
+msgstr "Открывается в"
+
+msgctxt "Indicates that a store is open"
+msgid "Open Now"
+msgstr "Открыто"
+
+msgctxt "Indicates the time a store will close"
+msgid "Closes at"
+msgstr "Закрывается в"
+
+msgid "Monday"
+msgstr "понедельник"
+
+msgid "Tuesday"
+msgstr "вторник"
+
+msgid "Wednesday"
+msgstr "среда"
+
+msgid "Thursday"
+msgstr "четверг"
+
+msgid "Friday"
+msgstr "Пятница"
+
+msgid "Saturday"
+msgstr "Суббота"
+
+msgid "Sunday"
+msgstr "Воскресенье"
+
+msgid "Day of the Week"
+msgstr "День недели"
+
+msgid "Hours"
+msgstr "Часы"
+
+msgid "Yes"
+msgstr "да"
+
+msgid "No"
+msgstr "Нет"

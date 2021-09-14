@@ -193,3 +193,56 @@ msgstr "الخريطة"
 msgctxt "View is a verb"
 msgid "View All"
 msgstr "عرض الكل"
+
+msgctxt "Indicates that a store is closed"
+msgid "Closed"
+msgstr "مغلق"
+
+msgctxt "The hours that a store is open"
+msgid "Open 24 Hours"
+msgstr "مفتوح على مدار 24 ساعة"
+
+msgctxt "Indicates the time a store will open"
+msgid "Opens at"
+msgstr "يُفتح في"
+
+msgctxt "Indicates that a store is open"
+msgid "Open Now"
+msgstr "مفتوح الآن"
+
+msgctxt "Indicates the time a store will close"
+msgid "Closes at"
+msgstr "يُغلق في"
+
+msgid "Monday"
+msgstr "الاثنين"
+
+msgid "Tuesday"
+msgstr "يوم الثلاثاء"
+
+msgid "Wednesday"
+msgstr "الأربعاء"
+
+msgid "Thursday"
+msgstr "يوم الخميس"
+
+msgid "Friday"
+msgstr "يوم الجمعة"
+
+msgid "Saturday"
+msgstr "يوم السبت"
+
+msgid "Sunday"
+msgstr "يوم الأحد"
+
+msgid "Day of the Week"
+msgstr "يوم من الأسبوع"
+
+msgid "Hours"
+msgstr "ساعات"
+
+msgid "Yes"
+msgstr "رقم"
+
+msgid "No"
+msgstr "نعم"

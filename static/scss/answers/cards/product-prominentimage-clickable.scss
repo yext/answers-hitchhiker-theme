@@ -78,6 +78,7 @@
   {
     display: flex;
     align-items: flex-start;
+    justify-content: center;
     width: 100%;
     flex-shrink: 0;
   }
@@ -85,7 +86,9 @@
   &-img
   {
     width: 100%;
-    height: auto;
+    height: var(--yxt-product-prominentimage-height);
+    object-fit: cover;
+    font-family: 'object-fit: cover;'; //polyfill css for ie11
   }
 
   &-title

@@ -181,3 +181,56 @@ msgstr "Mapa"
 msgctxt "View is a verb"
 msgid "View All"
 msgstr "Ver tudo"
+
+msgctxt "Indicates that a store is closed"
+msgid "Closed"
+msgstr "Fechado"
+
+msgctxt "The hours that a store is open"
+msgid "Open 24 Hours"
+msgstr "Aberto 24 horas"
+
+msgctxt "Indicates the time a store will open"
+msgid "Opens at"
+msgstr "Abre às"
+
+msgctxt "Indicates that a store is open"
+msgid "Open Now"
+msgstr "Aberto agora"
+
+msgctxt "Indicates the time a store will close"
+msgid "Closes at"
+msgstr "Fecha às"
+
+msgid "Monday"
+msgstr "Segunda-feira"
+
+msgid "Tuesday"
+msgstr "Terça-feira"
+
+msgid "Wednesday"
+msgstr "Quarta-feira"
+
+msgid "Thursday"
+msgstr "quinta-feira"
+
+msgid "Friday"
+msgstr "Sexta-feira"
+
+msgid "Saturday"
+msgstr "Sábado"
+
+msgid "Sunday"
+msgstr "Domingo"
+
+msgid "Day of the Week"
+msgstr "Dia da semana"
+
+msgid "Hours"
+msgstr "Horas"
+
+msgid "Yes"
+msgstr "Sim"
+
+msgid "No"
+msgstr "Não"
