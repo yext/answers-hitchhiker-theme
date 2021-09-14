@@ -8,10 +8,8 @@
   width: 100%;
   height: 100%;
 
-  &-header
+  &-body
   {
-    display: flex;
-    flex-direction: column;
     padding: calc(var(--yxt-base-spacing) * 3/4) var(--yxt-base-spacing);
   }
 
@@ -20,7 +18,6 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: calc(var(--yxt-base-spacing) * 3/4) var(--yxt-base-spacing);
   }
 
   &-title
@@ -64,6 +61,11 @@
   &-detailsText
   {
     @include rich_text_formatting;
+  }
+
+  &-cardDetails
+  {
+    margin-top: calc(var(--yxt-base-spacing) / 2);
   }
 
   &-ctasWrapper
