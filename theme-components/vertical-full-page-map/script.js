@@ -22,6 +22,9 @@ ANSWERS.addComponent('VerticalFullPageMapOrchestrator', Object.assign({},
   },
   locale: "{{global_config.locale}}",
   verticalKey: "{{{verticalKey}}}",
+  {{#with (lookup verticalsToConfig verticalKey)}}
+    {{#if cardType}}cardType: "{{{cardType}}}",{{/if}}
+  {{/with}}
   verticalPages: [
     {{#each verticalConfigs}}
       {{#if verticalKey}}
