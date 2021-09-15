@@ -189,14 +189,14 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       this.searchThisArea();
     });
 
-    this.setupCssForBreakpoints();
+    this.setupMobileBreakpointListener();
     this.addMapComponent();
   }
 
   /**
    * Properly set CSS classes for mobile and desktop
    */
-  setupCssForBreakpoints () {
+   setupMobileBreakpointListener () {
     if (!this.isMobile()) {
       this.updateCssForDesktop();
     }
