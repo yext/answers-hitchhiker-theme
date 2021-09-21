@@ -83,14 +83,14 @@ export function toLocalizedDistance(profile, key = 'd_distance', displayUnits) {
 }
 
 export function _getDocumentLocale() {
-  return document.documentElement.lang.replace('_', '-');
+  return document.documentElement.lang.replace(/_/g, '-');
 }
 
 export function toKilometers(profile, key = 'd_distance', displayUnits = 'km', locale) {
   if (!profile[key]) {
     return '';
   }
-  locale = locale || _getDocumentLocale()
+  locale = (locale && locale.replace(/_/g, '-')) || _getDocumentLocale()
   const distanceInKilometers = profile[key] / 1000; // Convert meters to kilometers
   return new Intl.NumberFormat(locale,
     { style: 'decimal', maximumFractionDigits: 1, minimumFractionDigits: 1})
@@ -101,7 +101,7 @@ export function toMiles(profile, key = 'd_distance', displayUnits = 'mi', locale
   if (!profile[key]) {
     return '';
   }
-  locale = locale || _getDocumentLocale()
+  locale = (locale && locale.replace(/_/g, '-')) || _getDocumentLocale()
   const distanceInMiles = profile[key] / 1609.344; // Convert meters to miles
   return new Intl.NumberFormat(locale,
     { style: 'decimal', maximumFractionDigits: 1, minimumFractionDigits: 1 })

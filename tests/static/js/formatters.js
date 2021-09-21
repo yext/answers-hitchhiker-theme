@@ -51,6 +51,15 @@ describe('Formatters', () => {
       const distance = Formatters.toLocalizedDistance(profile);
       expect(distance).toEqual('10,000.0 km');
     });
+
+    it('Correctly formats distance for Chinese display', () => {
+      document.documentElement.lang = 'zh-CN';
+      let distance = Formatters.toLocalizedDistance(profile);
+      expect(distance).toEqual('10,000.0 km');
+      document.documentElement.lang = 'zh-Hant_TW';
+      distance = Formatters.toLocalizedDistance(profile);
+      expect(distance).toEqual('10,000.0 km');
+    });
   })
 
   describe('price', () => {
@@ -62,10 +71,13 @@ describe('Formatters', () => {
       const price = Formatters.price(priceField, 'en');
       expect(price).toEqual('$100.99');
     });
+
     it('Formats a price in USD with no provided locale', () => {
+      document.documentElement.lang = 'en';
       const price = Formatters.price(priceField);
       expect(price).toEqual('$100.99');
     });
+
     it('Formats a price in USD with a non-en locale', () => {
       const price = Formatters.price(priceField, 'fr');
       expect(price).toEqual('100,99 $US');
@@ -76,6 +88,7 @@ describe('Formatters', () => {
       const price = Formatters.price(priceField);
       expect(price).toEqual('€100.99');
     });
+
     it('Formats a price in EUR with a non-en locale', () => {
       priceField.currencyCode = 'EUR-Euro';
       const price = Formatters.price(priceField, 'fr');
