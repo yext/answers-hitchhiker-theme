@@ -64,7 +64,16 @@ class faq_accordionCardComponent extends BaseCard['faq-accordion'] {
 
     const contentEl = this._container.querySelector(accordionContentSelector);
     let isExpanded = this._container.querySelector(`.${accordionExpandedClass}`);
-    contentEl.style.height = `${isExpanded ? contentEl.scrollHeight : 0}px`;
+
+    let scrollHeight = contentEl.scrollHeight;
+    const parentEl = document.querySelector('.yxt-Answers-component--unmounted');
+    if (parentEl) {
+      parentEl.classList.remove('yxt-Answers-component--unmounted');
+      scrollHeight = contentEl.scrollHeight;
+      parentEl.classList.add('yxt-Answers-component--unmounted');
+    }
+
+    contentEl.style.height = `${isExpanded ? scrollHeight : 0}px`;
     const linkEls = contentEl.querySelectorAll('a');
     this._setLinksInteractivity(linkEls, isExpanded);
 
