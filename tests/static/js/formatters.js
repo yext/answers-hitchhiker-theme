@@ -5,19 +5,25 @@ describe('Formatters', () => {
   describe('toLocalizedDistance', () => {
     const profile = { d_distance: 10000000 }; // Distance in meters
     const distanceKey = 'd_distance';
-    document.documentElement.lang = 'en';
+    
+    beforeEach(function() {
+      document.documentElement.lang = '';
+    });
 
     it('Formats a distance in kilometers', () => {
+      document.documentElement.lang = 'en';
       const distance = Formatters.toLocalizedDistance(profile, distanceKey, 'km');
       expect(distance).toEqual('10,000.0 km');
     });
 
     it('Formats a distance in miles', () => {
+      document.documentElement.lang = 'en';
       const distance = Formatters.toLocalizedDistance(profile, distanceKey, 'mi');
       expect(distance).toEqual('6,213.7 mi');
     });
 
     it('Fallbacks to miles', () => {
+      document.documentElement.lang = 'en';
       const distance = Formatters.toLocalizedDistance(profile, distanceKey, 'unknown-unit');
       expect(distance).toEqual('6,213.7 mi');
     });
@@ -67,6 +73,11 @@ describe('Formatters', () => {
       value: '100.99',
       currencyCode: 'USD-US Dollar'
     };
+
+    beforeEach(function() {
+      document.documentElement.lang = '';
+    });
+
     it('Formats a price in USD', () => {
       const price = Formatters.price(priceField, 'en');
       expect(price).toEqual('$100.99');
