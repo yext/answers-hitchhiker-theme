@@ -6,7 +6,7 @@ describe('Formatters', () => {
     const profile = { d_distance: 10000000 }; // Distance in meters
     const distanceKey = 'd_distance';
     
-    beforeEach(function() {
+    beforeEach(() => {
       document.documentElement.lang = '';
     });
 
@@ -74,7 +74,7 @@ describe('Formatters', () => {
       currencyCode: 'USD-US Dollar'
     };
 
-    beforeEach(function() {
+    beforeEach(() => {
       document.documentElement.lang = '';
     });
 
