@@ -82,15 +82,19 @@ export function toLocalizedDistance(profile, key = 'd_distance', displayUnits) {
   return this.toMiles(profile, undefined, undefined, locale);
 }
 
+export function _getLocaleWithDashes(locale) {
+  return locale && locale.replace(/_/g, '-');
+}
+
 export function _getDocumentLocale() {
-  return document.documentElement.lang.replace('_', '-');
+  return _getLocaleWithDashes(document.documentElement.lang);
 }
 
 export function toKilometers(profile, key = 'd_distance', displayUnits = 'km', locale) {
   if (!profile[key]) {
     return '';
   }
-  locale = locale || _getDocumentLocale()
+  locale = _getLocaleWithDashes(locale) || _getDocumentLocale();
   const distanceInKilometers = profile[key] / 1000; // Convert meters to kilometers
   return new Intl.NumberFormat(locale,
     { style: 'decimal', maximumFractionDigits: 1, minimumFractionDigits: 1})
@@ -101,7 +105,7 @@ export function toMiles(profile, key = 'd_distance', displayUnits = 'mi', locale
   if (!profile[key]) {
     return '';
   }
-  locale = locale || _getDocumentLocale()
+  locale = _getLocaleWithDashes(locale) || _getDocumentLocale();
   const distanceInMiles = profile[key] / 1609.344; // Convert meters to miles
   return new Intl.NumberFormat(locale,
     { style: 'decimal', maximumFractionDigits: 1, minimumFractionDigits: 1 })
@@ -234,7 +238,7 @@ export function snakeToTitle(snake) {
  * @returns {string} The pretty printed value.
  */
 export function prettyPrintObject(obj, locale) {
-  locale = locale || _getDocumentLocale();
+  locale = _getLocaleWithDashes(locale) || _getDocumentLocale();
 
   switch (typeof obj) {
     case 'string':
@@ -459,7 +463,7 @@ export function openStatus(profile, key = 'hours', isTwentyFourHourClock, locale
   }
 
   const hoursLocalizer = new HoursStringsLocalizer(
-    locale || _getDocumentLocale(), isTwentyFourHourClock);
+    _getLocaleWithDashes(locale) || _getDocumentLocale(), isTwentyFourHourClock);
   return new OpenStatusMessageFactory(hoursLocalizer)
     .create(hours.openStatus);
 }
@@ -501,7 +505,7 @@ export function hoursList(profile, opts = {}, key = 'hours', locale) {
     };
 
     const hoursLocalizer = new HoursStringsLocalizer(
-      locale || _getDocumentLocale(), opts.isTwentyFourHourClock);
+      _getLocaleWithDashes(locale) || _getDocumentLocale(), opts.isTwentyFourHourClock);
     return new HoursTableBuilder(hoursLocalizer).build(hours, standardizedOpts);
 }
 
@@ -515,7 +519,7 @@ export { generateCTAFieldTypeLink };
  *                  returns the price value without formatting
  */
 export function price(fieldValue = {}, locale) {
-  const localeForFormatting = locale || _getDocumentLocale() || 'en';
+  const localeForFormatting =  _getLocaleWithDashes(locale) || _getDocumentLocale() || 'en';
   const price = fieldValue.value && parseFloat(fieldValue.value);
   const currencyCode = fieldValue.currencyCode && fieldValue.currencyCode.split('-')[0];
   if (!price || isNaN(price) || !currencyCode) {

@@ -5,19 +5,25 @@ describe('Formatters', () => {
   describe('toLocalizedDistance', () => {
     const profile = { d_distance: 10000000 }; // Distance in meters
     const distanceKey = 'd_distance';
-    document.documentElement.lang = 'en';
+    
+    beforeEach(() => {
+      document.documentElement.lang = '';
+    });
 
     it('Formats a distance in kilometers', () => {
+      document.documentElement.lang = 'en';
       const distance = Formatters.toLocalizedDistance(profile, distanceKey, 'km');
       expect(distance).toEqual('10,000.0 km');
     });
 
     it('Formats a distance in miles', () => {
+      document.documentElement.lang = 'en';
       const distance = Formatters.toLocalizedDistance(profile, distanceKey, 'mi');
       expect(distance).toEqual('6,213.7 mi');
     });
 
     it('Fallbacks to miles', () => {
+      document.documentElement.lang = 'en';
       const distance = Formatters.toLocalizedDistance(profile, distanceKey, 'unknown-unit');
       expect(distance).toEqual('6,213.7 mi');
     });
@@ -51,6 +57,15 @@ describe('Formatters', () => {
       const distance = Formatters.toLocalizedDistance(profile);
       expect(distance).toEqual('10,000.0 km');
     });
+
+    it('Correctly formats distance for Chinese display', () => {
+      document.documentElement.lang = 'zh-CN';
+      let distance = Formatters.toLocalizedDistance(profile);
+      expect(distance).toEqual('10,000.0 km');
+      document.documentElement.lang = 'zh-Hant_TW';
+      distance = Formatters.toLocalizedDistance(profile);
+      expect(distance).toEqual('10,000.0 km');
+    });
   })
 
   describe('price', () => {
@@ -58,14 +73,22 @@ describe('Formatters', () => {
       value: '100.99',
       currencyCode: 'USD-US Dollar'
     };
+
+    beforeEach(() => {
+      document.documentElement.lang = '';
+    });
+
     it('Formats a price in USD', () => {
       const price = Formatters.price(priceField, 'en');
       expect(price).toEqual('$100.99');
     });
+
     it('Formats a price in USD with no provided locale', () => {
+      document.documentElement.lang = 'en';
       const price = Formatters.price(priceField);
       expect(price).toEqual('$100.99');
     });
+
     it('Formats a price in USD with a non-en locale', () => {
       const price = Formatters.price(priceField, 'fr');
       expect(price).toEqual('100,99 $US');
@@ -76,6 +99,7 @@ describe('Formatters', () => {
       const price = Formatters.price(priceField);
       expect(price).toEqual('€100.99');
     });
+
     it('Formats a price in EUR with a non-en locale', () => {
       priceField.currencyCode = 'EUR-Euro';
       const price = Formatters.price(priceField, 'fr');
