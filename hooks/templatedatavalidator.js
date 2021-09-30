@@ -31,7 +31,6 @@ module.exports = function (pageData, partials) {
  */
 function isGlobalConfigValid(globalConfig, JAMBO_INJECTED_DATA) {
   const { experienceKey } = globalConfig;
-  console.log('hey', globalConfig.useJWT, globalConfig.apiKey, experienceKey, JAMBO_INJECTED_DATA)
   if (!experienceKey) {
     error('Missing Info: no experienceKey found.');
     return false;
