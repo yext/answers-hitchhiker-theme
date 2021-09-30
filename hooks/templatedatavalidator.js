@@ -39,15 +39,15 @@ function isGlobalConfigValid(globalConfig, JAMBO_INJECTED_DATA) {
     return true;
   }
 
-  const injectedDataForExperience = JAMBO_INJECTED_DATA?.answers?.experiences[experienceKey];
+  const injectedDataForExperience = JAMBO_INJECTED_DATA.answers.experiences[experienceKey];
   if (!injectedDataForExperience) {
     error(`No JAMBO_INJECTED_DATA found for experience key: "${experienceKey}"`);
     error(`Found JAMBO_INJECTED_DATA: "${JSON.stringify(JAMBO_INJECTED_DATA, null, 2)}.`);
     return false;
   }
 
-  const productionApiKey = injectedDataForExperience?.configByLabel?.PRODUCTION?.apiKey;
-  const deprecatedApiKey = injectedDataForExperience?.apiKey;
+  const productionApiKey = injectedDataForExperience.configByLabel.PRODUCTION.apiKey;
+  const deprecatedApiKey = injectedDataForExperience.apiKey;
   if (!productionApiKey) {
     if (!deprecatedApiKey) {
       error(`No injected production api key found for experience key: "${experienceKey}"`);
@@ -56,7 +56,7 @@ function isGlobalConfigValid(globalConfig, JAMBO_INJECTED_DATA) {
     }
   }
 
-  const stagingApiKey = injectedDataForExperience?.configByLabel?.STAGING?.apiKey;
+  const stagingApiKey = injectedDataForExperience.configByLabel.STAGING.apiKey;
   if (!stagingApiKey) {
     if (!deprecatedApiKey) {
       error(`No injected staging api key found for experience key: "${experienceKey}"`);
