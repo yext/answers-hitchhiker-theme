@@ -34,12 +34,13 @@ async function runTests (browsers, concurrency) {
     configFile: './testcafe.json'
   });
   try {
-    const numberTestsFailed = await testcafe.createRunner()
+    const numberTestsFailed = await testcafe.createLiveModeRunner()
       .src('tests/acceptance/suites/*.js')
-      .browsers(browsers)
-      .concurrency(concurrency)
+      .filter(t => t.includes('Pagination works'))
+      .browsers()
+      .concurrency(1)
       .startApp(`npx serve -l tcp://0.0.0.0:${PORT} test-site/public`, 4000)
-      .run({ quarantineMode: true });
+      .run();
     if (numberTestsFailed > 0) {
       await testcafe.close();
       process.exit(1);
