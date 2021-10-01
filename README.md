@@ -6,7 +6,7 @@
   </a>
 </div>
 
-A [Jambo](https://github.com/yext/jambo) theme for building Answers experiences.
+A [Jambo](https://github.com/yext/jambo) theme for building Answers experiences!
 
 Additonal resources for integrating Answers can be found at https://hitchhikers.yext.com/.
 
