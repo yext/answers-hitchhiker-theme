@@ -34,10 +34,10 @@ async function runTests (browsers, concurrency) {
     configFile: './testcafe.json'
   });
   try {
-    const numberTestsFailed = await testcafe.createLiveModeRunner()
+    const numberTestsFailed = await testcafe.createRunner()
       .src('tests/acceptance/suites/*.js')
       .filter(t => t.includes('Pagination works'))
-      .browsers()
+      .browsers(browsers)
       .concurrency(1)
       .startApp(`npx serve -l tcp://0.0.0.0:${PORT} test-site/public`, 4000)
       .run();
