@@ -1,6 +1,6 @@
 const path = require('path');
 const { parseJamboConfig } = require('../commands/helpers/utils/jamboconfigutils');
-const { error } = require('../commands/helpers/utils/logger');
+const { error, warn } = require('../commands/helpers/utils/logger');
 
 /**
  * Validates the template data and partials used during jambo build.
@@ -13,8 +13,9 @@ const { error } = require('../commands/helpers/utils/logger');
  */
 module.exports = function (pageData, partials) {
   const jamboConfig = parseJamboConfig();
+  const { JAMBO_INJECTED_DATA } = pageData.env;
   const validatorResults = [
-    isGlobalConfigValid(pageData.global_config), 
+    isGlobalConfigValid(pageData.global_config, JAMBO_INJECTED_DATA), 
     isPageVerticalConfigValid(pageData, jamboConfig, partials)
   ];
   const isValid = validatorResults.every(result => result);
@@ -25,11 +26,48 @@ module.exports = function (pageData, partials) {
  * Validates global config for the page template
  * 
  * @param {Object} globalConfig 
+ * @param {Object} JAMBO_INJECTED_DATA
  * @returns {boolean}
  */
-function isGlobalConfigValid(globalConfig) {
-  if (!globalConfig.experienceKey) {
+function isGlobalConfigValid(globalConfig, JAMBO_INJECTED_DATA) {
+  const { experienceKey } = globalConfig;
+  if (!experienceKey) {
     error('Missing Info: no experienceKey found.');
+    return false;
+  }
+  if (globalConfig.useJWT || globalConfig.apiKey) {
+    return true;
+  }
+
+  const injectedDataForExperience = JAMBO_INJECTED_DATA.answers.experiences[experienceKey];
+  if (!injectedDataForExperience) {
+    error(`No JAMBO_INJECTED_DATA found for experience key: "${experienceKey}"`);
+    error(`Found JAMBO_INJECTED_DATA: "${JSON.stringify(JAMBO_INJECTED_DATA, null, 2)}.`);
+    return false;
+  }
+
+  const productionApiKey = injectedDataForExperience.configByLabel.PRODUCTION.apiKey;
+  const deprecatedApiKey = injectedDataForExperience.apiKey;
+  if (!productionApiKey) {
+    if (!deprecatedApiKey) {
+      error(`No injected production api key found for experience key: "${experienceKey}"`);
+    } else {
+      warn('No injected production api key found, using the default apiKey instead.');
+    }
+  }
+
+  const stagingApiKey = injectedDataForExperience.configByLabel.STAGING.apiKey;
+  if (!stagingApiKey) {
+    if (!deprecatedApiKey) {
+      error(`No injected staging api key found for experience key: "${experienceKey}"`);
+    } else {
+      warn('No injected staging api key found, using the default apiKey instead.');
+    }
+  }
+
+  if ((!productionApiKey || !stagingApiKey) && !deprecatedApiKey) {
+    error(`JAMBO_INJECTED_DATA is missing an api key.`);
+    error(`Found JAMBO_INJECTED_DATA: "${JSON.stringify(JAMBO_INJECTED_DATA, null, 2)}.`);
     return false;
   }
   return true;
