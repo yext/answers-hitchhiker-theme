@@ -123,6 +123,7 @@ $location-standard-ordinal-dimensions: calc(var(--hh-location-standard-base-spac
     font-style: italic;
     white-space: nowrap;
     padding-left: 4px;
+    color: var(--yxt-color-text-primary);
   }
 
   &-subtitle
@@ -205,13 +206,16 @@ $location-standard-ordinal-dimensions: calc(var(--hh-location-standard-base-spac
 
   &-address
   {
+    color: var(--yxt-color-text-primary);
+
     .c-AddressRow:last-child {
       display: none;
     }
   }
 
   &-phone
-  {
+  { 
+    color: var(--yxt-color-text-primary);
     display: flex;
     font-weight: var(--yxt-font-weight-semibold);
     margin-top: calc(var(--hh-location-standard-base-spacing) / 4);
@@ -242,8 +246,14 @@ $location-standard-ordinal-dimensions: calc(var(--hh-location-standard-base-spac
     margin-top: calc(var(--hh-location-standard-base-spacing) / 2);
   }
 
+  &-detailsText
+  {
+    color: var(--yxt-color-text-primary);
+  }
+
   &-hoursText
   {
+    color: var(--yxt-color-text-primary);
     margin-top: calc(var(--hh-location-standard-base-spacing) / 2);
   }
 
@@ -254,6 +264,7 @@ $location-standard-ordinal-dimensions: calc(var(--hh-location-standard-base-spac
 
   &-services
   {
+    color: var(--yxt-color-text-primary);
     flex-basis: 100%;
     margin-top: calc(var(--hh-location-standard-base-spacing) / 2);
   }
