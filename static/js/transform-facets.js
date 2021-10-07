@@ -1,3 +1,5 @@
+import clonedeep from 'lodash.clonedeep';
+
 /**
  * Transforms the Facets.fields component configuration into a transformFacets function
  * which can be understood by the Answers Search UI.
@@ -12,8 +14,8 @@ export default function transformFacets (facets, config) {
   }
 
   return facets.map(facet => {
-    const isConfigurationForFacet = facet.fieldId in config.fields;
-    if (!isConfigurationForFacet) {
+    const hasConfigurationForFacet = facet.fieldId in config.fields;
+    if (!hasConfigurationForFacet) {
       return facet;
     }
     const facetConfig = config.fields[facet.fieldId];
@@ -21,24 +23,36 @@ export default function transformFacets (facets, config) {
     let options = facet.options;
 
     if ('fieldLabels' in facetConfig) {
-      options = facet.options.map(option => {
-        const fieldLabels = facetConfig.fieldLabels;
+      const fieldLabels = facetConfig.fieldLabels;
 
+      options = facet.options.map(option => {
         const displayName = (option.displayName in fieldLabels)
           ? fieldLabels[option.displayName]
           : option.displayName;
-
-        return Object.assign({}, option, { displayName });
+        return { ...option, displayName };
       })
     }
 
-    const filterOptionsConfig = Object.entries(facetConfig).reduce((filterOptions, [option, value]) => {
-      if (option !== 'fieldLabels') {
-        filterOptions[option] = value;
+    if ('optionsOrder' in facetConfig) {
+      const { optionsOrder } = facetConfig;
+      if (optionsOrder === 'ASC') {
+        options = options.sort((a, b) =>  a.displayName.toString().localeCompare(b.displayName.toString()));
+      } else if (optionsOrder === 'DESC') {
+        options = options.sort((a, b) =>  b.displayName.toString().localeCompare(a.displayName.toString()));
+      } else {
+        console.error(`Unknown facet optionsOrder "${optionsOrder}" for the "${facet.fieldId}" facet.`);
       }
-      return filterOptions;
-    }, {});
+    }
+
+    // Don't expose Hitchhiker theme specific details to the SDK
+    const filterOptionsConfig = clonedeep(facetConfig);
+    delete filterOptionsConfig.fieldLabels;
+    delete filterOptionsConfig.optionsOrder;
     
-    return Object.assign({}, facet, filterOptionsConfig, { options });
+    return {
+      ...facet,
+      ...filterOptionsConfig,
+      options
+    };
   });
 }
