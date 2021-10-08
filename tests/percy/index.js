@@ -33,6 +33,10 @@ const PORT = 5042;
   
   await (new MultilangPhotographer(standardPageNavigator, standardCamera, queryConfig.es).captureSnapshots());
 
+  standardPageNavigator.setCurrentLocale('ar');
+  standardCamera.setLocale('ar');
+  await (new MultilangPhotographer(standardPageNavigator, standardCamera, queryConfig.ar).captureSnapshots());
+
   await browser.close();
   server.shutdown();
 })();
