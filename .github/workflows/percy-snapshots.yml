@@ -14,7 +14,7 @@ jobs:
     - id: nonce
       run: echo "::set-output name=result::${{ github.run_id }}-$(date +%s)"
 
-  run-default-snapshots:
+  default-snapshots:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -35,7 +35,7 @@ jobs:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
           PERCY_PARALLEL_NONCE: ${{ needs.nonce.outputs.result }}
 
-  run-iframe-snapshots:
+  iframe-snapshots:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -56,7 +56,7 @@ jobs:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
           PERCY_PARALLEL_NONCE: ${{ needs.nonce.outputs.result }}
 
-  run-non-english-snapshots:
+  non-english-snapshots:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -77,7 +77,7 @@ jobs:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
           PERCY_PARALLEL_NONCE: ${{ needs.nonce.outputs.result }}
 
-  run-rtl-snapshots:
+  rtl-snapshots:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -94,6 +94,23 @@ jobs:
       - run: npm run build-test-site
       - name: Percy snapshots
         run: npx percy exec --parallel -- node tests/percy/index.js rtl
+        env:
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+          PERCY_PARALLEL_NONCE: ${{ needs.nonce.outputs.result }}
+
+  finalize-snapshots:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.18]
+    needs: [nonce, rtl-snapshots, non-english-snapshots, default-snapshots, iframe-snapshots]
+    steps:
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: finalize snapshots
+        run: npx percy build:finalize
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
           PERCY_PARALLEL_NONCE: ${{ needs.nonce.outputs.result }}
