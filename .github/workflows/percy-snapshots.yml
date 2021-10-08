@@ -8,7 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [12.18]
@@ -22,9 +21,91 @@ jobs:
     - run: npm ci
     - run: npm run setup-test-site
     - run: npm run build-test-site
-    - name: Percy snapshots
-      uses: percy/exec-action@v0.3.1
-      with:
-        command: node tests/percy/index.js
-      env:
-        PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+
+  nonce:
+    runs-on: ubuntu-latest
+    outputs:
+      result: ${{ steps.nonce.outputs.result }}
+    steps:
+    - id: nonce
+      run: echo "::set-output name=result::${{ github.run_id }}-$(date +%s)"
+
+  run-default-snapshots:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.18]
+    needs: [nonce, build]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Percy snapshots
+        uses: percy/exec-action@v0.3.1
+        with:
+          command: node tests/percy/index.js
+        env:
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+          PERCY_PARALLEL_NONCE: ${{ needs.nonce.outputs.result }}
+
+  run-iframe-snapshots:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.18]
+    needs: [nonce, build]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Percy snapshots
+        uses: percy/exec-action@v0.3.1
+        with:
+          command: node tests/percy/index.js iframe
+        env:
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+          PERCY_PARALLEL_NONCE: ${{ needs.nonce.outputs.result }}
+
+  run-non-english-snapshots:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.18]
+    needs: [nonce, build]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Percy snapshots
+        uses: percy/exec-action@v0.3.1
+        with:
+          command: node tests/percy/index.js non-english
+        env:
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+          PERCY_PARALLEL_NONCE: ${{ needs.nonce.outputs.result }}
+
+  run-rtl-snapshots:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.18]
+    needs: [nonce, build]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Percy snapshots
+        uses: percy/exec-action@v0.3.1
+        with:
+          command: node tests/percy/index.js rtl
+        env:
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+          PERCY_PARALLEL_NONCE: ${{ needs.nonce.outputs.result }}
