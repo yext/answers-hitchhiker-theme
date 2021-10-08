@@ -12,33 +12,52 @@ export default function transformFacets (facets, config) {
   }
 
   return facets.map(facet => {
-    const isConfigurationForFacet = facet.fieldId in config.fields;
-    if (!isConfigurationForFacet) {
+    const hasConfigurationForFacet = facet.fieldId in config.fields;
+    if (!hasConfigurationForFacet) {
       return facet;
     }
-    const facetConfig = config.fields[facet.fieldId];
+
+    if (typeof config.fields[facet.fieldId] !== 'object') {
+      console.error(
+        `The "fields" config for ${facet.fieldId} should be an object. ` +
+        `Received ${config.fields[facet.fieldId]} instead.`);
+    }
+
+    const {
+      fieldLabels,
+      optionsOrder,
+      ...filterOptionsConfig
+    } = config.fields[facet.fieldId];
 
     let options = facet.options;
 
-    if ('fieldLabels' in facetConfig) {
+    if (fieldLabels) {
       options = facet.options.map(option => {
-        const fieldLabels = facetConfig.fieldLabels;
-
         const displayName = (option.displayName in fieldLabels)
           ? fieldLabels[option.displayName]
           : option.displayName;
-
-        return Object.assign({}, option, { displayName });
+        return { ...option, displayName };
       })
     }
 
-    const filterOptionsConfig = Object.entries(facetConfig).reduce((filterOptions, [option, value]) => {
-      if (option !== 'fieldLabels') {
-        filterOptions[option] = value;
+    if (optionsOrder) {
+      if (optionsOrder === 'ASC') {
+        options = options.sort((a, b) =>  {
+          return a.displayName.toString().localeCompare(b.displayName.toString())
+        });
+      } else if (optionsOrder === 'DESC') {
+        options = options.sort((a, b) =>  {
+          return b.displayName.toString().localeCompare(a.displayName.toString())
+        });
+      } else {
+        console.error(`Unknown facet optionsOrder "${optionsOrder}" for the "${facet.fieldId}" facet.`);
       }
-      return filterOptions;
-    }, {});
+    }
     
-    return Object.assign({}, facet, filterOptionsConfig, { options });
+    return {
+      ...facet,
+      ...filterOptionsConfig,
+      options
+    };
   });
 }
