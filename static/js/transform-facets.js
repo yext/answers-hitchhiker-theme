@@ -16,6 +16,13 @@ export default function transformFacets (facets, config) {
     if (!hasConfigurationForFacet) {
       return facet;
     }
+
+    if (typeof(config.fields[facet.fieldId]) !== 'object') {
+      console.error(
+        `The "fields" config for ${facet.fieldId} should be an object. ` +
+        `Received ${config.fields[facet.fieldId]} instead.`);
+    }
+
     const {
       fieldLabels,
       optionsOrder,
