@@ -35,9 +35,13 @@ export default function transformFacets (facets, config) {
 
     if (optionsOrder) {
       if (optionsOrder === 'ASC') {
-        options = options.sort((a, b) =>  a.displayName.toString().localeCompare(b.displayName.toString()));
+        options = options.sort((a, b) =>  {
+          return a.displayName.toString().localeCompare(b.displayName.toString())
+        });
       } else if (optionsOrder === 'DESC') {
-        options = options.sort((a, b) =>  b.displayName.toString().localeCompare(a.displayName.toString()));
+        options = options.sort((a, b) =>  {
+          return b.displayName.toString().localeCompare(a.displayName.toString())
+        });
       } else {
         console.error(`Unknown facet optionsOrder "${optionsOrder}" for the "${facet.fieldId}" facet.`);
       }
