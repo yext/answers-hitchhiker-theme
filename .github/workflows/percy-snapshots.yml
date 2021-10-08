@@ -34,6 +34,7 @@ jobs:
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
           PERCY_PARALLEL_NONCE: ${{ needs.nonce.outputs.result }}
+          PERCY_PARALLEL_TOTAL: 4
 
   iframe-snapshots:
     runs-on: ubuntu-latest
@@ -55,6 +56,7 @@ jobs:
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
           PERCY_PARALLEL_NONCE: ${{ needs.nonce.outputs.result }}
+          PERCY_PARALLEL_TOTAL: 4
 
   non-english-snapshots:
     runs-on: ubuntu-latest
@@ -76,6 +78,7 @@ jobs:
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
           PERCY_PARALLEL_NONCE: ${{ needs.nonce.outputs.result }}
+          PERCY_PARALLEL_TOTAL: 4
 
   rtl-snapshots:
     runs-on: ubuntu-latest
@@ -97,20 +100,4 @@ jobs:
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
           PERCY_PARALLEL_NONCE: ${{ needs.nonce.outputs.result }}
-
-  finalize-snapshots:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.18]
-    needs: [nonce, rtl-snapshots, non-english-snapshots, default-snapshots, iframe-snapshots]
-    steps:
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: finalize snapshots
-        run: npx percy build:finalize
-        env:
-          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
-          PERCY_PARALLEL_NONCE: ${{ needs.nonce.outputs.result }}
+          PERCY_PARALLEL_TOTAL: 4
