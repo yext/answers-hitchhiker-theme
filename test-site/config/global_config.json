@@ -7,10 +7,6 @@
   // "useJWT": true, // Whether or not to enable JWT. If true, the apiKey will be hidden from the build and the token must be specified through the runtime config.
   "sessionTrackingEnabled": true, // Whether or not session tracking is enabled for all pages
   "analyticsEventsEnabled": true, // Whether or not to submit user interaction analytics events
-  // "visitor": { // Information about the user interacting with the experience
-  //   "id": "<ID_HERE>", // The ID associated with the user
-  //   "idMethod": "<ID_METHOD_HERE>" // The method used to generate the visitor ID (e.g. 'YEXT_USER for Yext Auth')
-  // },
   "logo": "", // The link to the logo for open graph meta tag - og:image.
   "favicon": "",
   "googleTagManagerName": "dataLayer", // The name of your Google Tag Manager data layer
