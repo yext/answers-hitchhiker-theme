@@ -26,6 +26,7 @@ export default function transformFacets(facets, config) {
     const {
       fieldLabels,
       optionsOrder,
+      optionsOrderList,
       optionsFieldType = 'STRING',
       ...filterOptionsConfig
     } = config.fields[facet.fieldId];
@@ -41,7 +42,9 @@ export default function transformFacets(facets, config) {
       })
     }
 
-    if (optionsOrder) {
+    if (optionsOrderList) {
+      options = sortFacetOptionsCustom(options, optionsOrderList);
+    } else if (optionsOrder) {
       options = sortFacetOptions(options, optionsOrder, optionsFieldType, facet.fieldId);
     }
 
@@ -54,7 +57,7 @@ export default function transformFacets(facets, config) {
 }
 
 /**
- * Sorts the facet options in place.
+ * Sorts the facet options and returns a new array.
  * 
  * @param {{ displayName: string }[]} options The facet options to sort.
  * @param {'ASC' | 'DESC'} optionsOrder 
@@ -87,6 +90,26 @@ function sortFacetOptions(options, optionsOrder, optionsFieldType, fieldId) {
       return undefined;
     }
   }
-  
-  return options.sort(applyDirectionToComparator(getSortComparator()))
+
+  return [...options].sort(applyDirectionToComparator(getSortComparator()))
+}
+
+
+/**
+ * Sorts the facet options using the priority specified in
+ * the optionsOrderList and returns a new array.
+ * 
+ * @param {{ displayName: string }[]} options The facet options to sort.
+ * @param {string[] | number[]} optionsOrderList
+ * @returns {{ displayName: string }[]}
+ */
+function sortFacetOptionsCustom(options, optionsOrderList) {
+  const getPriority = displayName => {
+    const index = optionsOrderList.indexOf(displayName);
+    return index === -1 ? optionsOrderList.length : index;
+  }
+
+  return [...options].sort((a, b) => {
+    return getPriority(a.displayName) - getPriority(b.displayName);
+  });
 }

@@ -19,6 +19,13 @@
             "Strategy": "STRATEGY !!!"
           },
           "optionsOrder": "DESC"
+        },
+        "languages": {
+          "optionsOrderList": [
+            "Italian",
+            "French",
+            "German"
+          ]
         }
       }
     },
