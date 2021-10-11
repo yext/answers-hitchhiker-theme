@@ -6,8 +6,8 @@
  * @param {FilterOptionsConfig} config the config of the FilterOptionsConfig from answers-search-ui
  * @returns {(DisplayableFacet | FilterOptionsConfig)[]}
  */
-export default function transformFacets (facets, config) {
-  if(!config || !('fields' in config)) {
+export default function transformFacets(facets, config) {
+  if (!config || !('fields' in config)) {
     return facets;
   }
 
@@ -26,6 +26,7 @@ export default function transformFacets (facets, config) {
     const {
       fieldLabels,
       optionsOrder,
+      optionsFieldType = 'STRING',
       ...filterOptionsConfig
     } = config.fields[facet.fieldId];
 
@@ -41,23 +42,51 @@ export default function transformFacets (facets, config) {
     }
 
     if (optionsOrder) {
-      if (optionsOrder === 'ASC') {
-        options = options.sort((a, b) =>  {
-          return a.displayName.toString().localeCompare(b.displayName.toString())
-        });
-      } else if (optionsOrder === 'DESC') {
-        options = options.sort((a, b) =>  {
-          return b.displayName.toString().localeCompare(a.displayName.toString())
-        });
-      } else {
-        console.error(`Unknown facet optionsOrder "${optionsOrder}" for the "${facet.fieldId}" facet.`);
-      }
+      options = sortFacetOptions(options, optionsOrder, optionsFieldType, facet.fieldId);
     }
-    
+
     return {
       ...facet,
       ...filterOptionsConfig,
       options
     };
   });
+}
+
+/**
+ * Sorts the facet options in place.
+ * 
+ * @param {{ displayName: string }[]} options The facet options to sort.
+ * @param {'ASC' | 'DESC'} optionsOrder 
+ * @param {'STRING' | 'INT'} optionsFieldType 
+ * @param {string} fieldId 
+ * @returns {{ displayName: string }[]}
+ */
+function sortFacetOptions(options, optionsOrder, optionsFieldType, fieldId) {
+  const getSortComparator = () => {
+    if (optionsFieldType === 'STRING') {
+      return (a, b) => a.displayName.localeCompare(b.displayName);
+    } else if (optionsFieldType === 'INT') {
+      return (a, b) => parseInt(a.displayName) - parseInt(b.displayName);
+    } else {
+      console.error(`Unknown facet optionsFieldType "${optionsFieldType}" for the "${fieldId}" facet.`);
+      return undefined;
+    }
+  }
+  const applyDirectionToComparator = (comparator) => {
+    if (!comparator) {
+      return undefined;
+    }
+
+    if (optionsOrder === 'ASC') {
+      return comparator;
+    } else if (optionsOrder === 'DESC') {
+      return (a, b) => -1 * comparator(a, b)
+    } else {
+      console.error(`Unknown facet optionsOrder "${optionsOrder}" for the "${fieldId}" facet.`);
+      return undefined;
+    }
+  }
+  
+  return options.sort(applyDirectionToComparator(getSortComparator()))
 }
