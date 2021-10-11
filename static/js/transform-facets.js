@@ -57,10 +57,10 @@ export default function transformFacets(facets, config) {
  * Sorts the facet options in place.
  * 
  * @param {{ displayName: string }[]} options The facet options to sort.
- * @param {'STRING' | 'INT'} optionsOrder 
- * @param {'ASC' | 'DESC'} optionsFieldType 
+ * @param {'ASC' | 'DESC'} optionsOrder 
+ * @param {'STRING' | 'INT'} optionsFieldType 
  * @param {string} fieldId 
- * @returns 
+ * @returns {{ displayName: string }[]}
  */
 function sortFacetOptions(options, optionsOrder, optionsFieldType, fieldId) {
   const getSortComparator = () => {
