@@ -236,5 +236,33 @@ describe('optionsOrder', () => {
     expect(actualOptions[0].displayName).toEqual('100');
     expect(actualOptions[1].displayName).toEqual('3');
     expect(actualOptions[2].displayName).toEqual('2');
-  })
+  });
+});
+
+describe('sorting facets using optionsOrderList', () => {
+  function createFacets(displayNames) {
+    return [
+      {
+        fieldId: 'c_mealType',
+        options: displayNames.map(d => ({ displayName: d }))
+      }
+    ];
+  }
+
+  function createFacetsConfig(optionsOrderList) {
+    return {
+      fields: {
+        c_mealType: {
+          optionsOrderList
+        }
+      }
+    }
+  };
+
+  it('will assign priority based on the optionsOrderList', () => {
+    const displayNames = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+    const transformedFacets = transformFacets(createFacets(displayNames), createFacetsConfig(['e', 'g']));
+    const actualOptions = transformedFacets[0].options;
+    expect(actualOptions.map(o => o.displayName)).toEqual(['e', 'g', 'a', 'b', 'c', 'd', 'f'])
+  });
 });
