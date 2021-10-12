@@ -100,7 +100,7 @@ function sortFacetOptions(options, optionsOrder, optionsFieldType, fieldId) {
  * the optionsOrderList and returns a new array.
  * 
  * @param {{ displayName: string }[]} options The facet options to sort.
- * @param {string[] | number[]} optionsOrderList
+ * @param {string[]} optionsOrderList
  * @returns {{ displayName: string }[]}
  */
 function sortFacetOptionsCustom(options, optionsOrderList) {
