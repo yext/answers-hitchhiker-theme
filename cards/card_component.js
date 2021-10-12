@@ -78,7 +78,7 @@ BaseCard["{{componentName}}"] = class extends ANSWERS.Component {
       cardData.titleEventOptions = updatedEventOptions;
     }
     
-    cardData.feedbackEnabled = this.analyticsReporter?._analyticsEventsEnabled && cardData.feedback;
+    cardData.feedbackEnabled = ANSWERS.getAnalyticsOptIn() && cardData.feedback;
 
     const { details, showMoreDetails } = cardData;
 
