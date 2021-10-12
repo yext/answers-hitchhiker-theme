@@ -1,5 +1,15 @@
 ANSWERS.addComponent("VerticalResults", Object.assign({}, {
   container: "#js-answersVerticalResults",
+  onCreate: function() { 
+    this.core.storage.registerListener({
+      storageKey: 'DISABLE_RENDER_RESULTS',
+      eventType: 'update',
+      callback: () => { this.setState(this.getState()) }
+    });
+  },
+  beforeMountOverride: function(data) { 
+    return !this.core.storage.get('DISABLE_RENDER_RESULTS');
+  },
   {{#if verticalKey}}
     verticalKey: "{{{verticalKey}}}",
     modifier: "{{{verticalKey}}}",

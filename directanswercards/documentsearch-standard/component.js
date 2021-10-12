@@ -20,12 +20,13 @@ class documentsearch_standardComponent extends BaseDirectAnswerCard['documentsea
     } else if (snippet) {
       snippetValue = Formatter.highlightField(snippet.value, snippet.matchedSubstrings);
     }
+    const viewDetailsUrl = relatedItemData.website || (relatedItemData.fieldValues && relatedItemData.fieldValues.landingPageUrl);
 
     return {
       value: answer.value,
       snippet: snippetValue, // Text snippet to include alongside the answer
       viewDetailsText: relatedItemData.fieldValues && relatedItemData.fieldValues.name, // Text below the direct answer and snippet
-      viewDetailsLink: relatedItemData.website || (relatedItemData.fieldValues && relatedItemData.fieldValues.landingPageUrl), // Link for the "view details" text
+      viewDetailsLink: Formatter.getUrlWithTextHighlight(snippet, viewDetailsUrl), // Link for the "view details" text
       viewDetailsEventOptions: this.addDefaultEventOptions({
         ctaLabel: 'VIEW_DETAILS',
         fieldName: 'snippet'

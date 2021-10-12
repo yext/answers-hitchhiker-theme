@@ -7,7 +7,10 @@ import HoursStringsLocalizer from './hours/stringslocalizer.js';
 import HoursTableBuilder from './hours/table/builder.js';
 import { DayNames } from './hours/constants.js';
 import { generateCTAFieldTypeLink } from './formatters/generate-cta-field-type-link';
-
+import { isChrome } from './useragent.js';
+import LocaleCurrency from 'locale-currency'
+import getSymbolFromCurrency from 'currency-symbol-map'
+import { parseLocale } from './utils.js';
 
 export function address(profile) {
   if (!profile.address) {
@@ -79,15 +82,19 @@ export function toLocalizedDistance(profile, key = 'd_distance', displayUnits) {
   return this.toMiles(profile, undefined, undefined, locale);
 }
 
+export function _getLocaleWithDashes(locale) {
+  return locale && locale.replace(/_/g, '-');
+}
+
 export function _getDocumentLocale() {
-  return document.documentElement.lang.replace('_', '-');
+  return _getLocaleWithDashes(document.documentElement.lang);
 }
 
 export function toKilometers(profile, key = 'd_distance', displayUnits = 'km', locale) {
   if (!profile[key]) {
     return '';
   }
-  locale = locale || _getDocumentLocale()
+  locale = _getLocaleWithDashes(locale) || _getDocumentLocale();
   const distanceInKilometers = profile[key] / 1000; // Convert meters to kilometers
   return new Intl.NumberFormat(locale,
     { style: 'decimal', maximumFractionDigits: 1, minimumFractionDigits: 1})
@@ -98,7 +105,7 @@ export function toMiles(profile, key = 'd_distance', displayUnits = 'mi', locale
   if (!profile[key]) {
     return '';
   }
-  locale = locale || _getDocumentLocale()
+  locale = _getLocaleWithDashes(locale) || _getDocumentLocale();
   const distanceInMiles = profile[key] / 1609.344; // Convert meters to miles
   return new Intl.NumberFormat(locale,
     { style: 'decimal', maximumFractionDigits: 1, minimumFractionDigits: 1 })
@@ -231,7 +238,7 @@ export function snakeToTitle(snake) {
  * @returns {string} The pretty printed value.
  */
 export function prettyPrintObject(obj, locale) {
-  locale = locale || _getDocumentLocale();
+  locale = _getLocaleWithDashes(locale) || _getDocumentLocale();
 
   switch (typeof obj) {
     case 'string':
@@ -456,7 +463,7 @@ export function openStatus(profile, key = 'hours', isTwentyFourHourClock, locale
   }
 
   const hoursLocalizer = new HoursStringsLocalizer(
-    locale || _getDocumentLocale(), isTwentyFourHourClock);
+    _getLocaleWithDashes(locale) || _getDocumentLocale(), isTwentyFourHourClock);
   return new OpenStatusMessageFactory(hoursLocalizer)
     .create(hours.openStatus);
 }
@@ -498,7 +505,7 @@ export function hoursList(profile, opts = {}, key = 'hours', locale) {
     };
 
     const hoursLocalizer = new HoursStringsLocalizer(
-      locale || _getDocumentLocale(), opts.isTwentyFourHourClock);
+      _getLocaleWithDashes(locale) || _getDocumentLocale(), opts.isTwentyFourHourClock);
     return new HoursTableBuilder(hoursLocalizer).build(hours, standardizedOpts);
 }
 
@@ -512,7 +519,7 @@ export { generateCTAFieldTypeLink };
  *                  returns the price value without formatting
  */
 export function price(fieldValue = {}, locale) {
-  const localeForFormatting = locale || _getDocumentLocale() || 'en';
+  const localeForFormatting =  _getLocaleWithDashes(locale) || _getDocumentLocale() || 'en';
   const price = fieldValue.value && parseFloat(fieldValue.value);
   const currencyCode = fieldValue.currencyCode && fieldValue.currencyCode.split('-')[0];
   if (!price || isNaN(price) || !currencyCode) {
@@ -520,6 +527,35 @@ export function price(fieldValue = {}, locale) {
     return fieldValue.value;
   }
   return price.toLocaleString(localeForFormatting, { style: 'currency', currency: currencyCode });
+}
+
+/**
+ * Returns a localized price range string for the given price range ($-$$$$) and country code (ISO format).
+ * If country code is invalid or undefined, use locale of the site to determine the currency symbol.
+ * If all else fails, use the default priceRange with dollar sign.
+ * @param {string} defaultPriceRange The price range from LiveAPI entity
+ * @param {string} countrycode The country code from LiveAPI entity (e.g. profile.address.countryCode)
+ * @return {string} The price range with correct currency symbol formatting according to country code
+ */
+export function priceRange(defaultPriceRange, countryCode) {
+  if (!defaultPriceRange) {
+    console.warn(`Price range is not provided.`);
+    return '';
+  }
+  if (countryCode) {
+    const currencySymbol = getSymbolFromCurrency(LocaleCurrency.getCurrency(countryCode));
+    if (currencySymbol) {
+      return defaultPriceRange.replace(/\$/g, currencySymbol); 
+    }
+  }
+  const { region, language } = parseLocale(_getDocumentLocale());
+  const currencySymbol = getSymbolFromCurrency(LocaleCurrency.getCurrency(region || language));
+  if (currencySymbol) {
+    return defaultPriceRange.replace(/\$/g, currencySymbol); 
+  }
+  console.warn('Unable to determine currency symbol from '
+    + `ISO country code "${countryCode}" or locale "${_getDocumentLocale()}".`);
+  return defaultPriceRange;
 }
 
 /**
@@ -565,4 +601,51 @@ export function getYoutubeUrl(videos = []) {
     ? 'https://www.youtube.com/embed/' + youtubeVideoId + '?enablejsapi=1' 
     : null;
   return youtubeVideoUrl;
+}
+
+/**
+ * construct a URL that links to a specific portion of a page, using a text snippet provided in the URL.
+ * This feature is only available in Chrome.
+ * @param {Object} snippet the snippet for the document search direct answer
+ * @param {string} baseUrl website or landingPageURL from the entity related to the snippet
+ * @returns a URL with text fragment URI component attached
+ */
+export function getUrlWithTextHighlight(snippet, baseUrl) {
+  if (!isChrome() || !snippet || snippet.matchedSubstrings.length === 0) {
+    return baseUrl;
+  }
+  //Find the surrounding sentence of the snippet
+  let sentenceStart = snippet.matchedSubstrings[0].offset;
+  let sentenceEnd = sentenceStart + snippet.matchedSubstrings[0].length;
+  const sentenceEnderRegex = /[.\n!\?]/;
+  while (!sentenceEnderRegex.test(snippet.value[sentenceStart]) && sentenceStart > 0) {
+    sentenceStart -= 1;
+  }
+  while (!sentenceEnderRegex.test(snippet.value[sentenceEnd]) && sentenceEnd < snippet.value.length) {
+    sentenceEnd += 1;
+  }
+  sentenceStart = sentenceStart === 0 ? sentenceStart : sentenceStart + 2;
+  const sentence = snippet.value.slice(sentenceStart, sentenceEnd);
+  return baseUrl + `#:~:text=${encodeURIComponent(sentence)}`;
+}
+
+/**
+ * construct a list of displayable category names based on given category ids from liveAPI
+ * and a mapping of category ids to names.
+ * 
+ * @param {string[]} categoryIds category ids from liveAPI
+ * @param {Object[]} categoryMap mapping of category ids to names
+ * @param {string} categoryMap[].id id of a category entry
+ * @param {string} categoryMap[].category name of a category entry
+ * @returns {string[]} a list of category names
+ */
+export function getCategoryNames(categoryIds, categoryMap) {
+  if (!categoryIds || !categoryMap) {
+    return [];
+  }
+  return categoryIds.reduce((list, id) => {
+    const categoryEntry = categoryMap.find(category => category.id === id);
+    categoryEntry ? list.push(categoryEntry.category) : console.error(`Unable to find category name for id ${id}.`);
+    return list;
+  }, []);
 }

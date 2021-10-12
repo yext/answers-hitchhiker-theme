@@ -28,8 +28,11 @@ import {
   hoursList,
   generateCTAFieldTypeLink,
   price,
+  priceRange,
   highlightField,
-  getYoutubeUrl
+  getYoutubeUrl,
+  getUrlWithTextHighlight,
+  getCategoryNames
 } from './formatters-internal.js';
 import * as CustomFormatters from './formatters-custom.js';
 
@@ -61,8 +64,11 @@ let Formatters = {
   hoursList,
   generateCTAFieldTypeLink,
   price,
+  priceRange,
   highlightField,
-  getYoutubeUrl
+  getYoutubeUrl,
+  getUrlWithTextHighlight,
+  getCategoryNames
 };
 Formatters = Object.assign(Formatters, CustomFormatters);
 

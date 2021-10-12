@@ -11,12 +11,14 @@
           "fieldLabels": {
             "Frodo": "FRODO !!!",
             "Marty": "MARTY !!!"
-          }
+          },
+          "optionsOrder": "ASC"
         },
         "c_employeeDepartment": {
           "fieldLabels": {
             "Strategy": "STRATEGY !!!"
-          }
+          },
+          "optionsOrder": "DESC"
         }
       }
     },
