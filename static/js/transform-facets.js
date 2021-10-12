@@ -27,7 +27,6 @@ export default function transformFacets(facets, config) {
       fieldLabels,
       optionsOrder,
       optionsOrderList,
-      optionsFieldType = 'STRING',
       ...filterOptionsConfig
     } = config.fields[facet.fieldId];
 
@@ -45,7 +44,7 @@ export default function transformFacets(facets, config) {
     if (optionsOrderList) {
       options = sortFacetOptionsCustom(options, optionsOrderList);
     } else if (optionsOrder) {
-      options = sortFacetOptions(options, optionsOrder, optionsFieldType, facet.fieldId);
+      options = sortFacetOptions(options, optionsOrder, facet.fieldId);
     }
 
     return {
@@ -61,37 +60,25 @@ export default function transformFacets(facets, config) {
  * 
  * @param {{ displayName: string }[]} options The facet options to sort.
  * @param {'ASC' | 'DESC'} optionsOrder 
- * @param {'STRING' | 'INT'} optionsFieldType 
  * @param {string} fieldId 
  * @returns {{ displayName: string }[]}
  */
-function sortFacetOptions(options, optionsOrder, optionsFieldType, fieldId) {
+function sortFacetOptions(options, optionsOrder, fieldId) {
   const getSortComparator = () => {
-    if (optionsFieldType === 'STRING') {
-      return (a, b) => a.displayName.localeCompare(b.displayName);
-    } else if (optionsFieldType === 'INT') {
-      return (a, b) => parseInt(a.displayName) - parseInt(b.displayName);
-    } else {
-      console.error(`Unknown facet optionsFieldType "${optionsFieldType}" for the "${fieldId}" facet.`);
-      return undefined;
-    }
-  }
-  const applyDirectionToComparator = (comparator) => {
-    if (!comparator) {
-      return undefined;
-    }
-
     if (optionsOrder === 'ASC') {
-      return comparator;
+      return (a, b) => a.displayName.localeCompare(b.displayName);
     } else if (optionsOrder === 'DESC') {
-      return (a, b) => -1 * comparator(a, b)
+      return (a, b) => b.displayName.localeCompare(a.displayName);
     } else {
       console.error(`Unknown facet optionsOrder "${optionsOrder}" for the "${fieldId}" facet.`);
       return undefined;
     }
   }
-
-  return [...options].sort(applyDirectionToComparator(getSortComparator()))
+  const comparator = getSortComparator();
+  if (!comparator) {
+    return options;
+  }
+  return [...options].sort(comparator);
 }
 
 
