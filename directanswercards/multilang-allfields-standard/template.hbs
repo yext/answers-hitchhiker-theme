@@ -14,7 +14,7 @@
     {{> cta CTA linkTarget=linkTarget}}
   </div>
   {{/if}}
-  {{> footer }}
+  {{> thumbsfeedback directAnswerClass="HitchhikerAllFieldsStandard"}}
 </div>
 
 {{#*inline 'icon'}}
@@ -109,56 +109,6 @@
       {{viewDetailsText}}
     </a>
   </div>
-{{/if}}
-{{/inline}}
-
-{{#*inline 'footer'}}
-{{#if (any footerTextOnSubmission footerText)}}
-<div class="HitchhikerAllFieldsStandard-footerWrapper">
-  <div class="HitchhikerAllFieldsStandard-footer">
-  {{#if feedbackSubmitted}}
-  <div class="HitchhikerAllFieldsStandard-footerText">
-      {{footerTextOnSubmission}}
-  </div>
-  {{else}}
-    <div class="HitchhikerAllFieldsStandard-footerText">
-      {{footerText}}
-    </div>
-    <form class="HitchhikerAllFieldsStandard-thumbs js-HitchhikerDirectAnswerCard-feedbackForm">
-      <fieldset class="HitchhikerAllFieldsStandard-fieldset">
-      <legend class="sr-only">
-        {{footerText}}
-      </legend>
-      <label class="HitchhikerAllFieldsStandard-thumb">
-        <span class="HitchhikerAllFieldsStandard-thumbUpIcon">
-          {{> icons/builtInIcon iconName='thumb' }}
-        </span>
-        <input type="radio"
-                name="feedback"
-                value="true"
-                class="HitchhikerAllFieldsStandard-feedback HitchhikerAllFieldsStandard-thumbUpButton js-HitchhikerDirectAnswerCard-thumbInput">
-        <span class="sr-only">
-          {{positiveFeedbackSrText}}
-        </span>
-      </label>
-      <label class="HitchhikerAllFieldsStandard-thumb">
-        <span class="HitchhikerAllFieldsStandard-thumbDownIcon">
-          {{> icons/builtInIcon iconName='thumb' }}
-        </span>
-        <input type="radio"
-                name="feedback"
-                value="false"
-                class="HitchhikerAllFieldsStandard-feedback HitchhikerAllFieldsStandard-thumbDownButton js-HitchhikerDirectAnswerCard-thumbInput">
-        <span class="sr-only">
-          {{negativeFeedbackSrText}}
-        </span>
-      </label>
-      </fieldset>
-      <button type="submit" class="sr-only sr-only-focusable">Send feedback</button>
-    </form>
-  {{/if}}
-  </div>
-</div>
 {{/if}}
 {{/inline}}
 

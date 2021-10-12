@@ -185,8 +185,8 @@ class multilang_allfields_standardComponent extends BaseDirectAnswerCard['multil
       //   eventType: 'CTA_CLICK', // Type of Analytics event fired when clicking the CTA
       //   eventOptions: this.addDefaultEventOptions() // The event options for CTA click analytics
       // },
-      footerTextOnSubmission: {{ translateJS phrase='Thank you for your feedback!' }}, // Text to display in the footer when a thumbs up/down is clicked
-      footerText: {{ translateJS phrase='Was this the answer you were looking for?' }}, // Text to display in the footer
+      feedbackTextOnSubmission: {{ translateJS phrase='Thank you for your feedback!' }}, // Text to display in the footer when a thumbs up/down is clicked
+      feedbackText: {{ translateJS phrase='Was this the answer you were looking for?' }}, // Text to display in the footer
       positiveFeedbackSrText: {{ translateJS phrase='This answered my question' }}, // Screen reader only text for thumbs-up
       negativeFeedbackSrText: {{ translateJS phrase='This did not answer my question' }}, // Screen reader only text for thumbs-down
     };

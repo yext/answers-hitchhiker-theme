@@ -24,7 +24,12 @@
         {{> contactInfo }}
         {{> details }}
       </div>
-      {{> ctas }}
+      <div class="HitchhikerCard-actions">
+        {{> ctas }}
+        {{#if card.feedback}}
+          {{> thumbsfeedback card feedbackSubmitted=feedbackSubmitted}}
+        {{/if}}
+      </div>
     </div>
   </div>
 </div>

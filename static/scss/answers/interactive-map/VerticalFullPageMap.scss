@@ -551,6 +551,10 @@
     &-ctasWrapper {
       margin-top: calc(var(--yxt-base-spacing) / 2);
     }
+
+    .HitchhikerCard-actions {
+      flex-direction: row;
+    }
   }
 
   .HitchhikerLocationCard {
@@ -591,6 +595,10 @@
       font-size: 16px;
       font-weight: bold;
       justify-content: flex-end;
+    }
+
+    .HitchhikerCard-feedbackWrapper {
+      margin-left: 0;
     }
   }
 

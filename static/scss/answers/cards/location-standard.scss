@@ -50,6 +50,29 @@ $location-standard-ordinal-dimensions: calc(var(--hh-location-standard-base-spac
       }
     }
   }
+
+  .HitchhikerCard
+  {
+    &-actions
+    {
+      flex-direction: row;
+
+      @include bpgte(lg)
+      {
+        flex-direction: column;
+      }
+    }
+
+    &-feedbackWrapper
+    {
+      margin-left: 0;
+
+      @include bpgte(lg)
+      {
+        margin-left: calc(var(--hh-location-standard-base-spacing) / 2);
+      }
+    }
+  }
 }
 
 .HitchhikerLocationStandard

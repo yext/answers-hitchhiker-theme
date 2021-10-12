@@ -9,7 +9,7 @@
       {{> cta CTA linkTarget=linkTarget}}
     </div>
   </div>
-  {{> footer}}
+  {{> thumbsfeedback directAnswerClass="HitchhikerDocumentSearchStandard"}}
 </div>
 
 {{#*inline 'title'}}
@@ -39,56 +39,6 @@
         target="{{#if linkTarget}}{{linkTarget}}{{else}}_blank{{/if}}">
       {{viewDetailsText}}
     </a>
-  </div>
-{{/if}}
-{{/inline}}
-
-{{#*inline 'footer'}}
-{{#if (any footerTextOnSubmission footerText)}}
-  <div class="HitchhikerDocumentSearchStandard-footerWrapper">
-    <div class="HitchhikerDocumentSearchStandard-footer">
-    {{#if feedbackSubmitted}}
-      <div class="HitchhikerDocumentSearchStandard-footerText">
-        {{footerTextOnSubmission}}
-      </div>
-    {{else}}
-      <div class="HitchhikerDocumentSearchStandard-footerText">
-        {{footerText}}
-      </div>
-      <form class="HitchhikerDocumentSearchStandard-thumbs js-HitchhikerDirectAnswerCard-feedbackForm">
-        <fieldset class="HitchhikerDocumentSearchStandard-fieldset">
-        <legend class="sr-only">
-          {{footerText}}
-        </legend>
-        <label class="HitchhikerDocumentSearchStandard-thumb">
-          <span class="HitchhikerDocumentSearchStandard-thumbUpIcon">
-            {{> icons/builtInIcon iconName='thumb' }}
-          </span>
-          <input type="radio"
-                  name="feedback"
-                  value="true"
-                  class="HitchhikerDocumentSearchStandard-feedback HitchhikerDocumentSearchStandard-thumbUpButton js-HitchhikerDirectAnswerCard-thumbInput">
-          <span class="sr-only">
-            {{positiveFeedbackSrText}}
-          </span>
-        </label>
-        <label class="HitchhikerDocumentSearchStandard-thumb">
-          <span class="HitchhikerDocumentSearchStandard-thumbDownIcon">
-            {{> icons/builtInIcon iconName='thumb' }}
-          </span>
-          <input type="radio"
-                  name="feedback"
-                  value="false"
-                  class="HitchhikerDocumentSearchStandard-feedback HitchhikerDocumentSearchStandard-thumbDownButton js-HitchhikerDirectAnswerCard-thumbInput">
-          <span class="sr-only">
-            {{negativeFeedbackSrText}}
-          </span>
-        </label>
-        </fieldset>
-        <button type="submit" class="sr-only sr-only-focusable">Send feedback</button>
-      </form>
-    {{/if}}
-    </div>
   </div>
 {{/if}}
 {{/inline}}
