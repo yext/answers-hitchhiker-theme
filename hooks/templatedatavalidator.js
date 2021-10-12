@@ -35,7 +35,7 @@ function isGlobalConfigValid(globalConfig, JAMBO_INJECTED_DATA) {
     error('Missing Info: no experienceKey found.');
     return false;
   }
-  if (globalConfig.useJWT || globalConfig.apiKey) {
+  if (globalConfig.useJWT || globalConfig.apiKey || globalConfig.token) {
     return true;
   }
 
