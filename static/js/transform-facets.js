@@ -74,7 +74,11 @@ function sortFacetOptions(options, optionsOrder, fieldId) {
       return undefined;
     }
   }
-  return [...options].sort(getSortComparator())
+  const comparator = getSortComparator();
+  if (!comparator) {
+    return options;
+  }
+  return [...options].sort(comparator);
 }
 
 
