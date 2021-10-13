@@ -21,7 +21,7 @@ async function iframeSnapshots(page) {
   await (new Photographer(iframePageNavigator, iframeCamera).captureSnapshots());
 }
 
-async function nonEnglishSnapshots(page) {
+async function spanishSnapshots(page) {
   const standardPageNavigator = new StandardPageNavigator(page, `http://localhost:${PORT}`);
   const standardCamera = new Camera(percySnapshot, page);
   standardPageNavigator.setCurrentLocale('es');
@@ -49,8 +49,8 @@ async function runPercyTest() {
   const snapshotType = process.argv[2];
   if (snapshotType === 'rtl') {
     await rtlSnapshots(page);
-  } else if (snapshotType === 'non-english') {
-    await nonEnglishSnapshots(page);
+  } else if (snapshotType === 'spanish') {
+    await spanishSnapshots(page);
   } else if (snapshotType === 'iframe') {
     await iframeSnapshots(page);
   } else {
