@@ -19,7 +19,9 @@
           {{/with}}
         </div>
         {{/if}}
-        {{> thumbsfeedback card feedbackSubmitted=feedbackSubmitted}}
+        {{#if card.feedback}}
+          {{> thumbsfeedback card feedbackSubmitted=feedbackSubmitted}}
+        {{/if}}
       </div>
     </div>
   </div>

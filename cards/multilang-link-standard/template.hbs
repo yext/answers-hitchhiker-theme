@@ -5,7 +5,9 @@
     <div class="HitchhikerLinkStandard-contentWrapper">
       {{> details }}
       <div class="HitchhikerCard-actions">
-        {{> thumbsfeedback card feedbackSubmitted=feedbackSubmitted}}
+        {{#if card.feedback}}
+          {{> thumbsfeedback card feedbackSubmitted=feedbackSubmitted}}
+        {{/if}}
       </div>
     </div>
   </div>
