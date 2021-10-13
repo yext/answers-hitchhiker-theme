@@ -6,39 +6,97 @@
  * @param {FilterOptionsConfig} config the config of the FilterOptionsConfig from answers-search-ui
  * @returns {(DisplayableFacet | FilterOptionsConfig)[]}
  */
-export default function transformFacets (facets, config) {
-  if(!config || !('fields' in config)) {
+export default function transformFacets(facets, config) {
+  if (!config || !('fields' in config)) {
     return facets;
   }
 
   return facets.map(facet => {
-    const isConfigurationForFacet = facet.fieldId in config.fields;
-    if (!isConfigurationForFacet) {
+    const hasConfigurationForFacet = facet.fieldId in config.fields;
+    if (!hasConfigurationForFacet) {
       return facet;
     }
-    const facetConfig = config.fields[facet.fieldId];
+
+    if (typeof config.fields[facet.fieldId] !== 'object') {
+      console.error(
+        `The "fields" config for ${facet.fieldId} should be an object. ` +
+        `Received ${config.fields[facet.fieldId]} instead.`);
+    }
+
+    const {
+      fieldLabels,
+      optionsOrder,
+      optionsOrderList,
+      ...filterOptionsConfig
+    } = config.fields[facet.fieldId];
 
     let options = facet.options;
 
-    if ('fieldLabels' in facetConfig) {
+    if (fieldLabels) {
       options = facet.options.map(option => {
-        const fieldLabels = facetConfig.fieldLabels;
-
         const displayName = (option.displayName in fieldLabels)
           ? fieldLabels[option.displayName]
           : option.displayName;
-
-        return Object.assign({}, option, { displayName });
+        return { ...option, displayName };
       })
     }
 
-    const filterOptionsConfig = Object.entries(facetConfig).reduce((filterOptions, [option, value]) => {
-      if (option !== 'fieldLabels') {
-        filterOptions[option] = value;
-      }
-      return filterOptions;
-    }, {});
-    
-    return Object.assign({}, facet, filterOptionsConfig, { options });
+    if (optionsOrderList) {
+      options = sortFacetOptionsCustom(options, optionsOrderList);
+    } else if (optionsOrder) {
+      options = sortFacetOptions(options, optionsOrder, facet.fieldId);
+    }
+
+    return {
+      ...facet,
+      ...filterOptionsConfig,
+      options
+    };
+  });
+}
+
+/**
+ * Sorts the facet options and returns a new array.
+ * 
+ * @param {{ displayName: string }[]} options The facet options to sort.
+ * @param {'ASC' | 'DESC'} optionsOrder 
+ * @param {string} fieldId 
+ * @returns {{ displayName: string }[]}
+ */
+function sortFacetOptions(options, optionsOrder, fieldId) {
+  const getSortComparator = () => {
+    if (optionsOrder === 'ASC') {
+      return (a, b) => a.displayName.localeCompare(b.displayName);
+    } else if (optionsOrder === 'DESC') {
+      return (a, b) => b.displayName.localeCompare(a.displayName);
+    } else {
+      console.error(`Unknown facet optionsOrder "${optionsOrder}" for the "${fieldId}" facet.`);
+      return undefined;
+    }
+  }
+  const comparator = getSortComparator();
+  if (!comparator) {
+    return options;
+  }
+  return [...options].sort(comparator);
+}
+
+
+/**
+ * Sorts the facet options using the priority specified in
+ * the optionsOrderList and returns a new array.
+ * 
+ * @param {{ displayName: string }[]} options The facet options to sort.
+ * @param {string[]} optionsOrderList
+ * @returns {{ displayName: string }[]}
+ */
+function sortFacetOptionsCustom(options, optionsOrderList) {
+  const getPriority = displayName => {
+    const index = optionsOrderList.indexOf(displayName);
+    return index === -1 ? optionsOrderList.length : index;
+  }
+
+  return [...options].sort((a, b) => {
+    return getPriority(a.displayName) - getPriority(b.displayName);
   });
 }

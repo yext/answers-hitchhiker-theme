@@ -97,13 +97,23 @@ $financial-professional-location-ordinal-dimensions: 18px !default;
 
   &-distance
   {
+    color: var(--yxt-color-text-primary);
+  }
+
+  &-distance
+  {
     font-style: italic;
     white-space: nowrap;
     margin-left: auto;
     margin-right: 0;
   }
 
-  &-address,
+  &-address
+  {
+    margin-top: calc(var(--hh-financial-professional-location-spacing) / 2);
+    color: var(--yxt-color-text-primary);
+  }
+
   &-cardDetails
   {
     margin-top: calc(var(--hh-financial-professional-location-spacing) / 2);
@@ -112,6 +122,7 @@ $financial-professional-location-ordinal-dimensions: 18px !default;
   &-detailsText
   {
     @include rich_text_formatting;
+    color: var(--yxt-color-text-primary);
   }
 
   &-listTitle
@@ -127,9 +138,15 @@ $financial-professional-location-ordinal-dimensions: 18px !default;
     padding-left: calc(var(--hh-financial-professional-location-spacing) / 2);
   }
 
+  &-listWrapper
+  {
+    color: var(--yxt-color-text-primary);
+  }
+
   &-phone
   {
     margin-top: calc(var(--hh-financial-professional-location-spacing) / 2);
+    color: var(--yxt-color-text-primary);
   }
 
   &-phone--desktop {

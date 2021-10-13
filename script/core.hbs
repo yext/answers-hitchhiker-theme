@@ -106,6 +106,7 @@
         });
       }
     }).catch(err => {
+      console.error(err);
       window.AnswersExperience.AnswersInitializedPromise.reject('Answers failed to initialized.');
     });
     {{> script/after-init}}

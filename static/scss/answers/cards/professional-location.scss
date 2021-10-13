@@ -103,7 +103,12 @@ $professional-location-ordinal-dimensions: 18px !default;
     margin-right: 0;
   }
 
-  &-address,
+  &-address
+  {
+    margin-top: calc(var(--hh-professional-location-spacing) / 2);
+    color: var(--yxt-color-text-primary);
+  }
+
   &-cardDetails
   {
     margin-top: calc(var(--hh-professional-location-spacing) / 2);
@@ -112,6 +117,7 @@ $professional-location-ordinal-dimensions: 18px !default;
   &-detailsText
   {
     @include rich_text_formatting;
+    color: var(--yxt-color-text-primary);
   }
 
   &-listTitle
@@ -127,9 +133,15 @@ $professional-location-ordinal-dimensions: 18px !default;
     padding-left: calc(var(--hh-professional-location-spacing) / 2);
   }
 
+  &-listWrapper
+  {
+    color: var(--yxt-color-text-primary);
+  }
+
   &-phone
   {
     margin-top: calc(var(--hh-professional-location-spacing) / 2);
+    color: var(--yxt-color-text-primary);
   }
 
   &-phone--desktop {

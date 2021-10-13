@@ -26,6 +26,7 @@ BaseDirectAnswerCard["{{componentName}}"] = class extends ANSWERS.Component {
 
     return super.setState({
       ...cardData,
+      feedbackEnabled: ANSWERS.getAnalyticsOptIn(),
       feedbackSubmitted: data.feedbackSubmitted,
       isArray: Array.isArray(this.answer.value),
       cardName: `{{componentName}}`,

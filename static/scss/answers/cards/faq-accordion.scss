@@ -90,8 +90,12 @@
 
     margin: calc(var(--yxt-base-spacing) / 2) var(--yxt-base-spacing);
     font-size: var(--yxt-font-size-md);
-    color: var(--yxt-color-text-primary);
     line-height: var(--yxt-line-height-md);
+  }
+
+  &-detailsText
+  {
+    color: var(--yxt-color-text-primary);
   }
 
   &-details-toggle
