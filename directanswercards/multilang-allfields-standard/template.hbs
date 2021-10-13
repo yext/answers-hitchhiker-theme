@@ -14,7 +14,9 @@
     {{> cta CTA linkTarget=linkTarget}}
   </div>
   {{/if}}
-  {{> footer }}
+  {{#if feedbackEnabled}}
+    {{> footer }}
+  {{/if}}
 </div>
 
 {{#*inline 'icon'}}

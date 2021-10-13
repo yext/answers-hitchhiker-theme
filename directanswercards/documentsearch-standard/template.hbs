@@ -9,7 +9,9 @@
       {{> cta CTA linkTarget=linkTarget}}
     </div>
   </div>
-  {{> footer}}
+  {{#if feedbackEnabled}}
+    {{> footer }}
+  {{/if}}
 </div>
 
 {{#*inline 'title'}}
