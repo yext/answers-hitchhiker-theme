@@ -5,7 +5,7 @@ BaseDirectAnswerCard = typeof (BaseDirectAnswerCard) !== 'undefined' ?
 BaseDirectAnswerCard["{{componentName}}"] = class extends ANSWERS.Component {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
-    const data = config.data || {};
+    let data = config.data || {};
     this.type = data.type || '';
     this.answer = data.answer || {};
     this.snippet = this.answer.snippet || {};
@@ -40,24 +40,17 @@ BaseDirectAnswerCard["{{componentName}}"] = class extends ANSWERS.Component {
   }
 
   onMount() {
-    this.addFeedbackListeners();
-
-    const rtfElement = this._container.querySelector('.js-yxt-rtfValue');
-    rtfElement && rtfElement.addEventListener('click', e => this._handleRtfClickAnalytics(e));
-  }
-
-  addFeedbackListeners() {
-    const feedbackFormSelector = '.js-HitchhikerDirectAnswerCard-feedbackForm';
+    let feedbackFormSelector = '.js-HitchhikerDirectAnswerCard-feedbackForm';
     let feedbackFormEl = this._container.querySelector(feedbackFormSelector);
     if (feedbackFormEl) {
       // For WCAG compliance, the feedback should be a submittable form
       feedbackFormEl.addEventListener('submit', (e) => {
-        const formTargetEl = e.target;
-        const isGood = formTargetEl.querySelector('input:checked').value === 'true';
+        let formTargetEl = e.target;
+        let checkedValue = formTargetEl.querySelector('input:checked').value === 'true';
 
-        this.reportQuality(isGood);
+        this.reportQuality(checkedValue);
         this.updateState({
-          feedbackSubmitted: true
+          'feedbackSubmitted': true
         });
       });
 
@@ -69,11 +62,42 @@ BaseDirectAnswerCard["{{componentName}}"] = class extends ANSWERS.Component {
             if (input) {
               input.checked = true;
             }
-            HitchhikerJS.DOM.triggerCustomEvent(this._container, feedbackFormSelector, 'submit');
+            this._triggerCustomEvent(feedbackFormSelector, 'submit');
           });
         });
       }
     }
+
+    const rtfElement = this._container.querySelector('.js-yxt-rtfValue');
+    rtfElement && rtfElement.addEventListener('click', e => this._handleRtfClickAnalytics(e));
+  }
+
+  /**
+   * Triggers the event passed in dispatched from the given selector
+   * @param {string} selector selector to dispatch event from
+   * @param {string} event event to fire
+   * @param {Object} settings additional settings
+   */
+  _triggerCustomEvent(selector, event, settings) {
+    let e = this._customEvent(event, settings);
+    this._container.querySelector(selector).dispatchEvent(e);
+  }
+
+  /**
+   * _customEvent is an event constructor polyfill
+   * @param {string} event event to fire
+   * @param {Object} settings additional settings
+   */
+  _customEvent(event, settings) {
+    const _settings = {
+      bubbles: true,
+      cancelable: true,
+      detail: null,
+      ...settings
+    };
+    const evt = document.createEvent('CustomEvent');
+    evt.initCustomEvent(event, _settings.bubbles, _settings.cancelable, _settings.detail);
+    return evt;
   }
 
   /**
@@ -94,10 +118,7 @@ BaseDirectAnswerCard["{{componentName}}"] = class extends ANSWERS.Component {
     const eventType = isGood === true ? EventTypes.THUMBS_UP : EventTypes.THUMBS_DOWN;
     const event = new ANSWERS.AnalyticsEvent(eventType)
       .addOptions({
-        directAnswer: true,
-        verticalKey: this.verticalConfigId,
-        searcher: 'UNIVERSAL',
-        entityId: this.associatedEntityId
+        'directAnswer': true
       });
 
     this.analyticsReporter.report(event);

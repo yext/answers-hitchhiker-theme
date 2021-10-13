@@ -97,13 +97,11 @@
 
   }
 
-  &-feedbackWrapper,
   &-footerWrapper
   {
     background-color: var(--yxt-direct-answer-footer-background-color);
   }
 
-  &-feedbackContent,
   &-footer
   {
     display: flex;
@@ -115,7 +113,6 @@
     padding-bottom: 8px;
   }
 
-  &-feedbackText,
   &-footerText
   {
     display: inline;
@@ -126,11 +123,6 @@
       $weight: var(--yxt-direct-answer-footer-font-weight),
       $color: var(--yxt-direct-answer-footer-color)
     );
-  }
-
-  &-thumbsWrapper
-  {
-    display: flex;
   }
 
   &-thumbs

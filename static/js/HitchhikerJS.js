@@ -46,6 +46,3 @@ import AnswersExperience from './answers-experience';
 window.AnswersExperience = new AnswersExperience(runtimeConfig);
 
 export * from './video-apis';
-
-import DOM from './dom';
-export { DOM };
