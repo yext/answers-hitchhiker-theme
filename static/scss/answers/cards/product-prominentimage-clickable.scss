@@ -113,6 +113,7 @@
   &-detailsText
   {
     @include rich_text_formatting;
+    color: var(--yxt-color-text-primary);
   }
 
   .HitchhikerCard

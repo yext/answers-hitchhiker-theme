@@ -71,6 +71,7 @@ $professional-standard-spacing: var(--yxt-base-spacing) !default;
   &-detailsText
   {
     @include rich_text_formatting;
+    color: var(--yxt-color-text-primary);
   }
 
   &-listTitle
@@ -86,9 +87,15 @@ $professional-standard-spacing: var(--yxt-base-spacing) !default;
     padding-left: calc(var(--hh-professional-standard-spacing) / 2);
   }
 
+  &-listWrapper
+  {
+    color: var(--yxt-color-text-primary);
+  }
+
   &-phone
   {
     margin-top: calc(var(--hh-professional-standard-spacing) / 2);
+    color: var(--yxt-color-text-primary);
   }
 
   &-phone--desktop {

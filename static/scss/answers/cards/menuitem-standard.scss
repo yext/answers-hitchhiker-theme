@@ -61,6 +61,11 @@
     padding-bottom: calc(var(--yxt-base-spacing) / 2);
   }
 
+  &-listWrapper
+  {
+    color: var(--yxt-color-text-primary);
+  }
+
   &-content
   {
     margin-top: calc(var(--yxt-base-spacing) / 2);
@@ -69,6 +74,7 @@
   &-detailsText
   {
     @include rich_text_formatting;
+    color: var(--yxt-color-text-primary);
   }
 
   &-contentCtasWrapper
