@@ -5,16 +5,21 @@
     {{> subtitle }}
     <div class="HitchhikerProductStandard-contentWrapper">
       {{> details }}
-      {{#if (any (all card.CTA1 card.CTA1.label card.CTA1.url) (all card.CTA2 card.CTA2.label card.CTA2.url))}}
-      <div class="HitchhikerProductStandard-ctasWrapper">
-        {{#with card.CTA1}}
-        {{> CTA ctaName="primaryCTA" }}
-        {{/with}}
-        {{#with card.CTA2}}
-        {{> CTA ctaName="secondaryCTA" }}
-        {{/with}}
+      <div class="HitchhikerCard-actions">
+        {{#if (any (all card.CTA1 card.CTA1.label card.CTA1.url) (all card.CTA2 card.CTA2.label card.CTA2.url))}}
+          <div class="HitchhikerProductStandard-ctasWrapper">
+            {{#with card.CTA1}}
+            {{> CTA ctaName="primaryCTA" }}
+            {{/with}}
+            {{#with card.CTA2}}
+            {{> CTA ctaName="secondaryCTA" }}
+            {{/with}}
+          </div>
+        {{/if}}
+        {{#if card.feedback}}
+          {{> thumbsfeedback card feedbackSubmitted=feedbackSubmitted}}
+        {{/if}}
       </div>
-      {{/if}}
     </div>
   </div>
 </div>

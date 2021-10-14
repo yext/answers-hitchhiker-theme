@@ -146,4 +146,23 @@
   {
     display: none;
   }
+
+  .HitchhikerCard
+  {
+    &-actions
+    {
+      flex-direction: row;
+    }
+
+    &-feedbackWrapper
+    {
+      margin: calc(var(--yxt-base-spacing) / 2) var(--yxt-base-spacing);
+      padding-bottom: calc(var(--yxt-base-spacing) / 2);
+    }
+
+    &-feedbackContent
+    {
+      margin-top: 0;
+    }
+  }
 }

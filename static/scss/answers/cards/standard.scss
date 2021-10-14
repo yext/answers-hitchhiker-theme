@@ -92,4 +92,12 @@
   {
     display: none;
   }
+
+  .HitchhikerCard-feedbackWrapper
+  {
+    @include bpgte(sm)
+    {
+      margin-right: calc(var(--yxt-base-spacing) / 2);
+    }
+  }
 }

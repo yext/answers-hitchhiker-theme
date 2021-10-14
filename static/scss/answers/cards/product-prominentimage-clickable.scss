@@ -115,4 +115,22 @@
     @include rich_text_formatting;
     color: var(--yxt-color-text-primary);
   }
+
+  .HitchhikerCard
+  {
+    &-actions
+    {
+      flex-direction: row;
+    }
+  
+    &-feedbackWrapper
+    {
+      margin-left: 0;
+    }
+  
+    &-feedbackContent
+    {
+      margin-top: calc(var(--yxt-base-spacing) / 2);
+    }
+  }
 }
