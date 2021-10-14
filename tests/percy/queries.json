@@ -10,5 +10,11 @@
     "job": "trabajo",
     "menu_item": "rollo",
     "field_direct_answers": "descripción de bryan reed"
+  },
+  "ar": {
+    "faq": "ماذا لو نسيت كلمة المرور الخاصة بي؟",
+    "job": "مهنة",
+    "menu_item": "لفافة",
+    "field_direct_answers": "وصف بريان ريد"
   }
 }

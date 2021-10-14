@@ -95,7 +95,7 @@ process.chdir(testSiteDir);
 
 Object.entries(verticalConfiguration).forEach(([pageName, config]) => {
   let verticalCommand =
-    `npx jambo vertical --name ${pageName} --verticalKey ${config.verticalKey} --template ${config.template} --locales es`
+    `npx jambo vertical --name ${pageName} --verticalKey ${config.verticalKey} --template ${config.template} --locales es ar`
   if (config.cardName) {
     verticalCommand += ` --cardName ${config.cardName}`
   }
