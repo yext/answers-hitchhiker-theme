@@ -1,6 +1,7 @@
 const HttpServer = require('../test-utils/server');
 const { AxePuppeteer } = require('@axe-core/puppeteer');
 const StandardPageNavigator = require('../percy/standardpagenavigator');
+const A11yReporter = require('./a11yreporter');
 const puppeteer = require('puppeteer');
 const PORT = 5042;
 
@@ -25,8 +26,9 @@ async function runA11yTest() {
   const page = await browser.newPage();
   
   const standardPageNavigator = new StandardPageNavigator(page, `http://localhost:${PORT}`);
-  await standardPageNavigator.gotoVerticalPage('people', { query: 'virginia'});
-  const results = await new AxePuppeteer(page).options(config).analyze();
+  const analyzer = await new AxePuppeteer(page).options(config);
+  const results = await new A11yReporter(standardPageNavigator, analyzer).analyze();
+
   console.log(results);
   console.log(JSON.stringify(results, null, 2));
   
