@@ -38,12 +38,12 @@
       ...token && { apiKey: token },
       querySource: window.isOverlay ? 'OVERLAY' : 'STANDARD',
       onStateChange: (objParams, stringParams, replaceHistory) => {
-        if ('parentIFrame' in window) {
+        window.iframeLoaded.then(() => {
           parentIFrame.sendMessage(JSON.stringify({
             params: iframeGetSearchParams(),
             replaceHistory: replaceHistory
           }));
-        }
+        });
       },
       ...{{> script/additional-answers-config }},
       onReady: () => {
