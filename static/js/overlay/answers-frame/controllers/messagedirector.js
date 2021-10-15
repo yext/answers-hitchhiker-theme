@@ -73,8 +73,6 @@ export default class MessageDirector {
    * @param {IFrameMessage} message
    */
   _notifyParentFrame(message) {
-    window.iframeLoaded.then(() => {
-      window.parentIFrame.sendMessage(message.toObject());
-    });
+    window.parentIFrame && window.parentIFrame.sendMessage(message.toObject());
   }
 }
