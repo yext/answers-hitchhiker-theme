@@ -15,32 +15,31 @@ class WcagReporter {
 
   async analyze() {
     await this._analyzeUniversalSearch();
-    // await this._analyzeVerticalSearch();
-    // await this._analyzeVerticalGridSearch();
-    // await this._analyzeVerticalMapSearch();
-    // await this._analyzeVerticalFullPageMapSearch();
-    // await this._analyzeDirectAnswers();
+    await this._analyzeVerticalSearch();
+    await this._analyzeVerticalGridSearch();
+    await this._analyzeVerticalMapSearch();
+    await this._analyzeVerticalFullPageMapSearch();
+    await this._analyzeDirectAnswers();
     return this.results;
   }
 
 
   async _analyzeUniversalSearch() {
-    // await this._pageNavigator.gotoUniversalPage();
-    // this.results.push(await this._analyzer.analyze());
+    await this._pageNavigator.gotoUniversalPage();
+    this.results.push(await this._analyzer.analyze());
 
-    // await this._pageNavigator.gotoUniversalPage({ query: 'a' });
-    // this.results.push(await this._analyzer.analyze());
+    await this._pageNavigator.gotoUniversalPage({ query: 'a' });
+    this.results.push(await this._analyzer.analyze());
 
-    // await this._pageNavigator.gotoUniversalPage({ query: 'office sparce'});
-    // this.results.push(await this._analyzer.analyze());
+    await this._pageNavigator.gotoUniversalPage({ query: 'office sparce'});
+    this.results.push(await this._analyzer.analyze());
 
     await this._pageNavigator.gotoUniversalPage({ query: 'what if i forget my password?'});
-    await this._page.waitForTimeout(10000);
     await this._pageNavigator.click('.HitchhikerFaqAccordion-toggle')
     this.results.push(await this._analyzer.analyze());
 
-    // await this._pageNavigator.gotoUniversalPage({ query: 'yext answers'});
-    // this.results.push(await this._analyzer.analyze());
+    await this._pageNavigator.gotoUniversalPage({ query: 'yext answers'});
+    this.results.push(await this._analyzer.analyze());
 
   }
 
