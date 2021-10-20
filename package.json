@@ -9,7 +9,7 @@
     "serve-test-site": "serve -p 5042 test-site/public",
     "acceptance": "node ./tests/acceptance/index.js",
     "percy": "npx percy exec -- node tests/percy/index.js",
-    "wcag": "./tests/wcag/index.js",
+    "wcag": "node ./tests/wcag/index.js",
     "extract-translations": "./translations/extract_translations.sh"
   },
   "repository": {

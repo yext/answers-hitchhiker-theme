@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 const HttpServer = require('../test-utils/server');
 const { AxePuppeteer } = require('@axe-core/puppeteer');
 const StandardPageNavigator = require('../percy/standardpagenavigator');
