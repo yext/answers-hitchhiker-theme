@@ -34,6 +34,7 @@ class WcagReporter {
     this.results.push(await this._analyzer.analyze());
 
     await this._pageNavigator.gotoUniversalPage({ query: 'what if i forget my password?'});
+    await this._page.waitForSelector('.HitchhikerFaqAccordion-toggle');
     await this._pageNavigator.click('.HitchhikerFaqAccordion-toggle')
     this.results.push(await this._analyzer.analyze());
 
