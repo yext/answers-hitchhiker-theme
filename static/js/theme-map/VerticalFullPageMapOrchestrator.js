@@ -157,6 +157,11 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
      * @type {Object}
      */
     this.alternativeVerticalsConfig = config.alternativeVerticalsConfig;
+
+    /**
+     * Indicates whether or not the handleMapCenterChangefunction has been invoked
+     */
+    this.isFirstMapCenterChangeInvocation = true;
   }
 
   onCreate () {
@@ -373,6 +378,15 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
    * Search the area or show the search the area button according to configurable logic
    */
   handleMapCenterChange () {
+    const isIframe = 'parentIFrame' in window;
+    const isFirstMapCenterChangeInvocation = this.isFirstMapCenterChangeInvocation;
+    this.isFirstMapCenterChangeInvocation = false;
+    // Ignore the first invocation of this function within an iframe because it is triggered by the iframe
+    // resizer and not by the user
+    if (isFirstMapCenterChangeInvocation && isIframe) {
+      return;
+    }
+
     if (!this.searchOnMapMove) {
       this._container.classList.add('VerticalFullPageMap--showSearchThisArea');
       return;
