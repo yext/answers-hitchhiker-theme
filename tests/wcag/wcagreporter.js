@@ -24,14 +24,14 @@ class WcagReporter {
   }
 
   async _analyzeUniversalSearch() {
-    // await this._pageNavigator.gotoUniversalPage();
-    // this.results.push(await this._analyzer.analyze());
+    await this._pageNavigator.gotoUniversalPage();
+    this.results.push(await this._analyzer.analyze());
 
-    // await this._pageNavigator.gotoUniversalPage({ query: 'a' });
-    // this.results.push(await this._analyzer.analyze());
+    await this._pageNavigator.gotoUniversalPage({ query: 'a' });
+    this.results.push(await this._analyzer.analyze());
 
-    // await this._pageNavigator.gotoUniversalPage({ query: 'office sparce'});
-    // this.results.push(await this._analyzer.analyze());
+    await this._pageNavigator.gotoUniversalPage({ query: 'office sparce'});
+    this.results.push(await this._analyzer.analyze());
 
     await this._pageNavigator.gotoUniversalPage({ query: 'what if i forget my password?'});
     // await this._page.waitForSelector('.something', { timeout: 50000 });
