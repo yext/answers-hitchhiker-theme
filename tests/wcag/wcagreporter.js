@@ -39,7 +39,7 @@ class WcagReporter {
       return document.body;
     });
     console.log(a);
-    // await this._pageNavigator.click('.HitchhikerFaqAccordion-toggle')
+    await this._pageNavigator.click('.HitchhikerFaqAccordion-toggle')
     this.results.push(await this._analyzer.analyze());
 
     // await this._pageNavigator.gotoUniversalPage({ query: 'yext answers'});
