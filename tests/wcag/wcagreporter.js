@@ -35,10 +35,10 @@ class WcagReporter {
 
     await this._pageNavigator.gotoUniversalPage({ query: 'what if i forget my password?'});
     // await this._page.waitForSelector('.something', { timeout: 50000 });
-    await this._page.evaluate(() => {
-      document.getElementsByClassName('HitchhikerFaqAccordion-toggle')[0].click();
+    const a = await this._page.evaluate(() => {
+      return document.body;
     });
-    // console.log(a);
+    console.log(a);
     // await this._pageNavigator.click('.HitchhikerFaqAccordion-toggle')
     this.results.push(await this._analyzer.analyze());
 
