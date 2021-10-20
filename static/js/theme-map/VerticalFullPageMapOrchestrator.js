@@ -159,9 +159,9 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
     this.alternativeVerticalsConfig = config.alternativeVerticalsConfig;
 
     /**
-     * Indicates whether or not the map has moved from its initial position
+     * Indicates whether or not the handleMapCenterChangefunction has been invoked
      */
-    this.hasMapMoved = false;
+    this.isFirstMapCenterChangeInvocation = true;
   }
 
   onCreate () {
@@ -379,11 +379,11 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
    */
   handleMapCenterChange () {
     const isIframe = 'parentIFrame' in window;
-    const hasMapMoved = this.hasMapMoved;
-    this.hasMapMoved = true;
-    // Ignore the first map move within an iframe because it is triggered by the iframe
+    const isFirstMapCenterChangeInvocation = this.isFirstMapCenterChangeInvocation;
+    this.isFirstMapCenterChangeInvocation = false;
+    // Ignore the first invocation of this function within an iframe because it is triggered by the iframe
     // resizer and not by the user
-    if (!hasMapMoved && isIframe) {
+    if (isFirstMapCenterChangeInvocation && isIframe) {
       return;
     }
 
