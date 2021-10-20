@@ -23,22 +23,40 @@ class WcagReporter {
     return this.results;
   }
 
+  async dumpFrameTree(frame, indent) {
+    console.log(indent + frame.url());
+    const text = await frame.$eval('.HitchhikerFaqAccordion-toggle', (element) => element.textContent);
+    console.log('text:' + text);
+    for (const child of frame.childFrames()) {
+      await dumpFrameTree(child, indent + '  ');
+    }
+  }
+
   async _analyzeUniversalSearch() {
-    await this._pageNavigator.gotoUniversalPage();
-    this.results.push(await this._analyzer.analyze());
+    // await this._pageNavigator.gotoUniversalPage();
+    // this.results.push(await this._analyzer.analyze());
 
-    await this._pageNavigator.gotoUniversalPage({ query: 'a' });
-    this.results.push(await this._analyzer.analyze());
+    // await this._pageNavigator.gotoUniversalPage({ query: 'a' });
+    // this.results.push(await this._analyzer.analyze());
 
-    await this._pageNavigator.gotoUniversalPage({ query: 'office sparce'});
-    this.results.push(await this._analyzer.analyze());
+    // await this._pageNavigator.gotoUniversalPage({ query: 'office sparce'});
+    // this.results.push(await this._analyzer.analyze());
 
     await this._pageNavigator.gotoUniversalPage({ query: 'what if i forget my password?'});
     // await this._page.waitForSelector('.something', { timeout: 50000 });
-    const a = await this._page.evaluate(() => {
-      return document.body;
-    });
-    console.log(a);
+    // const hrefElement = await this._page.$('a');
+    // console.log(hrefElement);
+    await this.dumpFrameTree(this._page.mainFrame(), '');
+
+    // const pageFrame = this._page.mainFrame();
+    // const elems = await pageFrame.$$('a');
+    // console.log(elems);
+    // const a = await this._page.evaluate(() => {
+    //   console.log(document.body);
+    //   return document.body;
+    // });
+    // console.log(a);
+    // await this._page.waitForTimeout(10000);
     await this._pageNavigator.click('.HitchhikerFaqAccordion-toggle')
     this.results.push(await this._analyzer.analyze());
 
