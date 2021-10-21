@@ -1,4 +1,4 @@
-const { SnapshotWidths } = require('./constants');
+const { BrowserPageWidths } = require('./constants');
 
 /**
  * Responsible for taking Percy snapshots
@@ -43,7 +43,7 @@ class Camera {
    */
   async snapshotDesktopOnly(snapshotName) {
     const updatedSnapshotName = this._getSnapshotName(snapshotName);
-    await this._percySnapshot(this._page, updatedSnapshotName, { widths: [SnapshotWidths.Desktop] });
+    await this._percySnapshot(this._page, updatedSnapshotName, { widths: [BrowserPageWidths.Desktop] });
   }
 
   /**
@@ -53,7 +53,7 @@ class Camera {
    */
   async snapshotMobileOnly(snapshotName) {
     const updatedSnapshotName = this._getSnapshotName(snapshotName);
-    await this._percySnapshot(this._page, updatedSnapshotName, { widths: [SnapshotWidths.Mobile] });
+    await this._percySnapshot(this._page, updatedSnapshotName, { widths: [BrowserPageWidths.Mobile] });
   }
 
   /**
