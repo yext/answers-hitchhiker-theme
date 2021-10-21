@@ -76,6 +76,7 @@
       "/test-utils/",
       "/test-site/",
       "/percy/",
+      "/wcag/",
       "/acceptance/"
     ]
   }
