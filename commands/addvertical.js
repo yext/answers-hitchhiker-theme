@@ -185,6 +185,13 @@ class VerticalAdder {
    * @param {Object} args The command parameters.
    */
   _validateArgs(args) {
+    function throwIfQuotesFound(argName) {
+      if (args[argName].includes(`'`) || args[argName].includes(`"`)) {
+        throw new UserError(`Quotes are not allowed for the "${argName}" argument.`);
+      }
+    }
+    throwIfQuotesFound('name');
+    throwIfQuotesFound('verticalKey');
     if (args.template === 'universal-standard') {
       throw new UserError('A vertical cannot be initialized with the universal template');
     }
@@ -256,7 +263,7 @@ class VerticalAdder {
    * @param {Array<string>} locales The additional locales to generate the page for.
    */
   _createVerticalPage(name, template, locales) {
-    const args = ['--name', name, '--template', template];
+    const args = ['--name', `'${name}'`, '--template', `'${template}'`];
 
     if (locales.length) {
       args.push('--locales', locales.join(' '));
