@@ -67,6 +67,9 @@
         padding-left: var(--yxt-base-spacing);
         padding-right: var(--yxt-base-spacing);
         padding-bottom: calc(var(--yxt-base-spacing) * 0.2);
+        padding-top: calc(var(--yxt-base-spacing) * .5);
+        line-height: var(--yxt-base-spacing);
+        word-break: break-word;
         letter-spacing: 1.1px;
       }
 
