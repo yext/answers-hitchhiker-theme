@@ -2,7 +2,7 @@
   "componentSettings": {
     "SearchBar": {
       "customIconUrl": "../static/assets/ayaya.png",
-      "placeholderText": "Search", // The placeholder text in the answers search bar
+      "placeholderText": "بحث", // The placeholder text in the answers search bar
       "allowEmptySearch": true, // Allows users to submit an empty search in the searchbar
       "loadingIndicator": {
         "display": true //Optional, whether to include a loading indicator on seachbar
