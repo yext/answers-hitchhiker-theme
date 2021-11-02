@@ -104,4 +104,6 @@ Object.entries(verticalConfiguration).forEach(([pageName, config]) => {
   pagePatcher.applyPatchToPage(pageName);
   configMerger.mergeConfigForPage(pageName + '.es');
   pagePatcher.applyPatchToPage(pageName + '.es');
+  configMerger.mergeConfigForPage(pageName + '.ar');
+  pagePatcher.applyPatchToPage(pageName + '.ar');
 });
