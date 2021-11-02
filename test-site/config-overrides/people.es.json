@@ -1,4 +1,29 @@
 {
+  "componentSettings": {
+    "SearchBar": {
+      "customIconUrl": "../static/assets/ayaya.png"
+    },
+    "Facets": {
+      "expand": false,
+      "showMore": false,
+      "searchOnChange": true
+    },
+    "SortOptions": {
+      "options": [{
+        "type": "RELEVANCE",
+        "label": "Relevance"
+      }]
+    },
+    "AppliedFilters": {
+      "removable": true
+    },
+    "VerticalResults": {
+      "noResults": {
+        "displayAllResults": true // Optional, whether to display all results in the vertical when no results are found.
+      },
+      "hideResultsHeader": true
+    },
+  },
   "verticalsToConfig": {
     "people": { // The vertical key from your search configuration
       // "label": "", // The name of the vertical in the section header and the navigation bar
