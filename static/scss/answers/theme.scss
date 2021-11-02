@@ -67,14 +67,17 @@
         padding-left: var(--yxt-base-spacing);
         padding-right: var(--yxt-base-spacing);
         padding-bottom: calc(var(--yxt-base-spacing) * 0.2);
-        padding-top: calc(var(--yxt-base-spacing) * 0.5);
-        line-height: var(--yxt-base-spacing);
-        word-break: break-word;
         letter-spacing: 1.1px;
       }
 
       .yxt-Nav-item.is-active {
         border-bottom-width: .185rem;
+      }
+
+      .yxt-Nav-modal .yxt-Nav-item {
+        padding-top: calc(var(--yxt-base-spacing) * 0.5);
+        line-height: var(--yxt-base-spacing);
+        word-break: break-word;
       }
     }
   }
