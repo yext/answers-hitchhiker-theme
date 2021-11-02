@@ -1,6 +1,9 @@
 {
   "pageTitle": "People",
   "componentSettings": {
+    "SearchBar": {
+      "customIconUrl": "static/assets/ayaya.png"
+    },
     "Facets": {
       "expand": false,
       "showMore": false,
