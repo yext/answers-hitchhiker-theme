@@ -6,7 +6,7 @@
       if (window.name == 'overlay') {
         window.isOverlay = true;
       }
-      {{> script/translations}}
+      {{#addNewLineToEnd}}{{> script/translations}}{{/addNewLineToEnd}}
       {{/babel}}
     </script>
     {{> layouts/headincludes }}
@@ -72,10 +72,15 @@
     <script>
       {{#babel}}
         document.addEventListener('DOMContentLoaded', () => {
-          {{> script/on-document-load}}
           {{#if global_config.initializeManually}}
             new HitchhikerJS.ManualInitializer(initAnswers).setup();
+            {{#addNewLineToEnd}}
+              {{> script/on-document-load}}
+            {{/addNewLineToEnd}}
           {{else}}
+            {{#addNewLineToEnd}}
+              {{> script/on-document-load}}
+            {{/addNewLineToEnd}}
             initAnswers();
           {{/if}}
         });
