@@ -10,7 +10,7 @@ export function generateCTAFieldTypeLink(cta) {
   }
   const normalizedCTA = {
     ...cta,
-    linkType: normalizeCtaLinkType(cta.linkType)
+    linkType: normalizeCtaLinkType(cta.linkType || 'URL')
   }
   return CtaFormatter.generateCTAFieldTypeLink(normalizedCTA);
 }
