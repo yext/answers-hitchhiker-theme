@@ -1,6 +1,6 @@
 /**
  * Responsible for setting up manual initialization of the experience.
- * Adds an "init" method to {@link AnswersExperience} that can be called on the window.
+ * Sets the "init" method of the {@link AnswersExperience} on the window.
  */
 export default class ManualInitializer {
   /**
