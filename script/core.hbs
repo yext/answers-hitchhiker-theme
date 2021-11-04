@@ -121,6 +121,7 @@
 
         window.iframeLoaded.then(() => {
           {{> script/iframe-messaging}}
+
         });
       }
     }).catch(err => {
@@ -128,6 +129,7 @@
       window.AnswersExperience.AnswersInitializedPromise.reject('Answers failed to initialized.');
     });
     {{> script/after-init}}
+
   }
 {{/babel}}
 </script>
