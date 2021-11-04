@@ -1,4 +1,3 @@
-
 /**
  * This is a block helper for injecting inline JS using handlebars.
  *
