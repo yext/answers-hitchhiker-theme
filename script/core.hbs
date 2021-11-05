@@ -64,7 +64,9 @@
 
         {{> @partial-block }}
 
-        {{> script/on-ready}}
+        {{#wrapJsPartial}}
+          {{> script/on-ready}}
+        {{/wrapJsPartial}}
 
         {{#if global_config.conversionTrackingEnabled}}
           ANSWERS.setConversionsOptIn(true);
@@ -120,14 +122,18 @@
         });
 
         window.iframeLoaded.then(() => {
-          {{> script/iframe-messaging}}
+          {{#wrapJsPartial}}
+            {{> script/iframe-messaging}}
+          {{/wrapJsPartial}}
         });
       }
     }).catch(err => {
       console.error(err);
       window.AnswersExperience.AnswersInitializedPromise.reject('Answers failed to initialized.');
     });
-    {{> script/after-init}}
+    {{#wrapJsPartial}}
+      {{> script/after-init}}
+    {{/wrapJsPartial}}
   }
 {{/babel}}
 </script>
