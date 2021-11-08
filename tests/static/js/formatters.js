@@ -232,6 +232,20 @@ describe('Formatters', () => {
     const isChrome = jest.spyOn(useragent, 'isChrome');
     isChrome.mockReturnValue(true);
 
+    it('Behaves correctly when baseUrl is not defined', () => {
+      const snippet = {
+        value: 'this is a sentence, for testing purposes.',
+        matchedSubstrings: [
+          {
+            offset: 5, 
+            length: 10 
+          }
+        ]
+      };
+      const actual = Formatters.getUrlWithTextHighlight(snippet, undefined);
+      expect(actual).toBeUndefined();
+    });
+    
     it('Behaves correctly when there is no matchedSubstring', () => {
       const snippet = {
         value: 'this is a sentence, for testing purposes.',

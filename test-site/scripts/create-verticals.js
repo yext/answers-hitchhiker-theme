@@ -3,6 +3,11 @@ const process = require('process');
 const path = require('path');
 const ConfigMerger = require('./config-merger');
 const PagePatcher = require('./page-patcher');
+const yargs = require('yargs')
+
+const argv = yargs
+  .option('pageNames', { type: 'array' })
+  .parse();
 
 const verticalConfiguration = {
   events: {
@@ -94,6 +99,9 @@ const testSiteDir = path.resolve(__dirname, '..');
 process.chdir(testSiteDir);
 
 Object.entries(verticalConfiguration).forEach(([pageName, config]) => {
+  if (argv.pageNames && !argv.pageNames.includes(pageName)) {
+    return;
+  }
   let verticalCommand =
     `npx jambo vertical --name ${pageName} --verticalKey ${config.verticalKey} --template ${config.template} --locales es ar`
   if (config.cardName) {
@@ -104,4 +112,6 @@ Object.entries(verticalConfiguration).forEach(([pageName, config]) => {
   pagePatcher.applyPatchToPage(pageName);
   configMerger.mergeConfigForPage(pageName + '.es');
   pagePatcher.applyPatchToPage(pageName + '.es');
+  configMerger.mergeConfigForPage(pageName + '.ar');
+  pagePatcher.applyPatchToPage(pageName + '.ar');
 });

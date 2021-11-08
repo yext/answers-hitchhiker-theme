@@ -73,6 +73,15 @@
       .yxt-Nav-item.is-active {
         border-bottom-width: .185rem;
       }
+
+      .yxt-Nav-modal .yxt-Nav-item {
+        line-height: var(--yxt-base-spacing);
+        word-break: break-word;
+      }
+
+      .yxt-Nav-modal li + li .yxt-Nav-item{
+        padding-top: calc(var(--yxt-base-spacing) * 0.5);
+      }
     }
   }
 
