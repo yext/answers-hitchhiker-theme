@@ -294,7 +294,7 @@ export function image(simpleOrComplexImage = {}, size = '200x', atLeastAsLarge =
     return img;
   }
 
-  function imageBySizeEntity(image, desiredSize, atLeastAsLarge = true) {
+  function createDynamicUrl(image, desiredSize, atLeastAsLarge = true) {
     if ((image == null) || !(Object.prototype.toString.call(image).indexOf('Object') > 0)) {
       throw new Error("Expected parameter of type Map");
     }
@@ -306,22 +306,6 @@ export function image(simpleOrComplexImage = {}, size = '200x', atLeastAsLarge =
     }
     if ((typeof atLeastAsLarge !== 'boolean') || (atLeastAsLarge == null)) {
       throw new Error(`Object of type boolean expected. Got ${typeof atLeastAsLarge}.`);
-    }
-
-    if (!image.thumbnails) {
-      image.thumbnails = [];
-    }
-
-    if (!Array.isArray(image.thumbnails)) {
-      throw new Error(`Object of type array expected. Got ${typeof image.thumbnails}.`);
-    }
-
-    if (image.width != undefined && image.height != undefined && image.url != undefined) {
-      image.thumbnails.push({
-        'width': image.width,
-        'height': image.height,
-        'url': image.url
-      });
     }
 
     let desiredWidth, desiredHeight;
@@ -340,15 +324,28 @@ export function image(simpleOrComplexImage = {}, size = '200x', atLeastAsLarge =
         throw new Error("Invalid height specified");
       }
     }
-    const thumbnails = image.thumbnails
-      .filter(thumb => thumb.width && thumb.height)
-      .sort((a, b) => b.width - a.width);
-    return atLeastAsLarge
-      ? _getSmallestThumbnailOverThreshold(thumbnails, desiredWidth, desiredHeight)
-      : _getLargestThumbnailUnderThreshold(thumbnails, desiredWidth, desiredHeight);
+
+    const [urlWithoutExtension, extension] = _splitUrlOnIndex(image.url, image.url.lastIndexOf('.'));
+    const [urlBeforeDimensions, dimensions] = _splitUrlOnIndex(urlWithoutExtension, urlWithoutExtension.lastIndexOf('/') + 1);
+
+    if (desiredDims[0] === '' || desiredDims[1] === '') {
+      if (atLeastAsLarge) {
+        desiredWidth = desiredWidth ?? 1;
+        desiredHeight = desiredHeight ?? 1;
+      } else {
+        const fullSizeDims = dimensions.split('x');
+        desiredWidth = desiredWidth ?? Number.parseInt(fullSizeDims[0]);
+        desiredHeight = desiredHeight ?? Number.parseInt(fullSizeDims[1]);
+      }
+    }
+
+    const urlWithDesiredDims = urlBeforeDimensions + desiredWidth + 'x' + desiredHeight + extension;
+
+    return atLeastAsLarge ? _replaceUrlHost(urlWithDesiredDims, 'dynl.mktgcdn.com')
+    : _replaceUrlHost(urlWithDesiredDims, 'dynm.mktgcdn.com');
   }
 
-  const result = imageBySizeEntity(img, size, atLeastAsLarge);
+  const result = createDynamicUrl(img, size, atLeastAsLarge);
 
   return Object.assign(
     {},
@@ -360,55 +357,27 @@ export function image(simpleOrComplexImage = {}, size = '200x', atLeastAsLarge =
 }
 
 /**
- * Gets the smallest thumbnail that is over the min width and min height.
- * If no thumbnails are over the given thresholds, will return the closest one.
- *
- * This method assumes all thumbnails have the same aspect ratio, and that
- * thumbnails are sorted in descending size.
- *
- * @param {Array<{{url: string, width: number, height: number}}>} thumbnails 
- * @param {number|undefined} minWidth 
- * @param {number|undefined} minHeight 
- * @returns {string}
+ * Splits a url into two parts at the specified index.
+ * 
+ * @param {string} url 
+ * @param {number} index 
+ * @returns {Array<string>} 
  */
-function _getSmallestThumbnailOverThreshold(thumbnails, minWidth, minHeight) {
-  let index = thumbnails.length - 1;
-  while (index > 0) {
-    const thumb = thumbnails[index];
-    const widthOverThreshold = minWidth ? thumb.width >= minWidth : true;
-    const heightOverThreshold = minHeight ? thumb.height >= minHeight : true;
-    if (widthOverThreshold && heightOverThreshold) {
-      return thumb.url
-    }
-    index--;
-  }
-  return thumbnails[0].url;
+function _splitUrlOnIndex(url, index) {
+  return [url.slice(0, index), url.slice(index)];
 }
 
 /**
- * Gets the largest thumbnail that is under the max width and max height.
- * If no thumbnails are under the given thresholds, will return the closest one.
+ * Replaces the current host of a url with the specified host.
  * 
- * This method assumes all thumbnails have the same aspect ratio, and that
- * thumbnails are sorted in descending size.
- *
- * @param {Array<{{url: string, width: number, height: number}}>} thumbnails 
- * @param {number|undefined} maxWidth 
- * @param {number|undefined} maxHeight 
+ * @param {string} url 
+ * @param {string} host 
  * @returns {string}
  */
-function _getLargestThumbnailUnderThreshold(thumbnails, maxWidth, maxHeight) {
-  let index = 0;
-  while (index < thumbnails.length) {
-    const thumb = thumbnails[index];
-    const widthOverThreshold = maxWidth ? thumb.width <= maxWidth : true;
-    const heightOverThreshold = maxHeight ? thumb.height <= maxHeight : true;
-    if (widthOverThreshold && heightOverThreshold) {
-      return thumb.url
-    }
-    index++;
-  }
-  return thumbnails[thumbnails.length - 1].url;
+function _replaceUrlHost(url, host) {
+  const splitUrl = url.split('://');
+  const urlAfterHost = splitUrl[1].slice(splitUrl[1].indexOf('/'));
+  return splitUrl[0] + '://'  + host + urlAfterHost;
 }
 
 /**
