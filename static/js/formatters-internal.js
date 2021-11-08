@@ -313,8 +313,8 @@ export function image(simpleOrComplexImage = {}, desiredSize = '200x', atLeastAs
   let desiredWidth, desiredHeight;
   let desiredDims = desiredSize.split('x');
 
-  const [urlWithoutExtension, extension] = _splitUrlOnIndex(image.url, image.url.lastIndexOf('.'));
-  const [urlBeforeDimensions, dimensions] = _splitUrlOnIndex(urlWithoutExtension, urlWithoutExtension.lastIndexOf('/') + 1);
+  const [urlWithoutExtension, extension] = _splitStringOnIndex(image.url, image.url.lastIndexOf('.'));
+  const [urlBeforeDimensions, dimensions] = _splitStringOnIndex(urlWithoutExtension, urlWithoutExtension.lastIndexOf('/') + 1);
   const fullSizeDims = dimensions.split('x');
 
   if (desiredDims[0] !== '') {
@@ -351,14 +351,14 @@ export function image(simpleOrComplexImage = {}, desiredSize = '200x', atLeastAs
 }
 
 /**
- * Splits a url into two parts at the specified index.
+ * Splits a string into two parts at the specified index.
  * 
- * @param {string} url The url to be split
- * @param {number} index The index at which to split the url
- * @returns {Array<string>} The two parts of the url after splitting
+ * @param {string} str The string to be split
+ * @param {number} index The index at which to split the string
+ * @returns {Array<string>} The two parts of the string after splitting
  */
-function _splitUrlOnIndex(url, index) {
-  return [url.slice(0, index), url.slice(index)];
+function _splitStringOnIndex(str, index) {
+  return [str.slice(0, index), str.slice(index)];
 }
 
 /**
