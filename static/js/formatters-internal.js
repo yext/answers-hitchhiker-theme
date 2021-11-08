@@ -281,77 +281,71 @@ export function joinList(list, separator) {
   return list.join(separator);
 }
 
-/*
- * Given object with url and alternateText, changes url to use https
+/**
+ * Given an image object with a url, changes the url to use dynamic thumbnailer and https.
+ * 
+ * @param {Object} simpleOrComplexImage An image object with a url
+ * @param {string} desiredSize The desired size of the image ('<width>x<height>')
+ * @param {boolean} atLeastAsLarge Whether the image should be larger than the desired size or smaller
+ * @returns {Object} An object with a url for dynamic thumbnailer
  */
-export function image(simpleOrComplexImage = {}, size = '200x', atLeastAsLarge = true) {
-  let img = simpleOrComplexImage.image || simpleOrComplexImage;
-  if (!img) {
+export function image(simpleOrComplexImage = {}, desiredSize = '200x', atLeastAsLarge = true) {
+  let image = simpleOrComplexImage.image || simpleOrComplexImage;
+  if (!image) {
     return {};
   }
-
-  if (!img.url) {
-    return img;
+  if (!image.url) {
+    return image;
+  }
+  if (!(Object.prototype.toString.call(image).indexOf('Object') > 0)) {
+    throw new Error("Expected parameter of type Map");
+  }
+  if ((typeof desiredSize !== 'string') || (desiredSize == null)) {
+    throw new Error(`Object of type string expected. Got ${typeof desiredSize}.`);
+  }
+  if (desiredSize.indexOf('x') === -1) {
+    throw new Error("Invalid desired size");
+  }
+  if ((typeof atLeastAsLarge !== 'boolean') || (atLeastAsLarge == null)) {
+    throw new Error(`Object of type boolean expected. Got ${typeof atLeastAsLarge}.`);
   }
 
-  function createDynamicUrl(image, desiredSize, atLeastAsLarge = true) {
-    if ((image == null) || !(Object.prototype.toString.call(image).indexOf('Object') > 0)) {
-      throw new Error("Expected parameter of type Map");
-    }
-    if ((typeof desiredSize !== 'string') || (desiredSize == null)) {
-      throw new Error(`Object of type string expected. Got ${typeof desiredSize}.`);
-    }
-    if (desiredSize.indexOf('x') === -1) {
-      throw new Error("Invalid desired size");
-    }
-    if ((typeof atLeastAsLarge !== 'boolean') || (atLeastAsLarge == null)) {
-      throw new Error(`Object of type boolean expected. Got ${typeof atLeastAsLarge}.`);
-    }
+  let desiredWidth, desiredHeight;
+  let desiredDims = desiredSize.split('x');
 
-    let desiredWidth, desiredHeight;
-    let desiredDims = desiredSize.split('x');
+  const [urlWithoutExtension, extension] = _splitUrlOnIndex(image.url, image.url.lastIndexOf('.'));
+  const [urlBeforeDimensions, dimensions] = _splitUrlOnIndex(urlWithoutExtension, urlWithoutExtension.lastIndexOf('/') + 1);
+  const fullSizeDims = dimensions.split('x');
 
-    if (desiredDims[0] !== '') {
-      desiredWidth = Number.parseInt(desiredDims[0]);
-      if (Number.isNaN(desiredWidth)) {
-        throw new Error("Invalid width specified");
-      }
+  if (desiredDims[0] !== '') {
+    desiredWidth = Number.parseInt(desiredDims[0]);
+    if (Number.isNaN(desiredWidth)) {
+      throw new Error("Invalid width specified");
     }
+  } else {
+    desiredWidth = atLeastAsLarge ? 1 : Number.parseInt(fullSizeDims[0]);
+  }
 
-    if (desiredDims[1] !== '') {
-      desiredHeight = Number.parseInt(desiredDims[1]);
-      if (Number.isNaN(desiredHeight)) {
-        throw new Error("Invalid height specified");
-      }
+  if (desiredDims[1] !== '') {
+    desiredHeight = Number.parseInt(desiredDims[1]);
+    if (Number.isNaN(desiredHeight)) {
+      throw new Error("Invalid height specified");
     }
+  } else {
+    desiredHeight = atLeastAsLarge ? 1 : Number.parseInt(fullSizeDims[1]);
+  }
 
-    const [urlWithoutExtension, extension] = _splitUrlOnIndex(image.url, image.url.lastIndexOf('.'));
-    const [urlBeforeDimensions, dimensions] = _splitUrlOnIndex(urlWithoutExtension, urlWithoutExtension.lastIndexOf('/') + 1);
+  const urlWithDesiredDims = urlBeforeDimensions + desiredWidth + 'x' + desiredHeight + extension;
 
-    if (desiredDims[0] === '' || desiredDims[1] === '') {
-      if (atLeastAsLarge) {
-        desiredWidth = desiredWidth ?? 1;
-        desiredHeight = desiredHeight ?? 1;
-      } else {
-        const fullSizeDims = dimensions.split('x');
-        desiredWidth = desiredWidth ?? Number.parseInt(fullSizeDims[0]);
-        desiredHeight = desiredHeight ?? Number.parseInt(fullSizeDims[1]);
-      }
-    }
-
-    const urlWithDesiredDims = urlBeforeDimensions + desiredWidth + 'x' + desiredHeight + extension;
-
-    return atLeastAsLarge ? _replaceUrlHost(urlWithDesiredDims, 'dynl.mktgcdn.com')
+  const dynamicUrl = atLeastAsLarge
+    ? _replaceUrlHost(urlWithDesiredDims, 'dynl.mktgcdn.com')
     : _replaceUrlHost(urlWithDesiredDims, 'dynm.mktgcdn.com');
-  }
-
-  const result = createDynamicUrl(img, size, atLeastAsLarge);
 
   return Object.assign(
     {},
-    img,
+    image,
     {
-      url: result.replace('http://', 'https://')
+      url: dynamicUrl.replace('http://', 'https://')
     }
   );
 }
@@ -359,9 +353,9 @@ export function image(simpleOrComplexImage = {}, size = '200x', atLeastAsLarge =
 /**
  * Splits a url into two parts at the specified index.
  * 
- * @param {string} url 
- * @param {number} index 
- * @returns {Array<string>} 
+ * @param {string} url The url to be split
+ * @param {number} index The index at which to split the url
+ * @returns {Array<string>} The two parts of the url after splitting
  */
 function _splitUrlOnIndex(url, index) {
   return [url.slice(0, index), url.slice(index)];
@@ -370,9 +364,9 @@ function _splitUrlOnIndex(url, index) {
 /**
  * Replaces the current host of a url with the specified host.
  * 
- * @param {string} url 
- * @param {string} host 
- * @returns {string}
+ * @param {string} url The url whose host is to be changed
+ * @param {string} host The new host to change to
+ * @returns {string} The url updated with the specified host
  */
 function _replaceUrlHost(url, host) {
   const splitUrl = url.split('://');
