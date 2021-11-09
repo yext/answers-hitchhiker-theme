@@ -109,7 +109,8 @@ const verticalFullPageMapSearchTests = () => [
   {
     name: 'vertical-full-page-map__desktop-view',
     page: 'locations_full_page_map',
-    queryParams: { query: '' }
+    queryParams: { query: '' },
+    viewport: 'desktop'
   },
   {
     name: 'vertical-full-page-map__mobile-list-view',
@@ -142,7 +143,8 @@ const verticalFullPageMapSearchTests = () => [
   {
     name: 'vertical-full-page-map--spellcheck__desktop-view',
     page: 'locations_full_page_map',
-    queryParams: { query: 'office sparce' }
+    queryParams: { query: 'office sparce' },
+    viewport: 'desktop'
   },
   {
     name: 'vertical-full-page-map--spellcheck__mobile-list-view',
@@ -153,12 +155,14 @@ const verticalFullPageMapSearchTests = () => [
   {
     name: 'vertical-full-page-map--nlp-filters__desktop-view',
     page: 'locations_full_page_map',
-    queryParams: { query: 'virginia' }
+    queryParams: { query: 'virginia' },
+    viewport: 'desktop'
   },
   {
     name: 'vertical-full-page-map-with-filters--nlp-filters__desktop-view',
     page: 'locations_full_page_map_with_filters',
-    queryParams: { query: 'virginia' }
+    queryParams: { query: 'virginia' },
+    viewport: 'desktop'
   }
 ];
 
@@ -188,6 +192,12 @@ const multilangDirectAnswersTests = (queries) => [
   }
 ];
 
+/**
+ * Generate test locations based on the given locale.
+ * 
+ * @param {string} locale locale of the page
+ * @returns an array of test locations
+ */
 const getTestingLocations = (locale='en') => [
  ...universalSearchTests(queryConfig[locale]),
  ...verticalSearchTests(queryConfig[locale]), 

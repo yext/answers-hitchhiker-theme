@@ -1,11 +1,19 @@
 const { BrowserPageWidths } = require("./constants");
 
 /**
- * Responsible for determining which snapshots to take
+ * Responsible for browser navigation based on given test locations.
+ * Each test location is a JSON object which may contains:
+ * - name: name of this test
+ * - page: the vertical page to navigate to (if omit, navigate to universal page by default)
+ * - queryParams: the query params to peform the search on
+ * - viewport: viewport of the page (if omit, desktop view is used by default)
+ * - commands: a list of actions to perform on the page by the page navigator
  */
 class PageOperator {
   /**
-   * @param {PageNavigator} pageNavigator
+   * @param {PageNavigator} pageNavigator page navigator
+   * @param {import('puppeteer').Page} page A Pupeteer Page
+   * @param {Object[]} testLocations a list of test locations to navigate to
    */
   constructor(pageNavigator, page, testLocations) {
     this._pageNavigator = pageNavigator;
@@ -30,13 +38,16 @@ class PageOperator {
   }
 
   async _setPageViewport(viewport) {
+    if (viewport && !['desktop', 'mobile'].includes(viewport)) {
+      throw error(`unknown viewport: ${viewport}`);
+    }
     viewport === 'mobile'
       ? await this._page.setViewport({ width: BrowserPageWidths.Mobile, height: this._page.viewport().height })
       : await this._page.setViewport({ width: BrowserPageWidths.Desktop, height: this._page.viewport().height });
   }
 
   async _executeTestCommands(commands) {
-    if(!commands) {
+    if (!commands) {
       return;
     }
     for (const command of commands ) {
