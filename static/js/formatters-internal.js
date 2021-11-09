@@ -284,9 +284,19 @@ export function joinList(list, separator) {
 /**
  * Given an image object with a url, changes the url to use dynamic thumbnailer and https.
  * 
+ * Note: A dynamic thumbnailer url generated with atLeastAsLarge = true returns an image that is
+ * at least as large in one dimension of the desired size. In other words, the returned image will
+ * be at least as large, and as close as possible to, the largest image that is contained within a
+ * box of the desired size dimensions.
+ * 
+ * If atLeastAsLarge = false, the dynamic thumbnailer url will give the largest image that is
+ * smaller than the desired size in both dimensions.
+ * 
  * @param {Object} simpleOrComplexImage An image object with a url
  * @param {string} desiredSize The desired size of the image ('<width>x<height>')
- * @param {boolean} atLeastAsLarge Whether the image should be larger than the desired size or smaller
+ * @param {boolean} atLeastAsLarge Whether the image should be at least as large as the desired
+ *                                 size in one dimension or smaller than the desired size in both
+ *                                 dimensions.
  * @returns {Object} An object with a url for dynamic thumbnailer
  */
 export function image(simpleOrComplexImage = {}, desiredSize = '200x', atLeastAsLarge = true) {
