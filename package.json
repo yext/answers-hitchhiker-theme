@@ -75,6 +75,7 @@
       "/fixtures/",
       "/test-utils/",
       "/test-site/",
+      "/browser-automation/",
       "/percy/",
       "/wcag/",
       "/acceptance/"
