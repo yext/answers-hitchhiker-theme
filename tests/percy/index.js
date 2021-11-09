@@ -11,13 +11,13 @@ const PORT = 5042;
 async function defaultSnapshots(page) {
   const standardPageNavigator = new StandardPageNavigator(page, `http://localhost:${PORT}`);
   const standardCamera = new Camera(percySnapshot, page);
-  await captureSnapshots(standardPageNavigator, standardCamera);
+  await captureSnapshots(standardPageNavigator, page, standardCamera);
 }
 
 async function iframeSnapshots(page) {
   const iframePageNavigator = new IframePageNavigator(page, `http://localhost:${PORT}`, 'iframe_test');
   const iframeCamera = new Camera(percySnapshot, page, true);
-  await captureSnapshots(iframePageNavigator, iframeCamera);
+  await captureSnapshots(iframePageNavigator, page, iframeCamera);
 }
 
 async function spanishSnapshots(page) {
@@ -25,7 +25,7 @@ async function spanishSnapshots(page) {
   const standardCamera = new Camera(percySnapshot, page);
   standardPageNavigator.setCurrentLocale('es');
   standardCamera.setLocale('es');
-  await captureSnapshots(standardPageNavigator, standardCamera, 'es');
+  await captureSnapshots(standardPageNavigator, page, standardCamera, 'es');
 }
 
 async function rtlSnapshots(page) {
@@ -33,7 +33,7 @@ async function rtlSnapshots(page) {
   const standardCamera = new Camera(percySnapshot, page);
   standardPageNavigator.setCurrentLocale('ar');
   standardCamera.setLocale('ar');
-  await captureSnapshots(standardPageNavigator, standardCamera, 'ar');
+  await captureSnapshots(standardPageNavigator, page, standardCamera, 'ar');
 }
 
 async function captureSnapshots(navigator, page, camera, locale='en') {
