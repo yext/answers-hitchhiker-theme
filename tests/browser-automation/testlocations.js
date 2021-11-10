@@ -1,4 +1,4 @@
-const queryConfig = require('./multilangQueries.json');
+const queryConfig = require('./multilangqueries.json');
 
 const universalSearchTests = (multilangQueries) => [
   {
