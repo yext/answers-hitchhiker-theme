@@ -2,7 +2,7 @@ const { BrowserPageWidths } = require("./constants");
 
 /**
  * Responsible for browser navigation based on given test locations.
- * Each test location is a JSON object which may contains:
+ * Each test location is an object which may contain:
  * - name: name of this test
  * - page: the vertical page to navigate to (if omit, navigate to universal page by default)
  * - queryParams: the query params to peform the search on

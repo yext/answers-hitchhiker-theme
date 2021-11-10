@@ -1,6 +1,6 @@
-const queryConfig = require('./queries.json');
+const queryConfig = require('./multilangQueries.json');
 
-const universalSearchTests = (queries) => [
+const universalSearchTests = (multilangQueries) => [
   {
     name: 'universal-search',
   },
@@ -14,7 +14,7 @@ const universalSearchTests = (queries) => [
   },
   {
     name: 'universal-search--faq-accordion',
-    queryParams: { query: queries.faq },
+    queryParams: { query: multilangQueries.faq },
     commands: [{ type: 'click', params: ['.HitchhikerFaqAccordion-toggle'] }]
   },
   {
@@ -23,7 +23,7 @@ const universalSearchTests = (queries) => [
   }
 ];
 
-const verticalSearchTests = (queries) => [
+const verticalSearchTests = (multilangQueries) => [
   {
     name: 'vertical-search',
     page: 'events'
@@ -55,7 +55,7 @@ const verticalSearchTests = (queries) => [
   {
     name: 'vertical-search--job-standard',
     page: 'jobs',
-    queryParams: { query: queries.job }
+    queryParams: { query: multilangQueries.job }
   },
   {
     name: 'vertical-search--document-standard',
@@ -65,7 +65,7 @@ const verticalSearchTests = (queries) => [
   {
     name: 'vertical-search--menuitem-standard',
     page: 'menu_items',
-    queryParams: { query: queries.menu_item }
+    queryParams: { query: multilangQueries.menu_item }
   }
 ];
 
@@ -166,10 +166,10 @@ const verticalFullPageMapSearchTests = () => [
   }
 ];
 
-const directAnswersTests = (queries) => [
+const directAnswersTests = (multilangQueries) => [
   {
     name: 'field-direct-answer',
-    queryParams: { query: queries.field_direct_answers }
+    queryParams: { query: multilangQueries.field_direct_answers }
   },
   {
     name: 'documentsearch-direct-answer',
@@ -185,10 +185,10 @@ const directAnswersTests = (queries) => [
   }
 ];
 
-const multilangDirectAnswersTests = (queries) => [
+const multilangDirectAnswersTests = (multilangQueries) => [
   {
     name: 'field-direct-answer',
-    queryParams: { query: queries.field_direct_answers }
+    queryParams: { query: multilangQueries.field_direct_answers }
   }
 ];
 
