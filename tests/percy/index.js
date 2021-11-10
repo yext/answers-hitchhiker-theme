@@ -40,8 +40,8 @@ async function captureSnapshots(navigator, page, camera, locale='en') {
   const operator = new PageOperator(navigator, page, getTestingLocations(locale));
   while (operator.hasNextTestLocation()) {
     const testConfig = await operator.nextTestLocation();
-    if (testConfig.viewPort) {
-      testConfig.viewPort === 'mobile'
+    if (testConfig.viewport) {
+      testConfig.viewport === 'mobile'
        ? await camera.snapshotMobileOnly(testConfig.name)
        : await camera.snapshotDesktopOnly(testConfig.name);
     } else {
