@@ -132,6 +132,10 @@ msgstr ""
 msgid "Sunday"
 msgstr ""
 
+#: directanswercards/multilang-allfields-standard/component.js:188
+msgid "Thank you for your feedback!"
+msgstr ""
+
 #: cards/multilang-event-standard/component.js:53
 #: cards/multilang-faq-accordion/component.js:51
 #: cards/multilang-financial-professional-location/component.js:69
@@ -146,8 +150,7 @@ msgstr ""
 #: cards/multilang-professional-location/component.js:69
 #: cards/multilang-professional-standard/component.js:59
 #: cards/multilang-standard/component.js:54
-#: directanswercards/multilang-allfields-standard/component.js:188
-msgid "Thank you for your feedback!"
+msgid "Thanks!"
 msgstr ""
 
 #: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:11
