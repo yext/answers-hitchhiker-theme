@@ -119,11 +119,6 @@
 
   .HitchhikerCard
   {
-    &-actions
-    {
-      flex-direction: row;
-    }
-  
     &-feedbackContent
     {
       margin-top: calc(var(--yxt-base-spacing) / 2);

@@ -31,17 +31,6 @@
       @include TextButton($padding: 0);
   }
 
-  &-actions
-  {
-    display: flex;
-    align-items: flex-end;
-
-    @include bpgte(sm)
-    {
-      flex-direction: column;
-    }
-  }
-
   &-feedbackWrapper
   {
     display: flex;
