@@ -41,7 +41,7 @@ class job_standardCardComponent extends BaseCard['job-standard'] {
         // ariaLabel: '', // Accessible text providing a descriptive label for the CTA
       },
       feedback: false, // Shows thumbs up/down buttons to provide feedback on the result card
-      feedbackTextOnSubmission: 'Thank you for your feedback!', // Text to display after a thumbs up/down is clicked
+      feedbackTextOnSubmission: 'Thanks!', // Text to display after a thumbs up/down is clicked
       positiveFeedbackSrText: 'This answered my question', // Screen reader only text for thumbs-up
       negativeFeedbackSrText: 'This did not answer my question' // Screen reader only text for thumbs-down
     };

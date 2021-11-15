@@ -1,0 +1,6 @@
+{
+  "sdkVersion": "new", // The version of the Answers SDK to use
+  // "token": "<REPLACE ME>", // The auth token to access Answers experience.
+  // "useJWT": true, // Whether or not to enable JWT. If true, the apiKey will be hidden from the build output and the token must be specified through manual initialization.
+  "sessionTrackingEnabled": true // Whether or not session tracking is enabled for all pages
+}

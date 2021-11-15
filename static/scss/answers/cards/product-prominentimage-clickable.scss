@@ -40,6 +40,9 @@
   {
     width: 100%;
     padding: calc(var(--yxt-base-spacing) * 3/4) var(--yxt-base-spacing);
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
   }
 
   &-contentWrapper
@@ -118,16 +121,6 @@
 
   .HitchhikerCard
   {
-    &-actions
-    {
-      flex-direction: row;
-    }
-  
-    &-feedbackWrapper
-    {
-      margin-left: 0;
-    }
-  
     &-feedbackContent
     {
       margin-top: calc(var(--yxt-base-spacing) / 2);
