@@ -56,6 +56,9 @@
     align-items: flex-end;
     flex-grow: 1;
     margin-top: calc(var(--yxt-base-spacing) / 2);
+    // Use 22px height to match the height of the feedback text so that the card doesn't shift 
+    // when a feedback button is clicked
+    height: 22px;
   }
 
   &-feedbackText
