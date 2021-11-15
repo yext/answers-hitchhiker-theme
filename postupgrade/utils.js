@@ -31,7 +31,7 @@ exports.mergeGlobalConfigs = function (incomingConfig, originalConfig) {
  * 
  * @param {CommentJSONValue} partiallyMerged 
  * @param {CommentJSONValue} incoming 
- * @returns 
+ * @returns {CommentJSONValue} the updated json
  */
 function addMissingPropComments(partiallyMerged, incoming) {
   const propCommentsFromIncoming = parseAllPropComments(incoming);
@@ -60,7 +60,7 @@ function addMissingPropComments(partiallyMerged, incoming) {
  * Whether or not a CommentToken is a LineComment that "look like" a config option
  * 
  * @param {CommentToken[]} comment 
- * @returns 
+ * @returns {boolean}
  */
 function isPropComment(comment) {
   return !comment.inline && comment.type === 'LineComment' && comment.value.match(/^\s?"\w+":/);
@@ -84,7 +84,7 @@ exports.parseAllPropComments = parseAllPropComments;
  * 
  * @param {CommentToken} c1 
  * @param {CommentToken} c2 
- * @returns 
+ * @returns {boolean}
  */
 function isEqualComment(c1, c2) {
   return c1.value === c2.value
