@@ -75,6 +75,7 @@ $professional-location-ordinal-dimensions: 18px !default;
   &-topRow
   {
     display: flex;
+    justify-content: space-between;
   }
 
   &-title
@@ -93,6 +94,11 @@ $professional-location-ordinal-dimensions: 18px !default;
   {
     color: var(--yxt-color-text-secondary);
     padding-bottom: 0;
+  }
+
+  &-ordinalAndTitle
+  {
+    display: flex;
   }
 
   &-distance

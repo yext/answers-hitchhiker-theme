@@ -1,10 +1,13 @@
+{{! Some partials here use the result.ordinal parameter, a reserved value automatically provided to
+    any card template. This value contains the ordinal of the card.
+}}
+
 <div class="HitchhikerFinancialProfessionalLocation HitchhikerLocationCard {{cardName}}">
   {{> image }}
   <div class="HitchhikerFinancialProfessionalLocation-body">
     {{#if (any card.title card.distance)}}
     <div class="HitchhikerFinancialProfessionalLocation-topRow">
-      {{> ordinal }}
-      {{> title }}
+      {{> ordinalAndTitle displayOrdinal=(all card.showOrdinal result.ordinal) }}
       <div class="HitchhikerLocationCard-closeCardButtonWrapper">
         {{> closeCardButton }}
         {{> distance }}
@@ -37,11 +40,16 @@
 {{/if}}
 {{/inline}}
 
-{{#*inline 'ordinal'}}
-{{#if card.showOrdinal}}
-<div class="HitchhikerFinancialProfessionalLocation-ordinal HitchhikerLocationCard-ordinal">
-  {{result.ordinal}}
-</div>
+{{#* inline 'ordinalAndTitle'}}
+{{#if (any displayOrdinal card.title)}}
+  <div class="HitchhikerFinancialProfessionalLocation-ordinalAndTitle">
+    {{#if displayOrdinal}}
+    <div class="HitchhikerFinancialProfessionalLocation-ordinal HitchhikerLocationCard-ordinal">
+      {{result.ordinal}}
+    </div>
+    {{/if}}
+  {{> title }}
+  </div>
 {{/if}}
 {{/inline}}
 
