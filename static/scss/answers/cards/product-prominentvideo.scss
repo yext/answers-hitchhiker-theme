@@ -11,7 +11,7 @@
   &-body
   {
     padding: calc(var(--yxt-base-spacing) * 3/4) var(--yxt-base-spacing);
-    height: 100%;
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
   }
