@@ -47,10 +47,6 @@
     display: flex;
     flex-grow: 1;
     min-width: 55px;
-    @include bpgte(sm)
-    {
-      margin-left: calc(var(--yxt-base-spacing) / 2);
-    }
   }
 
   &-feedbackContent
@@ -59,10 +55,7 @@
     justify-content: flex-end;
     align-items: flex-end;
     flex-grow: 1;
-    @include bpgte(sm)
-    {
-      margin-top: calc(var(--yxt-base-spacing) / 2);
-    }
+    margin-top: calc(var(--yxt-base-spacing) / 2);
   }
 
   &-feedbackText

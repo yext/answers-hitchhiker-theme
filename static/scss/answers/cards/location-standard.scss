@@ -62,16 +62,6 @@ $location-standard-ordinal-dimensions: calc(var(--hh-location-standard-base-spac
         flex-direction: column;
       }
     }
-
-    &-feedbackWrapper
-    {
-      margin-left: 0;
-
-      @include bpgte(lg)
-      {
-        margin-left: calc(var(--hh-location-standard-base-spacing) / 2);
-      }
-    }
   }
 }
 

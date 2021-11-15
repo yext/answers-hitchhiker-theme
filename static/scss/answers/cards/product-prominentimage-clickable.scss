@@ -40,6 +40,9 @@
   {
     width: 100%;
     padding: calc(var(--yxt-base-spacing) * 3/4) var(--yxt-base-spacing);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
 
   &-contentWrapper
@@ -121,11 +124,6 @@
     &-actions
     {
       flex-direction: row;
-    }
-  
-    &-feedbackWrapper
-    {
-      margin-left: 0;
     }
   
     &-feedbackContent
