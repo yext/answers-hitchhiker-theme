@@ -19,27 +19,25 @@
       </div>
     {{/if}}
     {{> 'details'}}
-    <div class="HitchhikerCard-actions">
-      {{#if (any (all card.CTA1 card.CTA1.url card.CTA1.label) (all card.CTA2 card.CTA2.url card.CTA2.label))}}
-        <div class="HitchhikerFaqAccordion-ctasWrapper">
-          {{#if card.CTA1.url}}
-          <div class="HitchhikerFaqAccordion-primaryCTA">
-            {{#with card.CTA1}}
-              {{> CTA }}
-            {{/with}}
-          </div>
-          {{/if}}
-          {{#if card.CTA2.url}}
-          <div class="HitchhikerFaqAccordion-secondaryCTA">
-            {{#with card.CTA2}}
-              {{> CTA }}
-            {{/with}}
-          </div>
-          {{/if}}
+    {{#if (any (all card.CTA1 card.CTA1.url card.CTA1.label) (all card.CTA2 card.CTA2.url card.CTA2.label))}}
+      <div class="HitchhikerFaqAccordion-ctasWrapper">
+        {{#if card.CTA1.url}}
+        <div class="HitchhikerFaqAccordion-primaryCTA">
+          {{#with card.CTA1}}
+            {{> CTA }}
+          {{/with}}
         </div>
-      {{/if}}
-      {{> thumbsfeedback card feedbackSubmitted=feedbackSubmitted}}
-    </div>
+        {{/if}}
+        {{#if card.CTA2.url}}
+        <div class="HitchhikerFaqAccordion-secondaryCTA">
+          {{#with card.CTA2}}
+            {{> CTA }}
+          {{/with}}
+        </div>
+        {{/if}}
+      </div>
+    {{/if}}
+    {{> thumbsfeedback card feedbackSubmitted=feedbackSubmitted}}
   </div>
 </div>
 

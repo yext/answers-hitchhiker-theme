@@ -31,26 +31,11 @@
       @include TextButton($padding: 0);
   }
 
-  &-actions
-  {
-    display: flex;
-    align-items: flex-end;
-
-    @include bpgte(sm)
-    {
-      flex-direction: column;
-    }
-  }
-
   &-feedbackWrapper
   {
     display: flex;
     flex-grow: 1;
     min-width: 55px;
-    @include bpgte(sm)
-    {
-      margin-left: calc(var(--yxt-base-spacing) / 2);
-    }
   }
 
   &-feedbackContent
@@ -59,10 +44,7 @@
     justify-content: flex-end;
     align-items: flex-end;
     flex-grow: 1;
-    @include bpgte(sm)
-    {
-      margin-top: calc(var(--yxt-base-spacing) / 2);
-    }
+    margin-top: calc(var(--yxt-base-spacing) / 2);
   }
 
   &-feedbackText
@@ -75,6 +57,13 @@
       $color: var(--yxt-color-text-secondary)
     );
     text-align: right;
+  }
+
+  &-thumbsWrapper
+  {
+    // Use 22px height to match the height of the feedback text so that the card doesn't shift 
+    // when a feedback button is clicked
+    height: 22px;
   }
 
   &-thumbs

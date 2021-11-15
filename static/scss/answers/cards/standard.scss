@@ -11,6 +11,8 @@
   &-body
   {
     width: 100%;
+    display: flex;
+    flex-direction: column;
   }
 
   &-contentWrapper
@@ -91,13 +93,5 @@
   .js-hidden
   {
     display: none;
-  }
-
-  .HitchhikerCard-feedbackWrapper
-  {
-    @include bpgte(sm)
-    {
-      margin-right: calc(var(--yxt-base-spacing) / 2);
-    }
   }
 }

@@ -88,7 +88,7 @@ msgstr ""
 msgid "Saturday"
 msgstr ""
 
-#: cards/multilang-location-standard/template.hbs:143
+#: cards/multilang-location-standard/template.hbs:141
 msgid "Services:"
 msgstr ""
 
@@ -244,9 +244,9 @@ msgctxt "Call is a verb"
 msgid "Call"
 msgstr ""
 
-#: cards/multilang-financial-professional-location/template.hbs:201
-#: cards/multilang-location-standard/template.hbs:212
-#: cards/multilang-professional-location/template.hbs:198
+#: cards/multilang-financial-professional-location/template.hbs:199
+#: cards/multilang-location-standard/template.hbs:210
+#: cards/multilang-professional-location/template.hbs:196
 msgctxt "Close is a verb"
 msgid "Close Card"
 msgstr ""

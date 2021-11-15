@@ -4,6 +4,7 @@
     {{> title }}
     {{> subtitle }}
     {{> content }}
+    {{> thumbsfeedback card feedbackSubmitted=feedbackSubmitted}}
   </div>
 </div>
 
@@ -49,13 +50,10 @@
 {{/inline}}
 
 {{#*inline 'content'}}
-{{#if (any card.details (all card.CTA1 card.CTA1.url card.CTA1.label) (all card.CTA2 card.CTA2.url card.CTA2.label) card.feedbackEnabled)}}
+{{#if (any card.details (all card.CTA1 card.CTA1.url card.CTA1.label) (all card.CTA2 card.CTA2.url card.CTA2.label))}}
   <div class="HitchhikerProductProminentVideo-contentWrapper">
     {{> details }}
-    <div class="HitchhikerCard-actions">
-      {{> ctas }}
-      {{> thumbsfeedback card feedbackSubmitted=feedbackSubmitted}}
-    </div>
+    {{> ctas }}
   </div>
 {{/if}}
 {{/inline}}
