@@ -1,17 +1,22 @@
-const { parse, stringify } = require('comment-json');
+const { parse, stringify, assign } = require('comment-json');
 const fs = require('fs');
+const path = require('path');
 const {
-  parseAllCommentedOutProps,
+  parseAllPropComments,
   mergeGlobalConfigs,
   getPropCommentSymbols,
   pruneComments
 } = require('../../postupgrade/utils');
 
 it('mergeGlobalConfigs merges together two global configs, and removes duplicated comments', () => {
-  const originalConfig = fs.readFileSync('./tests/postupgrade/original.json', 'utf-8');
-  const newConfig = fs.readFileSync('./tests/postupgrade/new.json', 'utf-8');
-  const expected = fs.readFileSync('./tests/postupgrade/merged.json', 'utf-8');
-  const mergedConfig = mergeGlobalConfigs(newConfig, originalConfig);
+  const { original, incoming, merged: expected } = readFixtures();
+  const mergedConfig = mergeGlobalConfigs(incoming, original);
+  expect(mergedConfig).toEqual(expected);
+});
+
+it('merges comments that are in the same comment-json "location", for example (before:sessionTrackingEnabled)', () => {
+  const { original, incoming, merged: expected } = readFixtures('merges-prop-comments');
+  const mergedConfig = mergeGlobalConfigs(incoming, original);
   expect(mergedConfig).toEqual(expected);
 });
 
@@ -32,7 +37,7 @@ it('getPropCommentSymbols ', () => {
   ]);
 });
 
-describe('parseAllCommentedOutProps', () => {
+describe('parseAllPropComments', () => {
   it('parses comments correctly', () => {
     const commentJson = parse(`{
       // "sdkVersion": "1.9", // sdkVersion comment
@@ -40,7 +45,7 @@ describe('parseAllCommentedOutProps', () => {
       "businessId": "<REPLACE ME>", // businessId comment
       // "initializeManually": true // manualInit comment
     }`);
-    const commentTokens = parseAllCommentedOutProps(commentJson);
+    const commentTokens = parseAllPropComments(commentJson);
     expect(commentTokens).toMatchObject([
       {
         'inline': false,
@@ -63,7 +68,7 @@ describe('parseAllCommentedOutProps', () => {
       "businessId": "<REPLACE ME>"
       // 'lol': "only double quotes are valid json"
     }`);
-    const commentTokens = parseAllCommentedOutProps(commentJson);
+    const commentTokens = parseAllPropComments(commentJson);
     expect(commentTokens).toEqual([]);
   });
 });
@@ -91,3 +96,13 @@ it('pruneComments prunes all comments that match value, type, and inlining', () 
   }`), null, 2);
   expect(prunedJson).toEqual(expected);
 });
+
+function readFixtures(testCase = 'default-test') {
+  function readFixture(file) {
+    return fs.readFileSync(path.resolve('tests/postupgrade/fixtures', testCase, file), 'utf-8')
+  }
+  const incoming = readFixture('incoming.json');
+  const original = readFixture('original.json');
+  const merged = readFixture('merged.json');
+  return { incoming, original, merged };
+}

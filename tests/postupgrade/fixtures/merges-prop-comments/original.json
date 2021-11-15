@@ -1,0 +1,6 @@
+{
+  "sdkVersion": "develop", // The version of the Answers SDK to use
+  // "useJWT": true, // Whether or not to enable JWT. If true, the apiKey will be hidden from the build output and the token must be specified through manual initialization.
+  // "myProp": true, // My random prop that I felt like adding as a hitchhiker
+  "sessionTrackingEnabled": true // Whether or not session tracking is enabled for all pages
+}
