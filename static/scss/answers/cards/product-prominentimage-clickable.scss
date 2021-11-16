@@ -40,6 +40,9 @@
   {
     width: 100%;
     padding: calc(var(--yxt-base-spacing) * 3/4) var(--yxt-base-spacing);
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
   }
 
   &-contentWrapper
@@ -114,5 +117,13 @@
   {
     @include rich_text_formatting;
     color: var(--yxt-color-text-primary);
+  }
+
+  .HitchhikerCard
+  {
+    &-feedbackContent
+    {
+      margin-top: calc(var(--yxt-base-spacing) / 2);
+    }
   }
 }

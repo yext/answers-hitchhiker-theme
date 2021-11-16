@@ -29,4 +29,9 @@ copy_static_files_into_working_dir
 npm i
 cleanup_custom_cards
 create_custom_cards
-node scripts/create-verticals.js
+
+# Clear out preexisting pages/config
+find pages ! -name index.* -type f -delete
+find config ! \( -name index.* -o -name locale_config.json -o -name global_config.json \) -type f -delete
+
+node scripts/create-verticals.js $@

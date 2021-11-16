@@ -39,6 +39,10 @@ class product_prominentimage_clickableCardComponent extends BaseCard['product-pr
       altText: alternateText,  // The alternate text for the image
       details: profile.richTextDescription ? ANSWERS.formatRichText(profile.richTextDescription, 'richTextDescription', linkTarget) : null, // The text in the body of the card, Warning: cannot contain links
       // tag: profile.stockStatus ? profile.stockStatus : '', // The tag text for the card
+      feedback: false, // Shows thumbs up/down buttons to provide feedback on the result card
+      feedbackTextOnSubmission: 'Thanks!', // Text to display after a thumbs up/down is clicked
+      positiveFeedbackSrText: 'This answered my question', // Screen reader only text for thumbs-up
+      negativeFeedbackSrText: 'This did not answer my question' // Screen reader only text for thumbs-down
     };
   }
 

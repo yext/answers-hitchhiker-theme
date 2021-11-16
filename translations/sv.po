@@ -108,6 +108,23 @@ msgstr "sorterar och filtrerar"
 msgid "Thank you for your feedback!"
 msgstr "Tack för din feedback!"
 
+#: cards/multilang-event-standard/component.js:53
+#: cards/multilang-faq-accordion/component.js:51
+#: cards/multilang-financial-professional-location/component.js:69
+#: cards/multilang-job-standard/component.js:44
+#: cards/multilang-link-standard/component.js:32
+#: cards/multilang-location-standard/component.js:58
+#: cards/multilang-menuitem-standard/component.js:59
+#: cards/multilang-product-prominentimage-clickable/component.js:44
+#: cards/multilang-product-prominentimage/component.js:62
+#: cards/multilang-product-prominentvideo/component.js:57
+#: cards/multilang-product-standard/component.js:61
+#: cards/multilang-professional-location/component.js:69
+#: cards/multilang-professional-standard/component.js:59
+#: cards/multilang-standard/component.js:54
+msgid "Thanks!"
+msgstr "Tack!"
+
 #: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:11
 msgid "The following search category yielded results for <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"
 msgid_plural "The following search categories yielded results for <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"

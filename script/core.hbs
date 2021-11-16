@@ -31,11 +31,24 @@
       {{/with}}
     };
     const token = window.AnswersExperience.runtimeConfig?.get('token');
+    const tokenHeader = window.AnswersExperience.runtimeConfig?.get('tokenHeader');
+    const apiKey = window.AnswersExperience.runtimeConfig?.get('apiKey');
+
+    const credentials = {};
+    if (tokenHeader) {
+      credentials.token = tokenHeader;
+    } else if (apiKey) {
+      credentials.apiKey = apiKey;
+    } else if (token) {
+      console.warn('"token" attribute is deprecated. Consider using "tokenHeader" or "apiKey" instead.');
+      credentials.apiKey = token;
+    }
+
     ANSWERS.init({
       templateBundle: TemplateBundle.default,
       ...injectedConfig,
       ...userConfig,
-      ...token && { apiKey: token },
+      ...credentials,
       querySource: window.isOverlay ? 'OVERLAY' : 'STANDARD',
       onStateChange: (objParams, stringParams, replaceHistory) => {
         if ('parentIFrame' in window) {
@@ -83,6 +96,11 @@
         ANSWERS.registerHelper('close-card-svg', () => {
           return ANSWERS.renderer.SafeString({{{stringifyPartial (read 'static/assets/images/close-card') }}});
         });
+
+        ANSWERS.registerPartial(
+          'thumbsfeedback',
+          {{{stringifyPartial (read 'cards/common-partials/thumbsfeedback') }}}
+        );
 
         /**
         * If the url is not relative, return it. If it is relative,

@@ -6,16 +6,17 @@
     <div class="HitchhikerProductStandard-contentWrapper">
       {{> details }}
       {{#if (any (all card.CTA1 card.CTA1.label card.CTA1.url) (all card.CTA2 card.CTA2.label card.CTA2.url))}}
-      <div class="HitchhikerProductStandard-ctasWrapper">
-        {{#with card.CTA1}}
-        {{> CTA ctaName="primaryCTA" }}
-        {{/with}}
-        {{#with card.CTA2}}
-        {{> CTA ctaName="secondaryCTA" }}
-        {{/with}}
-      </div>
+        <div class="HitchhikerProductStandard-ctasWrapper">
+          {{#with card.CTA1}}
+          {{> CTA ctaName="primaryCTA" }}
+          {{/with}}
+          {{#with card.CTA2}}
+          {{> CTA ctaName="secondaryCTA" }}
+          {{/with}}
+        </div>
       {{/if}}
     </div>
+    {{> thumbsfeedback card feedbackSubmitted=feedbackSubmitted}}
   </div>
 </div>
 

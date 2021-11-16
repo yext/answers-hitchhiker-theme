@@ -9,16 +9,17 @@
         {{> details }}
       </div>
       {{#if (any (all card.CTA1 card.CTA1.url) (all card.CTA2 card.CTA2.url))}}
-      <div class="HitchhikerMenuItemStandard-ctasWrapper">
-        {{#with card.CTA1}}
-        {{> CTA ctaName="primaryCTA" }}
-        {{/with}}
-        {{#with card.CTA2}}
-        {{> CTA ctaName="secondaryCTA" }}
-        {{/with}}
-      </div>
+        <div class="HitchhikerMenuItemStandard-ctasWrapper">
+          {{#with card.CTA1}}
+          {{> CTA ctaName="primaryCTA" }}
+          {{/with}}
+          {{#with card.CTA2}}
+          {{> CTA ctaName="secondaryCTA" }}
+          {{/with}}
+        </div>
       {{/if}}
     </div>
+    {{> thumbsfeedback card feedbackSubmitted=feedbackSubmitted}}
   </div>
 </div>
 

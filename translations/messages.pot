@@ -88,7 +88,7 @@ msgstr ""
 msgid "Saturday"
 msgstr ""
 
-#: cards/multilang-location-standard/template.hbs:140
+#: cards/multilang-location-standard/template.hbs:141
 msgid "Services:"
 msgstr ""
 
@@ -136,16 +136,61 @@ msgstr ""
 msgid "Thank you for your feedback!"
 msgstr ""
 
+#: cards/multilang-event-standard/component.js:53
+#: cards/multilang-faq-accordion/component.js:51
+#: cards/multilang-financial-professional-location/component.js:69
+#: cards/multilang-job-standard/component.js:44
+#: cards/multilang-link-standard/component.js:32
+#: cards/multilang-location-standard/component.js:58
+#: cards/multilang-menuitem-standard/component.js:59
+#: cards/multilang-product-prominentimage-clickable/component.js:44
+#: cards/multilang-product-prominentimage/component.js:62
+#: cards/multilang-product-prominentvideo/component.js:57
+#: cards/multilang-product-standard/component.js:61
+#: cards/multilang-professional-location/component.js:69
+#: cards/multilang-professional-standard/component.js:59
+#: cards/multilang-standard/component.js:54
+msgid "Thanks!"
+msgstr ""
+
 #: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:11
 msgid "The following search category yielded results for <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"
 msgid_plural "The following search categories yielded results for <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"
 msgstr[0] ""
 msgstr[1] ""
 
+#: cards/multilang-event-standard/component.js:54
+#: cards/multilang-faq-accordion/component.js:52
+#: cards/multilang-financial-professional-location/component.js:70
+#: cards/multilang-job-standard/component.js:45
+#: cards/multilang-link-standard/component.js:33
+#: cards/multilang-location-standard/component.js:59
+#: cards/multilang-menuitem-standard/component.js:60
+#: cards/multilang-product-prominentimage-clickable/component.js:45
+#: cards/multilang-product-prominentimage/component.js:63
+#: cards/multilang-product-prominentvideo/component.js:58
+#: cards/multilang-product-standard/component.js:62
+#: cards/multilang-professional-location/component.js:70
+#: cards/multilang-professional-standard/component.js:60
+#: cards/multilang-standard/component.js:55
 #: directanswercards/multilang-allfields-standard/component.js:190
 msgid "This answered my question"
 msgstr ""
 
+#: cards/multilang-event-standard/component.js:55
+#: cards/multilang-faq-accordion/component.js:53
+#: cards/multilang-financial-professional-location/component.js:71
+#: cards/multilang-job-standard/component.js:46
+#: cards/multilang-link-standard/component.js:34
+#: cards/multilang-location-standard/component.js:60
+#: cards/multilang-menuitem-standard/component.js:61
+#: cards/multilang-product-prominentimage-clickable/component.js:46
+#: cards/multilang-product-prominentimage/component.js:64
+#: cards/multilang-product-prominentvideo/component.js:59
+#: cards/multilang-product-standard/component.js:63
+#: cards/multilang-professional-location/component.js:71
+#: cards/multilang-professional-standard/component.js:61
+#: cards/multilang-standard/component.js:56
 #: directanswercards/multilang-allfields-standard/component.js:191
 msgid "This did not answer my question"
 msgstr ""
@@ -199,9 +244,9 @@ msgctxt "Call is a verb"
 msgid "Call"
 msgstr ""
 
-#: cards/multilang-financial-professional-location/template.hbs:198
-#: cards/multilang-location-standard/template.hbs:209
-#: cards/multilang-professional-location/template.hbs:195
+#: cards/multilang-financial-professional-location/template.hbs:207
+#: cards/multilang-location-standard/template.hbs:210
+#: cards/multilang-professional-location/template.hbs:204
 msgctxt "Close is a verb"
 msgid "Close Card"
 msgstr ""

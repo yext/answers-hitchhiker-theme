@@ -40,6 +40,10 @@ class multilang_product_prominentimage_clickableCardComponent
       altText: alternateText,  // The alternate text for the image
       details: profile.richTextDescription ? ANSWERS.formatRichText(profile.richTextDescription, 'richTextDescription', linkTarget) : null, // The text in the body of the card, Warning: cannot contain links
       // tag: profile.stockStatus ? profile.stockStatus : '', // The tag text for the card
+      feedback: false, // Shows thumbs up/down buttons to provide feedback on the result card
+      feedbackTextOnSubmission: {{ translateJS phrase='Thanks!' }}, // Text to display after a thumbs up/down is clicked
+      positiveFeedbackSrText: {{ translateJS phrase='This answered my question' }}, // Screen reader only text for thumbs-up
+      negativeFeedbackSrText: {{ translateJS phrase='This did not answer my question' }} // Screen reader only text for thumbs-down
     };
   }
 

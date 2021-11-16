@@ -39,7 +39,11 @@ class multilang_job_standardCardComponent extends BaseCard['multilang-job-standa
         eventType: 'CTA_CLICK', // Type of Analytics event fired when clicking the CTA
         eventOptions: this.addDefaultEventOptions(),
         // ariaLabel: '', // Accessible text providing a descriptive label for the CTA
-      }
+      },
+      feedback: false, // Shows thumbs up/down buttons to provide feedback on the result card
+      feedbackTextOnSubmission: {{ translateJS phrase='Thanks!' }}, // Text to display after a thumbs up/down is clicked
+      positiveFeedbackSrText: {{ translateJS phrase='This answered my question' }}, // Screen reader only text for thumbs-up
+      negativeFeedbackSrText: {{ translateJS phrase='This did not answer my question' }} // Screen reader only text for thumbs-down
     };
   }
 

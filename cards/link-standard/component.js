@@ -28,6 +28,10 @@ class link_standardCardComponent extends BaseCard['link-standard'] {
       //   showLessText: 'Show less' // Label when toggle will hide truncated text
       // },
       details: profile.htmlSnippet, // The text in the body of the card
+      feedback: false, // Shows thumbs up/down buttons to provide feedback on the result card
+      feedbackTextOnSubmission: 'Thanks!', // Text to display after a thumbs up/down is clicked
+      positiveFeedbackSrText: 'This answered my question', // Screen reader only text for thumbs-up
+      negativeFeedbackSrText: 'This did not answer my question' // Screen reader only text for thumbs-down
     };
   }
 

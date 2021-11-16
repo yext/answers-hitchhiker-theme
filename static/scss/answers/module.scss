@@ -17,14 +17,101 @@
   @include sr-only-focusable();
 }
 
-.HitchhikerCard-detailsToggle
+.HitchhikerCard
 {
-    text-align: left;
-    margin-top: calc(var(--yxt-base-spacing) / 4);
+  &-detailsToggle
+  {
+      text-align: left;
+      margin-top: calc(var(--yxt-base-spacing) / 4);
 
+      @include Text(
+          $color: var(--yxt-color-brand-primary),
+          $line-height: var(--yxt-line-height-md),
+          $style: italic);
+      @include TextButton($padding: 0);
+  }
+
+  &-feedbackWrapper
+  {
+    display: flex;
+    flex-grow: 1;
+    min-width: 55px;
+  }
+
+  &-feedbackContent
+  {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex-grow: 1;
+    margin-top: calc(var(--yxt-base-spacing) / 2);
+  }
+
+  &-feedbackText
+  {
+    display: inline;
     @include Text(
-        $color: var(--yxt-color-brand-primary),
-        $line-height: var(--yxt-line-height-md),
-        $style: italic);
-    @include TextButton($padding: 0);
+      $size: var(--yxt-font-size-md),
+      $line-height: var(--yxt-line-height-md),
+      $weight: var(--yxt-font-weight-normal),
+      $color: var(--yxt-color-text-secondary)
+    );
+    text-align: right;
+  }
+
+  &-thumbsWrapper
+  {
+    // Use 22px height to match the height of the feedback text so that the card doesn't shift 
+    // when a feedback button is clicked
+    height: 22px;
+  }
+
+  &-thumbs
+  {
+    display: flex;
+    margin: 0;
+  }
+
+  &-thumbUpIcon
+  {
+    transform: rotate(180deg);
+  }
+
+  &-thumbUpIcon,
+  &-thumbDownIcon
+  {
+    display: inline-flex;
+    color: var(--yxt-color-text-secondary);
+  }
+
+  &-thumb
+  {
+    display: inline;
+    flex-shrink: 0;
+    cursor: pointer;
+    font-size: 18px;
+
+    & + &
+    {
+      margin-left: 8px;
+    }
+  }
+
+  &-fieldset
+  {
+    display: inline;
+    margin-inline-start: 2px;
+    margin-inline-end: 2px;
+    line-height: 0;
+    min-inline-size: min-content;
+  }
+
+  &-feedback
+  {
+    @include Text(
+      $color: var(--yxt-color-text-neutral),
+    );
+    background-color: var(--yxt-color-background-highlight);
+    display: none;
+  }
 }

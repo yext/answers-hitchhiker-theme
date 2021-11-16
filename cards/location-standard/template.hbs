@@ -9,8 +9,8 @@
     <div class="HitchhikerLocationStandard-topRow">
       {{> ordinalAndTitle displayOrdinal=(all card.showOrdinal result.ordinal) }}
       <div class="HitchhikerLocationCard-closeCardButtonWrapper">
-        {{> closeCardButton }}
         {{> distance }}
+        {{> closeCardButton }}
       </div>
     </div>
     {{/if}}
@@ -26,6 +26,7 @@
       </div>
       {{> ctas }}
     </div>
+    {{> thumbsfeedback card feedbackSubmitted=feedbackSubmitted}}
   </div>
 </div>
 </div>

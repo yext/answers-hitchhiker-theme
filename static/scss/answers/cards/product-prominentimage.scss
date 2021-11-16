@@ -116,4 +116,12 @@
   {
     display: none;
   }
+
+  .HitchhikerCard
+  {
+    &-feedbackContent
+    {
+      margin-top: calc(var(--yxt-base-spacing) / 2);
+    }
+  }
 }

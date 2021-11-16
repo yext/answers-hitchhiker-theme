@@ -30,6 +30,38 @@ BaseCard["{{componentName}}"] = class extends ANSWERS.Component {
         })
       );
     }
+
+    this.addFeedbackListeners();
+  }
+
+  addFeedbackListeners() {
+    const feedbackFormSelector = '.js-HitchhikerCard-feedbackForm';
+    let feedbackFormEl = this._container.querySelector(feedbackFormSelector);
+    if (feedbackFormEl) {
+      // For WCAG compliance, the feedback should be a submittable form
+      feedbackFormEl.addEventListener('submit', (e) => {
+        const formTargetEl = e.target;
+        const isGood = formTargetEl.querySelector('input:checked').value === 'true';
+
+        this.reportQuality(isGood);
+        this.updateState({
+          feedbackSubmitted: true
+        });
+      });
+
+      let thumbSelectorEls = this._container.querySelectorAll('.js-HitchhikerCard-thumbInput');
+      if (thumbSelectorEls) {
+        thumbSelectorEls.forEach(el => {
+          el.addEventListener('click', (e) => {
+            let input = el.querySelector('input');
+            if (input) {
+              input.checked = true;
+            }
+            HitchhikerJS.DOM.triggerCustomEvent(this._container, feedbackFormSelector, 'submit');
+          });
+        });
+      }
+    }
   }
 
   setState(data) {
@@ -46,7 +78,9 @@ BaseCard["{{componentName}}"] = class extends ANSWERS.Component {
       cardData.titleEventOptions = updatedEventOptions;
     }
     
-    let { details, showMoreDetails } = cardData;
+    cardData.feedbackEnabled = ANSWERS.getAnalyticsOptIn() && cardData.feedback;
+
+    const { details, showMoreDetails } = cardData;
 
     const cardDetails = details || '';
     const cardShowMoreConfig = showMoreDetails || {};
@@ -56,7 +90,7 @@ BaseCard["{{componentName}}"] = class extends ANSWERS.Component {
     // The card's details must extend past this limit as well for the toggling to be enabled.
     const showExcessDetailsToggle = showMoreLimit && cardDetails.length > showMoreLimit;
 
-    let truncatedDetails = showExcessDetailsToggle
+    const truncatedDetails = showExcessDetailsToggle
       ? `${cardDetails.substring(0, showMoreLimit)}...`
       : '';
     
@@ -76,6 +110,42 @@ BaseCard["{{componentName}}"] = class extends ANSWERS.Component {
     if (!data){
       console.error('Error: nothing returned from dataForRender');
     }
+  }
+
+  /**
+   * reportQuality will send the quality feedback to analytics
+   * @param {boolean} isGood true if the answer is what you were looking for
+   */
+  reportQuality(isGood) {
+    /**
+     * EventTypes are explicit strings defined
+     * for what the server expects for analytics.
+     *
+     * @enum
+     */
+    const EventTypes = {
+      THUMBS_UP: 'THUMBS_UP',
+      THUMBS_DOWN: 'THUMBS_DOWN'
+    };
+    const eventType = isGood === true ? EventTypes.THUMBS_UP : EventTypes.THUMBS_DOWN;
+    const event = new ANSWERS.AnalyticsEvent(eventType)
+      .addOptions({
+        directAnswer: false,
+        verticalKey: this.verticalKey,
+        searcher: this._config.isUniversal ? 'UNIVERSAL' : 'VERTICAL',
+        entityId: this.result.id
+      });
+
+    this.analyticsReporter.report(event);
+  }
+
+  /**
+   * updateState enables for partial updates (the delta between the old and new)
+   * @type {object} The new state to apply to the old
+   */
+  updateState (state = {}) {
+    const newState = Object.assign({}, this.getState(), state);
+    this.setState(newState);
   }
 
   addDefaultEventOptions(eventOptions = {}) {

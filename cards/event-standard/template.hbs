@@ -33,24 +33,25 @@
         {{> 'details'}}
       </div>
       {{#if (any (all card.CTA1 card.CTA1.url) (all card.CTA2 card.CTA2.url))}}
-      <div class="HitchhikerEventStandard-ctasWrapper">
-        {{#if (all card.CTA1.url card.CTA1.label)}}
-        <div class="HitchhikerEventStandard-primaryCTA">
-          {{#with card.CTA1}}
-            {{> CTA }}
-          {{/with}}
+        <div class="HitchhikerEventStandard-ctasWrapper">
+          {{#if (all card.CTA1.url card.CTA1.label)}}
+          <div class="HitchhikerEventStandard-primaryCTA">
+            {{#with card.CTA1}}
+              {{> CTA }}
+            {{/with}}
+          </div>
+          {{/if}}
+          {{#if (all card.CTA2.url card.CTA2.label)}}
+          <div class="HitchhikerEventStandard-secondaryCTA">
+            {{#with card.CTA2}}
+              {{> CTA }}
+            {{/with}}
+          </div>
+          {{/if}}
         </div>
-        {{/if}}
-        {{#if (all card.CTA2.url card.CTA2.label)}}
-        <div class="HitchhikerEventStandard-secondaryCTA">
-          {{#with card.CTA2}}
-            {{> CTA }}
-          {{/with}}
-        </div>
-        {{/if}}
-      </div>
       {{/if}}
     </div>
+    {{> thumbsfeedback card feedbackSubmitted=feedbackSubmitted}}
   </div>
 </div>
 

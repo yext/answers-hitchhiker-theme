@@ -1,6 +1,9 @@
 {
   "pageTitle": "FAQ Search",
   "componentSettings": {
+    "SearchBar": {
+      "submitIcon": "magnifying_glass"
+    },
     "QASubmission": {
       "entityId": "12345",
       "privacyPolicyUrl": ""

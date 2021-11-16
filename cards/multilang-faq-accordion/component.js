@@ -47,6 +47,10 @@ class multilang_faq_accordionCardComponent extends BaseCard['multilang-faq-accor
         eventOptions: this.addDefaultEventOptions({ /* Add additional options here */ }),
         // ariaLabel: '',
       },
+      feedback: false, // Shows thumbs up/down buttons to provide feedback on the result card
+      feedbackTextOnSubmission: {{ translateJS phrase='Thanks!' }}, // Text to display after a thumbs up/down is clicked
+      positiveFeedbackSrText: {{ translateJS phrase='This answered my question' }}, // Screen reader only text for thumbs-up
+      negativeFeedbackSrText: {{ translateJS phrase='This did not answer my question' }} // Screen reader only text for thumbs-down
     };
   }
 
@@ -64,11 +68,29 @@ class multilang_faq_accordionCardComponent extends BaseCard['multilang-faq-accor
 
     const contentEl = this._container.querySelector(accordionContentSelector);
     let isExpanded = this._container.querySelector(`.${accordionExpandedClass}`);
-    contentEl.style.height = `${isExpanded ? contentEl.scrollHeight : 0}px`;
-    const linkEls = contentEl.querySelectorAll('a');
-    this._setLinksInteractivity(linkEls, isExpanded);
 
     const cardEl = this._container.querySelector(accordionCardSelector);
+    const linkEls = contentEl.querySelectorAll('a');
+
+    if (this.stayExpanded && this.getState('feedbackSubmitted')) {
+      isExpanded = true;
+      cardEl.classList.add(accordionExpandedClass);
+      accordionToggleEl.setAttribute('aria-expanded', 'true');
+      contentEl.setAttribute('aria-hidden', 'false');
+    }
+    contentEl.style.height = `${isExpanded ? contentEl.scrollHeight : 0}px`;
+    this._setLinksInteractivity(linkEls, isExpanded);
+
+    this.stayExpanded = false;
+
+    const thumbSelectorEls = this._container.querySelectorAll('.js-HitchhikerCard-thumbInput');
+    if (thumbSelectorEls) {
+      thumbSelectorEls.forEach(el => {
+        el.addEventListener('click', (e) => {
+          this.stayExpanded = true;
+        });
+      });
+    }
 
     accordionToggleEl.addEventListener('click', function() {
       isExpanded = !isExpanded;

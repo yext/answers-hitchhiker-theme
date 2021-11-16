@@ -611,7 +611,7 @@ export function getYoutubeUrl(videos = []) {
  * @returns a URL with text fragment URI component attached
  */
 export function getUrlWithTextHighlight(snippet, baseUrl) {
-  if (!isChrome() || !snippet || snippet.matchedSubstrings.length === 0) {
+  if (!isChrome() || !snippet || snippet.matchedSubstrings.length === 0 || !baseUrl) {
     return baseUrl;
   }
   //Find the surrounding sentence of the snippet
