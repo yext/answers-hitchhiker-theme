@@ -244,9 +244,9 @@ msgctxt "Call is a verb"
 msgid "Call"
 msgstr ""
 
-#: cards/multilang-financial-professional-location/template.hbs:199
+#: cards/multilang-financial-professional-location/template.hbs:207
 #: cards/multilang-location-standard/template.hbs:210
-#: cards/multilang-professional-location/template.hbs:196
+#: cards/multilang-professional-location/template.hbs:204
 msgctxt "Close is a verb"
 msgid "Close Card"
 msgstr ""

@@ -583,6 +583,7 @@
       position: relative;
       top: 1px;
       margin-left: auto;
+      display: flex;
     }
 
     &-closeCardButton {
@@ -591,6 +592,7 @@
       font-size: 16px;
       font-weight: bold;
       justify-content: flex-end;
+      padding-left: var(--yxt-base-spacing);
     }
   }
 
