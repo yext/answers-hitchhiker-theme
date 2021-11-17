@@ -8,8 +8,7 @@
         {{> list }}
         {{> details }}
       </div>
-      <div class="HitchhikerCard-actions">
-        {{#if (any (all card.CTA1 card.CTA1.url) (all card.CTA2 card.CTA2.url))}}
+      {{#if (any (all card.CTA1 card.CTA1.url) (all card.CTA2 card.CTA2.url))}}
         <div class="HitchhikerMenuItemStandard-ctasWrapper">
           {{#with card.CTA1}}
           {{> CTA ctaName="primaryCTA" }}
@@ -18,10 +17,9 @@
           {{> CTA ctaName="secondaryCTA" }}
           {{/with}}
         </div>
-        {{/if}}
-        {{> thumbsfeedback card feedbackSubmitted=feedbackSubmitted}}
-      </div>
+      {{/if}}
     </div>
+    {{> thumbsfeedback card feedbackSubmitted=feedbackSubmitted}}
   </div>
 </div>
 

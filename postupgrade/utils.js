@@ -4,45 +4,101 @@ const path = require('path');
 const simpleGit = require('simple-git/promise')();
 
 /**
+ * @typedef {import('comment-json').CommentJSONValue} CommentJSONValue
+ * @typedef {import('comment-json').CommentToken} CommentToken
+ */
+
+/**
  * Merges two comment-json files, with the original having higher priority.
  * Prunes away duplicated commented out props.
  *
- * @param {string} newJson 
- * @param {string} originalJson 
+ * @param {string} incomingConfig 
+ * @param {string} originalConfig
  * @returns {string}
  */
-exports.mergeGlobalConfigs = function (newJson, originalJson) {
-  const originalParsed = parse(originalJson);
-  const commentsFromOriginal = parseAllCommentedOutProps(originalParsed);
-  const newPruned = pruneComments(parse(newJson), commentsFromOriginal);
-  const merged = assign(newPruned, originalParsed);
+exports.mergeGlobalConfigs = function (incomingConfig, originalConfig) {
+  const incoming = parse(incomingConfig);
+  const original = parse(originalConfig);
+  const propCommentsFromOriginal = parseAllPropComments(original);
+  const incomingPruned = pruneComments(incoming, propCommentsFromOriginal);
+  const partiallyMerged = assign(incomingPruned, original);
+  const merged = addMissingPropComments(partiallyMerged, incoming);
   return stringify(merged, null, 2);
+}
+
+/**
+ * Adds any comment props in {@link incoming} that are missing from {@link partiallyMerged}
+ * 
+ * @param {CommentJSONValue} partiallyMerged 
+ * @param {CommentJSONValue} incoming 
+ * @returns {CommentJSONValue} the updated json
+ */
+function addMissingPropComments(partiallyMerged, incoming) {
+  const propCommentsFromIncoming = parseAllPropComments(incoming);
+  const preexistingPropComments = parseAllPropComments(partiallyMerged);
+  const missingPropComments = propCommentsFromIncoming.filter(incomingComment => {
+    return !preexistingPropComments.find(c => isEqualComment(c, incomingComment));
+  });
+  Object.getOwnPropertySymbols(incoming).forEach(symbol => {
+    if (!incoming[symbol]) {
+      return;
+    }
+    incoming[symbol].forEach(comment => {
+      const index = missingPropComments.findIndex(c => isEqualComment(c, comment));
+      if (index < 0) {
+        return;
+      }
+      const missingComment = missingPropComments[index]
+      partiallyMerged[symbol].unshift(missingComment);
+      missingPropComments.splice(index, 1);
+    });
+  });
+  return partiallyMerged;
+}
+
+/**
+ * Whether or not a CommentToken is a LineComment that "look like" a config option
+ * 
+ * @param {CommentToken[]} comment 
+ * @returns {boolean}
+ */
+function isPropComment(comment) {
+  return !comment.inline && comment.type === 'LineComment' && comment.value.match(/^\s?"\w+":/);
 }
 
 /**
  * Parses all "commented out" config values from a CommentJSONValue.
  *
- * @param {import('comment-json').CommentJSONValue} jsonWithComments
- * @returns {import('comment-json').CommentToken[]}
+ * @param {CommentJSONValue} jsonWithComments
+ * @returns {CommentToken[]}
  */
-function parseAllCommentedOutProps(commentJsonValue) {
+function parseAllPropComments(commentJsonValue) {
   return getPropCommentSymbols(commentJsonValue).flatMap(symbol => {
     const commentArr = commentJsonValue[symbol] || [];
-    // We only care about non-inline LineComments that "look like" a config option
-    return commentArr.filter(c => {
-      return !c.inline && c.type === 'LineComment' && c.value.match(/^\s?"\w+":/)
-    })
+    return commentArr.filter(c => isPropComment(c));
   });
 }
-exports.parseAllCommentedOutProps = parseAllCommentedOutProps;
+exports.parseAllPropComments = parseAllPropComments;
+
+/**
+ * 
+ * @param {CommentToken} c1 
+ * @param {CommentToken} c2 
+ * @returns {boolean}
+ */
+function isEqualComment(c1, c2) {
+  return c1.value === c2.value
+    && c1.type === c2.type
+    && c1.inline === c2.inline;
+}
 
 /**
  * Removes all comments in CommentJSONValue that have the same value and type as the given
  * comments.
  *
- * @param {import('comment-json').CommentJSONValue} commentJsonValue
- * @param {import('comment-json').CommentToken[]} comments
- * @returns {import('comment-json').CommentJSONValue} the updated value
+ * @param {CommentJSONValue} commentJsonValue
+ * @param {CommentToken[]} comments
+ * @returns {CommentJSONValue} the updated value
  */
 function pruneComments(commentJsonValue, comments) {
   return getPropCommentSymbols(commentJsonValue).reduce((prunedJson, symbol) => {
@@ -50,11 +106,7 @@ function pruneComments(commentJsonValue, comments) {
       return prunedJson;
     }
     prunedJson[symbol] = commentJsonValue[symbol].filter(commentToCheck => {
-      return !comments.find(c => {
-        return c.value === commentToCheck.value
-          && c.type === commentToCheck.type
-          && c.inline === commentToCheck.inline;
-      })
+      return !comments.find(c => isEqualComment(c, commentToCheck));
     });
     return prunedJson;
   }, { ...commentJsonValue });
@@ -65,7 +117,7 @@ exports.pruneComments = pruneComments
  * Returns an array of global symbols for before, before:[prop], and after:[prop] comments.
  * These are the comment types that can be used for commented out config props.
  * 
- * @param {import('comment-json').CommentJSONValue} commentJsonValue
+ * @param {CommentJSONValue} commentJsonValue
  * @returns {symbol[]}
  */
 function getPropCommentSymbols(commentJsonValue) {

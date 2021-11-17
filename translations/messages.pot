@@ -88,7 +88,7 @@ msgstr ""
 msgid "Saturday"
 msgstr ""
 
-#: cards/multilang-location-standard/template.hbs:143
+#: cards/multilang-location-standard/template.hbs:141
 msgid "Services:"
 msgstr ""
 
@@ -132,6 +132,10 @@ msgstr ""
 msgid "Sunday"
 msgstr ""
 
+#: directanswercards/multilang-allfields-standard/component.js:188
+msgid "Thank you for your feedback!"
+msgstr ""
+
 #: cards/multilang-event-standard/component.js:53
 #: cards/multilang-faq-accordion/component.js:51
 #: cards/multilang-financial-professional-location/component.js:69
@@ -146,8 +150,7 @@ msgstr ""
 #: cards/multilang-professional-location/component.js:69
 #: cards/multilang-professional-standard/component.js:59
 #: cards/multilang-standard/component.js:54
-#: directanswercards/multilang-allfields-standard/component.js:188
-msgid "Thank you for your feedback!"
+msgid "Thanks!"
 msgstr ""
 
 #: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:11
@@ -241,9 +244,9 @@ msgctxt "Call is a verb"
 msgid "Call"
 msgstr ""
 
-#: cards/multilang-financial-professional-location/template.hbs:201
-#: cards/multilang-location-standard/template.hbs:212
-#: cards/multilang-professional-location/template.hbs:198
+#: cards/multilang-financial-professional-location/template.hbs:207
+#: cards/multilang-location-standard/template.hbs:210
+#: cards/multilang-professional-location/template.hbs:204
 msgctxt "Close is a verb"
 msgid "Close Card"
 msgstr ""

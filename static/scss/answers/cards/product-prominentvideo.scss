@@ -11,6 +11,9 @@
   &-body
   {
     padding: calc(var(--yxt-base-spacing) * 3/4) var(--yxt-base-spacing);
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
   }
 
   &-contentWrapper
@@ -90,19 +93,9 @@
 
   .HitchhikerCard
   {
-    &-actions
-    {
-      flex-direction: row;
-    }
-  
-    &-feedbackWrapper
-    {
-      margin-left: 0;
-    }
-  
     &-feedbackContent
     {
-      margin-top: calc(var(--yxt-base-spacing) / 2);
+      margin-top: 0;
     }
   }
 }
