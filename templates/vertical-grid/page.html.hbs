@@ -27,6 +27,7 @@
     partial for this page, you should not use it on any other page.  -->
     {{!-- {{> layouts/overlay-suggestions }} --}}
     <div class="Answers-container Answers-resultsWrapper Hitchhiker-3-columns">
+      {{> templates/vertical-grid/markup/spellcheck }}
       <div class="Answers-resultsHeader">
         {{> templates/vertical-grid/markup/verticalresultscount }}
         {{> templates/vertical-grid/markup/appliedfilters }}
@@ -40,7 +41,6 @@
         {{!-- {{> templates/vertical-grid/markup/facets }} --}}
       {{!-- </div> --}}
       <div class="Answers-results js-answersResults">
-        {{> templates/vertical-grid/markup/spellcheck }}
         {{> templates/vertical-grid/markup/verticalresults }}
         {{> templates/vertical-grid/markup/pagination }}
         {{!-- {{> templates/vertical-grid/markup/qasubmission }} --}}
