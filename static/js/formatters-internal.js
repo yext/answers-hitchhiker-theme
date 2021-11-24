@@ -540,7 +540,7 @@ export function priceRange(defaultPriceRange, countryCode) {
  *                                          highlight.
  */
 export function highlightField(fieldValue, matchedSubstrings = []) {
-  let highlightedString = fieldValue;
+  let highlightedString = fieldValue.replace(/</g,'&lt;').replace(/>/g,'&gt;');
 
   // We must first sort the matchedSubstrings by decreasing offset. 
   const sortedMatches = matchedSubstrings.slice()
