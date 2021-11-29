@@ -11,6 +11,7 @@ import { isChrome } from './useragent.js';
 import LocaleCurrency from 'locale-currency'
 import getSymbolFromCurrency from 'currency-symbol-map'
 import { parseLocale } from './utils.js';
+import escape from 'escape-html';
 
 export function address(profile) {
   if (!profile.address) {
@@ -540,20 +541,20 @@ export function priceRange(defaultPriceRange, countryCode) {
  *                                          highlight.
  */
 export function highlightField(fieldValue, matchedSubstrings = []) {
-  let highlightedString = fieldValue;
+  let highlightedString = '';
 
-  // We must first sort the matchedSubstrings by decreasing offset. 
+  // We must first sort the matchedSubstrings by ascending offset. 
   const sortedMatches = matchedSubstrings.slice()
-    .sort((match1, match2) => match2.offset - match1.offset);
+    .sort((match1, match2) => match1.offset - match2.offset);
   
+  let processedFieldValueIndex = 0;
   sortedMatches.forEach(match => {
     const { offset, length } = match;
-    highlightedString = 
-      highlightedString.substr(0, offset) +
-      `<mark>${fieldValue.substr(offset, length)}</mark>`+
-      highlightedString.substr(offset + length);
+    highlightedString += escape(fieldValue.substring(processedFieldValueIndex, offset))
+      + `<mark>${escape(fieldValue.substring(offset, offset + length))}</mark>`;
+    processedFieldValueIndex = offset + length;
   });
-
+  highlightedString += escape(fieldValue.substring(processedFieldValueIndex));
   return highlightedString;
 }
 
