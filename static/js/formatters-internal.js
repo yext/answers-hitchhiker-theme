@@ -555,7 +555,7 @@ export function highlightField(fieldValue, matchedSubstrings = []) {
   });
 
   /**
-   * Use regex with uses lookahead syntax to match all tags that's not <mark> or </mark> tag,
+   * Use regex with lookahead syntax to match all tags that's not <mark> or </mark> tag,
    * and replace angle brackets with '&lt;' and '&gt;' to properly display them as non-html code.
    * If matched, preserve the content ($2) inside but replace the surrounding angle brackets.
    */
