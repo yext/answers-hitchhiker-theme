@@ -555,10 +555,9 @@ export function highlightField(fieldValue, matchedSubstrings = []) {
   });
 
   /**
-   * Use regex to match all tags that's not <mark> tag, and replaced angle brackets
-   * with '&lt;' and '&gt;' to properly display them. The regex pattern uses
-   * lookahead syntax to check if the angle bracket '<' is follow by 'mark' or '/mark'
-   * before closing it with '>'. If the tag is not a mark tag, replace the angle brackets.
+   * Use regex with uses lookahead syntax to match all tags that's not <mark> or </mark> tag,
+   * and replace angle brackets with '&lt;' and '&gt;' to properly display them as non-html code.
+   * If matched, preserve the content ($2) inside but replace the surrounding angle brackets.
    */
   highlightedString = highlightedString.replace(/(<)((?!\/?mark)[^>]*)(>)/g,'&lt;$2&gt;');
   return highlightedString;
