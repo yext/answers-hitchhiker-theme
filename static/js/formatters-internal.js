@@ -545,7 +545,7 @@ export function highlightField(fieldValue, matchedSubstrings = []) {
 
   // We must first sort the matchedSubstrings by decreasing offset. 
   const sortedMatches = matchedSubstrings.slice()
-    .sort((match1, match2) => match2.offset - match1.offset);
+    .sort((match1, match2) => match1.offset - match2.offset);
   
   let processedFieldValueIndex = 0;
   sortedMatches.forEach(match => {
