@@ -543,7 +543,7 @@ export function priceRange(defaultPriceRange, countryCode) {
 export function highlightField(fieldValue, matchedSubstrings = []) {
   let highlightedString = '';
 
-  // We must first sort the matchedSubstrings by decreasing offset. 
+  // We must first sort the matchedSubstrings by ascending offset. 
   const sortedMatches = matchedSubstrings.slice()
     .sort((match1, match2) => match1.offset - match2.offset);
   
