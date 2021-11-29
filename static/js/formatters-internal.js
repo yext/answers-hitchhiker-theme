@@ -552,7 +552,7 @@ export function highlightField(fieldValue, matchedSubstrings = []) {
     const { offset, length } = match;
     highlightedString += escape(fieldValue.substring(processedFieldValueIndex, offset))
       + `<mark>${escape(fieldValue.substring(offset, offset + length))}</mark>`;
-      processedFieldValueIndex = offset + length;
+    processedFieldValueIndex = offset + length;
   });
   highlightedString += escape(fieldValue.substring(processedFieldValueIndex));
   return highlightedString;
