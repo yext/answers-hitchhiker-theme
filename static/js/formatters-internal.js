@@ -11,6 +11,7 @@ import { isChrome } from './useragent.js';
 import LocaleCurrency from 'locale-currency'
 import getSymbolFromCurrency from 'currency-symbol-map'
 import { parseLocale } from './utils.js';
+import escape from 'escape-html';
 
 export function address(profile) {
   if (!profile.address) {
@@ -550,16 +551,11 @@ export function highlightField(fieldValue, matchedSubstrings = []) {
     const { offset, length } = match;
     highlightedString = 
       highlightedString.substr(0, offset) +
-      `<mark>${fieldValue.substr(offset, length)}</mark>`+
+      `|mark|${fieldValue.substr(offset, length)}|/mark|`+
       highlightedString.substr(offset + length);
   });
 
-  /**
-   * Use regex with lookahead syntax to match all tags that's not <mark> or </mark> tag,
-   * and replace angle brackets with '&lt;' and '&gt;' to properly display them as non-html code.
-   * If matched, preserve the content ($2) inside but replace the surrounding angle brackets.
-   */
-  highlightedString = highlightedString.replace(/(<)((?!\/?mark)[^>]*)(>)/g,'&lt;$2&gt;');
+  highlightedString = escape(highlightedString).replace(/\|mark\|/g, '<mark>').replace(/\|\/mark\|/g, '</mark>');
   return highlightedString;
 }
 
