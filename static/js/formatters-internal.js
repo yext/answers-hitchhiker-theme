@@ -540,7 +540,7 @@ export function priceRange(defaultPriceRange, countryCode) {
  *                                          highlight.
  */
 export function highlightField(fieldValue, matchedSubstrings = []) {
-  let highlightedString = fieldValue.replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  let highlightedString = fieldValue;
 
   // We must first sort the matchedSubstrings by decreasing offset. 
   const sortedMatches = matchedSubstrings.slice()
@@ -554,6 +554,13 @@ export function highlightField(fieldValue, matchedSubstrings = []) {
       highlightedString.substr(offset + length);
   });
 
+  /**
+   * Use regex to match all tags that's not <mark> tag, and replaced angle brackets
+   * with '&lt;' and '&gt;' to properly display them. The regex pattern uses
+   * lookahead syntax to check if the angle bracket '<' is follow by 'mark' or '/mark'
+   * before closing it with '>'. If the tag is not a mark tag, replace the angle brackets.
+   */
+  highlightedString = highlightedString.replace(/(<)((?!\/?mark)[^>]*)(>)/g,'&lt;$2&gt;');
   return highlightedString;
 }
 
