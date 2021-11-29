@@ -541,21 +541,20 @@ export function priceRange(defaultPriceRange, countryCode) {
  *                                          highlight.
  */
 export function highlightField(fieldValue, matchedSubstrings = []) {
-  let highlightedString = fieldValue;
+  let highlightedString = '';
 
   // We must first sort the matchedSubstrings by decreasing offset. 
   const sortedMatches = matchedSubstrings.slice()
     .sort((match1, match2) => match2.offset - match1.offset);
   
+  let processedFieldValueIndex = 0;
   sortedMatches.forEach(match => {
     const { offset, length } = match;
-    highlightedString = 
-      highlightedString.substr(0, offset) +
-      `|mark|${fieldValue.substr(offset, length)}|/mark|`+
-      highlightedString.substr(offset + length);
+    highlightedString += escape(fieldValue.substring(processedFieldValueIndex, offset))
+      + `<mark>${escape(fieldValue.substring(offset, offset + length))}</mark>`;
+      processedFieldValueIndex = offset + length;
   });
-
-  highlightedString = escape(highlightedString).replace(/\|mark\|/g, '<mark>').replace(/\|\/mark\|/g, '</mark>');
+  highlightedString += escape(fieldValue.substring(processedFieldValueIndex));
   return highlightedString;
 }
 
