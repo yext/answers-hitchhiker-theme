@@ -9,15 +9,15 @@
  */
  module.exports = function getDefaultUniversalLimit(pageConfigs) {
   const universalLimit = Object.entries(pageConfigs)
-    .filter(([key, _]) => key != 'index')
-    .reduce((limit, [_, config]) => {
-      const verticalKey = config.verticalKey;
+    .filter(([pageName, _]) => pageName != 'index')
+    .reduce((limit, [_, pageConfig]) => {
+      const verticalKey = pageConfig.verticalKey;
       const hasUniversalLimit = 
-        config.verticalsToConfig &&
-        config.verticalsToConfig[verticalKey] &&
-        config.verticalsToConfig[verticalKey].universalLimit;
+        pageConfig.verticalsToConfig &&
+        pageConfig.verticalsToConfig[verticalKey] &&
+        pageConfig.verticalsToConfig[verticalKey].universalLimit;
       if (hasUniversalLimit) {
-        limit[verticalKey] = config.verticalsToConfig[verticalKey].universalLimit;
+        limit[verticalKey] = pageConfig.verticalsToConfig[verticalKey].universalLimit;
       }
 
       return limit;
