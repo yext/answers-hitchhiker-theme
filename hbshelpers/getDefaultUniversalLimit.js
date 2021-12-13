@@ -10,9 +10,13 @@
  module.exports = function getDefaultUniversalLimit(pageConfigs) {
   const universalLimit = Object.entries(pageConfigs)
     .filter(([key, _]) => key != 'index')
-    .reduce((limit, [key, config]) => {
+    .reduce((limit, [_, config]) => {
       const verticalKey = config.verticalKey;
-      if (config.verticalsToConfig?.[verticalKey]?.universalLimit) {
+      const hasUniversalLimit = 
+        config.verticalsToConfig &&
+        config.verticalsToConfig[verticalKey] &&
+        config.verticalsToConfig[verticalKey].universalLimit;
+      if (hasUniversalLimit) {
         limit[verticalKey] = config.verticalsToConfig[verticalKey].universalLimit;
       }
 
