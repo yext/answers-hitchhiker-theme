@@ -5,7 +5,7 @@
  * be used.
  * 
  * @param {Object} pageConfigs - The configurations for each page.
- * @returns {Object} The default search.universalLimit for the page.
+ * @returns {Object} The partial of the search configuration related to universal limits.
  */
  module.exports = function getDefaultUniversalLimit(pageConfigs) {
   const universalLimit = Object.entries(pageConfigs)
