@@ -28,6 +28,12 @@
             ...{{{ json search }}}
           },
         {{/if}}
+        {{#unless ../verticalKey}}
+          search: {
+            ...{{{ json (getDefaultUniversalLimit ../verticalConfigs) }}},
+            ...{{{ json search }}}
+          },
+        {{/unless}}
       {{/with}}
     };
     const token = window.AnswersExperience.runtimeConfig?.get('token');
