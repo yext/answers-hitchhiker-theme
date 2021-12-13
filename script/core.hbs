@@ -25,6 +25,7 @@
         {{#if verticalLimit}}
           search: {
             limit: {{verticalLimit}},
+            {{> getDefaultUniversalLimit verticalsToConfig=verticalsToConfig }},
             ...{{{ json search }}}
           },
         {{/if}}
