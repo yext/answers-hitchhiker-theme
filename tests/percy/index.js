@@ -1,24 +1,23 @@
 const HttpServer = require('../test-utils/server');
-const Photographer = require('./photographer');
-const MultilangPhotographer = require('./multilangphotographer');
 const StandardPageNavigator = require('./standardpagenavigator');
 const IframePageNavigator = require('./iframepagenavigator');
 const Camera = require('./camera');
-const queryConfig = require('./queries.json');
 const puppeteer = require('puppeteer');
 const percySnapshot = require('@percy/puppeteer');
+const PageOperator = require('../browser-automation/pageoperator');
+const getTestingLocations = require('../browser-automation/testlocations');
 const PORT = 5042;
 
 async function defaultSnapshots(page) {
   const standardPageNavigator = new StandardPageNavigator(page, `http://localhost:${PORT}`);
   const standardCamera = new Camera(percySnapshot, page);
-  await (new Photographer(standardPageNavigator, standardCamera).captureSnapshots());
+  await captureSnapshots(standardPageNavigator, page, standardCamera);
 }
 
 async function iframeSnapshots(page) {
   const iframePageNavigator = new IframePageNavigator(page, `http://localhost:${PORT}`, 'iframe_test');
   const iframeCamera = new Camera(percySnapshot, page, true);
-  await (new Photographer(iframePageNavigator, iframeCamera).captureSnapshots());
+  await captureSnapshots(iframePageNavigator, page, iframeCamera);
 }
 
 async function spanishSnapshots(page) {
@@ -26,7 +25,7 @@ async function spanishSnapshots(page) {
   const standardCamera = new Camera(percySnapshot, page);
   standardPageNavigator.setCurrentLocale('es');
   standardCamera.setLocale('es');
-  await (new MultilangPhotographer(standardPageNavigator, standardCamera, queryConfig.es).captureSnapshots());
+  await captureSnapshots(standardPageNavigator, page, standardCamera, 'es');
 }
 
 async function rtlSnapshots(page) {
@@ -34,7 +33,21 @@ async function rtlSnapshots(page) {
   const standardCamera = new Camera(percySnapshot, page);
   standardPageNavigator.setCurrentLocale('ar');
   standardCamera.setLocale('ar');
-  await (new MultilangPhotographer(standardPageNavigator, standardCamera, queryConfig.ar).captureSnapshots());
+  await captureSnapshots(standardPageNavigator, page, standardCamera, 'ar');
+}
+
+async function captureSnapshots(navigator, page, camera, locale='en') {
+  const operator = new PageOperator(navigator, page, getTestingLocations(locale));
+  while (operator.hasNextTestLocation()) {
+    const testConfig = await operator.nextTestLocation();
+    if (testConfig.viewport) {
+      testConfig.viewport === 'mobile'
+       ? await camera.snapshotMobileOnly(testConfig.name)
+       : await camera.snapshotDesktopOnly(testConfig.name);
+    } else {
+      await camera.snapshot(testConfig.name);
+    }
+  }
 }
 
 async function runPercyTest() {

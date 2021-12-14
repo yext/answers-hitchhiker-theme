@@ -32,6 +32,18 @@
       "clearSearchText": "clear search" // Text when there are no results, conducts an empty search
     },
     **/
+    /**
+    "DirectAnswer": {
+      "types": {
+        "FEATURED_SNIPPET": {
+          "cardType": "documentsearch-standard"
+        },
+        "FIELD_VALUE": {
+          "cardType": "allfields-standard"
+        }
+      }
+    },
+    **/
     "AppliedFilters": {
       "removable": true
     },
@@ -66,7 +78,7 @@
     "<REPLACE ME>": { // The vertical key from your search configuration
       // "label": "", // The name of the vertical in the section header and the navigation bar
       // "verticalLimit": 15, // The result count limit for vertical search
-      // "universalLimit": 5, // The result count limit for universal search
+      "universalLimit": 4, // The result count limit for universal search
       "cardType": "standard", // The name of the card to use - e.g. accordion, location, customcard 
       // "icon": "star", // The icon to use on the card for this vertical
       "universalSectionTemplate": "standard"

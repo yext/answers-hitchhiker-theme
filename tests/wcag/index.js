@@ -3,8 +3,9 @@
 const HttpServer = require('../test-utils/server');
 const { AxePuppeteer } = require('@axe-core/puppeteer');
 const StandardPageNavigator = require('../percy/standardpagenavigator');
-const WcagReporter = require('./wcagreporter');
 const puppeteer = require('puppeteer');
+const PageOperator = require('../browser-automation/pageoperator');
+const getTestingLocations = require('../browser-automation/testlocations');
 const PORT = 5042;
 
 /**
@@ -33,11 +34,15 @@ async function wcagTester() {
   const page = await browser.newPage();
   
   const standardPageNavigator = new StandardPageNavigator(page, `http://localhost:${PORT}`);
-  const analyzer = await new AxePuppeteer(page).options(config);
+  const analyzer = new AxePuppeteer(page).options(config);
 
   let results = [];
   try {
-    results = await new WcagReporter(standardPageNavigator, analyzer, page).analyze();
+    const operator = new PageOperator(standardPageNavigator, page, getTestingLocations());
+    while (operator.hasNextTestLocation()) {
+      await operator.nextTestLocation();
+      results.push(await analyzer.analyze());
+    }
   } catch (e) {
     console.log(e);
     await browser.close();
