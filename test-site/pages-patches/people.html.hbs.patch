@@ -20,7 +20,18 @@
      {{!-- {{> templates/vertical-grid/script/filterbox }} --}}
      {{!-- {{> templates/vertical-grid/script/qasubmission }} --}}
    {{/script/core }}
-@@ -30,15 +30,15 @@
+@@ -22,23 +22,23 @@
+         {{> templates/vertical-grid/markup/navigation }}
+       </div>
+     </div>
+-    <!-- Uncomment the following if this page should be searched from the Answers Overlay panel. 
+-    The overlay partial should only be added to ONE page of your site, e.g. if you uncomment the 
+-    partial for this page, you should not use it on any other page.  -->
++    <!-- Uncomment the following if you want to include an overlay on the page -->
++    <!-- The overlay should be used on at most one page of your site, e.g. if you use uncomment the
++    partial for a location page, you should not use it on any other page.  -->
+     {{!-- {{> layouts/overlay-suggestions }} --}}
+     <div class="Answers-container Answers-resultsWrapper Hitchhiker-3-columns">
        <div class="Answers-resultsHeader">
          {{> templates/vertical-grid/markup/verticalresultscount }}
          {{> templates/vertical-grid/markup/appliedfilters }}

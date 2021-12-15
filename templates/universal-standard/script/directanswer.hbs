@@ -1,1 +1,9 @@
-{{> templates/common-partials/script/directanswer }}
+ANSWERS.addComponent("DirectAnswer", 
+{{#shallowMergeConfig}}[
+  {
+    "container": "#js-answersDirectAnswer"
+  },
+  {{{json componentSettings.DirectAnswer}}}
+]
+{{/shallowMergeConfig}}
+);
