@@ -28,12 +28,6 @@
             ...{{{ json search }}}
           },
         {{/if}}
-        {{#unless ../verticalKey}}
-          search: {
-            ...{{{ json (getDefaultUniversalLimit ../verticalConfigs) }}},
-            ...{{{ json search }}}
-          },
-        {{/unless}}
       {{/with}}
     };
     const token = window.AnswersExperience.runtimeConfig?.get('token');
@@ -70,9 +64,7 @@
 
         {{> @partial-block }}
 
-        {{#wrapJsPartial}}
-          {{> script/on-ready}}
-        {{/wrapJsPartial}}
+        {{> script/on-ready}}
 
         {{#if global_config.conversionTrackingEnabled}}
           ANSWERS.setConversionsOptIn(true);
@@ -128,18 +120,14 @@
         });
 
         window.iframeLoaded.then(() => {
-          {{#wrapJsPartial}}
-            {{> script/iframe-messaging}}
-          {{/wrapJsPartial}}
+          {{> script/iframe-messaging}}
         });
       }
     }).catch(err => {
       console.error(err);
       window.AnswersExperience.AnswersInitializedPromise.reject('Answers failed to initialized.');
     });
-    {{#wrapJsPartial}}
-      {{> script/after-init}}
-    {{/wrapJsPartial}}
+    {{> script/after-init}}
   }
 {{/babel}}
 </script>

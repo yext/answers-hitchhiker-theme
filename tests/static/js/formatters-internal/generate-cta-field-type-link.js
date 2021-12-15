@@ -26,10 +26,3 @@ describe('generateCtaFieldTypeLinks can handle translated link types', () => {
     expect(generateCTAFieldTypeLink(cta)).toEqual('slap');
   });
 });
-
-it('works with no linkType set', () => {
-  const cta = {
-    link: 'slap'
-  }
-  expect(generateCTAFieldTypeLink(cta)).toEqual('slap');
-})

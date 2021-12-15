@@ -31,7 +31,7 @@ runTests(argv.browsers, argv.concurrency);
  */
 async function runTests (browsers, concurrency) {
   const testcafe = await createTestCafe({
-    configFile: './tests/acceptance/testcafe.json'
+    configFile: './testcafe.json'
   });
   try {
     const numberTestsFailed = await testcafe.createRunner()
