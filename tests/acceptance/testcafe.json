@@ -1,5 +1,10 @@
 {
   "selectorTimeout": 10000, // default is 10000
   "assertionTimeout": 3000, // default is 3000
-  "pageLoadTimeout": 3000 // default is 3000
+  "pageLoadTimeout": 3000, // default is 3000
+  "ajaxRequestTimeout": 10000,
+  "pageRequestTimeout": 5000,
+  "browserInitTimeout": 15000,
+  "testExecutionTimeout": 15000,
+  "runExecutionTimeout": 15000
 }
