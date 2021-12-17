@@ -4,6 +4,6 @@
   "pageLoadTimeout": 3000, // default is 3000
   "ajaxRequestTimeout": 10000,
   "pageRequestTimeout": 5000,
-  "browserInitTimeout": 15000,
+  //"browserInitTimeout": 15000,
   "testExecutionTimeout": 30000
 }
