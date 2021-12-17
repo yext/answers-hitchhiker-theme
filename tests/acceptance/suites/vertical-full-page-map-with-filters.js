@@ -10,9 +10,9 @@ import { registerIE11NoCacheHook } from '../../test-utils/testcafe';
 fixture`Vertical Full Page Map with Filters and Clusters`
   .page(`http://localhost:${PORT}/locations_full_page_map_with_filters`)
   .requestHooks(SearchRequestLogger.createVerticalSearchLogger())
-  .beforeEach(async t => {
-    await registerIE11NoCacheHook(t, VERTICAL_SEARCH_URL_REGEX);
-  });
+  // .beforeEach(async t => {
+  //   await registerIE11NoCacheHook(t, VERTICAL_SEARCH_URL_REGEX);
+  // });
 
 test('Clicking on a pin closes the filter view', async t => {
   await SearchBar.submitQuery('virginia');
