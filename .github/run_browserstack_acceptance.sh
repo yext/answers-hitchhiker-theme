@@ -13,5 +13,5 @@ if [[ $GITHUB_BRANCH == release/*
 then
   npm run acceptance -- --browsers browserstack:ie@11.0 browserstack:safari browserstack:firefox
 else
-  npm run acceptance -- --browsers browserstack:ie@11.0 --concurrency 2
+  npm run acceptance -- --browsers browserstack:ie@11.0 browserstack:safari browserstack:firefox
 fi
