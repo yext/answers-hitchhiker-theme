@@ -5,5 +5,5 @@
   "ajaxRequestTimeout": 10000,
   "pageRequestTimeout": 5000,
   "browserInitTimeout": 15000,
-  "testExecutionTimeout": 15000
+  "testExecutionTimeout": 30000
 }
