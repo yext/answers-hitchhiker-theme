@@ -6,5 +6,5 @@
   "pageRequestTimeout": 5000,
   "browserInitTimeout": 15000,
   "testExecutionTimeout": 15000,
-  "runExecutionTimeout": 15000
+  "runExecutionTimeout": 60000
 }
