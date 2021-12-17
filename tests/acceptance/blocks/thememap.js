@@ -61,7 +61,7 @@ class ThemeMap {
    * Waits for the map zoom to stabilize
    */
   async waitForZoomStabilization () {
-    const pollingIntervalMsecs = 500;
+    const pollingIntervalMsecs = 250;
     const minNumStableIntervals = 3;
     const maxNumIntervals= 10;
     let previousZoom = await this.getZoom();
