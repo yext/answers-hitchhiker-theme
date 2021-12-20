@@ -5,6 +5,7 @@ GITHUB_BRANCH=${GITHUB_REF#refs/heads/}
 export BROWSERSTACK_BUILD_ID="${GITHUB_BRANCH} - ${GITHUB_RUN_ID}"
 COMMIT_MSG_TITLE=$(git log -n 1 --pretty=format:%s)
 export BROWSERSTACK_TEST_RUN_NAME=$COMMIT_MSG_TITLE
+export TEST_BROWSER=$1
 
 if [[ $GITHUB_BRANCH == release/*
   || $GITHUB_BRANCH == hotfix/*
@@ -15,7 +16,5 @@ then
 else
   # npm run acceptance -- --browsers browserstack:ie@11.0 --concurrency 2
   npx serve -l tcp://0.0.0.0:9999 test-site/public &
-  npx testcafe browserstack:ie@11.0 tests/acceptance/suites/* &
-  npx testcafe browserstack:safari tests/acceptance/suites/* &
-  npx testcafe browserstack:firefox tests/acceptance/suites/*
+  npx testcafe $TEST_BROWSER tests/acceptance/suites/*
 fi
