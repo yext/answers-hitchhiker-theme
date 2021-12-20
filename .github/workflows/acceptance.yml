@@ -4,7 +4,7 @@ on: push
 
 jobs:
   browserstack-safari-acceptance-tests:
-    name: BrowserStack Safari Acceptance Tests
+    name: Safari Acceptance Tests (Browserstack)
     runs-on: ubuntu-latest
     env:
       BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
@@ -20,7 +20,7 @@ jobs:
       - name: Run Acceptance Tests
         run: ./.github/run_browserstack_acceptance.sh browserstack:safari
   browserstack-firefox-acceptance-tests:
-    name: BrowserStack Firefox Acceptance Tests
+    name: Firefox Acceptance Tests (Browserstack)
     runs-on: ubuntu-latest
     env:
       BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
@@ -36,7 +36,7 @@ jobs:
       - name: Run Acceptance Tests
         run: ./.github/run_browserstack_acceptance.sh browserstack:firefox
   browserstack-ie11-acceptance-tests:
-    name: BrowserStack IE11 Acceptance Tests
+    name: IE11 Acceptance Tests (Browserstack)
     runs-on: ubuntu-latest
     env:
       BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
@@ -52,7 +52,7 @@ jobs:
       - name: Run Acceptance Tests
         run: ./.github/run_browserstack_acceptance.sh browserstack:ie@11.0
   headless-acceptance-tests:
-    name: Headless Acceptance Tests
+    name: Chrome Acceptance Tests (Headless)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
