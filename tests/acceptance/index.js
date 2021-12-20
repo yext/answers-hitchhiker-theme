@@ -39,7 +39,7 @@ async function runTests (browsers, concurrency) {
       .browsers(browsers)
       //.concurrency(concurrency)
       .startApp(`npx serve -l tcp://0.0.0.0:${PORT} test-site/public`, 4000)
-      .run({ quarantineMode: false });
+      .run({ quarantineMode: true });
     if (numberTestsFailed > 0) {
       await testcafe.close();
       process.exit(1);
