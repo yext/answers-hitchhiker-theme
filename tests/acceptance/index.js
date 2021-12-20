@@ -37,9 +37,9 @@ async function runTests (browsers, concurrency) {
     const numberTestsFailed = await testcafe.createRunner()
       .src('tests/acceptance/suites/*.js')
       .browsers(browsers)
-      .concurrency(concurrency)
+      //.concurrency(concurrency)
       .startApp(`npx serve -l tcp://0.0.0.0:${PORT} test-site/public`, 4000)
-      .run({ quarantineMode: true });
+      .run({ quarantineMode: false });
     if (numberTestsFailed > 0) {
       await testcafe.close();
       process.exit(1);
