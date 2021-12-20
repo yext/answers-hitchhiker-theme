@@ -18,7 +18,7 @@ jobs:
       - run: npm run setup-test-site
       - run: npm run build-test-site
       - name: Run Acceptance Tests
-        run: ./.github/run_browserstack_acceptance.sh browserstack:safari
+        run: ./.github/run_browserstack_acceptance.sh browserstack:safari:width=1024;height=768
   browserstack-firefox-acceptance-tests:
     name: Firefox Acceptance Tests (Browserstack)
     runs-on: ubuntu-latest
