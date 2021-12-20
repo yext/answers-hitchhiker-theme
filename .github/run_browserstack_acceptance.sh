@@ -11,7 +11,7 @@ if [[ $GITHUB_BRANCH == release/*
   || $GITHUB_BRANCH == master
   || $GITHUB_BRANCH == support/* ]]
 then
-  npm run acceptance -- --browsers browserstack:ie@11.0 browserstack:safari browserstack:firefox
+  npm run acceptance -- --browsers browserstack:ie@11.0 browserstack:safari
 else
-  npm run acceptance -- --browsers browserstack:ie@11.0 browserstack:safari browserstack:firefox
+  npm run acceptance -- --browsers browserstack:ie@11.0 browserstack:safari
 fi
