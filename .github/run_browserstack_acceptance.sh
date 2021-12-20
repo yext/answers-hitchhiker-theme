@@ -16,6 +16,6 @@ else
   # npm run acceptance -- --browsers browserstack:ie@11.0 --concurrency 2
   npx serve -l tcp://0.0.0.0:9999 test-site/public &
   npx testcafe browserstack:ie@11.0 tests/acceptance/suites/* &
-  npx testcafe browswerstack:safari tests/acceptance/suites/* &
+  npx testcafe browserstack:safari tests/acceptance/suites/* &
   npx testcafe browserstack:firefox tests/acceptance/suites/*
 fi
