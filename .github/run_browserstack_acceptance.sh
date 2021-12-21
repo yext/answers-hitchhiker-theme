@@ -13,7 +13,7 @@ export BROWSERSTACK_DISPLAY_RESOLUTION="1929x1080"
 
 if [[ $BROWSER == 'browserstack:ie@11.0' ]]
 then
-  npm run acceptance -- --browsers $BROWSER --concurrency 2
+  npm run acceptance -- --browsers $BROWSER --concurrency 3
 else
   npm run acceptance -- --browsers $BROWSER 
 fi
