@@ -9,6 +9,7 @@ export TEST_BROWSER=$1
 export BROWSERSTACK_DEBUG="true"
 export BROWSERSTACK_CONSOLE="verbose"
 export BROWSERSTACK_NETWORK_LOGS="true"
+export BROWSERSTACK_DISPLAY_RESOLUTION="1024x768"
 
 if [[ $GITHUB_BRANCH == release/*
   || $GITHUB_BRANCH == hotfix/*
