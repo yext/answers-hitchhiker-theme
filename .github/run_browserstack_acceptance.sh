@@ -11,4 +11,4 @@ export BROWSERSTACK_CONSOLE="verbose"
 export BROWSERSTACK_NETWORK_LOGS="true"
 export BROWSERSTACK_DISPLAY_RESOLUTION="1024x768"
 
-npm run acceptance -- --browsers $TEST_BROWSWER
+npm run acceptance -- --browsers $TEST_BROWSER
