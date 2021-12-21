@@ -11,9 +11,9 @@ export BROWSERSTACK_CONSOLE="verbose"
 export BROWSERSTACK_NETWORK_LOGS="true"
 export BROWSERSTACK_DISPLAY_RESOLUTION="1024x768"
 
-if [[ $BROWSER == 'browserstack:ie@11.0' && ($GITHUB_BRANCH == develop || $GITHUB_BRANCH == dev/*) ]]
+if [[ $BROWSER == 'browserstack:ie@11.0' ]]
 then
-  npm run acceptance -- --browsers $BROWSER --concurrency 3
+  npm run acceptance -- --browsers $BROWSER --concurrency 2
 else
   npm run acceptance -- --browsers $BROWSER 
 fi
