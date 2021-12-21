@@ -13,6 +13,7 @@ fixture`Vertical Full Page Map`
   .requestHooks(SearchRequestLogger.createVerticalSearchLogger())
   .beforeEach(async t => {
     await registerIE11NoCacheHook(t, VERTICAL_SEARCH_URL_REGEX);
+    await t.resizeWindow(1920, 1080);
   })
 
 test('Can search and get results', async t => {
