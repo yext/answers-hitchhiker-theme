@@ -83,8 +83,12 @@ class MapRenderTarget extends RenderTarget {
     Object.values(this._pins).forEach(pin => pin.remove());
     this._pins = {};
 
-    (data.response.entities || []).forEach((entity, index) =>
-      this._pins[this._idForEntity(entity)] = this._pinBuilder(this._map.newPinOptions(), entity, index + 1)
+    (data.response.entities || []).forEach((entity, index) => {
+      const pin = this._pinBuilder(this._map.newPinOptions(), entity, index + 1);
+      if (pin) {
+        this._pins[this._idForEntity(entity)] = pin;
+      }
+    }
     );
 
     const pins = Object.values(this._pins);
