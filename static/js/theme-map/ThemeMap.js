@@ -345,7 +345,7 @@ class ThemeMap extends ANSWERS.Component {
     const defaultPin = this.config.pinImages.getDefaultPin(index, entity.profile);
     const hoveredPin = this.config.pinImages.getHoveredPin(index, entity.profile);
     const selectedPin = this.config.pinImages.getSelectedPin(index, entity.profile);
-    const entityCoordinate = entity.profile.yextDisplayCoordinate ?? entity.profile.displayCoordinate;
+    const entityCoordinate = entity.profile.yextDisplayCoordinate;
     if (!entityCoordinate) {
       return null;
     }
