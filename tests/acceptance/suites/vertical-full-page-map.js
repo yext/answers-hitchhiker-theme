@@ -6,11 +6,13 @@ import Pagination from '../blocks/pagination';
 import SearchRequestLogger from '../searchrequestlogger';
 import { VERTICAL_SEARCH_URL_REGEX } from '../constants';
 import { registerIE11NoCacheHook } from '../../test-utils/testcafe';
-import CollapsibleFilters from '../blocks/collapsiblefilters';
+import CollapsibleFilters from '../blocks/collapsiblefilters'; 
+
+const verticalSearchLogger = SearchRequestLogger.createVerticalSearchLogger();
 
 fixture`Vertical Full Page Map`
-  .page(`http://localhost:${PORT}/locations_full_page_map_with_filters`)
-  .requestHooks(SearchRequestLogger.createVerticalSearchLogger())
+  .page(`http://localhost:${PORT}/locations_full_page_map`)
+  .requestHooks(verticalSearchLogger)
   .beforeEach(async t => {
     await registerIE11NoCacheHook(t, VERTICAL_SEARCH_URL_REGEX);
     await t.resizeWindow(1600, 900);
@@ -76,6 +78,14 @@ test('Pagination scrolls the results to the top', async t => {
   const scrollTopAfterPagination = await VerticalResults.getScrollTop();
   await t.expect(scrollTopAfterPagination).eql(0);
 });
+
+fixture`Vertical Full Page Map with Filters`
+  .page(`http://localhost:${PORT}/locations_full_page_map_with_filters`)
+  .requestHooks(verticalSearchLogger)
+  .beforeEach(async t => {
+    await registerIE11NoCacheHook(t, VERTICAL_SEARCH_URL_REGEX);
+    await t.resizeWindow(1600, 900);
+  })
 
 test('Clicking on a pin closes the filter view', async t => {
   await SearchBar.submitQuery('virginia');
