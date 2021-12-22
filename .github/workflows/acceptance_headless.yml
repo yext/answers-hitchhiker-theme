@@ -1,0 +1,18 @@
+name: Headless Acceptance Tests
+
+on: push
+
+jobs:
+  headless-acceptance-tests:
+    name: Chrome Acceptance Tests (Headless)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - run: npm ci
+      - run: npm run setup-test-site
+      - run: npm run build-test-site
+      - name: Run Acceptance Tests
+        run: npm run acceptance -- --browsers chrome:headless

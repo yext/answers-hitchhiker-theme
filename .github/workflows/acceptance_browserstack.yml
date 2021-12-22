@@ -1,0 +1,55 @@
+name: Browserstack Acceptance Tests
+
+on:
+  push:
+    branches-ignore: dev/*
+
+jobs:
+  browserstack-safari-acceptance-tests:
+    name: Safari Acceptance Tests (Browserstack)
+    runs-on: ubuntu-latest
+    env:
+      BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+      BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - run: npm ci
+      - run: npm run setup-test-site
+      - run: npm run build-test-site
+      - name: Run Acceptance Tests
+        run: ./.github/run_browserstack_acceptance.sh browserstack:safari
+  browserstack-firefox-acceptance-tests:
+    name: Firefox Acceptance Tests (Browserstack)
+    runs-on: ubuntu-latest
+    env:
+      BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+      BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - run: npm ci
+      - run: npm run setup-test-site
+      - run: npm run build-test-site
+      - name: Run Acceptance Tests
+        run: ./.github/run_browserstack_acceptance.sh browserstack:firefox
+  browserstack-ie11-acceptance-tests:
+    name: IE11 Acceptance Tests (Browserstack)
+    runs-on: ubuntu-latest
+    env:
+      BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+      BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - run: npm ci
+      - run: npm run setup-test-site
+      - run: npm run build-test-site
+      - name: Run Acceptance Tests
+        run: ./.github/run_browserstack_acceptance.sh browserstack:ie@11.0 3
