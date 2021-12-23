@@ -82,6 +82,11 @@ ANSWERS.addComponent("UniversalResults", Object.assign({}, {
     mapConfig: Object.assign({
       apiKey: HitchhikerJS.getDefaultMapApiKey("{{ mapConfig.mapProvider }}")
     },
+    {
+      "providerOptions": {
+        "scrollZoom": false
+      }
+    },
     {{{ json mapConfig }}},
     {{!-- This theme pin config must come after mapConfig in Object.assign --}}
     {
