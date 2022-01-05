@@ -1,7 +1,8 @@
 const fs = require('fs');
 const fsExtra = require('fs-extra');
 const path = require('path');
-const { mergeGlobalConfigs, isGitSubmodule } = require('./utils');
+const { isGitSubmodule } = require('./utils');
+const { mergeGlobalConfigs } = require('./mergeGlobalConfigs');
 const { spawnSync } = require('child_process');
 
 /**
@@ -51,7 +52,7 @@ class PostUpgradeHandler {
   async mergeThemeGlobalConfig(userGlobalConfigPath, themeGlobalConfigPath) {
     const updatedCommentJson = fs.readFileSync(themeGlobalConfigPath, 'utf-8');
     const originalCommentJson = fs.readFileSync(userGlobalConfigPath, 'utf-8');
-    return mergeGlobalConfigs(updatedCommentJson, originalCommentJson);
+    return mergeGlobalConfigs(parse(updatedCommentJson), parse(originalCommentJson));
   }
 
   /**
