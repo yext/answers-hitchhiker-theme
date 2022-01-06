@@ -42,10 +42,11 @@ exports.mergeGlobalConfigs = function mergeGlobalConfigs(originalConfig, incomin
   const mergedTokens = mergeTokens(originalTokens, incomingTokens);
   const commentJsonObject = transformToCommentJsonObject(mergedTokens);
   if (incomingJson.sdkVersion) {
-    commentJsonObject.sdkVersion = incomingJson.sdkVersion
+    commentJsonObject.sdkVersion = incomingJson.sdkVersion;
   }
+  
   return stringify(commentJsonObject, null, 2);
-}
+};
 
 /**
  * Parses a {@link CommentJSONObject} into an array of {@link GlobalConfigToken}s
@@ -55,19 +56,20 @@ exports.mergeGlobalConfigs = function mergeGlobalConfigs(originalConfig, incomin
  */
 function tokenize(commentJsonObject) {
   /** @type {GlobalConfigToken[]} */
-  const tokens = []
+  const tokens = [];
 
   /**
    * @param {CommentToken} comment 
    * @returns {CommentedOutPropertyToken}
    */
   const parseCommentedOutProperty = (comment) => {
-    const propCommentRegex = /^\s?"([^"]+)":.*$/g
-    const val = comment.value
-    const match = [...val.matchAll(propCommentRegex)][0]
+    const propCommentRegex = /^\s?"([^"]+)":.*$/g;
+    const val = comment.value;
+    const match = [...val.matchAll(propCommentRegex)][0];
     if (!match || match.length !== 2) {
-      throw new Error(`Could not parse global config commented out property: \`${val}\``)
+      throw new Error(`Could not parse global config commented out property: \`${val}\``);
     }
+    
     return {
       type: 'CommentedOutProperty',
       key: match[1],
@@ -76,20 +78,20 @@ function tokenize(commentJsonObject) {
         value: comment.value,
         inline: comment.inline
       }
-    }
-  }
+    };
+  };
 
   const handleComment = c => {
     if (c.inline) return;
     tokens.push(parseCommentedOutProperty(c));
-  }
+  };
 
   Object.keys(commentJsonObject).forEach(key => {
-    const beforeSymbol = Symbol.for(`before:${key}`)
-    const afterSymbol = Symbol.for(`after:${key}`)
-    const beforeComments = commentJsonObject[beforeSymbol] || []
-    const afterComments = commentJsonObject[afterSymbol] || []
-    beforeComments.forEach(handleComment)
+    const beforeSymbol = Symbol.for(`before:${key}`);
+    const afterSymbol = Symbol.for(`after:${key}`);
+    const beforeComments = commentJsonObject[beforeSymbol] || [];
+    const afterComments = commentJsonObject[afterSymbol] || [];
+    beforeComments.forEach(handleComment);
     const inlineComment = afterComments.find(c => c.inline);
     tokens.push({
       type: 'Property',
@@ -100,9 +102,9 @@ function tokenize(commentJsonObject) {
         value: inlineComment.value,
         inline: inlineComment.inline
       } : null
-    })
-    afterComments.forEach(handleComment)
-  })
+    });
+    afterComments.forEach(handleComment);
+  });
 
   return tokens;
 }
@@ -115,26 +117,30 @@ exports.tokenize = tokenize;
  * @returns {CommentJSONObject}
  */
 function transformToCommentJsonObject(tokens) {
-  const commentJsonObject = {}
+  const commentJsonObject = {};
   let previousPropertyKey = null;
   tokens.forEach(token => {
     switch (token.type) {
-      case 'Property':
-        commentJsonObject[token.key] = token.value
-        previousPropertyKey = token.key
-        if (token.inlineComment) {
-          const symbol = Symbol.for(`after:${token.key}`);
-          commentJsonObject[symbol] = (commentJsonObject[symbol] || []).concat([token.inlineComment])
-        }
-        break;
-      case 'CommentedOutProperty':
-        const symbol = previousPropertyKey ? Symbol.for(`after:${previousPropertyKey}`) : Symbol.for('before');
-        commentJsonObject[symbol] = (commentJsonObject[symbol] || []).concat([token.comment])
-        break;
-      default:
-        throw new Error(`Unknown token type "${token.type}"`);
+    case 'Property':
+      commentJsonObject[token.key] = token.value;
+      previousPropertyKey = token.key;
+      if (token.inlineComment) {
+        const symbol = Symbol.for(`after:${token.key}`);
+        commentJsonObject[symbol] =
+            (commentJsonObject[symbol] || []).concat([token.inlineComment]);
+      }
+      break;
+    case 'CommentedOutProperty':
+      const symbol = previousPropertyKey
+        ? Symbol.for(`after:${previousPropertyKey}`)
+        : Symbol.for('before');
+      commentJsonObject[symbol] = (commentJsonObject[symbol] || []).concat([token.comment]);
+      break;
+    default:
+      throw new Error(`Unknown token type "${token.type}"`);
     }
   });
+  
   return commentJsonObject;
 }
 exports.transformToCommentJsonObject = transformToCommentJsonObject;
@@ -146,19 +152,20 @@ exports.transformToCommentJsonObject = transformToCommentJsonObject;
  * @param {GlobalConfigToken[]} incoming 
  * @returns 
  */
- function mergeTokens(original, incoming) {
-  const mergedTokens = []
-  const originalCopy = [...original]
+function mergeTokens(original, incoming) {
+  const mergedTokens = [];
+  const originalCopy = [...original];
 
   incoming.forEach(incomingToken => {
-    const i = originalCopy.findIndex(t => t.key === incomingToken.key)
+    const i = originalCopy.findIndex(t => t.key === incomingToken.key);
     if (i < 0) {
       mergedTokens.push(incomingToken);
+      
       return;
     }
-    const originalToken = originalCopy[i]
+    const originalToken = originalCopy[i];
     if (originalToken.type === 'Property') {
-      mergedTokens.push(originalToken)
+      mergedTokens.push(originalToken);
     } else if (originalToken.type === 'CommentedOutProperty') {
       mergedTokens.push(incomingToken);
     }
@@ -169,6 +176,7 @@ exports.transformToCommentJsonObject = transformToCommentJsonObject;
   // i.e tokens with keys that weren't present in the incoming tokens,
   // or for duplicate keys (which we don't really worry about handling)
   mergedTokens.push(...originalCopy);
+  
   return mergedTokens;
 }
 exports.mergeTokens = mergeTokens;
