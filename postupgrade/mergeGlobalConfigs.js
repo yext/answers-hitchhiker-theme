@@ -82,7 +82,9 @@ function tokenize(commentJsonObject) {
       const val = comment.value;
       const match = [...val.matchAll(propCommentRegex)][0];
       if (!match || match.length !== 2) {
-        throw new Error(`Could not parse global config commented out property: \`${val}\``);
+        console.error(`Dropped the following comment: \`${val}\``);
+
+        return;
       }
       tokens.push({
         type: 'CommentedOutProperty',

@@ -1,5 +1,5 @@
 const { parse } = require('comment-json');
-const fs = require('fs');
+const { readFileSync } = require('fs');
 const path = require('path');
 const {
   mergeGlobalConfigs,
@@ -18,7 +18,15 @@ describe('mergeGlobalConfigs', () => {
   it('additional-prop-in-original', () => {
     const { incoming, original, expected } = readFixtures('additional-prop-in-original');
     const mergedConfig = mergeGlobalConfigs(original, incoming);
-    fs.writeFileSync('merged.json', mergedConfig);
+    expect(mergedConfig).toEqual(expected);
+  });
+
+  it('extra-comments', () => {
+    const { incoming, original, expected } = readFixtures('extra-comments');
+    const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    const mergedConfig = mergeGlobalConfigs(original, incoming);
+    expect(consoleErrorSpy).toHaveBeenCalledTimes(4);
+    consoleErrorSpy.mockRestore();
     expect(mergedConfig).toEqual(expected);
   });
 });
@@ -150,7 +158,7 @@ it('transformToCommentJsonObject transforms to a CommentJSONObject equivalent', 
 
 function readFixtures(testCase) {
   function readFixture(file) {
-    return fs.readFileSync(path.resolve('tests/postupgrade/fixtures', testCase, file), 'utf-8')
+    return readFileSync(path.resolve('tests/postupgrade/fixtures', testCase, file), 'utf-8')
   }
   const incoming = readFixture('incoming.json');
   const original = readFixture('original.json');
