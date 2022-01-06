@@ -81,18 +81,39 @@ function tokenize(commentJsonObject) {
     };
   };
 
-  const handleComment = c => {
-    if (c.inline) return;
-    tokens.push(parseCommentedOutProperty(c));
+  Object.keys(commentJsonObject).forEach(key => {
+    const commentsBeforeCurrentKey = commentJsonObject[Symbol.for(`before:${key}`)] || [];
+    appendCommentsAsTokens(commentsBeforeCurrentKey);
+
+    appendCurrentPropertyAsToken(key);
+
+    const commentsAfterCurrentKey = commentJsonObject[Symbol.for(`after:${key}`)] || [];
+    appendCommentsAsTokens(commentsAfterCurrentKey);
+  });
+
+  return tokens;
+
+  /**
+   * Appends the given comments to the tokens array.
+   *
+   * @param {CommentToken[]} comments 
+   */
+  function appendCommentsAsTokens(comments) {
+    comments.forEach(c => {
+      if (c.inline) return;
+      tokens.push(parseCommentedOutProperty(c));
+    });
   };
 
-  Object.keys(commentJsonObject).forEach(key => {
-    const beforeSymbol = Symbol.for(`before:${key}`);
-    const afterSymbol = Symbol.for(`after:${key}`);
-    const beforeComments = commentJsonObject[beforeSymbol] || [];
-    const afterComments = commentJsonObject[afterSymbol] || [];
-    beforeComments.forEach(handleComment);
-    const inlineComment = afterComments.find(c => c.inline);
+  /**
+   * Appends the property with the given key to the tokens array.
+   * If an inline comment exists for the property, that will also be recorded.
+   * 
+   * @param {string} key 
+   */
+  function appendCurrentPropertyAsToken(key) {
+    const commentsAfterKey = commentJsonObject[Symbol.for(`after:${key}`)] || [];
+    const inlineComment = commentsAfterKey.find(c => c.inline);
     tokens.push({
       type: 'Property',
       key,
@@ -103,10 +124,7 @@ function tokenize(commentJsonObject) {
         inline: inlineComment.inline
       } : null
     });
-    afterComments.forEach(handleComment);
-  });
-
-  return tokens;
+  }
 }
 exports.tokenize = tokenize;
 
