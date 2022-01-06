@@ -167,7 +167,7 @@ exports.transformToCommentJsonObject = transformToCommentJsonObject;
 
   // Append any leftover tokens from the original,
   // i.e tokens with keys that weren't present in the incoming tokens,
-  // or for duplicate keys (which we don't handle)
+  // or for duplicate keys (which we don't really worry about handling)
   mergedTokens.push(...originalCopy);
   return mergedTokens;
 }
