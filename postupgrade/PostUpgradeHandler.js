@@ -9,7 +9,7 @@ const { spawnSync } = require('child_process');
  * PostUpgradeHandler performs filesystem changes after the Theme repository has been upgraded.
  */
 class PostUpgradeHandler {
-  constructor (themeDir, configDir) {
+  constructor(themeDir, configDir) {
     this.themeDir = themeDir;
     this.configDir = configDir;
     this.globalConfigFile = 'global_config.json';
@@ -29,7 +29,8 @@ class PostUpgradeHandler {
     const themeGlobalConfigPath = 
       path.relative(process.cwd(), path.join(this.themeDir, this.globalConfigFile));
     if (fsExtra.pathExistsSync(themeGlobalConfigPath)) {
-      const mergedGlobalConfig = await this.mergeThemeGlobalConfig(userGlobalConfigPath, themeGlobalConfigPath);
+      const mergedGlobalConfig =
+        await this.mergeThemeGlobalConfig(userGlobalConfigPath, themeGlobalConfigPath);
       fs.writeFileSync(userGlobalConfigPath, mergedGlobalConfig);
     }
   }
@@ -52,6 +53,7 @@ class PostUpgradeHandler {
   async mergeThemeGlobalConfig(userGlobalConfigPath, themeGlobalConfigPath) {
     const updatedCommentJson = fs.readFileSync(themeGlobalConfigPath, 'utf-8');
     const originalCommentJson = fs.readFileSync(userGlobalConfigPath, 'utf-8');
+    
     return mergeGlobalConfigs(originalCommentJson, updatedCommentJson);
   }
 
