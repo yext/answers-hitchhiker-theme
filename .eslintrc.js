@@ -20,6 +20,6 @@ module.exports = {
     }],
     'newline-before-return': 'warn',
     semi: 'warn',
-    indent: ['warn', 2]
+    indent: ['warn', 2, { SwitchCase: 1 }]
   }
 };
