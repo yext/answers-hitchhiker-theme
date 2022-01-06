@@ -52,7 +52,7 @@ class PostUpgradeHandler {
   async mergeThemeGlobalConfig(userGlobalConfigPath, themeGlobalConfigPath) {
     const updatedCommentJson = fs.readFileSync(themeGlobalConfigPath, 'utf-8');
     const originalCommentJson = fs.readFileSync(userGlobalConfigPath, 'utf-8');
-    return mergeGlobalConfigs(parse(updatedCommentJson), parse(originalCommentJson));
+    return mergeGlobalConfigs(originalCommentJson, updatedCommentJson);
   }
 
   /**
