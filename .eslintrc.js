@@ -6,7 +6,7 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 12
   },
-  ignorePatterns: ['tests/fixtures/**/*.js'],
+  ignorePatterns: ['tests/**/fixtures/**/*.js'],
   rules: {
     'arrow-spacing': 'error',
     quotes: ['error', 'single'],
