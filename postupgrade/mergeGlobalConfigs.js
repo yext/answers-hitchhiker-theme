@@ -44,7 +44,7 @@ exports.mergeGlobalConfigs = function mergeGlobalConfigs(originalConfig, incomin
   if (incomingJson.sdkVersion) {
     commentJsonObject.sdkVersion = incomingJson.sdkVersion;
   }
-  
+
   return stringify(commentJsonObject, null, 2);
 };
 
@@ -57,29 +57,6 @@ exports.mergeGlobalConfigs = function mergeGlobalConfigs(originalConfig, incomin
 function tokenize(commentJsonObject) {
   /** @type {GlobalConfigToken[]} */
   const tokens = [];
-
-  /**
-   * @param {CommentToken} comment 
-   * @returns {CommentedOutPropertyToken}
-   */
-  const parseCommentedOutProperty = (comment) => {
-    const propCommentRegex = /^\s?"([^"]+)":.*$/g;
-    const val = comment.value;
-    const match = [...val.matchAll(propCommentRegex)][0];
-    if (!match || match.length !== 2) {
-      throw new Error(`Could not parse global config commented out property: \`${val}\``);
-    }
-    
-    return {
-      type: 'CommentedOutProperty',
-      key: match[1],
-      comment: {
-        type: comment.type,
-        value: comment.value,
-        inline: comment.inline
-      }
-    };
-  };
 
   Object.keys(commentJsonObject).forEach(key => {
     const commentsBeforeCurrentKey = commentJsonObject[Symbol.for(`before:${key}`)] || [];
@@ -99,9 +76,23 @@ function tokenize(commentJsonObject) {
    * @param {CommentToken[]} comments 
    */
   function appendCommentsAsTokens(comments) {
-    comments.forEach(c => {
-      if (c.inline) return;
-      tokens.push(parseCommentedOutProperty(c));
+    comments.forEach(comment => {
+      if (comment.inline) return;
+      const propCommentRegex = /^\s?"([^"]+)":.*$/g;
+      const val = comment.value;
+      const match = [...val.matchAll(propCommentRegex)][0];
+      if (!match || match.length !== 2) {
+        throw new Error(`Could not parse global config commented out property: \`${val}\``);
+      }
+      tokens.push({
+        type: 'CommentedOutProperty',
+        key: match[1],
+        comment: {
+          type: comment.type,
+          value: comment.value,
+          inline: comment.inline
+        }
+      });
     });
   };
 
@@ -139,26 +130,26 @@ function transformToCommentJsonObject(tokens) {
   let previousPropertyKey = null;
   tokens.forEach(token => {
     switch (token.type) {
-    case 'Property':
-      commentJsonObject[token.key] = token.value;
-      previousPropertyKey = token.key;
-      if (token.inlineComment) {
-        const symbol = Symbol.for(`after:${token.key}`);
-        commentJsonObject[symbol] =
+      case 'Property':
+        commentJsonObject[token.key] = token.value;
+        previousPropertyKey = token.key;
+        if (token.inlineComment) {
+          const symbol = Symbol.for(`after:${token.key}`);
+          commentJsonObject[symbol] =
             (commentJsonObject[symbol] || []).concat([token.inlineComment]);
-      }
-      break;
-    case 'CommentedOutProperty':
-      const symbol = previousPropertyKey
-        ? Symbol.for(`after:${previousPropertyKey}`)
-        : Symbol.for('before');
-      commentJsonObject[symbol] = (commentJsonObject[symbol] || []).concat([token.comment]);
-      break;
-    default:
-      throw new Error(`Unknown token type "${token.type}"`);
+        }
+        break;
+      case 'CommentedOutProperty':
+        const symbol = previousPropertyKey
+          ? Symbol.for(`after:${previousPropertyKey}`)
+          : Symbol.for('before');
+        commentJsonObject[symbol] = (commentJsonObject[symbol] || []).concat([token.comment]);
+        break;
+      default:
+        throw new Error(`Unknown token type "${token.type}"`);
     }
   });
-  
+
   return commentJsonObject;
 }
 exports.transformToCommentJsonObject = transformToCommentJsonObject;
@@ -178,7 +169,7 @@ function mergeTokens(original, incoming) {
     const i = originalCopy.findIndex(t => t.key === incomingToken.key);
     if (i < 0) {
       mergedTokens.push(incomingToken);
-      
+
       return;
     }
     const originalToken = originalCopy[i];
@@ -194,7 +185,7 @@ function mergeTokens(original, incoming) {
   // i.e tokens with keys that weren't present in the incoming tokens,
   // or for duplicate keys (which we don't really worry about handling)
   mergedTokens.push(...originalCopy);
-  
+
   return mergedTokens;
 }
 exports.mergeTokens = mergeTokens;
