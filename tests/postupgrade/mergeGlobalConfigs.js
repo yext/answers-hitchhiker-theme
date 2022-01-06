@@ -1,4 +1,4 @@
-const { parse, stringify, assign } = require('comment-json');
+const { parse } = require('comment-json');
 const fs = require('fs');
 const path = require('path');
 const {
@@ -18,7 +18,7 @@ describe('mergeGlobalConfigs', () => {
   it('additional-prop-in-original', () => {
     const { incoming, original, expected } = readFixtures('additional-prop-in-original');
     const mergedConfig = mergeGlobalConfigs(original, incoming);
-    fs.writeFileSync('merged.json', mergedConfig)
+    fs.writeFileSync('merged.json', mergedConfig);
     expect(mergedConfig).toEqual(expected);
   });
 });
@@ -50,7 +50,7 @@ it('tokenize works for both Property and CommentedOutProperty tokens', () => {
         inline: false
       }
     }
-  ])
+  ]);
 });
 
 describe('mergeTokens', () => {
@@ -77,8 +77,8 @@ describe('mergeTokens', () => {
         }
       }
     ];
-    expect(mergeTokens(original, incoming)).toEqual(incoming)
-  })
+    expect(mergeTokens(original, incoming)).toEqual(incoming);
+  });
 
   it('favors the original config for Property tokens', () => {
     const incoming = [
@@ -106,10 +106,10 @@ describe('mergeTokens', () => {
       }
     ];
     expect(mergeTokens(original, incoming)).toEqual(original)
-  })
-})
+  });
+});
 
-it('transformToCommentJsonObject transforms a GlobalConfigToken[] into a CommentJSONObject equivalent', () => {
+it('transformToCommentJsonObject transforms to a CommentJSONObject equivalent', () => {
   const tokens = [
     {
       type: 'Property',
@@ -145,7 +145,7 @@ it('transformToCommentJsonObject transforms a GlobalConfigToken[] into a Comment
         inline: false
       }
     ]
-  })
+  });
 });
 
 function readFixtures(testCase) {
@@ -155,5 +155,6 @@ function readFixtures(testCase) {
   const incoming = readFixture('incoming.json');
   const original = readFixture('original.json');
   const expected = readFixture('merged.json');
+
   return { incoming, original, expected };
 }
