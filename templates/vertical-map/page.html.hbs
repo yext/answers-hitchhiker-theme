@@ -29,6 +29,7 @@
     {{!-- {{> layouts/overlay-suggestions }} --}}
     <div class="Answers-resultsWrapper js-answersResultsWrapper">
       <div class="Answers-resultsColumn js-answersResultsColumn">
+        {{> templates/vertical-map/markup/spellcheck }}
         <div class="Answers-resultsHeader">
           {{> templates/vertical-map/markup/verticalresultscount }}
           {{> templates/vertical-map/markup/appliedfilters }}
@@ -42,7 +43,6 @@
           {{!-- {{> templates/vertical-map/markup/filterbox }} --}}
         {{!-- </div> --}}
         <div class="Answers-results js-answersResults">
-          {{> templates/vertical-map/markup/spellcheck }}
           {{> templates/vertical-map/markup/verticalresults }}
           {{> templates/vertical-map/markup/pagination }}
           {{!-- {{> templates/vertical-map/markup/qasubmission }} --}}

@@ -1,6 +1,9 @@
 import CtaFormatter from '@yext/cta-formatter';
 
 /**
+ * By default, the linkType is assumed to be 'URL', which does not apply additional formatting, as opposed
+ * to the "Phone" and "Email" linkTypes.
+ * 
  * @param {{link: string, linkType: string}} cta the Calls To Action field object
  * @returns {string} The formatted url associated with the Call to Action object if the cta object exists, null otherwise
  */
@@ -10,7 +13,7 @@ export function generateCTAFieldTypeLink(cta) {
   }
   const normalizedCTA = {
     ...cta,
-    linkType: normalizeCtaLinkType(cta.linkType)
+    linkType: normalizeCtaLinkType(cta.linkType || 'URL')
   }
   return CtaFormatter.generateCTAFieldTypeLink(normalizedCTA);
 }

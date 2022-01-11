@@ -1,12 +1,14 @@
 {{#> layouts/html }}
   {{#> script/core }}
     {{> cards/all }}
+    {{!-- {{> directanswercards/all }} --}}
     {{!-- {{> templates/vertical-standard/collapsible-filters/page-setup }} --}}
     {{> templates/vertical-standard/script/appliedfilters }}
     {{> templates/vertical-standard/script/verticalresultscount }}
     {{> templates/vertical-standard/script/searchbar }}
     {{> templates/vertical-standard/script/spellcheck }}
     {{> templates/vertical-standard/script/navigation }}
+    {{!-- {{> templates/vertical-standard/script/directanswer }} --}}
     {{> templates/vertical-standard/script/verticalresults }}
     {{> templates/vertical-standard/script/pagination }}
     {{> templates/vertical-standard/script/locationbias }}
@@ -27,6 +29,8 @@
     partial for this page, you should not use it on any other page.  -->
     {{!-- {{> layouts/overlay-suggestions }} --}}
     <div class="Answers-container Answers-resultsWrapper">
+      {{!-- {{> templates/vertical-standard/markup/directanswer }} --}}
+      {{> templates/vertical-standard/markup/spellcheck }}
       <div class="Answers-resultsHeader">
         {{> templates/vertical-standard/markup/verticalresultscount }}
         {{> templates/vertical-standard/markup/appliedfilters }}
@@ -40,7 +44,6 @@
         {{!-- {{> templates/vertical-standard/markup/facets }} --}}
       {{!-- </div> --}}
       <div class="Answers-results js-answersResults">
-        {{> templates/vertical-standard/markup/spellcheck }}
         {{> templates/vertical-standard/markup/verticalresults }}
         {{> templates/vertical-standard/markup/pagination }}
         {{!-- {{> templates/vertical-standard/markup/qasubmission }} --}}

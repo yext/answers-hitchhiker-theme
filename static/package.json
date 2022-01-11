@@ -1,6 +1,6 @@
 {
   "name": "answers-hitchhiker-theme",
-  "version": "1.26.0",
+  "version": "1.27.0",
   "description": "Toolchain for use with the HH Theme",
   "main": "Gruntfile.js",
   "scripts": {
@@ -49,6 +49,7 @@
     "@vimeo/player": "^2.15.3",
     "core-js": "^3.6.5",
     "css-vars-ponyfill": "^2.3.1",
+    "escape-html": "^1.0.3",
     "file-system": "^2.2.2",
     "fs-extra": "^8.1.0",
     "iframe-resizer": "^4.1.1",
