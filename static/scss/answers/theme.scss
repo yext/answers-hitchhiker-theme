@@ -194,6 +194,10 @@
     font-size: var(--yxt-filters-and-sorts-font-size);
   }
 
+  .yxt-FilterOptions-optionLabel {
+    line-height: var(--yxt-filter-options-option-label-line-height);
+  }
+
   .yxt-Card-child {
     mark {
       background-color: unset;

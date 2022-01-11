@@ -22,6 +22,10 @@ export default class AnswersExperience {
     this._registerRuntimeConfigListeners();
   }
 
+  init() {
+    console.error('AnswersExperience.init was called before an init method was set. This is a no-op.')
+  }
+
   /**
    * Registers runtime config listeners and ensures that they execute
    * after Answers has initialized

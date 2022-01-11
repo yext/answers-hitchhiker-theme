@@ -1,4 +1,4 @@
-const { BrowserPageWidths } = require('./constants');
+const { BrowserPageWidths } = require('../browser-automation/constants');
 
 /**
  * Responsible for taking Percy snapshots

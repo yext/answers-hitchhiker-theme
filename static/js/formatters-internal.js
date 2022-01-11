@@ -11,6 +11,7 @@ import { isChrome } from './useragent.js';
 import LocaleCurrency from 'locale-currency'
 import getSymbolFromCurrency from 'currency-symbol-map'
 import { parseLocale } from './utils.js';
+import escape from 'escape-html';
 
 export function address(profile) {
   if (!profile.address) {
@@ -281,134 +282,107 @@ export function joinList(list, separator) {
   return list.join(separator);
 }
 
-/*
- * Given object with url and alternateText, changes url to use https
+/**
+ * Given an image object with a url, changes the url to use dynamic thumbnailer and https.
+ * 
+ * Note: A dynamic thumbnailer url generated with atLeastAsLarge = true returns an image that is
+ * at least as large in one dimension of the desired size. In other words, the returned image will
+ * be at least as large, and as close as possible to, the largest image that is contained within a
+ * box of the desired size dimensions.
+ * 
+ * If atLeastAsLarge = false, the dynamic thumbnailer url will give the largest image that is
+ * smaller than the desired size in both dimensions.
+ * 
+ * @param {Object} simpleOrComplexImage An image object with a url
+ * @param {string} desiredSize The desired size of the image ('<width>x<height>')
+ * @param {boolean} atLeastAsLarge Whether the image should be at least as large as the desired
+ *                                 size in one dimension or smaller than the desired size in both
+ *                                 dimensions.
+ * @returns {Object} An object with a url for dynamic thumbnailer
  */
-export function image(simpleOrComplexImage = {}, size = '200x', atLeastAsLarge = true) {
-  let img = simpleOrComplexImage.image || simpleOrComplexImage;
-  if (!img) {
+export function image(simpleOrComplexImage = {}, desiredSize = '200x', atLeastAsLarge = true) {
+  let image = simpleOrComplexImage.image || simpleOrComplexImage;
+  if (!image) {
     return {};
   }
-
-  if (!img.url) {
-    return img;
+  if (!image.url) {
+    return image;
+  }
+  if (!(Object.prototype.toString.call(image).indexOf('Object') > 0)) {
+    throw new Error("Expected parameter of type Map");
+  }
+  if ((typeof desiredSize !== 'string') || (desiredSize == null)) {
+    throw new Error(`Object of type string expected. Got ${typeof desiredSize}.`);
+  }
+  if (desiredSize.indexOf('x') === -1) {
+    throw new Error("Invalid desired size");
+  }
+  if ((typeof atLeastAsLarge !== 'boolean') || (atLeastAsLarge == null)) {
+    throw new Error(`Object of type boolean expected. Got ${typeof atLeastAsLarge}.`);
   }
 
-  function imageBySizeEntity(image, desiredSize, atLeastAsLarge = true) {
-    if ((image == null) || !(Object.prototype.toString.call(image).indexOf('Object') > 0)) {
-      throw new Error("Expected parameter of type Map");
-    }
-    if ((typeof desiredSize !== 'string') || (desiredSize == null)) {
-      throw new Error(`Object of type string expected. Got ${typeof desiredSize}.`);
-    }
-    if (desiredSize.indexOf('x') === -1) {
-      throw new Error("Invalid desired size");
-    }
-    if ((typeof atLeastAsLarge !== 'boolean') || (atLeastAsLarge == null)) {
-      throw new Error(`Object of type boolean expected. Got ${typeof atLeastAsLarge}.`);
-    }
+  let desiredWidth, desiredHeight;
+  let desiredDims = desiredSize.split('x');
 
-    if (!image.thumbnails) {
-      image.thumbnails = [];
-    }
+  const [urlWithoutExtension, extension] = _splitStringOnIndex(image.url, image.url.lastIndexOf('.'));
+  const [urlBeforeDimensions, dimensions] = _splitStringOnIndex(urlWithoutExtension, urlWithoutExtension.lastIndexOf('/') + 1);
+  const fullSizeDims = dimensions.split('x');
 
-    if (!Array.isArray(image.thumbnails)) {
-      throw new Error(`Object of type array expected. Got ${typeof image.thumbnails}.`);
+  if (desiredDims[0] !== '') {
+    desiredWidth = Number.parseInt(desiredDims[0]);
+    if (Number.isNaN(desiredWidth)) {
+      throw new Error("Invalid width specified");
     }
-
-    if (image.width != undefined && image.height != undefined && image.url != undefined) {
-      image.thumbnails.push({
-        'width': image.width,
-        'height': image.height,
-        'url': image.url
-      });
-    }
-
-    let desiredWidth, desiredHeight;
-    let desiredDims = desiredSize.split('x');
-
-    if (desiredDims[0] !== '') {
-      desiredWidth = Number.parseInt(desiredDims[0]);
-      if (Number.isNaN(desiredWidth)) {
-        throw new Error("Invalid width specified");
-      }
-    }
-
-    if (desiredDims[1] !== '') {
-      desiredHeight = Number.parseInt(desiredDims[1]);
-      if (Number.isNaN(desiredHeight)) {
-        throw new Error("Invalid height specified");
-      }
-    }
-    const thumbnails = image.thumbnails
-      .filter(thumb => thumb.width && thumb.height)
-      .sort((a, b) => b.width - a.width);
-    return atLeastAsLarge
-      ? _getSmallestThumbnailOverThreshold(thumbnails, desiredWidth, desiredHeight)
-      : _getLargestThumbnailUnderThreshold(thumbnails, desiredWidth, desiredHeight);
+  } else {
+    desiredWidth = atLeastAsLarge ? 1 : Number.parseInt(fullSizeDims[0]);
   }
 
-  const result = imageBySizeEntity(img, size, atLeastAsLarge);
+  if (desiredDims[1] !== '') {
+    desiredHeight = Number.parseInt(desiredDims[1]);
+    if (Number.isNaN(desiredHeight)) {
+      throw new Error("Invalid height specified");
+    }
+  } else {
+    desiredHeight = atLeastAsLarge ? 1 : Number.parseInt(fullSizeDims[1]);
+  }
+
+  const urlWithDesiredDims = urlBeforeDimensions + desiredWidth + 'x' + desiredHeight + extension;
+
+  const dynamicUrl = atLeastAsLarge
+    ? _replaceUrlHost(urlWithDesiredDims, 'dynl.mktgcdn.com')
+    : _replaceUrlHost(urlWithDesiredDims, 'dynm.mktgcdn.com');
 
   return Object.assign(
     {},
-    img,
+    image,
     {
-      url: result.replace('http://', 'https://')
+      url: dynamicUrl.replace('http://', 'https://')
     }
   );
 }
 
 /**
- * Gets the smallest thumbnail that is over the min width and min height.
- * If no thumbnails are over the given thresholds, will return the closest one.
- *
- * This method assumes all thumbnails have the same aspect ratio, and that
- * thumbnails are sorted in descending size.
- *
- * @param {Array<{{url: string, width: number, height: number}}>} thumbnails 
- * @param {number|undefined} minWidth 
- * @param {number|undefined} minHeight 
- * @returns {string}
+ * Splits a string into two parts at the specified index.
+ * 
+ * @param {string} str The string to be split
+ * @param {number} index The index at which to split the string
+ * @returns {Array<string>} The two parts of the string after splitting
  */
-function _getSmallestThumbnailOverThreshold(thumbnails, minWidth, minHeight) {
-  let index = thumbnails.length - 1;
-  while (index > 0) {
-    const thumb = thumbnails[index];
-    const widthOverThreshold = minWidth ? thumb.width >= minWidth : true;
-    const heightOverThreshold = minHeight ? thumb.height >= minHeight : true;
-    if (widthOverThreshold && heightOverThreshold) {
-      return thumb.url
-    }
-    index--;
-  }
-  return thumbnails[0].url;
+function _splitStringOnIndex(str, index) {
+  return [str.slice(0, index), str.slice(index)];
 }
 
 /**
- * Gets the largest thumbnail that is under the max width and max height.
- * If no thumbnails are under the given thresholds, will return the closest one.
+ * Replaces the current host of a url with the specified host.
  * 
- * This method assumes all thumbnails have the same aspect ratio, and that
- * thumbnails are sorted in descending size.
- *
- * @param {Array<{{url: string, width: number, height: number}}>} thumbnails 
- * @param {number|undefined} maxWidth 
- * @param {number|undefined} maxHeight 
- * @returns {string}
+ * @param {string} url The url whose host is to be changed
+ * @param {string} host The new host to change to
+ * @returns {string} The url updated with the specified host
  */
-function _getLargestThumbnailUnderThreshold(thumbnails, maxWidth, maxHeight) {
-  let index = 0;
-  while (index < thumbnails.length) {
-    const thumb = thumbnails[index];
-    const widthOverThreshold = maxWidth ? thumb.width <= maxWidth : true;
-    const heightOverThreshold = maxHeight ? thumb.height <= maxHeight : true;
-    if (widthOverThreshold && heightOverThreshold) {
-      return thumb.url
-    }
-    index++;
-  }
-  return thumbnails[thumbnails.length - 1].url;
+function _replaceUrlHost(url, host) {
+  const splitUrl = url.split('://');
+  const urlAfterHost = splitUrl[1].slice(splitUrl[1].indexOf('/'));
+  return splitUrl[0] + '://'  + host + urlAfterHost;
 }
 
 /**
@@ -567,20 +541,20 @@ export function priceRange(defaultPriceRange, countryCode) {
  *                                          highlight.
  */
 export function highlightField(fieldValue, matchedSubstrings = []) {
-  let highlightedString = fieldValue;
+  let highlightedString = '';
 
-  // We must first sort the matchedSubstrings by decreasing offset. 
+  // We must first sort the matchedSubstrings by ascending offset. 
   const sortedMatches = matchedSubstrings.slice()
-    .sort((match1, match2) => match2.offset - match1.offset);
+    .sort((match1, match2) => match1.offset - match2.offset);
   
+  let processedFieldValueIndex = 0;
   sortedMatches.forEach(match => {
     const { offset, length } = match;
-    highlightedString = 
-      highlightedString.substr(0, offset) +
-      `<mark>${fieldValue.substr(offset, length)}</mark>`+
-      highlightedString.substr(offset + length);
+    highlightedString += escape(fieldValue.substring(processedFieldValueIndex, offset))
+      + `<mark>${escape(fieldValue.substring(offset, offset + length))}</mark>`;
+    processedFieldValueIndex = offset + length;
   });
-
+  highlightedString += escape(fieldValue.substring(processedFieldValueIndex));
   return highlightedString;
 }
 
