@@ -87,6 +87,13 @@ export function generateIFrame(domain, answersExperienceFrame) {
 
   containerEl.appendChild(iframe);
 
+  // Notify iframe of a click event on parent window
+  document.addEventListener('click', e => {
+    if (e.isTrusted) {
+      sendToIframe({ eventType: e.type });
+    }
+  });
+
   // For dynamic iFrame resizing
   iFrameResize({
     checkOrigin: false,

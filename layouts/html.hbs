@@ -145,6 +145,10 @@
             HitchhikerJS.RuntimeConfigReceiver.handle(message.runtimeConfig);
           } else if (window.isOverlay) {
             window.Overlay.onMessage(message);
+          } else if (message.eventType && message.eventType === 'click') {
+            ANSWERS.components._activeComponents
+              .filter(component => component.name === 'SearchBar.autocomplete')
+              .forEach(autocompleteComponent => autocompleteComponent.close());
           }
         }
       };
