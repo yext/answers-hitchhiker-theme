@@ -13,11 +13,11 @@
       "requiredFiles": []
   },
   "buildArtifacts": {
-      "build_setup_cmd": "npm install && ./test-site/scripts/setup_for_yext_sites.sh",
-      "build_cmd": "npm run setup-test-site && npm run build-test-site"
+      "build_setup_cmd": "npm install",
+      "build_cmd": "./test-site/scripts/setup_for_yext_sites.sh && npm run setup-test-site && npm run build-test-site"
   },
   "livePreview": {
-      "serve_setup_cmd": "npm run setup-test-site && npm run build-test-site",
+      "serve_setup_cmd": "./test-site/scripts/setup_for_yext_sites.sh && npm run setup-test-site && npm run build-test-site",
       "serve_cmd": "npx serve -l 8080 test-site/public"
   },
   "watch_cmd": "npm run watch"
