@@ -8,7 +8,3 @@ set_working_dir_to_test_site () {
 set_working_dir_to_test_site
 # Use the jambo config for yext sites
 cp jambo-yext-sites.json jambo.json
-
-echo "Setup for Yext Sites"
-echo "Current jambo.json:"
-cat jambo.json
