@@ -17,7 +17,7 @@
       "build_cmd": "./test-site/scripts/setup_for_yext_sites.sh && npm run setup-test-site && npm run build-test-site"
   },
   "livePreview": {
-      "serve_setup_cmd": "npm run build-test-site",
+      "serve_setup_cmd": "mkdir -p /temp/theme && mv * /temp/theme && mkdir answers-hitchhiker-theme && mv /temp/theme/sites-config . && mv /temp/theme/* answers-hitchhiker-theme && npm run build-test-site",
       "serve_cmd": "npx serve -l 8080 test-site/public/ &"
   },
   "watch_cmd": "npm run watch"
