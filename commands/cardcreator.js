@@ -167,10 +167,9 @@ class CardCreator {
       customCardName.replace(/-/g, '_') + cardNameSuffix;
 
     return content
-      .replace(/class (.*) extends/g, `class ${customComponentClassName} extends`)
-      .replace(registerComponentTypeRegex, `(${customComponentClassName})`)
       .replace(new RegExp(originalComponentName, 'g'), customCardName)
-      .replace(/cards[/_](.*)[/_]template/g, `cards/${customCardName}/template`);
+      .replace(/class (.*) extends/g, `class ${customComponentClassName} extends`)
+      .replace(registerComponentTypeRegex, `(${customComponentClassName})`);
   }
 }
 module.exports = CardCreator;
