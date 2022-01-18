@@ -86,8 +86,6 @@
 
   &-details
   {
-    @include rich_text_formatting;
-
     margin: calc(var(--yxt-base-spacing) / 2) var(--yxt-base-spacing);
     font-size: var(--yxt-font-size-md);
     line-height: var(--yxt-line-height-md);
@@ -95,6 +93,7 @@
 
   &-detailsText
   {
+    @include rich_text_formatting;
     color: var(--yxt-color-text-primary);
   }
 
