@@ -7,7 +7,7 @@
       ],
       "hbsTemplates": []
   },
-  "base_image_tag": "node-12.18",
+  "base_image_tag": "node-14",
   "dependencies": {
       "installDepsCmd": "npm install",
       "requiredFiles": []
@@ -17,8 +17,8 @@
       "build_cmd": "./test-site/scripts/setup_for_yext_sites.sh && npm run setup-test-site && npm run build-test-site"
   },
   "livePreview": {
-      "serve_setup_cmd": "mkdir -p /temp/theme && mv * /temp/theme && mkdir answers-hitchhiker-theme && mv /temp/theme/sites-config . && mv /temp/theme/* answers-hitchhiker-theme && npm run build-test-site",
-      "serve_cmd": "npx serve -l 8080 test-site/public/ &"
+      "serve_setup_cmd": "echo serve setup cmd",
+      "serve_cmd": "echo serve cmd"
   },
   "watch_cmd": "npm run watch"
 }
