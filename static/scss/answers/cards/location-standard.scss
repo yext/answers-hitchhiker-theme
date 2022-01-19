@@ -242,12 +242,12 @@ $location-standard-ordinal-dimensions: calc(var(--hh-location-standard-base-spac
 
   &-details
   {
-    @include rich_text_formatting;
     margin-top: calc(var(--hh-location-standard-base-spacing) / 2);
   }
 
   &-detailsText
   {
+    @include rich_text_formatting;
     color: var(--yxt-color-text-primary);
   }
 
