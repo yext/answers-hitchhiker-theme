@@ -156,7 +156,6 @@ class CardCreator {
    */
   _getRenamedCardComponent(content, customCardName) {
     const cardNameSuffix = 'CardComponent';
-    const registerComponentTypeRegex = /\([\w_]+CardComponent\)/g;
     const regexArray = [...content.matchAll(/componentName\s*=\s*'(.*)'/g)];
     if (regexArray.length === 0 || regexArray[0].length < 2) {
       return content;
@@ -167,10 +166,9 @@ class CardCreator {
       customCardName.replace(/-/g, '_') + cardNameSuffix;
 
     return content
-      .replace(/class (.*) extends/g, `class ${customComponentClassName} extends`)
-      .replace(registerComponentTypeRegex, `(${customComponentClassName})`)
       .replace(new RegExp(originalComponentName, 'g'), customCardName)
-      .replace(/cards[/_](.*)[/_]template/g, `cards/${customCardName}/template`);
+      .replace(/(class )(.*)( extends)/g, `$1${customComponentClassName}$3`)
+      .replace(/(ANSWERS.registerComponentType\()(.*)(\))/g, `$1${customComponentClassName}$3`);
   }
 }
 module.exports = CardCreator;
