@@ -52,6 +52,10 @@ msgstr ""
 msgid "Hours"
 msgstr ""
 
+#: cards/multilang-document-standard/component.js:30
+msgid "Last Updated on [[date]]"
+msgstr ""
+
 #: templates/vertical-full-page-map/page.html.hbs:23
 msgid "Main location search"
 msgstr ""
@@ -136,6 +140,7 @@ msgstr ""
 msgid "Thank you for your feedback!"
 msgstr ""
 
+#: cards/multilang-document-standard/component.js:53
 #: cards/multilang-event-standard/component.js:53
 #: cards/multilang-faq-accordion/component.js:51
 #: cards/multilang-financial-professional-location/component.js:69
@@ -159,6 +164,7 @@ msgid_plural "The following search categories yielded results for <span class=\"
 msgstr[0] ""
 msgstr[1] ""
 
+#: cards/multilang-document-standard/component.js:54
 #: cards/multilang-event-standard/component.js:54
 #: cards/multilang-faq-accordion/component.js:52
 #: cards/multilang-financial-professional-location/component.js:70
@@ -177,6 +183,7 @@ msgstr[1] ""
 msgid "This answered my question"
 msgstr ""
 
+#: cards/multilang-document-standard/component.js:55
 #: cards/multilang-event-standard/component.js:55
 #: cards/multilang-faq-accordion/component.js:53
 #: cards/multilang-financial-professional-location/component.js:71
