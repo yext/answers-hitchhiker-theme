@@ -80,6 +80,10 @@ msgstr ""
 msgid "Order Now"
 msgstr ""
 
+#: directanswercards/multilang-documentsearch-standard/template.hbs:34
+msgid "Read more about"
+msgstr ""
+
 #: theme-components/collapsible-filters/filter-link/component.js:3
 msgid "reset filters"
 msgstr ""
@@ -133,6 +137,7 @@ msgid "Sunday"
 msgstr ""
 
 #: directanswercards/multilang-allfields-standard/component.js:188
+#: directanswercards/multilang-documentsearch-standard/component.js:43
 msgid "Thank you for your feedback!"
 msgstr ""
 
@@ -174,6 +179,7 @@ msgstr[1] ""
 #: cards/multilang-professional-standard/component.js:60
 #: cards/multilang-standard/component.js:55
 #: directanswercards/multilang-allfields-standard/component.js:190
+#: directanswercards/multilang-documentsearch-standard/component.js:45
 msgid "This answered my question"
 msgstr ""
 
@@ -192,6 +198,7 @@ msgstr ""
 #: cards/multilang-professional-standard/component.js:61
 #: cards/multilang-standard/component.js:56
 #: directanswercards/multilang-allfields-standard/component.js:191
+#: directanswercards/multilang-documentsearch-standard/component.js:46
 msgid "This did not answer my question"
 msgstr ""
 
@@ -218,6 +225,7 @@ msgid "View Menu"
 msgstr ""
 
 #: directanswercards/multilang-allfields-standard/component.js:189
+#: directanswercards/multilang-documentsearch-standard/component.js:44
 msgid "Was this the answer you were looking for?"
 msgstr ""
 
