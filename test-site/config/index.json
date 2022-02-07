@@ -55,7 +55,13 @@
       "cardType": "link-standard"
     },
     "healthcare_professionals": {
-      "cardType": "professional-location"
+      "cardType": "professional-location",
+      "mapConfig": {
+        "mapProvider": "mapbox",
+        "providerOptions": {
+          "style": "mapbox://styles/mapbox/dark-v10"
+        }
+      }
     }
   }
 }
