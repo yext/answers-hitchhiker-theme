@@ -24,6 +24,14 @@ msgstr "<em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">لم ي
 msgid "Allergens"
 msgstr "مسببات الحساسية"
 
+#: cards/multilang-document-standard/component.js:30
+msgid "Last Updated on [[date]]"
+msgstr "آخر تحديث في [[date]]"
+
+#: directanswercards/multilang-documentsearch-standard/template.hbs:34
+msgid "Read more about"
+msgstr "اقرأ المزيد عن"
+
 #: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:43
 msgid "Alternatively, you can <a class=\"yxt-AlternativeVerticals-universalLink\" href=\"[[universalUrl]]\"> view results across all search categories</a>."
 msgstr "وبدلاً من ذلك، يمكنك <a class=\"yxt-AlternativeVerticals-universalLink\" href=\"[[universalUrl]]\"> عرض النتائج عبر جميع فئات البحث</a>."

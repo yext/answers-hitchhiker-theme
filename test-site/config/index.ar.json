@@ -9,7 +9,7 @@
     "DirectAnswer": {
       "types": {
         "FEATURED_SNIPPET": {
-          "cardType": "documentsearch-standard"
+          "cardType": "multilang-documentsearch-standard"
         },
         "FIELD_VALUE": {
           "cardType": "multilang-allfields-standard"

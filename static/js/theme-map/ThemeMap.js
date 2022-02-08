@@ -219,7 +219,8 @@ class ThemeMap extends ANSWERS.Component {
         }
 
         if (!pins[id]) {
-          throw new Error(`A pin with the id ${id} could not be found on the map.`);
+          console.warn(`A pin with the id ${id} could not be found on the map.`);
+          return;
         }
 
         if (this.config.enablePinClustering && pinClusterer) {
@@ -328,9 +329,26 @@ class ThemeMap extends ANSWERS.Component {
    */
   buildPin(pinOptions, entity, index) {
     const id = 'js-yl-' + entity.profile.meta.id;
+    const cardFocusUpdateListener = {
+      eventType: 'update',
+      storageKey: StorageKeys.LOCATOR_CARD_FOCUS,
+      callback: (data) => {
+        const cardIndex = data.index;
+        if (cardIndex + 1 === index) {
+          this.core.storage.set(StorageKeys.LOCATOR_SELECTED_RESULT, id);
+        }
+      }
+    };
+    this.resultsSpecificStorageListeners.push(cardFocusUpdateListener);
+    this.core.storage.registerListener(cardFocusUpdateListener);
+    
     const defaultPin = this.config.pinImages.getDefaultPin(index, entity.profile);
     const hoveredPin = this.config.pinImages.getHoveredPin(index, entity.profile);
     const selectedPin = this.config.pinImages.getSelectedPin(index, entity.profile);
+    const entityCoordinate = entity.profile.yextDisplayCoordinate;
+    if (!entityCoordinate) {
+      return null;
+    }
     const pin = pinOptions
       .withId(id)
       .withIcon(
@@ -343,7 +361,7 @@ class ThemeMap extends ANSWERS.Component {
         'selected',
         getEncodedSvg(selectedPin.svg))
       .withHideOffscreen(false)
-      .withCoordinate(new Coordinate(entity.profile.yextDisplayCoordinate))
+      .withCoordinate(new Coordinate(entityCoordinate))
       .withPropertiesForStatus(status => {
         const properties = new PinProperties()
           .setIcon(status.selected ? 'selected' : ((status.hovered || status.focused) ? 'hovered' : 'default'))
@@ -365,18 +383,6 @@ class ThemeMap extends ANSWERS.Component {
       })
       .build();
 
-    const cardFocusUpdateListener = {
-      eventType: 'update',
-      storageKey: StorageKeys.LOCATOR_CARD_FOCUS,
-      callback: (data) => {
-        const cardIndex = data.index;
-        if (cardIndex + 1 === index) {
-          this.core.storage.set(StorageKeys.LOCATOR_SELECTED_RESULT, id);
-        }
-      }
-    };
-    this.resultsSpecificStorageListeners.push(cardFocusUpdateListener);
-    this.core.storage.registerListener(cardFocusUpdateListener);
     pin.setClickHandler(() => this.config.pinFocusListener(index, id));
     pin.setFocusHandler(() => this.config.pinFocusListener(index, id));
     pin.setHoverHandler(hovered => this.core.storage.set(

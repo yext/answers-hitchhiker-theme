@@ -22,6 +22,14 @@ msgstr "Itinéraire"
 msgid "Get Directions"
 msgstr "M’y rendre"
 
+#: cards/multilang-document-standard/component.js:30
+msgid "Last Updated on [[date]]"
+msgstr "Dernière mise à jour le [[date]]"
+
+#: directanswercards/multilang-documentsearch-standard/template.hbs:34
+msgid "Read more about"
+msgstr "En savoir plus sur"
+
 #: cards/multilang-menuitem-standard/component.js:38
 msgid "Order Now"
 msgstr "Commander"

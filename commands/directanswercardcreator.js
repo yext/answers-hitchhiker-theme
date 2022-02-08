@@ -158,7 +158,6 @@ class DirectAnswerCardCreator {
    */
   _getRenamedCardComponent(content, customCardName) {
     const cardNameSuffix = 'Component';
-    const registerComponentTypeRegex = /\([\w_]+Component\)/g;
     const regexArray = [...content.matchAll(/componentName\s*=\s*'(.*)'/g)];
     if (regexArray.length === 0 || regexArray[0].length < 2) {
       return content;
@@ -169,12 +168,9 @@ class DirectAnswerCardCreator {
       customCardName.replace(/-/g, '_') + cardNameSuffix;
 
     return content
-      .replace(/class (.*) extends/g, `class ${customComponentClassName} extends`)
-      .replace(registerComponentTypeRegex, `(${customComponentClassName})`)
       .replace(new RegExp(originalComponentName, 'g'), customCardName)
-      .replace(
-        /directanswercards[/_](.*)[/_]template/g,
-        `directanswercards/${customCardName}/template`);
+      .replace(/(class )(.*)( extends)/g, `$1${customComponentClassName}$3`)
+      .replace(/(ANSWERS.registerComponentType\()(.*)(\))/g, `$1${customComponentClassName}$3`);
   }
 }
 

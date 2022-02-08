@@ -1,0 +1,18 @@
+{
+  "dirs": {
+    "themes": "../../",
+    "config": "config",
+    "output": "public",
+    "pages": "pages",
+    "partials": [
+      "script/on-ready.js",
+      "cards",
+      "directanswercards"
+    ],
+    "preservedFiles": [
+      "public/iframe_test.html",
+      "public/overlay.html"
+    ]
+  },
+  "defaultTheme": "repo"
+}

@@ -1,0 +1,24 @@
+{
+  "artifactStructure": {
+      "assets": [
+          {
+              "root": "test-site/public"
+          }
+      ],
+      "hbsTemplates": []
+  },
+  "base_image_tag": "node-14",
+  "dependencies": {
+      "installDepsCmd": "npm install",
+      "requiredFiles": []
+  },
+  "buildArtifacts": {
+      "build_setup_cmd": "npm install",
+      "build_cmd": "./test-site/scripts/setup_for_yext_sites.sh && npm run setup-test-site && npm run build-test-site"
+  },
+  "livePreview": {
+      "serve_setup_cmd": "echo serve setup cmd",
+      "serve_cmd": "echo serve cmd"
+  },
+  "watch_cmd": "npm run watch"
+}

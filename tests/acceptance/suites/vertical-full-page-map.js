@@ -6,12 +6,16 @@ import Pagination from '../blocks/pagination';
 import SearchRequestLogger from '../searchrequestlogger';
 import { VERTICAL_SEARCH_URL_REGEX } from '../constants';
 import { registerIE11NoCacheHook } from '../../test-utils/testcafe';
+import CollapsibleFilters from '../blocks/collapsiblefilters'; 
+
+const verticalSearchLogger = SearchRequestLogger.createVerticalSearchLogger();
 
 fixture`Vertical Full Page Map`
   .page(`http://localhost:${PORT}/locations_full_page_map`)
-  .requestHooks(SearchRequestLogger.createVerticalSearchLogger())
+  .requestHooks(verticalSearchLogger)
   .beforeEach(async t => {
     await registerIE11NoCacheHook(t, VERTICAL_SEARCH_URL_REGEX);
+    await t.resizeWindow(1600, 900);
   })
 
 test('Can search and get results', async t => {
@@ -73,4 +77,39 @@ test('Pagination scrolls the results to the top', async t => {
   await SearchRequestLogger.waitOnSearchComplete(t);
   const scrollTopAfterPagination = await VerticalResults.getScrollTop();
   await t.expect(scrollTopAfterPagination).eql(0);
+});
+
+fixture`Vertical Full Page Map with Filters`
+  .page(`http://localhost:${PORT}/locations_full_page_map_with_filters`)
+  .requestHooks(verticalSearchLogger)
+  .beforeEach(async t => {
+    await registerIE11NoCacheHook(t, VERTICAL_SEARCH_URL_REGEX);
+    await t.resizeWindow(1600, 900);
+  })
+
+test('Clicking on a pin closes the filter view', async t => {
+  await SearchBar.submitQuery('virginia');
+  await SearchRequestLogger.waitOnSearchComplete(t);
+  await CollapsibleFilters.viewFilters();
+  await ThemeMap.selectPin();
+  const isFilterViewOpen = await CollapsibleFilters.isFilterViewOpen();
+  await t.expect(isFilterViewOpen).notOk();
+});
+
+test('Clicking on a cluster causes the map to zoom in', async t => {
+  await SearchBar.submitQuery('virginia');
+  await SearchRequestLogger.waitOnSearchComplete(t);
+  const zoom = await ThemeMap.getZoom();
+  await ThemeMap.selectPinCluster();
+  const zoomAfterSelectingCluster = await ThemeMap.getZoom();
+  await t.expect(zoom).lt(zoomAfterSelectingCluster);
+});
+
+test('Clicking on a cluster causes a new search to be ran', async t => {
+  await SearchBar.submitQuery('virginia');
+  await SearchRequestLogger.waitOnSearchComplete(t);
+  const numResults = await VerticalResults.getNumResults();
+  await ThemeMap.selectPinCluster();
+  const numResultsAfterSelectingCluster = await VerticalResults.getNumResults();
+  await t.expect(numResults).notEql(numResultsAfterSelectingCluster);
 });

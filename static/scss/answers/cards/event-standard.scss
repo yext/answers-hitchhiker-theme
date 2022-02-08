@@ -79,6 +79,7 @@
 
   &-detailsText
   {
+    @include rich_text_formatting;
     margin-top: calc(var(--yxt-base-spacing) / 2);
     color: var(--yxt-color-text-primary);
   }

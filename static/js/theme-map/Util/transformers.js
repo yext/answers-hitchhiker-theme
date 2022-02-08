@@ -9,7 +9,7 @@ const transformDataToUniversalData = (data) => {
       ...marker.item,
       meta: {
         accountId: '',
-        countryCode: marker.item.address.countryCode,
+        countryCode: marker.item.address?.countryCode || '',
         entityType: marker.item.type,
         folderId: '',
         id: marker.item.id,
@@ -37,7 +37,7 @@ const transformDataToVerticalData = (data) => {
       ...ent._raw,
       meta: {
         accountId: '',
-        countryCode: ent._raw.address.countryCode,
+        countryCode: ent._raw.address?.countryCode || '',
         entityType: ent._raw.type,
         folderId: '',
         id: ent.id,
