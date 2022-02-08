@@ -25,6 +25,14 @@ msgstr "Alergeny"
 msgid "Alternatively, you can <a class=\"yxt-AlternativeVerticals-universalLink\" href=\"[[universalUrl]]\"> view results across all search categories</a>."
 msgstr "Możesz też <a class=\"yxt-AlternativeVerticals-universalLink\" href=\"[[universalUrl]]\">wyświetlić wyniki we wszystkich kategoriach wyszukiwania</a>."
 
+#: cards/multilang-document-standard/component.js:30
+msgid "Last Updated on [[date]]"
+msgstr "Ostatnia aktualizacja: [[data]]"
+
+#: directanswercards/multilang-documentsearch-standard/template.hbs:34
+msgid "Read more about"
+msgstr "Przeczytaj więcej o"
+
 #: cards/multilang-job-standard/component.js:35
 msgid "Apply Now"
 msgstr "Zastosuj teraz"

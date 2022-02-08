@@ -26,6 +26,14 @@ msgstr "ルート検索"
 msgid "Order Now"
 msgstr "今すぐ注文"
 
+#: cards/multilang-document-standard/component.js:30
+msgid "Last Updated on [[date]]"
+msgstr "最終更新日 : [[date]]"
+
+#: directanswercards/multilang-documentsearch-standard/template.hbs:34
+msgid "Read more about"
+msgstr "次の詳細を読む"
+
 #: cards/multilang-location-standard/template.hbs:140
 msgid "Services:"
 msgstr "サービス："
