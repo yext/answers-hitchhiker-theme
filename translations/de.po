@@ -26,6 +26,14 @@ msgstr "Wegbeschreibung"
 msgid "Order Now"
 msgstr "Jetzt bestellen"
 
+#: cards/multilang-document-standard/component.js:30
+msgid "Last Updated on [[date]]"
+msgstr "Zuletzt aktualisiert am [[date]]"
+
+#: directanswercards/multilang-documentsearch-standard/template.hbs:34
+msgid "Read more about"
+msgstr "Mehr lesen über"
+
 #: cards/multilang-location-standard/template.hbs:140
 msgid "Services:"
 msgstr "Services:"

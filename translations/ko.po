@@ -27,6 +27,14 @@ msgstr "또는 <a class=\"yxt-AlternativeVerticals-universalLink\" href=\"[[univ
 msgid "Apply Now"
 msgstr "지금 적용"
 
+#: cards/multilang-document-standard/component.js:30
+msgid "Last Updated on [[date]]"
+msgstr "최종 업데이트: [[date]]"
+
+#: directanswercards/multilang-documentsearch-standard/template.hbs:34
+msgid "Read more about"
+msgstr "자세히 알아보기"
+
 #: theme-components/collapsible-filters/filter-link/component.js:4
 msgid "clear search"
 msgstr "검색 지우기"
