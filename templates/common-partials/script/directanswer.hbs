@@ -1,9 +1,4 @@
-ANSWERS.addComponent("DirectAnswer", 
-{{#shallowMergeConfig}}[
-  {
-    "container": "#js-answersDirectAnswer"
-  },
-  {{{json componentSettings.DirectAnswer}}}
-]
-{{/shallowMergeConfig}}
-);
+ANSWERS.addComponent("DirectAnswer", {
+  container: "#js-answersDirectAnswer",
+  ...{{{json componentSettings.DirectAnswer}}}
+});
