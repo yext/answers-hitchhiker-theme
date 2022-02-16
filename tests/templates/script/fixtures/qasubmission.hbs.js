@@ -1,3 +1,5 @@
-ANSWERS.addComponent("QASubmission", 
-{"container":"#js-answersQASubmission","a":"testQAS"});
+ANSWERS.addComponent("QASubmission", {
+  container: "#js-answersQASubmission",
+  ...{"a":"testQAS"}
+});
 

@@ -1,2 +1,5 @@
-ANSWERS.addComponent('AppliedFilters', 
-  {"container":"#js-answersAppliedFilters","verticalKey":"testKey","a":"testAF"});
+ANSWERS.addComponent('AppliedFilters', {
+  container: "#js-answersAppliedFilters",
+  verticalKey: "testKey",
+  ...{"a":"testAF"}
+});
