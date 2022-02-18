@@ -50,11 +50,14 @@
       credentials.apiKey = token;
     }
 
-    const context = (new URLSearchParams(window.location.search)).get('context');
-    const querySource = JSON.parse(context ?? '{}').querySource;
-    console.log('window.location.search: ' + window.location.search);
-    console.log('context: ' + context);
-    console.log('querySource: ' + querySource);
+    let querySource = 'STANDARD';
+    try {
+      const context = (new URLSearchParams(window.location.search)).get('context');
+      querySource = JSON.parse(context ?? '{}').querySource;
+    } catch (err) {
+      console.warn('Error parsing querySource from context.');
+      console.warn(err);
+    }
   
     ANSWERS.init({
       templateBundle: TemplateBundle.default,
