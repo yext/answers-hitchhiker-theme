@@ -49,6 +49,12 @@
       console.warn('"token" attribute is deprecated. Consider using "tokenHeader" or "apiKey" instead.');
       credentials.apiKey = token;
     }
+
+    const context = (new URLSearchParams(window.location.search)).get('context');
+    const querySource = JSON.parse(context ?? '{}').querySource;
+    console.log('window.location.search: ' + window.location.search);
+    console.log('context: ' + context);
+    console.log('querySource: ' + querySource);
   
     ANSWERS.init({
       templateBundle: TemplateBundle.default,
@@ -66,6 +72,7 @@
       },
       ...{{> script/additional-answers-config }},
       onReady: () => {
+        querySource && ANSWERS.setQuerySource(querySource);
         window.AnswersExperience.AnswersInitializedPromise.resolve();
 
         {{> @partial-block }}
