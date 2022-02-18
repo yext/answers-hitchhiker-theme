@@ -72,7 +72,7 @@
       },
       ...{{> script/additional-answers-config }},
       onReady: () => {
-        ANSWERs.setQuerySource(querySource);
+        querySource && ANSWERS.setQuerySource(querySource);
         window.AnswersExperience.AnswersInitializedPromise.resolve();
 
         {{> @partial-block }}
