@@ -51,9 +51,10 @@
     }
 
     const context = (new URLSearchParams(window.location.search)).get('context');
+    const querySource = JSON.parse(context ?? '{}').querySource);
     console.log('window.location.search: ' + window.location.search);
     console.log('context: ' + context);
-    console.log('querySource: ' + JSON.parse(context).querySource);
+    console.log('querySource: ' + querySource);
   
     ANSWERS.init({
       templateBundle: TemplateBundle.default,
@@ -71,6 +72,7 @@
       },
       ...{{> script/additional-answers-config }},
       onReady: () => {
+        ANSWERs.setQuerySource(querySource);
         window.AnswersExperience.AnswersInitializedPromise.resolve();
 
         {{> @partial-block }}
