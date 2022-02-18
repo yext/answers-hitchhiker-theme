@@ -49,10 +49,10 @@
       console.warn('"token" attribute is deprecated. Consider using "tokenHeader" or "apiKey" instead.');
       credentials.apiKey = token;
     }
-
+    
+    const context = (new URLSearchParams(window.location.search)).get('context');
     let querySource = 'STANDARD';
     try {
-      const context = (new URLSearchParams(window.location.search)).get('context');
       querySource = JSON.parse(context ?? '{}').querySource;
     } catch (err) {
       console.warn('Error parsing querySource from context.');
