@@ -50,6 +50,11 @@
       credentials.apiKey = token;
     }
 
+    const context = new URLSearchParams(window.location.search)).get('context');
+    console.log('window.location.search: ' + window.location.search);
+    console.log('context: ' + context);
+    console.log('querySource: ' + JSON.parse(context).querySource);
+  
     ANSWERS.init({
       templateBundle: TemplateBundle.default,
       ...injectedConfig,
