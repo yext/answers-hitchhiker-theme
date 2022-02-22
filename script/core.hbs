@@ -49,22 +49,26 @@
       console.warn('"token" attribute is deprecated. Consider using "tokenHeader" or "apiKey" instead.');
       credentials.apiKey = token;
     }
-    
-    const context = (new URLSearchParams(window.location.search)).get('context');
-    let querySource = 'STANDARD';
-    try {
-      querySource = JSON.parse(context ?? '{}').querySource;
-    } catch (err) {
-      console.warn('Error parsing querySource from context.');
-      console.warn(err);
-    }
+
+    //const context = (new URLSearchParams(window.location.search)).get('context');
+    //let querySource = 'STANDARD';
+    //try {
+    //  querySource = JSON.parse(context ?? '{}').querySource;
+    //} catch (err) {
+    //  console.warn('Error parsing querySource from context.');
+    //  console.warn(err);
+    //}
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const contextParam = urlParams.get('context');
+    console.log(contextParam);
   
     ANSWERS.init({
       templateBundle: TemplateBundle.default,
       ...injectedConfig,
       ...userConfig,
       ...credentials,
-      querySource: window.isOverlay ? 'OVERLAY' : 'STANDARD',
+      querySource: contextParam,
       onStateChange: (objParams, stringParams, replaceHistory) => {
         if ('parentIFrame' in window) {
           parentIFrame.sendMessage(JSON.stringify({
@@ -75,7 +79,7 @@
       },
       ...{{> script/additional-answers-config }},
       onReady: () => {
-        querySource && ANSWERS.setQuerySource(querySource);
+        //querySource && ANSWERS.setQuerySource(querySource);
         window.AnswersExperience.AnswersInitializedPromise.resolve();
 
         {{> @partial-block }}
