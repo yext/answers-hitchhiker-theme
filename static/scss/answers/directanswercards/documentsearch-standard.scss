@@ -35,6 +35,13 @@
     );
   }
 
+  &-showMoreOrLess
+  {
+    float: right;
+    cursor: pointer;
+    color: var(--yxt-color-brand-primary);
+  }
+
   &-column
   {
     width: 100%;
@@ -192,4 +199,9 @@
       margin-top: calc(var(--yxt-base-spacing) / 2);
     }
   }
+}
+
+.js-collapsed {
+  max-height: 300px;
+  overflow: hidden;
 }

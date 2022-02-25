@@ -22,7 +22,7 @@
 
 {{#* inline 'featured_snippet'}}
 {{#if snippet}}
-  <div class="HitchhikerDocumentSearchStandard-snippet">
+  <div class="HitchhikerDocumentSearchStandard-snippet {{#if collapsed}}js-collapsed{{/if}}">
     {{{snippet}}}
   </div>
 {{/if}}
@@ -39,6 +39,9 @@
         target="{{#if linkTarget}}{{linkTarget}}{{else}}_blank{{/if}}">
       {{viewDetailsText}}
     </a>
+    {{#if showMoreOrLessVisible}}
+      <a class="HitchhikerDocumentSearchStandard-showMoreOrLess js-HitchhikerDocumentSearchStandard-showMoreOrLess">{{showMoreOrLessText}}</a>
+    {{/if}}
   </div>
 {{/if}}
 {{/inline}}

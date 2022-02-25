@@ -28,6 +28,9 @@ BaseDirectAnswerCard["{{componentName}}"] = class extends ANSWERS.Component {
       searcher: data.searcher,
       feedbackEnabled: ANSWERS.getAnalyticsOptIn(),
       feedbackSubmitted: data.feedbackSubmitted,
+      showMoreOrLessText: data.showMoreOrLessText ?? 'Show More', 
+      showMoreOrLessVisible: true,
+      collapsed: data.collapsed ?? true,
       isArray: Array.isArray(this.answer.value),
       cardName: `{{componentName}}`,
       relativePath: `{{relativePath}}`
@@ -42,9 +45,32 @@ BaseDirectAnswerCard["{{componentName}}"] = class extends ANSWERS.Component {
 
   onMount() {
     this.addFeedbackListeners();
+    this.addShowMoreOrLessListener();
 
     const rtfElement = this._container.querySelector('.js-yxt-rtfValue');
     rtfElement && rtfElement.addEventListener('click', e => this._handleRtfClickAnalytics(e));
+  }
+
+  addShowMoreOrLessListener() {
+    const showMoreOrLessSelector = '.js-HitchhikerDocumentSearchStandard-showMoreOrLess';
+    const snippetSelector = '.HitchhikerDocumentSearchStandard-snippet';
+    const button = this._container.querySelector(showMoreOrLessSelector);
+    const snippet = this._container.querySelector(snippetSelector);
+    if (button) {
+      button.addEventListener('click', () => {
+        if (this.getState('collapsed') === true) {
+          this.updateState({
+            showMoreOrLessText: 'Show Less',
+            collapsed: false
+          });
+        } else {
+          this.updateState({
+            showMoreOrLessText: 'Show More',
+            collapsed: true
+          });
+        }
+      })
+    }
   }
 
   addFeedbackListeners() {
