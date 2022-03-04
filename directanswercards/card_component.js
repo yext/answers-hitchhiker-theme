@@ -14,6 +14,18 @@ BaseDirectAnswerCard["{{componentName}}"] = class extends ANSWERS.Component {
     this.verticalConfigId = data.relatedItem && data.relatedItem.verticalConfigId;
   }
 
+  // Reads out the scroll position and stores it in the data attribute
+  // so we can use it in our stylesheets
+  storeWithinHeightDataAttribute (scrollHeight) {
+    const showMoreOrLessSelector = '.js-HitchhikerDocumentSearchStandard-showMoreOrLess';
+    const button = this._container.querySelector(showMoreOrLessSelector);
+    const maxPixelHeight = 300;
+    const heightWithinMax = scrollHeight <= maxPixelHeight;
+    if (button) {
+      button.dataset.withinMaxHeight = heightWithinMax;
+    }
+  }
+
   /**
    * Transforms the state. The object returned from this method is the state for the component.
    * The state is passed directly to the template renderer.
@@ -23,6 +35,7 @@ BaseDirectAnswerCard["{{componentName}}"] = class extends ANSWERS.Component {
   setState(data) {
     let cardData = this.dataForRender(this.type, this.answer, this.relatedItem, this.snippet);
     this.validateDataForRender(cardData);
+    
     return super.setState({
       ...cardData,
       searcher: data.searcher,
@@ -49,13 +62,25 @@ BaseDirectAnswerCard["{{componentName}}"] = class extends ANSWERS.Component {
 
     const rtfElement = this._container.querySelector('.js-yxt-rtfValue');
     rtfElement && rtfElement.addEventListener('click', e => this._handleRtfClickAnalytics(e));
+
+    const snippetSelector = '.HitchhikerDocumentSearchStandard-snippet';
+    const snippet = this._container.querySelector(snippetSelector);
+    
+    // create an Observer instance
+    const resizeObserver = new ResizeObserver(entries => {
+      const scrollHeight = entries[0].target.scrollHeight;
+      this.storeWithinHeightDataAttribute(scrollHeight);
+    })
+
+    // start observing a DOM node
+    resizeObserver.observe(snippet)
+      
   }
 
   addShowMoreOrLessListener() {
     const showMoreOrLessSelector = '.js-HitchhikerDocumentSearchStandard-showMoreOrLess';
-    const snippetSelector = '.HitchhikerDocumentSearchStandard-snippet';
     const button = this._container.querySelector(showMoreOrLessSelector);
-    const snippet = this._container.querySelector(snippetSelector);
+    
     if (button) {
       button.addEventListener('click', () => {
         if (this.getState('collapsed') === true) {

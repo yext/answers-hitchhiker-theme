@@ -3,6 +3,7 @@
 class documentsearch_standardComponent extends BaseDirectAnswerCard['documentsearch-standard'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
+    //this.showMoreLimit = 300;
   }
 
   /**

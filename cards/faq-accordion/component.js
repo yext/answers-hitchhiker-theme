@@ -20,11 +20,12 @@ class faq_accordionCardComponent extends BaseCard['faq-accordion'] {
       details: profile.answer ? ANSWERS.formatRichText(profile.answer, "answer", linkTarget) : null, // The text in the body of the card
       // If the card's details are longer than a certain character count, you can truncate the
       // text. A toggle will be supplied that can show or hide the truncated text.
-      // showMoreDetails: {
-      //   showMoreLimit: null, // Character count limit
-      //   showMoreText: '', // Label when toggle will show truncated text
-      //   showLessText: '' // Label when toggle will hide truncated text
-      // },
+      showMoreDetails: {
+        //showMoreLimit: 200, // Character count limit
+        showMoreHeight: 300, // Height in pixels
+        showMoreText: 'Show more', // Label when toggle will show truncated text
+        showLessText: 'Show less' // Label when toggle will hide truncated text
+      },
       isExpanded: false, // Whether the accordion is expanded on page load
       // The primary CTA of the card
       CTA1: {
