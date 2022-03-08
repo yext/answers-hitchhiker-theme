@@ -498,7 +498,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
 
       const entityId = cardId.replace('js-yl-', '');
       const verticalResults = this.core.storage.get(StorageKeys.VERTICAL_RESULTS).results;
-      const entityData = verticalResults.find(entity => entity.id.toString() === entityId);
+      const entityData = verticalResults.find(entity => entity._raw.uid.toString() === entityId);
       const opts = {
         parentContainer: this._container, 
         container: `.yxt-Card-${entityId}`,
