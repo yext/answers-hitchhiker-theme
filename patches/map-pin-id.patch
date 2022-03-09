@@ -1,7 +1,7 @@
 From 1dd756f063878c84dcdcdd7769b63c5eabaae20c Mon Sep 17 00:00:00 2001
 From: nmanu1 <nmanu@yext.com>
 Date: Wed, 9 Mar 2022 12:29:41 -0500
-Subject: [PATCH] Change ID used for map pins (#1049)
+Subject: [PATCH] Change ID used for map pins (#1049) in v1.25 through v1.27
 
 ---
  .../static/js/theme-map/Renderer/MapRenderTarget.js           | 2 +-
