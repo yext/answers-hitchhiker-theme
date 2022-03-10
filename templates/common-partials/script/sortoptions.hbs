@@ -1,13 +1,7 @@
-ANSWERS.addComponent("SortOptions", 
-{{#shallowMergeConfig}}[
-  {
-    "container": "#js-answersSortOptions"
-    {{#if verticalKey}}
-    ,
-    "verticalKey": "{{{verticalKey}}}"
-    {{/if}}
-  },
-  {{{json componentSettings.SortOptions}}}
-]
-{{/shallowMergeConfig}}
-);
+ANSWERS.addComponent("SortOptions", {
+  container: "#js-answersSortOptions",
+  {{#if verticalKey}}
+  verticalKey: "{{{verticalKey}}}",
+  {{/if}}
+  ...{{{json componentSettings.SortOptions}}}
+});
