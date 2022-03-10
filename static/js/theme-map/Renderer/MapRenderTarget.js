@@ -7,7 +7,7 @@ class MapRenderTargetOptions extends RenderTargetOptions {
   constructor() {
     super();
 
-    this.idForEntity = entity => 'js-yl-' + entity.profile.meta.id;
+    this.idForEntity = entity => 'js-yl-' + entity.profile.uid;
     this.map = null;
     this.pinBuilder = (pinOptions, entity, index) => pinOptions.build();
     this.pinClusterer = null;

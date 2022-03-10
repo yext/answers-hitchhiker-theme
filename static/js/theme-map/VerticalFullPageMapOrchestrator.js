@@ -484,7 +484,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
   /**
    * The callback when a result pin on the map is clicked or tabbed onto
    * @param {Number} index The index of the pin in the current result list order
-   * @param {string} cardId The unique id for the pin entity, usually of the form `js-yl-${meta.id}`
+   * @param {string} cardId The unique id for the pin entity, usually of the form `js-yl-${uid}`
    */
   pinFocusListener (index, cardId) {
     this.core.storage.set(StorageKeys.LOCATOR_SELECTED_RESULT, cardId);
@@ -498,7 +498,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
 
       const entityId = cardId.replace('js-yl-', '');
       const verticalResults = this.core.storage.get(StorageKeys.VERTICAL_RESULTS).results;
-      const entityData = verticalResults.find(entity => entity.id.toString() === entityId);
+      const entityData = verticalResults.find(entity => entity._raw.uid.toString() === entityId);
       const opts = {
         parentContainer: this._container, 
         container: `.yxt-Card-${entityId}`,

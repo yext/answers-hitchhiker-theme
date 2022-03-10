@@ -328,7 +328,7 @@ class ThemeMap extends ANSWERS.Component {
    * @param {Number} index The index of the entity in the result list ordering
    */
   buildPin(pinOptions, entity, index) {
-    const id = 'js-yl-' + entity.profile.meta.id;
+    const id = 'js-yl-' + entity.profile.uid;
     const cardFocusUpdateListener = {
       eventType: 'update',
       storageKey: StorageKeys.LOCATOR_CARD_FOCUS,
