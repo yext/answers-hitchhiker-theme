@@ -6,4 +6,4 @@ jobs:
   call_sync:
     uses:  yext/answers-headless/.github/workflows/sync_develop_and_main_reuse.yml@dev/test-reusable-workflows
     secrets:
-      github_token: ${{ secrets.GITHUB_TOKEN }}
+      caller_github_token: ${{ secrets.GITHUB_TOKEN }}

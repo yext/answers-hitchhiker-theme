@@ -1,6 +1,8 @@
 name: WCAG tests
 
-on: push
+on:
+  pull_request:
+    branches: [develop, hotfix/*, release/*, support/*]
 
 jobs:
   call_WCAG_test:
