@@ -7,3 +7,4 @@ jobs:
     uses:  yext/answers-headless/.github/workflows/wcag_test_reuse.yml@dev/test-reusable-workflows
     with:
       build_script: 'npm run setup-test-site && npm run build-test-site'
+      node_version: '15.x'
