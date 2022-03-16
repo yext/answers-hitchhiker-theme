@@ -514,22 +514,34 @@ class Map {
   }
 
   getVisibleCenter() {
-    const visibleBounds = this.getVisibleBounds();
+    const visibleBounds = this._getVisibleBounds();
+    if (!visibleBounds) {
+      return null;
+    }
+
     const center = visibleBounds.getCenter();
     return center;
   }
 
   getVisibleRadius() {
-    const visibleBounds = this.getVisibleBounds();
+    const visibleBounds = this._getVisibleBounds();
+    if (!visibleBounds) {
+      return 0;
+    }
+
     return 1000 * visibleBounds.ne.distanceTo(this.getVisibleCenter(), Unit.KILOMETER);
   }
 
-  getVisibleBounds() {
+  _getVisibleBounds() {
     const { ne, sw } = this.getBounds();
     const padding = this._padding;
 
     const pixelHeight = this._wrapper.offsetHeight;
     const pixelWidth = this._wrapper.offsetWidth;
+    
+    if (pixelHeight === 0 || pixelWidth === 0) {
+      return null;
+    }
 
     // Padding is normalized to a fraction of the map height or width
     let paddingBottom = normalizePadding(padding.bottom, pixelHeight);
@@ -552,7 +564,8 @@ class Map {
   }
 
   coordinateIsInVisibleBounds(coordinate) {
-    return this.getVisibleBounds().contains(coordinate);
+    const bounds = this._getVisibleBounds();
+    return bounds ? bounds.contains(coordinate) : false;
   }
 
   setCenterWithPadding(coordinate, animated = false) {
@@ -616,6 +629,10 @@ class Map {
   setBounds({ ne, sw }, animated = false, padding = {}, maxZoom = Infinity) {
     const pixelHeight = this._wrapper.offsetHeight;
     const pixelWidth = this._wrapper.offsetWidth;
+
+    if (pixelHeight === 0 || pixelWidth === 0) {
+      return;
+    }
 
     // Padding is normalized to a fraction of the map height or width
     let paddingBottom = normalizePadding(padding.bottom, pixelHeight);
