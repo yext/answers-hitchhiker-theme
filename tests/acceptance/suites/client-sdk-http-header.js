@@ -1,6 +1,12 @@
-import { PORT, UNIVERSAL_AUTOCOMPLETE_URL_REGEX, UNIVERSAL_SEARCH_URL_REGEX } from '../constants';
+import {
+  PORT,
+  UNIVERSAL_AUTOCOMPLETE_URL_REGEX,
+  UNIVERSAL_SEARCH_URL_REGEX,
+  VERTICAL_SEARCH_URL_REGEX,
+  VERTICAL_AUTOCOMPLETE_URL_REGEX
+} from '../constants';
 import { SearchRequestLogger } from '../searchrequestlogger';
-import { VERTICAL_SEARCH_URL_REGEX, VERTICAL_AUTOCOMPLETE_URL_REGEX } from '../constants';
+import {  } from '../constants';
 import { registerIE11NoCacheHook } from '../../test-utils/testcafe';
 import packageJson from '../../../package.json';
 
