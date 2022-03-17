@@ -6,7 +6,6 @@ import {
   VERTICAL_AUTOCOMPLETE_URL_REGEX
 } from '../constants';
 import { SearchRequestLogger } from '../searchrequestlogger';
-import {  } from '../constants';
 import { registerIE11NoCacheHook } from '../../test-utils/testcafe';
 import packageJson from '../../../package.json';
 
@@ -37,7 +36,7 @@ const universalSearchLogger = (new SearchRequestLogger()).createUniversalSearchL
 const universalAutocompleteLogger = (new SearchRequestLogger()).createUniversalAutocompleteLogger();
 
 fixture`Client-SDK header works on universal searches/autocomplete`
-  .page(`http://localhost:${PORT}/index`)
+  .page(`http://localhost:${PORT}`)
   .requestHooks(universalSearchLogger, universalAutocompleteLogger)
   .beforeEach(async t => {
     await registerIE11NoCacheHook(t, UNIVERSAL_SEARCH_URL_REGEX);
