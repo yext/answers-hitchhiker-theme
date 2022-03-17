@@ -75,6 +75,7 @@ function getCleanedTemplateData(templateData) {
       apiKey: undefined
     },
     env: {
+      ...templateData.env,
       JAMBO_INJECTED_DATA: getCleanedJamboInjectedData(jamboInjectedData)
     }
   }
