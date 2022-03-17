@@ -1,10 +1,14 @@
-import { VERTICAL_SEARCH_URL_REGEX, UNIVERSAL_SEARCH_URL_REGEX } from './constants';
+import { VERTICAL_SEARCH_URL_REGEX, UNIVERSAL_SEARCH_URL_REGEX, VERTICAL_AUTOCOMPLETE_URL_REGEX, UNIVERSAL_AUTOCOMPLETE_URL_REGEX } from './constants';
 import { RequestLogger } from 'testcafe';
+
+const LOGGER_OPTIONS = {
+  logRequestHeaders: true
+}
 
 /**
  * Handles request logger creation and request/response data received during test execution.
  */
-class SearchRequestLogger {
+export class SearchRequestLogger {
 
   /**
    * Create a RequestLogger that tracks vertical query requests to given test.
@@ -13,8 +17,9 @@ class SearchRequestLogger {
    */
   createVerticalSearchLogger() {
     this._queryRequestLogger = RequestLogger({
-      url: VERTICAL_SEARCH_URL_REGEX
-    });
+      url: VERTICAL_SEARCH_URL_REGEX,
+      method: 'get'
+    }, LOGGER_OPTIONS);
     return this._queryRequestLogger;
   }
 
@@ -25,8 +30,35 @@ class SearchRequestLogger {
    */
   createUniversalSearchLogger() {
     this._queryRequestLogger = RequestLogger({
-      url: UNIVERSAL_SEARCH_URL_REGEX
-    });
+      url: UNIVERSAL_SEARCH_URL_REGEX,
+      method: 'get'
+    }, LOGGER_OPTIONS);
+    return this._queryRequestLogger;
+  }
+
+  /**
+   * Create a RequestLogger that tracks vertical query requests to given test.
+   * 
+   * @returns {import('testcafe').RequestLogger}
+   */
+  createVerticalAutocompleteLogger() {
+    this._queryRequestLogger = RequestLogger({
+      url: VERTICAL_AUTOCOMPLETE_URL_REGEX,
+      method: 'get'
+    }, LOGGER_OPTIONS);
+    return this._queryRequestLogger;
+  }
+
+  /**
+   * Create a RequestLogger that tracks universal query requests to given test.
+   * 
+   * @returns {import('testcafe').RequestLogger}
+   */
+  createUniversalAutocompleteLogger() {
+    this._queryRequestLogger = RequestLogger({
+      url: UNIVERSAL_AUTOCOMPLETE_URL_REGEX,
+      method: 'get'
+    }, LOGGER_OPTIONS);
     return this._queryRequestLogger;
   }
 
