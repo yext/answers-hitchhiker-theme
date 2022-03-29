@@ -1,0 +1,62 @@
+From 1dd756f063878c84dcdcdd7769b63c5eabaae20c Mon Sep 17 00:00:00 2001
+From: nmanu1 <nmanu@yext.com>
+Date: Wed, 9 Mar 2022 12:29:41 -0500
+Subject: [PATCH] Change ID used for map pins (#1049) in v1.25 through v1.27
+
+---
+ .../static/js/theme-map/Renderer/MapRenderTarget.js           | 2 +-
+ .../answers-hitchhiker-theme/static/js/theme-map/ThemeMap.js  | 2 +-
+ .../static/js/theme-map/VerticalFullPageMapOrchestrator.js    | 4 ++--
+ 3 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/themes/answers-hitchhiker-theme/static/js/theme-map/Renderer/MapRenderTarget.js b/themes/answers-hitchhiker-theme/static/js/theme-map/Renderer/MapRenderTarget.js
+index 0f75859..4ccdcb7 100644
+--- a/themes/answers-hitchhiker-theme/static/js/theme-map/Renderer/MapRenderTarget.js
++++ b/themes/answers-hitchhiker-theme/static/js/theme-map/Renderer/MapRenderTarget.js
+@@ -7,7 +7,7 @@ class MapRenderTargetOptions extends RenderTargetOptions {
+   constructor() {
+     super();
+ 
+-    this.idForEntity = entity => 'js-yl-' + entity.profile.meta.id;
++    this.idForEntity = entity => 'js-yl-' + entity.profile.uid;
+     this.map = null;
+     this.pinBuilder = (pinOptions, entity, index) => pinOptions.build();
+     this.pinClusterer = null;
+diff --git a/themes/answers-hitchhiker-theme/static/js/theme-map/ThemeMap.js b/themes/answers-hitchhiker-theme/static/js/theme-map/ThemeMap.js
+index 62f8cd1..cee4d7d 100644
+--- a/themes/answers-hitchhiker-theme/static/js/theme-map/ThemeMap.js
++++ b/themes/answers-hitchhiker-theme/static/js/theme-map/ThemeMap.js
+@@ -327,7 +327,7 @@ class ThemeMap extends ANSWERS.Component {
+    * @param {Number} index The index of the entity in the result list ordering
+    */
+   buildPin(pinOptions, entity, index) {
+-    const id = 'js-yl-' + entity.profile.meta.id;
++    const id = 'js-yl-' + entity.profile.uid;
+     const defaultPin = this.config.pinImages.getDefaultPin(index, entity.profile);
+     const hoveredPin = this.config.pinImages.getHoveredPin(index, entity.profile);
+     const selectedPin = this.config.pinImages.getSelectedPin(index, entity.profile);
+diff --git a/themes/answers-hitchhiker-theme/static/js/theme-map/VerticalFullPageMapOrchestrator.js b/themes/answers-hitchhiker-theme/static/js/theme-map/VerticalFullPageMapOrchestrator.js
+index 12dc49e..04076e7 100644
+--- a/themes/answers-hitchhiker-theme/static/js/theme-map/VerticalFullPageMapOrchestrator.js
++++ b/themes/answers-hitchhiker-theme/static/js/theme-map/VerticalFullPageMapOrchestrator.js
+@@ -484,7 +484,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
+   /**
+    * The callback when a result pin on the map is clicked or tabbed onto
+    * @param {Number} index The index of the pin in the current result list order
+-   * @param {string} cardId The unique id for the pin entity, usually of the form `js-yl-${meta.id}`
++   * @param {string} cardId The unique id for the pin entity, usually of the form `js-yl-${uid}`
+    */
+   pinFocusListener (index, cardId) {
+     this.core.storage.set(StorageKeys.LOCATOR_SELECTED_RESULT, cardId);
+@@ -498,7 +498,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
+ 
+       const entityId = cardId.replace('js-yl-', '');
+       const verticalResults = this.core.storage.get(StorageKeys.VERTICAL_RESULTS).results;
+-      const entityData = verticalResults.find(entity => entity.id.toString() === entityId);
++      const entityData = verticalResults.find(entity => entity._raw.uid.toString() === entityId);
+       const opts = {
+         parentContainer: this._container, 
+         container: `.yxt-Card-${entityId}`,
+-- 
+2.32.0
+

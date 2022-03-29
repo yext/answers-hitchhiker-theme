@@ -24,6 +24,14 @@ msgstr "एलर्जेन"
 msgid "Alternatively, you can <a class=\"yxt-AlternativeVerticals-universalLink\" href=\"[[universalUrl]]\"> view results across all search categories</a>."
 msgstr "इसके बजाय, आप <a class=\"yxt-AlternativeVerticals-universalLink\" href=\"[[universalUrl]]\">सभी सर्च कैटेगरी में परिणाम देख</a> सकते हैं."
 
+#: cards/multilang-document-standard/component.js:30
+msgid "Last Updated on [[date]]"
+msgstr "[[date]] को अपडेट किया गया"
+
+#: directanswercards/multilang-documentsearch-standard/template.hbs:34
+msgid "Read more about"
+msgstr "और ज़्यादा पढ़ें"
+
 #: cards/multilang-job-standard/component.js:35
 msgid "Apply Now"
 msgstr "अभी लागू करें"

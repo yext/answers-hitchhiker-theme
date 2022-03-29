@@ -52,6 +52,10 @@ msgstr ""
 msgid "Hours"
 msgstr ""
 
+#: cards/multilang-document-standard/component.js:30
+msgid "Last Updated on [[date]]"
+msgstr ""
+
 #: templates/vertical-full-page-map/page.html.hbs:23
 msgid "Main location search"
 msgstr ""
@@ -78,6 +82,10 @@ msgstr ""
 
 #: cards/multilang-menuitem-standard/component.js:40
 msgid "Order Now"
+msgstr ""
+
+#: directanswercards/multilang-documentsearch-standard/template.hbs:34
+msgid "Read more about"
 msgstr ""
 
 #: theme-components/collapsible-filters/filter-link/component.js:3
@@ -133,9 +141,11 @@ msgid "Sunday"
 msgstr ""
 
 #: directanswercards/multilang-allfields-standard/component.js:188
+#: directanswercards/multilang-documentsearch-standard/component.js:43
 msgid "Thank you for your feedback!"
 msgstr ""
 
+#: cards/multilang-document-standard/component.js:53
 #: cards/multilang-event-standard/component.js:53
 #: cards/multilang-faq-accordion/component.js:51
 #: cards/multilang-financial-professional-location/component.js:69
@@ -159,6 +169,7 @@ msgid_plural "The following search categories yielded results for <span class=\"
 msgstr[0] ""
 msgstr[1] ""
 
+#: cards/multilang-document-standard/component.js:54
 #: cards/multilang-event-standard/component.js:54
 #: cards/multilang-faq-accordion/component.js:52
 #: cards/multilang-financial-professional-location/component.js:70
@@ -174,9 +185,11 @@ msgstr[1] ""
 #: cards/multilang-professional-standard/component.js:60
 #: cards/multilang-standard/component.js:55
 #: directanswercards/multilang-allfields-standard/component.js:190
+#: directanswercards/multilang-documentsearch-standard/component.js:45
 msgid "This answered my question"
 msgstr ""
 
+#: cards/multilang-document-standard/component.js:55
 #: cards/multilang-event-standard/component.js:55
 #: cards/multilang-faq-accordion/component.js:53
 #: cards/multilang-financial-professional-location/component.js:71
@@ -192,6 +205,7 @@ msgstr ""
 #: cards/multilang-professional-standard/component.js:61
 #: cards/multilang-standard/component.js:56
 #: directanswercards/multilang-allfields-standard/component.js:191
+#: directanswercards/multilang-documentsearch-standard/component.js:46
 msgid "This did not answer my question"
 msgstr ""
 
@@ -218,6 +232,7 @@ msgid "View Menu"
 msgstr ""
 
 #: directanswercards/multilang-allfields-standard/component.js:189
+#: directanswercards/multilang-documentsearch-standard/component.js:44
 msgid "Was this the answer you were looking for?"
 msgstr ""
 

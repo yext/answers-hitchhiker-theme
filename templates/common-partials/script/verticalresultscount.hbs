@@ -1,9 +1,4 @@
-ANSWERS.addComponent('VerticalResultsCount', 
-{{#shallowMergeConfig}}[
-  {
-    "container": "#js-answersVerticalResultsCount"
-  },
-  {{{json componentSettings.VerticalResultsCount}}}
-]
-{{/shallowMergeConfig}}
-);
+ANSWERS.addComponent('VerticalResultsCount', {
+  container: "#js-answersVerticalResultsCount",
+  ...{{{json componentSettings.VerticalResultsCount}}}
+});

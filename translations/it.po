@@ -22,6 +22,14 @@ msgstr "Indicazioni stradali"
 msgid "Get Directions"
 msgstr "Ottieni indicazioni"
 
+#: cards/multilang-document-standard/component.js:30
+msgid "Last Updated on [[date]]"
+msgstr "Ultimo aggiornamento il [[date]]"
+
+#: directanswercards/multilang-documentsearch-standard/template.hbs:34
+msgid "Read more about"
+msgstr "Ulteriori informazioni su"
+
 #: cards/multilang-menuitem-standard/component.js:38
 msgid "Order Now"
 msgstr "Ordina ora"

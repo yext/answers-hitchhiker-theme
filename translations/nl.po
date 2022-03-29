@@ -28,6 +28,14 @@ msgstr "U kunt ook <a class=\"yxt-AlternativeVerticals-universalLink\" href=\"[[
 msgid "Apply Now"
 msgstr "Nu toepassen"
 
+#: cards/multilang-document-standard/component.js:30
+msgid "Last Updated on [[date]]"
+msgstr "Laatst bijgewerkt op [[datum]]"
+
+#: directanswercards/multilang-documentsearch-standard/template.hbs:34
+msgid "Read more about"
+msgstr "Lees meer over"
+
 #: theme-components/collapsible-filters/filter-link/component.js:4
 msgid "clear search"
 msgstr "wis zoekopdracht"

@@ -19,7 +19,7 @@
 
 {{#*inline 'icon'}}
 {{#if (any iconName iconUrl)}}
-<div class="HitchhikerAllFieldsStandard-titleIconWrapper"></div>
+<div class="HitchhikerAllFieldsStandard-titleIconWrapper">
   {{> icons/iconPartial
       iconName=iconName
       iconUrl=(relativePathHandler url=iconUrl relativePath=@root.relativePath)

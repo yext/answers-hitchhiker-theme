@@ -1,0 +1,68 @@
+<div class="HitchhikerDocumentSearchStandard {{cardName}}">
+  <div class="HitchhikerDocumentSearchStandard-titleAndContent">
+    {{> title }}
+    <div class="HitchhikerDocumentSearchStandard-content">
+      <div class="HitchhikerDocumentSearchStandard-column">
+        {{> featured_snippet }}
+        {{> view_details_link }}
+      </div>
+      {{> cta CTA linkTarget=linkTarget}}
+    </div>
+  </div>
+  {{> thumbsfeedback directAnswerClass="HitchhikerDocumentSearchStandard"}}
+</div>
+
+{{#*inline 'title'}}
+{{#if value}}
+  <h2 class="HitchhikerDocumentSearchStandard-title">
+    {{value}}
+  </h2>
+{{/if}}
+{{/inline}}
+
+{{#* inline 'featured_snippet'}}
+{{#if snippet}}
+  <div class="HitchhikerDocumentSearchStandard-snippet">
+    {{{snippet}}}
+  </div>
+{{/if}}
+{{/inline}}
+
+{{#*inline 'view_details_link'}}
+{{#if (all viewDetailsLink viewDetailsText)}}
+  <div class="HitchhikerDocumentSearchStandard-viewMoreWrapper">
+    {{ translate phrase='Read more about' }}
+    <a class="HitchhikerDocumentSearchStandard-viewMore"
+        href="{{#unless (isNonRelativeUrl viewDetailsLink)}}{{@root.relativePath}}/{{/unless}}{{viewDetailsLink}}"
+        data-eventtype="CTA_CLICK"
+        data-eventoptions='{{{json viewDetailsEventOptions}}}'
+        target="{{#if linkTarget}}{{linkTarget}}{{else}}_blank{{/if}}">
+      {{viewDetailsText}}
+    </a>
+  </div>
+{{/if}}
+{{/inline}}
+
+{{#*inline 'cta'}}
+{{#if (all url label)}}
+  <div class="HitchhikerDocumentSearchStandard-cta">
+    <a class="HitchhikerCTA js-HitchhikerCTA{{#if modifiers}} {{modifiers}}{{/if}}" href="{{#unless (isNonRelativeUrl url)}}{{@root.relativePath}}/{{/unless}}{{url}}"
+      data-eventtype="{{eventType}}" data-eventoptions='{{{json eventOptions}}}'
+      target="{{#if target}}{{target}}{{else}}{{#if linkTarget}}{{linkTarget}}{{else}}_blank{{/if}}{{/if}}">
+      {{#if (any iconName iconUrl)}}
+      <div class="HitchhikerCTA-iconWrapper">
+        <div class="HitchhikerCTA-icon">
+          {{> icons/iconPartial
+              iconName=iconName
+              iconUrl=(relativePathHandler url=iconUrl relativePath=@root.relativePath)
+          }}
+        </div>
+      </div>
+      {{/if}}
+      <div class='HitchhikerCTA-iconLabel'>
+        {{label}}
+      </div>
+    </a>
+  </div>
+{{/if}}
+{{/inline}}

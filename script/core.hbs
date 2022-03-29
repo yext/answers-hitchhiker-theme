@@ -18,6 +18,11 @@
       {{#with env.JAMBO_INJECTED_DATA}}
         {{#if businessId}}businessId: "{{businessId}}",{{/if}}
       {{/with}}
+      additionalHttpHeaders: {
+        'Client-SDK': {
+          ANSWERS_THEME: '{{{ env.packageJsonVersion }}}'
+        }
+      }
     };
     const userConfig = {
       {{#with (deepMerge global_config (lookup verticalsToConfig verticalKey) pageSettings) }}

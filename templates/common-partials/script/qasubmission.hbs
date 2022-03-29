@@ -1,10 +1,5 @@
-ANSWERS.addComponent("QASubmission", 
-{{#shallowMergeConfig}}[
-  {
-    "container": "#js-answersQASubmission"
-  },
-  {{{json componentSettings.QASubmission}}}
-]
-{{/shallowMergeConfig}}
-);
+ANSWERS.addComponent("QASubmission", {
+  container: "#js-answersQASubmission",
+  ...{{{json componentSettings.QASubmission}}}
+});
 
