@@ -4,8 +4,8 @@
  export default {
   key: 'customPrompts',
   callback: value => {
-    ANSWERS.components._activeComponents
-      .filter(component => component.name === 'SearchBar.autocomplete')
+    ANSWERS.components.getActiveComponents('AutoComplete')
+      .filter(c => c.name === 'SearchBar.autocomplete')
       .forEach(autocompleteComponent => autocompleteComponent.setCustomPrompts(value));
   }
 }
