@@ -146,7 +146,7 @@
           } else if (window.isOverlay) {
             window.Overlay.onMessage(message);
           } else if (message.eventType && message.eventType === 'click') {
-             ANSWERS.components
+            ANSWERS.components
               .getActiveComponents('AutoComplete')
               .forEach(autocompleteComponent => autocompleteComponent.close());
           }
