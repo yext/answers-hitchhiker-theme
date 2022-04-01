@@ -1,0 +1,8 @@
+ANSWERS.addComponent("LocationBias", {
+  container: "#js-answersLocationBias{{#if modifier}}--{{modifier}}{{/if}}",
+  updateLocationEl: "#js-answersLocationBias{{#if modifier}}--{{modifier}}{{/if}} .js-locationBias-update-location",
+  {{#if verticalKey}}
+  verticalKey: "{{{verticalKey}}}",
+  {{/if}}
+  ...{{{json componentSettings.LocationBias}}}
+});

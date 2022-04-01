@@ -86,12 +86,15 @@
 
   &-details
   {
-    @include rich_text_formatting;
-
     margin: calc(var(--yxt-base-spacing) / 2) var(--yxt-base-spacing);
     font-size: var(--yxt-font-size-md);
-    color: var(--yxt-color-text-primary);
     line-height: var(--yxt-line-height-md);
+  }
+
+  &-detailsText
+  {
+    @include rich_text_formatting;
+    color: var(--yxt-color-text-primary);
   }
 
   &-details-toggle
@@ -141,5 +144,21 @@
   .js-hidden
   {
     display: none;
+  }
+
+  .HitchhikerCard
+  {
+    &-feedbackWrapper
+    {
+      margin-top: 0;
+      margin-left: calc(var(--yxt-base-spacing));
+      margin-right: calc(var(--yxt-base-spacing));
+      margin-bottom: calc(var(--yxt-base-spacing) * 0.75);
+    }
+
+    &-feedbackContent
+    {
+      margin-top: 0;
+    }
   }
 }

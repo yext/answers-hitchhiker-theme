@@ -14,19 +14,17 @@
     {{> cta CTA linkTarget=linkTarget}}
   </div>
   {{/if}}
-  {{> footer }}
+  {{> thumbsfeedback directAnswerClass="HitchhikerAllFieldsStandard"}}
 </div>
 
 {{#*inline 'icon'}}
 {{#if (any iconName iconUrl)}}
-<div class="HitchhikerAllFieldsStandard-titleIconWrapper"
-  data-component="IconComponent"
-  data-opts='{
-    "iconName": "{{iconName}}",
-    "iconUrl": "{{#if iconUrl}}{{#unless (isNonRelativeUrl iconUrl)}}{{@root.relativePath}}/{{/unless}}{{iconUrl}}{{/if}}"
-  }'
-  data-prop="icon"
-></div>
+<div class="HitchhikerAllFieldsStandard-titleIconWrapper">
+  {{> icons/iconPartial
+      iconName=iconName
+      iconUrl=(relativePathHandler url=iconUrl relativePath=@root.relativePath)
+  }}
+</div>
 {{/if}}
 {{/inline}}
 
@@ -114,60 +112,6 @@
 {{/if}}
 {{/inline}}
 
-{{#*inline 'footer'}}
-{{#if (any footerTextOnSubmission footerText)}}
-<div class="HitchhikerAllFieldsStandard-footerWrapper">
-  <div class="HitchhikerAllFieldsStandard-footer">
-  {{#if feedbackSubmitted}}
-  <div class="HitchhikerAllFieldsStandard-footerText">
-      {{footerTextOnSubmission}}
-  </div>
-  {{else}}
-    <div class="HitchhikerAllFieldsStandard-footerText">
-      {{footerText}}
-    </div>
-    <form class="HitchhikerAllFieldsStandard-thumbs js-HitchhikerDirectAnswerCard-feedbackForm">
-      <fieldset class="HitchhikerAllFieldsStandard-fieldset">
-      <legend class="sr-only">
-        {{footerText}}
-      </legend>
-      <label class="HitchhikerAllFieldsStandard-thumb">
-        <span class="HitchhikerAllFieldsStandard-thumbUpIcon"
-              data-component="IconComponent"
-              data-opts='{"iconName": "thumb"}'
-              data-prop="icon"
-        ></span>
-        <input type="radio"
-                name="feedback"
-                value="true"
-                class="HitchhikerAllFieldsStandard-feedback HitchhikerAllFieldsStandard-thumbUpButton js-HitchhikerDirectAnswerCard-thumbInput">
-        <span class="sr-only">
-          {{positiveFeedbackSrText}}
-        </span>
-      </label>
-      <label class="HitchhikerAllFieldsStandard-thumb">
-        <span class="HitchhikerAllFieldsStandard-thumbDownIcon"
-              data-component="IconComponent"
-              data-opts='{"iconName": "thumb"}'
-              data-prop="icon"
-        ></span>
-        <input type="radio"
-                name="feedback"
-                value="false"
-                class="HitchhikerAllFieldsStandard-feedback HitchhikerAllFieldsStandard-thumbDownButton js-HitchhikerDirectAnswerCard-thumbInput">
-        <span class="sr-only">
-          {{negativeFeedbackSrText}}
-        </span>
-      </label>
-      </fieldset>
-      <button type="submit" class="sr-only sr-only-focusable">Send feedback</button>
-    </form>
-  {{/if}}
-  </div>
-</div>
-{{/if}}
-{{/inline}}
-
 {{#*inline 'cta'}}
 {{#if (all url label)}}
 <div class="HitchhikerAllFieldsStandard-cta">
@@ -176,10 +120,12 @@
     target="{{#if target}}{{target}}{{else}}{{#if linkTarget}}{{linkTarget}}{{else}}_blank{{/if}}{{/if}}">
     {{#if (any iconName iconUrl)}}
     <div class="HitchhikerCTA-iconWrapper">
-      <div class="HitchhikerCTA-icon" data-component="IconComponent" data-opts='{
-        "iconUrl": "{{#if iconUrl}}{{#unless (isNonRelativeUrl iconUrl)}}{{@root.relativePath}}/{{/unless}}{{iconUrl}}{{/if}}",
-        "iconName": "{{iconName}}"
-      }'></div>
+      <div class="HitchhikerCTA-icon">
+        {{> icons/iconPartial
+            iconName=iconName
+            iconUrl=(relativePathHandler url=iconUrl relativePath=@root.relativePath)
+        }}
+      </div>
     </div>
     {{/if}}
     <div class='HitchhikerCTA-iconLabel'>

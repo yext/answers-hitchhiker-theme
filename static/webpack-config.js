@@ -5,7 +5,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
 const RemovePlugin = require('remove-files-webpack-plugin');
 const { merge } = require('webpack-merge');
-const cssnano = require('cssnano');
+const { parse } = require('comment-json');
+const RtlCssPlugin = require('rtlcss-webpack-plugin');
 
 module.exports = function () {
   const jamboConfig = require('./jambo.json');
@@ -26,6 +27,38 @@ module.exports = function () {
     });
   }
 
+  const globalConfigPath = `./${jamboConfig.dirs.config}/global_config.json`;
+  let globalConfig = {};
+  if (fs.existsSync(globalConfigPath)) {
+    globalConfigRaw = fs.readFileSync(globalConfigPath, 'utf-8');
+    globalConfig = parse(globalConfigRaw);
+  }
+
+  const cssRtlPlugin = [];
+  const isRTL = require(`./${jamboConfig.dirs.output}/static/common/rtl`);
+  const localeConfigPath = `./${jamboConfig.dirs.config}/locale_config.json`;
+  if (fs.existsSync(localeConfigPath)) {
+    localeConfigRaw = fs.readFileSync(localeConfigPath, 'utf-8');
+    localeConfig = parse(localeConfigRaw);
+    const hasRtlLocale = Object.keys(localeConfig.localeConfig).some((locale) => isRTL(locale));
+    if(hasRtlLocale) {
+      cssRtlPlugin.push(new RtlCssPlugin({
+        filename: '[name].rtl.css'
+      }));
+    }
+  }
+
+  const { useJWT } = globalConfig;
+
+  let jamboInjectedData = process.env.JAMBO_INJECTED_DATA || null;
+  if (useJWT && jamboInjectedData) {
+    const getCleanedJamboInjectedData =
+      require(`./${jamboConfig.dirs.output}/static/webpack/getCleanedJamboInjectedData.js`);
+    jamboInjectedData = JSON.parse(jamboInjectedData)
+    jamboInjectedData = getCleanedJamboInjectedData(jamboInjectedData)
+    jamboInjectedData = JSON.stringify(jamboInjectedData)
+  }
+
   const plugins = [
     new MiniCssExtractPlugin({
       filename: pathData => {
@@ -35,21 +68,31 @@ module.exports = function () {
         }[chunkName] || '[name].css'
       }
     }),
+    ...cssRtlPlugin,
     ...htmlPlugins,
-    new webpack.EnvironmentPlugin({
-      JAMBO_INJECTED_DATA: null
+    new webpack.DefinePlugin({
+      'process.env.JAMBO_INJECTED_DATA': JSON.stringify(jamboInjectedData)
     }),
     new RemovePlugin({
       after: {
         root: `${jamboConfig.dirs.output}`,
-        include: ['static'],
+        test: [
+          {
+            folder: 'static',
+            method: absoluteFilePath => {
+              const filePathRelativeToOutput = path.relative(jamboConfig.dirs.output, absoluteFilePath);
+              const isFileWithinStaticAssetOutputDir = filePathRelativeToOutput.startsWith('static/assets');
+              return !isFileWithinStaticAssetOutputDir;
+            },
+            recursive: true
+          }
+        ],
         log: false
       }
     })
   ];
 
   const commonConfig = {
-    devtool: 'source-map',
     stats: 'errors-warnings',
     performance: {
       maxAssetSize: 1536000,
@@ -57,7 +100,7 @@ module.exports = function () {
     },
     target: ['web', 'es5'],
     entry: {
-      'HitchhikerJS': `./${jamboConfig.dirs.output}/static/entry.js`,
+      'bundle': `./${jamboConfig.dirs.output}/static/entry.js`,
       'iframe': `./${jamboConfig.dirs.output}/static/js/iframe.js`,
       'answers': `./${jamboConfig.dirs.output}/static/js/iframe.js`,
       'overlay-button': `./${jamboConfig.dirs.output}/static/js/overlay/button-frame/entry.js`,
@@ -75,8 +118,7 @@ module.exports = function () {
       filename: pathData => {
         const chunkName = pathData.chunk.name;
         return {
-          VerticalFullPageMap: 'locator-bundle.js',
-          HitchhikerJS: 'bundle.js',
+          VerticalFullPageMap: 'locator-bundle.js'
         }[chunkName] || '[name].js'
       },
       library: '[name]',
@@ -92,16 +134,6 @@ module.exports = function () {
           use: [
             MiniCssExtractPlugin.loader,
             'css-loader',
-            {
-              loader: 'postcss-loader',
-              options: {
-                postcssOptions: {
-                  plugins: [
-                    cssnano({ preset: 'default'})
-                  ],
-                },
-              },
-            },
             'resolve-url-loader',
             {
               loader: 'sass-loader',
@@ -113,36 +145,10 @@ module.exports = function () {
         },
         {
           test: /\.(png|ico|gif|jpe?g|svg|webp|eot|otf|ttf|woff2?)$/,
-          loader: 'file-loader',
-          options: {
-            name: '[name].[contenthash].[ext]'
+          type: 'asset/resource',
+          generator: {
+            filename: '[name][ext]'
           }
-        },
-        {
-          test: /\.html$/i,
-          use: [
-            {
-              loader: path.resolve(__dirname, `./${jamboConfig.dirs.output}/static/webpack/html-asset-loader.js`),
-            },
-            {
-              loader: 'html-loader',
-              options: {
-                minimize: {
-                  removeAttributeQuotes: false,
-                  collapseWhitespace: true,
-                  conservativeCollapse: true,
-                  keepClosingSlash: true,
-                  minifyCSS: false,
-                  minifyJS: false,
-                  removeComments: true,
-                  removeScriptTypeAttributes: true,
-                  removeStyleLinkTypeAttributes: true,
-                  useShortDoctype: true
-                },
-                attributes: false
-              }
-            }
-          ]
         }
       ],
     },
@@ -152,12 +158,12 @@ module.exports = function () {
   if (isDevelopment) {
     const devConfig = require(
       `./${jamboConfig.dirs.output}/static/webpack/webpack.dev.js`
-    )();
+    )(jamboConfig);
     return merge(commonConfig, devConfig);
   } else {
     const prodConfig = require(
       `./${jamboConfig.dirs.output}/static/webpack/webpack.prod.js`
-    )();
+    )(jamboConfig);
     return merge(commonConfig, prodConfig);
   }
 };

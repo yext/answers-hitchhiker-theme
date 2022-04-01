@@ -1,6 +1,3 @@
-import provideOpenStatusTranslation from '../open-status-18n';
-import provideTableHeadersTranslation from './table/table-strings-i18n';
-
 /**
  * HoursStringsLocalizer is responsible for returning localized hours strings for
  * the current locale
@@ -16,14 +13,6 @@ export default class HoursStringsLocalizer {
      * @type {boolean}
      */
     this._isTwentyFourHourClock = isTwentyFourHourClock;
-
-    /**
-     * @type {Object<string, string>} translationData
-     */
-    this._translationData = {
-      ...provideOpenStatusTranslation(locale),
-      ...provideTableHeadersTranslation(locale)
-    }
   }
 
   /**
@@ -35,11 +24,11 @@ export default class HoursStringsLocalizer {
    * @returns {string}
    */
   getTranslation(text) {
-    if (!this._translationData.hasOwnProperty(text)) {
+    if (!window.hitchhiker_theme_translations.hasOwnProperty(text)) {
       console.error(`Could not translate "${text}".`);
       return text;
     }
-    return this._translationData[text];
+    return window.hitchhiker_theme_translations[text];
   }
 
   /**
@@ -53,7 +42,7 @@ export default class HoursStringsLocalizer {
     time.setHours(Math.floor(yextTime / 100));
     time.setMinutes(yextTime % 100);
 
-    return time.toLocaleString(this.locale, {
+    return time.toLocaleString(this._locale, {
       hour: 'numeric',
       minute: 'numeric',
       ...this._isTwentyFourHourClock && { hourCycle: this._isTwentyFourHourClock ? 'h24' : 'h12' }

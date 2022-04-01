@@ -5,7 +5,7 @@ BaseDirectAnswerCard = typeof (BaseDirectAnswerCard) !== 'undefined' ?
 BaseDirectAnswerCard["{{componentName}}"] = class extends ANSWERS.Component {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
-    let data = config.data || {};
+    const data = config.data || {};
     this.type = data.type || '';
     this.answer = data.answer || {};
     this.snippet = this.answer.snippet || {};
@@ -23,9 +23,10 @@ BaseDirectAnswerCard["{{componentName}}"] = class extends ANSWERS.Component {
   setState(data) {
     let cardData = this.dataForRender(this.type, this.answer, this.relatedItem, this.snippet);
     this.validateDataForRender(cardData);
-
     return super.setState({
       ...cardData,
+      searcher: data.searcher,
+      feedbackEnabled: ANSWERS.getAnalyticsOptIn(),
       feedbackSubmitted: data.feedbackSubmitted,
       isArray: Array.isArray(this.answer.value),
       cardName: `{{componentName}}`,
@@ -40,17 +41,24 @@ BaseDirectAnswerCard["{{componentName}}"] = class extends ANSWERS.Component {
   }
 
   onMount() {
-    let feedbackFormSelector = '.js-HitchhikerDirectAnswerCard-feedbackForm';
+    this.addFeedbackListeners();
+
+    const rtfElement = this._container.querySelector('.js-yxt-rtfValue');
+    rtfElement && rtfElement.addEventListener('click', e => this._handleRtfClickAnalytics(e));
+  }
+
+  addFeedbackListeners() {
+    const feedbackFormSelector = '.js-HitchhikerDirectAnswerCard-feedbackForm';
     let feedbackFormEl = this._container.querySelector(feedbackFormSelector);
     if (feedbackFormEl) {
       // For WCAG compliance, the feedback should be a submittable form
       feedbackFormEl.addEventListener('submit', (e) => {
-        let formTargetEl = e.target;
-        let checkedValue = formTargetEl.querySelector('input:checked').value === 'true';
+        const formTargetEl = e.target;
+        const isGood = formTargetEl.querySelector('input:checked').value === 'true';
 
-        this.reportQuality(checkedValue);
+        this.reportQuality(isGood);
         this.updateState({
-          'feedbackSubmitted': true
+          feedbackSubmitted: true
         });
       });
 
@@ -62,39 +70,11 @@ BaseDirectAnswerCard["{{componentName}}"] = class extends ANSWERS.Component {
             if (input) {
               input.checked = true;
             }
-            this._triggerCustomEvent(feedbackFormSelector, 'submit');
+            HitchhikerJS.DOM.triggerCustomEvent(this._container, feedbackFormSelector, 'submit');
           });
         });
       }
     }
-  }
-
-  /**
-   * Triggers the event passed in dispatched from the given selector
-   * @param {string} selector selector to dispatch event from
-   * @param {string} event event to fire
-   * @param {Object} settings additional settings
-   */
-  _triggerCustomEvent(selector, event, settings) {
-    let e = this._customEvent(event, settings);
-    this._container.querySelector(selector).dispatchEvent(e);
-  }
-
-  /**
-   * _customEvent is an event constructor polyfill
-   * @param {string} event event to fire
-   * @param {Object} settings additional settings
-   */
-  _customEvent(event, settings) {
-    const _settings = {
-      bubbles: true,
-      cancelable: true,
-      detail: null,
-      ...settings
-    };
-    const evt = document.createEvent('CustomEvent');
-    evt.initCustomEvent(event, _settings.bubbles, _settings.cancelable, _settings.detail);
-    return evt;
   }
 
   /**
@@ -115,7 +95,10 @@ BaseDirectAnswerCard["{{componentName}}"] = class extends ANSWERS.Component {
     const eventType = isGood === true ? EventTypes.THUMBS_UP : EventTypes.THUMBS_DOWN;
     const event = new ANSWERS.AnalyticsEvent(eventType)
       .addOptions({
-        'directAnswer': true
+        directAnswer: true,
+        verticalKey: this.verticalConfigId,
+        searcher: this.getState('searcher'),
+        entityId: this.associatedEntityId
       });
 
     this.analyticsReporter.report(event);
@@ -137,12 +120,38 @@ BaseDirectAnswerCard["{{componentName}}"] = class extends ANSWERS.Component {
    */
   addDefaultEventOptions(eventOptions = {}) {
     return Object.assign({}, {
-        searcher: "UNIVERSAL",
+        searcher: this.getState('searcher'),
         verticalConfigId: this.verticalConfigId,
         entityId: this.associatedEntityId,
         ...eventOptions
       },
     );
+  }
+
+  /**
+   * A click handler for links in a Rich Text Direct Answer. When such a link
+   * is clicked, an {@link AnalyticsEvent} needs to be fired.
+   *
+   * @param {MouseEvent} event The click event.
+   */
+  _handleRtfClickAnalytics (event) {
+    if (!event.target.dataset.ctaType) {
+      return;
+    }
+    const ctaType = event.target.dataset.ctaType;
+
+    const analyticsOptions = {
+      verticalKey: this.verticalConfigId,
+      directAnswer: true,
+      fieldName: this.answer.fieldApiName,
+      searcher: this.getState('searcher'),
+      entityId: this.associatedEntityId,
+      url: event.target.href
+    };
+
+    const analyticsEvent = new ANSWERS.AnalyticsEvent(ctaType);
+    analyticsEvent.addOptions(analyticsOptions);
+    this.analyticsReporter.report(analyticsEvent);
   }
 
   /**

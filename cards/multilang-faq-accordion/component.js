@@ -12,10 +12,12 @@ class multilang_faq_accordionCardComponent extends BaseCard['multilang-faq-accor
    * @param {Object} profile of the entity in the card
    */
   dataForRender(profile) {
+    const linkTarget = AnswersExperience.runtimeConfig.get('linkTarget') || '_top';
+
     return {
       title: profile.question || profile.name, // The header text of the card
       // subtitle: '', // The sub-header text of the card
-      details: profile.answer ? ANSWERS.formatRichText(profile.answer, "answer", "_top") : null, // The text in the body of the card
+      details: profile.answer ? ANSWERS.formatRichText(profile.answer, "answer", linkTarget) : null, // The text in the body of the card
       // If the card's details are longer than a certain character count, you can truncate the
       // text. A toggle will be supplied that can show or hide the truncated text.
       // showMoreDetails: {
@@ -29,7 +31,7 @@ class multilang_faq_accordionCardComponent extends BaseCard['multilang-faq-accor
         label: profile.c_primaryCTA ? profile.c_primaryCTA.label : null, // The CTA's label
         // iconName: '', // The icon to use for the CTA
         url: Formatter.generateCTAFieldTypeLink(profile.c_primaryCTA), // The URL a user will be directed to when clicking
-        target: '_top', // Where the new URL will be opened. To open in a new tab use '_blank'
+        target: linkTarget, // Where the new URL will be opened. To open in a new tab use '_blank'
         eventType: 'CTA_CLICK', // Type of Analytics event fired when clicking the CTA
         // Event options for the analytics event fired when this CTA is clicked.
         eventOptions: this.addDefaultEventOptions({ /* Add additional options here */ }),
@@ -40,11 +42,15 @@ class multilang_faq_accordionCardComponent extends BaseCard['multilang-faq-accor
         label: profile.c_secondaryCTA ? profile.c_secondaryCTA.label : null,
         // iconName: '',
         url: Formatter.generateCTAFieldTypeLink(profile.c_secondaryCTA),
-        target: '_top',
+        target: linkTarget,
         eventType: 'CTA_CLICK',
         eventOptions: this.addDefaultEventOptions({ /* Add additional options here */ }),
         // ariaLabel: '',
       },
+      feedback: false, // Shows thumbs up/down buttons to provide feedback on the result card
+      feedbackTextOnSubmission: {{ translateJS phrase='Thanks!' }}, // Text to display after a thumbs up/down is clicked
+      positiveFeedbackSrText: {{ translateJS phrase='This answered my question' }}, // Screen reader only text for thumbs-up
+      negativeFeedbackSrText: {{ translateJS phrase='This did not answer my question' }} // Screen reader only text for thumbs-down
     };
   }
 
@@ -62,11 +68,29 @@ class multilang_faq_accordionCardComponent extends BaseCard['multilang-faq-accor
 
     const contentEl = this._container.querySelector(accordionContentSelector);
     let isExpanded = this._container.querySelector(`.${accordionExpandedClass}`);
-    contentEl.style.height = `${isExpanded ? contentEl.scrollHeight : 0}px`;
-    const linkEls = contentEl.querySelectorAll('a');
-    this._setLinksInteractivity(linkEls, isExpanded);
 
     const cardEl = this._container.querySelector(accordionCardSelector);
+    const linkEls = contentEl.querySelectorAll('a');
+
+    if (this.stayExpanded && this.getState('feedbackSubmitted')) {
+      isExpanded = true;
+      cardEl.classList.add(accordionExpandedClass);
+      accordionToggleEl.setAttribute('aria-expanded', 'true');
+      contentEl.setAttribute('aria-hidden', 'false');
+    }
+    contentEl.style.height = `${isExpanded ? contentEl.scrollHeight : 0}px`;
+    this._setLinksInteractivity(linkEls, isExpanded);
+
+    this.stayExpanded = false;
+
+    const thumbSelectorEls = this._container.querySelectorAll('.js-HitchhikerCard-thumbInput');
+    if (thumbSelectorEls) {
+      thumbSelectorEls.forEach(el => {
+        el.addEventListener('click', (e) => {
+          this.stayExpanded = true;
+        });
+      });
+    }
 
     accordionToggleEl.addEventListener('click', function() {
       isExpanded = !isExpanded;

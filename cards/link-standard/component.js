@@ -12,10 +12,12 @@ class link_standardCardComponent extends BaseCard['link-standard'] {
    * @param profile profile of the entity in the card
    */
   dataForRender(profile) {
+    const linkTarget = AnswersExperience.runtimeConfig.get('linkTarget') || '_top';
+
     return {
       title: profile.htmlTitle, // The header text of the card
       url: profile.link, // If the card title is a clickable link, set URL here
-      target: '_top', // If the title's URL should open in a new tab, etc.
+      target: linkTarget, // If the title's URL should open in a new tab, etc.
       titleEventOptions: this.addDefaultEventOptions(),
       // subtitle: '', // The sub-header text of the card
       // If the card's details are longer than a certain character count, you can truncate the
@@ -26,6 +28,10 @@ class link_standardCardComponent extends BaseCard['link-standard'] {
       //   showLessText: 'Show less' // Label when toggle will hide truncated text
       // },
       details: profile.htmlSnippet, // The text in the body of the card
+      feedback: false, // Shows thumbs up/down buttons to provide feedback on the result card
+      feedbackTextOnSubmission: 'Thanks!', // Text to display after a thumbs up/down is clicked
+      positiveFeedbackSrText: 'This answered my question', // Screen reader only text for thumbs-up
+      negativeFeedbackSrText: 'This did not answer my question' // Screen reader only text for thumbs-down
     };
   }
 

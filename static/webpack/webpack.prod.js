@@ -1,7 +1,14 @@
-module.exports = () => {
+const { ESBuildMinifyPlugin } = require('esbuild-loader')
+
+module.exports = (jamboConfig) => {
   const InlineAssetHtmlPlugin = require('./InlineAssetHtmlPlugin');
   return {
     mode: 'production',
+    devtool: 'source-map',
+    entry: {
+      'bundle-legacy': `./${jamboConfig.dirs.output}/static/entry-legacy.js`,
+      'overlay-button-legacy': `./${jamboConfig.dirs.output}/static/js/overlay/button-frame/entry-legacy.js`,
+    },
     plugins: [
       new InlineAssetHtmlPlugin()
     ],
@@ -10,7 +17,7 @@ module.exports = () => {
         {
           test: /\.js$/,
           exclude: [
-            /node_modules\//
+            /node_modules\/(?!(currency-symbol-map)\/).*/
           ],
           loader: 'babel-loader',
           options: {
@@ -29,6 +36,14 @@ module.exports = () => {
           }
         }
       ]
-    }
+    },
+    optimization: {
+      minimizer: [
+        new ESBuildMinifyPlugin({
+          target: 'es5',
+          css: true
+        })
+      ]
+    },
   };
 }

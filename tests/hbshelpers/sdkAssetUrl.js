@@ -54,6 +54,24 @@ describe('URLs are computed properly for hotfix branches', () => {
   });
 });
 
+describe('URLs are computed properly for the develop branch', () => {
+  it('works correctly when locale is "en"', () => {
+    const expectedJSUrl = 'https://assets.sitescdn.net/answers/canary/latest/answers.min.js';
+    const expectedCSSUrl = 'https://assets.sitescdn.net/answers/canary/latest/answers.css'
+
+    expect(sdkAssetUrl('develop', 'en', 'answers.min.js')).toEqual(expectedJSUrl);
+    expect(sdkAssetUrl('develop', 'en', 'answers.css')).toEqual(expectedCSSUrl);
+  });
+
+  it('works correctly when locale is not "en"', () => {
+    const expectedJSUrl = 'https://assets.sitescdn.net/answers/canary/latest/fr-answers.min.js';
+    const expectedCSSUrl = 'https://assets.sitescdn.net/answers/canary/latest/answers.css'
+
+    expect(sdkAssetUrl('develop', 'fr', 'answers.min.js')).toEqual(expectedJSUrl);
+    expect(sdkAssetUrl('develop', 'fr', 'answers.css')).toEqual(expectedCSSUrl);
+  });
+});
+
 describe('URLs are computed properly for all other branches', () => {
   it('works correctly when locale is "en"', () => {
     const expectedJSUrl = 'https://assets.sitescdn.net/answers/dev/feature-foo/answers.min.js';

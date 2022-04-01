@@ -12,10 +12,17 @@
     const IS_STAGING = HitchhikerJS.isStaging(JAMBO_INJECTED_DATA?.pages?.stagingDomains || []);
     const injectedConfig = {
       experienceVersion: IS_STAGING ? 'STAGING' : 'PRODUCTION',
-      apiKey: HitchhikerJS.getInjectedProp('{{{global_config.experienceKey}}}', ['apiKey']),
+      {{#unless global_config.useJWT}} 
+        apiKey: HitchhikerJS.getInjectedProp('{{{global_config.experienceKey}}}', ['apiKey']),
+      {{/unless}}
       {{#with env.JAMBO_INJECTED_DATA}}
         {{#if businessId}}businessId: "{{businessId}}",{{/if}}
       {{/with}}
+      additionalHttpHeaders: {
+        'Client-SDK': {
+          ANSWERS_THEME: '{{{ env.packageJsonVersion }}}'
+        }
+      }
     };
     const userConfig = {
       {{#with (deepMerge global_config (lookup verticalsToConfig verticalKey) pageSettings) }}
@@ -26,12 +33,33 @@
             ...{{{ json search }}}
           },
         {{/if}}
+        {{#unless ../verticalKey}}
+          search: {
+            ...{{{ json (getDefaultUniversalLimit ../verticalConfigs) }}},
+            ...{{{ json search }}}
+          },
+        {{/unless}}
       {{/with}}
     };
+    const token = window.AnswersExperience.runtimeConfig?.get('token');
+    const tokenHeader = window.AnswersExperience.runtimeConfig?.get('tokenHeader');
+    const apiKey = window.AnswersExperience.runtimeConfig?.get('apiKey');
+
+    const credentials = {};
+    if (tokenHeader) {
+      credentials.token = tokenHeader;
+    } else if (apiKey) {
+      credentials.apiKey = apiKey;
+    } else if (token) {
+      console.warn('"token" attribute is deprecated. Consider using "tokenHeader" or "apiKey" instead.');
+      credentials.apiKey = token;
+    }
+
     ANSWERS.init({
       templateBundle: TemplateBundle.default,
       ...injectedConfig,
       ...userConfig,
+      ...credentials,
       querySource: window.isOverlay ? 'OVERLAY' : 'STANDARD',
       onStateChange: (objParams, stringParams, replaceHistory) => {
         if ('parentIFrame' in window) {
@@ -41,10 +69,15 @@
           }));
         }
       },
+      ...{{> script/additional-answers-config }},
       onReady: () => {
+        window.AnswersExperience.AnswersInitializedPromise.resolve();
+
         {{> @partial-block }}
 
-        {{> script/on-ready}}
+        {{#wrapJsPartial}}
+          {{> script/on-ready}}
+        {{/wrapJsPartial}}
 
         {{#if global_config.conversionTrackingEnabled}}
           ANSWERS.setConversionsOptIn(true);
@@ -67,17 +100,51 @@
          * Determine whether a URL is absolute or not.
          * Common examples: "mailto:slapshot@gmail.com", "//yext.com", "https://yext.com"
          */
-        ANSWERS.registerHelper('isNonRelativeUrl', function(str) {
+        function isNonRelativeUrl(str) {
           const absoluteURLRegex = /^(\/|[a-zA-Z]+:)/;
           return str && str.match(absoluteURLRegex);
-        });
+        }
+        ANSWERS.registerHelper('isNonRelativeUrl', isNonRelativeUrl);
 
         ANSWERS.registerHelper('close-card-svg', () => {
           return ANSWERS.renderer.SafeString({{{stringifyPartial (read 'static/assets/images/close-card') }}});
         });
+
+        ANSWERS.registerPartial(
+          'thumbsfeedback',
+          {{{stringifyPartial (read 'cards/common-partials/thumbsfeedback') }}}
+        );
+
+        /**
+        * If the url is not relative, return it. If it is relative,
+        * append relativePath to it.
+        *
+        * @param {import('handlebars').HelperOptions} options
+        * @param {string} options.hash.relativePath
+        * @param {string} options.hash.url
+        * @returns {string}
+        */
+        ANSWERS.registerHelper('relativePathHandler', function relativePathHandler(options) {
+          const { relativePath, url } = options.hash || {};
+          if (isNonRelativeUrl(url) || !relativePath || !url) {
+            return url;
+          }
+          return relativePath + '/' + url;
+        });
+
+        window.iframeLoaded.then(() => {
+          {{#wrapJsPartial}}
+            {{> script/iframe-messaging}}
+          {{/wrapJsPartial}}
+        });
       }
+    }).catch(err => {
+      console.error(err);
+      window.AnswersExperience.AnswersInitializedPromise.reject('Answers failed to initialized.');
     });
-    {{> script/after-init}}
+    {{#wrapJsPartial}}
+      {{> script/after-init}}
+    {{/wrapJsPartial}}
   }
 {{/babel}}
 </script>

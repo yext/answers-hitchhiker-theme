@@ -8,11 +8,12 @@
   width: 100%;
   height: 100%;
 
-  &-header
+  &-body
   {
+    padding: calc(var(--yxt-base-spacing) * 3/4) var(--yxt-base-spacing);
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
-    padding: calc(var(--yxt-base-spacing) * 3/4) var(--yxt-base-spacing);
   }
 
   &-contentWrapper
@@ -20,7 +21,6 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: calc(var(--yxt-base-spacing) * 3/4) var(--yxt-base-spacing);
   }
 
   &-title
@@ -64,6 +64,12 @@
   &-detailsText
   {
     @include rich_text_formatting;
+    color: var(--yxt-color-text-primary);
+  }
+
+  &-cardDetails
+  {
+    margin-top: calc(var(--yxt-base-spacing) / 2);
   }
 
   &-ctasWrapper
@@ -83,5 +89,13 @@
   .js-hidden
   {
     display: none;
+  }
+
+  .HitchhikerCard
+  {
+    &-feedbackContent
+    {
+      margin-top: 0;
+    }
   }
 }

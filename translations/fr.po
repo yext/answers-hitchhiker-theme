@@ -22,11 +22,19 @@ msgstr "Itinéraire"
 msgid "Get Directions"
 msgstr "M’y rendre"
 
+#: cards/multilang-document-standard/component.js:30
+msgid "Last Updated on [[date]]"
+msgstr "Dernière mise à jour le [[date]]"
+
+#: directanswercards/multilang-documentsearch-standard/template.hbs:34
+msgid "Read more about"
+msgstr "En savoir plus sur"
+
 #: cards/multilang-menuitem-standard/component.js:38
 msgid "Order Now"
 msgstr "Commander"
 
-#: cards/multilang-location-standard/template.hbs:136
+#: cards/multilang-location-standard/template.hbs:140
 msgid "Services:"
 msgstr "Services :"
 
@@ -57,6 +65,23 @@ msgstr "Afficher plus"
 #: directanswercards/multilang-allfields-standard/component.js:177
 msgid "Thank you for your feedback!"
 msgstr "Merci pour vos commentaires !"
+
+#: cards/multilang-event-standard/component.js:53
+#: cards/multilang-faq-accordion/component.js:51
+#: cards/multilang-financial-professional-location/component.js:69
+#: cards/multilang-job-standard/component.js:44
+#: cards/multilang-link-standard/component.js:32
+#: cards/multilang-location-standard/component.js:58
+#: cards/multilang-menuitem-standard/component.js:59
+#: cards/multilang-product-prominentimage-clickable/component.js:44
+#: cards/multilang-product-prominentimage/component.js:62
+#: cards/multilang-product-prominentvideo/component.js:57
+#: cards/multilang-product-standard/component.js:61
+#: cards/multilang-professional-location/component.js:69
+#: cards/multilang-professional-standard/component.js:59
+#: cards/multilang-standard/component.js:54
+msgid "Thanks!"
+msgstr "Merci!"
 
 #: directanswercards/multilang-allfields-standard/component.js:179
 msgid "This answered my question"
@@ -115,9 +140,9 @@ msgid_plural "View [[count]] Results"
 msgstr[0] "Afficher 1 résultat"
 msgstr[1] "Afficher [[count]] résultats"
 
-#: cards/multilang-financial-professional-location/template.hbs:195
-#: cards/multilang-location-standard/template.hbs:206
-#: cards/multilang-professional-location/template.hbs:192
+#: cards/multilang-financial-professional-location/template.hbs:198
+#: cards/multilang-location-standard/template.hbs:209
+#: cards/multilang-professional-location/template.hbs:195
 msgctxt "Close is a verb"
 msgid "Close Card"
 msgstr "Fermer la carte"
@@ -168,12 +193,65 @@ msgid_plural "The following search categories yielded results for <span class=\"
 msgstr[0] "La catégorie de recherche suivante a produit des résultats pour <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"
 msgstr[1] "Les catégories de recherche suivantes ont produit des résultats pour <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"
 
-#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:32
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:31
 msgid "([[resultsCount]] result)"
 msgid_plural "([[resultsCount]] results)"
 msgstr[0] "([[resultsCount]] résultat)"
 msgstr[1] "([[resultsCount]] résultats)"
 
-#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:47
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:43
 msgid "Alternatively, you can <a class=\"yxt-AlternativeVerticals-universalLink\" href=\"[[universalUrl]]\"> view results across all search categories</a>."
 msgstr "Autrement, vous pouvez <a class=\"yxt-AlternativeVerticals-universalLink\" href=[[universalUrl]]> voir les résultats à travers toutes les catégories</a>."
+
+msgctxt "Indicates that a store is closed"
+msgid "Closed"
+msgstr "Fermé"
+
+msgctxt "The hours that a store is open"
+msgid "Open 24 Hours"
+msgstr "Ouvert 24h/24"
+
+msgctxt "Indicates the time a store will open"
+msgid "Opens at"
+msgstr "Ouvre à"
+
+msgctxt "Indicates that a store is open"
+msgid "Open Now"
+msgstr "Ouvert maintenant"
+
+msgctxt "Indicates the time a store will close"
+msgid "Closes at"
+msgstr "Ferme à"
+
+msgid "Monday"
+msgstr "Lundi"
+
+msgid "Tuesday"
+msgstr "Mardi"
+
+msgid "Wednesday"
+msgstr "Mercredi"
+
+msgid "Thursday"
+msgstr "Jeudi"
+
+msgid "Friday"
+msgstr "Vendredi"
+
+msgid "Saturday"
+msgstr "Samedi"
+
+msgid "Sunday"
+msgstr "Dimanche"
+
+msgid "Day of the Week"
+msgstr "Jour de la semaine"
+
+msgid "Hours"
+msgstr "Horaires"
+
+msgid "Yes"
+msgstr "Oui"
+
+msgid "No"
+msgstr "Non"

@@ -40,6 +40,9 @@
   {
     width: 100%;
     padding: calc(var(--yxt-base-spacing) * 3/4) var(--yxt-base-spacing);
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
   }
 
   &-contentWrapper
@@ -78,6 +81,7 @@
   {
     display: flex;
     align-items: flex-start;
+    justify-content: center;
     width: 100%;
     flex-shrink: 0;
   }
@@ -85,7 +89,9 @@
   &-img
   {
     width: 100%;
-    height: auto;
+    height: var(--yxt-product-prominentimage-height);
+    object-fit: cover;
+    font-family: 'object-fit: cover;'; //polyfill css for ie11
   }
 
   &-title
@@ -110,5 +116,14 @@
   &-detailsText
   {
     @include rich_text_formatting;
+    color: var(--yxt-color-text-primary);
+  }
+
+  .HitchhikerCard
+  {
+    &-feedbackContent
+    {
+      margin-top: calc(var(--yxt-base-spacing) / 2);
+    }
   }
 }

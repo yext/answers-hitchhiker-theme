@@ -9,7 +9,7 @@
     color: var(--yxt-text-snippet-font-color);
   }
 
-  @media (min-width: $breakpoint-mobile-min) {
+  @include bpgte(sm) {
     margin-top: calc(var(--yxt-base-spacing) * 2.35);
   }
 
@@ -47,16 +47,27 @@
     justify-content: space-between;
 
     padding-top: calc(var(--yxt-base-spacing) * 0.7);
-    padding-bottom: var(--yxt-base-spacing);
+    padding-bottom: calc(var(--yxt-base-spacing) * 0.7);
     padding-left: var(--yxt-base-spacing);
     padding-right: var(--yxt-base-spacing);
 
     @include Text(
-      $size: var(--yxt-direct-answer-footer-font-size),
+      $size: var(--yxt-font-size-md-lg),
       $line-height: var(--yxt-direct-answer-footer-line-height),
-      $weight: var(--yxt-direct-answer-footer-font-weight),
-      $color: var(--yxt-direct-answer-footer-color)
+      $weight: var(--yxt-font-weight-light),
+      $color: var(--yxt-color-text-primary)
     );
+  } 
+
+  &-snippet
+  {
+    @include rich_text_formatting;
+
+    .js-yxt-rtfValue > *:first-child // The first RTF item should also get h1 styling
+    {
+      @include header_styling;
+      font-size: var(--yxt-font-size-xlg);
+    }
   }
 
   &-cta
@@ -65,7 +76,7 @@
     margin-top: calc(var(--yxt-base-spacing) / 2);
     justify-content: center;
 
-    @media (min-width: $breakpoint-mobile-max)
+    @include bpgte(sm)
     {
       margin-top: 0;
       margin-left: calc(var(--yxt-base-spacing) / 2);
@@ -75,6 +86,12 @@
 
   }
 
+  &-feedbackWrapper
+  {
+    background-color: var(--yxt-direct-answer-footer-background-color);
+  }
+
+  &-feedbackContent,
   &-footer
   {
     display: flex;
@@ -86,6 +103,7 @@
     padding-bottom: 8px;
   }
 
+  &-feedbackText,
   &-footerText
   {
     display: inline;
@@ -96,6 +114,11 @@
       $weight: var(--yxt-direct-answer-footer-font-weight),
       $color: var(--yxt-direct-answer-footer-color)
     );
+  }
+
+  &-thumbsWrapper
+  {
+    display: flex;
   }
 
   &-thumbs
@@ -129,6 +152,15 @@
     }
   }
 
+  &-fieldset
+  {
+    display: inline;
+    margin-inline-start: 2px;
+    margin-inline-end: 2px;
+    line-height: 0;
+    min-inline-size: min-content;
+  }
+
   &-feedback
   {
     @include Text(
@@ -153,6 +185,8 @@
 
   &-viewMoreWrapper
   {
+    font-size: var(--yxt-direct-answer-view-details-font-size);
+
     &:not(:first-child)
     {
       margin-top: calc(var(--yxt-base-spacing) / 2);

@@ -13,6 +13,7 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
   dataForRender(type, answer, relatedItem) {
     let isArray = Array.isArray(answer.value);
     let value, arrayValue, regularValue, isRichText;
+    const linkTarget = AnswersExperience.runtimeConfig.get('linkTarget') || '_top';
 
     switch (answer.fieldType) {
       case 'url':
@@ -132,9 +133,9 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
       case 'rich_text':
         isRichText = true;
         if (isArray) {
-          arrayValue = answer.value.map((value) => ANSWERS.formatRichText(value));
+          arrayValue = answer.value.map((value) => ANSWERS.formatRichText(value, null, linkTarget));
         } else {
-          regularValue = ANSWERS.formatRichText(answer.value);
+          regularValue = ANSWERS.formatRichText(answer.value, null, linkTarget);
         }
         value = isArray ? arrayValue : regularValue;
         break;
@@ -164,7 +165,6 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
     //     break;
     // }
 
-
     return {
       // iconName: '', // Icon that appears on the top left of the direct answer card
       // iconUrl: '', // URL for Icon that appears on the top left of the direct answer card
@@ -178,17 +178,17 @@ class allfields_standardComponent extends BaseDirectAnswerCard['allfields-standa
       viewDetailsEventOptions: this.addDefaultEventOptions({
         ctaLabel: 'VIEW_DETAILS'
       }), // The event options for viewDetails click analytics
-      linkTarget: '_top', // Target for all links in the direct answer
+      linkTarget: linkTarget, // Target for all links in the direct answer
       // CTA: {
       //   label: '', // The CTA's label
       //   iconName: 'chevron', // The icon to use for the CTA
       //   url: '', // The URL a user will be directed to when clicking
-      //   target: '_top', // Where the new URL will be opened
+      //   target: linkTarget, // Where the new URL will be opened
       //   eventType: 'CTA_CLICK', // Type of Analytics event fired when clicking the CTA
       //   eventOptions: this.addDefaultEventOptions() // The event options for CTA click analytics
       // },
-      footerTextOnSubmission: 'Thank you for your feedback!', // Text to display in the footer when a thumbs up/down is clicked
-      footerText: 'Was this the answer you were looking for?', // Text to display in the footer
+      feedbackTextOnSubmission: 'Thank you for your feedback!', // Text to display in the footer when a thumbs up/down is clicked
+      feedbackText: 'Was this the answer you were looking for?', // Text to display in the footer
       positiveFeedbackSrText: 'This answered my question', // Screen reader only text for thumbs-up
       negativeFeedbackSrText: 'This did not answer my question', // Screen reader only text for thumbs-down
       isRichText: isRichText, // If the direct answer is sourced from a rich-text field

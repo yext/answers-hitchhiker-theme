@@ -1,5 +1,6 @@
 const RELEASE_BRANCH_REGEX = /^release\/v[0-9.]+$/;
 const HOTFIX_BRANCH_REGEX = /^hotfix\/v[0-9.]+$/;
+const I18N_FEATURE_BRANCH_REGEX = /^feature\/.+-i18n$/;
 const SEM_VER_REGEX = /^[1-9]+$|^[1-9]+\.[0-9]+$|^[1-9]+\.[0-9]+\.[0-9]+$/;
 
 /**
@@ -17,14 +18,18 @@ module.exports = function sdkAssetUrl(branch, locale, assetName) {
   let parsedBranch;
   if (isReleasedBranch) {
     parsedBranch = `v${branch}`;
+  } else if (branch === 'develop') {
+    parsedBranch = 'canary/latest';
   } else {
     parsedBranch = `dev/${branch.replace(/\//g, '-')}`;
   }
 
   const isPreReleaseBranch = 
     RELEASE_BRANCH_REGEX.test(branch) || HOTFIX_BRANCH_REGEX.test(branch);
+  const isI18nFeatureBranch = I18N_FEATURE_BRANCH_REGEX.test(branch);
+  const isDevelopBranch = branch === 'develop';
   const isLocalizationSupported = 
-    (isReleasedBranch || isPreReleaseBranch) && 
+    (isReleasedBranch || isPreReleaseBranch || isI18nFeatureBranch || isDevelopBranch) && 
     !(locale.startsWith('en') || assetName === 'answers.css') ;
   
   const parsedAssetName = isLocalizationSupported ?

@@ -11,6 +11,7 @@
       </div>
       {{> ctas }}
     </div>
+    {{> thumbsfeedback card feedbackSubmitted=feedbackSubmitted}}
   </div>
 </div>
 
@@ -65,13 +66,15 @@
   {{#if showExcessDetailsToggle}}
   <button class="HitchhikerCard-detailsToggle js-HitchhikerCard-detailsToggle">
     {{card.showMoreDetails.showMoreText}}
-    <span data-component="IconComponent"
-      data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseDown" }'></span>
+    <span>
+      {{> icons/builtInIcon iconName='chevron' classNames='Icon--sm Icon--collapseDown' }}
+    </span>
   </button>
   <button class="HitchhikerCard-detailsToggle js-HitchhikerCard-detailsToggle js-hidden">
     {{card.showMoreDetails.showLessText}}
-    <span data-component="IconComponent"
-      data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseUp" }'></span>
+    <span>
+      {{> icons/builtInIcon iconName='chevron' classNames='Icon--sm Icon--collapseUp' }}
+    </span>
   </button>
   {{/if}}
 </div>
@@ -106,7 +109,7 @@
   <a class="HitchhikerProfessionalStandard-phone--mobile" href="tel:{{card.phone}}"
     data-eventtype="TAP_TO_CALL"
     data-eventoptions="{{json card.phoneEventOptions}}"
-    target="_top">
+    target={{#if card.target}}"{{card.target}}"{{else}}"_top"{{/if}}>
     {{card.phone}}
   </a>
 </div>
@@ -133,10 +136,12 @@
     {{#if ariaLabel}}aria-label="{{ariaLabel}}"{{/if}}>
     {{#if (any iconName iconUrl)}}
     <div class="HitchhikerCTA-iconWrapper">
-      <div class="HitchhikerCTA-icon" data-component="IconComponent" data-opts='{
-        "iconUrl": "{{#if iconUrl}}{{#unless (isNonRelativeUrl iconUrl)}}{{@root.relativePath}}/{{/unless}}{{iconUrl}}{{/if}}",
-        "iconName": "{{iconName}}"
-      }'></div>
+      <div class="HitchhikerCTA-icon">
+        {{> icons/iconPartial
+            iconName=iconName
+            iconUrl=(relativePathHandler url=iconUrl relativePath=@root.relativePath)
+        }}
+      </div>
     </div>
     {{/if}}
     <div class='HitchhikerCTA-iconLabel'>

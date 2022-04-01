@@ -1,3 +1,6 @@
+const getCleanedJamboInjectedData = require('../static/webpack/getCleanedJamboInjectedData');
+const packageJson = require('../package.json');
+
 /**
  * Formats the data sent to the handlebars templates during Jambo builds.
  *
@@ -23,9 +26,13 @@ module.exports = function (pageMetadata, siteLevelAttributes, pageNameToConfig) 
     params: currentLocaleConfig.params || {},
     relativePath,
     env: {
-      JAMBO_INJECTED_DATA: env.JAMBO_INJECTED_DATA
+      JAMBO_INJECTED_DATA: env.JAMBO_INJECTED_DATA,
+      packageJsonVersion: packageJson.version
     }
   };
+  if (globalConfig.useJWT) {
+    return getCleanedTemplateData(templateData);
+  }
   return templateData;
 }
 
@@ -50,4 +57,26 @@ function getLocalizedGlobalConfig(globalConfig, currentLocaleConfig, locale) {
     localizedGlobalConfig.locale = locale;
   }
   return localizedGlobalConfig;
+}
+
+/**
+ * Returns the provided template data without the API Key
+ * 
+ * @param {Object} templateData 
+ * @returns {Object}
+ */
+function getCleanedTemplateData(templateData) {
+  const jamboInjectedData = templateData.env.JAMBO_INJECTED_DATA;
+  const globalConfig = templateData.global_config;
+  return {
+    ...templateData,
+    global_config: {
+      ...globalConfig,
+      apiKey: undefined
+    },
+    env: {
+      ...templateData.env,
+      JAMBO_INJECTED_DATA: getCleanedJamboInjectedData(jamboInjectedData)
+    }
+  }
 }

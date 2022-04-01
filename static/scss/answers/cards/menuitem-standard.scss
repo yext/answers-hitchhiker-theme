@@ -11,6 +11,8 @@
   &-body
   {
     width: 100%;
+    display: flex;
+    flex-direction: column;
   }
 
   &-imgWrapper
@@ -61,6 +63,11 @@
     padding-bottom: calc(var(--yxt-base-spacing) / 2);
   }
 
+  &-listWrapper
+  {
+    color: var(--yxt-color-text-primary);
+  }
+
   &-content
   {
     margin-top: calc(var(--yxt-base-spacing) / 2);
@@ -69,13 +76,14 @@
   &-detailsText
   {
     @include rich_text_formatting;
+    color: var(--yxt-color-text-primary);
   }
 
   &-contentCtasWrapper
   {
     display: flex;
     flex-direction: column;
-    @media (min-width: $breakpoint-mobile-max)
+    @include bpgte(sm)
     {
       flex-direction: row;
     }
@@ -87,7 +95,7 @@
     flex-direction: column;
     width: 100%;
 
-    @media (min-width: $breakpoint-mobile-max)
+    @include bpgte(sm)
     {
       justify-content: space-between;
       flex-direction: row;
@@ -100,7 +108,7 @@
     text-transform: uppercase;
     margin-top: calc(var(--yxt-base-spacing) / 2);
 
-    @media (min-width: $breakpoint-mobile-max)
+    @include bpgte(sm)
     {
       margin-left: calc(var(--yxt-base-spacing) / 2);
       justify-content: center;

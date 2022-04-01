@@ -1,18 +1,6 @@
 const fs = require('fs');
-const { parse, assign, stringify } = require('comment-json');
 const path = require('path');
 const simpleGit = require('simple-git/promise')();
-
-/**
- * Merges two comment-json files, with the original having higher priority.
- * @param {string} updatedCommentJson 
- * @param {string} originalCommentJson 
- * @returns {string}
- */
-exports.mergeJson = function(updatedCommentJson, originalCommentJson) {
-  const merged = assign(parse(updatedCommentJson), parse(originalCommentJson));
-  return stringify(merged, null, 2);
-}
 
 /**
  * Gets the value of a given --jambo command line argument.
@@ -23,13 +11,16 @@ exports.getJamboParam = function(param) {
   const getProcessArgument = (param) => {
     const nameIndex = process.argv.indexOf(param);
     if (nameIndex === -1) {
-      throw new Error(`Expected jambo command line argument ${param}, but not found in ${process.argv}`);
+      throw new Error(
+        `Expected jambo command line argument ${param}, but not found in ${process.argv}`);
     }
     const paramValueIndex = nameIndex + 1;
+    
     return process.argv[paramValueIndex];
-  }
+  };
+  
   return getProcessArgument(`--jambo.${param}`);
-}
+};
 
 /**
  * Will remove all empty directories on the given path, including the
@@ -44,7 +35,7 @@ function removeEmptyDirectoriesRecursively(dirpath) {
   let directoryEntries = fs.readdirSync(dirpath);
   if (directoryEntries.length > 0) {
     for (const filename of directoryEntries) {
-      removeEmptyDirectoriesRecursively(path.join(dirpath, filename))
+      removeEmptyDirectoriesRecursively(path.join(dirpath, filename));
     }
     directoryEntries = fs.readdirSync(dirpath);
   }
@@ -61,8 +52,9 @@ exports.removeEmptyDirectoriesRecursively = removeEmptyDirectoriesRecursively;
  */
 async function isGitSubmodule(submodulePath) {
   const submodulePaths = await simpleGit.subModule(['foreach', '--quiet', 'echo $sm_path']);
+  
   return !!submodulePaths
     .split('\n')
-    .find(p => p === submodulePath)
+    .find(p => p === submodulePath);
 }
 exports.isGitSubmodule = isGitSubmodule;

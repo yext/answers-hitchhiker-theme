@@ -1,13 +1,16 @@
 {
   "name": "answers-hitchhiker-theme",
-  "version": "1.21.0",
+  "version": "1.28.1",
   "description": "A starter answers theme for hitchhikers",
   "scripts": {
     "test": "cross-env NODE_ICU_DATA=node_modules/full-icu jest --verbose",
     "setup-test-site": "./test-site/scripts/setup.sh",
     "build-test-site": "./test-site/scripts/build.sh",
     "serve-test-site": "serve -p 5042 test-site/public",
-    "acceptance": "node ./tests/acceptance/index.js"
+    "acceptance": "node ./tests/acceptance/index.js",
+    "percy": "npx percy exec -- node tests/percy/index.js",
+    "wcag": "./tests/wcag/index.js",
+    "extract-translations": "./translations/extract_translations.sh"
   },
   "repository": {
     "type": "git",
@@ -18,26 +21,33 @@
   },
   "homepage": "https://github.com/yext/answers-hitchhiker-theme#readme",
   "devDependencies": {
+    "@axe-core/puppeteer": "^4.3.1",
     "@babel/core": "^7.9.6",
     "@babel/preset-env": "^7.9.6",
-    "@percy/script": "^1.1.0",
+    "@percy/cli": "^1.0.0-beta.67",
+    "@percy/puppeteer": "^2.0.0",
     "@types/jest": "^26.0.19",
     "@yext/cta-formatter": "^1.0.0",
     "babel-jest": "^25.5.1",
-    "comment-json": "^4.1.0",
+    "comment-json": "^4.1.1",
     "cross-env": "^7.0.2",
+    "currency-symbol-map": "^5.0.1",
+    "escape-html": "^1.0.3",
     "express": "^4.17.1",
     "file-system": "^2.2.2",
     "full-icu": "^1.3.1",
     "handlebars": "^4.7.6",
+    "jambo": "^1.12.1",
     "jest": "^25.5.2",
     "libphonenumber-js": "^1.9.6",
     "loader-utils": "^2.0.0",
+    "locale-currency": "0.0.2",
     "lodash.clonedeep": "^4.5.0",
     "postcss": "^8.2.1",
+    "puppeteer": "^10.2.0",
     "serve": "^11.3.2",
     "simple-git": "^2.24.0",
-    "testcafe": "^1.14.0",
+    "testcafe": "^1.18.4",
     "testcafe-browser-provider-browserstack": "^1.13.1",
     "underscore.string": "^3.3.5",
     "urijs": "1.18.12",
@@ -45,7 +55,8 @@
   },
   "jest": {
     "collectCoverageFrom": [
-      "static/**/*.js"
+      "static/**/*.js",
+      "hbshelpers/*.js"
     ],
     "verbose": true,
     "moduleFileExtensions": [
@@ -58,11 +69,16 @@
     "testMatch": [
       "<rootDir>/tests/**/*.js"
     ],
+    "modulePathIgnorePatterns": [
+      "/test-site/"
+    ],
     "testPathIgnorePatterns": [
       "/fixtures/",
       "/test-utils/",
       "/test-site/",
+      "/browser-automation/",
       "/percy/",
+      "/wcag/",
       "/acceptance/"
     ]
   }

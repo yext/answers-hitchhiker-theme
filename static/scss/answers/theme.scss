@@ -46,6 +46,12 @@
       padding-right: var(--yxt-base-spacing);
       font-size: var(--yxt-font-size-lg);
     }
+
+    .yxt-SearchBar-voiceSearch svg, img
+    {
+      max-width: none;
+      max-height: none;
+    }
   }
 
   &-nav
@@ -66,6 +72,15 @@
 
       .yxt-Nav-item.is-active {
         border-bottom-width: .185rem;
+      }
+
+      .yxt-Nav-modal .yxt-Nav-item {
+        line-height: var(--yxt-base-spacing);
+        word-break: break-word;
+      }
+
+      .yxt-Nav-modal li + li .yxt-Nav-item{
+        padding-top: calc(var(--yxt-base-spacing) * 0.5);
       }
     }
   }
@@ -119,6 +134,10 @@
       margin-top: calc(var(--yxt-base-spacing) / 2);
       margin-bottom: calc(var(--yxt-base-spacing) / 4);
     }
+
+    span {
+      display: inline-block;
+    }
   }
 
   &-results {
@@ -156,6 +175,7 @@
 
     &-suggestionLink
     {
+      //This media query value is the same one that the SDK uses because the alternative verticals font sizes shrink below this breakpoint
       @media (min-width: 47.9375rem)
       {
         font-size: var(--yxt-font-size-md-lg);
@@ -174,10 +194,18 @@
     font-size: var(--yxt-filters-and-sorts-font-size);
   }
 
+  .yxt-FilterOptions-optionLabel {
+    line-height: var(--yxt-filter-options-option-label-line-height);
+  }
+
   .yxt-Card-child {
     mark {
       background-color: unset;
       font-weight: var(--yxt-font-weight-medium);
     }
+  }
+
+  .yxt-Results--searchLoading {
+    opacity: var(--yxt-search-loading-opacity);
   }
 }

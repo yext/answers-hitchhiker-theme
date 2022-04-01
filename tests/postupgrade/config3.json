@@ -1,7 +1,0 @@
-{
-  // Comment1
-  "one": "hi", // Inline comment
-  "onetwo": "goodbye",
-  // Comment2
-  "two": "bye"
-}

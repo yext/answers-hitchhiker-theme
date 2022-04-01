@@ -36,6 +36,7 @@
         {{!-- </div> --}}
       </div>
       <div class="Answers-resultsMidContainer Hitchhiker-3-columns">
+        {{> templates/vertical-grid/markup/spellcheck }}
         <div class="Answers-resultsHeader">
           {{> templates/vertical-grid/markup/verticalresultscount }}
           {{> templates/vertical-grid/markup/appliedfilters }}
@@ -44,7 +45,6 @@
         </div>
         
         <div class="Answers-results js-answersResults">
-          {{> templates/vertical-grid/markup/spellcheck }}
           {{> templates/vertical-grid/markup/verticalresults }}
           {{> templates/vertical-grid/markup/pagination }}
           {{!-- {{> templates/vertical-grid/markup/qasubmission }} --}}

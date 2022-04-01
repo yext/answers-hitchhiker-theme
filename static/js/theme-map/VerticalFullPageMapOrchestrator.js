@@ -1,7 +1,7 @@
 import { Coordinate } from './Geo/Coordinate.js';
 import { smoothScroll } from './Util/SmoothScroll.js';
-import { getLanguageForProvider, isViewableWithinContainer, removeElement } from './Util/helpers.js';
-import { SearchDebouncer } from './SearchDebouncer';
+import { isViewableWithinContainer, removeElement, debounce } from './Util/helpers.js';
+import { SearchPreventer } from './SearchPreventer';
 import { defaultCenterCoordinate } from './constants.js';
 
 import ZoomTriggers from './Maps/ZoomTriggers.js';
@@ -18,6 +18,13 @@ import StorageKeys from '../constants/storage-keys.js';
 class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
   constructor(config, systemConfig) {
     super(config, systemConfig);
+
+    /**
+     * Name of a location card type
+     * 
+     * @type {string}
+     */
+    this.cardType = config.cardType;
 
     /**
      * The container in the DOM for the interactive map
@@ -67,7 +74,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
      * The default zoom level for the map
      * @type {number}
      */
-    this.defaultZoom = this.providerOptions.zoom || 14;
+    this.defaultZoom = this.providerOptions.zoom || 4;
 
     /**
      * The current zoom level of the map
@@ -126,9 +133,14 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
 
     /**
      * Determines whether or not another search should be ran
-     * @type {SearchDebouncer}
+     * @type {SearchPreventer}
      */
-    this.searchDebouncer = new SearchDebouncer();
+    this.searchPreventer = new SearchPreventer();
+
+    /**
+     * A search this area function with a debounce applied
+     */
+    this.debouncedSearchThisArea = debounce(this.searchThisArea.bind(this), 250);
 
     /**
      * The detail card which apears on mobile after clicking a pin
@@ -145,6 +157,11 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
      * @type {Object}
      */
     this.alternativeVerticalsConfig = config.alternativeVerticalsConfig;
+
+    /**
+     * Indicates whether or not the handleMapCenterChangefunction has been invoked
+     */
+    this.isFirstMapCenterChangeInvocation = true;
   }
 
   onCreate () {
@@ -177,14 +194,14 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       this.searchThisArea();
     });
 
-    this.setupCssForBreakpoints();
+    this.setupMobileBreakpointListener();
     this.addMapComponent();
   }
 
   /**
    * Properly set CSS classes for mobile and desktop
    */
-  setupCssForBreakpoints () {
+   setupMobileBreakpointListener () {
     if (!this.isMobile()) {
       this.updateCssForDesktop();
     }
@@ -193,6 +210,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       if (this.isMobile()) {
         this.updateCssForMobile();
       } else {
+        this.core.storage.set('DISABLE_RENDER_RESULTS', false);
         this.updateCssForDesktop();
       }
     };
@@ -360,13 +378,22 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
    * Search the area or show the search the area button according to configurable logic
    */
   handleMapCenterChange () {
+    const isIframe = 'parentIFrame' in window;
+    const isFirstMapCenterChangeInvocation = this.isFirstMapCenterChangeInvocation;
+    this.isFirstMapCenterChangeInvocation = false;
+    // Ignore the first invocation of this function within an iframe because it is triggered by the iframe
+    // resizer and not by the user
+    if (isFirstMapCenterChangeInvocation && isIframe) {
+      return;
+    }
+
     if (!this.searchOnMapMove) {
       this._container.classList.add('VerticalFullPageMap--showSearchThisArea');
       return;
     }
 
-    if (!this.shouldSearchBeDebouncedBasedOnCenter()) {
-      this.searchThisArea();
+    if (!this.shouldSearchBePreventedBasedOnCenter()) {
+      this.debouncedSearchThisArea();
     }
   }
 
@@ -379,19 +406,19 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       return;
     }
 
-    if (!this.shouldSearchBeDebouncedBasedOnZoom()) {
-      this.searchThisArea();
+    if (!this.shouldSearchBePreventedBasedOnZoom()) {
+      this.debouncedSearchThisArea();
     }
   }
 
   /**
-   * Returns true if a search should be debounced based on the center of the current map
+   * Returns true if a search should be prevented based on the center of the current map
    * and the center of the map during the most recent search
    * 
    * @returns {boolean}
    */
-  shouldSearchBeDebouncedBasedOnCenter () {
-    return this.searchDebouncer.isWithinDistanceThreshold({
+  shouldSearchBePreventedBasedOnCenter () {
+    return this.searchPreventer.isWithinDistanceThreshold({
       mostRecentSearchMapCenter: this.mostRecentSearchLocation,
       currentMapCenter: this.getCurrentMapCenter(),
       currentZoom: this.currentZoom
@@ -399,13 +426,13 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
   }
 
   /**
-   * Returns true if a search should be debounced based on the previous search zoom level and
+   * Returns true if a search should be prevented based on the previous search zoom level and
    * the current zoom level
    * 
    * @returns {boolean}
    */
-  shouldSearchBeDebouncedBasedOnZoom () {
-    return this.searchDebouncer.isWithinZoomThreshold({
+  shouldSearchBePreventedBasedOnZoom () {
+    return this.searchPreventer.isWithinZoomThreshold({
       mostRecentSearchZoom: this.mostRecentSearchZoom,
       currentZoom: this.currentZoom
     });
@@ -457,26 +484,33 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
   /**
    * The callback when a result pin on the map is clicked or tabbed onto
    * @param {Number} index The index of the pin in the current result list order
-   * @param {string} cardId The unique id for the pin entity, usually of the form `js-yl-${meta.id}`
+   * @param {string} cardId The unique id for the pin entity, usually of the form `js-yl-${uid}`
    */
   pinFocusListener (index, cardId) {
     this.core.storage.set(StorageKeys.LOCATOR_SELECTED_RESULT, cardId);
-    const selector = `.yxt-Card[data-opts='{ "_index": ${index - 1} }']`;
-    const card = document.querySelector(selector);
-
     document.querySelectorAll('.yxt-Card--pinFocused').forEach((el) => {
       el.classList.remove('yxt-Card--pinFocused');
     });
-
-    card.classList.add('yxt-Card--pinFocused');
 
     if (this.isMobile()) {
       document.querySelectorAll('.yxt-Card--isVisibleOnMobileMap').forEach((el) => removeElement(el));
       const isDetailCardOpened = document.querySelectorAll('.yxt-Card--isVisibleOnMobileMap').length;
 
-      this._detailCard = card.cloneNode(true);
+      const entityId = cardId.replace('js-yl-', '');
+      const verticalResults = this.core.storage.get(StorageKeys.VERTICAL_RESULTS).results;
+      const entityData = verticalResults.find(entity => entity._raw.uid.toString() === entityId);
+      const opts = {
+        parentContainer: this._container, 
+        container: `.yxt-Card-${entityId}`,
+        data: {
+          result: entityData,
+          verticalKey: this.verticalKey
+        }
+      };
+      ANSWERS.addComponent(this.cardType, opts);
+      this._detailCard = this._container.querySelector(`.yxt-Card-${entityId}`);
       this._detailCard.classList.add('yxt-Card--isVisibleOnMobileMap');
-      this._container.appendChild(this._detailCard);
+      this._detailCard.classList.add('yxt-Card--pinFocused');
 
       if (!isDetailCardOpened) {
         window.requestAnimationFrame(() => {
@@ -497,6 +531,9 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
 
       this.addCssClassesForState(MobileStates.DETAIL_SHOWN);
     } else {
+      const selector = `.yxt-Card[data-opts='{ "_index": ${index - 1} }']`;
+      const card = document.querySelector(selector);
+      card.classList.add('yxt-Card--pinFocused');
       this.scrollToResult(card);
     }
   }
@@ -527,8 +564,10 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
           this.deselectAllResults();
           window.scrollTo(0, 0);
           if (this._mobileView === MobileStates.LIST_VIEW) {
+            this.core.storage.set('DISABLE_RENDER_RESULTS', true);
             this.setMobileMapView();
           } else {
+            this.core.storage.set('DISABLE_RENDER_RESULTS', false);
             this.setMobileListView();
           }
         });
@@ -597,6 +636,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       useFacets: true
     });
     this.updateMostRecentSearchState();
+    this.core.clearStaticFilterNode('SearchThisArea');
   }
 
   /**

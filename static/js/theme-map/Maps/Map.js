@@ -53,6 +53,15 @@ class MapOptions {
     this.providerOptions = {};
     this.singlePinZoom = 14;
     this.wrapper = null;
+    this.locale = 'en';
+  }
+
+  /**
+   * @param {string} locale The locale used in map
+   */
+  withLocale(locale) {
+    this.locale = locale;
+    return this;
   }
 
   /**
@@ -318,6 +327,7 @@ class Map {
       .withCanvasClickHandler(() => this._canvasClickHandler())
       .withPanStartHandler(() => this.panStartHandler())
       .withProviderOptions(options.providerOptions)
+      .withLocale(options.locale)
       .build();
 
     this.setZoomCenter(this._defaultZoom, this._defaultCenter);

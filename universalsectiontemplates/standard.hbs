@@ -23,9 +23,9 @@
   <div class="HitchhikerResultsStandard-title">
     {{#if _config.icon}}
       {{#if iconIsBuiltIn}}
-        <div data-component="IconComponent" data-opts='{ "iconName": "{{ _config.icon }}" }'></div>
+        <div>{{> icons/builtInIcon iconName=_config.icon }}</div>
       {{else}}
-        <div data-component="IconComponent" data-opts='{ "iconUrl": "{{ _config.icon }}" }'></div>
+        <div>{{> icons/iconPartial iconUrl=_config.icon }}</div>
       {{/if}}
     {{/if}}
     <div class="HitchhikerResultsStandard-titleLabel">{{_config.title}}</div>
@@ -62,7 +62,7 @@
          data-eventoptions='{{eventOptions}}'
       >
         <div class="HitchhikerResultsStandard-viewMoreLabel">{{_config.viewMoreLabel}}</div>
-        <div data-component="IconComponent" data-opts='{ "iconName": "chevron" }'></div>
+        <div>{{> icons/builtInIcon iconName='chevron' }}</div>
       </a>
     </div>
   {{/if}}

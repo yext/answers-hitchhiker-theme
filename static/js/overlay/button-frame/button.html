@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head data-iframe-height="true">
-  <script src="overlay-button.js"></script>
+  <script src="overlay-button.js" type="module"></script>
+  <script src="overlay-button-legacy.js" nomodule></script>
   <link rel="stylesheet" type="text/css" href="overlay-button.css">
   <script>
-    window.iFrameResizer = {
-      onMessage: window.OverlayButtonJS.onMessage
-    }
+    document.addEventListener('DOMContentLoaded', function () {
+      window.iFrameResizer = {
+        onMessage: window.OverlayButtonJS.onMessage
+      };
+    });
   </script>
   <script
     src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.10/iframeResizer.contentWindow.min.js">

@@ -2,6 +2,10 @@ const fs = require('fs');
 const path = require('path');
 const hbs = require('../../test-utils/hbs');
 
+const tempToNavPath = 'templates/common-partials/script/navigation';
+const partialPath = path.resolve(__dirname, `../../../${tempToNavPath}.hbs`);
+hbs.registerPartial(tempToNavPath, fs.readFileSync(partialPath, 'utf-8'));
+
 const pageTemplates = [
   'universal-standard',
   'vertical-grid',

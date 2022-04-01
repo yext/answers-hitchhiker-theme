@@ -43,7 +43,16 @@
     },
     "SearchBar": {
       "placeholderText": "Search", // The placeholder text in the answers search bar
-      "allowEmptySearch": true // Allows users to submit an empty search in the searchbar
+      "allowEmptySearch": true, // Allows users to submit an empty search in the searchbar
+      "loadingIndicator": {
+        "display": true //Optional, whether to include a loading indicator on seachbar
+        // "iconUrl": "" //Optional, use custom icon url instead of the default loading indicator animation
+      },
+      "voiceSearch": {
+        "enabled": false // Whether or not voice search is enabled
+        // "customMicIconUrl": "", // Path to override the voice start icon
+        // "customListeningIconUrl": "" // Path to override the voice stop icon
+      }
     },
     "Pagination": {
       "noResults": {
@@ -56,9 +65,11 @@
   "verticalsToConfig": {
     "<REPLACE ME>": { // The vertical key from your search configuration
       // "label": "", // The name of the vertical in the section header and the navigation bar
+      // "verticalLimit": 15, // The result count limit for vertical search
+      "universalLimit": 3, // The result count limit for universal search
       "cardType": "product-prominentimage", // The name of the card to use - e.g. accordion, location, customcard 
-      "icon": "star", // The icon to use on the card for this vertical
-      "universalSectionTemplate": "standard"
+      // "icon": "star", // The icon to use on the card for this vertical
+      "universalSectionTemplate": "grid-three-columns"
     }
   }
 }

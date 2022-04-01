@@ -1,4 +1,4 @@
-const { SnapshotWidths } = require('./constants');
+const { BrowserPageWidths } = require('../browser-automation/constants');
 
 /**
  * Responsible for taking Percy snapshots
@@ -6,11 +6,24 @@ const { SnapshotWidths } = require('./constants');
 class Camera {
   /**
    * @param {function} percySnapshot The percy snapshot function
+   * @param {import('puppeteer').Page} page A Pupeteer Page
    * @param {boolean} iframeMode Enables capturing iframe snapshots
+   * @param {string} locale Enables capturing locale specific snapshots
    */
-  constructor(percySnapshot, iframeMode ) {
+  constructor(percySnapshot, page, iframeMode, locale='en') {
     this._percySnapshot = percySnapshot;
+    this._page = page;
     this._iframeMode = iframeMode;
+    this._locale = locale;
+  }
+
+  /**
+   * Set locale for snapshot of the site
+   * 
+   * @param {string} locale 
+   */
+  setLocale(locale) {
+    this._locale = locale;
   }
 
   /**
@@ -20,7 +33,7 @@ class Camera {
    */
   async snapshot(snapshotName) {
     const updatedSnapshotName = this._getSnapshotName(snapshotName);
-    await this._percySnapshot(updatedSnapshotName);
+    await this._percySnapshot(this._page, updatedSnapshotName);
   }
 
   /**
@@ -30,7 +43,7 @@ class Camera {
    */
   async snapshotDesktopOnly(snapshotName) {
     const updatedSnapshotName = this._getSnapshotName(snapshotName);
-    await this._percySnapshot(updatedSnapshotName, { widths: [SnapshotWidths.Desktop] });
+    await this._percySnapshot(this._page, updatedSnapshotName, { widths: [BrowserPageWidths.Desktop] });
   }
 
   /**
@@ -40,19 +53,18 @@ class Camera {
    */
   async snapshotMobileOnly(snapshotName) {
     const updatedSnapshotName = this._getSnapshotName(snapshotName);
-    await this._percySnapshot(updatedSnapshotName, { widths: [SnapshotWidths.Mobile] });
+    await this._percySnapshot(this._page, updatedSnapshotName, { widths: [BrowserPageWidths.Mobile] });
   }
 
   /**
-   * Returns the correct snapshot name based on the iframe mode
+   * Returns the correct snapshot name based on the iframe mode and locale
    * 
    * @param {string} snapshotName 
    * @returns {string}
    */
   _getSnapshotName(snapshotName) {
-    return this._iframeMode
-      ? snapshotName + '_iframe'
-      : snapshotName;
+    let updatedSnapshotName = this._iframeMode ? snapshotName + '_iframe' : snapshotName;
+    return this._locale === 'en' ? updatedSnapshotName : this._locale + '--' + updatedSnapshotName;
   }
 }
 

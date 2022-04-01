@@ -1,0 +1,46 @@
+{
+  "componentSettings": {
+    /**
+    "QASubmission": {
+      "entityId": "", // Set the ID of the entity to use for Q&A submissions, must be of entity type "Organization"
+      "privacyPolicyUrl": "" // The fully qualified URL to the privacy policy
+    },
+    **/
+    "DirectAnswer": {
+      "types": {
+        "FEATURED_SNIPPET": {
+          "cardType": "multilang-documentsearch-standard"
+        },
+        "FIELD_VALUE": {
+          "cardType": "multilang-allfields-standard"
+        }
+      }
+    },
+    "SearchBar": {
+      "placeholderText": "بحث" // The placeholder text in the answers search bar
+    }
+  },
+  "verticalsToConfig": {
+    "Universal": {
+      "isFirst": "true", // Indicates that this should always appear first in the navigation bar
+      "label": "الجميع" // The name of the universal tab in the navigation bar
+    },
+    "KM": {
+      "universalSectionTemplate": "grid-two-columns",
+      "cardType": "multilang-financial-professional-location",
+      "mapConfig": {
+        "mapProvider": "Google"
+      }
+    },
+    "products": {
+      "universalSectionTemplate": "grid-three-columns",
+      "cardType": "multilang-product-prominentimage"
+    },
+    "links": {
+      "cardType": "multilang-link-standard"
+    },
+    "healthcare_professionals": {
+      "cardType": "multilang-professional-location"
+    }
+  }
+}

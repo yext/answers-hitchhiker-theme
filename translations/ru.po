@@ -1,0 +1,264 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:31
+msgid "([[resultsCount]] result)"
+msgid_plural "([[resultsCount]] results)"
+msgstr[0] "([[resultsCount]] результат)"
+msgstr[1] "([[resultsCount]] результата)"
+msgstr[2] "([[resultsCount]] результатов)"
+
+#: cards/multilang-menuitem-standard/component.js:29
+msgid "[[calorieCount]] calories"
+msgstr "[[calorieCount]] калорий"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:3
+msgid "<em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">No results found</em> in [[currentVerticalLabel]]."
+msgstr "<em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">Не найдены результаты</em> в [[currentVerticalLabel]]."
+
+#: cards/multilang-menuitem-standard/component.js:25
+msgid "Allergens"
+msgstr "Аллергены"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:43
+msgid "Alternatively, you can <a class=\"yxt-AlternativeVerticals-universalLink\" href=\"[[universalUrl]]\"> view results across all search categories</a>."
+msgstr "Вы также можете <a class=\"yxt-AlternativeVerticals-universalLink\" href=\"[[universalUrl]]\">посмотреть результаты во всех категориях поиска</a>."
+
+#: cards/multilang-document-standard/component.js:30
+msgid "Last Updated on [[date]]"
+msgstr "Последнее обновление: [[date]]"
+
+#: directanswercards/multilang-documentsearch-standard/template.hbs:34
+msgid "Read more about"
+msgstr "Подробнее о"
+
+#: cards/multilang-job-standard/component.js:35
+msgid "Apply Now"
+msgstr "Применить"
+
+#: theme-components/collapsible-filters/filter-link/component.js:4
+msgid "clear search"
+msgstr "очистить поиск"
+
+#: cards/multilang-event-standard/component.js:44
+msgid "Directions"
+msgstr "Маршрут"
+
+#: cards/multilang-location-standard/component.js:49
+msgid "Get Directions"
+msgstr "Проложить маршрут"
+
+#: templates/vertical-full-page-map/page.html.hbs:23
+msgid "Main location search"
+msgstr "Основной поиск местоположения"
+
+#: templates/vertical-full-page-map/page.html.hbs:67
+msgid "Map"
+msgstr "Карта"
+
+#: templates/vertical-full-page-map/page.html.hbs:62
+msgid "Map controls"
+msgstr "Управление картой"
+
+#: theme-components/collapsible-filters/view-results-button/template.hbs:3
+msgid "No results found."
+msgstr "Результаты не найдены."
+
+#: cards/multilang-menuitem-standard/component.js:40
+msgid "Order Now"
+msgstr "Заказать"
+
+#: theme-components/collapsible-filters/filter-link/component.js:3
+msgid "reset filters"
+msgstr "сбросить фильтры"
+
+#: cards/multilang-location-standard/template.hbs:140
+msgid "Services:"
+msgstr "Сервисы:"
+
+#: cards/multilang-event-standard/component.js:30
+#: cards/multilang-financial-professional-location/component.js:44
+#: cards/multilang-job-standard/component.js:31
+#: cards/multilang-link-standard/component.js:28
+#: cards/multilang-menuitem-standard/component.js:36
+#: cards/multilang-product-prominentimage/component.js:39
+#: cards/multilang-product-prominentvideo/component.js:34
+#: cards/multilang-product-standard/component.js:38
+#: cards/multilang-professional-location/component.js:44
+#: cards/multilang-professional-standard/component.js:36
+#: cards/multilang-standard/component.js:31
+msgid "Show less"
+msgstr "Показать меньше"
+
+#: cards/multilang-event-standard/component.js:29
+#: cards/multilang-financial-professional-location/component.js:43
+#: cards/multilang-job-standard/component.js:30
+#: cards/multilang-link-standard/component.js:27
+#: cards/multilang-menuitem-standard/component.js:35
+#: cards/multilang-product-prominentimage/component.js:38
+#: cards/multilang-product-prominentvideo/component.js:33
+#: cards/multilang-product-standard/component.js:37
+#: cards/multilang-professional-location/component.js:43
+#: cards/multilang-professional-standard/component.js:35
+#: cards/multilang-standard/component.js:30
+msgid "Show more"
+msgstr "Показать еще"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:5
+msgid "Showing <em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">all [[currentVerticalLabel]]</em> instead."
+msgstr "Вместо этого показаны <em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">все [[currentVerticalLabel]]</em>."
+
+#: theme-components/collapsible-filters/filter-link/component.js:2
+msgid "sorts and filters"
+msgstr "сортировка и фильтры"
+
+#: directanswercards/multilang-allfields-standard/component.js:188
+msgid "Thank you for your feedback!"
+msgstr "Спасибо за ваш отзыв!"
+
+#: cards/multilang-event-standard/component.js:53
+#: cards/multilang-faq-accordion/component.js:51
+#: cards/multilang-financial-professional-location/component.js:69
+#: cards/multilang-job-standard/component.js:44
+#: cards/multilang-link-standard/component.js:32
+#: cards/multilang-location-standard/component.js:58
+#: cards/multilang-menuitem-standard/component.js:59
+#: cards/multilang-product-prominentimage-clickable/component.js:44
+#: cards/multilang-product-prominentimage/component.js:62
+#: cards/multilang-product-prominentvideo/component.js:57
+#: cards/multilang-product-standard/component.js:61
+#: cards/multilang-professional-location/component.js:69
+#: cards/multilang-professional-standard/component.js:59
+#: cards/multilang-standard/component.js:54
+msgid "Thanks!"
+msgstr "Спасибо!"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:11
+msgid "The following search category yielded results for <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"
+msgid_plural "The following search categories yielded results for <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"
+msgstr[0] "Следующая категория поиска содержит результаты по запросу <span class=\"yxt-AlternativeVerticals-details--query\">&quot;[[query]]&quot;</span>:"
+msgstr[1] "Следующие категории поиска содержат результаты по запросу <span class=\"yxt-AlternativeVerticals-details--query\">&quot;[[query]]&quot;</span>:"
+msgstr[2] "Следующие категории поиска содержат результаты по запросу <span class=\"yxt-AlternativeVerticals-details--query\">&quot;[[query]]&quot;</span>:"
+
+#: directanswercards/multilang-allfields-standard/component.js:190
+msgid "This answered my question"
+msgstr "Ответ был полезен"
+
+#: directanswercards/multilang-allfields-standard/component.js:191
+msgid "This did not answer my question"
+msgstr "Ответ не был полезен"
+
+#: theme-components/collapsible-filters/view-results-button/template.hbs:5
+msgid "View 1 Result"
+msgid_plural "View [[resultsCount]] Results"
+msgstr[0] "Посмотреть 1 результат"
+msgstr[1] "Посмотреть [[resultsCount]] результата"
+msgstr[2] "Посмотреть [[resultsCount]] результатов"
+
+#: directanswercards/multilang-allfields-standard/component.js:174
+msgid "View Details"
+msgstr "Подробнее"
+
+#: cards/multilang-menuitem-standard/component.js:50
+msgid "View Menu"
+msgstr "Смотреть меню"
+
+#: directanswercards/multilang-allfields-standard/component.js:189
+msgid "Was this the answer you were looking for?"
+msgstr "Этот ответ был вам полезен?"
+
+#: templates/vertical-full-page-map/markup/searchthisareatoggle.hbs:10
+msgctxt "A button that conducts a search in the current map area"
+msgid "Search When Map Moves"
+msgstr "Поиск при перемещении карты"
+
+#: templates/vertical-full-page-map/markup/searchthisareabutton.hbs:3
+msgctxt "A toggle for automatically searching when the map moves"
+msgid "Search This Area"
+msgstr "Поиск в указанной области"
+
+#: cards/multilang-location-standard/component.js:40
+msgctxt "Call is a verb"
+msgid "Call"
+msgstr "Звонить"
+
+#: cards/multilang-financial-professional-location/template.hbs:198
+#: cards/multilang-location-standard/template.hbs:209
+#: cards/multilang-professional-location/template.hbs:195
+msgctxt "Close is a verb"
+msgid "Close Card"
+msgstr "Закрыть карточку"
+
+#: cards/multilang-event-standard/component.js:34
+msgctxt "RSVP is a verb"
+msgid "RSVP"
+msgstr "Перезвоните мне"
+
+#: templates/vertical-full-page-map/markup/mobilelisttoggles.hbs:5
+msgctxt "The label of a toggle for displaying a list of results"
+msgid "List"
+msgstr "Список"
+
+#: templates/vertical-full-page-map/markup/mobilelisttoggles.hbs:9
+msgctxt "The label of a toggle for viewing a visual map"
+msgid "Map"
+msgstr "Карта"
+
+#: templates/universal-standard/script/universalresults.hbs:78
+msgctxt "View is a verb"
+msgid "View All"
+msgstr "Смотреть все"
+
+msgctxt "Indicates that a store is closed"
+msgid "Closed"
+msgstr "Закрыто"
+
+msgctxt "The hours that a store is open"
+msgid "Open 24 Hours"
+msgstr "Открыто круглосуточно"
+
+msgctxt "Indicates the time a store will open"
+msgid "Opens at"
+msgstr "Открывается в"
+
+msgctxt "Indicates that a store is open"
+msgid "Open Now"
+msgstr "Открыто"
+
+msgctxt "Indicates the time a store will close"
+msgid "Closes at"
+msgstr "Закрывается в"
+
+msgid "Monday"
+msgstr "понедельник"
+
+msgid "Tuesday"
+msgstr "вторник"
+
+msgid "Wednesday"
+msgstr "среда"
+
+msgid "Thursday"
+msgstr "четверг"
+
+msgid "Friday"
+msgstr "Пятница"
+
+msgid "Saturday"
+msgstr "Суббота"
+
+msgid "Sunday"
+msgstr "Воскресенье"
+
+msgid "Day of the Week"
+msgstr "День недели"
+
+msgid "Hours"
+msgstr "Часы"
+
+msgid "Yes"
+msgstr "да"
+
+msgid "No"
+msgstr "Нет"

@@ -1,0 +1,261 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:31
+msgid "([[resultsCount]] result)"
+msgid_plural "([[resultsCount]] results)"
+msgstr[0] "([[resultsCount]] resultaat)"
+msgstr[1] "([[resultsCount]] resultaten)"
+
+#: cards/multilang-menuitem-standard/component.js:29
+msgid "[[calorieCount]] calories"
+msgstr "[[calorieCount]] calorieën"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:3
+msgid "<em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">No results found</em> in [[currentVerticalLabel]]."
+msgstr "<em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">Geen resultaten gevonden</em> in [[currentVerticalLabel]]."
+
+#: cards/multilang-menuitem-standard/component.js:25
+msgid "Allergens"
+msgstr "Allergenen"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:43
+msgid "Alternatively, you can <a class=\"yxt-AlternativeVerticals-universalLink\" href=\"[[universalUrl]]\"> view results across all search categories</a>."
+msgstr "U kunt ook <a class=\"yxt-AlternativeVerticals-universalLink\" href=\"[[universalUrl]]\"> resultaten bekijken in alle zoekcategorieën</a>."
+
+#: cards/multilang-job-standard/component.js:35
+msgid "Apply Now"
+msgstr "Nu toepassen"
+
+#: cards/multilang-document-standard/component.js:30
+msgid "Last Updated on [[date]]"
+msgstr "Laatst bijgewerkt op [[datum]]"
+
+#: directanswercards/multilang-documentsearch-standard/template.hbs:34
+msgid "Read more about"
+msgstr "Lees meer over"
+
+#: theme-components/collapsible-filters/filter-link/component.js:4
+msgid "clear search"
+msgstr "wis zoekopdracht"
+
+#: cards/multilang-event-standard/component.js:44
+msgid "Directions"
+msgstr "Routebeschrijving"
+
+#: cards/multilang-location-standard/component.js:49
+msgid "Get Directions"
+msgstr "Routebeschrijving opvragen"
+
+#: templates/vertical-full-page-map/page.html.hbs:23
+msgid "Main location search"
+msgstr "Hoofdlocatie zoeken"
+
+#: templates/vertical-full-page-map/page.html.hbs:67
+msgid "Map"
+msgstr "Kaart"
+
+#: templates/vertical-full-page-map/page.html.hbs:62
+msgid "Map controls"
+msgstr "Bedieningselementen kaart"
+
+#: theme-components/collapsible-filters/view-results-button/template.hbs:3
+msgid "No results found."
+msgstr "Geen resultaten gevonden."
+
+#: cards/multilang-menuitem-standard/component.js:40
+msgid "Order Now"
+msgstr "Nu bestellen"
+
+#: theme-components/collapsible-filters/filter-link/component.js:3
+msgid "reset filters"
+msgstr "filters resetten"
+
+#: cards/multilang-location-standard/template.hbs:140
+msgid "Services:"
+msgstr "Services:"
+
+#: cards/multilang-event-standard/component.js:30
+#: cards/multilang-financial-professional-location/component.js:44
+#: cards/multilang-job-standard/component.js:31
+#: cards/multilang-link-standard/component.js:28
+#: cards/multilang-menuitem-standard/component.js:36
+#: cards/multilang-product-prominentimage/component.js:39
+#: cards/multilang-product-prominentvideo/component.js:34
+#: cards/multilang-product-standard/component.js:38
+#: cards/multilang-professional-location/component.js:44
+#: cards/multilang-professional-standard/component.js:36
+#: cards/multilang-standard/component.js:31
+msgid "Show less"
+msgstr "Minder weergeven"
+
+#: cards/multilang-event-standard/component.js:29
+#: cards/multilang-financial-professional-location/component.js:43
+#: cards/multilang-job-standard/component.js:30
+#: cards/multilang-link-standard/component.js:27
+#: cards/multilang-menuitem-standard/component.js:35
+#: cards/multilang-product-prominentimage/component.js:38
+#: cards/multilang-product-prominentvideo/component.js:33
+#: cards/multilang-product-standard/component.js:37
+#: cards/multilang-professional-location/component.js:43
+#: cards/multilang-professional-standard/component.js:35
+#: cards/multilang-standard/component.js:30
+msgid "Show more"
+msgstr "Meer tonen"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:5
+msgid "Showing <em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">all [[currentVerticalLabel]]</em> instead."
+msgstr "Toon in plaats daarvan <em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">alle [[currentVerticalLabel]]</em>."
+
+#: theme-components/collapsible-filters/filter-link/component.js:2
+msgid "sorts and filters"
+msgstr "sorteren en filteren"
+
+#: directanswercards/multilang-allfields-standard/component.js:188
+msgid "Thank you for your feedback!"
+msgstr "Hartelijk dank voor uw feedback!"
+
+#: cards/multilang-event-standard/component.js:53
+#: cards/multilang-faq-accordion/component.js:51
+#: cards/multilang-financial-professional-location/component.js:69
+#: cards/multilang-job-standard/component.js:44
+#: cards/multilang-link-standard/component.js:32
+#: cards/multilang-location-standard/component.js:58
+#: cards/multilang-menuitem-standard/component.js:59
+#: cards/multilang-product-prominentimage-clickable/component.js:44
+#: cards/multilang-product-prominentimage/component.js:62
+#: cards/multilang-product-prominentvideo/component.js:57
+#: cards/multilang-product-standard/component.js:61
+#: cards/multilang-professional-location/component.js:69
+#: cards/multilang-professional-standard/component.js:59
+#: cards/multilang-standard/component.js:54
+msgid "Thanks!"
+msgstr "Bedankt!"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:11
+msgid "The following search category yielded results for <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"
+msgid_plural "The following search categories yielded results for <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"
+msgstr[0] "De volgende zoekcategorie leverde resultaten op voor <span class=\"yxt-AlternativeVerticals-details--query\">&quot;[[query]]&quot;</span>:"
+msgstr[1] "De volgende zoekcategorieën leverden resultaten op voor <span class=\"yxt-AlternativeVerticals-details--query\">&quot;[[query]]&quot;</span>:"
+
+#: directanswercards/multilang-allfields-standard/component.js:190
+msgid "This answered my question"
+msgstr "Hiermee is mijn vraag beantwoord"
+
+#: directanswercards/multilang-allfields-standard/component.js:191
+msgid "This did not answer my question"
+msgstr "Hiermee is mijn vraag niet beantwoord"
+
+#: theme-components/collapsible-filters/view-results-button/template.hbs:5
+msgid "View 1 Result"
+msgid_plural "View [[resultsCount]] Results"
+msgstr[0] "Bekijk 1 resultaat"
+msgstr[1] "Bekijk [[resultsCount]] resultaten"
+
+#: directanswercards/multilang-allfields-standard/component.js:174
+msgid "View Details"
+msgstr "Bekijk details"
+
+#: cards/multilang-menuitem-standard/component.js:50
+msgid "View Menu"
+msgstr "Menu bekijken"
+
+#: directanswercards/multilang-allfields-standard/component.js:189
+msgid "Was this the answer you were looking for?"
+msgstr "Was dit het antwoord waar u naar op zoek was?"
+
+#: templates/vertical-full-page-map/markup/searchthisareatoggle.hbs:10
+msgctxt "A button that conducts a search in the current map area"
+msgid "Search When Map Moves"
+msgstr "Zoeken wanneer kaart beweegt"
+
+#: templates/vertical-full-page-map/markup/searchthisareabutton.hbs:3
+msgctxt "A toggle for automatically searching when the map moves"
+msgid "Search This Area"
+msgstr "Zoeken in dit gebied"
+
+#: cards/multilang-location-standard/component.js:40
+msgctxt "Call is a verb"
+msgid "Call"
+msgstr "Telefoongesprek"
+
+#: cards/multilang-financial-professional-location/template.hbs:198
+#: cards/multilang-location-standard/template.hbs:209
+#: cards/multilang-professional-location/template.hbs:195
+msgctxt "Close is a verb"
+msgid "Close Card"
+msgstr "Kaart sluiten"
+
+#: cards/multilang-event-standard/component.js:34
+msgctxt "RSVP is a verb"
+msgid "RSVP"
+msgstr "RSVP"
+
+#: templates/vertical-full-page-map/markup/mobilelisttoggles.hbs:5
+msgctxt "The label of a toggle for displaying a list of results"
+msgid "List"
+msgstr "Lijst"
+
+#: templates/vertical-full-page-map/markup/mobilelisttoggles.hbs:9
+msgctxt "The label of a toggle for viewing a visual map"
+msgid "Map"
+msgstr "Kaart"
+
+#: templates/universal-standard/script/universalresults.hbs:78
+msgctxt "View is a verb"
+msgid "View All"
+msgstr "Alles bekijken"
+
+msgctxt "Indicates that a store is closed"
+msgid "Closed"
+msgstr "Gesloten"
+
+msgctxt "The hours that a store is open"
+msgid "Open 24 Hours"
+msgstr "24 uur geopend"
+
+msgctxt "Indicates the time a store will open"
+msgid "Opens at"
+msgstr "Geopend vanaf"
+
+msgctxt "Indicates that a store is open"
+msgid "Open Now"
+msgstr "Nu geopend"
+
+msgctxt "Indicates the time a store will close"
+msgid "Closes at"
+msgstr "Gesloten vanaf"
+
+msgid "Monday"
+msgstr "Maandag"
+
+msgid "Tuesday"
+msgstr "Dinsdag"
+
+msgid "Wednesday"
+msgstr "Woensdag"
+
+msgid "Thursday"
+msgstr "Donderdag"
+
+msgid "Friday"
+msgstr "Vrijdag"
+
+msgid "Saturday"
+msgstr "Zaterdag"
+
+msgid "Sunday"
+msgstr "Zondag"
+
+msgid "Day of the Week"
+msgstr "dag van de week"
+
+msgid "Hours"
+msgstr "uur"
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "No"
+msgstr "Nee"

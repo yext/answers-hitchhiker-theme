@@ -1,0 +1,258 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:31
+msgid "([[resultsCount]] result)"
+msgid_plural "([[resultsCount]] results)"
+msgstr[0] "(결과 [[resultsCount]]개)"
+
+#: cards/multilang-menuitem-standard/component.js:29
+msgid "[[calorieCount]] calories"
+msgstr "[[calorieCount]]칼로리"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:3
+msgid "<em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">No results found</em> in [[currentVerticalLabel]]."
+msgstr "[[currentVerticalLabel]]에서 <em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">결과를 찾을 수 없음</em>."
+
+#: cards/multilang-menuitem-standard/component.js:25
+msgid "Allergens"
+msgstr "알레르기 유발 물질"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:43
+msgid "Alternatively, you can <a class=\"yxt-AlternativeVerticals-universalLink\" href=\"[[universalUrl]]\"> view results across all search categories</a>."
+msgstr "또는 <a class=\"yxt-AlternativeVerticals-universalLink\" href=\"[[universalUrl]]\">전체 검색 카테고리에서 결과를 조회할 수 있습니다</a>."
+
+#: cards/multilang-job-standard/component.js:35
+msgid "Apply Now"
+msgstr "지금 적용"
+
+#: cards/multilang-document-standard/component.js:30
+msgid "Last Updated on [[date]]"
+msgstr "최종 업데이트: [[date]]"
+
+#: directanswercards/multilang-documentsearch-standard/template.hbs:34
+msgid "Read more about"
+msgstr "자세히 알아보기"
+
+#: theme-components/collapsible-filters/filter-link/component.js:4
+msgid "clear search"
+msgstr "검색 지우기"
+
+#: cards/multilang-event-standard/component.js:44
+msgid "Directions"
+msgstr "오시는 길"
+
+#: cards/multilang-location-standard/component.js:49
+msgid "Get Directions"
+msgstr "길 찾기"
+
+#: templates/vertical-full-page-map/page.html.hbs:23
+msgid "Main location search"
+msgstr "메인 위치 검색"
+
+#: templates/vertical-full-page-map/page.html.hbs:67
+msgid "Map"
+msgstr "지도"
+
+#: templates/vertical-full-page-map/page.html.hbs:62
+msgid "Map controls"
+msgstr "지도 제어"
+
+#: theme-components/collapsible-filters/view-results-button/template.hbs:3
+msgid "No results found."
+msgstr "검색 결과가 없습니다."
+
+#: cards/multilang-menuitem-standard/component.js:40
+msgid "Order Now"
+msgstr "지금 주문"
+
+#: theme-components/collapsible-filters/filter-link/component.js:3
+msgid "reset filters"
+msgstr "필터 재설정"
+
+#: cards/multilang-location-standard/template.hbs:140
+msgid "Services:"
+msgstr "서비스:"
+
+#: cards/multilang-event-standard/component.js:30
+#: cards/multilang-financial-professional-location/component.js:44
+#: cards/multilang-job-standard/component.js:31
+#: cards/multilang-link-standard/component.js:28
+#: cards/multilang-menuitem-standard/component.js:36
+#: cards/multilang-product-prominentimage/component.js:39
+#: cards/multilang-product-prominentvideo/component.js:34
+#: cards/multilang-product-standard/component.js:38
+#: cards/multilang-professional-location/component.js:44
+#: cards/multilang-professional-standard/component.js:36
+#: cards/multilang-standard/component.js:31
+msgid "Show less"
+msgstr "덜 보기"
+
+#: cards/multilang-event-standard/component.js:29
+#: cards/multilang-financial-professional-location/component.js:43
+#: cards/multilang-job-standard/component.js:30
+#: cards/multilang-link-standard/component.js:27
+#: cards/multilang-menuitem-standard/component.js:35
+#: cards/multilang-product-prominentimage/component.js:38
+#: cards/multilang-product-prominentvideo/component.js:33
+#: cards/multilang-product-standard/component.js:37
+#: cards/multilang-professional-location/component.js:43
+#: cards/multilang-professional-standard/component.js:35
+#: cards/multilang-standard/component.js:30
+msgid "Show more"
+msgstr "더 보기"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:5
+msgid "Showing <em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">all [[currentVerticalLabel]]</em> instead."
+msgstr "대신 <em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">전체 [[currentVerticalLabel]]</em> 표시."
+
+#: theme-components/collapsible-filters/filter-link/component.js:2
+msgid "sorts and filters"
+msgstr "정렬 및 필터"
+
+#: directanswercards/multilang-allfields-standard/component.js:188
+msgid "Thank you for your feedback!"
+msgstr "피드백을 주셔서 감사합니다!"
+
+#: cards/multilang-event-standard/component.js:53
+#: cards/multilang-faq-accordion/component.js:51
+#: cards/multilang-financial-professional-location/component.js:69
+#: cards/multilang-job-standard/component.js:44
+#: cards/multilang-link-standard/component.js:32
+#: cards/multilang-location-standard/component.js:58
+#: cards/multilang-menuitem-standard/component.js:59
+#: cards/multilang-product-prominentimage-clickable/component.js:44
+#: cards/multilang-product-prominentimage/component.js:62
+#: cards/multilang-product-prominentvideo/component.js:57
+#: cards/multilang-product-standard/component.js:61
+#: cards/multilang-professional-location/component.js:69
+#: cards/multilang-professional-standard/component.js:59
+#: cards/multilang-standard/component.js:54
+msgid "Thanks!"
+msgstr "감사 해요!"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:11
+msgid "The following search category yielded results for <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"
+msgid_plural "The following search categories yielded results for <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"
+msgstr[0] "<span class=\"yxt-AlternativeVerticals-details--query\">&quot;[[query]]&quot;</span>에 대한 결과가 나온 검색 카테고리:"
+
+#: directanswercards/multilang-allfields-standard/component.js:190
+msgid "This answered my question"
+msgstr "궁금한 점이 해소되었습니다"
+
+#: directanswercards/multilang-allfields-standard/component.js:191
+msgid "This did not answer my question"
+msgstr "궁금한 점이 해소되지 않았습니다"
+
+#: theme-components/collapsible-filters/view-results-button/template.hbs:5
+msgid "View 1 Result"
+msgid_plural "View [[resultsCount]] Results"
+msgstr[0] "결과 [[resultsCount]]개 보기"
+
+#: directanswercards/multilang-allfields-standard/component.js:174
+msgid "View Details"
+msgstr "세부정보 보기"
+
+#: cards/multilang-menuitem-standard/component.js:50
+msgid "View Menu"
+msgstr "메뉴 보기"
+
+#: directanswercards/multilang-allfields-standard/component.js:189
+msgid "Was this the answer you were looking for?"
+msgstr "원하는 답변이 맞나요?"
+
+#: templates/vertical-full-page-map/markup/searchthisareatoggle.hbs:10
+msgctxt "A button that conducts a search in the current map area"
+msgid "Search When Map Moves"
+msgstr "지도 이동 시 검색"
+
+#: templates/vertical-full-page-map/markup/searchthisareabutton.hbs:3
+msgctxt "A toggle for automatically searching when the map moves"
+msgid "Search This Area"
+msgstr "이 지역 검색"
+
+#: cards/multilang-location-standard/component.js:40
+msgctxt "Call is a verb"
+msgid "Call"
+msgstr "전화"
+
+#: cards/multilang-financial-professional-location/template.hbs:198
+#: cards/multilang-location-standard/template.hbs:209
+#: cards/multilang-professional-location/template.hbs:195
+msgctxt "Close is a verb"
+msgid "Close Card"
+msgstr "카드 닫기"
+
+#: cards/multilang-event-standard/component.js:34
+msgctxt "RSVP is a verb"
+msgid "RSVP"
+msgstr "RSVP"
+
+#: templates/vertical-full-page-map/markup/mobilelisttoggles.hbs:5
+msgctxt "The label of a toggle for displaying a list of results"
+msgid "List"
+msgstr "목록"
+
+#: templates/vertical-full-page-map/markup/mobilelisttoggles.hbs:9
+msgctxt "The label of a toggle for viewing a visual map"
+msgid "Map"
+msgstr "지도"
+
+#: templates/universal-standard/script/universalresults.hbs:78
+msgctxt "View is a verb"
+msgid "View All"
+msgstr "전체 보기"
+
+msgctxt "Indicates that a store is closed"
+msgid "Closed"
+msgstr "닫힘"
+
+msgctxt "The hours that a store is open"
+msgid "Open 24 Hours"
+msgstr "24시간 영업"
+
+msgctxt "Indicates the time a store will open"
+msgid "Opens at"
+msgstr "개장 시간:"
+
+msgctxt "Indicates that a store is open"
+msgid "Open Now"
+msgstr "अ지금 열기"
+
+msgctxt "Indicates the time a store will close"
+msgid "Closes at"
+msgstr "종료 시간:"
+
+msgid "Monday"
+msgstr "월요일"
+
+msgid "Tuesday"
+msgstr "화요일"
+
+msgid "Wednesday"
+msgstr "수요일"
+
+msgid "Thursday"
+msgstr "목요일"
+
+msgid "Friday"
+msgstr "금요일"
+
+msgid "Saturday"
+msgstr "토요일"
+
+msgid "Sunday"
+msgstr "일요일"
+
+msgid "Day of the Week"
+msgstr "요일"
+
+msgid "Hours"
+msgstr "시간"
+
+msgid "Yes"
+msgstr "예"
+
+msgid "No"
+msgstr "아니요"

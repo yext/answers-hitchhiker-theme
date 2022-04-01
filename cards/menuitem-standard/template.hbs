@@ -9,16 +9,17 @@
         {{> details }}
       </div>
       {{#if (any (all card.CTA1 card.CTA1.url) (all card.CTA2 card.CTA2.url))}}
-      <div class="HitchhikerMenuItemStandard-ctasWrapper">
-        {{#with card.CTA1}}
-        {{> CTA ctaName="primaryCTA" }}
-        {{/with}}
-        {{#with card.CTA2}}
-        {{> CTA ctaName="secondaryCTA" }}
-        {{/with}}
-      </div>
+        <div class="HitchhikerMenuItemStandard-ctasWrapper">
+          {{#with card.CTA1}}
+          {{> CTA ctaName="primaryCTA" }}
+          {{/with}}
+          {{#with card.CTA2}}
+          {{> CTA ctaName="secondaryCTA" }}
+          {{/with}}
+        </div>
       {{/if}}
     </div>
+    {{> thumbsfeedback card feedbackSubmitted=feedbackSubmitted}}
   </div>
 </div>
 
@@ -92,13 +93,15 @@
   {{#if showExcessDetailsToggle}}
   <button class="HitchhikerCard-detailsToggle js-HitchhikerCard-detailsToggle">
     {{card.showMoreDetails.showMoreText}}
-    <span data-component="IconComponent"
-      data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseDown" }'></span>
+    <span>
+      {{> icons/builtInIcon iconName='chevron' classNames='Icon--sm Icon--collapseDown' }}
+    </span>
   </button>
   <button class="HitchhikerCard-detailsToggle js-HitchhikerCard-detailsToggle js-hidden">
     {{card.showMoreDetails.showLessText}}
-    <span data-component="IconComponent"
-      data-opts='{ "iconName": "chevron", "classNames": "Icon--sm Icon-collapseUp" }'></span>
+    <span>
+      {{> icons/builtInIcon iconName='chevron' classNames='Icon--sm Icon--collapseUp' }}
+    </span>
   </button>
   {{/if}}
 </div>
@@ -116,10 +119,11 @@
     {{#if ariaLabel}}aria-label="{{ariaLabel}}"{{/if}}>
     {{#if (any iconName iconUrl)}}
     <div class="HitchhikerCTA-iconWrapper">
-      <div class="HitchhikerCTA-icon" data-component="IconComponent" data-opts='{
-        "iconUrl": "{{#if iconUrl}}{{#unless (isNonRelativeUrl iconUrl)}}{{@root.relativePath}}/{{/unless}}{{iconUrl}}{{/if}}",
-        "iconName": "{{iconName}}"
-      }'>
+      <div class="HitchhikerCTA-icon">
+        {{> icons/iconPartial
+            iconName=iconName
+            iconUrl=(relativePathHandler url=iconUrl relativePath=@root.relativePath)
+        }}
       </div>
     </div>
     {{/if}}

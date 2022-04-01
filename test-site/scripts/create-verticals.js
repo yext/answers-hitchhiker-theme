@@ -3,12 +3,21 @@ const process = require('process');
 const path = require('path');
 const ConfigMerger = require('./config-merger');
 const PagePatcher = require('./page-patcher');
+const yargs = require('yargs')
+
+const argv = yargs
+  .option('pageNames', { type: 'array' })
+  .parse();
 
 const verticalConfiguration = {
   events: {
     verticalKey: 'events',
     template: 'vertical-standard',
     cardName: 'event-custom'
+  },
+  events_custom_cta_icons: {
+    verticalKey: 'events',
+    template: 'vertical-standard'
   },
   faqs: {
     verticalKey: 'faq',
@@ -39,6 +48,41 @@ const verticalConfiguration = {
     verticalKey: 'people',
     template: 'vertical-grid',
     cardName: 'standard'
+  },
+  products: {
+    verticalKey: 'products',
+    template: 'vertical-grid',
+    cardName: 'multilang-product-prominentvideo'
+  },
+  products_clickable_image: {
+    verticalKey: 'products',
+    template: 'vertical-grid',
+    cardName: 'product-prominentimage-clickable'
+  },
+  financial_professionals: {
+    verticalKey: 'financial_professionals',
+    template: 'vertical-standard',
+    cardName: 'financial-professional-location'
+  },
+  healthcare_professionals: {
+    verticalKey: 'healthcare_professionals',
+    template: 'vertical-grid',
+    cardName: 'professional-standard'
+  },
+  jobs: {
+    verticalKey: 'jobs',
+    template: 'vertical-standard',
+    cardName: 'job-standard'
+  },
+  help_articles: {
+    verticalKey: 'help_articles',
+    template: 'vertical-standard',
+    cardName: 'document-standard'
+  },
+  menu_items: {
+    verticalKey: 'menu_items',
+    template: 'vertical-grid',
+    cardName: 'menuitem-standard'
   }
 };
 
@@ -55,7 +99,19 @@ const testSiteDir = path.resolve(__dirname, '..');
 process.chdir(testSiteDir);
 
 Object.entries(verticalConfiguration).forEach(([pageName, config]) => {
-  execSync(`npx jambo vertical --name ${pageName} --verticalKey ${config.verticalKey} --template ${config.template} --cardName ${config.cardName}`);
+  if (argv.pageNames && !argv.pageNames.includes(pageName)) {
+    return;
+  }
+  let verticalCommand =
+    `npx jambo vertical --name ${pageName} --verticalKey ${config.verticalKey} --template ${config.template} --locales es ar`
+  if (config.cardName) {
+    verticalCommand += ` --cardName ${config.cardName}`
+  }
+  execSync(verticalCommand);
   configMerger.mergeConfigForPage(pageName);
   pagePatcher.applyPatchToPage(pageName);
+  configMerger.mergeConfigForPage(pageName + '.es');
+  pagePatcher.applyPatchToPage(pageName + '.es');
+  configMerger.mergeConfigForPage(pageName + '.ar');
+  pagePatcher.applyPatchToPage(pageName + '.ar');
 });

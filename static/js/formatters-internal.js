@@ -7,7 +7,11 @@ import HoursStringsLocalizer from './hours/stringslocalizer.js';
 import HoursTableBuilder from './hours/table/builder.js';
 import { DayNames } from './hours/constants.js';
 import { generateCTAFieldTypeLink } from './formatters/generate-cta-field-type-link';
-
+import { isChrome } from './useragent.js';
+import LocaleCurrency from 'locale-currency'
+import getSymbolFromCurrency from 'currency-symbol-map'
+import { parseLocale } from './utils.js';
+import escape from 'escape-html';
 
 export function address(profile) {
   if (!profile.address) {
@@ -79,15 +83,19 @@ export function toLocalizedDistance(profile, key = 'd_distance', displayUnits) {
   return this.toMiles(profile, undefined, undefined, locale);
 }
 
+export function _getLocaleWithDashes(locale) {
+  return locale && locale.replace(/_/g, '-');
+}
+
 export function _getDocumentLocale() {
-  return document.documentElement.lang.replace('_', '-');
+  return _getLocaleWithDashes(document.documentElement.lang);
 }
 
 export function toKilometers(profile, key = 'd_distance', displayUnits = 'km', locale) {
   if (!profile[key]) {
     return '';
   }
-  locale = locale || _getDocumentLocale()
+  locale = _getLocaleWithDashes(locale) || _getDocumentLocale();
   const distanceInKilometers = profile[key] / 1000; // Convert meters to kilometers
   return new Intl.NumberFormat(locale,
     { style: 'decimal', maximumFractionDigits: 1, minimumFractionDigits: 1})
@@ -98,7 +106,7 @@ export function toMiles(profile, key = 'd_distance', displayUnits = 'mi', locale
   if (!profile[key]) {
     return '';
   }
-  locale = locale || _getDocumentLocale()
+  locale = _getLocaleWithDashes(locale) || _getDocumentLocale();
   const distanceInMiles = profile[key] / 1609.344; // Convert meters to miles
   return new Intl.NumberFormat(locale,
     { style: 'decimal', maximumFractionDigits: 1, minimumFractionDigits: 1 })
@@ -231,7 +239,7 @@ export function snakeToTitle(snake) {
  * @returns {string} The pretty printed value.
  */
 export function prettyPrintObject(obj, locale) {
-  locale = locale || _getDocumentLocale();
+  locale = _getLocaleWithDashes(locale) || _getDocumentLocale();
 
   switch (typeof obj) {
     case 'string':
@@ -239,7 +247,7 @@ export function prettyPrintObject(obj, locale) {
     case 'bigint':
       return obj.toLocaleString(locale);
     case 'boolean':
-      return _prettyPrintBoolean(obj, locale)
+      return _prettyPrintBoolean(obj);
     case 'object':
       // check for null
       if (!obj) {
@@ -260,25 +268,11 @@ export function prettyPrintObject(obj, locale) {
  * in English, it would return either 'Yes' for True or 'No' for False.
  *
  * @param {boolean} value The boolean value.
- * @param {string} locale The locale indicating which language to use.
  * @returns {string} The localized affirmative or negative.
  */
-function _prettyPrintBoolean(value, locale) {
-  const language = locale.substring(0,2);
-  switch (language) {
-    case 'es':
-      return value ? 'Sí' : 'No';
-    case 'fr':
-      return value ? 'Oui' : 'Non';
-    case 'it':
-      return value ? 'Sì' : 'No';
-    case 'de':
-      return value ? 'Ja' : 'Nein';
-    case 'ja':
-      return value ? 'はい' : '番号';
-    default:
-      return value ? 'Yes' : 'No';
-  }
+function _prettyPrintBoolean(value) {
+  const text = value ? 'Yes' : 'No';
+  return window.translations[text];
 }
 
 export function joinList(list, separator) {
@@ -288,134 +282,107 @@ export function joinList(list, separator) {
   return list.join(separator);
 }
 
-/*
- * Given object with url and alternateText, changes url to use https
+/**
+ * Given an image object with a url, changes the url to use dynamic thumbnailer and https.
+ * 
+ * Note: A dynamic thumbnailer url generated with atLeastAsLarge = true returns an image that is
+ * at least as large in one dimension of the desired size. In other words, the returned image will
+ * be at least as large, and as close as possible to, the largest image that is contained within a
+ * box of the desired size dimensions.
+ * 
+ * If atLeastAsLarge = false, the dynamic thumbnailer url will give the largest image that is
+ * smaller than the desired size in both dimensions.
+ * 
+ * @param {Object} simpleOrComplexImage An image object with a url
+ * @param {string} desiredSize The desired size of the image ('<width>x<height>')
+ * @param {boolean} atLeastAsLarge Whether the image should be at least as large as the desired
+ *                                 size in one dimension or smaller than the desired size in both
+ *                                 dimensions.
+ * @returns {Object} An object with a url for dynamic thumbnailer
  */
-export function image(simpleOrComplexImage = {}, size = '200x', atLeastAsLarge = true) {
-  let img = simpleOrComplexImage.image || simpleOrComplexImage;
-  if (!img) {
+export function image(simpleOrComplexImage = {}, desiredSize = '200x', atLeastAsLarge = true) {
+  let image = simpleOrComplexImage.image || simpleOrComplexImage;
+  if (!image) {
     return {};
   }
-
-  if (!img.url) {
-    return img;
+  if (!image.url) {
+    return image;
+  }
+  if (!(Object.prototype.toString.call(image).indexOf('Object') > 0)) {
+    throw new Error("Expected parameter of type Map");
+  }
+  if ((typeof desiredSize !== 'string') || (desiredSize == null)) {
+    throw new Error(`Object of type string expected. Got ${typeof desiredSize}.`);
+  }
+  if (desiredSize.indexOf('x') === -1) {
+    throw new Error("Invalid desired size");
+  }
+  if ((typeof atLeastAsLarge !== 'boolean') || (atLeastAsLarge == null)) {
+    throw new Error(`Object of type boolean expected. Got ${typeof atLeastAsLarge}.`);
   }
 
-  function imageBySizeEntity(image, desiredSize, atLeastAsLarge = true) {
-    if ((image == null) || !(Object.prototype.toString.call(image).indexOf('Object') > 0)) {
-      throw new Error("Expected parameter of type Map");
-    }
-    if ((typeof desiredSize !== 'string') || (desiredSize == null)) {
-      throw new Error(`Object of type string expected. Got ${typeof desiredSize}.`);
-    }
-    if (desiredSize.indexOf('x') === -1) {
-      throw new Error("Invalid desired size");
-    }
-    if ((typeof atLeastAsLarge !== 'boolean') || (atLeastAsLarge == null)) {
-      throw new Error(`Object of type boolean expected. Got ${typeof atLeastAsLarge}.`);
-    }
+  let desiredWidth, desiredHeight;
+  let desiredDims = desiredSize.split('x');
 
-    if (!image.thumbnails) {
-      image.thumbnails = [];
-    }
+  const [urlWithoutExtension, extension] = _splitStringOnIndex(image.url, image.url.lastIndexOf('.'));
+  const [urlBeforeDimensions, dimensions] = _splitStringOnIndex(urlWithoutExtension, urlWithoutExtension.lastIndexOf('/') + 1);
+  const fullSizeDims = dimensions.split('x');
 
-    if (!Array.isArray(image.thumbnails)) {
-      throw new Error(`Object of type array expected. Got ${typeof image.thumbnails}.`);
+  if (desiredDims[0] !== '') {
+    desiredWidth = Number.parseInt(desiredDims[0]);
+    if (Number.isNaN(desiredWidth)) {
+      throw new Error("Invalid width specified");
     }
-
-    if (image.width != undefined && image.height != undefined && image.url != undefined) {
-      image.thumbnails.push({
-        'width': image.width,
-        'height': image.height,
-        'url': image.url
-      });
-    }
-
-    let desiredWidth, desiredHeight;
-    let desiredDims = desiredSize.split('x');
-
-    if (desiredDims[0] !== '') {
-      desiredWidth = Number.parseInt(desiredDims[0]);
-      if (Number.isNaN(desiredWidth)) {
-        throw new Error("Invalid width specified");
-      }
-    }
-
-    if (desiredDims[1] !== '') {
-      desiredHeight = Number.parseInt(desiredDims[1]);
-      if (Number.isNaN(desiredHeight)) {
-        throw new Error("Invalid height specified");
-      }
-    }
-    const thumbnails = image.thumbnails
-      .filter(thumb => thumb.width && thumb.height)
-      .sort((a, b) => b.width - a.width);
-    return atLeastAsLarge
-      ? _getSmallestThumbnailOverThreshold(thumbnails, desiredWidth, desiredHeight)
-      : _getLargestThumbnailUnderThreshold(thumbnails, desiredWidth, desiredHeight);
+  } else {
+    desiredWidth = atLeastAsLarge ? 1 : Number.parseInt(fullSizeDims[0]);
   }
 
-  const result = imageBySizeEntity(img, size, atLeastAsLarge);
+  if (desiredDims[1] !== '') {
+    desiredHeight = Number.parseInt(desiredDims[1]);
+    if (Number.isNaN(desiredHeight)) {
+      throw new Error("Invalid height specified");
+    }
+  } else {
+    desiredHeight = atLeastAsLarge ? 1 : Number.parseInt(fullSizeDims[1]);
+  }
+
+  const urlWithDesiredDims = urlBeforeDimensions + desiredWidth + 'x' + desiredHeight + extension;
+
+  const dynamicUrl = atLeastAsLarge
+    ? _replaceUrlHost(urlWithDesiredDims, 'dynl.mktgcdn.com')
+    : _replaceUrlHost(urlWithDesiredDims, 'dynm.mktgcdn.com');
 
   return Object.assign(
     {},
-    img,
+    image,
     {
-      url: result.replace('http://', 'https://')
+      url: dynamicUrl.replace('http://', 'https://')
     }
   );
 }
 
 /**
- * Gets the smallest thumbnail that is over the min width and min height.
- * If no thumbnails are over the given thresholds, will return the closest one.
- *
- * This method assumes all thumbnails have the same aspect ratio, and that
- * thumbnails are sorted in descending size.
- *
- * @param {Array<{{url: string, width: number, height: number}}>} thumbnails 
- * @param {number|undefined} minWidth 
- * @param {number|undefined} minHeight 
- * @returns {string}
+ * Splits a string into two parts at the specified index.
+ * 
+ * @param {string} str The string to be split
+ * @param {number} index The index at which to split the string
+ * @returns {Array<string>} The two parts of the string after splitting
  */
-function _getSmallestThumbnailOverThreshold(thumbnails, minWidth, minHeight) {
-  let index = thumbnails.length - 1;
-  while (index > 0) {
-    const thumb = thumbnails[index];
-    const widthOverThreshold = minWidth ? thumb.width >= minWidth : true;
-    const heightOverThreshold = minHeight ? thumb.height >= minHeight : true;
-    if (widthOverThreshold && heightOverThreshold) {
-      return thumb.url
-    }
-    index--;
-  }
-  return thumbnails[0].url;
+function _splitStringOnIndex(str, index) {
+  return [str.slice(0, index), str.slice(index)];
 }
 
 /**
- * Gets the largest thumbnail that is under the max width and max height.
- * If no thumbnails are under the given thresholds, will return the closest one.
+ * Replaces the current host of a url with the specified host.
  * 
- * This method assumes all thumbnails have the same aspect ratio, and that
- * thumbnails are sorted in descending size.
- *
- * @param {Array<{{url: string, width: number, height: number}}>} thumbnails 
- * @param {number|undefined} maxWidth 
- * @param {number|undefined} maxHeight 
- * @returns {string}
+ * @param {string} url The url whose host is to be changed
+ * @param {string} host The new host to change to
+ * @returns {string} The url updated with the specified host
  */
-function _getLargestThumbnailUnderThreshold(thumbnails, maxWidth, maxHeight) {
-  let index = 0;
-  while (index < thumbnails.length) {
-    const thumb = thumbnails[index];
-    const widthOverThreshold = maxWidth ? thumb.width <= maxWidth : true;
-    const heightOverThreshold = maxHeight ? thumb.height <= maxHeight : true;
-    if (widthOverThreshold && heightOverThreshold) {
-      return thumb.url
-    }
-    index++;
-  }
-  return thumbnails[thumbnails.length - 1].url;
+function _replaceUrlHost(url, host) {
+  const splitUrl = url.split('://');
+  const urlAfterHost = splitUrl[1].slice(splitUrl[1].indexOf('/'));
+  return splitUrl[0] + '://'  + host + urlAfterHost;
 }
 
 /**
@@ -470,7 +437,7 @@ export function openStatus(profile, key = 'hours', isTwentyFourHourClock, locale
   }
 
   const hoursLocalizer = new HoursStringsLocalizer(
-    locale || _getDocumentLocale(), isTwentyFourHourClock);
+    _getLocaleWithDashes(locale) || _getDocumentLocale(), isTwentyFourHourClock);
   return new OpenStatusMessageFactory(hoursLocalizer)
     .create(hours.openStatus);
 }
@@ -512,7 +479,7 @@ export function hoursList(profile, opts = {}, key = 'hours', locale) {
     };
 
     const hoursLocalizer = new HoursStringsLocalizer(
-      locale || _getDocumentLocale(), opts.isTwentyFourHourClock);
+      _getLocaleWithDashes(locale) || _getDocumentLocale(), opts.isTwentyFourHourClock);
     return new HoursTableBuilder(hoursLocalizer).build(hours, standardizedOpts);
 }
 
@@ -526,7 +493,7 @@ export { generateCTAFieldTypeLink };
  *                  returns the price value without formatting
  */
 export function price(fieldValue = {}, locale) {
-  const localeForFormatting = locale || _getDocumentLocale() || 'en';
+  const localeForFormatting =  _getLocaleWithDashes(locale) || _getDocumentLocale() || 'en';
   const price = fieldValue.value && parseFloat(fieldValue.value);
   const currencyCode = fieldValue.currencyCode && fieldValue.currencyCode.split('-')[0];
   if (!price || isNaN(price) || !currencyCode) {
@@ -534,6 +501,35 @@ export function price(fieldValue = {}, locale) {
     return fieldValue.value;
   }
   return price.toLocaleString(localeForFormatting, { style: 'currency', currency: currencyCode });
+}
+
+/**
+ * Returns a localized price range string for the given price range ($-$$$$) and country code (ISO format).
+ * If country code is invalid or undefined, use locale of the site to determine the currency symbol.
+ * If all else fails, use the default priceRange with dollar sign.
+ * @param {string} defaultPriceRange The price range from LiveAPI entity
+ * @param {string} countrycode The country code from LiveAPI entity (e.g. profile.address.countryCode)
+ * @return {string} The price range with correct currency symbol formatting according to country code
+ */
+export function priceRange(defaultPriceRange, countryCode) {
+  if (!defaultPriceRange) {
+    console.warn(`Price range is not provided.`);
+    return '';
+  }
+  if (countryCode) {
+    const currencySymbol = getSymbolFromCurrency(LocaleCurrency.getCurrency(countryCode));
+    if (currencySymbol) {
+      return defaultPriceRange.replace(/\$/g, currencySymbol); 
+    }
+  }
+  const { region, language } = parseLocale(_getDocumentLocale());
+  const currencySymbol = getSymbolFromCurrency(LocaleCurrency.getCurrency(region || language));
+  if (currencySymbol) {
+    return defaultPriceRange.replace(/\$/g, currencySymbol); 
+  }
+  console.warn('Unable to determine currency symbol from '
+    + `ISO country code "${countryCode}" or locale "${_getDocumentLocale()}".`);
+  return defaultPriceRange;
 }
 
 /**
@@ -545,20 +541,20 @@ export function price(fieldValue = {}, locale) {
  *                                          highlight.
  */
 export function highlightField(fieldValue, matchedSubstrings = []) {
-  let highlightedString = fieldValue;
+  let highlightedString = '';
 
-  // We must first sort the matchedSubstrings by decreasing offset. 
+  // We must first sort the matchedSubstrings by ascending offset. 
   const sortedMatches = matchedSubstrings.slice()
-    .sort((match1, match2) => match2.offset - match1.offset);
+    .sort((match1, match2) => match1.offset - match2.offset);
   
+  let processedFieldValueIndex = 0;
   sortedMatches.forEach(match => {
     const { offset, length } = match;
-    highlightedString = 
-      highlightedString.substr(0, offset) +
-      `<mark>${fieldValue.substr(offset, length)}</mark>`+
-      highlightedString.substr(offset + length);
+    highlightedString += escape(fieldValue.substring(processedFieldValueIndex, offset))
+      + `<mark>${escape(fieldValue.substring(offset, offset + length))}</mark>`;
+    processedFieldValueIndex = offset + length;
   });
-
+  highlightedString += escape(fieldValue.substring(processedFieldValueIndex));
   return highlightedString;
 }
 
@@ -575,6 +571,55 @@ export function getYoutubeUrl(videos = []) {
   }
   const videoUrl = videos[0]?.video?.url;
   const youtubeVideoId = videoUrl?.split('watch?v=')[1];
-  const youtubeVideoUrl = youtubeVideoId ? 'https://www.youtube.com/embed/' + youtubeVideoId : null;
+  const youtubeVideoUrl = youtubeVideoId
+    ? 'https://www.youtube.com/embed/' + youtubeVideoId + '?enablejsapi=1' 
+    : null;
   return youtubeVideoUrl;
+}
+
+/**
+ * construct a URL that links to a specific portion of a page, using a text snippet provided in the URL.
+ * This feature is only available in Chrome.
+ * @param {Object} snippet the snippet for the document search direct answer
+ * @param {string} baseUrl website or landingPageURL from the entity related to the snippet
+ * @returns a URL with text fragment URI component attached
+ */
+export function getUrlWithTextHighlight(snippet, baseUrl) {
+  if (!isChrome() || !snippet || snippet.matchedSubstrings.length === 0 || !baseUrl) {
+    return baseUrl;
+  }
+  //Find the surrounding sentence of the snippet
+  let sentenceStart = snippet.matchedSubstrings[0].offset;
+  let sentenceEnd = sentenceStart + snippet.matchedSubstrings[0].length;
+  const sentenceEnderRegex = /[.\n!\?]/;
+  while (!sentenceEnderRegex.test(snippet.value[sentenceStart]) && sentenceStart > 0) {
+    sentenceStart -= 1;
+  }
+  while (!sentenceEnderRegex.test(snippet.value[sentenceEnd]) && sentenceEnd < snippet.value.length) {
+    sentenceEnd += 1;
+  }
+  sentenceStart = sentenceStart === 0 ? sentenceStart : sentenceStart + 2;
+  const sentence = snippet.value.slice(sentenceStart, sentenceEnd);
+  return baseUrl + `#:~:text=${encodeURIComponent(sentence)}`;
+}
+
+/**
+ * construct a list of displayable category names based on given category ids from liveAPI
+ * and a mapping of category ids to names.
+ * 
+ * @param {string[]} categoryIds category ids from liveAPI
+ * @param {Object[]} categoryMap mapping of category ids to names
+ * @param {string} categoryMap[].id id of a category entry
+ * @param {string} categoryMap[].category name of a category entry
+ * @returns {string[]} a list of category names
+ */
+export function getCategoryNames(categoryIds, categoryMap) {
+  if (!categoryIds || !categoryMap) {
+    return [];
+  }
+  return categoryIds.reduce((list, id) => {
+    const categoryEntry = categoryMap.find(category => category.id === id);
+    categoryEntry ? list.push(categoryEntry.category) : console.error(`Unable to find category name for id ${id}.`);
+    return list;
+  }, []);
 }

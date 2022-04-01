@@ -1,0 +1,22 @@
+{
+  "verticalsToConfig": {
+    "KM": { // The vertical key from your search configuration
+      // "label": "", // The name of the vertical in the section header and the navigation bar
+      "cardType": "multilang-location-standard", // The name of the card to use - e.g. accordion, location, customcard
+      "icon": "pin", // The icon to use on the card for this vertical
+      "mapConfig": {
+        "mapProvider": "Google", // The name of the provider (e.g. Mapbox, Google)
+        "pin": {
+          "backgroundColor": "", // Enter a hex value or color for the pin background
+          "labelColor": "", // Enter a hex value or color for the label color
+          "strokeColor": "" // Enter a hex value or color for the stroke color
+        },
+        "noResults": {
+          "displayAllResults": true, // Set to FALSE to hide results on the map when a search returns no results
+          "visible": true // Set to FALSE to hide the map when a search returns no results
+        }
+      },
+      "universalSectionTemplate": "standard"
+    }
+  }
+}

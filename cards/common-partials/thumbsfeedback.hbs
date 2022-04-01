@@ -1,0 +1,56 @@
+{{#if feedbackEnabled}}
+  {{#if directAnswerClass}}
+    {{> feedback className=directAnswerClass cardType='HitchhikerDirectAnswerCard'}}
+  {{else}}
+    {{> feedback className='HitchhikerCard' cardType='HitchhikerCard'}}
+  {{/if}}
+{{/if}}
+
+{{#*inline 'feedback'}}
+  <div class="{{className}}-feedbackWrapper">
+    <div class="{{className}}-feedbackContent">
+      {{#if feedbackSubmitted}}
+        <div class="{{className}}-feedbackText">
+          {{feedbackTextOnSubmission}}
+        </div>
+      {{else}}
+        {{#if feedbackText}}
+          <div class="{{className}}-feedbackText">
+            {{feedbackText}}
+          </div>
+        {{/if}}
+        <div class="{{className}}-thumbsWrapper">
+          <form class="HitchhikerCard-thumbs js-{{cardType}}-feedbackForm">
+            <fieldset class="HitchhikerCard-fieldset">
+              <label class="HitchhikerCard-thumb">
+                <span class="HitchhikerCard-thumbUpIcon">
+                  {{> icons/builtInIcon iconName='thumb' }}
+                </span>
+                <input type="radio"
+                  name="feedback"
+                  value="true"
+                  class="HitchhikerCard-feedback HitchhikerCard-thumbUpButton js-{{cardType}}-thumbInput">
+                <span class="sr-only">
+                  {{positiveFeedbackSrText}}
+                </span>
+              </label>
+              <label class="HitchhikerCard-thumb">
+                <span class="HitchhikerCard-thumbDownIcon">
+                  {{> icons/builtInIcon iconName='thumb' }}
+                </span>
+                <input type="radio"
+                  name="feedback"
+                  value="false"
+                  class="HitchhikerCard-feedback HitchhikerCard-thumbDownButton js-{{cardType}}-thumbInput">
+                <span class="sr-only">
+                  {{negativeFeedbackSrText}}
+                </span>
+              </label>
+            </fieldset>
+            <button type="submit" class="sr-only sr-only-focusable">Send feedback</button>
+          </form>
+        </div>
+      {{/if}}
+    </div>
+  </div>
+{{/inline}}

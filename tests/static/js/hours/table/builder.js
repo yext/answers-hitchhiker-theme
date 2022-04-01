@@ -244,7 +244,7 @@ describe('HoursTableBuilder properly builds hours table', () => {
   it('works with all config specified', () => {
     const config = {
       disableOpenStatus: true,
-      firstDayInList: 'SUNDAY',
+      firstDayInList: DayNames.SUNDAY,
     };
     const hoursTable = new HoursTableBuilder(localizer).build(new Hours({
       days: days,
@@ -394,7 +394,7 @@ describe('HoursTableBuilder properly builds hours table', () => {
   it('handles split hours properly', () => {
     const config = {
       disableOpenStatus: false,
-      firstDayInList: 'WEDNESDAY',
+      firstDayInList: DayNames.WEDNESDAY,
     };
     const hoursTable = new HoursTableBuilder(localizer).build(new Hours({
       days: days,
