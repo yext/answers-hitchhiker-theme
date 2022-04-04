@@ -1,5 +1,5 @@
---- people.html.hbs	2021-06-01 16:10:43.000000000 -0400
-+++ people.updated.html.hbs	2021-06-01 16:13:33.000000000 -0400
+--- people.html.hbs	2022-04-01 13:08:05.000000000 -0400
++++ people.updated.html.hbs	2022-04-01 13:16:27.000000000 -0400
 @@ -1,7 +1,7 @@
  {{#> layouts/html }}
    {{#> script/core }}
@@ -20,22 +20,22 @@
      {{!-- {{> templates/vertical-grid/script/filterbox }} --}}
      {{!-- {{> templates/vertical-grid/script/qasubmission }} --}}
    {{/script/core }}
-@@ -29,18 +29,18 @@
+@@ -29,19 +29,19 @@
      <div class="Answers-container Answers-resultsWrapper">
        <div class="Answers-resultsLeftContainer">
          <!-- Uncomment the following div if you want to include filters, facets, or sort options  -->
 -        {{!-- <div class="Answers-filtersWrapper js-answersFiltersWrapper CollapsibleFilters-inactive"> --}}
 -          {{!-- {{> templates/vertical-grid/markup/sortoptions }} --}}
--          {{!-- {{> templates/vertical-grid/markup/filterbox }} --}}
--          {{!-- {{> templates/vertical-grid/markup/facets }} --}}
--        {{!-- </div> --}}
 +        <div class="Answers-filtersWrapper js-answersFiltersWrapper CollapsibleFilters-inactive">
 +          {{> templates/vertical-grid/markup/sortoptions }}
-+          {{> templates/vertical-grid/markup/filterbox }}
+           {{!-- {{> templates/vertical-grid/markup/filterbox }} --}}
+-          {{!-- {{> templates/vertical-grid/markup/facets }} --}}
+-        {{!-- </div> --}}
 +          {{> templates/vertical-grid/markup/facets }}
 +        </div>
        </div>
        <div class="Answers-resultsMidContainer Hitchhiker-3-columns">
+         {{> templates/vertical-grid/markup/spellcheck }}
          <div class="Answers-resultsHeader">
            {{> templates/vertical-grid/markup/verticalresultscount }}
            {{> templates/vertical-grid/markup/appliedfilters }}
