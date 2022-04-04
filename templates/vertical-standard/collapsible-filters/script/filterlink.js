@@ -13,15 +13,17 @@ ANSWERS.addComponent('FilterLink', {
   },
   onCreate: () => {
     const moveFiltersWrapper = (containerClassName) => {
-      document.getElementsByClassName(containerClassName)[0].appendChild(
-        document.getElementsByClassName('js-answersFiltersWrapper')[0]
-      );
+      const containerEl = document.getElementsByClassName(containerClassName)?.[0];
+      const filtersWrapperEl = document.getElementsByClassName('js-answersFiltersWrapper')?.[0];
+      if (containerEl && filtersWrapperEl) {
+        containerEl.appendChild(filtersWrapperEl);
+      }
     }
     if (collapsibleFiltersInteractions.isCollapsibleFiltersView()) {
       moveFiltersWrapper('Answers-resultsMidContainer');
     }
-    collapsibleFiltersInteractions.setListenerOnExpandedFiltersBreakpoint((e) => {
-      if (e.matches) {
+    collapsibleFiltersInteractions.addExpandedFiltersListener(isExpanded => {
+      if (isExpanded) {
         moveFiltersWrapper('Answers-resultsLeftContainer');
       } else {
         moveFiltersWrapper('Answers-resultsMidContainer');

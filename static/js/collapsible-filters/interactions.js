@@ -247,12 +247,12 @@ export default class Interactions {
     return !mediaQuery.matches;
   }
 
-  setListenerOnExpandedFiltersBreakpoint(handleChange) {
+  addExpandedFiltersListener(handleViewportChange) {
     const mediaQuery = window.matchMedia(`(min-width: ${variables.cssBreakpointExpandedFilters})`);
     if ('addEventListener' in mediaQuery) {
-      mediaQuery.addEventListener('change', handleChange)
+      mediaQuery.addEventListener('change', (e) => handleViewportChange(e.matches))
      } else if ('addListener' in mediaQuery) {
-      mediaQuery.addListener(handleChange)
+      mediaQuery.addListener(e => handleViewportChange(e.matches))
      }
   }
 }
