@@ -242,11 +242,24 @@ export default class Interactions {
     }
   }
 
+  /**
+   * 
+   * Use media query with $breakpoint-expanded-filters to determines if the
+   * page is in collapsible filters view.
+   * 
+   * @returns {boolean} whether the viewport is in collapsible filters view
+   */
   isCollapsibleFiltersView() {
     const mediaQuery = window.matchMedia(`(min-width: ${variables.cssBreakpointExpandedFilters})`);
     return !mediaQuery.matches;
   }
 
+  /**
+   * Add a media query event listener when there's a width view port change
+   * relative to $breakpoint-expanded-filters.
+   *
+   * @param {Function} handleViewportChange callback function to invoke when there's a media query event
+   */
   addExpandedFiltersListener(handleViewportChange) {
     const mediaQuery = window.matchMedia(`(min-width: ${variables.cssBreakpointExpandedFilters})`);
     if ('addEventListener' in mediaQuery) {
@@ -254,5 +267,30 @@ export default class Interactions {
      } else if ('addListener' in mediaQuery) {
       mediaQuery.addListener(e => handleViewportChange(e.matches))
      }
+  }
+
+  /**
+   * Update FiltersWrapper HTML element's location when switching between
+   * expanded and collapsible filters view in page templates that follows
+   * the left-mid-right div structure (e.g. VerticalStandard and VerticalGrid).
+   */
+  setupFiltersWrapper() {
+    const moveFiltersWrapper = (containerClassName) => {
+      const containerEl = document.getElementsByClassName(containerClassName)?.[0];
+      const filtersWrapperEl = document.getElementsByClassName('js-answersFiltersWrapper')?.[0];
+      if (containerEl && filtersWrapperEl) {
+        containerEl.appendChild(filtersWrapperEl);
+      }
+    }
+    if (this.isCollapsibleFiltersView()) {
+      moveFiltersWrapper('Answers-resultsMidContainer');
+    }
+    this.addExpandedFiltersListener(isExpanded => {
+      if (isExpanded) {
+        moveFiltersWrapper('Answers-resultsLeftContainer');
+      } else {
+        moveFiltersWrapper('Answers-resultsMidContainer');
+      }
+    });
   }
 }
