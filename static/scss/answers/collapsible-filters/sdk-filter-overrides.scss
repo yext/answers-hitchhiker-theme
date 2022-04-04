@@ -3,11 +3,9 @@
  $container-width-at-collapsed-filters-breakpoint: $breakpoint-collapsed-filters - (2 * $filters-width);
 
 @mixin CollapsibleFiltersOverrides {
-  .Answers {
-    &-container, &-resultsMidContainer {
-      @media (min-width: #{$breakpoint-expanded-filters}) {
-        width: math.div($container-width-at-collapsed-filters-breakpoint, $breakpoint-collapsed-filters) * 100%;
-      }
+  .Answers-container {
+    @media (min-width: #{$breakpoint-expanded-filters}) {
+      width: math.div($container-width-at-collapsed-filters-breakpoint, $breakpoint-collapsed-filters) * 100%;
     }
   }
 

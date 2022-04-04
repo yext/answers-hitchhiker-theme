@@ -45,11 +45,6 @@
 .AnswersVerticalGrid.CollapsibleFilters {
   @include CollapsibleFiltersOverrides;
 
-  .Answers-resultsWrapper {
-    width: 100%;
-    max-width: none;
-  }
-
   .Answers-facets,
   .Answers-filterBox,
   .Answers-sortOptions {

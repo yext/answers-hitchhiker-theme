@@ -1,6 +1,7 @@
 import QueryTriggers from '../constants/query-triggers';
 import StorageKeys from '../constants/storage-keys';
 import SearchStates from '../constants/search-states';
+import variables from '../../scss/answers/_default.scss';
 
 /**
  * Interactions manages page interactions for collapsible filters.
@@ -239,5 +240,19 @@ export default class Interactions {
     if (yxtFooter && this.templateName) {
       yxtFooter.classList.add(this.templateName);
     }
+  }
+
+  isCollapsibleFiltersView() {
+    const mediaQuery = window.matchMedia(`(min-width: ${variables.cssBreakpointExpandedFilters})`);
+    return !mediaQuery.matches;
+  }
+
+  setListenerOnExpandedFiltersBreakpoint(handleChange) {
+    const mediaQuery = window.matchMedia(`(min-width: ${variables.cssBreakpointExpandedFilters})`);
+    if ('addEventListener' in mediaQuery) {
+      mediaQuery.addEventListener('change', handleChange)
+     } else if ('addListener' in mediaQuery) {
+      mediaQuery.addListener(handleChange)
+     }
   }
 }

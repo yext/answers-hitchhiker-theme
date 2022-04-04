@@ -4,24 +4,12 @@
     position: relative;
   }
 
-  &-resultsLeftContainer {
-    flex: 1 1 0;
-    display: flex;
-    justify-content: flex-end;
-  }
-  
-  &-resultsRightContainer {
-    flex: 1 1 0;
-  }
-  &-resultsMidContainer {
-    max-width: var(--hh-answers-container-width);
-  }
-
   &-resultsWrapper
   {
     display: flex;
     flex-grow: 1;
     padding-top: calc(var(--yxt-base-spacing) * 1.5);
+    flex-direction: row;
 
     @include bplte(xs)
     {
@@ -31,6 +19,12 @@
     .yxt-ResultsHeader {
       padding: 0 var(--yxt-results-header-spacing);
     }
+  }
+
+  &-resultsMidContainer {
+    flex-direction: column;
+    flex-grow: 1;
+    width: 100%;
   }
 
   &-filtersWrapper {
@@ -87,6 +81,7 @@
     }
 
     @media (min-width: #{$breakpoint-expanded-filters}) {
+      margin-left: calc(-200px - 24px);
       margin-right: 24px;
       margin-bottom: 0;
 
