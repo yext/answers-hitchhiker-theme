@@ -243,7 +243,6 @@ export default class Interactions {
   }
 
   /**
-   * 
    * Use media query with $breakpoint-expanded-filters to determines if the
    * page is in collapsible filters view.
    * 
@@ -263,9 +262,9 @@ export default class Interactions {
   addExpandedFiltersListener(handleViewportChange) {
     const mediaQuery = window.matchMedia(`(min-width: ${variables.cssBreakpointExpandedFilters})`);
     if ('addEventListener' in mediaQuery) {
-      mediaQuery.addEventListener('change', (e) => handleViewportChange(e.matches))
+      mediaQuery.addEventListener('change', e => handleViewportChange(e.matches));
      } else if ('addListener' in mediaQuery) {
-      mediaQuery.addListener(e => handleViewportChange(e.matches))
+      mediaQuery.addListener(e => handleViewportChange(e.matches));
      }
   }
 
@@ -274,8 +273,8 @@ export default class Interactions {
    * expanded and collapsible filters view in page templates that follows
    * the left-mid-right div structure (e.g. VerticalStandard and VerticalGrid).
    */
-  setupFiltersWrapper() {
-    const moveFiltersWrapper = (containerClassName) => {
+  setupResposiveFiltersLayout() {
+    const moveFiltersWrapper = containerClassName => {
       const containerEl = document.getElementsByClassName(containerClassName)?.[0];
       const filtersWrapperEl = document.getElementsByClassName('js-answersFiltersWrapper')?.[0];
       if (containerEl && filtersWrapperEl) {

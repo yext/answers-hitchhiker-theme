@@ -12,7 +12,7 @@ ANSWERS.addComponent('FilterLink', {
     collapsibleFiltersInteractions.focusSearchBar();
   },
   onCreate: () => {
-    collapsibleFiltersInteractions.setupFiltersWrapper();
+    collapsibleFiltersInteractions.setupResposiveFiltersLayout();
   },
   ...{{{ json componentSettings.FilterLink }}}
 });
