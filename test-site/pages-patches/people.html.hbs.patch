@@ -25,9 +25,7 @@
          {{> templates/vertical-grid/markup/verticalresultscount }}
          {{> templates/vertical-grid/markup/appliedfilters }}
 -        {{!-- {{> templates/vertical-grid/collapsible-filters/markup/filterlink }} --}}
--        {{!-- {{> templates/vertical-grid/collapsible-filters/markup/viewresultsbutton }} --}}
 +        {{> templates/vertical-grid/collapsible-filters/markup/filterlink }}
-+        {{> templates/vertical-grid/collapsible-filters/markup/viewresultsbutton }}
        </div>
        <!-- Uncomment the following div if you want to include filters, facets, or sort options  -->
 -      {{!-- <div class="Answers-filtersWrapper js-answersFiltersWrapper CollapsibleFilters-inactive"> --}}
@@ -37,8 +35,10 @@
          {{!-- {{> templates/vertical-grid/markup/filterbox }} --}}
 -        {{!-- {{> templates/vertical-grid/markup/facets }} --}}
 -      {{!-- </div> --}}
+-      {{!-- {{> templates/vertical-grid/collapsible-filters/markup/viewresultsbutton }} --}}
 +        {{> templates/vertical-grid/markup/facets }}
 +      </div>
++      {{> templates/vertical-grid/collapsible-filters/markup/viewresultsbutton }}
        <div class="Answers-results js-answersResults">
          {{> templates/vertical-grid/markup/spellcheck }}
          {{> templates/vertical-grid/markup/verticalresults }}
