@@ -29,7 +29,7 @@
     partial for this page, you should not use it on any other page.  -->
     {{!-- {{> layouts/overlay-suggestions }} --}}
     <div class="Answers-container Answers-resultsWrapper">
-      <div class="Answers-resultsLeftContainer">
+      <div class="Answers-sidebar js-answersSidebar">
         <!-- Uncomment the following div if you want to include filters, facets, or sort options  -->
         {{!-- <div class="Answers-filtersWrapper js-answersFiltersWrapper CollapsibleFilters-inactive"> --}}
           {{!-- {{> templates/vertical-standard/markup/sortoptions }} --}}
@@ -37,7 +37,7 @@
           {{!-- {{> templates/vertical-standard/markup/facets }} --}}
         {{!-- </div> --}}
       </div>
-      <div class="Answers-resultsMidContainer">
+      <div class="Answers-mainContent js-answersMainContent">
         {{> templates/vertical-standard/markup/spellcheck }}
         <div class="Answers-resultsHeader">
           {{> templates/vertical-standard/markup/verticalresultscount }}

@@ -269,9 +269,9 @@ export default class Interactions {
   }
 
   /**
-   * Update FiltersWrapper HTML element's location when switching between
-   * expanded and collapsible filters view in page templates that follows
-   * the left-mid-right div structure (e.g. VerticalStandard and VerticalGrid).
+   * Update FiltersWrapper HTML element's location when switching between expanded
+   * and collapsible filters view in page templates that follows the sidebar and
+   * mainContent div structure (e.g. VerticalStandard and VerticalGrid).
    */
   setupResposiveFiltersLayout() {
     const moveFiltersWrapper = containerClassName => {
@@ -282,13 +282,13 @@ export default class Interactions {
       }
     }
     if (this.isCollapsibleFiltersView()) {
-      moveFiltersWrapper('Answers-resultsMidContainer');
+      moveFiltersWrapper('js-answersMainContent');
     }
     this.addExpandedFiltersListener(isExpanded => {
       if (isExpanded) {
-        moveFiltersWrapper('Answers-resultsLeftContainer');
+        moveFiltersWrapper('js-answersSidebar');
       } else {
-        moveFiltersWrapper('Answers-resultsMidContainer');
+        moveFiltersWrapper('js-answersMainContent');
       }
     });
   }
