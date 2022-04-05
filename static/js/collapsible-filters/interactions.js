@@ -1,7 +1,7 @@
 import QueryTriggers from '../constants/query-triggers';
 import StorageKeys from '../constants/storage-keys';
 import SearchStates from '../constants/search-states';
-import variables from '../../scss/answers/_default.scss';
+import ScssVariables from '../../scss/answers/_default.scss';
 
 /**
  * Interactions manages page interactions for collapsible filters.
@@ -249,7 +249,7 @@ export default class Interactions {
    * @returns {boolean} whether the viewport is in collapsible filters view
    */
   isCollapsibleFiltersView() {
-    const mediaQuery = window.matchMedia(`(min-width: ${variables.cssBreakpointExpandedFilters})`);
+    const mediaQuery = window.matchMedia(`(min-width: ${ScssVariables.cssBreakpointExpandedFilters})`);
     return !mediaQuery.matches;
   }
 
@@ -260,7 +260,7 @@ export default class Interactions {
    * @param {Function} handleViewportChange callback function to invoke when there's a media query event
    */
   addExpandedFiltersListener(handleViewportChange) {
-    const mediaQuery = window.matchMedia(`(min-width: ${variables.cssBreakpointExpandedFilters})`);
+    const mediaQuery = window.matchMedia(`(min-width: ${ScssVariables.cssBreakpointExpandedFilters})`);
     if ('addEventListener' in mediaQuery) {
       mediaQuery.addEventListener('change', e => handleViewportChange(e.matches));
      } else if ('addListener' in mediaQuery) {
