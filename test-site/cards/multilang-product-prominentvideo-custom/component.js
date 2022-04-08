@@ -1,6 +1,6 @@
-{{> cards/card_component componentName='multilang-product-prominentvideo' }}
+{{> cards/card_component componentName='multilang-product-prominentvideo-custom' }}
 
-class multilang_product_prominentvideoCardComponent extends BaseCard['multilang-product-prominentvideo'] {
+class multilang_product_prominentvideo_customCardComponent extends BaseCard['multilang-product-prominentvideo-custom'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
   }
@@ -28,11 +28,11 @@ class multilang_product_prominentvideoCardComponent extends BaseCard['multilang-
       // If the card's details are longer than a certain character count, you can truncate the
       // text. A toggle will be supplied that can show or hide the truncated text.
       // Note: If you are using rich text for the details, you should not enable this feature.
-      // showMoreDetails: {
-      //   truncatedDetails: profile.richTextDescription ? ANSWERS.formatRichText(profile.richTextDescription, 'richTextDescription', linkTarget, 24) : null, // The truncated rich text
-      //   showMoreText: {{ translateJS phrase='Show more' }}, // Label when toggle will show truncated text
-      //   showLessText: {{ translateJS phrase='Show less' }} // Label when toggle will hide truncated text
-      // },
+      showMoreDetails: {
+        truncatedDetails: profile.richTextDescription ? ANSWERS.formatRichText(profile.richTextDescription, 'richTextDescription', linkTarget, 38) : null, // The truncated rich text
+        showMoreText: {{ translateJS phrase='Show more' }}, // Label when toggle will show truncated text
+        showLessText: {{ translateJS phrase='Show less' }} // Label when toggle will hide truncated text
+      },
       // The primary CTA of the card
       CTA1: {
         label: profile.c_primaryCTA ? profile.c_primaryCTA.label : null, // The CTA's label
@@ -96,12 +96,12 @@ class multilang_product_prominentvideoCardComponent extends BaseCard['multilang-
    * @override
    */
   static defaultTemplateName (config) {
-    return 'cards/multilang-product-prominentvideo';
+    return 'cards/multilang-product-prominentvideo-custom';
   }
 }
 
 ANSWERS.registerTemplate(
-  'cards/multilang-product-prominentvideo',
-  {{{stringifyPartial (read 'cards/multilang-product-prominentvideo/template') }}}
+  'cards/multilang-product-prominentvideo-custom',
+  {{{stringifyPartial (read 'cards/multilang-product-prominentvideo-custom/template') }}}
 );
-ANSWERS.registerComponentType(multilang_product_prominentvideoCardComponent);
+ANSWERS.registerComponentType(multilang_product_prominentvideo_customCardComponent);
