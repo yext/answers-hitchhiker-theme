@@ -33,7 +33,7 @@ class product_standardCardComponent extends BaseCard['product-standard'] {
       // text. A toggle will be supplied that can show or hide the truncated text.
       // Note: If you are using rich text for the details, you should not enable this feature.
       // showMoreDetails: {
-      //   showMoreLimit: 350, // Character count limit
+      //   truncatedDetails: profile.richTextDescription ? ANSWERS.formatRichText(profile.richTextDescription, 'richTextDescription', linkTarget, 350) : null, // The truncated rich text
       //   showMoreText: 'Show more', // Label when toggle will show truncated text
       //   showLessText: 'Show less' // Label when toggle will hide truncated text
       // },
