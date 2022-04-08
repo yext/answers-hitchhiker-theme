@@ -50,7 +50,7 @@ async function captureSnapshots(navigator, page, camera, locale = 'en') {
       }
     }
   } catch (e) {
-    console.error('Error taking snapshot of', textConfig.name);
+    console.error('Error taking snapshot of', testConfig.name);
     console.error(e);
     process.exit(1);
   }
