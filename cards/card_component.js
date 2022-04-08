@@ -94,7 +94,7 @@ BaseCard["{{componentName}}"] = class extends ANSWERS.Component {
     });
   }
 
-  _getTruncatedDetails({ details, showMoreDetails }) {
+  _getTruncatedDetails({ details = '', showMoreDetails }) {
     const { showMoreLimit, truncatedDetails: userSpecifiedTruncatedDetails } = showMoreDetails || {};
     if (userSpecifiedTruncatedDetails) {
       const showExcessDetailsToggle = userSpecifiedTruncatedDetails.length + 3 < details.length
