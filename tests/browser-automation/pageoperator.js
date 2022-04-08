@@ -51,7 +51,6 @@ class PageOperator {
       return;
     }
     for (const command of commands ) {
-      console.log('executing', command)
       await this._pageNavigator[command.type].call(this._pageNavigator, command.params);
     }
   }
