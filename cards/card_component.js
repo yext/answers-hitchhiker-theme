@@ -80,7 +80,8 @@ BaseCard["{{componentName}}"] = class extends ANSWERS.Component {
     
     cardData.feedbackEnabled = ANSWERS.getAnalyticsOptIn() && cardData.feedback;
 
-    const { showExcessDetailsToggle, truncatedDetails } = this._getTruncatedDetails(cardData);
+    const { showExcessDetailsToggle, truncatedDetails } =
+      this._getTruncatedDetails(cardData.details, cardData.showMoreDetails);
     
     this.validateDataForRender(cardData);
 
@@ -94,14 +95,17 @@ BaseCard["{{componentName}}"] = class extends ANSWERS.Component {
     });
   }
 
-  _getTruncatedDetails({ details = '', showMoreDetails }) {
-    /**
-     * @type {{
-     *   showMoreLimit?: number,
-     *   truncatedDetails?: string
-     * }}
-     */
-    const { showMoreLimit, truncatedDetails: userSpecifiedTruncatedDetails } = showMoreDetails || {};
+  /**
+   * Returns the whether to render the excess details toggle, and
+   * if so, the truncated details text.
+   * 
+   * @param {string} details 
+   * @param {Object} showMoreDetails
+   * @param {number} showMoreDetails.showMoreLimit
+   * @param {string} showMoreDetails.truncatedDetails
+   */
+  _getTruncatedDetails(details = '', showMoreDetails = {}) {
+    const { showMoreLimit, truncatedDetails: userSpecifiedTruncatedDetails } = showMoreDetails;
 
     if (userSpecifiedTruncatedDetails) {
       const showExcessDetailsToggle = userSpecifiedTruncatedDetails.length < details.length
