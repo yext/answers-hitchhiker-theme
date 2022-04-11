@@ -27,7 +27,6 @@ class multilang_product_prominentvideo_customCardComponent extends BaseCard['mul
       details: profile.richTextDescription ? ANSWERS.formatRichText(profile.richTextDescription, 'richTextDescription', linkTarget) : null, // The text in the body of the card
       // If the card's details are longer than a certain character count, you can truncate the
       // text. A toggle will be supplied that can show or hide the truncated text.
-      // Note: If you are using rich text for the details, you should not enable this feature.
       showMoreDetails: {
         truncatedDetails: profile.richTextDescription ? ANSWERS.formatRichText(profile.richTextDescription, 'richTextDescription', linkTarget, 38) : null, // The truncated rich text
         showMoreText: {{ translateJS phrase='Show more' }}, // Label when toggle will show truncated text
