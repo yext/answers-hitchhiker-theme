@@ -97,7 +97,7 @@ BaseCard["{{componentName}}"] = class extends ANSWERS.Component {
   _getTruncatedDetails({ details = '', showMoreDetails }) {
     const { showMoreLimit, truncatedDetails: userSpecifiedTruncatedDetails } = showMoreDetails || {};
     if (userSpecifiedTruncatedDetails) {
-      const showExcessDetailsToggle = userSpecifiedTruncatedDetails.length + 3 < details.length
+      const showExcessDetailsToggle = userSpecifiedTruncatedDetails.length < details.length
       const truncatedDetails = showExcessDetailsToggle ? userSpecifiedTruncatedDetails : '';
       return {
         showExcessDetailsToggle,
@@ -105,12 +105,14 @@ BaseCard["{{componentName}}"] = class extends ANSWERS.Component {
       }
     }
 
+    const suffix = '...';
+
     // Set the value of excessDetailsToggle. Note that it is not enough to have a showMoreLimit.
     // The card's details must extend past this limit as well for the toggling to be enabled.
-    const showExcessDetailsToggle = showMoreLimit && (details.length + 3 > showMoreLimit);
+    const showExcessDetailsToggle = showMoreLimit && (details.length + suffix.length > showMoreLimit);
     
     const truncatedDetails = showExcessDetailsToggle
-      ? `${details.substring(0, showMoreLimit)}...`
+      ? details.substring(0, showMoreLimit) + suffix
       : '';
     return {
       showExcessDetailsToggle,
