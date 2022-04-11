@@ -96,7 +96,7 @@ BaseCard["{{componentName}}"] = class extends ANSWERS.Component {
   }
 
   /**
-   * Returns the whether to render the excess details toggle, and
+   * Returns whether to render the excess details toggle, and
    * if so, the truncated details text.
    * 
    * @param {string} details 
