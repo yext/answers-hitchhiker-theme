@@ -80,30 +80,55 @@ BaseCard["{{componentName}}"] = class extends ANSWERS.Component {
     
     cardData.feedbackEnabled = ANSWERS.getAnalyticsOptIn() && cardData.feedback;
 
-    const { details, showMoreDetails } = cardData;
-
-    const cardDetails = details || '';
-    const cardShowMoreConfig = showMoreDetails || {};
-    const { showMoreLimit } = cardShowMoreConfig;
-
-    // Set the value of excessDetailsToggle. Note that it is not enough to have a showMoreLimit.
-    // The card's details must extend past this limit as well for the toggling to be enabled.
-    const showExcessDetailsToggle = showMoreLimit && cardDetails.length > showMoreLimit;
-
-    const truncatedDetails = showExcessDetailsToggle
-      ? `${cardDetails.substring(0, showMoreLimit)}...`
-      : '';
+    const { showExcessDetailsToggle, truncatedDetails } =
+      this._getTruncatedDetails(cardData.details, cardData.showMoreDetails);
     
     this.validateDataForRender(cardData);
 
     return super.setState({
       ...data,
       card: cardData,
-      showExcessDetailsToggle: showExcessDetailsToggle,
-      truncatedDetails: truncatedDetails,
+      showExcessDetailsToggle,
+      truncatedDetails,
       cardName: `{{componentName}}`,
       relativePath: `{{relativePath}}`
     });
+  }
+
+  /**
+   * Returns whether to render the excess details toggle, and
+   * if so, the truncated details text.
+   * 
+   * @param {string} details 
+   * @param {Object} showMoreDetails
+   * @param {number} showMoreDetails.showMoreLimit
+   * @param {string} showMoreDetails.truncatedDetails
+   */
+  _getTruncatedDetails(details = '', showMoreDetails = {}) {
+    const { showMoreLimit, truncatedDetails: userSpecifiedTruncatedDetails } = showMoreDetails;
+
+    if (userSpecifiedTruncatedDetails) {
+      const showExcessDetailsToggle = userSpecifiedTruncatedDetails.length < details.length
+      const truncatedDetails = showExcessDetailsToggle ? userSpecifiedTruncatedDetails : '';
+      return {
+        showExcessDetailsToggle,
+        truncatedDetails
+      }
+    }
+
+    const suffix = '...';
+
+    // Set the value of excessDetailsToggle. Note that it is not enough to have a showMoreLimit.
+    // The card's details must extend past this limit as well for the toggling to be enabled.
+    const showExcessDetailsToggle = showMoreLimit && (details.length + suffix.length > showMoreLimit);
+    
+    const truncatedDetails = showExcessDetailsToggle
+      ? details.substring(0, showMoreLimit) + suffix
+      : '';
+    return {
+      showExcessDetailsToggle,
+      truncatedDetails
+    };
   }
 
   validateDataForRender(data) {

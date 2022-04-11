@@ -21,7 +21,7 @@ class multilang_faq_accordionCardComponent extends BaseCard['multilang-faq-accor
       // If the card's details are longer than a certain character count, you can truncate the
       // text. A toggle will be supplied that can show or hide the truncated text.
       // showMoreDetails: {
-      //   showMoreLimit: null, // Character count limit
+      //   truncatedDetails: profile.answer ? ANSWERS.formatRichText(profile.answer, "answer", linkTarget, 500) : null, // The truncated rich text
       //   showMoreText: '', // Label when toggle will show truncated text
       //   showLessText: '' // Label when toggle will hide truncated text
       // },
