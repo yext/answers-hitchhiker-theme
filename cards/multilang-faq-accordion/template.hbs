@@ -50,21 +50,21 @@
 {{#if card.details}}
 <div class="HitchhikerFaqAccordion-details">
   {{#if showExcessDetailsToggle}}
-    <div class="HitchhikerFaqAccordion-detailsText js-HitchhikerCard-detailsText">
+    <div class="HitchhikerFaqAccordion-detailsText js-HitchhikerFaqAccordion-detailsText">
       {{{truncatedDetails}}}
     </div>
   {{/if}}
-  <div class="HitchhikerFaqAccordion-detailsText js-HitchhikerCard-detailsText{{#if showExcessDetailsToggle}} js-hidden{{/if}}">
+  <div class="HitchhikerFaqAccordion-detailsText js-HitchhikerFaqAccordion-detailsText{{#if showExcessDetailsToggle}} js-hidden{{/if}}">
     {{{card.details}}}
   </div>
   {{#if showExcessDetailsToggle}}
-  <button class="HitchhikerCard-detailsToggle js-HitchhikerCard-detailsToggle">
+  <button class="HitchhikerCard-detailsToggle js-HitchhikerFaqAccordion-detailsToggle">
     {{card.showMoreDetails.showMoreText}}
     <span>
       {{> icons/builtInIcon iconName='chevron' classNames='Icon--sm Icon--collapseDown' }}
     </span>
   </button>
-  <button class="HitchhikerCard-detailsToggle js-HitchhikerCard-detailsToggle js-hidden">
+  <button class="HitchhikerCard-detailsToggle js-HitchhikerFaqAccordion-detailsToggle js-hidden">
     {{card.showMoreDetails.showLessText}}
     <span>
       {{> icons/builtInIcon iconName='chevron' classNames='Icon--sm Icon--collapseUp' }}
