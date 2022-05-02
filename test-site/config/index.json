@@ -4,9 +4,9 @@
   // "canonicalUrl": "", // The link tag for canonical URL as well as the meta tag for open graph url
   // "keywords": "", // The meta tag for keywords
   "pageSettings": {
-    "search": {
-      "defaultInitialSearch": "virginia" // Enter a default search term
-    }
+    // "search": {
+    //   "defaultInitialSearch": "virginia" // Enter a default search term
+    // }
   },  
   "componentSettings": {
     /**
