@@ -111,6 +111,19 @@ class faq_accordionCardComponent extends BaseCard['faq-accordion'] {
       }
     });
 
+    const showExcessDetailsToggleEls = this._container.querySelectorAll('.js-HitchhikerFaqAccordion-detailsToggle');
+    const excessDetailsEls = this._container.querySelectorAll('.js-HitchhikerFaqAccordion-detailsText');
+    if (showExcessDetailsToggleEls && excessDetailsEls) {
+      showExcessDetailsToggleEls.forEach(el =>
+        el.addEventListener('click', () => {
+          contentEl.style.height = 'auto';
+          showExcessDetailsToggleEls.forEach(toggleEl => toggleEl.classList.toggle('js-hidden'));
+          excessDetailsEls.forEach(detailsEl => detailsEl.classList.toggle('js-hidden'));
+          contentEl.style.height = `${contentEl.scrollHeight}px`;
+        })
+      );
+    }
+
     super.onMount();
   }
 
