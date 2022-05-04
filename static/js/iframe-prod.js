@@ -8,4 +8,5 @@ const answersExperienceFrame = new AnswersExperienceFrame(runtimeConfig);
 window.AnswersExperienceFrame = answersExperienceFrame;
 
 const prodDomain = new InjectedData().getProdDomain();
+console.log('prod', prodDomain);
 generateIFrame(prodDomain, answersExperienceFrame);

@@ -63,6 +63,7 @@ export function generateIFrame(domain, answersExperienceFrame) {
     }
 
     iframeUrl += '?' + new_params.join('&');
+    console.log('iframeUrl', iframeUrl);
     return iframeUrl;
   };
   
