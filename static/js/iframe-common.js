@@ -115,6 +115,13 @@ export function generateIFrame(domain, answersExperienceFrame) {
         document.body.scrollTop = iframeOffsetTop; // For Safari
         return;
       }
+      if (message.action === 'update-tab-navigation') {
+        sendToIframe({
+          action: message.action,
+          parentUrl: window.location.href
+        });
+        return;
+      }
       const params = message.params;
       const pageTitle = message.pageTitle;
       pageTitle && (iframe.title = pageTitle);
