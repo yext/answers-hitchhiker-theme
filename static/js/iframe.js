@@ -8,5 +8,4 @@ const answersExperienceFrame = new AnswersExperienceFrame(runtimeConfig);
 window.AnswersExperienceFrame = answersExperienceFrame;
 
 const domain = new InjectedData().getDomain();
-console.log('domain', domain);
 generateIFrame(domain, answersExperienceFrame);

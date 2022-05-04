@@ -53,8 +53,6 @@ export default class InjectedData {
     if (!injectedDomains[domainType] || !injectedDomains[domainType].domain) {
       return '';
     }
-    console.log('domainType', domainType);
-    console.log('injectedDomains', injectedDomains);
     const isHttps = injectedDomains[domainType].isHttps;
     const protocol = isHttps ? 'https://' : 'http://';
     return protocol + injectedDomains[domainType].domain;
