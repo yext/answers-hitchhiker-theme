@@ -152,7 +152,7 @@
           } else if (message.action === 'update-tab-navigation') {
             ANSWERS?.components
               .getActiveComponents('Navigation')
-              .forEach(navigation => navigation.setParentUrl(message.parentUrl))
+              .forEach(navigationComponent => navigationComponent.setParentUrl(message.parentUrl));
           }
         }
       };

@@ -20,7 +20,7 @@ export function generateIFrame(domain, answersExperienceFrame) {
   var pathToIndex = containerEl.dataset.path;
   iframe.allow = 'geolocation; microphone';
 
-  domain = "https://devtabnaviniframe-theme-slapshot-pagescdn-com.preview.pagescdn.com"; //domain || '';
+  domain = domain || '';
 
   var calcFrameSrc = function() {
     var paramString = window.location.search;
