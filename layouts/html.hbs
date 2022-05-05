@@ -149,26 +149,10 @@
             ANSWERS?.components
               .getActiveComponents('AutoComplete')
               .forEach(autocompleteComponent => autocompleteComponent.close());
-          } else if (message.action ===  'update-tab-navigation') {
-            if (!ANSWERS) {
-              return;
-            }
-            function updateTabsLink () {
-              const parentUrlWithoutParams = message.parentUrl.split('?')[0];
-              const navItems = document.getElementsByClassName('js-yxt-navItem');
-              if (navItems) {
-                Array.from(navItems).forEach(navItem => {
-                  const verticalUrl = navItem.pathname.replace(/^\//, '');
-                  const params = navItem.search ? navItem.search : '?';
-                  navItem.href = parentUrlWithoutParams + params + '&verticalUrl=' + verticalUrl;
-                  navItem.target = '_parent';
-                })
-              }
-            }
-            updateTabsLink();
-            ANSWERS.components
+          } else if (message.action === 'update-tab-navigation') {
+            ANSWERS?.components
               .getActiveComponents('Navigation')
-              .forEach(navigation => navigation.userOnMount = () => updateTabsLink())
+              .forEach(navigation => navigation.setParentUrl(message.parentUrl))
           }
         }
       };

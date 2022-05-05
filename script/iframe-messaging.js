@@ -16,5 +16,5 @@ ANSWERS.core.storage.registerListener({
 });
 
 window.parentIFrame.sendMessage(JSON.stringify({
-  action: 'update-tab-navigation'
+  action: 'answers-initialized'
 }));

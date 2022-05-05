@@ -115,9 +115,9 @@ export function generateIFrame(domain, answersExperienceFrame) {
         document.body.scrollTop = iframeOffsetTop; // For Safari
         return;
       }
-      if (message.action === 'update-tab-navigation') {
+      if (message.action === 'answers-initialized') {
         sendToIframe({
-          action: message.action,
+          action: 'update-tab-navigation',
           parentUrl: window.location.href
         });
         return;
