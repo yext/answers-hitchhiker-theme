@@ -14,3 +14,7 @@ ANSWERS.core.storage.registerListener({
     }));
   }
 });
+
+window.parentIFrame.sendMessage(JSON.stringify({
+  action: 'answers-initialized'
+}));
