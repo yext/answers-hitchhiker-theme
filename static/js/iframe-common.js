@@ -115,6 +115,13 @@ export function generateIFrame(domain, answersExperienceFrame) {
         document.body.scrollTop = iframeOffsetTop; // For Safari
         return;
       }
+      if (message.action === 'answers-initialized') {
+        sendToIframe({
+          action: 'update-tab-navigation',
+          parentUrl: window.location.href
+        });
+        return;
+      }
       const params = message.params;
       const pageTitle = message.pageTitle;
       pageTitle && (iframe.title = pageTitle);

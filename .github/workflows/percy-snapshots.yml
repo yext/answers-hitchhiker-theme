@@ -1,6 +1,6 @@
 name: Percy Snapshots
 
-on: 
+on:
   push:
     branches-ignore: dev/*
   pull_request:
@@ -14,90 +14,46 @@ jobs:
     - id: nonce
       run: echo "::set-output name=result::${{ github.run_id }}-$(date +%s)"
 
-  default-snapshots:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.18]
+  call_snapshots_default:
     needs: nonce
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - run: npm ci
-      - run: npm run setup-test-site
-      - run: npm run build-test-site
-      - name: Percy snapshots
-        run: npx percy exec --parallel -- node tests/percy/index.js
-        env:
-          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
-          PERCY_PARALLEL_NONCE: ${{ needs.nonce.outputs.result }}
-          PERCY_PARALLEL_TOTAL: 4
+    uses: yext/slapshot-reusable-workflows/.github/workflows/percy_snapshots.yml@v1
+    with:
+      build_script: npm run setup-test-site && npm run build-test-site
+      percy_script: npx percy exec --parallel -- node tests/percy/index.js
+      PERCY_PARALLEL_NONCE: ${{ needs.nonce.outputs.result }}
+      PERCY_PARALLEL_TOTAL: 4
+    secrets:
+      PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
 
-  iframe-snapshots:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.18]
+  call_snapshots_iframe:
     needs: nonce
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - run: npm ci
-      - run: npm run setup-test-site
-      - run: npm run build-test-site
-      - name: Percy snapshots
-        run: npx percy exec --parallel -- node tests/percy/index.js iframe
-        env:
-          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
-          PERCY_PARALLEL_NONCE: ${{ needs.nonce.outputs.result }}
-          PERCY_PARALLEL_TOTAL: 4
+    uses: yext/slapshot-reusable-workflows/.github/workflows/percy_snapshots.yml@v1
+    with:
+      build_script: npm run setup-test-site && npm run build-test-site
+      percy_script: npx percy exec --parallel -- node tests/percy/index.js iframe
+      PERCY_PARALLEL_NONCE: ${{ needs.nonce.outputs.result }}
+      PERCY_PARALLEL_TOTAL: 4
+    secrets:
+      PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
 
-  spanish-snapshots:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.18]
+  call_snapshots_spanish:
     needs: nonce
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - run: npm ci
-      - run: npm run setup-test-site
-      - run: npm run build-test-site
-      - name: Percy snapshots
-        run: npx percy exec --parallel -- node tests/percy/index.js spanish
-        env:
-          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
-          PERCY_PARALLEL_NONCE: ${{ needs.nonce.outputs.result }}
-          PERCY_PARALLEL_TOTAL: 4
+    uses: yext/slapshot-reusable-workflows/.github/workflows/percy_snapshots.yml@v1
+    with:
+      build_script: npm run setup-test-site && npm run build-test-site
+      percy_script: npx percy exec --parallel -- node tests/percy/index.js spanish
+      PERCY_PARALLEL_NONCE: ${{ needs.nonce.outputs.result }}
+      PERCY_PARALLEL_TOTAL: 4
+    secrets:
+      PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
 
-  rtl-snapshots:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.18]
+  call_snapshots_rtl:
     needs: nonce
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - run: npm ci
-      - run: npm run setup-test-site
-      - run: npm run build-test-site
-      - name: Percy snapshots
-        run: npx percy exec --parallel -- node tests/percy/index.js rtl
-        env:
-          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
-          PERCY_PARALLEL_NONCE: ${{ needs.nonce.outputs.result }}
-          PERCY_PARALLEL_TOTAL: 4
+    uses: yext/slapshot-reusable-workflows/.github/workflows/percy_snapshots.yml@v1
+    with:
+      build_script: npm run setup-test-site && npm run build-test-site
+      percy_script: npx percy exec --parallel -- node tests/percy/index.js rtl
+      PERCY_PARALLEL_NONCE: ${{ needs.nonce.outputs.result }}
+      PERCY_PARALLEL_TOTAL: 4
+    secrets:
+      PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
