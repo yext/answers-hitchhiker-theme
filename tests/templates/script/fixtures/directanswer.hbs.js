@@ -1,2 +1,4 @@
-ANSWERS.addComponent("DirectAnswer", 
-{"container":"#js-answersDirectAnswer"});
+ANSWERS.addComponent("DirectAnswer", {
+  container: "#js-answersDirectAnswer",
+  ...{}
+});

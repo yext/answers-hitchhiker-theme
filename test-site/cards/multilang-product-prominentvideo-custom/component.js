@@ -1,6 +1,6 @@
-{{> cards/card_component componentName='multilang-product-prominentimage' }}
+{{> cards/card_component componentName='multilang-product-prominentvideo-custom' }}
 
-class multilang_product_prominentimageCardComponent extends BaseCard['multilang-product-prominentimage'] {
+class multilang_product_prominentvideo_customCardComponent extends BaseCard['multilang-product-prominentvideo-custom'] {
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
   }
@@ -12,12 +12,9 @@ class multilang_product_prominentimageCardComponent extends BaseCard['multilang-
    * @param profile profile of the entity in the card
    */
   dataForRender(profile) {
-    let imageUrl = '';
-    let alternateText = '';
-    if (profile.photoGallery && profile.photoGallery[0]) {
-      imageUrl = Formatter.image(profile.photoGallery[0]).url;
-      alternateText = Formatter.image(profile.photoGallery[0]).alternateText;
-    }
+    this.youtubeUrl = Formatter.getYoutubeUrl(profile.videos || []);
+    this.vimeoUrl = profile.c_vimeo;
+
     const linkTarget = AnswersExperience.runtimeConfig.get('linkTarget') || '_top';
 
     return {
@@ -25,18 +22,16 @@ class multilang_product_prominentimageCardComponent extends BaseCard['multilang-
       url: profile.landingPageUrl, // If the card title is a clickable link, set URL here
       target: linkTarget, // If the title's URL should open in a new tab, etc.
       titleEventOptions: this.addDefaultEventOptions(),
-      subtitle: Formatter.price(profile.price), // The sub-header text of the card
-      image: imageUrl, // The URL of the image to display on the card
-      altText: alternateText,  // The alternate text for the image
+      subtitle: profile.featuredMessage?.description, // The sub-header text of the card
+      videoUrl: this.youtubeUrl || this.vimeoUrl,
       details: profile.richTextDescription ? ANSWERS.formatRichText(profile.richTextDescription, 'richTextDescription', linkTarget) : null, // The text in the body of the card
-      // tag: profile.stockStatus ? profile.stockStatus : '', // The tag text for the card
       // If the card's details are longer than a certain character count, you can truncate the
       // text. A toggle will be supplied that can show or hide the truncated text.
-      // showMoreDetails: {
-      //   truncatedDetails: profile.richTextDescription ? ANSWERS.formatRichText(profile.richTextDescription, 'richTextDescription', linkTarget, 350) : null, // The truncated rich text
-      //   showMoreText: {{ translateJS phrase='Show more' }}, // Label when toggle will show truncated text
-      //   showLessText: {{ translateJS phrase='Show less' }} // Label when toggle will hide truncated text
-      // },
+      showMoreDetails: {
+        truncatedDetails: profile.richTextDescription ? ANSWERS.formatRichText(profile.richTextDescription, 'richTextDescription', linkTarget, 38) : null, // The truncated rich text
+        showMoreText: {{ translateJS phrase='Show more' }}, // Label when toggle will show truncated text
+        showLessText: {{ translateJS phrase='Show less' }} // Label when toggle will hide truncated text
+      },
       // The primary CTA of the card
       CTA1: {
         label: profile.c_primaryCTA ? profile.c_primaryCTA.label : null, // The CTA's label
@@ -64,18 +59,48 @@ class multilang_product_prominentimageCardComponent extends BaseCard['multilang-
     };
   }
 
+  onMount() {
+    super.onMount();
+    const videoSelector = '.js-HitchhikerProductProminentVideo-video';
+    const videoEl = this._container.querySelector(videoSelector);
+    if (!videoEl) {
+      return;
+    }
+    const addPlayer = videoApi => {
+      videoApi.addPlayer(videoEl, {
+        onPlay: () => this.onPlay()
+      });
+    };
+    if (this.youtubeUrl) {
+      HitchhikerJS.requireYoutubeAPI().then(addPlayer);
+    } else if (this.vimeoUrl) {
+      HitchhikerJS.requireVimeoAPI().then(addPlayer);
+    }
+  }
+
+  onPlay() {
+    const event = new ANSWERS.AnalyticsEvent('CTA_CLICK')
+      .addOptions({
+        verticalKey: this.verticalKey,
+        entityId: this.result?._raw?.id,
+        searcher: this._config.isUniversal ? 'UNIVERSAL' : 'VERTICAL',
+        ctaLabel: 'video_played'
+      });
+    this.analyticsReporter.report(event);
+  }
+
   /**
    * The template to render
    * @returns {string}
    * @override
    */
   static defaultTemplateName (config) {
-    return 'cards/multilang-product-prominentimage';
+    return 'cards/multilang-product-prominentvideo-custom';
   }
 }
 
 ANSWERS.registerTemplate(
-  'cards/multilang-product-prominentimage',
-  {{{stringifyPartial (read 'cards/multilang-product-prominentimage/template') }}}
+  'cards/multilang-product-prominentvideo-custom',
+  {{{stringifyPartial (read 'cards/multilang-product-prominentvideo-custom/template') }}}
 );
-ANSWERS.registerComponentType(multilang_product_prominentimageCardComponent);
+ANSWERS.registerComponentType(multilang_product_prominentvideo_customCardComponent);

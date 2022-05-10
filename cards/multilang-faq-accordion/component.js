@@ -21,7 +21,7 @@ class multilang_faq_accordionCardComponent extends BaseCard['multilang-faq-accor
       // If the card's details are longer than a certain character count, you can truncate the
       // text. A toggle will be supplied that can show or hide the truncated text.
       // showMoreDetails: {
-      //   showMoreLimit: null, // Character count limit
+      //   truncatedDetails: profile.answer ? ANSWERS.formatRichText(profile.answer, "answer", linkTarget, 500) : null, // The truncated rich text
       //   showMoreText: '', // Label when toggle will show truncated text
       //   showLessText: '' // Label when toggle will hide truncated text
       // },
@@ -110,6 +110,19 @@ class multilang_faq_accordionCardComponent extends BaseCard['multilang-faq-accor
         self.analyticsReporter.report(event);
       }
     });
+
+    const showExcessDetailsToggleEls = this._container.querySelectorAll('.js-HitchhikerFaqAccordion-detailsToggle');
+    const excessDetailsEls = this._container.querySelectorAll('.js-HitchhikerFaqAccordion-detailsText');
+    if (showExcessDetailsToggleEls && excessDetailsEls) {
+      showExcessDetailsToggleEls.forEach(el =>
+        el.addEventListener('click', () => {
+          contentEl.style.height = 'auto';
+          showExcessDetailsToggleEls.forEach(toggleEl => toggleEl.classList.toggle('js-hidden'));
+          excessDetailsEls.forEach(detailsEl => detailsEl.classList.toggle('js-hidden'));
+          contentEl.style.height = `${contentEl.scrollHeight}px`;
+        })
+      );
+    }
 
     super.onMount();
   }

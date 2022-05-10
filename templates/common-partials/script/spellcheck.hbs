@@ -1,10 +1,5 @@
-ANSWERS.addComponent("SpellCheck", 
-{{#shallowMergeConfig}}[
-  {
-    "container": "#js-answersSpellCheck"
-  },
-  {{{json componentSettings.SpellCheck}}}
-]
-{{/shallowMergeConfig}}
-);
+ANSWERS.addComponent("SpellCheck", {
+  container: "#js-answersSpellCheck",
+  ...{{{json componentSettings.SpellCheck}}}
+});
 

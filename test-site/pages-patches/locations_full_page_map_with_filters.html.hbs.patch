@@ -23,9 +23,7 @@
                {{> templates/vertical-full-page-map/markup/verticalresultscount }}
                {{> templates/vertical-full-page-map/markup/appliedfilters }}
 -              {{!-- {{> templates/vertical-full-page-map/collapsible-filters/markup/filterlink }} --}}
--              {{!-- {{> templates/vertical-full-page-map/collapsible-filters/markup/viewresultsbutton }} --}}
 +              {{> templates/vertical-full-page-map/collapsible-filters/markup/filterlink }}
-+              {{> templates/vertical-full-page-map/collapsible-filters/markup/viewresultsbutton }}
              </div>
              <div class="Answers-resultsHeaderBottom">
                {{> templates/vertical-full-page-map/markup/alternativeresults }}
@@ -39,7 +37,9 @@
 +            {{> templates/vertical-full-page-map/markup/facets }}
              {{!-- {{> templates/vertical-full-page-map/markup/filterbox }} --}}
 -          {{!-- </div> --}}
+-          {{!-- {{> templates/vertical-full-page-map/collapsible-filters/markup/viewresultsbutton }} --}}
 +          </div>
++          {{> templates/vertical-full-page-map/collapsible-filters/markup/viewresultsbutton }}
            <div class="Answers-resultsWrapper js-locator-resultsWrapper">
              <div class="Answers-resultsContainer js-locator-resultsContainer js-answersResultsWrapper">
                <div class="js-answersResultsColumn">

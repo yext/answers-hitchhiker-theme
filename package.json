@@ -1,6 +1,6 @@
 {
   "name": "answers-hitchhiker-theme",
-  "version": "1.28.1",
+  "version": "1.29.0",
   "description": "A starter answers theme for hitchhikers",
   "scripts": {
     "test": "cross-env NODE_ICU_DATA=node_modules/full-icu jest --verbose",
@@ -47,7 +47,7 @@
     "puppeteer": "^10.2.0",
     "serve": "^11.3.2",
     "simple-git": "^2.24.0",
-    "testcafe": "^1.17.1",
+    "testcafe": "^1.18.4",
     "testcafe-browser-provider-browserstack": "^1.13.1",
     "underscore.string": "^3.3.5",
     "urijs": "1.18.12",

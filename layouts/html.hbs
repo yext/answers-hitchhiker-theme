@@ -146,9 +146,13 @@
           } else if (window.isOverlay) {
             window.Overlay.onMessage(message);
           } else if (message.eventType && message.eventType === 'click') {
-            ANSWERS.components._activeComponents
-              .filter(component => component.name === 'SearchBar.autocomplete')
+            ANSWERS?.components
+              .getActiveComponents('AutoComplete')
               .forEach(autocompleteComponent => autocompleteComponent.close());
+          } else if (message.action === 'update-tab-navigation') {
+            ANSWERS?.components
+              .getActiveComponents('Navigation')
+              .forEach(navigationComponent => navigationComponent.setParentUrl(message.parentUrl));
           }
         }
       };

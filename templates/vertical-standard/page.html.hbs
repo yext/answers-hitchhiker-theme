@@ -29,25 +29,29 @@
     partial for this page, you should not use it on any other page.  -->
     {{!-- {{> layouts/overlay-suggestions }} --}}
     <div class="Answers-container Answers-resultsWrapper">
-      {{!-- {{> templates/vertical-standard/markup/directanswer }} --}}
-      {{> templates/vertical-standard/markup/spellcheck }}
-      <div class="Answers-resultsHeader">
-        {{> templates/vertical-standard/markup/verticalresultscount }}
-        {{> templates/vertical-standard/markup/appliedfilters }}
-        {{!-- {{> templates/vertical-standard/collapsible-filters/markup/filterlink }} --}}
-        {{!-- {{> templates/vertical-standard/collapsible-filters/markup/viewresultsbutton }} --}}
+      <div class="Answers-sidebar js-answersSidebar">
+        <!-- Uncomment the following div if you want to include filters, facets, or sort options  -->
+        {{!-- <div class="Answers-filtersWrapper js-answersFiltersWrapper CollapsibleFilters-inactive"> --}}
+          {{!-- {{> templates/vertical-standard/markup/sortoptions }} --}}
+          {{!-- {{> templates/vertical-standard/markup/filterbox }} --}}
+          {{!-- {{> templates/vertical-standard/markup/facets }} --}}
+        {{!-- </div> --}}
       </div>
-      <!-- Uncomment the following div if you want to include filters, facets, or sort options  -->
-      {{!-- <div class="Answers-filtersWrapper js-answersFiltersWrapper CollapsibleFilters-inactive"> --}}
-        {{!-- {{> templates/vertical-standard/markup/sortoptions }} --}}
-        {{!-- {{> templates/vertical-standard/markup/filterbox }} --}}
-        {{!-- {{> templates/vertical-standard/markup/facets }} --}}
-      {{!-- </div> --}}
-      <div class="Answers-results js-answersResults">
-        {{> templates/vertical-standard/markup/verticalresults }}
-        {{> templates/vertical-standard/markup/pagination }}
-        {{!-- {{> templates/vertical-standard/markup/qasubmission }} --}}
+      <div class="Answers-mainContent js-answersMainContent">
+        {{!-- {{> templates/vertical-standard/markup/directanswer }} --}}
+        {{> templates/vertical-standard/markup/spellcheck }}
+        <div class="Answers-resultsHeader">
+          {{> templates/vertical-standard/markup/verticalresultscount }}
+          {{> templates/vertical-standard/markup/appliedfilters }}
+          {{!-- {{> templates/vertical-standard/collapsible-filters/markup/filterlink }} --}}
+        </div>
+        <div class="Answers-results js-answersResults">
+          {{> templates/vertical-standard/markup/verticalresults }}
+          {{> templates/vertical-standard/markup/pagination }}
+          {{!-- {{> templates/vertical-standard/markup/qasubmission }} --}}
+        </div>
       </div>
+      {{!-- {{> templates/vertical-standard/collapsible-filters/markup/viewresultsbutton }} --}}
     </div>
     <div class="Answers-footer js-answersFooter">
       {{> layouts/yext-logo }}

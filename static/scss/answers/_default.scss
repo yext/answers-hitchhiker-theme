@@ -72,3 +72,8 @@
 @import "../page.scss";
 @import "../header.scss";
 @import "../footer.scss";
+
+// Use to set up media query listener on $breakpoint-expanded-filters
+:export {
+  cssBreakpointExpandedFilters: $breakpoint-expanded-filters;
+}

@@ -9,6 +9,7 @@ package.json
 webpack-config.js
 
 !cards/custom-cta-icons/
+!cards/multilang-product-prominentvideo-custom/
 !config/global_config.json
 !config/locale_config.json
 !config/index.json

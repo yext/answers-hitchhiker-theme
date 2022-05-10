@@ -1,6 +1,7 @@
 import QueryTriggers from '../constants/query-triggers';
 import StorageKeys from '../constants/storage-keys';
 import SearchStates from '../constants/search-states';
+import ScssVariables from '../../scss/answers/_default.scss';
 
 /**
  * Interactions manages page interactions for collapsible filters.
@@ -239,5 +240,56 @@ export default class Interactions {
     if (yxtFooter && this.templateName) {
       yxtFooter.classList.add(this.templateName);
     }
+  }
+
+  /**
+   * Use media query with $breakpoint-expanded-filters to determines if the
+   * page is in collapsible filters view.
+   * 
+   * @returns {boolean} whether the viewport is in collapsible filters view
+   */
+  isCollapsibleFiltersView() {
+    const mediaQuery = window.matchMedia(`(min-width: ${ScssVariables.cssBreakpointExpandedFilters})`);
+    return !mediaQuery.matches;
+  }
+
+  /**
+   * Add a media query event listener when there's a width view port change
+   * relative to $breakpoint-expanded-filters.
+   *
+   * @param {Function} handleViewportChange callback function to invoke when there's a media query event
+   */
+  addExpandedFiltersListener(handleViewportChange) {
+    const mediaQuery = window.matchMedia(`(min-width: ${ScssVariables.cssBreakpointExpandedFilters})`);
+    if ('addEventListener' in mediaQuery) {
+      mediaQuery.addEventListener('change', e => handleViewportChange(e.matches));
+     } else if ('addListener' in mediaQuery) {
+      mediaQuery.addListener(e => handleViewportChange(e.matches));
+     }
+  }
+
+  /**
+   * Update FiltersWrapper HTML element's location when switching between expanded
+   * and collapsible filters view in page templates that follows the sidebar and
+   * mainContent div structure (e.g. VerticalStandard and VerticalGrid).
+   */
+  setupResposiveFiltersLayout() {
+    const moveFiltersWrapper = containerClassName => {
+      const containerEl = document.getElementsByClassName(containerClassName)?.[0];
+      const filtersWrapperEl = document.getElementsByClassName('js-answersFiltersWrapper')?.[0];
+      if (containerEl && filtersWrapperEl) {
+        containerEl.appendChild(filtersWrapperEl);
+      }
+    }
+    if (this.isCollapsibleFiltersView()) {
+      moveFiltersWrapper('js-answersMainContent');
+    }
+    this.addExpandedFiltersListener(isExpanded => {
+      if (isExpanded) {
+        moveFiltersWrapper('js-answersSidebar');
+      } else {
+        moveFiltersWrapper('js-answersMainContent');
+      }
+    });
   }
 }

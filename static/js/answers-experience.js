@@ -3,6 +3,7 @@ import analyticsListener from './runtime-config-listeners/analytics';
 import sessionTrackingListener from './runtime-config-listeners/session-tracking';
 import querySourceListener from './runtime-config-listeners/query-source';
 import visitorListener from './runtime-config-listeners/visitor';
+import customPromptsListener from './runtime-config-listeners/custom-autocomplete-prompts';
 
 /**
  * @typedef {import('./runtime-config.js').RuntimeConfigListener} RuntimeConfigListener
@@ -16,7 +17,8 @@ export default class AnswersExperience {
       analyticsListener,
       sessionTrackingListener,
       querySourceListener,
-      visitorListener
+      visitorListener,
+      customPromptsListener
     ];
 
     this._registerRuntimeConfigListeners();

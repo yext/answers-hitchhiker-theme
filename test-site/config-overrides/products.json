@@ -1,0 +1,9 @@
+{
+  "verticalsToConfig": {
+    "products": {
+      "universalLimit": 3,
+      "cardType": "multilang-product-prominentvideo-custom",
+      "universalSectionTemplate": "grid-three-columns"
+    }
+  }
+}

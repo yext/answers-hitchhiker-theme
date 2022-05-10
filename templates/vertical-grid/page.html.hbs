@@ -26,25 +26,29 @@
     The overlay partial should only be added to ONE page of your site, e.g. if you uncomment the 
     partial for this page, you should not use it on any other page.  -->
     {{!-- {{> layouts/overlay-suggestions }} --}}
-    <div class="Answers-container Answers-resultsWrapper Hitchhiker-3-columns">
-      {{> templates/vertical-grid/markup/spellcheck }}
-      <div class="Answers-resultsHeader">
-        {{> templates/vertical-grid/markup/verticalresultscount }}
-        {{> templates/vertical-grid/markup/appliedfilters }}
-        {{!-- {{> templates/vertical-grid/collapsible-filters/markup/filterlink }} --}}
-        {{!-- {{> templates/vertical-grid/collapsible-filters/markup/viewresultsbutton }} --}}
+    <div class="Answers-container Answers-resultsWrapper">
+      <div class="Answers-sidebar js-answersSidebar">
+        <!-- Uncomment the following div if you want to include filters, facets, or sort options  -->
+        {{!-- <div class="Answers-filtersWrapper js-answersFiltersWrapper CollapsibleFilters-inactive"> --}}
+          {{!-- {{> templates/vertical-grid/markup/sortoptions }} --}}
+          {{!-- {{> templates/vertical-grid/markup/filterbox }} --}}
+          {{!-- {{> templates/vertical-grid/markup/facets }} --}}
+        {{!-- </div> --}}
       </div>
-      <!-- Uncomment the following div if you want to include filters, facets, or sort options  -->
-      {{!-- <div class="Answers-filtersWrapper js-answersFiltersWrapper CollapsibleFilters-inactive"> --}}
-        {{!-- {{> templates/vertical-grid/markup/sortoptions }} --}}
-        {{!-- {{> templates/vertical-grid/markup/filterbox }} --}}
-        {{!-- {{> templates/vertical-grid/markup/facets }} --}}
-      {{!-- </div> --}}
-      <div class="Answers-results js-answersResults">
-        {{> templates/vertical-grid/markup/verticalresults }}
-        {{> templates/vertical-grid/markup/pagination }}
-        {{!-- {{> templates/vertical-grid/markup/qasubmission }} --}}
+      <div class="Answers-mainContent js-answersMainContent Hitchhiker-3-columns">
+        {{> templates/vertical-grid/markup/spellcheck }}
+        <div class="Answers-resultsHeader">
+          {{> templates/vertical-grid/markup/verticalresultscount }}
+          {{> templates/vertical-grid/markup/appliedfilters }}
+          {{!-- {{> templates/vertical-grid/collapsible-filters/markup/filterlink }} --}}
+        </div>
+        <div class="Answers-results js-answersResults">
+          {{> templates/vertical-grid/markup/verticalresults }}
+          {{> templates/vertical-grid/markup/pagination }}
+          {{!-- {{> templates/vertical-grid/markup/qasubmission }} --}}
+        </div>
       </div>
+      {{!-- {{> templates/vertical-grid/collapsible-filters/markup/viewresultsbutton }} --}}
     </div>
     <div class="Answers-footer js-answersFooter">
       {{> layouts/yext-logo }}

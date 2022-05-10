@@ -1,5 +1,5 @@
---- people.html.hbs	2021-04-08 20:51:02.000000000 -0400
-+++ people.updated.html.hbs	2021-04-08 20:52:20.000000000 -0400
+--- people.html.hbs	2022-04-05 15:42:31.000000000 -0400
++++ people.updated.html.hbs	2022-04-05 15:58:28.000000000 -0400
 @@ -1,7 +1,7 @@
  {{#> layouts/html }}
    {{#> script/core }}
@@ -20,25 +20,36 @@
      {{!-- {{> templates/vertical-grid/script/filterbox }} --}}
      {{!-- {{> templates/vertical-grid/script/qasubmission }} --}}
    {{/script/core }}
-@@ -30,15 +30,15 @@
-       <div class="Answers-resultsHeader">
-         {{> templates/vertical-grid/markup/verticalresultscount }}
-         {{> templates/vertical-grid/markup/appliedfilters }}
--        {{!-- {{> templates/vertical-grid/collapsible-filters/markup/filterlink }} --}}
--        {{!-- {{> templates/vertical-grid/collapsible-filters/markup/viewresultsbutton }} --}}
-+        {{> templates/vertical-grid/collapsible-filters/markup/filterlink }}
-+        {{> templates/vertical-grid/collapsible-filters/markup/viewresultsbutton }}
+@@ -29,18 +29,18 @@
+     <div class="Answers-container Answers-resultsWrapper">
+       <div class="Answers-sidebar js-answersSidebar">
+         <!-- Uncomment the following div if you want to include filters, facets, or sort options  -->
+-        {{!-- <div class="Answers-filtersWrapper js-answersFiltersWrapper CollapsibleFilters-inactive"> --}}
+-          {{!-- {{> templates/vertical-grid/markup/sortoptions }} --}}
++        <div class="Answers-filtersWrapper js-answersFiltersWrapper CollapsibleFilters-inactive">
++          {{> templates/vertical-grid/markup/sortoptions }}
+           {{!-- {{> templates/vertical-grid/markup/filterbox }} --}}
+-          {{!-- {{> templates/vertical-grid/markup/facets }} --}}
+-        {{!-- </div> --}}
++          {{> templates/vertical-grid/markup/facets }}
++        </div>
        </div>
-       <!-- Uncomment the following div if you want to include filters, facets, or sort options  -->
--      {{!-- <div class="Answers-filtersWrapper js-answersFiltersWrapper CollapsibleFilters-inactive"> --}}
--        {{!-- {{> templates/vertical-grid/markup/sortoptions }} --}}
-+      <div class="Answers-filtersWrapper js-answersFiltersWrapper CollapsibleFilters-inactive">
-+        {{> templates/vertical-grid/markup/sortoptions }}
-         {{!-- {{> templates/vertical-grid/markup/filterbox }} --}}
--        {{!-- {{> templates/vertical-grid/markup/facets }} --}}
--      {{!-- </div> --}}
-+        {{> templates/vertical-grid/markup/facets }}
-+      </div>
-       <div class="Answers-results js-answersResults">
+       <div class="Answers-mainContent js-answersMainContent Hitchhiker-3-columns">
          {{> templates/vertical-grid/markup/spellcheck }}
-         {{> templates/vertical-grid/markup/verticalresults }}
+         <div class="Answers-resultsHeader">
+           {{> templates/vertical-grid/markup/verticalresultscount }}
+           {{> templates/vertical-grid/markup/appliedfilters }}
+-          {{!-- {{> templates/vertical-grid/collapsible-filters/markup/filterlink }} --}}
++          {{> templates/vertical-grid/collapsible-filters/markup/filterlink }}
+         </div>
+         <div class="Answers-results js-answersResults">
+           {{> templates/vertical-grid/markup/verticalresults }}
+@@ -48,7 +48,7 @@
+           {{!-- {{> templates/vertical-grid/markup/qasubmission }} --}}
+         </div>
+       </div>
+-      {{!-- {{> templates/vertical-grid/collapsible-filters/markup/viewresultsbutton }} --}}
++      {{> templates/vertical-grid/collapsible-filters/markup/viewresultsbutton }}
+     </div>
+     <div class="Answers-footer js-answersFooter">
+       {{> layouts/yext-logo }}

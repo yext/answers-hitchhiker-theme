@@ -11,5 +11,8 @@ ANSWERS.addComponent('FilterLink', {
     CollapsibleFilters.Helpers.clearSearch();
     collapsibleFiltersInteractions.focusSearchBar();
   },
+  onCreate: () => {
+    collapsibleFiltersInteractions.setupResposiveFiltersLayout();
+  },
   ...{{{ json componentSettings.FilterLink }}}
 });
