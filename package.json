@@ -1,7 +1,17 @@
 {
   "name": "answers-hitchhiker-theme",
   "version": "1.29.1",
-  "description": "A starter answers theme for hitchhikers",
+  "description": "A starter Search theme for hitchhikers",
+  "keywords": [
+    "Jambo",  
+    "Templates",
+    "Handlebars",
+    "site",
+    "Answers",
+    "Search",
+    "Hitchhikers",
+    "Yext"
+  ],
   "scripts": {
     "test": "cross-env NODE_ICU_DATA=node_modules/full-icu jest --verbose",
     "setup-test-site": "./test-site/scripts/setup.sh",
