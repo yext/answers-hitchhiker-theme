@@ -1,0 +1,257 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#: cards/multilang-menuitem-standard/component.js:27
+msgid "[[calorieCount]] calories"
+msgstr "[[calorieCount]] calories"
+
+#: cards/multilang-menuitem-standard/component.js:23
+msgid "Allergens"
+msgstr "Allergens"
+
+#: cards/multilang-job-standard/component.js:33
+msgid "Apply Now"
+msgstr "Apply Now"
+
+#: cards/multilang-event-standard/component.js:42
+msgid "Directions"
+msgstr "Directions"
+
+#: cards/multilang-location-standard/component.js:41
+msgid "Get Directions"
+msgstr "Get Directions"
+
+#: cards/multilang-document-standard/component.js:30
+msgid "Last Updated on [[date]]"
+msgstr "Last Updated on [[date]]"
+
+#: directanswercards/multilang-documentsearch-standard/template.hbs:34
+msgid "Read more about"
+msgstr "Read more about"
+
+#: cards/multilang-menuitem-standard/component.js:38
+msgid "Order Now"
+msgstr "Order Now"
+
+#: cards/multilang-location-standard/template.hbs:140
+msgid "Services:"
+msgstr "Services:"
+
+#: cards/multilang-event-standard/component.js:28
+#: cards/multilang-job-standard/component.js:29
+#: cards/multilang-link-standard/component.js:26
+#: cards/multilang-menuitem-standard/component.js:34
+#: cards/multilang-product-prominentimage/component.js:29
+#: cards/multilang-product-standard/component.js:34
+#: cards/multilang-professional-location/component.js:36
+#: cards/multilang-professional-standard/component.js:34
+#: cards/multilang-standard/component.js:29
+msgid "Show less"
+msgstr "Show less"
+
+#: cards/multilang-event-standard/component.js:27
+#: cards/multilang-job-standard/component.js:28
+#: cards/multilang-link-standard/component.js:25
+#: cards/multilang-menuitem-standard/component.js:33
+#: cards/multilang-product-prominentimage/component.js:28
+#: cards/multilang-product-standard/component.js:33
+#: cards/multilang-professional-location/component.js:35
+#: cards/multilang-professional-standard/component.js:33
+#: cards/multilang-standard/component.js:28
+msgid "Show more"
+msgstr "Show more"
+
+#: directanswercards/multilang-allfields-standard/component.js:177
+msgid "Thank you for your feedback!"
+msgstr "Thank you for your feedback!"
+
+#: cards/multilang-event-standard/component.js:53
+#: cards/multilang-faq-accordion/component.js:51
+#: cards/multilang-financial-professional-location/component.js:69
+#: cards/multilang-job-standard/component.js:44
+#: cards/multilang-link-standard/component.js:32
+#: cards/multilang-location-standard/component.js:58
+#: cards/multilang-menuitem-standard/component.js:59
+#: cards/multilang-product-prominentimage-clickable/component.js:44
+#: cards/multilang-product-prominentimage/component.js:62
+#: cards/multilang-product-prominentvideo/component.js:57
+#: cards/multilang-product-standard/component.js:61
+#: cards/multilang-professional-location/component.js:69
+#: cards/multilang-professional-standard/component.js:59
+#: cards/multilang-standard/component.js:54
+msgid "Thanks!"
+msgstr "Thanks!"
+
+#: directanswercards/multilang-allfields-standard/component.js:179
+msgid "This answered my question"
+msgstr "This answered my question"
+
+#: directanswercards/multilang-allfields-standard/component.js:180
+msgid "This did not answer my question"
+msgstr "This did not answer my question"
+
+#: directanswercards/multilang-allfields-standard/component.js:163
+msgid "View Details"
+msgstr "View Details"
+
+#: cards/multilang-menuitem-standard/component.js:48
+msgid "View Menu"
+msgstr "View Menu"
+
+#: directanswercards/multilang-allfields-standard/component.js:178
+msgid "Was this the answer you were looking for?"
+msgstr "Was this the answer you were looking for?"
+
+#: cards/multilang-location-standard/component.js:33
+msgctxt "Call is a verb"
+msgid "Call"
+msgstr "Call"
+
+#: cards/multilang-event-standard/component.js:32
+msgctxt "RSVP is a verb"
+msgid "RSVP"
+msgstr "RSVP"
+
+#: templates/universal-standard/script/universalresults.hbs:74
+msgctxt "View is a verb"
+msgid "View All"
+msgstr "View All"
+
+#: theme-components/collapsible-filters/filter-link/component.js:4
+msgid "clear search"
+msgstr "clear search"
+
+#: theme-components/collapsible-filters/view-results-button/template.hbs:3
+msgid "No results found."
+msgstr "No results found."
+
+#: theme-components/collapsible-filters/filter-link/component.js:3
+msgid "reset filters"
+msgstr "reset filters"
+
+#: theme-components/collapsible-filters/filter-link/component.js:2
+msgid "sorts and filters"
+msgstr "sorts and filters"
+
+#: theme-components/collapsible-filters/view-results-button/template.hbs:5
+msgid "View 1 Result"
+msgid_plural "View [[count]] Results"
+msgstr[0] "View 1 Result"
+msgstr[1] "View [[count]] Results"
+
+#: cards/multilang-financial-professional-location/template.hbs:198
+#: cards/multilang-location-standard/template.hbs:209
+#: cards/multilang-professional-location/template.hbs:195
+msgctxt "Close is a verb"
+msgid "Close Card"
+msgstr "Close Card"
+
+#: templates/vertical-full-page-map/markup/searchthisareatoggle.hbs:10
+msgctxt "A button that conducts a search in the current map area"
+msgid "Search When Map Moves"
+msgstr "Search When Map Moves"
+
+#: templates/vertical-full-page-map/markup/searchthisareabutton.hbs:3
+msgctxt "A toggle for automatically searching when the map moves"
+msgid "Search This Area"
+msgstr "Search This Area"
+
+#: templates/vertical-full-page-map/markup/mobilelisttoggles.hbs:5
+msgctxt "The label of a toggle for displaying a list of results"
+msgid "List"
+msgstr "List"
+
+#: templates/vertical-full-page-map/markup/mobilelisttoggles.hbs:9
+msgctxt "The label of a toggle for viewing a visual map"
+msgid "Map"
+msgstr "Map"
+
+#: templates/vertical-interactive-map/page.html.hbs:23
+msgid "Main location search"
+msgstr "Main location search"
+
+#: templates/vertical-interactive-map/page.html.hbs:64
+msgid "Map"
+msgstr "Map"
+
+#: templates/vertical-interactive-map/page.html.hbs:59
+msgid "Map controls"
+msgstr "Map controls"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:3
+msgid "<em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">No results found</em> in [[currentVerticalLabel]]."
+msgstr "<em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">No results found</em> in [[currentVerticalLabel]]."
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:5
+msgid "Showing <em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">all [[currentVerticalLabel]]</em> instead."
+msgstr "Showing <em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">all [[currentVerticalLabel]]</em> instead."
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:11
+msgid "The following search category yielded results for <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"
+msgid_plural "The following search categories yielded results for <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"
+msgstr[0] "The following search category yielded results for <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"
+msgstr[1] "The following search categories yielded results for <span class=\"yxt-AlternativeVerticals-details--query\">\"[[query]]\"</span>:"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:31
+msgid "([[resultsCount]] result)"
+msgid_plural "([[resultsCount]] results)"
+msgstr[0] "([[resultsCount]] result)"
+msgstr[1] "([[resultsCount]] results)"
+
+#: theme-components/vertical-full-page-map-alternative-verticals/alternativeverticals.hbs:43
+msgid "Alternatively, you can <a class=\"yxt-AlternativeVerticals-universalLink\" href=\"[[universalUrl]]\"> view results across all search categories</a>."
+msgstr "Alternatively, you can <a class=\"yxt-AlternativeVerticals-universalLink\" href=\"[[universalUrl]]\"> view results across all search categories</a>."
+
+msgctxt "Indicates that a store is closed"
+msgid "Closed"
+msgstr "Closed"
+
+msgctxt "The hours that a store is open"
+msgid "Open 24 Hours"
+msgstr "Open 24 Hours"
+
+msgctxt "Indicates the time a store will open"
+msgid "Opens at"
+msgstr "Opens at"
+
+msgctxt "Indicates that a store is open"
+msgid "Open Now"
+msgstr "Open Now"
+
+msgctxt "Indicates the time a store will close"
+msgid "Closes at"
+msgstr "Closes at"
+
+msgid "Monday"
+msgstr "Monday"
+
+msgid "Tuesday"
+msgstr "Tuesday"
+
+msgid "Wednesday"
+msgstr "Wednesday"
+
+msgid "Thursday"
+msgstr "Thursday"
+
+msgid "Friday"
+msgstr "Friday"
+
+msgid "Saturday"
+msgstr "Saturday"
+
+msgid "Sunday"
+msgstr "Sunday"
+
+msgid "Day of the Week"
+msgstr "Day of the Week"
+
+msgid "Hours"
+msgstr "Hours"
+
+msgid "Yes"
+msgstr "Yes"
+
+msgid "No"
+msgstr "No"
