@@ -355,6 +355,7 @@
       bottom: 0;
       background-color: var(--hh-color-gray-2);
       position: sticky;
+      pointer-events: all;
     }
 
     &-mapFooter {
@@ -639,6 +640,11 @@
     @include bpgte($desktop-break-point-min) {
       width: 100%;
       position: absolute;
+    }
+
+    @include bplte($mobile-break-point-max)
+    {
+      pointer-events: all;
     }
   }
 

@@ -1,6 +1,6 @@
 {
   "name": "answers-hitchhiker-theme",
-  "version": "1.29.1",
+  "version": "1.29.2",
   "description": "Toolchain for use with the HH Theme",
   "main": "Gruntfile.js",
   "scripts": {
@@ -26,18 +26,18 @@
     "esbuild-loader": "^2.13.1",
     "file-system": "^2.2.2",
     "fs-extra": "^9.0.1",
-    "grunt": "^1.3.0",
+    "grunt": "^1.5.3",
     "grunt-contrib-watch": "^1.1.0",
     "grunt-webpack": "^4.0.3",
     "html-loader": "^2.1.2",
     "html-webpack-plugin": "^5.3.1",
-    "jambo": "^1.12.1",
+    "jambo": "^1.12.3",
     "jsdom": "^16.4.0",
     "locale-currency": "0.0.2",
     "mini-css-extract-plugin": "^1.6.0",
-    "postcss": "^8.3.1",
-    "resolve-url-loader": "^3.1.1",
-    "rtlcss-webpack-plugin": "^4.0.6",
+    "postcss": "^8.4.14",
+    "resolve-url-loader": "^3.1.4",
+    "rtlcss-webpack-plugin": "^4.0.7",
     "sass": "^1.34.0",
     "sass-loader": "^8.0.2",
     "simple-git": "^2.15.0",
@@ -59,7 +59,7 @@
     "merge-options": "^2.0.0",
     "object-fit-images": "^3.2.4",
     "remove-files-webpack-plugin": "^1.4.3",
-    "underscore.string": "3.3.5"
+    "underscore.string": "^3.3.6"
   },
   "engines": {
     "node": ">=10"
