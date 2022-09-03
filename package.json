@@ -61,7 +61,7 @@
     "testcafe-browser-provider-browserstack": "^1.13.1",
     "underscore.string": "^3.3.6",
     "urijs": "^1.19.11",
-    "yargs": "^17.0.1"
+    "yargs": "^17.5.1"
   },
   "jest": {
     "collectCoverageFrom": [
