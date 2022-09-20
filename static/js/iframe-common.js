@@ -18,7 +18,7 @@ export function generateIFrame(domain, answersExperienceFrame) {
   var containerEl = document.querySelector('#answers-container');
   var iframe = document.createElement('iframe');
   var pathToIndex = containerEl.dataset.path;
-  iframe.allow = 'geolocation; microphone';
+  iframe.allow = 'geolocation; microphone; fullscreen';
 
   domain = domain || '';
 
