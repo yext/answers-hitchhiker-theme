@@ -34,7 +34,7 @@
     },
     "products": {
       "universalSectionTemplate": "grid-three-columns",
-      "cardType": "multilang-product-prominentimage"
+      "cardType": "multilang-product-prominentvideo"
     },
     "links": {
       "cardType": "multilang-link-standard"

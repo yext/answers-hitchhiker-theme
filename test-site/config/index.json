@@ -52,7 +52,7 @@
     },
     "products": {
       "universalSectionTemplate": "grid-three-columns",
-      "cardType": "product-prominentimage"
+      "cardType": "product-prominentvideo"
     },
     "links": {
       "cardType": "link-standard"
