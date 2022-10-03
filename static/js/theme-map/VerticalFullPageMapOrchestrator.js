@@ -170,7 +170,6 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       storageKey: StorageKeys.MAP_LOADED,
       callback: () => {
         this.updateMostRecentSearchState()
-        console.log(this.mostRecentSearchLocation)
       }
     })
 
