@@ -125,7 +125,6 @@ class ThemeMap extends ANSWERS.Component {
    * Update in the Answers SDK storage map properties used by other components
    */
   updateMapPropertiesInStorage() {
-    console.log('setting visibleCenter', this.map.getVisibleCenter())
     this.core.storage.set(StorageKeys.LOCATOR_MAP_PROPERTIES, {
       visibleCenter: this.map.getVisibleCenter(),
       visibleRadius: this.map.getVisibleRadius()
@@ -139,12 +138,10 @@ class ThemeMap extends ANSWERS.Component {
   addMapInteractions(map) {
     this.map.idle().then(() => {
       map.setPanHandler((prevousBounds, currentBounds, zoomTrigger) => {
-        console.log('pand end')
         this.updateMapPropertiesInStorage();
         this.config.panHandler(prevousBounds, currentBounds, zoomTrigger);
       });
       map.setDragEndHandler(() => {
-        console.log('drag end')
         this.updateMapPropertiesInStorage();
         this.config.dragEndListener()
       });
@@ -152,12 +149,13 @@ class ThemeMap extends ANSWERS.Component {
         this.config.zoomChangedListener(this.map.getZoom(), zoomTrigger);
       });
       map.setZoomEndHandler((zoomTrigger) => {
-        console.log('zeem end')
         this.updateMapPropertiesInStorage();
         this.config.zoomEndListener(this.map.getZoom(), zoomTrigger);
       });
       map.setCanvasClickHandler(() => this.config.canvasClickListener());
-      console.log('idle')
+      map.setLoadHandler(() => {
+        this.core.storage.set(StorageKeys.MAP_LOADED, true)
+      })
     });
 
     const mapRenderTargetOptions = new MapRenderTargetOptions()

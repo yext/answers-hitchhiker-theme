@@ -80,7 +80,7 @@ class GoogleMap extends ProviderMap {
     google.maps.event.addListener(this.map, 'click', () => {
       this._canvasClickHandler();
     });
-    google.maps.event.addListenerOnce(this.map, 'idle', () => {
+    google.maps.event.addListenerOnce(this.map, 'tilesloaded', () => {
       this._loadHandler()
     })
   }
