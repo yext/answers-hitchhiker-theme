@@ -51,6 +51,9 @@ class MapboxMap extends ProviderMap {
         this._canvasClickHandler();
       }
     });
+    this.map.on('load', () => {
+      this._loadHandler();
+    })
   }
 
   getCenter() {

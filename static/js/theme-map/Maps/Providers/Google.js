@@ -80,6 +80,9 @@ class GoogleMap extends ProviderMap {
     google.maps.event.addListener(this.map, 'click', () => {
       this._canvasClickHandler();
     });
+    google.maps.event.addListenerOnce(this.map, 'idle', () => {
+      this._loadHandler()
+    })
   }
 
   getCenter() {

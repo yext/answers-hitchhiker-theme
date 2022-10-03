@@ -167,13 +167,11 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
   onCreate () {
     this.core.storage.registerListener({
       eventType: 'update',
-      storageKey: StorageKeys.LOCATOR_MAP_PROPERTIES,
-      callback: () => this.updateMostRecentSearchState()
-    })
-    this.core.storage.registerListener({
-      eventType: 'update',
       storageKey: StorageKeys.VERTICAL_RESULTS,
-      callback: (data) => this.setState(data)
+      callback: (data) => {
+        console.log('vert update', this.core.storage.get(StorageKeys.LOCATOR_MAP_PROPERTIES), this.mostRecentSearchLocation)
+        this.setState(data)
+      }
     });
 
     this.core.storage.registerListener({
@@ -488,13 +486,13 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
   /**
    * Returns the current center of the map
    * 
-   * @returns {Coordinate | null}
+   * @returns {Coordinate}
    */
   getCurrentMapCenter () {
     const mapProperties = this.core.storage.get(StorageKeys.LOCATOR_MAP_PROPERTIES);
 
     if (!mapProperties) {
-      return null
+      return this.defaultCenter
     }
 
     const center = mapProperties.visibleCenter;

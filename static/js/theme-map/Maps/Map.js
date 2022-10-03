@@ -328,6 +328,7 @@ class Map {
       .withPanStartHandler(() => this.panStartHandler())
       .withProviderOptions(options.providerOptions)
       .withLocale(options.locale)
+      .withLoadHandler(() => console.log('poospadfoaspdfoasdpfoaps'))
       .build();
 
     this.setZoomCenter(this._defaultZoom, this._defaultCenter);
@@ -361,6 +362,7 @@ class Map {
       const pixelWidth = this._wrapper.offsetWidth;
       const zoom = this.getZoom();
       const center = this.getCenter();
+      console.log('got center from specific map', center)
 
       const degreesPerPixel = 360 / Math.pow(2, zoom + 8);
       const width = pixelWidth * degreesPerPixel;
