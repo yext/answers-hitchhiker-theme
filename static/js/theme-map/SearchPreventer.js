@@ -39,7 +39,6 @@ class SearchPreventer {
   isWithinDistanceThreshold ({ mostRecentSearchMapCenter, currentMapCenter, currentZoom }) {
     const distanceToLastSearch = currentMapCenter.distanceTo(mostRecentSearchMapCenter);
     const relativeDistance = this._calculateRelativeDistance(distanceToLastSearch, currentZoom);
-    console.log('is within distance threshold', relativeDistance, this.relativeDistanceThreshold)
 
     return relativeDistance <= this.relativeDistanceThreshold;
   }
