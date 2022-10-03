@@ -72,14 +72,11 @@ class ThemeMap extends ANSWERS.Component {
      * @type {StorageListener[]}
      */
     this.resultsSpecificStorageListeners = [];
-
-    /**
-     * Whether the component has mounted once before.
-     */
-    this.hasMountedOnceBefore = false
   }
 
   onCreate () {
+    this.loadAndInitializeMap();
+
     this.core.storage.registerListener({
       eventType: 'update',
       storageKey: StorageKeys.VERTICAL_RESULTS,
@@ -100,14 +97,6 @@ class ThemeMap extends ANSWERS.Component {
 
   onMount () {
     this._updateMap(this._data);
-
-    if (!this.hasMountedOnceBefore) {
-      this.hasMountedOnceBefore = true
-      this.loadAndInitializeMap().then(() => {
-        this.updateMapPropertiesInStorage()
-        this.core.storage.set(StorageKeys.MAP_FIRST_MOUNT, true)
-      })
-    }
   }
 
   /**

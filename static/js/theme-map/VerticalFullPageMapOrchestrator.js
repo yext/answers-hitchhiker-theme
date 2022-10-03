@@ -92,7 +92,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
      * The center of the map during the most recent search
      * @type {Coordinate}
      */
-    this.mostRecentSearchLocation = this.defaultCenter;
+    this.mostRecentSearchLocation = undefined;
 
     /**
      * Whether the map should search on a map movement action like map drag
@@ -165,24 +165,11 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
   }
 
   onCreate () {
-    window.bob = this
     this.core.storage.registerListener({
       eventType: 'update',
-      storageKey: StorageKeys.MAP_FIRST_MOUNT,
-      callback: () => {
-        // Otherwise, this.mostRecentSearchLocation will be set to defaultCenter, which is not correct
-        this.updateMostRecentSearchState()
-        console.log('updating most recent search state after initialize', this.mostRecentSearchLocation)
-      }
+      storageKey: StorageKeys.LOCATOR_MAP_PROPERTIES,
+      callback: () => this.updateMostRecentSearchState()
     })
-
-    // this.core.storage.registerListener({
-    //   eventType: 'update',
-    //   storageKey: StorageKeys.LOCATOR_MAP_PROPERTIES,
-    //   callback: (data) => {
-    //     console.log('updating locator map properties', data)
-    //   }
-    // })
     this.core.storage.registerListener({
       eventType: 'update',
       storageKey: StorageKeys.VERTICAL_RESULTS,
@@ -511,7 +498,8 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
     const mapProperties = this.core.storage.get(StorageKeys.LOCATOR_MAP_PROPERTIES);
 
     if (!mapProperties) {
-      return this.defaultCenter;
+      return null
+      // return this.defaultCenter;
     }
 
     const center = mapProperties.visibleCenter;
