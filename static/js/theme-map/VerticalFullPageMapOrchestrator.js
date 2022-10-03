@@ -218,9 +218,6 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
     }
 
     setFixedHeight('.Answers-mapWrapper')
-    // setFixedHeight('.AnswersVerticalMap')
-    // setFixedHeight('.Answers-content')
-    // setFixedHeight('.js-locator-contentWrap')
 
     function getSingleElement(selector) {
       const els = document.querySelectorAll(selector)
@@ -460,7 +457,6 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
    * @returns {boolean}
    */
   shouldSearchBePreventedBasedOnCenter () {
-    console.log('current map center and most recent search', this.getCurrentMapCenter(), this.mostRecentSearchLocation)
     return this.searchPreventer.isWithinDistanceThreshold({
       mostRecentSearchMapCenter: this.mostRecentSearchLocation,
       currentMapCenter: this.getCurrentMapCenter(),
@@ -492,14 +488,13 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
   /**
    * Returns the current center of the map
    * 
-   * @returns {Coordinate}
+   * @returns {Coordinate | null}
    */
   getCurrentMapCenter () {
     const mapProperties = this.core.storage.get(StorageKeys.LOCATOR_MAP_PROPERTIES);
 
     if (!mapProperties) {
       return null
-      // return this.defaultCenter;
     }
 
     const center = mapProperties.visibleCenter;
