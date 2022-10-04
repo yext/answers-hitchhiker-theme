@@ -52,8 +52,8 @@ class ProviderMapOptions {
 
   withLoadHandler(handler) {
     assertType(handler, Type.FUNCTION);
-    this.loadHandler = handler
-    return this
+    this.loadHandler = handler;
+    return this;
   }
 
   /**
