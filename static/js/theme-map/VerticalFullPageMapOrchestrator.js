@@ -205,7 +205,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
     });
     this.setupMobileBreakpointListener();
     this.addMapComponent();
-    this.setFixedHeightsOnAndroid()
+    this.setFixedHeightsOnAndroid();
   }
 
   /**
@@ -219,20 +219,20 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
    */
    setFixedHeightsOnAndroid() {
     if (!this.isMobile() || !/Android/i.test(navigator.userAgent)) {
-      return
+      return;
     }
 
     setFixedHeight('.Answers-mapWrapper')
 
     function getSingleElement(selector) {
-      const els = document.querySelectorAll(selector)
+      const els = document.querySelectorAll(selector);
       if (els.length === 0) {
-        console.error(`No ${selector} found, unable to set fixed height for the full page map.`)
+        console.error(`No ${selector} found, unable to set fixed height for the full page map.`);
       } else if (els.length > 1) {
         console.error(
-          `Multiple elements for ${selector} found, expected only 1, not setting fixed height for the full page map.`)
+          `Multiple elements for ${selector} found, expected only 1, not setting fixed height for the full page map.`);
       } else {
-        return els[0]
+        return els[0];
       }
     }
 
