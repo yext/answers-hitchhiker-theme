@@ -153,6 +153,9 @@ class ThemeMap extends ANSWERS.Component {
         this.config.zoomEndListener(this.map.getZoom(), zoomTrigger);
       });
       map.setCanvasClickHandler(() => this.config.canvasClickListener());
+      map.setLoadHandler(() => {
+        this.core.storage.set(StorageKeys.MAP_LOADED, true)
+      })
     });
 
     const mapRenderTargetOptions = new MapRenderTargetOptions()
