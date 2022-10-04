@@ -166,9 +166,19 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
 
   onCreate () {
     this.core.storage.registerListener({
+      eventType: 'update', 
+      storageKey: StorageKeys.MAP_LOADED,
+      callback: () => {
+        this.updateMostRecentSearchState()
+      }
+    })
+
+    this.core.storage.registerListener({
       eventType: 'update',
       storageKey: StorageKeys.VERTICAL_RESULTS,
-      callback: (data) => this.setState(data)
+      callback: (data) => {
+        this.setState(data)
+      }
     });
 
     this.core.storage.registerListener({
@@ -193,9 +203,43 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
     searchThisAreaButtonEl.addEventListener('click', (e) => {
       this.searchThisArea();
     });
-
     this.setupMobileBreakpointListener();
     this.addMapComponent();
+    this.setFixedHeightsOnAndroid();
+  }
+
+  /**
+   * On Android browsers, opening up the keyboard will shift the contents of the entire page up,
+   * moving the map center, and thereby causing a searchOnMapMove to be triggered.
+   * The search response would then cause the page to update,
+   * and close the keyboard, making it impossible to actually type anything into the searchbar.
+   * 
+   * Setting a fixed height on elements like .Answers-mapWrapper prevents the keyboard from shifting the content
+   * of the page.
+   */
+   setFixedHeightsOnAndroid() {
+    if (!this.isMobile() || !/Android/i.test(navigator.userAgent)) {
+      return;
+    }
+
+    setFixedHeight('.Answers-mapWrapper')
+
+    function getSingleElement(selector) {
+      const els = document.querySelectorAll(selector);
+      if (els.length === 0) {
+        console.error(`No ${selector} found, unable to set fixed height for the full page map.`);
+      } else if (els.length > 1) {
+        console.error(
+          `Multiple elements for ${selector} found, expected only 1, not setting fixed height for the full page map.`);
+      } else {
+        return els[0];
+      }
+    }
+
+    function setFixedHeight(selector) {
+      const el = getSingleElement(selector)
+      el.style.height = `${el.scrollHeight}px`
+    }
   }
 
   /**

@@ -49,6 +49,7 @@ class MapOptions {
     this.zoomChangedHandler = () => {};
     this.zoomEndHandler = () => {};
     this.canvasClickHandler = () => {};
+    this.loadHandler = () => {};
     this.provider = null;
     this.providerOptions = {};
     this.singlePinZoom = 14;
@@ -133,6 +134,22 @@ class MapOptions {
     assertType(panHandler, Type.FUNCTION);
 
     this.panHandler = panHandler;
+    return this;
+  }
+
+  /**
+   * @typedef Map~handler
+   * @function
+   */
+
+  /**
+   * @param {Map~handler} handler
+   * @returns {MapOptions}
+   */
+  withLoadHandler(handler) {
+    assertType(handler, Type.FUNCTION);
+
+    this.handler = handler;
     return this;
   }
 
@@ -310,6 +327,7 @@ class Map {
     this.setZoomChangedHandler(options.zoomChangedHandler);
     this.setZoomEndHandler(options.zoomEndHandler);
     this.setCanvasClickHandler(options.canvasClickHandler);
+    this.setLoadHandler(options.loadHandler);
 
     // Remove all child elements of wrapper
     while (this._wrapper.firstChild) {
@@ -328,6 +346,7 @@ class Map {
       .withPanStartHandler(() => this.panStartHandler())
       .withProviderOptions(options.providerOptions)
       .withLocale(options.locale)
+      .withLoadHandler(() => this._loadHandler())
       .build();
 
     this.setZoomCenter(this._defaultZoom, this._defaultCenter);
@@ -751,6 +770,15 @@ class Map {
     assertType(canvasClickHandler, Type.FUNCTION);
 
     this._canvasClickHandler = canvasClickHandler;
+  }
+
+  /**
+   * @param {Map~loadHandler} handler
+   */
+  setLoadHandler(handler) {
+    assertType(handler, Type.FUNCTION);
+
+    this._loadHandler = handler;
   }
 
   /**

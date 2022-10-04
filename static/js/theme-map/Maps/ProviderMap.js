@@ -23,6 +23,7 @@ class ProviderMapOptions {
     this.zoomChangedHandler = () => {};
     this.zoomEndHandler = () => {};
     this.canvasClickHandler = () => {};
+    this.loadHandler = () => {};
     this.providerOptions = {};
     this.locale = 'en';
   }
@@ -41,6 +42,17 @@ class ProviderMapOptions {
    */
   withControlEnabled(controlEnabled) {
     this.controlEnabled = controlEnabled;
+    return this;
+  }
+
+  /**
+   * @typedef ProviderMap~loadHandler
+   * @function
+   */
+
+  withLoadHandler(handler) {
+    assertType(handler, Type.FUNCTION);
+    this.loadHandler = handler;
     return this;
   }
 
@@ -182,6 +194,7 @@ class ProviderMap {
     this._zoomChangedHandler = options.zoomChangedHandler;
     this._zoomEndHandler = options.zoomEndHandler;
     this._canvasClickHandler = options.canvasClickHandler;
+    this._loadHandler = options.loadHandler;
   }
 
   /**

@@ -17,7 +17,8 @@ const StorageKeys = {
   LOCATOR_SELECTED_RESULT: 'locator-selected-result',
   LOCATOR_NUM_CONCURRENT_SEARCH_THIS_AREA_CALLS: 'locator-num-concurrent-search-this-area-calls',
   LOCATOR_MAP_PROPERTIES: 'locator-map-properties',
-  LOCATOR_CARD_FOCUS: 'locator-card-focus'
+  LOCATOR_CARD_FOCUS: 'locator-card-focus',
+  MAP_LOADED: 'map-loaded'
 };
 
 export default StorageKeys;
