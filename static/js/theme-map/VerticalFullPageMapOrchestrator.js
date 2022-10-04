@@ -232,8 +232,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
         console.error(
           `Multiple elements of for ${selector} found, expected only 1, not setting fixed height for the full page map.`)
       } else {
-        const el = els[0]
-        return el
+        return els[0]
       }
     }
 
