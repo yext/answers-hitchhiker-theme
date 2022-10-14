@@ -16,7 +16,21 @@
   },
   "verticalsToConfig": {
     "KM": {
-      "label": "Locations"
+      "label": "Locations",
+      "mapConfig": {
+        "mapProvider": "MapBox", // The name of the provider (e.g. Mapbox, Google)
+        "zoom": 9,
+        "noResults": {
+            "displayAllResults": true
+        },
+        "pin": {
+            "height": 26,
+            "width": 22,
+            "backgroundColor": "#00a6e5",
+            "labelColor": "white",
+            "strokeColor": "#1C116A"
+        }
+      }
     }
   }
 }
