@@ -25,7 +25,6 @@ BaseDirectAnswerCard["{{componentName}}"] = class extends ANSWERS.Component {
     this.validateDataForRender(cardData);
     return super.setState({
       ...cardData,
-      searcher: data.searcher,
       feedbackEnabled: ANSWERS.getAnalyticsOptIn(),
       feedbackSubmitted: data.feedbackSubmitted,
       isArray: Array.isArray(this.answer.value),
@@ -97,7 +96,7 @@ BaseDirectAnswerCard["{{componentName}}"] = class extends ANSWERS.Component {
       .addOptions({
         directAnswer: true,
         verticalKey: this.verticalConfigId,
-        searcher: this.getState('searcher'),
+        searcher: this._config.data.searcher,
         entityId: this.associatedEntityId
       });
 
@@ -120,7 +119,7 @@ BaseDirectAnswerCard["{{componentName}}"] = class extends ANSWERS.Component {
    */
   addDefaultEventOptions(eventOptions = {}) {
     return Object.assign({}, {
-        searcher: this.getState('searcher'),
+        searcher: this._config.data.searcher,
         verticalConfigId: this.verticalConfigId,
         entityId: this.associatedEntityId,
         ...eventOptions
@@ -144,7 +143,7 @@ BaseDirectAnswerCard["{{componentName}}"] = class extends ANSWERS.Component {
       verticalKey: this.verticalConfigId,
       directAnswer: true,
       fieldName: this.answer.fieldApiName,
-      searcher: this.getState('searcher'),
+      searcher: this._config.data.searcher,
       entityId: this.associatedEntityId,
       url: event.target.href
     };
