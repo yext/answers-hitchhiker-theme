@@ -1,8 +1,7 @@
 name: Browserstack Acceptance Tests
 
 on:
-  push:
-    branches-ignore: dev/*
+  push
 
 jobs:
   browserstack-safari-acceptance-tests:
