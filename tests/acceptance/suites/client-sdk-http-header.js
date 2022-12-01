@@ -1,12 +1,5 @@
-import {
-  PORT,
-  UNIVERSAL_AUTOCOMPLETE_URL_REGEX,
-  UNIVERSAL_SEARCH_URL_REGEX,
-  VERTICAL_SEARCH_URL_REGEX,
-  VERTICAL_AUTOCOMPLETE_URL_REGEX
-} from '../constants';
+import { PORT } from '../constants';
 import { SearchRequestLogger } from '../searchrequestlogger';
-import { registerIE11NoCacheHook } from '../../test-utils/testcafe';
 import packageJson from '../../../package.json';
 
 const verticalSearchLogger = (new SearchRequestLogger()).createVerticalSearchLogger();
@@ -16,8 +9,6 @@ fixture`Client-SDK header works on vertical searches/autocomplete`
   .page(`http://localhost:${PORT}/people`)
   .requestHooks(verticalSearchLogger, verticalAutocompleteLogger)
   .beforeEach(async t => {
-    await registerIE11NoCacheHook(t, VERTICAL_SEARCH_URL_REGEX);
-    await registerIE11NoCacheHook(t, VERTICAL_AUTOCOMPLETE_URL_REGEX);
     await t.resizeWindow(1600, 900);
   })
 
@@ -39,8 +30,6 @@ fixture`Client-SDK header works on universal searches/autocomplete`
   .page(`http://localhost:${PORT}`)
   .requestHooks(universalSearchLogger, universalAutocompleteLogger)
   .beforeEach(async t => {
-    await registerIE11NoCacheHook(t, UNIVERSAL_SEARCH_URL_REGEX);
-    await registerIE11NoCacheHook(t, UNIVERSAL_AUTOCOMPLETE_URL_REGEX);
     await t.resizeWindow(1600, 900);
   })
 
