@@ -104,7 +104,6 @@ export function generateIFrame(domain, answersExperienceFrame) {
       }
     },
     onMessage: function(messageData) {
-      console.log('onMessage', JSON.parse(messageData.message))
       const message = JSON.parse(messageData.message);
       if (message.action === "paginate") {
         const iframeOffsetTop = iframe.offsetTop;
@@ -125,9 +124,7 @@ export function generateIFrame(domain, answersExperienceFrame) {
       iframe.iFrameResizer.resize();
       var currLocation = window.location.href.split('?')[0];
       var newLocation = currLocation + '?' + params;
-      console.log('should replaceState?', window.location.href, newLocation, window.location.href === newLocation )
       if (window.location.href !== newLocation) {
-        console.log('replaceState', {query: params}, window.document.title, newLocation)
         history.replaceState({query: params}, window.document.title, newLocation);
       }
     }
