@@ -20,7 +20,7 @@ export function generateIFrame(domain, answersExperienceFrame) {
   var pathToIndex = containerEl.dataset.path;
   iframe.allow = 'geolocation; microphone';
 
-  domain = domain || '';
+  domain = 'http://localhost:5042';
 
   var calcFrameSrc = function() {
     var paramString = window.location.search;
@@ -66,7 +66,9 @@ export function generateIFrame(domain, answersExperienceFrame) {
     return iframeUrl;
   };
   
-  iframe.src = calcFrameSrc();
+  const srcValue = calcFrameSrc();
+  console.log('initial frame src', srcValue)
+  iframe.src = srcValue;
   iframe.frameBorder = 0;
 
    // For dynamic iFrame sizing
@@ -82,7 +84,11 @@ export function generateIFrame(domain, answersExperienceFrame) {
   });
 
   window.onpopstate = function() {
-    iframe.contentWindow.location.replace(calcFrameSrc());
+    console.log(iframe.contentWindow.location)
+    const popSrcValue = calcFrameSrc();
+    console.log('would reload iframe here', popSrcValue)
+    iframe.contentWindow.location.replace(popSrcValue);
+    console.log(iframe.contentWindow.location)
   };
 
   containerEl.appendChild(iframe);
@@ -108,6 +114,7 @@ export function generateIFrame(domain, answersExperienceFrame) {
       }
     },
     onMessage: function(messageData) {
+      console.log('onMessage', JSON.parse(messageData.message))
       const message = JSON.parse(messageData.message);
       if (message.action === "paginate") {
         const iframeOffsetTop = iframe.offsetTop;
@@ -128,7 +135,9 @@ export function generateIFrame(domain, answersExperienceFrame) {
       iframe.iFrameResizer.resize();
       var currLocation = window.location.href.split('?')[0];
       var newLocation = currLocation + '?' + params;
+      console.log('should replaceState?', window.location.href, newLocation, window.location.href === newLocation )
       if (window.location.href !== newLocation) {
+        console.log('replaceState', {query: params}, window.document.title, newLocation)
         history.replaceState({query: params}, window.document.title, newLocation);
       }
     }

@@ -4,7 +4,7 @@
     console.error('ERROR: no sdkVersion specified, please specify an sdkVersion in the global_config.');
   }
 </script>
-<script src="{{sdkAssetUrl global_config.sdkVersion (findFirst params.sdkLocaleOverride global_config.locale 'en') 'answerstemplates.compiled.min.js'}}" defer></script>
+<script src="http://localhost:3000/answerstemplates.compiled.min.js" defer></script>
 <script>
 {{#babel}}
   function initAnswers() {
