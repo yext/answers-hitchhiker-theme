@@ -3,4 +3,12 @@
   @param locale 
   @param sdkVersion
 --}}
-<script src="http://localhost:3000/answers.js"></script>
+<script
+  src="{{sdkAssetUrl sdkVersion locale "answers-modern.min.js"}}"
+  type="module"
+></script>
+<script
+  src="{{sdkAssetUrl sdkVersion locale "answers.min.js"}}"
+  nomodule
+  defer
+></script>

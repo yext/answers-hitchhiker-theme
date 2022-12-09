@@ -36,5 +36,5 @@ module.exports = function sdkAssetUrl(branch, locale, assetName) {
     `${locale}-${assetName}` :
     assetName;
 
-  return `http://localhost:3000/${parsedBranch}/${parsedAssetName}`;
+  return `https://assets.sitescdn.net/answers/${parsedBranch}/${parsedAssetName}`;
 };

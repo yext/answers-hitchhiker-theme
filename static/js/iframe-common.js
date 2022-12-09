@@ -20,7 +20,7 @@ export function generateIFrame(domain, answersExperienceFrame) {
   var pathToIndex = containerEl.dataset.path;
   iframe.allow = 'geolocation; microphone';
 
-  domain = 'http://localhost:5042';
+  domain = domain || '';
 
   var calcFrameSrc = function() {
     var paramString = window.location.search;
@@ -66,9 +66,7 @@ export function generateIFrame(domain, answersExperienceFrame) {
     return iframeUrl;
   };
   
-  const srcValue = calcFrameSrc();
-  console.log('initial frame src', srcValue)
-  iframe.src = srcValue;
+  iframe.src = calcFrameSrc();
   iframe.frameBorder = 0;
 
    // For dynamic iFrame sizing
