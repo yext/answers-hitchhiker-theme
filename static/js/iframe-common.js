@@ -144,8 +144,7 @@ function registerPopStateListener() {
       return url.split('#')[0]
     }
     if (getURLWithoutHash(previousLocationHref) !== getURLWithoutHash(window.location.href)) {
-      const popSrcValue = calcFrameSrc();
-      iframe.contentWindow.location.replace(popSrcValue);
+      iframe.contentWindow.location.replace(calcFrameSrc());
     }
     previousLocationHref = window.location.href
   }
