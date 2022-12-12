@@ -13,6 +13,8 @@ webpack-config.js
 !config/global_config.json
 !config/locale_config.json
 !config/index.json
+!config/index.ar.json
+!config/index.es.json
 !pages/index.html.hbs
 !public/iframe_test.html
 !public/overlay.html

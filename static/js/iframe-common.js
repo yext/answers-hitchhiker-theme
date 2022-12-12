@@ -80,11 +80,7 @@ export function generateIFrame(domain, answersExperienceFrame) {
     // For Safari
     document.body.scrollTop = 0;
   });
-
-  window.onpopstate = function() {
-    iframe.contentWindow.location.replace(calcFrameSrc());
-  };
-
+  registerPopStateListener();
   containerEl.appendChild(iframe);
 
   // Notify iframe of a click event on parent window
@@ -133,6 +129,26 @@ export function generateIFrame(domain, answersExperienceFrame) {
       }
     }
   }, '#answers-frame');
+}
+
+function registerPopStateListener() {
+  let previousLocationHref = window.location.href;
+
+  /**
+   * Reloads the iframe with a recalculated src URL.
+   * Does not reload the iframe if the URL has only changed its hash param. 
+   */
+  function popStateListener() {
+    /** @param {string} url  */
+    function getURLWithoutHash(url) {
+      return url.split('#')[0];
+    }
+    if (getURLWithoutHash(previousLocationHref) !== getURLWithoutHash(window.location.href)) {
+      iframe.contentWindow.location.replace(calcFrameSrc());
+    }
+    previousLocationHref = window.location.href;
+  }
+  window.addEventListener('popstate', popStateListener);
 }
 
 /**
