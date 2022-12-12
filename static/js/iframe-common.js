@@ -132,7 +132,7 @@ export function generateIFrame(domain, answersExperienceFrame) {
 }
 
 function registerPopStateListener() {
-  let previousLocationHref = window.location.href
+  let previousLocationHref = window.location.href;
 
   /**
    * Reloads the iframe with a recalculated src URL.
@@ -141,12 +141,12 @@ function registerPopStateListener() {
   function popStateListener() {
     /** @param {string} url  */
     function getURLWithoutHash(url) {
-      return url.split('#')[0]
+      return url.split('#')[0];
     }
     if (getURLWithoutHash(previousLocationHref) !== getURLWithoutHash(window.location.href)) {
       iframe.contentWindow.location.replace(calcFrameSrc());
     }
-    previousLocationHref = window.location.href
+    previousLocationHref = window.location.href;
   }
   window.addEventListener('popstate', popStateListener);
 }
