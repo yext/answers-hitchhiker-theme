@@ -27,6 +27,7 @@ module.exports = function (pageMetadata, siteLevelAttributes, pageNameToConfig) 
     relativePath,
     env: {
       JAMBO_INJECTED_DATA: env.JAMBO_INJECTED_DATA,
+      IS_DEVELOPMENT_PREVIEW: env.IS_DEVELOPMENT_PREVIEW === 'true',
       packageJsonVersion: packageJson.version
     }
   };

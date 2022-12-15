@@ -76,6 +76,9 @@
         document.addEventListener('DOMContentLoaded', () => {
           {{#if global_config.initializeManually}}
             new HitchhikerJS.ManualInitializer(initAnswers).setup();
+            {{#if env.IS_DEVELOPMENT_PREVIEW}}
+              AnswersExperience.init();
+            {{/if}}
             {{#wrapJsPartial}}
               {{> script/on-document-load}}
             {{/wrapJsPartial}}

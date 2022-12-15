@@ -12,7 +12,7 @@ jobs:
       result: ${{ steps.nonce.outputs.result }}
     steps:
     - id: nonce
-      run: echo "::set-output name=result::${{ github.run_id }}-$(date +%s)"
+      run: echo result=${{ github.run_id }}-$(date +%s) >> $GITHUB_OUTPUT
 
   call_snapshots_default:
     needs: nonce
