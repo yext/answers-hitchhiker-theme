@@ -82,6 +82,9 @@
     "modulePathIgnorePatterns": [
       "/test-site/"
     ],
+    "transformIgnorePatterns": [
+      "!node_modules/escape-string-regexp"
+    ],
     "testPathIgnorePatterns": [
       "/fixtures/",
       "/test-utils/",
