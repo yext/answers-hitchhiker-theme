@@ -12,6 +12,7 @@ export function isStaging(stagingDomains) {
 
   return _stagingDomains.some(domain => {
     const regexEscapedDomain = escapeStringRegexp(domain);
+    // The RFC for subdomains says they can contain a maximum of 63 characters. The leading and trailing characters must be alpha numeric. 
     const isSubdomainRegex = new RegExp(`[A-Za-z0-9]?[A-Za-z0-9\-]{0,61}[A-Za-z0-9]?\.${regexEscapedDomain}`);
 
     return domain === currentDomain || isSubdomainRegex.test(currentDomain);
