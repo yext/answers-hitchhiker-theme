@@ -50,6 +50,7 @@
     "core-js": "^3.6.5",
     "css-vars-ponyfill": "^2.3.1",
     "escape-html": "^1.0.3",
+    "escape-string-regexp": "^5.0.0",
     "file-system": "^2.2.2",
     "fs-extra": "^8.1.0",
     "iframe-resizer": "^4.1.1",
