@@ -152,10 +152,13 @@
             ANSWERS?.components
               .getActiveComponents('AutoComplete')
               .forEach(autocompleteComponent => autocompleteComponent.close());
-          } else if (message.action === 'update-tab-navigation') {
+          } else if (message.action === 'update-parent-url') {
             ANSWERS?.components
               .getActiveComponents('Navigation')
               .forEach(navigationComponent => navigationComponent.setParentUrl(message.parentUrl));
+            ANSWERS?.components
+              .getActiveComponents('UniversalResults')
+              .forEach(resultsComponent => resultsComponent.setParentUrl(message.parentUrl));
           }
         }
       };

@@ -113,7 +113,7 @@ export function generateIFrame(domain, answersExperienceFrame) {
       }
       if (message.action === 'answers-initialized') {
         sendToIframe({
-          action: 'update-tab-navigation',
+          action: 'update-parent-url',
           parentUrl: window.location.href
         });
         return;
