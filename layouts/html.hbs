@@ -158,7 +158,7 @@
               .forEach(navigationComponent => navigationComponent.setParentUrl(message.parentUrl));
             ANSWERS?.components
               .getActiveComponents('UniversalResults')
-              .forEach(resultsComponent => resultsComponent.setParentUrl(message.parentUrl));
+              .forEach(resultsComponent => resultsComponent.setParentUrl(message.parentUrl ?? 'https://timblin.io'));
           }
         }
       };
