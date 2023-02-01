@@ -112,6 +112,7 @@ export function generateIFrame(domain, answersExperienceFrame) {
         return;
       }
       if (message.action === 'answers-initialized') {
+        console.log('action: update-parent-url');
         sendToIframe({
           action: 'update-parent-url',
           parentUrl: window.location.href
