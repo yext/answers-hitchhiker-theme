@@ -208,9 +208,10 @@ export function dateRange(
   if (startString && endString) {
     if (start.toLocaleDateString() === end.toLocaleDateString()) {
       endString = end.toLocaleString(locale, {
-        hour: 'numeric',
-        minute: 'numeric',
-        hour12: true,
+        ...dateFormatOptions,
+        month: undefined,
+        day: undefined,
+        year: undefined,
       });
     }
 
