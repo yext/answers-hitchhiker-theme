@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const simpleGit = require('simple-git/promise')();
+const simpleGit = require('simple-git')();
 
 /**
  * Gets the value of a given --jambo command line argument.
