@@ -52,6 +52,8 @@ exports.removeEmptyDirectoriesRecursively = removeEmptyDirectoriesRecursively;
  */
 async function isGitSubmodule(submodulePath) {
   const submodulePaths = await simpleGit.subModule(['foreach', '--quiet', 'echo $sm_path']);
+  console.log(submodulePath);
+  console.log(submodulePaths);
 
   const temp = !!submodulePaths
     .split('\n')
