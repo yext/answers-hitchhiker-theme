@@ -18,7 +18,6 @@
     "build-test-site": "./test-site/scripts/build.sh",
     "serve-test-site": "serve -p 5042 test-site/public",
     "acceptance": "node ./tests/acceptance/index.js",
-    "percy": "npx percy exec -- node tests/percy/index.js",
     "wcag": "./tests/wcag/index.js",
     "extract-translations": "./translations/extract_translations.sh"
   },
@@ -34,8 +33,6 @@
     "@axe-core/puppeteer": "^4.3.1",
     "@babel/core": "^7.9.6",
     "@babel/preset-env": "^7.9.6",
-    "@percy/cli": "^1.0.0-beta.67",
-    "@percy/puppeteer": "^2.0.0",
     "@types/jest": "^26.0.19",
     "@yext/cta-formatter": "^1.0.0",
     "babel-jest": "^29.5.0",
