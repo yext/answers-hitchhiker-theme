@@ -54,7 +54,7 @@
     "postcss": "^8.4.14",
     "puppeteer": "^10.2.0",
     "serve": "^11.3.2",
-    "simple-git": "^2.24.0",
+    "simple-git": "^3.17.0",
     "testcafe": "^1.20.0",
     "underscore.string": "^3.3.6",
     "urijs": "^1.19.11",
