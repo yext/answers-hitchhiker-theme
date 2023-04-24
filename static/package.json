@@ -31,7 +31,7 @@
     "grunt-webpack": "^4.0.3",
     "html-loader": "^2.1.2",
     "html-webpack-plugin": "^5.3.1",
-    "jambo": "^1.12.3",
+    "jambo": "^1.12.4",
     "jsdom": "^16.4.0",
     "loader-utils": "^2.0.4",
     "locale-currency": "0.0.2",
