@@ -24,8 +24,12 @@
     <link rel="dns-prefetch" href="//dynl.mktgcdn.com">
     <link rel="dns-prefetch" href="//dynm.mktgcdn.com">
     <link rel="dns-prefetch" href="//www.google-analytics.com">
-    <link rel="dns-prefetch" href="//assets.sitescdn.net">
-    
+    {{#ifeq global_config.cloudRegion 'eu'}}
+      <link rel="dns-prefetch" href="//assets.eu.sitescdn.net">
+    {{else}}
+      <link rel="dns-prefetch" href="//assets.sitescdn.net">
+    {{/ifeq}}
+
     {{> layouts/preload-fonts }}
 
     <script>
@@ -115,7 +119,11 @@
     {{/if}}
 
     {{#if global_config.conversionTrackingEnabled}}
-      <script src="https://assets.sitescdn.net/ytag/ytag.min.js"></script>
+      {{#ifeq global_config.cloudRegion "eu"}}
+        <script src="https://assets.eu.sitescdn.net/ytag/ytag.min.js"></script>
+      {{else}}
+        <script src="https://assets.sitescdn.net/ytag/ytag.min.js"></script>
+      {{/ifeq}}
     {{/if}}
 
     <script>
@@ -123,7 +131,7 @@
       function iframeGetSearchParams() {
         const params = window.location.search.substr(1);
         const verticalUrl = window.location.pathname.substr(1);
-        return verticalUrl 
+        return verticalUrl
           ? params + '&verticalUrl=' + verticalUrl
           : params;
       }
@@ -131,7 +139,7 @@
       window.iframeLoaded = new Promise(resolve => {
         iframeLoadedResolve = resolve;
       });
-     
+
       window.iFrameResizer =  {
         onReady: function() {
           window.parentIFrame.sendMessage(JSON.stringify({
@@ -164,9 +172,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.10/iframeResizer.contentWindow.min.js"></script>
     <link rel="stylesheet" type="text/css"
       {{#if (isRTL global_config.locale) }}
-        href="{{sdkAssetUrl global_config.sdkVersion 'en' 'answers.rtl.css'}}"
+        href="{{sdkAssetUrl global_config.sdkVersion 'en' 'answers.rtl.css' global_config.cloudRegion}}"
       {{else}}
-        href="{{sdkAssetUrl global_config.sdkVersion 'en' 'answers.css'}}"
+        href="{{sdkAssetUrl global_config.sdkVersion 'en' 'answers.css' global_config.cloudRegion}}"
       {{/if}}
       >
     <link rel="stylesheet" type="text/css"

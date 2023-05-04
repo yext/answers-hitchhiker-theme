@@ -16,6 +16,22 @@ describe('URLs are computed properly for released versions', () => {
     expect(sdkAssetUrl('1.8', 'fr', 'answers.min.js')).toEqual(expectedJSUrl);
     expect(sdkAssetUrl('1.8', 'fr', 'answers.css')).toEqual(expectedCSSUrl);
   });
+
+  it('works correctly when locale is "en" and cloudRegion is "eu"', () => {
+    const expectedJSUrl = 'https://assets.eu.sitescdn.net/answers/v1.8/answers.min.js';
+    const expectedCSSUrl = 'https://assets.eu.sitescdn.net/answers/v1.8/answers.css'
+
+    expect(sdkAssetUrl('1.8', 'en', 'answers.min.js', 'eu')).toEqual(expectedJSUrl);
+    expect(sdkAssetUrl('1.8', 'en', 'answers.css', 'eu')).toEqual(expectedCSSUrl);
+  });
+
+  it('works correctly when locale is not "en" and cloudRegion is "eu"', () => {
+    const expectedJSUrl = 'https://assets.eu.sitescdn.net/answers/v1.8/fr-answers.min.js';
+    const expectedCSSUrl = 'https://assets.eu.sitescdn.net/answers/v1.8/answers.css'
+
+    expect(sdkAssetUrl('1.8', 'fr', 'answers.min.js', 'eu')).toEqual(expectedJSUrl);
+    expect(sdkAssetUrl('1.8', 'fr', 'answers.css', 'eu')).toEqual(expectedCSSUrl);
+  });
 });
 
 describe('URLs are computed properly for release branches', () => {
