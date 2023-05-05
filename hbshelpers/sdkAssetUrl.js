@@ -2,6 +2,8 @@ const RELEASE_BRANCH_REGEX = /^release\/v[0-9.]+$/;
 const HOTFIX_BRANCH_REGEX = /^hotfix\/v[0-9.]+$/;
 const I18N_FEATURE_BRANCH_REGEX = /^feature\/.+-i18n$/;
 const SEM_VER_REGEX = /^[1-9]+$|^[1-9]+\.[0-9]+$|^[1-9]+\.[0-9]+\.[0-9]+$/;
+const US = 'us';
+const EU = 'eu';
 
 /**
  * Given a branch (or release) of the SDK and a locale, this helper provides the correct
@@ -17,7 +19,7 @@ module.exports = function sdkAssetUrl(
   branch,
   locale,
   assetName,
-  cloudRegion = 'us'
+  cloudRegion = US
 ) {
   const isReleasedBranch = SEM_VER_REGEX.test(branch);
 
@@ -42,7 +44,7 @@ module.exports = function sdkAssetUrl(
     `${locale}-${assetName}` :
     assetName;
 
-  const domain = cloudRegion === 'eu'
+  const domain = cloudRegion === EU
     ? 'assets.eu.sitescdn.net'
     : 'assets.sitescdn.net';
 
