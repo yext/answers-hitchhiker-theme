@@ -4,7 +4,7 @@
     console.error('ERROR: no sdkVersion specified, please specify an sdkVersion in the global_config.');
   }
 </script>
-<script src="{{sdkAssetUrl global_config.sdkVersion (findFirst params.sdkLocaleOverride global_config.locale 'en') 'answerstemplates.compiled.min.js'}}" defer></script>
+<script src="{{sdkAssetUrl global_config.sdkVersion (findFirst params.sdkLocaleOverride global_config.locale 'en') 'answerstemplates.compiled.min.js' global_config.cloudRegion}}" defer></script>
 <script>
 {{#babel}}
   function initAnswers() {
@@ -12,7 +12,7 @@
     const IS_STAGING = HitchhikerJS.isStaging(JAMBO_INJECTED_DATA?.pages?.stagingDomains || []);
     const injectedConfig = {
       experienceVersion: IS_STAGING ? 'STAGING' : 'PRODUCTION',
-      {{#unless global_config.useJWT}} 
+      {{#unless global_config.useJWT}}
         apiKey: HitchhikerJS.getInjectedProp('{{{global_config.experienceKey}}}', ['apiKey']),
       {{/unless}}
       {{#with env.JAMBO_INJECTED_DATA}}
@@ -152,4 +152,5 @@
 {{> script/partials/sdk-js-script-tags
   locale=(findFirst params.sdkLocaleOverride global_config.locale 'en')
   sdkVersion=global_config.sdkVersion
+  cloudRegion=global_config.cloudRegion
 }}

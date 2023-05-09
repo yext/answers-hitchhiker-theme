@@ -1,14 +1,15 @@
 {{!--
   Returns the SDK js script tags needed by the page.
-  @param locale 
+  @param locale
   @param sdkVersion
+  @param cloudRegion
 --}}
 <script
-  src="{{sdkAssetUrl sdkVersion locale "answers-modern.min.js"}}"
+  src="{{sdkAssetUrl sdkVersion locale "answers-modern.min.js" cloudRegion}}"
   type="module"
 ></script>
 <script
-  src="{{sdkAssetUrl sdkVersion locale "answers.min.js"}}"
+  src="{{sdkAssetUrl sdkVersion locale "answers.min.js" cloudRegion}}"
   nomodule
   defer
 ></script>
