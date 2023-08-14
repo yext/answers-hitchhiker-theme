@@ -147,7 +147,7 @@ msgstr ""
 
 #: cards/multilang-document-standard/component.js:53
 #: cards/multilang-event-standard/component.js:53
-#: cards/multilang-faq-accordion/component.js:51
+#: cards/multilang-faq-accordion/component.js:60
 #: cards/multilang-financial-professional-location/component.js:69
 #: cards/multilang-job-standard/component.js:44
 #: cards/multilang-link-standard/component.js:32
@@ -171,7 +171,7 @@ msgstr[1] ""
 
 #: cards/multilang-document-standard/component.js:54
 #: cards/multilang-event-standard/component.js:54
-#: cards/multilang-faq-accordion/component.js:52
+#: cards/multilang-faq-accordion/component.js:61
 #: cards/multilang-financial-professional-location/component.js:70
 #: cards/multilang-job-standard/component.js:45
 #: cards/multilang-link-standard/component.js:33
@@ -191,7 +191,7 @@ msgstr ""
 
 #: cards/multilang-document-standard/component.js:55
 #: cards/multilang-event-standard/component.js:55
-#: cards/multilang-faq-accordion/component.js:53
+#: cards/multilang-faq-accordion/component.js:62
 #: cards/multilang-financial-professional-location/component.js:71
 #: cards/multilang-job-standard/component.js:46
 #: cards/multilang-link-standard/component.js:34

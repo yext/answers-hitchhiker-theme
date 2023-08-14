@@ -13,11 +13,20 @@ class faq_accordionCardComponent extends BaseCard['faq-accordion'] {
    */
   dataForRender(profile) {
     const linkTarget = AnswersExperience.runtimeConfig.get('linkTarget') || '_top';
+    let profileAnswer = '';
+    if (profile.answerV2 && profile.answerV2.html) {
+      profileAnswer = profile.answerV2.html;
+    } else if (profile.answerV2 && profile.answerV2.json) {
+      console.warn('JSON is not supported, please convert to HTML.')
+    } else if (profile.answer) {
+      profileAnswer = ANSWERS.formatRichText(profile.answer, "answer", linkTarget);
+    }
 
     return {
       title: profile.question || profile.name, // The header text of the card
       // subtitle: '', // The sub-header text of the card
-      details: profile.answer ? ANSWERS.formatRichText(profile.answer, "answer", linkTarget) : null, // The text in the body of the card
+      details: profileAnswer ? profileAnswer : null, // The text in the body
+      // of the card
       // If the card's details are longer than a certain character count, you can truncate the
       // text. A toggle will be supplied that can show or hide the truncated text.
       // showMoreDetails: {
