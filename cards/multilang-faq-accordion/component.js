@@ -17,7 +17,9 @@ class multilang_faq_accordionCardComponent extends BaseCard['multilang-faq-accor
     if (profile.answerV2 && profile.answerV2.html) {
       profileAnswer = profile.answerV2.html;
     } else if (profile.answerV2 && profile.answerV2.json) {
-      console.warn('JSON is not supported, please switch to HTML.')
+      console.warn('JSON is not supported, please convert to HTML.')
+    } else if (profile.answer) {
+      profileAnswer = ANSWERS.formatRichText(profile.answer, "answer", linkTarget);
     }
 
     return {
