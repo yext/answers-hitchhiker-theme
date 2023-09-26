@@ -70,8 +70,6 @@ export function generateIFrame(domain, answersExperienceFrame) {
   iframe.frameBorder = 0;
 
    // For dynamic iFrame sizing
-  iframe.style.height = '100%';
-  iframe.style.minHeight = '100%';
   iframe.style.width = '1px';
   iframe.style.minWidth = '100%';
   iframe.id = 'answers-frame';
