@@ -205,6 +205,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
     });
     this.setupMobileBreakpointListener();
     this.addMapComponent();
+    this.setFixedHeightsOnAndroid();
   }
 
   /**
