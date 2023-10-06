@@ -29,7 +29,7 @@ export function generateIFrame(domain, answersExperienceFrame) {
     // Parse the params out of the URL
     var params = paramString.split('&'),
                  verticalUrl;
-    var referrerPageUrl = document.referrer.split('?')[0].split('#')[0];
+    var referrerPageUrl = encodeURIComponent(document.referrer.split('?')[0].split('#')[0]);
 
     if (pathToIndex) {
       verticalUrl = pathToIndex;
