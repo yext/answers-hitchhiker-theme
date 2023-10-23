@@ -9,7 +9,7 @@ const iframeMessageQueue = [];
 
 /**
  * Puts an iframe on the page of an Answers experience and sets up resizing and cross-domain communication
- * 
+ *
  * @param {string} domain The location of the answers experience
  * @param {AnswersExperienceFrame} answersExperienceFrame
  */
@@ -65,7 +65,7 @@ export function generateIFrame(domain, answersExperienceFrame) {
     iframeUrl += '?' + new_params.join('&');
     return iframeUrl;
   };
-  
+
   iframe.src = calcFrameSrc();
   iframe.frameBorder = 0;
 
@@ -74,8 +74,15 @@ export function generateIFrame(domain, answersExperienceFrame) {
   iframe.style.minWidth = '100%';
   iframe.id = 'answers-frame';
 
+  // for screen reader accessibility
+  iframe.ariaBusy = "true";
+  iframe.setAttribute('role', 'document');
+  iframe.setAttribute('aria-live', 'assertive');
+  iframe.setAttribute('tabindex', "0");
+
   // Scroll to the top of the page when the iframe loads or a link is clicked.
   iframe.addEventListener('load', () => {
+    iframe.ariaBusy = "false";
     document.documentElement.scrollTop = 0;
     // For Safari
     document.body.scrollTop = 0;
@@ -136,7 +143,7 @@ function registerPopStateListener() {
 
   /**
    * Reloads the iframe with a recalculated src URL.
-   * Does not reload the iframe if the URL has only changed its hash param. 
+   * Does not reload the iframe if the URL has only changed its hash param.
    */
   function popStateListener() {
     /** @param {string} url  */
@@ -154,7 +161,7 @@ function registerPopStateListener() {
 /**
  * Sends data to the answers iframe if possible. Otherwise the message is queued
  * so that it can be sent when the iframe initializes.
- * @param {Object} obj 
+ * @param {Object} obj
  */
 export function sendToIframe (obj) {
   const iframe = document.querySelector('#answers-frame');
