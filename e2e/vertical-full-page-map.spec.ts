@@ -5,10 +5,16 @@ test.describe('full page map test suite', () => {
     await page.goto('http://localhost:5042/locations_full_page_map');
   });
 
-  test('clicking on a pin focuses on a result card', async ({ page }) => {
+  test('can search and get results', async ({ page }) => {
     await page.getByPlaceholder('Search for locations').fill('virginia');
     await page.getByPlaceholder('Search for locations').press('Enter');
-    await page.getByRole('button', { name: 'Result number 5' }).click();
+    const count = await page.locator('#js-answersVerticalResults').count();
+    expect(count).toBeGreaterThan(0);
+  });
+
+  test('clicking on a pin focuses on a result card', async ({ page }) => {
+    await expect(page.locator('.yxt-Card--pinFocused')).not.toBeAttached();
+    await page.getByRole('button', { name: 'Result number 13' }).click();
     await expect(page.locator('.yxt-Card--pinFocused')).toBeAttached();
   });
 
@@ -25,7 +31,7 @@ test.describe('full page map test suite', () => {
     const response = await page.waitForResponse(resp =>
       resp.url().includes('https:\/\/prod-cdn\.us\.yextapis\.com\/v2\/accounts\/me\/search\/vertical\/query')
       && resp.url().includes('radius'));
-    await expect(response.status()).toBe(200);
+    expect(response.status()).toBe(200);
   });
 
   test('search this area button works', async ({ page }) => {
@@ -33,12 +39,13 @@ test.describe('full page map test suite', () => {
     await page.getByPlaceholder('Search for locations').fill('virginia');
     await page.getByPlaceholder('Search for locations').press('Enter');
     await page.waitForResponse(resp =>
-      resp.url().includes('https:\/\/prod-cdn\.us\.yextapis\.com\/v2\/accounts\/me\/search\/vertical\/query'));
+      resp.url().includes('https:\/\/prod-cdn\.us\.yextapis\.com\/v2\/accounts\/me\/search\/vertical\/query')
+      && !resp.url().includes('radius'));
     await page.locator('div').filter({ hasText: /^Search This Area$/ }).nth(1).click();
     const response = await page.waitForResponse(resp =>
       resp.url().includes('https:\/\/prod-cdn\.us\.yextapis\.com\/v2\/accounts\/me\/search\/vertical\/query')
       && resp.url().includes('radius'));
-    await expect(response.status()).toBe(200);
+    expect(response.status()).toBe(200);
   });
 
   test('default initial search works and is enabled by default', async ({ page }) => {
@@ -48,16 +55,12 @@ test.describe('full page map test suite', () => {
   });
 
   test('pagination works', async ({ page }) => {
-    await page.getByPlaceholder('Search for locations').fill('virginia');
-    await page.getByPlaceholder('Search for locations').press('Enter');
     await page.getByLabel('Go to the next page of results').click();
     const secondPage = page.locator('#js-answersVerticalResultsCount');
     await expect(secondPage).toHaveText(/21/);
   });
 
   test('pagination scrolls the results to the top', async ({ page }) => {
-    await page.getByPlaceholder('Search for locations').fill('virginia');
-    await page.getByPlaceholder('Search for locations').press('Enter');
     await page.getByLabel('Go to the next page of results').click();
     const topOfResults = page.locator('#js-answersVerticalResults div').nth(0);
     await expect(topOfResults).toBeVisible();
@@ -68,12 +71,6 @@ test.describe('full page map test suite', () => {
 test.describe('full page map with filters test suite', () => {
   test.beforeEach(async ({page}) => {
     await page.goto('http://localhost:5042/locations_full_page_map_with_filters');
-    await page.getByPlaceholder('Search for locations').fill('virginia');
-    await page.getByPlaceholder('Search for locations').press('Enter');
-    const response = await page.waitForResponse(resp => resp.url().includes('https://prod-cdn.us.yextapis.com/v2/accounts/me/search/vertical/query')
-      && resp.url().includes('input=virginia') 
-      && !resp.url().includes('filters'));
-    await expect(response.status()).toBe(200);
   });
 
   test('clicking on a pin closes the filter view', async ({ page }) => {
@@ -85,16 +82,25 @@ test.describe('full page map with filters test suite', () => {
   });
 
   test('clicking on a cluster causes the map to zoom in and new search is ran', async ({ page }) => {
+    await page.getByPlaceholder('Search for locations').fill('virginia');
+    await page.getByPlaceholder('Search for locations').press('Enter');
+    await page.waitForResponse(resp => resp.url().includes('https://prod-cdn.us.yextapis.com/v2/accounts/me/search/vertical/query')
+      && resp.url().includes('input=virginia') 
+      && !resp.url().includes('filters'));
+
     const result = page.locator('#js-answersVerticalResults div').nth(0);
     await expect(result).toBeAttached();
+
     const originalCount = await page.locator('.yxt-Card').count();
+
     await page.getByRole('button', { name: 'Cluster of 2 results' }).click();
-    const response = await page.waitForResponse(resp => resp.url().includes('https://prod-cdn.us.yextapis.com/v2/accounts/me/search/vertical/query')
+    await page.waitForResponse(resp => resp.url().includes('https://prod-cdn.us.yextapis.com/v2/accounts/me/search/vertical/query')
       && resp.url().includes('input=virginia') 
       && resp.url().includes('filters'));
-    await expect(response.status()).toBe(200);
+
     const newResult = page.locator('#js-answersVerticalResults div').nth(0);
     await expect(newResult).toBeAttached();
+
     const countAfterSelectingCluster = await page.locator('.yxt-Card').count();
     expect(originalCount).toBeGreaterThan(countAfterSelectingCluster);
   });
