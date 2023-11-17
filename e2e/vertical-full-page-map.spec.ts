@@ -98,5 +98,4 @@ test.describe('full page map with filters test suite', () => {
     const countAfterSelectingCluster = await page.locator('.yxt-Card').count();
     expect(originalCount).toBeGreaterThan(countAfterSelectingCluster);
   });
-
 });
