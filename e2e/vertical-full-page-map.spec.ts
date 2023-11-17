@@ -17,7 +17,7 @@ test.describe('full page map test suite', () => {
     await page.getByPlaceholder('Search for locations').fill('virginia');
     await page.getByPlaceholder('Search for locations').press('Enter');
     await page.getByRole('button', { name: 'Result number 5' }).click();
-    const locator = page.locator('#js-answersVerticalResults div').nth(134);
+    const locator = await page.locator('#js-answersVerticalResults div').nth(134);
     await expect(locator).toHaveClass(/pinFocused/);
   });
 
@@ -35,7 +35,7 @@ test.describe('full page map test suite', () => {
   test('search this area button works', async ({ page }) => {
     await page.getByPlaceholder('Search for locations').fill('virginia');
     await page.getByPlaceholder('Search for locations').press('Enter');
-    const responsePromise = page.waitForResponse(/https:\/\/prod-cdn\.us\.yextapis\.com\/v2\/accounts\/me\/search\/vertical/i);
+    const responsePromise = await page.waitForResponse(/https:\/\/prod-cdn\.us\.yextapis\.com\/v2\/accounts\/me\/search\/vertical/i);
     await page.getByLabel('Map controls').getByText('Search When Map Moves').click();
     const response = await responsePromise;
   });
@@ -50,7 +50,7 @@ test.describe('full page map test suite', () => {
     await page.getByPlaceholder('Search for locations').fill('virginia');
     await page.getByPlaceholder('Search for locations').press('Enter');
     await page.getByLabel('Go to the next page of results').click();
-    const secondPage = page.locator('#js-answersVerticalResultsCount');
+    const secondPage = await page.locator('#js-answersVerticalResultsCount');
     await expect(secondPage).toHaveText(/21/);
   });
 
@@ -58,7 +58,7 @@ test.describe('full page map test suite', () => {
     await page.getByPlaceholder('Search for locations').fill('virginia');
     await page.getByPlaceholder('Search for locations').press('Enter');
     await page.getByLabel('Go to the next page of results').click();
-    const locator = page.locator('#js-answersVerticalResults div').nth(0);
+    const locator = await page.locator('#js-answersVerticalResults div').nth(0);
     await expect(locator).toBeVisible();
   });
 
@@ -74,7 +74,7 @@ test.describe('full page map with filters test suite', () => {
   test('clicking on a pin closes the filter view', async ({ page }) => {
     await page.getByRole('button', { name: 'filter results' }).click();
     await page.getByText('Cats (1)').click();
-    const filterView = page.getByLabel('Main location search').locator('div').filter({ hasText: 'Filters Services reset Cats (1) Dogs (1) Sleep (1)' }).first();
+    const filterView = await page.getByLabel('Main location search').locator('div').filter({ hasText: 'Filters Services reset Cats (1) Dogs (1) Sleep (1)' }).first();
     await expect(filterView).toBeVisible();
     await page.getByRole('button', { name: 'Result number 1' }).click();
     await expect(filterView).not.toBeVisible();
@@ -84,14 +84,14 @@ test.describe('full page map with filters test suite', () => {
     const mapboxPinCount = await page.locator('#js-answersMap div').count();
     await page.getByRole('button', { name: 'Cluster of 2 results' }).click();
     const mapboxPinCountAfterSelectingCluster = await page.locator('#js-answersMap div').count();
-    expect(mapboxPinCount).not.toBe(mapboxPinCountAfterSelectingCluster);
+    await expect(mapboxPinCount).not.toBe(mapboxPinCountAfterSelectingCluster);
   });
 
   test('clicking on a cluster causes a new search to be run', async ({ page }) => {
-    const numResults = page.locator('#js-answersVerticalResults').count();
+    const numResults = await page.locator('#js-answersVerticalResults').count();
     await page.getByRole('button', { name: 'Cluster of 4 results' }).click();
     const numResultsAfterSelectingCluster = await page.locator('#js-answersVerticalResults').count();
-    expect(numResults).not.toBe(numResultsAfterSelectingCluster);
+    await expect(numResults).not.toBe(numResultsAfterSelectingCluster);
   });
 
 });
