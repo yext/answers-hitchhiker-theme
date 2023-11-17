@@ -1,4 +1,6 @@
 import { test, expect } from '@playwright/test';
+import { count } from 'console';
+import { TIMEOUT } from 'dns';
 
 test.describe('full page map test suite', () => {
   test.beforeEach(async ({page}) => {
@@ -17,27 +19,35 @@ test.describe('full page map test suite', () => {
     await page.getByPlaceholder('Search for locations').fill('virginia');
     await page.getByPlaceholder('Search for locations').press('Enter');
     await page.getByRole('button', { name: 'Result number 5' }).click();
-    const locator = page.locator('#js-answersVerticalResults div').nth(134);
-    await expect(locator).toHaveClass(/pinFocused/);
+    const results = page.locator('#js-answersVerticalResults div');
+    const count = await results.count();
+    let hasPinFocused = false;
+
+    for (var i = 0; i < count; i++) {
+      const currResult = await results.nth(i);
+      const classes = await currResult.evaluate(node => Array.from(node.classList));
+
+      if (classes.includes('yxt-Card--pinFocused')) hasPinFocused = true;
+    }
+
+    await expect(hasPinFocused).toBe(true);
   });
 
   test('search when map moves works', async ({ page }) => {
-    const searchLogo = '#js-yext-submit';
     await page.mouse.move(600, 300);
     await page.mouse.down();
     await page.mouse.move(1200, 450, {steps: 5});
     await page.mouse.up();
-    await page.waitForSelector(searchLogo, { state: 'detached' });
-    const detachedSearchLogo = await page.$(searchLogo);
-    expect(detachedSearchLogo).toBeFalsy();
+    const response = await page.waitForResponse(/https:\/\/prod-cdn\.us\.yextapis\.com\/v2\/accounts\/me\/search\/vertical\/query/i);
+    await expect(response.status()).toBe(200);
   });
 
   test('search this area button works', async ({ page }) => {
     await page.getByPlaceholder('Search for locations').fill('virginia');
     await page.getByPlaceholder('Search for locations').press('Enter');
-    const responsePromise = await page.waitForResponse(/https:\/\/prod-cdn\.us\.yextapis\.com\/v2\/accounts\/me\/search\/vertical/i);
+    const response = await page.waitForResponse(/https:\/\/prod-cdn\.us\.yextapis\.com\/v2\/accounts\/me\/search\/vertical\/query/i);
     await page.getByLabel('Map controls').getByText('Search When Map Moves').click();
-    const response = responsePromise;
+    await expect(response.status()).toBe(200);
   });
 
   test('default initial search works and is enabled by default', async ({ page }) => {
@@ -69,6 +79,8 @@ test.describe('full page map with filters test suite', () => {
     await page.goto('http://localhost:5042/locations_full_page_map_with_filters');
     await page.getByPlaceholder('Search for locations').fill('virginia');
     await page.getByPlaceholder('Search for locations').press('Enter');
+    const response = await page.waitForResponse(/https:\/\/prod-cdn\.us\.yextapis\.com\/v2\/accounts\/me\/search\/vertical\/query/i);
+    await expect(response.status()).toBe(200);
   });
 
   test('clicking on a pin closes the filter view', async ({ page }) => {
@@ -81,16 +93,19 @@ test.describe('full page map with filters test suite', () => {
   });
 
   test('clicking on a cluster causes the map to zoom in', async ({ page }) => {
-    const mapboxPinCount = await page.locator('#js-answersMap div').count();
+    const originalCount = await page.locator('.yxt-Card').count();
+    console.log('originalCount is ', originalCount);
     await page.getByRole('button', { name: 'Cluster of 2 results' }).click();
-    const mapboxPinCountAfterSelectingCluster = await page.locator('#js-answersMap div').count();
-    expect(mapboxPinCount).not.toBe(mapboxPinCountAfterSelectingCluster);
+    const response = await page.waitForResponse(/https:\/\/prod-cdn\.us\.yextapis\.com\/v2\/accounts\/me\/search\/vertical\/query/i);
+    await expect(response.status()).toBe(200);
+    const countAfterSelectingCluster = await page.locator('.yxt-Card').count();
+    console.log('countAfterSelectingCluster is ', countAfterSelectingCluster);
+    expect(originalCount).toBeGreaterThan(countAfterSelectingCluster);
   });
 
   test('clicking on a cluster causes a new search to be run', async ({ page }) => {
-    const numResults = await page.locator('#js-answersVerticalResults').count();
     await page.getByRole('button', { name: 'Cluster of 4 results' }).click();
-    const responsePromise = await page.waitForResponse(/https:\/\/prod-cdn\.us\.yextapis\.com\/v2\/accounts\/me\/search\/vertical/i);
-    const response = responsePromise;
+    const response = await page.waitForResponse(/https:\/\/prod-cdn\.us\.yextapis\.com\/v2\/accounts\/me\/search\/vertical\/query/i);
+    await expect(response.status()).toBe(200);
   });
 });
