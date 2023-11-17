@@ -15,7 +15,7 @@ test.describe('full page map test suite', () => {
       resp.url().includes('https:\/\/prod-cdn\.us\.yextapis\.com\/v2\/accounts\/me\/search\/vertical\/query')
       && resp.url().includes('queryTrigger'));
     const prevResponseJson = await prevResponse.json();
-    const prevResultsCount = prevResponseJson.resultsCount;
+    const prevResultsCount = prevResponseJson.response.resultsCount;
 
     await page.getByPlaceholder('Search for locations').fill('virginia');
     await page.getByPlaceholder('Search for locations').press('Enter');
@@ -23,7 +23,7 @@ test.describe('full page map test suite', () => {
       resp.url().includes('https:\/\/prod-cdn\.us\.yextapis\.com\/v2\/accounts\/me\/search\/vertical\/query')
       && resp.url().includes('input=virginia'));
     const responseJson = await response.json();
-    const resultsCount = responseJson.resultsCount;
+    const resultsCount = responseJson.response.resultsCount;
 
     expect(prevResultsCount).not.toBe(resultsCount);
   });
