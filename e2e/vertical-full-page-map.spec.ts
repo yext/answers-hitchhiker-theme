@@ -37,10 +37,7 @@ test.describe('full page map test suite', () => {
   test('search when map moves works', async ({ page }) => {
     await page.getByPlaceholder('Search for locations').fill('virginia');
     await page.getByPlaceholder('Search for locations').press('Enter');
-    await page.mouse.move(600, 300);
-    await page.mouse.down();
-    await page.mouse.move(1200, 450, {steps: 5});
-    await page.mouse.up();
+    await page.mouse.wheel(600, 300);
     const response = await page.waitForResponse(resp =>
       resp.url().includes('https:\/\/prod-cdn\.us\.yextapis\.com\/v2\/accounts\/me\/search\/vertical\/query'));
     await expect(response.status()).toBe(200);
