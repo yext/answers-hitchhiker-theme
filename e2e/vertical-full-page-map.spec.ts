@@ -11,19 +11,17 @@ test.describe('full page map test suite', () => {
   });
 
   test('can search and get results', async ({ page }) => {
-    const prevResponse = await page.waitForResponse(resp =>
+    await page.waitForResponse(resp =>
       resp.url().includes('https:\/\/prod-cdn\.us\.yextapis\.com\/v2\/accounts\/me\/search\/vertical\/query')
       && resp.url().includes('queryTrigger'));
-    const prevResponseJson = await prevResponse.json();
-    const prevResultsCount = prevResponseJson.response.resultsCount;
+    const prevResultsCount = await page.locator('.yxt-VerticalResultsCount-total').textContent();
 
     await page.getByPlaceholder('Search for locations').fill('virginia');
     await page.getByPlaceholder('Search for locations').press('Enter');
-    const response = await page.waitForResponse(resp =>
+    await page.waitForResponse(resp =>
       resp.url().includes('https:\/\/prod-cdn\.us\.yextapis\.com\/v2\/accounts\/me\/search\/vertical\/query')
       && resp.url().includes('input=virginia'));
-    const responseJson = await response.json();
-    const resultsCount = responseJson.response.resultsCount;
+    const resultsCount = await page.locator('.yxt-VerticalResultsCount-total').textContent();
 
     expect(prevResultsCount).not.toBe(resultsCount);
   });
@@ -86,9 +84,16 @@ test.describe('full page map test suite', () => {
   });
 
   test('pagination scrolls the results to the top', async ({ page }) => {
-    const topOfResults = page.locator('.HitchhikerLocationStandard-content').first();
+    await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+
+    const scrollOffsetBeforePagination = await page.evaluate(() => {return window.scrollY}); 
+    expect(scrollOffsetBeforePagination).not.toBe(0);
+
     await page.getByLabel('Go to the next page of results').click();
-    await expect(topOfResults).toBeVisible();
+    await waitForResultsToLoad(page);
+
+    const scrollOffsetAfterPagination = await page.evaluate(() => {return window.scrollY}); 
+    expect(scrollOffsetAfterPagination).toBe(0);
   });
 
 });
