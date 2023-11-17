@@ -45,6 +45,6 @@ export default defineConfig({
   webServer: {
     command: 'npm run serve-test-site',
     url: 'http://127.0.0.1:5042',
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: true,
   },
 });
