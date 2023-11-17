@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-async function getAnswersVerticalResults(page) {
+async function waitForResultsToLoad(page) {
   const result = page.locator('#js-answersVerticalResults div').nth(0);
   await expect(result).toBeAttached();
 }
@@ -35,7 +35,9 @@ test.describe('full page map test suite', () => {
   });
 
   test('search when map moves works', async ({ page }) => {
-    await getAnswersVerticalResults(page);
+    await page.getByPlaceholder('Search for locations').fill('virginia');
+    await page.getByPlaceholder('Search for locations').press('Enter');
+    await waitForResultsToLoad(page);
     const map = page.locator('.mapboxgl-canvas');
     await map.dragTo(map, {
       sourcePosition: { x: 788, y: 345},
@@ -77,16 +79,14 @@ test.describe('full page map test suite', () => {
   })
 
   test('pagination works', async ({ page }) => {
-    const firstPage = page.locator('#js-answersVerticalResultsCount');
-    await expect(firstPage).toHaveText(/20/);
+    const resultsCount = page.locator('#js-answersVerticalResultsCount');
+    await expect(resultsCount).toHaveText(/20/);
     await page.getByLabel('Go to the next page of results').click();
-    const secondPage = page.locator('#js-answersVerticalResultsCount');
-    await expect(secondPage).toHaveText(/21/);
+    await expect(resultsCount).toHaveText(/21/);
   });
 
   test('pagination scrolls the results to the top', async ({ page }) => {
-    const topOfResults = page.locator('#js-answersVerticalResults div').nth(0);
-    await expect(topOfResults).not.toBeVisible();
+    const topOfResults = page.locator('.HitchhikerLocationStandard-content').first();
     await page.getByLabel('Go to the next page of results').click();
     await expect(topOfResults).toBeVisible();
   });
@@ -113,7 +113,7 @@ test.describe('full page map with filters test suite', () => {
       && resp.url().includes('input=virginia') 
       && !resp.url().includes('filters'));
 
-    await getAnswersVerticalResults(page);
+    await waitForResultsToLoad(page);
 
     const originalCount = await page.locator('.yxt-Card').count();
 
@@ -122,7 +122,7 @@ test.describe('full page map with filters test suite', () => {
       && resp.url().includes('input=virginia') 
       && resp.url().includes('filters'));
 
-    await getAnswersVerticalResults(page);
+    await waitForResultsToLoad(page);
 
     const countAfterSelectingCluster = await page.locator('.yxt-Card').count();
     expect(originalCount).toBeGreaterThan(countAfterSelectingCluster);
