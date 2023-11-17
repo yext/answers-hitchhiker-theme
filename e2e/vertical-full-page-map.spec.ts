@@ -48,6 +48,8 @@ test.describe('full page map test suite', () => {
     await page.getByPlaceholder('Search for locations').fill('virginia');
     await page.getByPlaceholder('Search for locations').press('Enter');
     await page.getByLabel('Map controls').getByText('Search When Map Moves').click();
+    await page.locator('div').filter({ hasText: /^Search This Area$/ }).nth(1).click();
+    await page.mouse.move(1200, 450, {steps: 5});
     const response = await page.waitForResponse(resp =>
       resp.url().includes('https:\/\/prod-cdn\.us\.yextapis\.com\/v2\/accounts\/me\/search\/vertical\/query'));
     await expect(response.status()).toBe(200);
