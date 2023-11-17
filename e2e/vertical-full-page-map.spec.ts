@@ -93,5 +93,4 @@ test.describe('full page map with filters test suite', () => {
     const responsePromise = await page.waitForResponse(/https:\/\/prod-cdn\.us\.yextapis\.com\/v2\/accounts\/me\/search\/vertical/i);
     const response = await responsePromise;
   });
-
 });
