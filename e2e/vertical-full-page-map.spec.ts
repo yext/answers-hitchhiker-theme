@@ -90,13 +90,8 @@ test.describe('full page map with filters test suite', () => {
   test('clicking on a cluster causes a new search to be run', async ({ page }) => {
     const numResults = await page.locator('#js-answersVerticalResults').count();
     await page.getByRole('button', { name: 'Cluster of 4 results' }).click();
-<<<<<<< HEAD
-    const numResultsAfterSelectingCluster = await page.locator('#js-answersVerticalResults').count();
-    await expect(numResults).not.toBe(numResultsAfterSelectingCluster);
-=======
     const responsePromise = await page.waitForResponse(/https:\/\/prod-cdn\.us\.yextapis\.com\/v2\/accounts\/me\/search\/vertical/i);
     const response = await responsePromise;
->>>>>>> 97ec8bc (Implement playwright acceptance tests for vertical full page map)
   });
 
 });
