@@ -19,6 +19,8 @@ jobs:
       run: npm run setup-test-site
     - name: Build test site
       run: npm run build-test-site
+    - name: Serve test site
+      run: npm run serve-test-site
     - name: Run Playwright tests
       run: npx playwright test
     - uses: actions/upload-artifact@v3
