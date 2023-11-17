@@ -1,15 +1,31 @@
 import { test, expect } from '@playwright/test';
 
+async function getAnswersVerticalResults(page) {
+  const result = page.locator('#js-answersVerticalResults div').nth(0);
+  await expect(result).toBeAttached();
+}
+
 test.describe('full page map test suite', () => {
   test.beforeEach(async ({page}) => {
     await page.goto('http://localhost:5042/locations_full_page_map');
   });
 
   test('can search and get results', async ({ page }) => {
+    const prevResponse = await page.waitForResponse(resp =>
+      resp.url().includes('https:\/\/prod-cdn\.us\.yextapis\.com\/v2\/accounts\/me\/search\/vertical\/query')
+      && resp.url().includes('queryTrigger'));
+    const prevResponseJson = await prevResponse.json();
+    const prevResultsCount = prevResponseJson.resultsCount;
+
     await page.getByPlaceholder('Search for locations').fill('virginia');
     await page.getByPlaceholder('Search for locations').press('Enter');
-    const count = await page.locator('#js-answersVerticalResults').count();
-    expect(count).toBeGreaterThan(0);
+    const response = await page.waitForResponse(resp =>
+      resp.url().includes('https:\/\/prod-cdn\.us\.yextapis\.com\/v2\/accounts\/me\/search\/vertical\/query')
+      && resp.url().includes('input=virginia'));
+    const responseJson = await response.json();
+    const resultsCount = responseJson.resultsCount;
+
+    expect(prevResultsCount).not.toBe(resultsCount);
   });
 
   test('clicking on a pin focuses on a result card', async ({ page }) => {
@@ -19,10 +35,7 @@ test.describe('full page map test suite', () => {
   });
 
   test('search when map moves works', async ({ page }) => {
-    await page.getByPlaceholder('Search for locations').fill('virginia');
-    await page.getByPlaceholder('Search for locations').press('Enter');
-    const result = page.locator('#js-answersVerticalResults div').nth(0);
-    await expect(result).toBeAttached();
+    await getAnswersVerticalResults(page);
     const map = page.locator('.mapboxgl-canvas');
     await map.dragTo(map, {
       sourcePosition: { x: 788, y: 345},
@@ -49,20 +62,32 @@ test.describe('full page map test suite', () => {
   });
 
   test('default initial search works and is enabled by default', async ({ page }) => {
-    await page.getByPlaceholder('Search for locations').press('Enter');
-    const result = page.locator('#js-answersVerticalResults div').nth(0);
-    await expect(result).toBeAttached();
+    const response = await page.waitForResponse(resp =>
+      resp.url().includes('https:\/\/prod-cdn\.us\.yextapis\.com\/v2\/accounts\/me\/search\/vertical\/query')
+      && resp.url().includes('queryTrigger'));
+    expect(response.status()).toBe(200);
   });
 
+  test('empty search works', async ({ page }) => {
+    await page.getByPlaceholder('Search for locations').press('Enter');
+    const response = await page.waitForResponse(resp =>
+      resp.url().includes('https:\/\/prod-cdn\.us\.yextapis\.com\/v2\/accounts\/me\/search\/vertical\/query')
+      && resp.url().includes('input=&'));
+    expect(response.status()).toBe(200);
+  })
+
   test('pagination works', async ({ page }) => {
+    const firstPage = page.locator('#js-answersVerticalResultsCount');
+    await expect(firstPage).toHaveText(/20/);
     await page.getByLabel('Go to the next page of results').click();
     const secondPage = page.locator('#js-answersVerticalResultsCount');
     await expect(secondPage).toHaveText(/21/);
   });
 
   test('pagination scrolls the results to the top', async ({ page }) => {
-    await page.getByLabel('Go to the next page of results').click();
     const topOfResults = page.locator('#js-answersVerticalResults div').nth(0);
+    await expect(topOfResults).not.toBeVisible();
+    await page.getByLabel('Go to the next page of results').click();
     await expect(topOfResults).toBeVisible();
   });
 
@@ -88,8 +113,7 @@ test.describe('full page map with filters test suite', () => {
       && resp.url().includes('input=virginia') 
       && !resp.url().includes('filters'));
 
-    const result = page.locator('#js-answersVerticalResults div').nth(0);
-    await expect(result).toBeAttached();
+    await getAnswersVerticalResults(page);
 
     const originalCount = await page.locator('.yxt-Card').count();
 
@@ -98,8 +122,7 @@ test.describe('full page map with filters test suite', () => {
       && resp.url().includes('input=virginia') 
       && resp.url().includes('filters'));
 
-    const newResult = page.locator('#js-answersVerticalResults div').nth(0);
-    await expect(newResult).toBeAttached();
+    await getAnswersVerticalResults(page);
 
     const countAfterSelectingCluster = await page.locator('.yxt-Card').count();
     expect(originalCount).toBeGreaterThan(countAfterSelectingCluster);
