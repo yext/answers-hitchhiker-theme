@@ -238,7 +238,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
 
     function setFixedHeight(selector) {
       const el = getSingleElement(selector)
-      el.style.height = `${el.scrollHeight}px`
+      el.style.minHeight = `${el.scrollHeight}px`
     }
   }
 
