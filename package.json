@@ -1,6 +1,6 @@
 {
   "name": "answers-hitchhiker-theme",
-  "version": "1.33.1",
+  "version": "1.33.2",
   "description": "A starter Search theme for hitchhikers",
   "keywords": [
     "jambo",
@@ -36,7 +36,9 @@
     "@babel/preset-env": "^7.9.6",
     "@percy/cli": "^1.0.0-beta.67",
     "@percy/puppeteer": "^2.0.0",
+    "@playwright/test": "^1.39.0",
     "@types/jest": "^26.0.19",
+    "@types/node": "^20.9.0",
     "@yext/cta-formatter": "^1.0.0",
     "babel-jest": "^25.5.1",
     "comment-json": "^4.1.1",
@@ -58,7 +60,6 @@
     "serve": "^13.0.4",
     "simple-git": "^2.24.0",
     "testcafe": "^1.18.6",
-    "testcafe-browser-provider-browserstack": "^1.13.1",
     "underscore.string": "^3.3.6",
     "urijs": "^1.19.11",
     "yargs": "^17.0.1"
