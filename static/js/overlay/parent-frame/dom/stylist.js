@@ -83,9 +83,9 @@ export default class Stylist {
     this._iframeWrapperEl.style['opacity'] = '1';
     this._iframeWrapperEl.style['transition'] = `opacity ${AnimationStyling.TRANSITION_TIMING}`;
     this._iframeWrapperEl.style['width'] = this._currentWidth;
-    this._iframeWrapperEl.style['height'] = `${isTaller
+    this._iframeWrapperEl.style['height'] = isTaller
       ? AnimationStyling.CONTAINER_HEIGHT_TALLER
-      : this._minHeight}px`;
+      : `${this._minHeight}px`;
 
     this._overlayContainerEl.style['transition'] =
       `box-shadow ${AnimationStyling.TRANSITION_TIMING}`;
@@ -152,8 +152,8 @@ export default class Stylist {
     this._buttonHeight = height;
     this._buttonWidth = Math.min(AnimationStyling.MAX_BUTTON_WIDTH, width);
 
-    this._buttonFrameEl.style['width'] = this._buttonWidth;
-    this._buttonFrameEl.style['height'] = this._buttonHeight;
+    this._buttonFrameEl.style['width'] = `${this._buttonWidth}px`;
+    this._buttonFrameEl.style['height'] = `${this._buttonHeight}px`;
   }
 
   /**
