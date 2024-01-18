@@ -16,35 +16,35 @@ describe('image formatter', () => {
       const usImageUrl = Formatters.image(usImg).url;
       expect(usImageUrl).toEqual('https://dynl.mktgcdn.com/p/200x1.jpg');
       const euImageUrl = Formatters.image(euImg).url;
-      expect(euImageUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/width=200,fit=pad');
+      expect(euImageUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/width=200,fit=cover');
     });
 
     it('Can restrict the dimensions by width', () => {
       const usImageUrl = Formatters.image(usImg, '601x').url;
       expect(usImageUrl).toEqual('https://dynl.mktgcdn.com/p/601x1.jpg');
       const euImageUrl = Formatters.image(euImg, '601x').url;
-      expect(euImageUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/width=601,fit=pad');
+      expect(euImageUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/width=601,fit=cover');
     });
 
     it('Can restrict the dimensions by height', () => {
       const usImageUrl = Formatters.image(usImg, 'x338').url;
       expect(usImageUrl).toEqual('https://dynl.mktgcdn.com/p/1x338.jpg');
       const euImageUrl = Formatters.image(euImg, 'x338').url;
-      expect(euImageUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/height=338,fit=pad');
+      expect(euImageUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/height=338,fit=cover');
     });
 
     it('Can restrict by both dimensions', () => {
       const usImageUrl = Formatters.image(usImg, '601x338').url;
       expect(usImageUrl).toEqual('https://dynl.mktgcdn.com/p/601x338.jpg');
       const euImageUrl = Formatters.image(euImg, '601x338').url;
-      expect(euImageUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/width=601,height=338,fit=pad');
+      expect(euImageUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/width=601,height=338,fit=cover');
     });
 
     it('returns the smallest image when no dimensions given', () => {
       const usImageUrl = Formatters.image(usImg, 'x').url;
       expect(usImageUrl).toEqual('https://dynl.mktgcdn.com/p/1x1.jpg');
       const euImageUrl = Formatters.image(euImg, 'x').url;
-      expect(euImageUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/fit=pad');
+      expect(euImageUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/fit=cover');
     });
   });
 
@@ -100,7 +100,7 @@ describe('image formatter', () => {
 
     it('when choosing the smallest image over threshold, omit width/height if can\'t parse it from the image object', () => {
       const euImageUrl = Formatters.image({url: euUrl}, 'x', true).url;
-      expect(euImageUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/fit=pad');
+      expect(euImageUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/fit=cover');
     });
   });
 });

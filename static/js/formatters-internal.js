@@ -440,7 +440,7 @@ function _getEuImageDynamicUrl(image, desiredSize, atLeastAsLarge) {
     formatOptions.push(`height=${fullSizeHeight}`);
   }
 
-  formatOptions.push(`fit=${atLeastAsLarge ? 'pad' : 'contain'}`);
+  formatOptions.push(`fit=${atLeastAsLarge ? 'cover' : 'contain'}`);
 
   const urlWithOptions = image.url + `/${formatOptions.join(',')}`;
 
