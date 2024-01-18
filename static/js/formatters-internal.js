@@ -284,15 +284,15 @@ export function joinList(list, separator) {
 
 /**
  * Given an image object with a url, changes the url to use dynamic thumbnailer and https.
- * 
+ *
  * Note: A dynamic thumbnailer url generated with atLeastAsLarge = true returns an image that is
  * at least as large in one dimension of the desired size. In other words, the returned image will
  * be at least as large, and as close as possible to, the largest image that is contained within a
  * box of the desired size dimensions.
- * 
+ *
  * If atLeastAsLarge = false, the dynamic thumbnailer url will give the largest image that is
  * smaller than the desired size in both dimensions.
- * 
+ *
  * @param {Object} simpleOrComplexImage An image object with a url
  * @param {string} desiredSize The desired size of the image ('<width>x<height>')
  * @param {boolean} atLeastAsLarge Whether the image should be at least as large as the desired
@@ -321,12 +321,40 @@ export function image(simpleOrComplexImage = {}, desiredSize = '200x', atLeastAs
     throw new Error(`Object of type boolean expected. Got ${typeof atLeastAsLarge}.`);
   }
 
-  let desiredWidth, desiredHeight;
-  let desiredDims = desiredSize.split('x');
+  const isEuImage = image.url.includes('eu.mktgcdn.com');
 
-  const [urlWithoutExtension, extension] = _splitStringOnIndex(image.url, image.url.lastIndexOf('.'));
+  const dynamicUrl = isEuImage
+    ? _getEuImageDynamicUrl(image, desiredSize, atLeastAsLarge)
+    : _getUsImageDynamicUrl(image.url, desiredSize, atLeastAsLarge);
+
+  return Object.assign(
+    {},
+    image,
+    {
+      url: dynamicUrl.replace('http://', 'https://')
+    }
+  );
+}
+
+/**
+ * Given a US image url, returns the dynamic url.
+ *
+ * @param {string} imageUrl Image's url (e.g.
+ *   'https://dynl.mktgcdn.com/p/ldMLwj1JkN94-2pwh6CjR_OMy4KnexHJCfZhPAZCbi0/196x400.jpg',
+ *   'https://a.mktgcdn.com/p/ldMLwj1JkN94-2pwh6CjR_OMy4KnexHJCfZhPAZCbi0/196x400.jpg')
+ * @param {string} desiredSize The desired size of the image ('<width>x<height>')
+ * @param {boolean} atLeastAsLarge Whether the image should be at least as large as the desired
+ *                                 size in one dimension or smaller than the desired size in both
+ *                                 dimensions.
+ * @returns {string} A dynamic url (e.g. 'https://dynl.mktgcdn.com/p/ldMLwj1JkN94-2pwh6CjR_OMy4KnexHJCfZhPAZCbi0/200x1.jpg')
+ */
+function _getUsImageDynamicUrl(imageUrl, desiredSize, atLeastAsLarge) {
+  const [urlWithoutExtension, extension] = _splitStringOnIndex(imageUrl, imageUrl.lastIndexOf('.'));
   const [urlBeforeDimensions, dimensions] = _splitStringOnIndex(urlWithoutExtension, urlWithoutExtension.lastIndexOf('/') + 1);
   const fullSizeDims = dimensions.split('x');
+
+  let desiredWidth, desiredHeight;
+  let desiredDims = desiredSize.split('x');
 
   if (desiredDims[0] !== '') {
     desiredWidth = Number.parseInt(desiredDims[0]);
@@ -348,22 +376,80 @@ export function image(simpleOrComplexImage = {}, desiredSize = '200x', atLeastAs
 
   const urlWithDesiredDims = urlBeforeDimensions + desiredWidth + 'x' + desiredHeight + extension;
 
-  const dynamicUrl = atLeastAsLarge
+  return atLeastAsLarge
     ? _replaceUrlHost(urlWithDesiredDims, 'dynl.mktgcdn.com')
     : _replaceUrlHost(urlWithDesiredDims, 'dynm.mktgcdn.com');
+}
 
-  return Object.assign(
-    {},
-    image,
-    {
-      url: dynamicUrl.replace('http://', 'https://')
+/**
+ * Given an EU image url, returns the dynamic url.
+ *
+ * @param {Object} image The image object. (e.g.
+ * {
+ *   url: 'https://a.eu.mktgcdn.com/f/0/FLVfkpR1IwpWrWDuyNYCJWVYIDfPO6x1QSztXozMIzo.jpg',
+ *   sourceUrl: 'https://a.mktgcdn.com/p/UN9RPhz0V9D8bNZ3XfNpkGnAk6ikFhVmgvntlBjVyMA/1200x675.jpg',
+ *   width: 1200,
+ *   height: 675,
+ * })
+ * @param {string} desiredSize The desired size of the image ('<width>x<height>')
+ * @param {boolean} atLeastAsLarge Whether the image should be at least as large as the desired
+ *                                 size in one dimension or smaller than the desired size in both
+ *                                 dimensions.
+ * @returns {string} A dynamic url (e.g. 'https://dyn.eu.mktgcdn.com/f/0/FLVfkpR1IwpWrWDuyNYCJWVYIDfPO6x1QSztXozMIzo.jpg/width=200,fit=contain')
+ */
+function _getEuImageDynamicUrl(image, desiredSize, atLeastAsLarge) {
+  let fullSizeWidth, fullSizeHeight;
+  if (image.width) {
+    fullSizeWidth = image.width;
+  }
+  if (image.height) {
+    fullSizeHeight = image.height;
+  }
+
+  if (image.sourceUrl && (!fullSizeWidth || !fullSizeHeight)) {
+    const [urlWithoutExtension, _] = _splitStringOnIndex(image.sourceUrl, image.sourceUrl.lastIndexOf('.'));
+    const [__, dimensions] = _splitStringOnIndex(urlWithoutExtension, urlWithoutExtension.lastIndexOf('/') + 1);
+    const fullSizeDims = dimensions.split('x');
+
+    fullSizeWidth = Number.parseInt(fullSizeDims[0]);
+    fullSizeHeight = Number.parseInt(fullSizeDims[1]);
+  }
+
+  let desiredDims = desiredSize.split('x');
+  let formatOptions = [];
+
+  if (desiredDims[0] !== '') {
+    const desiredWidth = Number.parseInt(desiredDims[0]);
+    if (Number.isNaN(desiredWidth)) {
+      throw new Error("Invalid width specified");
     }
-  );
+
+    formatOptions.push(`width=${desiredWidth}`);
+  } else if (!atLeastAsLarge && fullSizeWidth) {
+    formatOptions.push(`width=${fullSizeWidth}`);
+  }
+
+  if (desiredDims[1] !== '') {
+    const desiredHeight = Number.parseInt(desiredDims[1]);
+    if (Number.isNaN(desiredHeight)) {
+      throw new Error("Invalid height specified");
+    }
+
+    formatOptions.push(`height=${desiredHeight}`);
+  } else if (!atLeastAsLarge && fullSizeHeight) {
+    formatOptions.push(`height=${fullSizeHeight}`);
+  }
+
+  formatOptions.push(`fit=${atLeastAsLarge ? 'cover' : 'contain'}`);
+
+  const urlWithOptions = image.url + `/${formatOptions.join(',')}`;
+
+  return _replaceUrlHost(urlWithOptions, 'dyn.eu.mktgcdn.com');
 }
 
 /**
  * Splits a string into two parts at the specified index.
- * 
+ *
  * @param {string} str The string to be split
  * @param {number} index The index at which to split the string
  * @returns {Array<string>} The two parts of the string after splitting
@@ -374,7 +460,7 @@ function _splitStringOnIndex(str, index) {
 
 /**
  * Replaces the current host of a url with the specified host.
- * 
+ *
  * @param {string} url The url whose host is to be changed
  * @param {string} host The new host to change to
  * @returns {string} The url updated with the specified host
@@ -519,13 +605,13 @@ export function priceRange(defaultPriceRange, countryCode) {
   if (countryCode) {
     const currencySymbol = getSymbolFromCurrency(LocaleCurrency.getCurrency(countryCode));
     if (currencySymbol) {
-      return defaultPriceRange.replace(/\$/g, currencySymbol); 
+      return defaultPriceRange.replace(/\$/g, currencySymbol);
     }
   }
   const { region, language } = parseLocale(_getDocumentLocale());
   const currencySymbol = getSymbolFromCurrency(LocaleCurrency.getCurrency(region || language));
   if (currencySymbol) {
-    return defaultPriceRange.replace(/\$/g, currencySymbol); 
+    return defaultPriceRange.replace(/\$/g, currencySymbol);
   }
   console.warn('Unable to determine currency symbol from '
     + `ISO country code "${countryCode}" or locale "${_getDocumentLocale()}".`);
@@ -535,7 +621,7 @@ export function priceRange(defaultPriceRange, countryCode) {
 /**
  * Highlights snippets of the provided fieldValue according to the matched substrings.
  * Each match will be wrapped in <mark> tags.
- * 
+ *
  * @param {string} fieldValue The plain, un-highlighted text.
  * @param {Array<Object>} matchedSubstrings The list of matched substrings to
  *                                          highlight.
@@ -543,10 +629,10 @@ export function priceRange(defaultPriceRange, countryCode) {
 export function highlightField(fieldValue, matchedSubstrings = []) {
   let highlightedString = '';
 
-  // We must first sort the matchedSubstrings by ascending offset. 
+  // We must first sort the matchedSubstrings by ascending offset.
   const sortedMatches = matchedSubstrings.slice()
     .sort((match1, match2) => match1.offset - match2.offset);
-  
+
   let processedFieldValueIndex = 0;
   sortedMatches.forEach(match => {
     const { offset, length } = match;
@@ -562,7 +648,7 @@ export function highlightField(fieldValue, matchedSubstrings = []) {
  * Given an array of youtube videos from the KG, returns an embed link for the first video.
  * If it is not possible to get an embed link, null is returned instead.
  *
- * @param {Object[]} videos 
+ * @param {Object[]} videos
  * @returns {string|null}
  */
 export function getYoutubeUrl(videos = []) {
@@ -572,7 +658,7 @@ export function getYoutubeUrl(videos = []) {
   const videoUrl = videos[0]?.video?.url;
   const youtubeVideoId = videoUrl?.split('watch?v=')[1];
   const youtubeVideoUrl = youtubeVideoId
-    ? 'https://www.youtube.com/embed/' + youtubeVideoId + '?enablejsapi=1' 
+    ? 'https://www.youtube.com/embed/' + youtubeVideoId + '?enablejsapi=1'
     : null;
   return youtubeVideoUrl;
 }
@@ -606,7 +692,7 @@ export function getUrlWithTextHighlight(snippet, baseUrl) {
 /**
  * construct a list of displayable category names based on given category ids from liveAPI
  * and a mapping of category ids to names.
- * 
+ *
  * @param {string[]} categoryIds category ids from liveAPI
  * @param {Object[]} categoryMap mapping of category ids to names
  * @param {string} categoryMap[].id id of a category entry
