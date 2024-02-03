@@ -7,6 +7,7 @@ const RemovePlugin = require('remove-files-webpack-plugin');
 const { merge } = require('webpack-merge');
 const { parse } = require('comment-json');
 const RtlCssPlugin = require('rtlcss-webpack-plugin');
+require('dotenv').config({ path: './.env' });
 
 module.exports = function () {
   const jamboConfig = require('./jambo.json');
@@ -71,7 +72,9 @@ module.exports = function () {
     ...cssRtlPlugin,
     ...htmlPlugins,
     new webpack.DefinePlugin({
-      'process.env.JAMBO_INJECTED_DATA': JSON.stringify(jamboInjectedData)
+      'process.env.JAMBO_INJECTED_DATA': JSON.stringify(jamboInjectedData),
+      'process.env.MAPBOX_KEY': JSON.stringify(process.env.MAPBOX_KEY) || 'REPLACE_ME',
+      'process.env.BAIDU_KEY': JSON.stringify(process.env.BAIDU_KEY) || 'REPLACE_ME'
     }),
     new RemovePlugin({
       after: {

@@ -33,9 +33,9 @@ export class AccessibilityHelpers {
 export const AccessibilityChecks = {
   checkAltTags: function () {
     const accessibilityStyleSheet = document.createElement('style');
-    accessibilityStyleSheet.innerHTML = `img:not([alt]) { outline: ${outlineStyle}; }`;
+    accessibilityStyleSheet.innerText = `img:not([alt]) { outline: ${outlineStyle}; }`;
     for (let selector of whitelist) {
-      accessibilityStyleSheet.innerHTML += `${selector} img:not([alt]) { outline: none; }`;
+      accessibilityStyleSheet.innerText += `${selector} img:not([alt]) { outline: none; }`;
     }
     document.head.appendChild(accessibilityStyleSheet);
   }

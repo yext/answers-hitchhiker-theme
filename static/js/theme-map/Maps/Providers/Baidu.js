@@ -307,7 +307,7 @@ class BaiduPin extends ProviderPin {
 
 // Load Function
 
-const yextAPIKey = 'bxNEoKKmzVSORkUQGwRxLbtis4Wwokdg';
+const yextAPIKey = process.env.BAIDU_KEY;
 const baseUrl = 'https://api.map.baidu.com/getscript';
 
 /**
@@ -350,7 +350,7 @@ function load(resolve, reject, apiKey, {
   }
 
   const negativeLngFixStyle = document.createElement('style');
-  negativeLngFixStyle.innerHTML = negativeLngFixCSS;
+  negativeLngFixStyle.innerText = negativeLngFixCSS;
 
   document.head.appendChild(negativeLngFixStyle);
 }

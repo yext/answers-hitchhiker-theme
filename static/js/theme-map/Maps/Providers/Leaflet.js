@@ -119,7 +119,7 @@ class LeafletPin extends ProviderPin {
 
 // Load Function
 
-const yextAPIKey = 'pk.eyJ1IjoieWV4dCIsImEiOiJqNzVybUhnIn0.hTOO5A1yqfpN42-_z_GuLw';
+const yextAPIKey = process.env.MAPBOX_KEY;
 const baseUrl = 'https://unpkg.com/leaflet@1.6.0/dist/leaflet';
 
 /**
