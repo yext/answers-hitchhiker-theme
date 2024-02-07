@@ -11,7 +11,7 @@ export function getDefaultMapApiKey(mapProvider) {
     }
     switch (mapProvider.toLowerCase()) {
       case 'google':
-        return 'AIzaSyB5D45ghF1YMfqTLSzWubmlCN1euBVPhFw';
+        return process.env.GOOGLE_KEY;
       case 'mapbox':
         return process.env.MAPBOX_KEY;
       default:
