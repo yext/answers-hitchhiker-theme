@@ -9,5 +9,3 @@ jobs:
     uses: yext/slapshot-reusable-workflows/.github/workflows/wcag_test.yml@v1
     with:
       build_script: npm run setup-test-site && npm run build-test-site
-    secrets:
-      MAPBOX_KEY: ${{ secrets.MAPBOX_KEY }}

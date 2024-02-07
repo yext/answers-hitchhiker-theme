@@ -16,4 +16,4 @@ jobs:
       comparison_branch: master
     secrets:
       caller_github_token: ${{ secrets.GITHUB_TOKEN }}
-      MAPBOX_KEY: ${{ secrets.MAPBOX_KEY }}
+      
