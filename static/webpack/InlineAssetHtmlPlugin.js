@@ -48,7 +48,7 @@ class InlineAssetHtmlPlugin {
       const scriptSource = scriptNode.src;
       const fileContents = this._getAssetContents(scriptSource, assetsMap);
 
-      scriptNode.innerText = fileContents;
+      scriptNode.textContent = fileContents;
       scriptNode.dataset.fileName = scriptSource;
       scriptNode.removeAttribute('src');
     });
@@ -68,7 +68,7 @@ class InlineAssetHtmlPlugin {
       const transformedCss = this._transformCssUrls(rawContents, relativePath);
 
       const styleNode = dom.window.document.createElement('style');
-      styleNode.innerText = transformedCss;
+      styleNode.textContent = transformedCss;
       styleNode.dataset.fileName = linkNode.href;
       styleNode.dataset.webpackInline = '';
       linkNode.parentNode.insertBefore(styleNode, linkNode.nextSibling);
