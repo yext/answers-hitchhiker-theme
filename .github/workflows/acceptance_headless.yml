@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     env: 
       MAPBOX_KEY: ${{ secrets.MAPBOX_KEY }}
+      GOOGLE_KEY: ${{ secrets.GOOGLE_KEY }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
