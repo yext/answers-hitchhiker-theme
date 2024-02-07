@@ -74,7 +74,8 @@ module.exports = function () {
     new webpack.DefinePlugin({
       'process.env.JAMBO_INJECTED_DATA': JSON.stringify(jamboInjectedData),
       'process.env.MAPBOX_KEY': JSON.stringify(process.env.MAPBOX_KEY) || 'REPLACE_ME',
-      'process.env.BAIDU_KEY': JSON.stringify(process.env.BAIDU_KEY) || 'REPLACE_ME'
+      'process.env.BAIDU_KEY': JSON.stringify(process.env.BAIDU_KEY) || 'REPLACE_ME',
+      'process.env.GOOGLE_KEY': JSON.stringify(process.env.GOOGLE_KEY) || 'REPLACE_ME',
     }),
     new RemovePlugin({
       after: {
