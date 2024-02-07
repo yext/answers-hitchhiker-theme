@@ -6,7 +6,7 @@ jobs:
   headless-acceptance-tests:
     name: Chrome Acceptance Tests (Headless)
     runs-on: ubuntu-latest
-    secrets: 
+    env: 
       MAPBOX_KEY: ${{ secrets.MAPBOX_KEY }}
     steps:
       - uses: actions/checkout@v3
