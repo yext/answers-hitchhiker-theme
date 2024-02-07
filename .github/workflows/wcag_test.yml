@@ -11,5 +11,3 @@ jobs:
       build_script: npm run setup-test-site && npm run build-test-site
     secrets:
       MAPBOX_KEY: ${{ secrets.MAPBOX_KEY }}
-      BAIDU_KEY: ${{ secrets.BAIDU_KEY }}
-      GOOGLE_KEY: ${{ secrets.GOOGLE_KEY }}

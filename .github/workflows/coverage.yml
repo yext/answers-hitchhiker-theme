@@ -17,5 +17,3 @@ jobs:
     secrets:
       caller_github_token: ${{ secrets.GITHUB_TOKEN }}
       MAPBOX_KEY: ${{ secrets.MAPBOX_KEY }}
-      BAIDU_KEY: ${{ secrets.BAIDU_KEY }}
-      GOOGLE_KEY: ${{ secrets.GOOGLE_KEY }}

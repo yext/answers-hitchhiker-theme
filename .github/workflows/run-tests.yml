@@ -12,5 +12,3 @@ jobs:
       build_script: ''
     secrets:
       MAPBOX_KEY: ${{ secrets.MAPBOX_KEY }}
-      BAIDU_KEY: ${{ secrets.BAIDU_KEY }}
-      GOOGLE_KEY: ${{ secrets.GOOGLE_KEY }}

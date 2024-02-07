@@ -350,8 +350,7 @@ function load(resolve, reject, apiKey, {
   }
 
   const negativeLngFixStyle = document.createElement('style');
-  // negativeLngFixStyle.innerText = negativeLngFixCSS;
-  negativeLngFixStyle.innerHTML = negativeLngFixCSS;
+  negativeLngFixStyle.innerText = negativeLngFixCSS;
 
   document.head.appendChild(negativeLngFixStyle);
 }
