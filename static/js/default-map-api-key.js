@@ -11,9 +11,9 @@ export function getDefaultMapApiKey(mapProvider) {
     }
     switch (mapProvider.toLowerCase()) {
       case 'google':
-        return process.env.GOOGLE_KEY;
+        return process.env.GOOGLE_API_KEY;
       case 'mapbox':
-        return process.env.MAPBOX_KEY;
+        return process.env.MAPBOX_API_KEY;
       default:
         throw new Error(
           `Given mapProvider: '${mapProvider}' is invalid. Expects either 'google' or 'mapbox'.`

@@ -307,7 +307,7 @@ class BaiduPin extends ProviderPin {
 
 // Load Function
 
-const yextAPIKey = process.env.BAIDU_KEY;
+const yextAPIKey = process.env.BAIDU_API_KEY;
 const baseUrl = 'https://api.map.baidu.com/getscript';
 
 /**

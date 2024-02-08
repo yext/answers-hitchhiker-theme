@@ -7,6 +7,4 @@ set_working_dir_to_test_site () {
 
 set_working_dir_to_test_site
 
-npx jambo build
-chmod u+x ./public/static/node_modules/esbuild/bin/esbuild
-npx grunt webpack
+npx jambo build && npx grunt webpack

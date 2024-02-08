@@ -73,9 +73,10 @@ module.exports = function () {
     ...htmlPlugins,
     new webpack.DefinePlugin({
       'process.env.JAMBO_INJECTED_DATA': JSON.stringify(jamboInjectedData),
-      'process.env.MAPBOX_KEY': JSON.stringify(process.env.MAPBOX_KEY) || 'REPLACE_ME',
-      'process.env.BAIDU_KEY': JSON.stringify(process.env.BAIDU_KEY) || 'REPLACE_ME',
-      'process.env.GOOGLE_KEY': JSON.stringify(process.env.GOOGLE_KEY) || 'REPLACE_ME',
+      'process.env.MAPBOX_API_KEY': JSON.stringify(process.env.MAPBOX_API_KEY) || 'REPLACE_ME',
+      'process.env.BAIDU_API_KEY': JSON.stringify(process.env.BAIDU_API_KEY) || 'REPLACE_ME',
+      'process.env.GOOGLE_API_KEY': JSON.stringify(process.env.GOOGLE_API_KEY) || 'REPLACE_ME',
+      'process.env.LEAFLET_API_KEY': JSON.stringify(process.env.LEAFLET_API_KEY) || 'REPLACE_ME',
     }),
     new RemovePlugin({
       after: {

@@ -10,5 +10,3 @@ jobs:
     uses: yext/slapshot-reusable-workflows/.github/workflows/run_tests.yml@v1
     with:
       build_script: ''
-    secrets:
-      MAPBOX_KEY: ${{ secrets.MAPBOX_KEY }}
