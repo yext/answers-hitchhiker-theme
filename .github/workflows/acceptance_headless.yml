@@ -6,9 +6,6 @@ jobs:
   headless-acceptance-tests:
     name: Chrome Acceptance Tests (Headless)
     runs-on: ubuntu-latest
-    env: 
-      MAPBOX_API_KEY: ${{ secrets.MAPBOX_API_KEY }}
-      GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3

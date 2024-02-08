@@ -175,7 +175,7 @@ class MapboxPin extends ProviderPin {
 
 // Load Function
 
-const yextAPIKey = process.env.MAPBOX_API_KEY;
+const yextAPIKey = 'pk.eyJ1IjoieWV4dCIsImEiOiJqNzVybUhnIn0.hTOO5A1yqfpN42-_z_GuLw';
 
 /**
  * This function is called when calling {@link MapProvider#load} on {@link module:Maps/Providers/Mapbox.MapboxMaps}.
