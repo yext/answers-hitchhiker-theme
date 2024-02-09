@@ -23,7 +23,6 @@
     "comment-json": "^4.1.1",
     "css-loader": "^3.4.2",
     "currency-symbol-map": "^5.0.1",
-    "dotenv": "^16.4.1",
     "esbuild-loader": "^2.13.1",
     "file-system": "^2.2.2",
     "fs-extra": "^9.0.1",
