@@ -71,7 +71,7 @@ module.exports = function () {
     ...cssRtlPlugin,
     ...htmlPlugins,
     new webpack.DefinePlugin({
-      'process.env.JAMBO_INJECTED_DATA': JSON.stringify(jamboInjectedData),
+      'process.env.JAMBO_INJECTED_DATA': JSON.stringify(jamboInjectedData)
     }),
     new RemovePlugin({
       after: {
