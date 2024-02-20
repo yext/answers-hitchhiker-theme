@@ -25,7 +25,7 @@ class InlineAssetHtmlPlugin {
    * HTML elements are only replaced with inlined versions if they have the data attribute
    * "data-webpack-inline"
    *
-   * @param {String} html The html of the page to analyze tags and replace with inlined 
+   * @param {String} html The html of the page to analyze tags and replace with inlined
    * @param {Object<String, Source>} assetsMap Mapping from asset name to asset content,
    *                                           provided by webpack compilation
    */
@@ -48,7 +48,7 @@ class InlineAssetHtmlPlugin {
       const scriptSource = scriptNode.src;
       const fileContents = this._getAssetContents(scriptSource, assetsMap);
 
-      scriptNode.innerHTML = fileContents;
+      scriptNode.textContent = fileContents;
       scriptNode.dataset.fileName = scriptSource;
       scriptNode.removeAttribute('src');
     });
@@ -68,7 +68,7 @@ class InlineAssetHtmlPlugin {
       const transformedCss = this._transformCssUrls(rawContents, relativePath);
 
       const styleNode = dom.window.document.createElement('style');
-      styleNode.innerHTML = transformedCss;
+      styleNode.textContent = transformedCss;
       styleNode.dataset.fileName = linkNode.href;
       styleNode.dataset.webpackInline = '';
       linkNode.parentNode.insertBefore(styleNode, linkNode.nextSibling);
