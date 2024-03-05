@@ -51,7 +51,7 @@ class ElementRenderTarget extends RenderTarget {
    */
   async render(data) {
     if (this._element) {
-      this._element.textContnet = this._templateFunction(data);
+      this._element.textContent = this._templateFunction(data);
     }
 
     return this._element;
