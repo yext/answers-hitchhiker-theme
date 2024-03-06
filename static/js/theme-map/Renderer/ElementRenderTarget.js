@@ -47,11 +47,11 @@ class ElementRenderTarget extends RenderTarget {
 
   /**
    * async render(data) => DOMNode
-   * Calls templateFunction(data) and sets value to element.innerHTML, then returns element
+   * Calls templateFunction(data) and sets value to element.textContent, then returns element
    */
   async render(data) {
     if (this._element) {
-      this._element.innerHTML = this._templateFunction(data);
+      this._element.textContent = this._templateFunction(data);
     }
 
     return this._element;
