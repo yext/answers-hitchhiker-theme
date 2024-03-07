@@ -1,6 +1,6 @@
 {
   "name": "answers-hitchhiker-theme",
-  "version": "1.33.5",
+  "version": "1.33.6",
   "description": "Toolchain for use with the HH Theme",
   "main": "Gruntfile.js",
   "scripts": {
@@ -31,7 +31,7 @@
     "grunt-webpack": "^4.0.3",
     "html-loader": "^2.1.2",
     "html-webpack-plugin": "^5.3.1",
-    "jambo": "^1.12.3",
+    "jambo": "^1.12.5",
     "jsdom": "^16.4.0",
     "locale-currency": "0.0.2",
     "mini-css-extract-plugin": "^1.6.0",
