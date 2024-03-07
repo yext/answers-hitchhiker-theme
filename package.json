@@ -1,6 +1,6 @@
 {
   "name": "answers-hitchhiker-theme",
-  "version": "1.33.5",
+  "version": "1.33.6",
   "description": "A starter Search theme for hitchhikers",
   "keywords": [
     "jambo",
@@ -49,7 +49,7 @@
     "file-system": "^2.2.2",
     "full-icu": "^1.3.1",
     "handlebars": "^4.7.7",
-    "jambo": "^1.12.3",
+    "jambo": "^1.12.5",
     "jest": "^25.5.2",
     "libphonenumber-js": "^1.9.6",
     "loader-utils": "^2.0.4",
