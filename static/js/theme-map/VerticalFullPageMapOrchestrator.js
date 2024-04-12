@@ -8,6 +8,7 @@ import ZoomTriggers from './Maps/ZoomTriggers.js';
 import PanTriggers from './Maps/PanTriggers.js';
 import MobileStates from './MobileStates';
 
+import QueryTriggers from '../constants/query-triggers.js';
 import StorageKeys from '../constants/storage-keys.js';
 
 /**
@@ -184,7 +185,13 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
     this.core.storage.registerListener({
       eventType: 'update',
       storageKey: StorageKeys.QUERY,
-      callback: () => this.updateMostRecentSearchState()
+      callback: () => {
+        const queryTrigger = this.core.storage.get(StorageKeys.QUERY_TRIGGER);
+        if (queryTrigger !== QueryTriggers.PAGINATION) {
+          this.core.clearStaticFilterNode('SearchThisArea');
+        }
+        this.updateMostRecentSearchState();
+      }
     });
 
     const searchThisAreaToggleEls = this._container.querySelectorAll('.js-searchThisAreaToggle');
@@ -680,7 +687,6 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       useFacets: true
     });
     this.updateMostRecentSearchState();
-    this.core.clearStaticFilterNode('SearchThisArea');
   }
 
   /**
