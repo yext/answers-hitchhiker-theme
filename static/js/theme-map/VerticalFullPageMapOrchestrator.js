@@ -685,7 +685,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
 
   /**
    * Scroll the result list to show the given element
-   * @param {HTMLElement} targetEl The result card to scroll to
+   * @param {HTMLElement} targetEl The result card to scroll to.
    */
   scrollToResult(targetEl) {
     const scrollContainer = this._resultsWrapperEl;
