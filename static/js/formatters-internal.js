@@ -311,110 +311,52 @@ export function image(simpleOrComplexImage = {}, desiredSize = '200x', atLeastAs
   if (!(Object.prototype.toString.call(image).indexOf('Object') > 0)) {
     throw new Error("Expected parameter of type Map");
   }
-  if ((typeof desiredSize !== 'string') || (desiredSize == null)) {
+  if (typeof desiredSize !== 'string') {
     throw new Error(`Object of type string expected. Got ${typeof desiredSize}.`);
   }
   if (desiredSize.indexOf('x') === -1) {
     throw new Error("Invalid desired size");
   }
-  if ((typeof atLeastAsLarge !== 'boolean') || (atLeastAsLarge == null)) {
+  if (typeof atLeastAsLarge !== 'boolean') {
     throw new Error(`Object of type boolean expected. Got ${typeof atLeastAsLarge}.`);
   }
 
-  const isEuImage = image.url.includes('eu.mktgcdn.com');
-
-  const dynamicUrl = isEuImage
-    ? _getEuImageDynamicUrl(image, desiredSize, atLeastAsLarge)
-    : _getUsImageDynamicUrl(image.url, desiredSize, atLeastAsLarge);
-
-  return Object.assign(
-    {},
-    image,
-    {
-      url: dynamicUrl.replace('http://', 'https://')
+  let url;
+  try {
+    url = new URL(image.url);
+    let urlPath = url.pathname;
+    if (url.pathname.match('^\/p')) {
+      urlPath = _removePhotoImageUrlExtension(urlPath);
     }
-  );
+
+    const hostname = url.hostname.replace(/^[a-z]+\./, 'dyn.');
+    const formatOptionsString = _getImageFormatOptions(desiredSize, atLeastAsLarge, image.width, image.height);
+
+    return Object.assign(
+      {},
+      image,
+      {
+        url: `https://${hostname}${urlPath}${formatOptionsString}`,
+      }
+    );
+
+  } catch (error) {
+    throw new Error(`Error processing image url ${image.url}: ${error}`);
+  }
 }
 
 /**
- * Given a US image url, returns the dynamic url.
+ * Construct the format options string with given parameters.
  *
- * @param {string} imageUrl Image's url (e.g.
- *   'https://dynl.mktgcdn.com/p/ldMLwj1JkN94-2pwh6CjR_OMy4KnexHJCfZhPAZCbi0/196x400.jpg',
- *   'https://a.mktgcdn.com/p/ldMLwj1JkN94-2pwh6CjR_OMy4KnexHJCfZhPAZCbi0/196x400.jpg')
  * @param {string} desiredSize The desired size of the image ('<width>x<height>')
  * @param {boolean} atLeastAsLarge Whether the image should be at least as large as the desired
  *                                 size in one dimension or smaller than the desired size in both
  *                                 dimensions.
- * @returns {string} A dynamic url (e.g. 'https://dynl.mktgcdn.com/p/ldMLwj1JkN94-2pwh6CjR_OMy4KnexHJCfZhPAZCbi0/200x1.jpg')
+ * @param {number?} fullSizeWidth The full size width of the original image
+ * @param {number?} fullSizeHeight The full size height of the original image
+ * @returns {string} A string representing the format options (e.g. 'height=200,width=100,fit=cover')
  */
-function _getUsImageDynamicUrl(imageUrl, desiredSize, atLeastAsLarge) {
-  const [urlWithoutExtension, extension] = _splitStringOnIndex(imageUrl, imageUrl.lastIndexOf('.'));
-  const [urlBeforeDimensions, dimensions] = _splitStringOnIndex(urlWithoutExtension, urlWithoutExtension.lastIndexOf('/') + 1);
-  const fullSizeDims = dimensions.split('x');
-
-  let desiredWidth, desiredHeight;
-  let desiredDims = desiredSize.split('x');
-
-  if (desiredDims[0] !== '') {
-    desiredWidth = Number.parseInt(desiredDims[0]);
-    if (Number.isNaN(desiredWidth)) {
-      throw new Error("Invalid width specified");
-    }
-  } else {
-    desiredWidth = atLeastAsLarge ? 1 : Number.parseInt(fullSizeDims[0]);
-  }
-
-  if (desiredDims[1] !== '') {
-    desiredHeight = Number.parseInt(desiredDims[1]);
-    if (Number.isNaN(desiredHeight)) {
-      throw new Error("Invalid height specified");
-    }
-  } else {
-    desiredHeight = atLeastAsLarge ? 1 : Number.parseInt(fullSizeDims[1]);
-  }
-
-  const urlWithDesiredDims = urlBeforeDimensions + desiredWidth + 'x' + desiredHeight + extension;
-
-  return atLeastAsLarge
-    ? _replaceUrlHost(urlWithDesiredDims, 'dynl.mktgcdn.com')
-    : _replaceUrlHost(urlWithDesiredDims, 'dynm.mktgcdn.com');
-}
-
-/**
- * Given an EU image url, returns the dynamic url.
- *
- * @param {Object} image The image object. (e.g.
- * {
- *   url: 'https://a.eu.mktgcdn.com/f/0/FLVfkpR1IwpWrWDuyNYCJWVYIDfPO6x1QSztXozMIzo.jpg',
- *   sourceUrl: 'https://a.mktgcdn.com/p/UN9RPhz0V9D8bNZ3XfNpkGnAk6ikFhVmgvntlBjVyMA/1200x675.jpg',
- *   width: 1200,
- *   height: 675,
- * })
- * @param {string} desiredSize The desired size of the image ('<width>x<height>')
- * @param {boolean} atLeastAsLarge Whether the image should be at least as large as the desired
- *                                 size in one dimension or smaller than the desired size in both
- *                                 dimensions.
- * @returns {string} A dynamic url (e.g. 'https://dyn.eu.mktgcdn.com/f/0/FLVfkpR1IwpWrWDuyNYCJWVYIDfPO6x1QSztXozMIzo.jpg/width=200,fit=contain')
- */
-function _getEuImageDynamicUrl(image, desiredSize, atLeastAsLarge) {
-  let fullSizeWidth, fullSizeHeight;
-  if (image.width) {
-    fullSizeWidth = image.width;
-  }
-  if (image.height) {
-    fullSizeHeight = image.height;
-  }
-
-  if (image.sourceUrl && (!fullSizeWidth || !fullSizeHeight)) {
-    const [urlWithoutExtension, _] = _splitStringOnIndex(image.sourceUrl, image.sourceUrl.lastIndexOf('.'));
-    const [__, dimensions] = _splitStringOnIndex(urlWithoutExtension, urlWithoutExtension.lastIndexOf('/') + 1);
-    const fullSizeDims = dimensions.split('x');
-
-    fullSizeWidth = Number.parseInt(fullSizeDims[0]);
-    fullSizeHeight = Number.parseInt(fullSizeDims[1]);
-  }
-
+function _getImageFormatOptions(desiredSize, atLeastAsLarge, fullSizeWidth, fullSizeHeight) {
   let desiredDims = desiredSize.split('x');
   let formatOptions = [];
 
@@ -442,33 +384,21 @@ function _getEuImageDynamicUrl(image, desiredSize, atLeastAsLarge) {
 
   formatOptions.push(`fit=${atLeastAsLarge ? 'cover' : 'contain'}`);
 
-  const urlWithOptions = image.url + `/${formatOptions.join(',')}`;
-
-  return _replaceUrlHost(urlWithOptions, 'dyn.eu.mktgcdn.com');
+  return `/${formatOptions.join(',')}`;
 }
 
 /**
- * Splits a string into two parts at the specified index.
+ * Given a photo image url path, remove the trailing extension.
  *
- * @param {string} str The string to be split
- * @param {number} index The index at which to split the string
- * @returns {Array<string>} The two parts of the string after splitting
+ * @param {string} imageUrlPath Image's url path (e.g.
+ *   '/p/mFsjqWGQEOMQGNoNIcnq61JtdSGiCs/225x225.jpg',
+ *   '/p-sandbox/mFsjqWGQEOMQGNoNIcnq61JtdSGiCs/225x225.jpg')
+ * @returns {string} A canonicalized image url path (e.g.
+ *   '/p/mFsjqWGQEOMQGNoNIcnq61JtdSGiCs',
+ *   '/p-sandbox/mFsjqWGQEOMQGNoNIcnq61JtdSGiCs')
  */
-function _splitStringOnIndex(str, index) {
-  return [str.slice(0, index), str.slice(index)];
-}
-
-/**
- * Replaces the current host of a url with the specified host.
- *
- * @param {string} url The url whose host is to be changed
- * @param {string} host The new host to change to
- * @returns {string} The url updated with the specified host
- */
-function _replaceUrlHost(url, host) {
-  const splitUrl = url.split('://');
-  const urlAfterHost = splitUrl[1].slice(splitUrl[1].indexOf('/'));
-  return splitUrl[0] + '://'  + host + urlAfterHost;
+function _removePhotoImageUrlExtension(imageUrlPath) {
+  return imageUrlPath.replace(/(\/[0-9]+x[0-9]+\.[a-z]+)|(\/)$/, '');
 }
 
 /**
