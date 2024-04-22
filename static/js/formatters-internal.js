@@ -358,31 +358,54 @@ export function image(simpleOrComplexImage = {}, desiredSize = '200x', atLeastAs
  */
 function _getImageFormatOptions(desiredSize, atLeastAsLarge, fullSizeWidth, fullSizeHeight) {
   let desiredDims = desiredSize.split('x');
-  let formatOptions = [];
+  const desiredWidthProvided = desiredDims[0] !== '' && desiredDims[0] !== '1';
+  const desiredHeightProvided = desiredDims[1] !== '' && desiredDims[1] !== '1';
 
-  if (desiredDims[0] !== '') {
-    const desiredWidth = Number.parseInt(desiredDims[0]);
+  // both dimensions are not provided, return original image
+  if (!desiredWidthProvided && !desiredHeightProvided) {
+    return '';
+  }
+
+  const originalRatio =
+    (!!fullSizeWidth && !!fullSizeHeight) ? (fullSizeWidth / fullSizeHeight) : undefined;
+  let desiredWidth;
+  let desiredHeight;
+  let formatOptions = ['fit=contain'];
+  if (desiredWidthProvided) {
+    desiredWidth = Number.parseInt(desiredDims[0]);
     if (Number.isNaN(desiredWidth)) {
       throw new Error("Invalid width specified");
     }
-
-    formatOptions.push(`width=${desiredWidth}`);
-  } else if (!atLeastAsLarge && fullSizeWidth) {
-    formatOptions.push(`width=${fullSizeWidth}`);
   }
-
-  if (desiredDims[1] !== '') {
-    const desiredHeight = Number.parseInt(desiredDims[1]);
+  if (desiredHeightProvided) {
+    desiredHeight = Number.parseInt(desiredDims[1]);
     if (Number.isNaN(desiredHeight)) {
       throw new Error("Invalid height specified");
     }
-
-    formatOptions.push(`height=${desiredHeight}`);
-  } else if (!atLeastAsLarge && fullSizeHeight) {
-    formatOptions.push(`height=${fullSizeHeight}`);
   }
 
-  formatOptions.push(`fit=${atLeastAsLarge ? 'cover' : 'contain'}`);
+  // only width is provided
+  if (desiredWidthProvided && !desiredHeightProvided) {
+    formatOptions.push(`width=${desiredWidth}`);
+
+    return `/${formatOptions.join(',')}`;
+  }
+
+  // only height is provided
+  if (!desiredWidthProvided && desiredHeightProvided) {
+    formatOptions.push(`height=${desiredHeight}`);
+
+    return `/${formatOptions.join(',')}`;
+  }
+
+  // both dimensions are provided
+  if (atLeastAsLarge && !!originalRatio) {
+    formatOptions.push(`width=${Math.max(desiredWidth, Math.round(desiredHeight * originalRatio))}`);
+    formatOptions.push(`height=${Math.max(desiredHeight, Math.round(desiredWidth / originalRatio))}`);
+  } else {
+    formatOptions.push(`width=${desiredWidth}`);
+    formatOptions.push(`height=${desiredHeight}`);
+  }
 
   return `/${formatOptions.join(',')}`;
 }

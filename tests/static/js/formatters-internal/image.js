@@ -1,159 +1,153 @@
 import Formatters from 'static/js/formatters.js';
 
 describe('image formatter', () => {
-  const photoUrl = 'https://a.mktgcdn.com/p/FOO/1024x768.jpg';
+  const photoUrl = 'https://a.mktgcdn.com/p/FOO/2000x1000.jpg';
   const oldFileUrl = 'https://a.mktgcdn.com/f/0/FOO.jpg';
   const newFileUrl = 'https://a.mktgcdn.com/f/FOO.jpg';
   const euFileUrl = 'https://a.eu.mktgcdn.com/f/0/FOO.jpg';
 
   const photoImg = {
     url: photoUrl,
-    width: 1024,
-    height: 768,
+    width: 2000,
+    height: 1000,
   };
 
   const oldFileImg = {
     url: oldFileUrl,
-    width: 1024,
-    height: 768,
+    width: 2000,
+    height: 1000,
   };
 
   const newFileImg = {
     url: newFileUrl,
-    width: 1024,
-    height: 768,
+    width: 2000,
+    height: 1000,
   };
 
   const euFileImg = {
     url: euFileUrl,
-    width: 1024,
-    height: 768,
+    width: 2000,
+    height: 1000,
   }
 
-  describe('when choosing the smallest image over threshold', () => {
-    it('By default chooses the smallest image with width >= 200', () => {
-      const photoImgUrl = Formatters.image(photoImg).url;
-      expect(photoImgUrl).toEqual('https://dyn.mktgcdn.com/p/FOO/width=200,fit=cover');
-      const oldFileImgUrl = Formatters.image(oldFileImg).url;
-      expect(oldFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/0/FOO.jpg/width=200,fit=cover');
-      const newFileImgUrl = Formatters.image(newFileImg).url;
-      expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/width=200,fit=cover');
-      const euFileImgUrl = Formatters.image(euFileImg).url;
-      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/width=200,fit=cover');
+  describe('when both dimensions are specified', () => {
+    it('if can get original ratio and atLeastAsLarge is true, preserve ratio and cover the specified space', () => {
+      const photoImgUrl = Formatters.image(photoImg, '1000x200', true).url;
+      expect(photoImgUrl).toEqual('https://dyn.mktgcdn.com/p/FOO/fit=contain,width=1000,height=500');
+      const oldFileImgUrl = Formatters.image(oldFileImg, '200x500', true).url;
+      expect(oldFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/0/FOO.jpg/fit=contain,width=1000,height=500');
+      const newFileImgUrl = Formatters.image(newFileImg, '3000x1000', true).url;
+      expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/fit=contain,width=3000,height=1500');
+      const euFileImgUrl = Formatters.image(euFileImg, '3000x4000', true).url;
+      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/fit=contain,width=8000,height=4000');
     });
 
-    it('Can restrict the dimensions by width', () => {
-      const photoImgUrl = Formatters.image(photoImg, '601x').url;
-      expect(photoImgUrl).toEqual('https://dyn.mktgcdn.com/p/FOO/width=601,fit=cover');
-      const oldFileImgUrl = Formatters.image(oldFileImg, '601x').url;
-      expect(oldFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/0/FOO.jpg/width=601,fit=cover');
-      const newFileImgUrl = Formatters.image(newFileImg, '601x').url;
-      expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/width=601,fit=cover');
-      const euFileImgUrl = Formatters.image(euFileImg, '601x').url;
-      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/width=601,fit=cover');
+    it('if can get original ratio and atLeastAsLarge is false, preserve ratio and return the largest image within the space', () => {
+      const photoImgUrl = Formatters.image(photoImg, '1000x200', false).url;
+      expect(photoImgUrl).toEqual('https://dyn.mktgcdn.com/p/FOO/fit=contain,width=1000,height=200');
+      const oldFileImgUrl = Formatters.image(oldFileImg, '200x500', false).url;
+      expect(oldFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/0/FOO.jpg/fit=contain,width=200,height=500');
+      const newFileImgUrl = Formatters.image(newFileImg, '3000x1000', false).url;
+      expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/fit=contain,width=3000,height=1000');
+      const euFileImgUrl = Formatters.image(euFileImg, '3000x4000', false).url;
+      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/fit=contain,width=3000,height=4000');
     });
 
-    it('Can restrict the dimensions by height', () => {
-      const photoImgUrl = Formatters.image(photoImg, 'x338').url;
-      expect(photoImgUrl).toEqual('https://dyn.mktgcdn.com/p/FOO/height=338,fit=cover');
-      const oldFileImgUrl = Formatters.image(oldFileImg, 'x338').url;
-      expect(oldFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/0/FOO.jpg/height=338,fit=cover');
-      const newFileImgUrl = Formatters.image(newFileImg, 'x338').url;
-      expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/height=338,fit=cover');
-      const euFileImgUrl = Formatters.image(euFileImg, 'x338').url;
-      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/height=338,fit=cover');
+    it('if can\'t get original ratio and atLeastAsLarge is true, use desired dimensions', () => {
+      const photoImgUrl = Formatters.image({url: photoUrl}, '1000x200', true).url;
+      expect(photoImgUrl).toEqual('https://dyn.mktgcdn.com/p/FOO/fit=contain,width=1000,height=200');
+      const oldFileImgUrl = Formatters.image({url: oldFileUrl}, '200x500', true).url;
+      expect(oldFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/0/FOO.jpg/fit=contain,width=200,height=500');
+      const newFileImgUrl = Formatters.image({url: newFileUrl}, '3000x2000', true).url;
+      expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/fit=contain,width=3000,height=2000');
+      const euFileImgUrl = Formatters.image({url: euFileUrl}, '3000x3000', true).url;
+      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/fit=contain,width=3000,height=3000');
     });
 
-    it('Can restrict by both dimensions', () => {
-      const photoImgUrl = Formatters.image(photoImg, '601x338').url;
-      expect(photoImgUrl).toEqual('https://dyn.mktgcdn.com/p/FOO/width=601,height=338,fit=cover');
-      const oldFileImgUrl = Formatters.image(oldFileImg, '601x338').url;
-      expect(oldFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/0/FOO.jpg/width=601,height=338,fit=cover');
-      const newFileImgUrl = Formatters.image(newFileImg, '601x338').url;
-      expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/width=601,height=338,fit=cover');
-      const euFileImgUrl = Formatters.image(euFileImg, '601x338').url;
-      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/width=601,height=338,fit=cover');
-    });
-
-    it('returns the smallest image when no dimensions given', () => {
-      const photoImgUrl = Formatters.image(photoImg, 'x').url;
-      expect(photoImgUrl).toEqual('https://dyn.mktgcdn.com/p/FOO/fit=cover');
-      const oldFileImgUrl = Formatters.image(oldFileImg, 'x').url;
-      expect(oldFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/0/FOO.jpg/fit=cover');
-      const newFileImgUrl = Formatters.image(newFileImg, 'x').url;
-      expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/fit=cover');
-      const euFileImgUrl = Formatters.image(euFileImg, 'x').url;
-      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/fit=cover');
+    it('if can\'t get original ratio and atLeastAsLarge is true, use desired dimensions', () => {
+      const photoImgUrl = Formatters.image({url: photoUrl}, '1000x200', false).url;
+      expect(photoImgUrl).toEqual('https://dyn.mktgcdn.com/p/FOO/fit=contain,width=1000,height=200');
+      const oldFileImgUrl = Formatters.image({url: oldFileUrl}, '200x500', false).url;
+      expect(oldFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/0/FOO.jpg/fit=contain,width=200,height=500');
+      const newFileImgUrl = Formatters.image({url: newFileUrl}, '3000x2000', false).url;
+      expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/fit=contain,width=3000,height=2000');
+      const euFileImgUrl = Formatters.image({url: euFileUrl}, '3000x3000', false).url;
+      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/fit=contain,width=3000,height=3000');
     });
   });
 
-  describe('when choosing the biggest image under threshold', () => {
-    it('Can restrict the dimensions by width', () => {
-      const photoImgUrl = Formatters.image(photoImg, '601x', false).url;
-      expect(photoImgUrl).toEqual('https://dyn.mktgcdn.com/p/FOO/width=601,height=768,fit=contain');
-      const oldFileImgUrl = Formatters.image(oldFileImg, '601x', false).url;
-      expect(oldFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/0/FOO.jpg/width=601,height=768,fit=contain');
-      const newFileImgUrl = Formatters.image(newFileImg, '601x', false).url;
-      expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/width=601,height=768,fit=contain');
-      const euFileImgUrl = Formatters.image(euFileImg, '601x', false).url;
-      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/width=601,height=768,fit=contain');
+  describe('when image has only one dimension specified', () => {
+    it('can restrict the dimensions by width, regardless of atLeastAsLarge', () => {
+      let photoImgUrl = Formatters.image(photoImg, '1000x', false).url;
+      expect(photoImgUrl).toEqual('https://dyn.mktgcdn.com/p/FOO/fit=contain,width=1000');
+      let oldFileImgUrl = Formatters.image(oldFileImg, '1000x1', false).url;
+      expect(oldFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/0/FOO.jpg/fit=contain,width=1000');
+      let newFileImgUrl = Formatters.image(newFileImg, '3000x', false).url;
+      expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/fit=contain,width=3000');
+      let euFileImgUrl = Formatters.image(euFileImg, '3000x1', false).url;
+      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/fit=contain,width=3000');
+
+      photoImgUrl = Formatters.image(photoImg, '1000x', true).url;
+      expect(photoImgUrl).toEqual('https://dyn.mktgcdn.com/p/FOO/fit=contain,width=1000');
+      oldFileImgUrl = Formatters.image(oldFileImg, '1000x1', true).url;
+      expect(oldFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/0/FOO.jpg/fit=contain,width=1000');
+      newFileImgUrl = Formatters.image(newFileImg, '3000x', true).url;
+      expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/fit=contain,width=3000');
+      euFileImgUrl = Formatters.image(euFileImg, '3000x1', true).url;
+      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/fit=contain,width=3000');
     });
 
-    it('Can restrict the dimensions by height', () => {
-      const photoImgUrl = Formatters.image(photoImg, 'x338', false).url;
-      expect(photoImgUrl).toEqual('https://dyn.mktgcdn.com/p/FOO/width=1024,height=338,fit=contain');
-      const oldFileImgUrl = Formatters.image(oldFileImg, 'x338', false).url;
-      expect(oldFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/0/FOO.jpg/width=1024,height=338,fit=contain');
-      const newFileImgUrl = Formatters.image(newFileImg, 'x338', false).url;
-      expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/width=1024,height=338,fit=contain');
-      const euFileImgUrl = Formatters.image(euFileImg, 'x338', false).url;
-      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/width=1024,height=338,fit=contain');
-    });
+    it('Can restrict the dimensions by height, regardless of atLeastAsLarge', () => {
+      let photoImgUrl = Formatters.image(photoImg, 'x500', false).url;
+      expect(photoImgUrl).toEqual('https://dyn.mktgcdn.com/p/FOO/fit=contain,height=500');
+      let oldFileImgUrl = Formatters.image(oldFileImg, '1x500', false).url;
+      expect(oldFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/0/FOO.jpg/fit=contain,height=500');
+      let newFileImgUrl = Formatters.image(newFileImg, 'x2000', false).url;
+      expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/fit=contain,height=2000');
+      let euFileImgUrl = Formatters.image(euFileImg, '1x2000', false).url;
+      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/fit=contain,height=2000');
 
-    it('Can restrict by both dimensions', () => {
-      const photoImgUrl = Formatters.image(photoImg, '999x338', false).url;
-      expect(photoImgUrl).toEqual('https://dyn.mktgcdn.com/p/FOO/width=999,height=338,fit=contain');
-      const oldFileImgUrl = Formatters.image(oldFileImg, '999x338', false).url;
-      expect(oldFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/0/FOO.jpg/width=999,height=338,fit=contain');
-      const newFileImgUrl = Formatters.image(newFileImg, '999x338', false).url;
-      expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/width=999,height=338,fit=contain');
-      const euFileImgUrl = Formatters.image(euFileImg, '999x338', false).url;
-      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/width=999,height=338,fit=contain');
-    });
-
-    it('return the largest image when no dimensions given', () => {
-      const photoImgUrl = Formatters.image(photoImg, 'x', false).url;
-      expect(photoImgUrl).toEqual('https://dyn.mktgcdn.com/p/FOO/width=1024,height=768,fit=contain');
-      const oldFileImgUrl = Formatters.image(oldFileImg, 'x', false).url;
-      expect(oldFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/0/FOO.jpg/width=1024,height=768,fit=contain');
-      const newFileImgUrl = Formatters.image(newFileImg, 'x', false).url;
-      expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/width=1024,height=768,fit=contain');
-      const euFileImgUrl = Formatters.image(euFileImg, 'x', false).url;
-      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/width=1024,height=768,fit=contain');
+      photoImgUrl = Formatters.image(photoImg, 'x500', true).url;
+      expect(photoImgUrl).toEqual('https://dyn.mktgcdn.com/p/FOO/fit=contain,height=500');
+      oldFileImgUrl = Formatters.image(oldFileImg, '1x500', true).url;
+      expect(oldFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/0/FOO.jpg/fit=contain,height=500');
+      newFileImgUrl = Formatters.image(newFileImg, 'x2000', true).url;
+      expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/fit=contain,height=2000');
+      euFileImgUrl = Formatters.image(euFileImg, '1x2000', true).url;
+      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/fit=contain,height=2000');
     });
   });
 
   describe('when image has no dimensions specified', () => {
-    it('when choosing the biggest image under threshold, use the width and height on the image object if exists', () => {
-      const photoImgUrl = Formatters.image({url: photoUrl, width: 1024}, 'x', false).url;
-      expect(photoImgUrl).toEqual('https://dyn.mktgcdn.com/p/FOO/width=1024,fit=contain');
-      const oldFileImgUrl = Formatters.image({url: oldFileUrl, width: 1024}, 'x', false).url;
-      expect(oldFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/0/FOO.jpg/width=1024,fit=contain');
-      const newFileImgUrl = Formatters.image({url: newFileUrl, width: 1024}, 'x', false).url;
-      expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/width=1024,fit=contain');
-      const euFileImgUrl = Formatters.image({url: euFileUrl, width: 1024}, 'x', false).url;
-      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/width=1024,fit=contain');
+    it('By default chooses the smallest image with width >= 200', () => {
+      const photoImgUrl = Formatters.image(photoImg).url;
+      expect(photoImgUrl).toEqual('https://dyn.mktgcdn.com/p/FOO/fit=contain,width=200');
+      const oldFileImgUrl = Formatters.image(oldFileImg).url;
+      expect(oldFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/0/FOO.jpg/fit=contain,width=200');
+      const newFileImgUrl = Formatters.image(newFileImg).url;
+      expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/fit=contain,width=200');
+      const euFileImgUrl = Formatters.image(euFileImg).url;
+      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/fit=contain,width=200');
     });
 
-    it('when choosing the smallest image over threshold, omit width/height if can\'t parse it from the image object', () => {
-      const photoImgUrl = Formatters.image({url: photoUrl}, 'x', true).url;
-      expect(photoImgUrl).toEqual('https://dyn.mktgcdn.com/p/FOO/fit=cover');
-      const oldFileImgUrl = Formatters.image({url: oldFileUrl}, 'x', true).url;
-      expect(oldFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/0/FOO.jpg/fit=cover');
-      const newFileImgUrl = Formatters.image({url: newFileUrl}, 'x', true).url;
-      expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/fit=cover');
-      const euFileImgUrl = Formatters.image({url: euFileUrl}, 'x', true).url;
-      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/fit=cover');
+    it('do not transform image regardless of atLeastAsLarge\'s', () => {
+      let photoImgUrl = Formatters.image(photoImg, 'x', false).url;
+      expect(photoImgUrl).toEqual('https://dyn.mktgcdn.com/p/FOO');
+      let oldFileImgUrl = Formatters.image(oldFileImg, 'x', false).url;
+      expect(oldFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/0/FOO.jpg');
+      let newFileImgUrl = Formatters.image(newFileImg, 'x', false).url;
+      expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg');
+      let euFileImgUrl = Formatters.image(euFileImg, 'x', false).url;
+      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg');
+
+      photoImgUrl = Formatters.image(photoImg, 'x', true).url;
+      expect(photoImgUrl).toEqual('https://dyn.mktgcdn.com/p/FOO');
+      oldFileImgUrl = Formatters.image(oldFileImg, 'x', true).url;
+      expect(oldFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/0/FOO.jpg');
+      newFileImgUrl = Formatters.image(newFileImg, 'x', true).url;
+      expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg');
+      euFileImgUrl = Formatters.image(euFileImg, 'x', true).url;
+      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg');
     });
   });
 });
