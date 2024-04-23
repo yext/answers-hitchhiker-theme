@@ -329,7 +329,7 @@ export function image(simpleOrComplexImage = {}, desiredSize = '200x', atLeastAs
       urlPath = _removePhotoImageUrlExtension(urlPath);
     }
 
-    const hostname = url.hostname.replace(/^[a-z]+\./, 'dyn.');
+    const hostname = url.hostname.replace(/^(a|dynl|dynm)\./, 'dyn.');
     const formatOptionsString = _getImageFormatOptions(desiredSize, atLeastAsLarge, image.width, image.height);
 
     return Object.assign(
