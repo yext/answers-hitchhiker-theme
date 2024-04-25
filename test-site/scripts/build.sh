@@ -8,4 +8,3 @@ set_working_dir_to_test_site () {
 set_working_dir_to_test_site
 
 npx jambo build && npx grunt webpack
-npx grunt webpack
