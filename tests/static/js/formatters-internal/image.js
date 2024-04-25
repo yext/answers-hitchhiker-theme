@@ -145,22 +145,22 @@ describe('image formatter', () => {
 
     it('do not transform image regardless of atLeastAsLarge\'s', () => {
       let photoImgUrl = Formatters.image(photoImg, 'x', false).url;
-      expect(photoImgUrl).toEqual('https://dyn.mktgcdn.com/p/FOO');
+      expect(photoImgUrl).toEqual('https://dyn.mktgcdn.com/p/FOO/fit=contain');
       let oldFileImgUrl = Formatters.image(oldFileImg, 'x', false).url;
-      expect(oldFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/0/FOO.jpg');
+      expect(oldFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/0/FOO.jpg/fit=contain');
       let newFileImgUrl = Formatters.image(newFileImg, 'x', false).url;
-      expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg');
+      expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/fit=contain');
       let euFileImgUrl = Formatters.image(euFileImg, 'x', false).url;
-      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg');
+      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/fit=contain');
 
       photoImgUrl = Formatters.image(photoImg, 'x', true).url;
-      expect(photoImgUrl).toEqual('https://dyn.mktgcdn.com/p/FOO');
+      expect(photoImgUrl).toEqual('https://dyn.mktgcdn.com/p/FOO/fit=contain');
       oldFileImgUrl = Formatters.image(oldFileImg, 'x', true).url;
-      expect(oldFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/0/FOO.jpg');
+      expect(oldFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/0/FOO.jpg/fit=contain');
       newFileImgUrl = Formatters.image(newFileImg, 'x', true).url;
-      expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg');
+      expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/fit=contain');
       euFileImgUrl = Formatters.image(euFileImg, 'x', true).url;
-      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg');
+      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/fit=contain');
     });
   });
 });

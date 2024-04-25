@@ -366,17 +366,15 @@ function _getImageFormatOptions(desiredSize, atLeastAsLarge, fullSizeWidth, full
   let desiredDims = desiredSize.split('x');
   const hasDesiredWidth = desiredDims[0] !== '';
   const hasDesiredHeight = desiredDims[1] !== '';
+  let formatOptions = ['fit=contain'];
 
   // both dimensions are not provided, return original image
   if (!hasDesiredWidth && !hasDesiredHeight) {
-    return '';
+    return `/${formatOptions.join(',')}`;
   }
 
-  const originalRatio =
-    (!!fullSizeWidth && !!fullSizeHeight) ? (fullSizeWidth / fullSizeHeight) : undefined;
   let desiredWidth;
   let desiredHeight;
-  let formatOptions = ['fit=contain'];
   if (hasDesiredWidth) {
     desiredWidth = Number.parseInt(desiredDims[0]);
     if (Number.isNaN(desiredWidth)) {
@@ -390,31 +388,29 @@ function _getImageFormatOptions(desiredSize, atLeastAsLarge, fullSizeWidth, full
     }
   }
 
-  // only width is provided
-  if (hasDesiredWidth && !hasDesiredHeight) {
-    formatOptions.push(`width=${desiredWidth}`);
-
-    return `/${formatOptions.join(',')}`;
-  }
-
-  // only height is provided
-  if (!hasDesiredWidth && hasDesiredHeight) {
-    formatOptions.push(`height=${desiredHeight}`);
-
-    return `/${formatOptions.join(',')}`;
-  }
+  const originalRatio =
+    (!!fullSizeWidth && !!fullSizeHeight) ? (fullSizeWidth / fullSizeHeight) : undefined;
 
   // both dimensions are provided
-  if (!!originalRatio) {
-    if (atLeastAsLarge) {
-      formatOptions.push(`width=${Math.max(desiredWidth, Math.round(desiredHeight * originalRatio))}`);
-      formatOptions.push(`height=${Math.max(desiredHeight, Math.round(desiredWidth / originalRatio))}`);
-    } else {
-      formatOptions.push(`width=${Math.min(desiredWidth, Math.round(desiredHeight * originalRatio))}`);
-      formatOptions.push(`height=${Math.min(desiredHeight, Math.round(desiredWidth / originalRatio))}`);
-    }
-  } else {
+  if (hasDesiredWidth && hasDesiredHeight && originalRatio) {
+    const width = atLeastAsLarge
+      ? Math.max(desiredWidth, Math.round(desiredHeight * originalRatio))
+      : Math.min(desiredWidth, Math.round(desiredHeight * originalRatio));
+    const height = atLeastAsLarge
+      ? Math.max(desiredHeight, Math.round(desiredWidth / originalRatio))
+      : Math.min(desiredHeight, Math.round(desiredWidth / originalRatio));
+
+    formatOptions.push(`width=${width}`);
+    formatOptions.push(`height=${height}`);
+
+    return `/${formatOptions.join(',')}`;
+  }
+
+  if (hasDesiredWidth) {
     formatOptions.push(`width=${desiredWidth}`);
+  }
+
+  if (hasDesiredHeight) {
     formatOptions.push(`height=${desiredHeight}`);
   }
 
