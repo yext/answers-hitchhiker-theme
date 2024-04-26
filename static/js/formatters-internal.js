@@ -422,10 +422,14 @@ function _getImageFormatOptions(desiredSize, atLeastAsLarge, fullSizeWidth, full
  *
  * @param {string} imageUrlPath Image's url path (e.g.
  *   '/p/mFsjqWGQEOMQGNoNIcnq61JtdSGiCs/225x225.jpg/',
- *   '/p-sandbox/mFsjqWGQEOMQGNoNIcnq61JtdSGiCs/225x225.jpg')
+ *   '/p-sandbox/mFsjqWGQEOMQGNoNIcnq61JtdSGiCs/225x225.jpg',
+ *   '/p-sandbox/mFsjqWGQEOMQGNoNIcnq61JtdSGiCs/225x225.jpg/',
+ *   '/p-sandbox/mFsjqWGQEOMQGNoNIcnq61JtdSGiCs/1.0000/225x225.jpg')
  * @returns {string} A canonicalized image url path (e.g.
  *   '/p/mFsjqWGQEOMQGNoNIcnq61JtdSGiCs',
- *   '/p-sandbox/mFsjqWGQEOMQGNoNIcnq61JtdSGiCs')
+ *   '/p-sandbox/mFsjqWGQEOMQGNoNIcnq61JtdSGiCs',
+ *   '/p-sandbox/mFsjqWGQEOMQGNoNIcnq61JtdSGiCs',
+ *   '/p-sandbox/mFsjqWGQEOMQGNoNIcnq61JtdSGiCs/1.0000' respectively)
  */
 function _removePhotoImageUrlExtension(imageUrlPath) {
   return imageUrlPath.replace(/(\/[0-9]+x[0-9]+\.[a-z]+(\/)*)|(\/)$/, '');
