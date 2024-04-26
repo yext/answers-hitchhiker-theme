@@ -290,21 +290,23 @@ export function joinList(list, separator) {
  *     the original image ratio (e.g. if original image is 100x100, returns an image of 200x200).
  *     Note that if we can't get the original image ratio from the image object, the behavior would
  *     be similar to when atLeastAsLarge = false.
- *   - if atLeastAsLarge = false, returns an image that is as large in at least one dimension while
- *     preserving the original image ratio (e.g. if original image is 100x100, returns an image of
- *     100x100).
+ *   - if atLeastAsLarge = false, returns an image that is contained by the desiredSize, while
+ *     preserving the aspect ratio. In other words, both dimensions will either match or be smaller
+ *     than the desired dimensions (e.g. if original image is 100x100, returns an image of 100x100).
  *
  * If only one dimension is provided in desiredSize (e.g. "200x", which is also the default):
  *   - returns an image that matches this dimension while preserving ratio of the original image
  *     (e.g. if original image is 100x100, returned image would be 200x200).
  *
- * If "" is provided as the desiredSize, returns an image in the original size.
+ * If "", "x", "0x0", or a string with unexpected format is provided as the desiredSize, returns an
+ * image in the original size.
  *
  * @param {Object} simpleOrComplexImage An image object with a url
  * @param {string} desiredSize The desired size of the image ('<width>x<height>')
  * @param {boolean} atLeastAsLarge Whether the image should be at least as large as the desired
- *                                 size in both dimensions or at least one dimension.
- * @returns {Object} An object with a url for dynamic
+ *                                 size in both dimensions or at most as large as the desired size
+ *                                 in both dimensions.
+ * @returns {Object} An object with a dynamic url
  */
 export function image(simpleOrComplexImage = {}, desiredSize = '200x', atLeastAsLarge = true) {
   let image = simpleOrComplexImage.image || simpleOrComplexImage;
@@ -364,35 +366,27 @@ export function image(simpleOrComplexImage = {}, desiredSize = '200x', atLeastAs
  */
 function _getImageFormatOptions(desiredSize, atLeastAsLarge, fullSizeWidth, fullSizeHeight) {
   let desiredDims = desiredSize.split('x');
-  const hasDesiredWidth = desiredDims[0] !== '';
-  const hasDesiredHeight = desiredDims[1] !== '';
-  let formatOptions = ['fit=contain'];
+  const desiredWidth = desiredDims[0] ? Number.parseInt(desiredDims[0]) : 0;
+  if (Number.isNaN(desiredWidth)) {
+    throw new Error("Invalid width specified");
+  }
+  const desiredHeight = desiredDims[1] ? Number.parseInt(desiredDims[1]) : 0;
+  if (Number.isNaN(desiredHeight)) {
+    throw new Error("Invalid height specified");
+  }
+
+  const formatOptions = ['fit=contain'];
 
   // both dimensions are not provided, return original image
-  if (!hasDesiredWidth && !hasDesiredHeight) {
+  if (!desiredWidth && !desiredHeight) {
     return `/${formatOptions.join(',')}`;
-  }
-
-  let desiredWidth;
-  let desiredHeight;
-  if (hasDesiredWidth) {
-    desiredWidth = Number.parseInt(desiredDims[0]);
-    if (Number.isNaN(desiredWidth)) {
-      throw new Error("Invalid width specified");
-    }
-  }
-  if (hasDesiredHeight) {
-    desiredHeight = Number.parseInt(desiredDims[1]);
-    if (Number.isNaN(desiredHeight)) {
-      throw new Error("Invalid height specified");
-    }
   }
 
   const originalRatio =
     (!!fullSizeWidth && !!fullSizeHeight) ? (fullSizeWidth / fullSizeHeight) : undefined;
 
   // both dimensions are provided
-  if (hasDesiredWidth && hasDesiredHeight && originalRatio) {
+  if (desiredWidth && desiredHeight && originalRatio) {
     const width = atLeastAsLarge
       ? Math.max(desiredWidth, Math.round(desiredHeight * originalRatio))
       : Math.min(desiredWidth, Math.round(desiredHeight * originalRatio));
@@ -400,17 +394,16 @@ function _getImageFormatOptions(desiredSize, atLeastAsLarge, fullSizeWidth, full
       ? Math.max(desiredHeight, Math.round(desiredWidth / originalRatio))
       : Math.min(desiredHeight, Math.round(desiredWidth / originalRatio));
 
-    formatOptions.push(`width=${width}`);
-    formatOptions.push(`height=${height}`);
+    formatOptions.push(`width=${width}`, `height=${height}`);
 
     return `/${formatOptions.join(',')}`;
   }
 
-  if (hasDesiredWidth) {
+  if (desiredWidth) {
     formatOptions.push(`width=${desiredWidth}`);
   }
 
-  if (hasDesiredHeight) {
+  if (desiredHeight) {
     formatOptions.push(`height=${desiredHeight}`);
   }
 
@@ -432,7 +425,7 @@ function _getImageFormatOptions(desiredSize, atLeastAsLarge, fullSizeWidth, full
  *   '/p-sandbox/mFsjqWGQEOMQGNoNIcnq61JtdSGiCs/1.0000' respectively)
  */
 function _removePhotoImageUrlExtension(imageUrlPath) {
-  return imageUrlPath.replace(/(\/[0-9]+x[0-9]+\.[a-z]+(\/)*)|(\/)$/, '');
+  return imageUrlPath.replace(/(\/[0-9]+x[0-9]+\.[a-z]+(\/)?)|(\/)$/, '');
 }
 
 /**

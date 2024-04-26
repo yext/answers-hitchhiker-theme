@@ -7,35 +7,13 @@ describe('image formatter', () => {
   const newFileUrl = 'https://a.mktgcdn.com/f/FOO.jpg';
   const euFileUrl = 'https://a.eu.mktgcdn.com/f/0/FOO.jpg';
 
-  const photoImg = {
-    url: photoUrl,
-    width: 2000,
-    height: 1000,
-  };
+  const defaultSize = {width: 2000, height: 1000};
 
-  const photoWithPaddingImg = {
-    url: photoWithPaddingUrl,
-    width: 2000,
-    height: 1000,
-  };
-
-  const oldFileImg = {
-    url: oldFileUrl,
-    width: 2000,
-    height: 1000,
-  };
-
-  const newFileImg = {
-    url: newFileUrl,
-    width: 2000,
-    height: 1000,
-  };
-
-  const euFileImg = {
-    url: euFileUrl,
-    width: 2000,
-    height: 1000,
-  }
+  const photoImg = {...defaultSize, url: photoUrl};
+  const photoWithPaddingImg = {...defaultSize, url: photoWithPaddingUrl};
+  const oldFileImg = {...defaultSize, url: oldFileUrl};
+  const newFileImg = {...defaultSize, url: newFileUrl};
+  const euFileImg = {...defaultSize, url: euFileUrl}
 
   describe('when both dimensions are specified and atLeastAsLarge is true', () => {
     it('atLeastAsLarge is default to true if not provided by caller', () => {
@@ -93,15 +71,15 @@ describe('image formatter', () => {
     });
 
     it('if can\'t get original ratio, use desired dimensions', () => {
-      const photoImgUrl = Formatters.image({url: photoUrl}, '1000x200', false).url;
+      const photoImgUrl = Formatters.image({url: photoUrl, width: 100}, '1000x200', false).url;
       expect(photoImgUrl).toEqual('https://dyn.mktgcdn.com/p/FOO/fit=contain,width=1000,height=200');
-      const photoWithPaddingImgUrl = Formatters.image({url: photoWithPaddingUrl}, '1000x200', false).url;
+      const photoWithPaddingImgUrl = Formatters.image({url: photoWithPaddingUrl, width: 0}, '1000x200', false).url;
       expect(photoWithPaddingImgUrl).toEqual('https://dyn.mktgcdn.com/p/FOO/1.0000/fit=contain,width=1000,height=200');
-      const oldFileImgUrl = Formatters.image({url: oldFileUrl}, '200x500', false).url;
+      const oldFileImgUrl = Formatters.image({url: oldFileUrl, height: 100}, '200x500', false).url;
       expect(oldFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/0/FOO.jpg/fit=contain,width=200,height=500');
-      const newFileImgUrl = Formatters.image({url: newFileUrl}, '3000x2000', false).url;
+      const newFileImgUrl = Formatters.image({url: newFileUrl, height: 0}, '3000x2000', false).url;
       expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/fit=contain,width=3000,height=2000');
-      const euFileImgUrl = Formatters.image({url: euFileUrl}, '3000x3000', false).url;
+      const euFileImgUrl = Formatters.image({url: euFileUrl, height: undefined}, '3000x3000', false).url;
       expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/fit=contain,width=3000,height=3000');
     });
   });
@@ -170,14 +148,14 @@ describe('image formatter', () => {
       expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/fit=contain,width=200');
     });
 
-    it('do not transform image regardless of atLeastAsLarge\'s', () => {
+    it('do not transform image regardless of atLeastAsLarge', () => {
       let photoImgUrl = Formatters.image(photoImg, 'x', false).url;
       expect(photoImgUrl).toEqual('https://dyn.mktgcdn.com/p/FOO/fit=contain');
-      let photoWithPaddingImgUrl = Formatters.image(photoWithPaddingImg, 'x', false).url;
+      let photoWithPaddingImgUrl = Formatters.image(photoWithPaddingImg, '0x0', false).url;
       expect(photoWithPaddingImgUrl).toEqual('https://dyn.mktgcdn.com/p/FOO/1.0000/fit=contain');
-      let oldFileImgUrl = Formatters.image(oldFileImg, 'x', false).url;
+      let oldFileImgUrl = Formatters.image(oldFileImg, '0x', false).url;
       expect(oldFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/0/FOO.jpg/fit=contain');
-      let newFileImgUrl = Formatters.image(newFileImg, 'x', false).url;
+      let newFileImgUrl = Formatters.image(newFileImg, 'x0', false).url;
       expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/fit=contain');
       let euFileImgUrl = Formatters.image(euFileImg, 'x', false).url;
       expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/fit=contain');
@@ -192,6 +170,12 @@ describe('image formatter', () => {
       expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/fit=contain');
       euFileImgUrl = Formatters.image(euFileImg, 'x', true).url;
       expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/fit=contain');
+    });
+  });
+
+  describe('when desiredSize is not parseable', () => {
+    it('throws an error', () => {
+      expect(() => {Formatters.image(photoImg, 'ax')}).toThrowError();
     });
   });
 });
