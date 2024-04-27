@@ -5,7 +5,7 @@ describe('image formatter', () => {
   const photoWithPaddingUrl = 'https://dynm.mktgcdn.com/p/FOO/1.0000/2000x1000.jpg/';
   const oldFileUrl = 'https://a.mktgcdn.com/f/0/FOO.jpg';
   const newFileUrl = 'https://a.mktgcdn.com/f/FOO.jpg';
-  const euFileUrl = 'https://a.eu.mktgcdn.com/f/0/FOO.jpg';
+  const euFileUrl = 'https://a.eu.mktgcdn.com/f/FOO.jpg';
 
   const defaultSize = {width: 2000, height: 1000};
 
@@ -26,7 +26,7 @@ describe('image formatter', () => {
       const newFileImgUrl = Formatters.image(newFileImg, '3000x1000').url;
       expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/fit=contain,width=3000,height=1500');
       const euFileImgUrl = Formatters.image(euFileImg, '3000x4000').url;
-      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/fit=contain,width=8000,height=4000');
+      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/FOO.jpg/fit=contain,width=8000,height=4000');
     });
 
     it('if can get original ratio, preserve ratio and cover the specified space', () => {
@@ -39,7 +39,7 @@ describe('image formatter', () => {
       const newFileImgUrl = Formatters.image(newFileImg, '3000x1000', true).url;
       expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/fit=contain,width=3000,height=1500');
       const euFileImgUrl = Formatters.image(euFileImg, '3000x4000', true).url;
-      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/fit=contain,width=8000,height=4000');
+      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/FOO.jpg/fit=contain,width=8000,height=4000');
     });
 
     it('if can\'t get original ratio, use desired dimensions', () => {
@@ -52,7 +52,7 @@ describe('image formatter', () => {
       const newFileImgUrl = Formatters.image({url: newFileUrl}, '3000x2000', true).url;
       expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/fit=contain,width=3000,height=2000');
       const euFileImgUrl = Formatters.image({url: euFileUrl}, '3000x3000', true).url;
-      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/fit=contain,width=3000,height=3000');
+      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/FOO.jpg/fit=contain,width=3000,height=3000');
     });
   });
 
@@ -67,7 +67,7 @@ describe('image formatter', () => {
       const newFileImgUrl = Formatters.image(newFileImg, '3000x1000', false).url;
       expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/fit=contain,width=2000,height=1000');
       const euFileImgUrl = Formatters.image(euFileImg, '3000x4000', false).url;
-      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/fit=contain,width=3000,height=1500');
+      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/FOO.jpg/fit=contain,width=3000,height=1500');
     });
 
     it('if can\'t get original ratio, use desired dimensions', () => {
@@ -80,7 +80,7 @@ describe('image formatter', () => {
       const newFileImgUrl = Formatters.image({url: newFileUrl, height: 0}, '3000x2000', false).url;
       expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/fit=contain,width=3000,height=2000');
       const euFileImgUrl = Formatters.image({url: euFileUrl, width: 0, height: 0}, '3000x3000', false).url;
-      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/fit=contain,width=3000,height=3000');
+      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/FOO.jpg/fit=contain,width=3000,height=3000');
     });
   });
 
@@ -95,7 +95,7 @@ describe('image formatter', () => {
       let newFileImgUrl = Formatters.image(newFileImg, '3000x', false).url;
       expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/fit=contain,width=3000');
       let euFileImgUrl = Formatters.image(euFileImg, '3000x', false).url;
-      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/fit=contain,width=3000');
+      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/FOO.jpg/fit=contain,width=3000');
 
       photoImgUrl = Formatters.image(photoImg, '1000x', true).url;
       expect(photoImgUrl).toEqual('https://dyn.mktgcdn.com/p/FOO/fit=contain,width=1000');
@@ -106,7 +106,7 @@ describe('image formatter', () => {
       newFileImgUrl = Formatters.image(newFileImg, '3000x', true).url;
       expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/fit=contain,width=3000');
       euFileImgUrl = Formatters.image(euFileImg, '3000x', true).url;
-      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/fit=contain,width=3000');
+      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/FOO.jpg/fit=contain,width=3000');
     });
 
     it('can restrict the dimensions by height, regardless of atLeastAsLarge', () => {
@@ -119,7 +119,7 @@ describe('image formatter', () => {
       let newFileImgUrl = Formatters.image(newFileImg, 'x2000', false).url;
       expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/fit=contain,height=2000');
       let euFileImgUrl = Formatters.image(euFileImg, 'x2000', false).url;
-      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/fit=contain,height=2000');
+      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/FOO.jpg/fit=contain,height=2000');
 
       photoImgUrl = Formatters.image(photoImg, 'x500', true).url;
       expect(photoImgUrl).toEqual('https://dyn.mktgcdn.com/p/FOO/fit=contain,height=500');
@@ -130,7 +130,7 @@ describe('image formatter', () => {
       newFileImgUrl = Formatters.image(newFileImg, 'x2000', true).url;
       expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/fit=contain,height=2000');
       euFileImgUrl = Formatters.image(euFileImg, 'x2000', true).url;
-      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/fit=contain,height=2000');
+      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/FOO.jpg/fit=contain,height=2000');
     });
   });
 
@@ -145,7 +145,7 @@ describe('image formatter', () => {
       const newFileImgUrl = Formatters.image(newFileImg).url;
       expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/fit=contain,width=200');
       const euFileImgUrl = Formatters.image(euFileImg).url;
-      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/fit=contain,width=200');
+      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/FOO.jpg/fit=contain,width=200');
     });
 
     it('do not transform image regardless of atLeastAsLarge', () => {
@@ -158,7 +158,7 @@ describe('image formatter', () => {
       let newFileImgUrl = Formatters.image(newFileImg, 'x0', false).url;
       expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/fit=contain');
       let euFileImgUrl = Formatters.image(euFileImg, 'x', false).url;
-      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/fit=contain');
+      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/FOO.jpg/fit=contain');
 
       photoImgUrl = Formatters.image(photoImg, 'x', true).url;
       expect(photoImgUrl).toEqual('https://dyn.mktgcdn.com/p/FOO/fit=contain');
@@ -169,21 +169,25 @@ describe('image formatter', () => {
       newFileImgUrl = Formatters.image(newFileImg, 'x', true).url;
       expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/fit=contain');
       euFileImgUrl = Formatters.image(euFileImg, 'x', true).url;
-      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/fit=contain');
+      expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/FOO.jpg/fit=contain');
     });
   });
 
   describe('when desiredSize is not parseable', () => {
-    it('throws an error', () => {
-      expect(() => {Formatters.image(photoImg, 'ax')}).toThrowError();
+    it('if width is invalid, throws an error', () => {
+      expect(() => {Formatters.image(photoImg, 'ax')}).toThrow(
+        'Error processing image url https://dynm.mktgcdn.com/p/FOO/2000x1000.jpg/: ' +
+        'Error: Invalid width specified');
     });
 
-    it('throws an error', () => {
-      expect(() => {Formatters.image(photoImg, 'xa')}).toThrowError();
+    it('if height is invalid, throws an error', () => {
+      expect(() => {Formatters.image(photoImg, 'xa')}).toThrow(
+        'Error processing image url https://dynm.mktgcdn.com/p/FOO/2000x1000.jpg/: ' +
+        'Error: Invalid height specified');
     });
 
-    it('throws an error', () => {
-      expect(() => {Formatters.image(photoImg, '')}).toThrowError();
+    it('if desiredSize is "", throws an error', () => {
+      expect(() => {Formatters.image(photoImg, '')}).toThrow('Invalid desired size');
     });
   });
 });
