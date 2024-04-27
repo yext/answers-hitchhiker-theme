@@ -75,11 +75,11 @@ describe('image formatter', () => {
       expect(photoImgUrl).toEqual('https://dyn.mktgcdn.com/p/FOO/fit=contain,width=1000,height=200');
       const photoWithPaddingImgUrl = Formatters.image({url: photoWithPaddingUrl, width: 0}, '1000x200', false).url;
       expect(photoWithPaddingImgUrl).toEqual('https://dyn.mktgcdn.com/p/FOO/1.0000/fit=contain,width=1000,height=200');
-      const oldFileImgUrl = Formatters.image({url: oldFileUrl, height: 100}, '200x500', false).url;
+      const oldFileImgUrl = Formatters.image({url: oldFileUrl, width: undefined}, '200x500', false).url;
       expect(oldFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/0/FOO.jpg/fit=contain,width=200,height=500');
       const newFileImgUrl = Formatters.image({url: newFileUrl, height: 0}, '3000x2000', false).url;
       expect(newFileImgUrl).toEqual('https://dyn.mktgcdn.com/f/FOO.jpg/fit=contain,width=3000,height=2000');
-      const euFileImgUrl = Formatters.image({url: euFileUrl, height: undefined}, '3000x3000', false).url;
+      const euFileImgUrl = Formatters.image({url: euFileUrl, width: 0, height: 0}, '3000x3000', false).url;
       expect(euFileImgUrl).toEqual('https://dyn.eu.mktgcdn.com/f/0/FOO.jpg/fit=contain,width=3000,height=3000');
     });
   });
@@ -176,6 +176,14 @@ describe('image formatter', () => {
   describe('when desiredSize is not parseable', () => {
     it('throws an error', () => {
       expect(() => {Formatters.image(photoImg, 'ax')}).toThrowError();
+    });
+
+    it('throws an error', () => {
+      expect(() => {Formatters.image(photoImg, 'xa')}).toThrowError();
+    });
+
+    it('throws an error', () => {
+      expect(() => {Formatters.image(photoImg, '')}).toThrowError();
     });
   });
 });

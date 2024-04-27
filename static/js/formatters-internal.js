@@ -294,7 +294,8 @@ export function joinList(list, separator) {
  *     preserving the aspect ratio. In other words, both dimensions will either match or be smaller
  *     than the desired dimensions (e.g. if original image is 100x100, returns an image of 100x100).
  *
- * If only one dimension is provided in desiredSize (e.g. "200x", which is also the default):
+ * If only one dimension is provided in desiredSize (e.g. "200x", which is also the default, or
+ * "200x0"):
  *   - returns an image that matches this dimension while preserving ratio of the original image
  *     (e.g. if original image is 100x100, returned image would be 200x200).
  *
@@ -365,7 +366,7 @@ export function image(simpleOrComplexImage = {}, desiredSize = '200x', atLeastAs
  *                   (e.g. 'height=200,width=100,fit=contain')
  */
 function _getImageFormatOptions(desiredSize, atLeastAsLarge, fullSizeWidth, fullSizeHeight) {
-  let desiredDims = desiredSize.split('x');
+  const desiredDims = desiredSize.split('x');
   const desiredWidth = desiredDims[0] ? Number.parseInt(desiredDims[0]) : 0;
   if (Number.isNaN(desiredWidth)) {
     throw new Error("Invalid width specified");
