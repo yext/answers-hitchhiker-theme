@@ -1,4 +1,4 @@
-# Answers Hitchhiker Theme
+# Answers (Search) Hitchhiker Theme
 
 <div>
   <a href='https://coveralls.io/github/yext/answers-hitchhiker-theme?branch=master'>
@@ -6,19 +6,19 @@
   </a>
 </div>
 
-A [Jambo](https://github.com/yext/jambo) theme for building Answers experiences.
+A [Jambo](https://github.com/yext/jambo) theme for building Search experiences.
 
-Additonal resources for integrating Answers can be found at https://hitchhikers.yext.com/.
+Additional resources for integrating Search can be found at https://hitchhikers.yext.com/.
 
-Need help? Ask a question in the [Hitchhiker's Community](https://hitchhikers.yext.com/community/c/answers).
+Need help? Ask a question in the [Hitchhiker's Community](https://hitchhikers.yext.com/community/c/searcg/20).
 
 ## Getting Started
 
 ### Prerequisites
 - Jambo, a static site generator, which can be installed with `npm i jambo`
-- An Answers experience configured at https://yext.com. This will provide the `experienceKey` and the `apiKey`
+- A Search experience configured at https://yext.com. This will provide the `experienceKey` and the `apiKey`
 
-### Creating an Answers site
+### Creating a Search site
 
 Inside a new directory, initialize jambo with the theme:
 ```bash
@@ -50,7 +50,7 @@ The site should now be available at http://localhost:5000.
 This theme makes the following commands available when Jambo imports this theme.
 
 ### Vertical Command
-Creates a vertical page of an Answers experience.
+Creates a vertical page of a Search experience.
 
 Example usage:
 ```bash
