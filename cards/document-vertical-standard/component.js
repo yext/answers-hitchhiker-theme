@@ -20,7 +20,7 @@ class document_vertical_standardCardComponent extends BaseCard['document-vertica
             url: profile.landingPageUrl, // If the card title is a clickable link, set URL here
             target: linkTarget, // If the title's URL should open in a new tab, etc.
             // image: '', // The URL of the image to display on the card
-            subtitle: profile.c_department, // The sub-header text of the card
+            // subtitle: '', // The sub-header text of the card
             details: profile.d_segment.text, // The text in the body of the card
             pageNumber: profile.d_segment.pageNumber, // If the result is from a file with page numbers, the page it was on
             score: profile.d_segment.score, // The score this segment received
