@@ -1,0 +1,92 @@
+.HitchhikerDocumentVerticalStandard
+{
+  display: flex;
+  font-size: var(--yxt-font-size-md);
+  background-color: var(--yxt-color-brand-white);
+  padding: calc(var(--yxt-base-spacing) * 3/4) var(--yxt-base-spacing);
+  width: 100%;
+  height: 100%;
+
+  &-body
+  {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &-contentWrapper
+  {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    @include bpgte(sm)
+    {
+      justify-content: space-between;
+      flex-direction: row;
+      flex-wrap: nowrap;
+    }
+  }
+
+  &-imgWrapper
+  {
+    display: flex;
+    align-items: flex-start;
+    width: 6.25rem;
+    margin-right: 1rem;
+  }
+
+  &-img
+  {
+    width: 100%;
+    height: auto;
+  }
+
+  &-title
+  {
+    text-decoration: none;
+    font-size: var(--yxt-font-size-lg);
+    line-height: var(--yxt-line-height-lg);
+    font-weight: var(--yxt-font-weight-semibold);
+  }
+
+  &-titleLink
+  {
+    @include Link;
+  }
+
+  &-subtitle
+  {
+    color: var(--yxt-color-text-secondary);
+    padding-bottom: 0;
+  }
+
+  &-pageNumber
+  {
+    color: var(--yxt-color-text-secondary);
+    padding-bottom: 0;
+    font-weight: var(--yxt-font-weight-semibold);
+  }
+
+  &-score
+  {
+    color: var(--yxt-color-text-secondary);
+    padding-bottom: 0;
+  }
+
+  &-cardDetails
+  {
+    margin-top: calc(var(--yxt-base-spacing) / 2);
+  }
+
+  &-detailsText
+  {
+    @include rich_text_formatting;
+    color: var(--yxt-color-text-primary);
+  }
+
+  .js-hidden
+  {
+    display: none;
+  }
+}

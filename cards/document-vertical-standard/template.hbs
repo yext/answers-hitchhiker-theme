@@ -1,0 +1,99 @@
+<div class="HitchhikerDocumentVerticalStandard {{cardName}}">
+    {{> image }}
+    <div class="HitchhikerDocumentVerticalStandard-body">
+        {{> title }}
+        {{> subtitle }}
+        <div class="HitchhikerDocumentVerticalStandard-contentWrapper">
+            <div class="HitchhikerDocumentVerticalStandard-info">
+                {{> details }}
+            </div>
+        </div>
+        {{> pageNumber }}
+        {{> score }}
+        {{> thumbsfeedback card feedbackSubmitted=feedbackSubmitted}}
+    </div>
+</div>
+
+{{#*inline 'image'}}
+    {{#if card.image}}
+        <div class="HitchhikerDocumentVerticalStandard-imgWrapper">
+            <img class="HitchhikerDocumentVerticalStandard-img" src="{{#unless (isNonRelativeUrl card.image)}}{{@root.relativePath}}/{{/unless}}{{card.image}}" alt="{{#if card.altText}}{{card.altText}}{{/if}}"/>
+        </div>
+    {{/if}}
+{{/inline}}
+
+{{#*inline 'title'}}
+    {{#if card.title}}
+        <div class="HitchhikerDocumentVerticalStandard-title">
+            {{#if card.url}}
+                <a class="HitchhikerDocumentVerticalStandard-titleLink js-HitchhikerDocumentVerticalStandard-titleLink"
+                   href="{{#unless (isNonRelativeUrl card.url)}}{{@root.relativePath}}/{{/unless}}{{card.url}}"
+                   data-eventtype="TITLE_CLICK"
+                   data-eventoptions='{{json card.titleEventOptions}}'
+                   target={{#if card.target}}"{{card.target}}"{{else}}"_top"{{/if}}>
+                {{card.title}}
+                </a>
+            {{else}}
+                {{card.title}}
+            {{/if}}
+        </div>
+    {{/if}}
+{{/inline}}
+
+{{#*inline 'subtitle'}}
+    {{#if card.subtitle}}
+        <div class="HitchhikerDocumentVerticalStandard-subtitle">
+            {{card.subtitle}}
+        </div>
+    {{/if}}
+{{/inline}}
+
+{{#*inline 'pageNumber'}}
+    {{#if card.pageNumber}}
+        <div class="HitchhikerDocumentVerticalStandard-pageNumber">
+            Page {{card.pageNumber}}
+        </div>
+    {{/if}}
+{{/inline}}
+
+{{#*inline 'score'}}
+    {{#if card.score}}
+        <div class="HitchhikerDocumentVerticalStandard-score">
+            Score: {{card.score}}
+        </div>
+    {{/if}}
+{{/inline}}
+
+{{! Displays the details for the card. If showMoreDetails has been configured,
+    this partial handles the show more toggle, show less toggle, truncated details,
+    and full details. If showMoreDetails has not been configured, it will display the
+    the regular card details.
+}}
+{{#*inline 'details'}}
+    {{#if card.details}}
+        <div class="HitchhikerDocumentVerticalStandard-cardDetails">
+            {{#if showExcessDetailsToggle}}
+                <div class="HitchhikerDocumentVerticalStandard-detailsText js-HitchhikerCard-detailsText">
+                    {{truncatedDetails}}
+                </div>
+            {{/if}}
+            <div class="HitchhikerDocumentVerticalStandard-detailsText js-HitchhikerCard-detailsText{{#if showExcessDetailsToggle}} js-hidden{{/if}}">
+                {{card.details}}
+            </div>
+            {{#if showExcessDetailsToggle}}
+                <button class="HitchhikerCard-detailsToggle js-HitchhikerCard-detailsToggle">
+                    {{card.showMoreDetails.showMoreText}}
+                    <span>
+                        {{> icons/builtInIcon iconName='chevron' classNames='Icon--sm Icon--collapseDown' }}
+                    </span>
+                </button>
+                <button class="HitchhikerCard-detailsToggle js-HitchhikerCard-detailsToggle js-hidden">
+                    {{card.showMoreDetails.showLessText}}
+                    <span>
+                        {{> icons/builtInIcon iconName='chevron' classNames='Icon--sm Icon--collapseUp' }}
+                    </span>
+                </button>
+            {{/if}}
+        </div>
+    {{/if}}
+{{/inline}}
