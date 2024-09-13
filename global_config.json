@@ -5,6 +5,7 @@
   // "experienceVersion": "<REPLACE ME>", // the Answers Experience version to use for API requests. This will be provided automatically by the Yext CI system
   // "environment": "production", // The environment to run on for this Answers Experience. (i.e. 'production' or 'sandbox')
   // "cloudRegion": "us", // The cloud region to use for this Answers Experience. (i.e. 'us' or 'eu')
+  // "cloudChoice": "multi", // The cloud provider to use for this Answers Experience. (i.e. 'multi' or 'gcp')
   // "businessId": "<REPLACE ME>", // The business ID of the account. This will be provided automatically by the Yext CI system
   // "initializeManually": true, // If true, the experience must be started by calling AnswersExperience.init() or AnswersExperienceFrame.init() for iframe integrations.
   // "useJWT": true, // Whether or not to enable JWT. If true, the apiKey will be hidden from the build output and the token must be specified through manual initialization.
