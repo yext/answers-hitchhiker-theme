@@ -7,7 +7,8 @@
     "partials": [
       "script/on-ready.js",
       "cards",
-      "directanswercards"
+      "directanswercards",
+      "generativedirectanswercards"
     ],
     "preservedFiles": [
       "public/iframe_test.html",

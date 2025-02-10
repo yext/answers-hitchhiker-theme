@@ -2,6 +2,7 @@
   {{#> script/core }}
     {{> cards/all }}
     {{!-- {{> directanswercards/all }} --}}
+    {{!-- {{> generativedirectanswercards/all }} --}}
     {{!-- {{> templates/vertical-standard/collapsible-filters/page-setup }} --}}
     {{> templates/vertical-standard/script/appliedfilters }}
     {{> templates/vertical-standard/script/verticalresultscount }}
@@ -9,6 +10,7 @@
     {{> templates/vertical-standard/script/spellcheck }}
     {{> templates/vertical-standard/script/navigation }}
     {{!-- {{> templates/vertical-standard/script/directanswer }} --}}
+    {{!-- {{> templates/vertical-standard/script/generativedirectanswer }} --}}
     {{> templates/vertical-standard/script/verticalresults }}
     {{> templates/vertical-standard/script/pagination }}
     {{> templates/vertical-standard/script/locationbias }}
@@ -24,8 +26,8 @@
         {{> templates/vertical-standard/markup/navigation }}
       </div>
     </div>
-    <!-- Uncomment the following if this page should be searched from the Answers Overlay panel. 
-    The overlay partial should only be added to ONE page of your site, e.g. if you uncomment the 
+    <!-- Uncomment the following if this page should be searched from the Answers Overlay panel.
+    The overlay partial should only be added to ONE page of your site, e.g. if you uncomment the
     partial for this page, you should not use it on any other page.  -->
     {{!-- {{> layouts/overlay-suggestions }} --}}
     <div class="Answers-container Answers-resultsWrapper">
@@ -39,6 +41,7 @@
       </div>
       <div class="Answers-mainContent js-answersMainContent">
         {{!-- {{> templates/vertical-standard/markup/directanswer }} --}}
+        {{!-- {{> templates/vertical-standard/markup/generativedirectanswer }} --}}
         {{> templates/vertical-standard/markup/spellcheck }}
         <div class="Answers-resultsHeader">
           {{> templates/vertical-standard/markup/verticalresultscount }}

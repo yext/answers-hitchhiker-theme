@@ -1,0 +1,4 @@
+let BaseGDACard = {};
+{{#partialPattern '^generativedirectanswercards/(.*)/component'}}
+  {{> (lookup . 'key') relativePath=../relativePath }}
+{{/partialPattern}}
