@@ -1,0 +1,137 @@
+.HitchhikerGenerativeStandard
+{
+  margin-top: calc(var(--yxt-base-spacing) * 1.5);
+  background-color: var(--yxt-gda-content-background-color);
+
+  @include bpgte(sm) {
+    margin-top: calc(var(--yxt-base-spacing) * 2.35);
+  }
+
+  &-title
+  {
+    padding-top: calc(var(--yxt-base-spacing) / 2);
+    padding-left: var(--yxt-base-spacing);
+    padding-bottom: calc(var(--yxt-base-spacing) / 2);
+    padding-right: var(--yxt-base-spacing);
+    display: flex;
+    align-items: center;
+    background-color: var(--yxt-gda-title-background-color);
+    border: var(--yxt-gda-border);
+    @include Text(
+      $color: var(--yxt-gda-title-color)
+    );
+  }
+
+  &-titleText
+  {
+    margin: 0;
+    @include Text(
+      $size: var(--yxt-gda-title-font-size),
+      $line-height: var(--yxt-gda-title-line-height),
+      $weight: var(--yxt-gda-title-font-weight),
+      $color: var(--yxt-gda-title-color)
+    );
+  }
+
+  &-content
+  {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: var(--yxt-base-spacing);
+    background-color: var(--yxt-gda-content-background-color);
+    border-left: var(--yxt-gda-border);
+    border-right: var(--yxt-gda-border);
+    border-bottom: var(--yxt-gda-border);
+  }
+
+  &-citationsDivider
+  {
+    border-color: var(--yxt-gda-citations-divider-color);
+    width: 100%;
+  }
+
+  &-citationsHeader
+  {
+    @include Text(
+      $size: var(--yxt-gda-citations-header-font-size),
+      $line-height: var(--yxt-gda-citations-header-line-height),
+      $weight: var(--yxt-gda-citations-header-font-weight),
+      $color: var(--yxt-gda-citations-header-color)
+    );
+  }
+
+  &-citationsScroller
+  {
+    margin: 0;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-top: var(--yxt-base-spacing);
+  }
+
+  &-citationCard
+  {
+    display: inline-flex;
+    flex-direction: column;
+    gap: var(--yxt-base-spacing-sm);
+    text-align: left;
+    padding: 14px;
+    text-decoration: none;
+    border: var(--yxt-border-default);
+    border-radius: 4px;
+    width: 300px;
+    height: 85px;
+    margin-right: var(--yxt-gda-citation-button-spacing);
+    box-sizing: border-box;
+
+    &:hover,
+    &:active,
+    &:focus {
+      border: var(--yxt-border-hover);
+    }
+  }
+
+  &-citationName
+  {
+    @include Text(
+      $size: var(--yxt-gda-citation-name-font-size),
+      $line-height: var(--yxt-gda-citation-name-line-height),
+      $weight: var(--yxt-gda-citation-name-font-weight),
+      $color: var(--yxt-gda-citation-name-color)
+    );
+  }
+
+  &-citationDescription
+  {
+    @include Text(
+      $size: var(--yxt-gda-citation-description-font-size),
+      $line-height: var(--yxt-gda-citation-description-line-height),
+      $weight: var(--yxt-gda-citation-description-font-weight),
+      $color: var(--yxt-gda-citation-description-color)
+    );
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &-snippet
+  {
+    @include Text(
+      $size: var(--yxt-gda-content-font-size),
+      $line-height: var(--yxt-gda-content-line-height),
+      $weight: var(--yxt-gda-content-font-weight),
+      $color: var(--yxt-gda-content-color)
+    );
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    strong, b {
+      font-weight: var(--yxt-gda-content-bolded-font-weight);
+    }
+
+    a {
+      @include Link;
+    }
+  }
+}

@@ -15,6 +15,9 @@
       "privacyPolicyUrl": "" // The fully qualified URL to the privacy policy
     },
     **/
+    "GenerativeDirectAnswer": {
+      "cardType": "generative-standard" // The card type to use for the generated direct answer
+    },
     "DirectAnswer": {
       "types": {
         "FEATURED_SNIPPET": {

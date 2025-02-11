@@ -44,6 +44,11 @@
       }
     },
     **/
+    /**
+    "GenerativeDirectAnswer": {
+      "cardType": "generative-standard" // The card type to use for the generated direct answer
+    },
+    **/
     "AppliedFilters": {
       "removable": true
     },
