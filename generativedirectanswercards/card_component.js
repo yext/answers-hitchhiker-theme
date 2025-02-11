@@ -67,6 +67,8 @@ BaseGDACard = typeof (BaseGDACard) !== 'undefined' ? BaseGDACard : {};
       const eventType = target.dataset.eventtype || 'CITATION_CLICK';
       const event = new ANSWERS.AnalyticsEvent(eventType)
         .addOptions({
+          generativeDirectAnswer: true,
+          directAnswer: true,
           entityId,
           searcher
         })
@@ -87,6 +89,7 @@ BaseGDACard = typeof (BaseGDACard) !== 'undefined' ? BaseGDACard : {};
     const ctaType = event.target.dataset.ctaType;
 
     const analyticsOptions = {
+      generativeDirectAnswer: true,
       directAnswer: true,
       fieldName: 'gda-snippet',
       searcher: this._config.data.searcher,
