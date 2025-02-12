@@ -23,7 +23,7 @@ cleanup_custom_cards () {
 create_custom_cards () {
   npx jambo card --name event-custom --templateCardFolder cards/event-standard
   npx jambo directanswercard --name allfields-custom --templateCardFolder directanswercards/allfields-standard
-  npx jambo generativedirectanswercard --name generative-custom --templateCardFolder generativedirectanswercards/generative-custom
+  npx jambo generativedirectanswercard --name generative-custom --templateCardFolder generativedirectanswercards/generative-standard
 }
 
 set_working_dir_to_test_site
