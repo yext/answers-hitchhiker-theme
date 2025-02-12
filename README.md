@@ -78,3 +78,13 @@ npx jambo directanswercard --name custom-directanswer --templateCardFolder direc
 ```
 
 See `jambo directanswercard --help` for more info.
+
+### Generative Direct Answer Card
+Creates a new, custom generative direct answer (GDA) card.
+
+Example usage:
+```bash
+npx jambo generativedirectanswercard --name custom-generativedirectanswer --templateCardFolder generativedirectanswercards/generative-standard
+```
+
+See `jambo generativedirectanswercard --help` for more info.
