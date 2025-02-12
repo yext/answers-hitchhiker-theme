@@ -17,11 +17,13 @@ copy_static_files_into_working_dir () {
 cleanup_custom_cards () {
   rm -rf cards/event-custom
   rm -rf directanswercards/allfields-custom
+  rm -rf generativedirectanswercards/generative-custom
 }
 
 create_custom_cards () {
   npx jambo card --name event-custom --templateCardFolder cards/event-standard
   npx jambo directanswercard --name allfields-custom --templateCardFolder directanswercards/allfields-standard
+  npx jambo generativedirectanswercard --name generative-custom --templateCardFolder generativedirectanswercards/generative-custom
 }
 
 set_working_dir_to_test_site
