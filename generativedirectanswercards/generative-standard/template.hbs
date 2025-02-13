@@ -15,14 +15,15 @@
             <div class="yxt-GenerativeDirectAnswer-snippet">
                 {{{ generativeDirectAnswer }}}
             </div>
-        <hr class="HitchhikerGenerativeStandard-citationsDivider" noshade>
-        <h2 class="HitchhikerGenerativeStandard-citationsHeader">
-            Sources ({{citationsData.length}})
-        </h2>
-        <div class="HitchhikerGenerativeStandard-citationsScroller">
-            {{#each citationsData}}
-                {{> citation_card citation=this}}
-            {{/each}}
+            <hr class="HitchhikerGenerativeStandard-citationsDivider" noshade>
+            <h2 class="HitchhikerGenerativeStandard-citationsHeader">
+                Sources ({{citationsData.length}})
+            </h2>
+            <div class="HitchhikerGenerativeStandard-citationsScroller">
+                {{#each citationsData}}
+                    {{> citation_card citation=this}}
+                {{/each}}
+            </div>
         </div>
     {{/if}}
 </div>
