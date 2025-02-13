@@ -48,6 +48,7 @@ BaseGDACard = typeof (BaseGDACard) !== 'undefined' ? BaseGDACard : {};
    */
   _handleCitationClickAnalytics (citationElement) {
     const searcher = this._config.data.searcher;
+    const verticalKey = this._config.data.verticalKey;
     const analyticsReporter = this.analyticsReporter;
     citationElement.addEventListener('click', function(clickEvent) {
       let target = clickEvent.target;
@@ -70,7 +71,8 @@ BaseGDACard = typeof (BaseGDACard) !== 'undefined' ? BaseGDACard : {};
           generativeDirectAnswer: true,
           directAnswer: true,
           entityId,
-          searcher
+          searcher,
+          verticalConfigId: verticalKey,
         })
       analyticsReporter.report(event);
     });
@@ -93,7 +95,8 @@ BaseGDACard = typeof (BaseGDACard) !== 'undefined' ? BaseGDACard : {};
       directAnswer: true,
       fieldName: 'gda-snippet',
       searcher: this._config.data.searcher,
-      url: event.target.href
+      url: event.target.href,
+      verticalConfigId: this._config.data.verticalKey,
     };
 
     const analyticsEvent = new ANSWERS.AnalyticsEvent(ctaType);
@@ -118,6 +121,7 @@ BaseGDACard = typeof (BaseGDACard) !== 'undefined' ? BaseGDACard : {};
   addDefaultEventOptions(eventOptions = {}) {
     return Object.assign({}, {
         searcher: this._config.data.searcher,
+        verticalConfigId: this._config.data.verticalKey,
         ...eventOptions
       },
     );
