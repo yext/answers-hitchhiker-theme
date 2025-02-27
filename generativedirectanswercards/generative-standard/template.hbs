@@ -1,0 +1,44 @@
+<div class="HitchhikerGenerativeStandard {{cardName}}">
+    {{#if (eq searchState 'search-loading')}}
+        <div class="HitchhikerGenerativeStandard-title">
+            <h2 class="HitchhikerGenerativeStandard-titleText">
+                AI Generating Answer...
+            </h2>
+        </div>
+    {{else if success}}
+        <div class="HitchhikerGenerativeStandard-title">
+            <h2 class="yxt-GenerativeDirectAnswer-titleText">
+                AI Generated Answer
+            </h2>
+        </div>
+        <div class="HitchhikerGenerativeStandard-content">
+            <div class="yxt-GenerativeDirectAnswer-snippet">
+                {{{ generativeDirectAnswer }}}
+            </div>
+            <hr class="HitchhikerGenerativeStandard-citationsDivider" noshade>
+            <h2 class="HitchhikerGenerativeStandard-citationsHeader">
+                Sources ({{citationsData.length}})
+            </h2>
+            <div class="HitchhikerGenerativeStandard-citationsScroller">
+                {{#each citationsData}}
+                    {{> citation_card citation=this}}
+                {{/each}}
+            </div>
+        </div>
+    {{/if}}
+</div>
+
+
+{{#*inline 'citation_card'}}
+<a class="HitchhikerGenerativeStandard-citationCard js-HitchhikerGDACard-citation"
+    {{#if citation.link}}href={{citation.link}}{{/if}}
+    data-entityid={{citation.id}}
+    data-eventtype="CITATION_CLICK"
+    data-is-analytics-attached="true"
+    >
+    <span class="HitchhikerGenerativeStandard-citationName">{{citation.name}}</span>
+    {{#if citation.description}}
+        <p class="HitchhikerGenerativeStandard-citationDescription">{{citation.description}}</p>
+    {{/if}}
+</a>
+{{/inline}}
