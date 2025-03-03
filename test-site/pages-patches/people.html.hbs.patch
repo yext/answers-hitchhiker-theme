@@ -1,15 +1,16 @@
 --- people.html.hbs	2022-04-05 15:42:31.000000000 -0400
 +++ people.updated.html.hbs	2022-04-05 15:58:28.000000000 -0400
-@@ -1,7 +1,7 @@
+@@ -1,8 +1,8 @@
  {{#> layouts/html }}
    {{#> script/core }}
      {{> cards/all }}
+     {{!-- {{> generativedirectanswercards/all }} --}}
 -    {{!-- {{> templates/vertical-grid/collapsible-filters/page-setup }} --}}
 +    {{> templates/vertical-grid/collapsible-filters/page-setup }}
      {{> templates/vertical-grid/script/appliedfilters }}
      {{> templates/vertical-grid/script/verticalresultscount }}
      {{> templates/vertical-grid/script/searchbar }}
-@@ -10,8 +10,8 @@
+@@ -11,9 +11,9 @@
      {{> templates/vertical-grid/script/verticalresults }}
      {{> templates/vertical-grid/script/pagination }}
      {{> templates/vertical-grid/script/locationbias }}
@@ -19,8 +20,9 @@
 +    {{> templates/vertical-grid/script/facets }}
      {{!-- {{> templates/vertical-grid/script/filterbox }} --}}
      {{!-- {{> templates/vertical-grid/script/qasubmission }} --}}
+     {{!-- {{> templates/vertical-grid/script/generativedirectanswer }} --}}
    {{/script/core }}
-@@ -29,18 +29,18 @@
+@@ -31,19 +31,19 @@
      <div class="Answers-container Answers-resultsWrapper">
        <div class="Answers-sidebar js-answersSidebar">
          <!-- Uncomment the following div if you want to include filters, facets, or sort options  -->
@@ -36,6 +38,7 @@
        </div>
        <div class="Answers-mainContent js-answersMainContent Hitchhiker-3-columns">
          {{> templates/vertical-grid/markup/spellcheck }}
+         {{!-- {{> templates/vertical-grid/markup/generativedirectanswer }} --}}
          <div class="Answers-resultsHeader">
            {{> templates/vertical-grid/markup/verticalresultscount }}
            {{> templates/vertical-grid/markup/appliedfilters }}
@@ -44,7 +47,7 @@
          </div>
          <div class="Answers-results js-answersResults">
            {{> templates/vertical-grid/markup/verticalresults }}
-@@ -48,7 +48,7 @@
+@@ -51,7 +51,7 @@
            {{!-- {{> templates/vertical-grid/markup/qasubmission }} --}}
          </div>
        </div>

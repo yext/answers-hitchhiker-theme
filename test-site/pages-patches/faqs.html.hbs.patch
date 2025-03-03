@@ -1,6 +1,6 @@
 --- faqs.html.hbs	2022-04-05 11:53:14.000000000 -0400
 +++ faqs.updated.html.hbs	2022-04-05 11:54:18.000000000 -0400
-@@ -15,7 +15,7 @@
+@@ -17,7 +17,7 @@
      {{!-- {{> templates/vertical-standard/script/sortoptions }} --}}
      {{!-- {{> templates/vertical-standard/script/facets }} --}}
      {{!-- {{> templates/vertical-standard/script/filterbox }} --}}
@@ -9,7 +9,7 @@
    {{/script/core }}
    <div class="Answers AnswersVerticalStandard CollapsibleFilters">
      <div class="Answers-navWrapper">
-@@ -50,7 +50,7 @@
+@@ -51,7 +51,7 @@
          <div class="Answers-results js-answersResults">
            {{> templates/vertical-standard/markup/verticalresults }}
            {{> templates/vertical-standard/markup/pagination }}
