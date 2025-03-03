@@ -1,6 +1,7 @@
 {{#> layouts/html }}
   {{#> script/core }}
     {{> cards/all }}
+    {{!-- {{> generativedirectanswercards/all }} --}}
     {{!-- {{> templates/vertical-grid/collapsible-filters/page-setup }} --}}
     {{> templates/vertical-grid/script/appliedfilters }}
     {{> templates/vertical-grid/script/verticalresultscount }}
@@ -14,6 +15,7 @@
     {{!-- {{> templates/vertical-grid/script/facets }} --}}
     {{!-- {{> templates/vertical-grid/script/filterbox }} --}}
     {{!-- {{> templates/vertical-grid/script/qasubmission }} --}}
+    {{!-- {{> templates/vertical-grid/script/generativedirectanswer }} --}}
   {{/script/core }}
   <div class="Answers AnswersVerticalGrid CollapsibleFilters">
     <div class="Answers-navWrapper">
@@ -37,6 +39,7 @@
       </div>
       <div class="Answers-mainContent js-answersMainContent Hitchhiker-3-columns">
         {{> templates/vertical-grid/markup/spellcheck }}
+        {{!-- {{> templates/vertical-grid/markup/generativedirectanswer }} --}}
         <div class="Answers-resultsHeader">
           {{> templates/vertical-grid/markup/verticalresultscount }}
           {{> templates/vertical-grid/markup/appliedfilters }}
