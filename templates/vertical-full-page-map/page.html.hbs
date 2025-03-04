@@ -1,6 +1,7 @@
 {{#> layouts/html pageWrapperCss="YxtPage-wrapper--mobileListView" }}
   {{#> script/core }}
     {{> cards/all }}
+    {{!-- {{> generativedirectanswercards/all }} --}}
     {{!-- {{> templates/vertical-full-page-map/collapsible-filters/page-setup }} --}}
     {{> templates/vertical-full-page-map/page-setup }}
     {{> templates/vertical-full-page-map/script/searchbar }}
@@ -11,6 +12,7 @@
     {{!-- {{> templates/vertical-full-page-map/script/sortoptions }} --}}
     {{!-- {{> templates/vertical-full-page-map/script/facets }} --}}
     {{!-- {{> templates/vertical-full-page-map/script/filterbox }} --}}
+    {{!-- {{> templates/vertical-full-page-map/script/generativedirectanswer }} --}}
     {{> templates/vertical-full-page-map/script/verticalresults }}
     {{> templates/vertical-full-page-map/script/pagination }}
     {{!-- {{> templates/vertical-full-page-map/script/qasubmission }} --}}
@@ -29,6 +31,7 @@
               </div>
             </div>
             {{> templates/vertical-full-page-map/markup/spellcheck }}
+            {{!-- {{> templates/vertical-full-page-map/markup/generativedirectanswer }} --}}
             <div class="Answers-resultsHeaderTop">
               {{> templates/vertical-full-page-map/markup/verticalresultscount }}
               {{> templates/vertical-full-page-map/markup/appliedfilters }}

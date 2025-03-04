@@ -56,15 +56,15 @@ msgstr ""
 msgid "Last Updated on [[date]]"
 msgstr ""
 
-#: templates/vertical-full-page-map/page.html.hbs:23
+#: templates/vertical-full-page-map/page.html.hbs:25
 msgid "Main location search"
 msgstr ""
 
-#: templates/vertical-full-page-map/page.html.hbs:67
+#: templates/vertical-full-page-map/page.html.hbs:70
 msgid "Map"
 msgstr ""
 
-#: templates/vertical-full-page-map/page.html.hbs:62
+#: templates/vertical-full-page-map/page.html.hbs:65
 msgid "Map controls"
 msgstr ""
 

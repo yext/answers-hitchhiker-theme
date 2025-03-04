@@ -1,6 +1,7 @@
 {{#> layouts/html }}
   {{#> script/core }}
     {{> cards/all }}
+    {{!-- {{> generativedirectanswercards/all }} --}}
     {{!-- {{> templates/vertical-map/collapsible-filters/page-setup }} --}}
     {{> templates/vertical-map/script/searchbar }}
     {{> templates/vertical-map/script/spellcheck }}
@@ -10,6 +11,7 @@
     {{!-- {{> templates/vertical-map/script/sortoptions }} --}}
     {{!-- {{> templates/vertical-map/script/facets }} --}}
     {{!-- {{> templates/vertical-map/script/filterbox }} --}}
+    {{!-- {{> templates/vertical-map/script/generativedirectanswer }} --}}
     {{> templates/vertical-map/script/verticalresults }}
     {{> templates/vertical-map/script/pagination }}
     {{!-- {{> templates/vertical-map/script/qasubmission }} --}}
@@ -30,6 +32,7 @@
     <div class="Answers-resultsWrapper js-answersResultsWrapper">
       <div class="Answers-resultsColumn js-answersResultsColumn">
         {{> templates/vertical-map/markup/spellcheck }}
+        {{!-- {{> templates/vertical-map/markup/generativedirectanswer }} --}}
         <div class="Answers-resultsHeader">
           {{> templates/vertical-map/markup/verticalresultscount }}
           {{> templates/vertical-map/markup/appliedfilters }}

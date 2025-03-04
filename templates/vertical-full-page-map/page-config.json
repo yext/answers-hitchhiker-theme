@@ -25,6 +25,11 @@
       // Additional options are available in the documentation
     },
     **/
+    /**
+    "GenerativeDirectAnswer": {
+      "cardType": "generative-standard" // The card type to use for the generated direct answer
+    },
+    **/
     "FilterLink": {
       "changeFiltersText": "filter results", // Text that displays by default
       "resetFiltersText": "reset filters", // Text when filters are applied
