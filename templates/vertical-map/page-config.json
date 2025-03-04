@@ -32,6 +32,11 @@
       "clearSearchText": "clear search" // Text when there are no results, conducts an empty search
     },
     **/
+    /**
+    "GenerativeDirectAnswer": {
+      "cardType": "generative-standard" // The card type to use for the generated direct answer
+    },
+    **/
     "AppliedFilters": {
       "removable": true
     },
