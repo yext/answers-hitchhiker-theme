@@ -12,7 +12,8 @@
     **/
     /**
     "GenerativeDirectAnswer": {
-      "cardType": "generative-standard" // The card type to use for the generated direct answer
+      "cardType": "generative-standard", // The card type to use for the generated direct answer
+      "sourceUrlFields": ["website", "c_someField.url"] // The fields to use as the redirect URL for the sources
     },
     **/
     "DirectAnswer": {
