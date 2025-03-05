@@ -10,14 +10,16 @@ class generative_standardComponent extends BaseGDACard['generative-standard'] {
    * @param generativeDirectAnswer the answer returned from the API, if any
    * @param resultStatus status of the answer, e.g. 'SUCCESS', 'NO_ANSWER'
    * @param citationsData necessary results data for displaying and linking citations
+   * @param sourceUrlFields the field(s) holding the URL for the redirect link of the citations
    */
-  dataForRender(searchState, generativeDirectAnswer, resultStatus, citationsData) {
+  dataForRender(searchState, generativeDirectAnswer, resultStatus, citationsData, sourceUrlFields) {
     const success = resultStatus === 'SUCCESS';
     return {
       searchState,
       generativeDirectAnswer,
       citationsData,
-      success
+      success,
+      sourceUrlFields
     }
   }
 
