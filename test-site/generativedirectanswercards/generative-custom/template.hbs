@@ -21,7 +21,7 @@
             </h2>
             <div class="HitchhikerGenerativeStandard-citationsScroller">
                 {{#each citationsData}}
-                    {{> citation_card citation=this}}
+                    {{> citation_card citation=this sourceUrlFields=../sourceUrlFields}}
                 {{/each}}
             </div>
         </div>
@@ -31,7 +31,7 @@
 
 {{#*inline 'citation_card'}}
 <a class="HitchhikerGenerativeStandard-citationCard js-HitchhikerGDACard-citation"
-    {{#if citation.link}}href={{citation.link}}{{/if}}
+    {{getGdaSourceUrlHref sourceUrlFields citation.rawData}}
     data-entityid={{citation.id}}
     data-eventtype="CITATION_CLICK"
     data-is-analytics-attached="true"

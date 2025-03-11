@@ -4,6 +4,7 @@ BaseGDACard = typeof (BaseGDACard) !== 'undefined' ? BaseGDACard : {};
   constructor(config = {}, systemConfig = {}) {
     super(config, systemConfig);
     const data = config.data || {};
+    this.sourceUrlFields = config.sourceUrlFields || [];
     this.generativeDirectAnswer = data.directAnswer || '';
     this.citations = data.citations || [];
     this.resultStatus = data.resultStatus || 'NO_ANSWER';
@@ -18,7 +19,13 @@ BaseGDACard = typeof (BaseGDACard) !== 'undefined' ? BaseGDACard : {};
    * @param {Object} data
    */
   setState(data) {
-    let cardData = this.dataForRender(this.searchState, this.generativeDirectAnswer, this.resultStatus, this.citationsData);
+    let cardData = this.dataForRender(
+      this.searchState,
+      this.generativeDirectAnswer,
+      this.resultStatus,
+      this.citationsData,
+      this.sourceUrlFields
+    );
     this.validateDataForRender(cardData);
     return super.setState({
       ...cardData,
