@@ -14,12 +14,14 @@ class generative_standardComponent extends BaseGDACard['generative-standard'] {
    */
   dataForRender(searchState, generativeDirectAnswer, resultStatus, citationsData, sourceUrlFields) {
     const success = resultStatus === 'SUCCESS';
-    return {
+    const linkTarget = AnswersExperience.runtimeConfig.get('linkTarget') || '_top';
+    return  {
       searchState,
       generativeDirectAnswer,
       citationsData,
       success,
-      sourceUrlFields
+      sourceUrlFields,
+      linkTarget
     }
   }
 
