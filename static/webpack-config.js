@@ -98,7 +98,7 @@ module.exports = function () {
       maxAssetSize: 1536000,
       maxEntrypointSize: 1024000
     },
-    target: ['web', 'es5'],
+    target: ['web', 'es2015'],
     entry: {
       'bundle': `./${jamboConfig.dirs.output}/static/entry.js`,
       'iframe': `./${jamboConfig.dirs.output}/static/js/iframe.js`,

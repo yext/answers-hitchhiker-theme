@@ -1,4 +1,4 @@
-import { parsePhoneNumberFromString } from 'libphonenumber-js'
+import { parsePhoneNumber } from 'awesome-phonenumber';
 import { components__address__i18n__addressForCountry } from './address-i18n.js'
 import { getDistanceUnit } from './units-i18n';
 import OpenStatusMessageFactory from './hours/open-status/messagefactory.js';
@@ -39,11 +39,12 @@ export function phoneDisplay(profile, key = 'mainPhone') {
 }
 
 export function nationalizedPhoneDisplay(profile, key = 'mainPhone') {
-  if (!profile[key]) {
+  if (!profile[key] || !profile?.address?.countryCode) {
     return '';
   }
-  const phoneNumber = parsePhoneNumberFromString(profile[key])
-  return phoneNumber ? phoneNumber.formatNational() : '';
+  const countryCode = profile.address.countryCode;
+  const phoneNumber = parsePhoneNumber(profile[key], { regionCode: countryCode });
+  return phoneNumber ? phoneNumber.number?.national : '';
 }
 
 export function emailLink(profile) {

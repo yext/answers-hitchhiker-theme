@@ -7,4 +7,9 @@ set_working_dir_to_test_site () {
 
 set_working_dir_to_test_site
 
-npx jambo build && npx grunt webpack
+npx jambo build
+echo "Finished Jambo build."
+chmod u+x ./public/static/node_modules/esbuild/bin/esbuild
+echo "Added execute permissions to esbuild binary."
+npx grunt webpack
+echo "Finished grunt webpack."
