@@ -40,7 +40,7 @@ module.exports = (jamboConfig) => {
     optimization: {
       minimizer: [
         new ESBuildMinifyPlugin({
-          target: 'es5',
+          target: 'es2015',
           css: true
         })
       ]
