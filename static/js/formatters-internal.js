@@ -39,10 +39,10 @@ export function phoneDisplay(profile, key = 'mainPhone') {
 }
 
 export function nationalizedPhoneDisplay(profile, key = 'mainPhone') {
-  if (!profile[key] || !profile?.address?.countryCode) {
+  if (!profile[key]) {
     return '';
   }
-  const countryCode = profile.address.countryCode;
+  const countryCode = profile.address?.countryCode ?? 'US';
   const phoneNumber = parsePhoneNumber(profile[key], { regionCode: countryCode });
   return phoneNumber ? phoneNumber.number?.national : '';
 }
