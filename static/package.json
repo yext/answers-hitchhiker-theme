@@ -1,6 +1,6 @@
 {
   "name": "answers-hitchhiker-theme",
-  "version": "1.35.3",
+  "version": "1.35.4",
   "description": "Toolchain for use with the HH Theme",
   "main": "Gruntfile.js",
   "scripts": {
@@ -55,7 +55,7 @@
     "fs-extra": "^8.1.0",
     "iframe-resizer": "^4.1.1",
     "is-mobile": "^2.2.2",
-    "awesome-phonenumber": "^7.5.0",
+    "awesome-phonenumber": "^5.11.0",
     "lodash.clonedeep": "^4.5.0",
     "merge-options": "^2.0.0",
     "object-fit-images": "^3.2.4",
