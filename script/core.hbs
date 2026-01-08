@@ -25,20 +25,20 @@
       }
     };
     const userConfig = {
-      {{#with (deepMerge global_config (lookup verticalsToConfig verticalKey) pageSettings) }}
+      {{#with (deepMerge global_config (lookup verticalsToConfig (findFirst verticalKey 'Universal')) pageSettings) }}
         ...{{{ json this }}},
-        {{#if verticalLimit}}
-          search: {
+        search: {
+          {{#if verticalLimit}}
             limit: {{verticalLimit}},
-            ...{{{ json search }}}
-          },
-        {{/if}}
-        {{#unless ../verticalKey}}
-          search: {
+          {{/if}}
+          {{#if autocompleteLimit}}
+            autocompleteLimit: {{autocompleteLimit}},
+          {{/if}}
+          {{#unless ../verticalKey}}
             ...{{{ json (getDefaultUniversalLimit ../verticalConfigs) }}},
-            ...{{{ json search }}}
-          },
-        {{/unless}}
+          {{/unless}}
+          ...{{{ json search }}}
+        },
       {{/with}}
     };
     const token = window.AnswersExperience.runtimeConfig?.get('token');
