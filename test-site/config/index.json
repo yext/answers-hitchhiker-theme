@@ -43,6 +43,7 @@
   },
   "verticalsToConfig": {
     "Universal": {
+      "autocompleteLimit": 12,
       "isFirst": "true", // Indicates that this should always appear first in the navigation bar
       "label": "All" // The name of the universal tab in the navigation bar
     },
