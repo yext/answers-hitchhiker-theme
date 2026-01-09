@@ -1,6 +1,6 @@
 {
   "name": "answers-hitchhiker-theme",
-  "version": "1.35.4",
+  "version": "1.36.0",
   "description": "A starter Search theme for hitchhikers",
   "keywords": [
     "jambo",
@@ -59,7 +59,7 @@
     "puppeteer": "^13.7.0",
     "serve": "^13.0.4",
     "simple-git": "^2.24.0",
-    "testcafe": "^3.6.1",
+    "testcafe": "^3.7.3",
     "underscore.string": "^3.3.6",
     "urijs": "^1.19.11",
     "yargs": "^17.0.1"
