@@ -44,12 +44,6 @@ export default class ThemeMapConfig {
     };
 
     /**
-     * The client id for the map provider (if applicable)
-     * @type {string}
-     */
-    this.clientId = jsonConfig.clientId;
-
-    /**
      * The language locale for the map. This is different from
      * the specified locale because some map providers do not support
      * certain locales and we want to fallback in a specific pattern
@@ -85,7 +79,7 @@ export default class ThemeMapConfig {
      * @type {number}
      */
     this.defaultZoom = jsonConfig.defaultZoom
-      || this.providerOptions.zoom 
+      || this.providerOptions.zoom
       || 14;
 
     /**
@@ -241,7 +235,7 @@ export default class ThemeMapConfig {
   /**
    * Get the leftmost point on the map, or rightmost point for RTL locales, such that pins
    * will still be visible.
-   * 
+   *
    * @return {Number} The boundary (in pixels) for the visible area of the map, from the left
    *                  or right hand side of the viewport depending on if the language displayed
    *                  is left-to-right or right-to-left
