@@ -2,6 +2,7 @@ const fs = require('fs-extra');
 const { containsPartial, addToPartials } = require('./helpers/utils/jamboconfigutils');
 const path = require('path');
 const UserError = require('./helpers/errors/usererror');
+const logger = require('./helpers/utils/logger');
 const { ArgumentMetadata, ArgumentType } = require('./helpers/utils/argumentmetadata');
 
 /**
@@ -126,6 +127,7 @@ class GenerativeDirectAnswerCardCreator {
     !containsPartial(this._customCardsDir) && addToPartials(this._customCardsDir);
     fs.copySync(originalCardFolder, newCardFolder);
     this._renameCardComponent(cardFolderName, newCardFolder);
+    this._ensureGenerativeDirectAnswerCardsPartial();
   }
 
   _getOriginalCardFolder(defaultTheme, templateCardFolder) {
@@ -145,6 +147,90 @@ class GenerativeDirectAnswerCardCreator {
     const renamedComponent =
       this._getRenamedCardComponent(originalComponent, customCardName);
     fs.writeFileSync(cardComponentPath, renamedComponent);
+  }
+
+  /**
+   * Ensures the page template includes the GDA card bundle partial.
+   * Prefers uncommenting the existing line to preserve documentation intent.
+   */
+  _ensureGenerativeDirectAnswerCardsPartial() {
+    const pagesDir = (this.config.dirs && this.config.dirs.pages) || 'pages';
+    const pageTemplatePath = path.join(pagesDir, 'index.html.hbs');
+    if (!fs.existsSync(pageTemplatePath)) {
+      logger.warn(`Page template not found at ${pageTemplatePath}. Skipping generativedirectanswercards/all injection.`);
+      return;
+    }
+
+    const original = fs.readFileSync(pageTemplatePath).toString();
+    const partial = '{{> generativedirectanswercards/all }}';
+    const uncommentedRegex =
+      /^(\s*){{>\s*generativedirectanswercards\/all\s*}}/m;
+    // If the line exists but is commented out, uncomment it instead of
+    // inserting a new copy.
+    const commentedRegex =
+      /^(\s*){{!--\s*{{>\s*generativedirectanswercards\/all\s*}}\s*--}}/m;
+    let updated;
+    if (uncommentedRegex.test(original)) {
+      return;
+    } else if (commentedRegex.test(original)) {
+      updated = original.replace(commentedRegex, `$1${partial}`);
+    } else {
+      updated = this._insertGenerativeDirectAnswerCardsPartial(original, partial);
+    }
+
+    if (updated !== original) {
+      fs.writeFileSync(pageTemplatePath, updated);
+    }
+  }
+
+  /**
+   * Inserts the GDA cards partial in a sensible spot near other card bundles.
+   */
+  _insertGenerativeDirectAnswerCardsPartial(content, partial) {
+    const lineEnding = content.includes('\r\n') ? '\r\n' : '\n';
+    const lines = content.split(/\r?\n/);
+    const directAnswerIndex = lines.findIndex(line =>
+      line.includes('{{> directanswercards/all }}')
+    );
+    const cardsIndex = lines.findIndex(line =>
+      line.includes('{{> cards/all }}')
+    );
+
+    let insertAt;
+    let indent = '';
+    // Prefer inserting after direct answer cards, then after general cards,
+    // then after script/core.
+    if (directAnswerIndex !== -1) {
+      insertAt = directAnswerIndex + 1;
+      indent = this._getIndent(lines[directAnswerIndex]);
+    } else if (cardsIndex !== -1) {
+      insertAt = cardsIndex + 1;
+      indent = this._getIndent(lines[cardsIndex]);
+    } else {
+      const scriptCoreIndex = lines.findIndex(line =>
+        line.includes('{{#> script/core }}')
+      );
+      if (scriptCoreIndex !== -1) {
+        insertAt = scriptCoreIndex + 1;
+        indent = this._getIndent(lines[scriptCoreIndex]) + '  ';
+      } else {
+        logger.warn('No direct answer cards, cards, or script/core partials'
+            + ' found. Skipping generativedirectanswercards/all injection.');
+        return content;
+      }
+    }
+
+    lines.splice(insertAt, 0, `${indent}${partial}`);
+    // Preserve the original trailing newline behavior.
+    return lines.join(lineEnding);
+  }
+
+  /**
+   * Returns the leading whitespace for a line to preserve indentation.
+   */
+  _getIndent(line) {
+    const match = line.match(/^\s*/);
+    return match ? match[0] : '';
   }
 
   /**
