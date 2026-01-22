@@ -22,7 +22,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
 
     /**
      * Name of a location card type
-     * 
+     *
      * @type {string}
      */
     this.cardType = config.cardType;
@@ -49,7 +49,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
      * The current Answers API vertical key
      * @type {string}
      */
-    this.verticalKey = config.verticalKey; 
+    this.verticalKey = config.verticalKey;
 
     /**
      * The vertical configuration
@@ -127,7 +127,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
 
     /**
      * The current view for mobile.
-     * 
+     *
      * Either MobileStates.LIST_VIEW or MobileStates.MAP_VIEW
      */
     this._mobileView = MobileStates.LIST_VIEW;
@@ -167,7 +167,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
 
   onCreate () {
     this.core.storage.registerListener({
-      eventType: 'update', 
+      eventType: 'update',
       storageKey: StorageKeys.MAP_LOADED,
       callback: () => {
         this.updateMostRecentSearchState()
@@ -220,7 +220,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
    * moving the map center, and thereby causing a searchOnMapMove to be triggered.
    * The search response would then cause the page to update,
    * and close the keyboard, making it impossible to actually type anything into the searchbar.
-   * 
+   *
    * Setting a fixed height on elements like .Answers-mapWrapper prevents the keyboard from shifting the content
    * of the page.
    */
@@ -284,7 +284,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
     if (this._mobileView === MobileStates.LIST_VIEW) {
       this.addCssClassesForState(MobileStates.LIST_VIEW);
       this.removeCssClassesForState(MobileStates.MAP_VIEW);
-      this.removeCssClassesForState(MobileStates.DETAIL_SHOWN); 
+      this.removeCssClassesForState(MobileStates.DETAIL_SHOWN);
     } else if (this._mobileView === MobileStates.MAP_VIEW) {
       this.addCssClassesForState(MobileStates.MAP_VIEW);
       this.removeCssClassesForState(MobileStates.LIST_VIEW);
@@ -318,7 +318,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
   }
 
   /**
-   * @param {MobileStates} mobileState 
+   * @param {MobileStates} mobileState
    */
   removeCssClassesForState(mobileState) {
     const classModifier = this.getModifierForState(mobileState);
@@ -328,8 +328,8 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
 
   /**
    * Returns a css class modifier for a given mobile state.
-   * 
-   * @param {MobileStates} mobileState 
+   *
+   * @param {MobileStates} mobileState
    * @returns {string}
    */
   getModifierForState(mobileState) {
@@ -344,7 +344,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
         throw new Error('Invalid mobile state');
     }
   }
-  
+
   addMapComponent () {
     /**
      * Sets up mobile view toggles and search bar listeners
@@ -403,7 +403,6 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       container: this._mapContainerSelector,
       mapProvider: this._config.mapProvider,
       apiKey: this._config.apiKey,
-      clientId: this._config.clientId,
       locale: this._config.locale,
       contentWrapperEl: this._container.querySelector('.js-locator-contentWrap'),
       providerOptions: this._config.providerOptions,
@@ -465,7 +464,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
   /**
    * Returns true if a search should be prevented based on the center of the current map
    * and the center of the map during the most recent search
-   * 
+   *
    * @returns {boolean}
    */
   shouldSearchBePreventedBasedOnCenter () {
@@ -479,7 +478,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
   /**
    * Returns true if a search should be prevented based on the previous search zoom level and
    * the current zoom level
-   * 
+   *
    * @returns {boolean}
    */
   shouldSearchBePreventedBasedOnZoom () {
@@ -499,7 +498,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
 
   /**
    * Returns the current center of the map
-   * 
+   *
    * @returns {Coordinate}
    */
   getCurrentMapCenter () {
@@ -551,7 +550,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       const verticalResults = this.core.storage.get(StorageKeys.VERTICAL_RESULTS).results;
       const entityData = verticalResults.find(entity => entity._raw.uid.toString() === entityId);
       const opts = {
-        parentContainer: this._container, 
+        parentContainer: this._container,
         container: `.yxt-Card-${entityId}`,
         data: {
           result: entityData,
@@ -650,7 +649,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
   /**
    * Conducts a new search on the locator for the given viewable bounds for the map.
    * Note that the visible area is the viewport of the map, taking into account the map padding.
-   * Also note that the radius is from the center of the visible area to the corner of 
+   * Also note that the radius is from the center of the visible area to the corner of
    * the visible area.
    */
   searchThisArea() {
@@ -731,7 +730,7 @@ class VerticalFullPageMapOrchestrator extends ANSWERS.Component {
       const altVerticalsData = this.core.storage.get(StorageKeys.ALTERNATIVE_VERTICALS);
       this.addChild(
         altVerticalsData,
-        'AlternativeVerticals', 
+        'AlternativeVerticals',
         Object.assign({},
           {
             container: '.js-answersNoResults',

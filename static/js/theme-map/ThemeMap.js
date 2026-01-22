@@ -12,7 +12,7 @@ import StorageKeys from '../constants/storage-keys.js';
 
 /**
  * The component to create and control the functionality of a map,
- * including importing and initializing the map, assigning event 
+ * including importing and initializing the map, assigning event
  * listeners, and rendering the map on the page with results changes
  */
 class ThemeMap extends ANSWERS.Component {
@@ -105,7 +105,6 @@ class ThemeMap extends ANSWERS.Component {
   async loadAndInitializeMap () {
     const mapProviderImpl = getMapProvider(this.config.mapProvider);
     await mapProviderImpl.load(this.config.apiKey, {
-      client: this.config.clientId,
       language: this.config.language,
     });
     const map = new MapOptions()
@@ -344,7 +343,7 @@ class ThemeMap extends ANSWERS.Component {
     };
     this.resultsSpecificStorageListeners.push(cardFocusUpdateListener);
     this.core.storage.registerListener(cardFocusUpdateListener);
-    
+
     const defaultPin = this.config.pinImages.getDefaultPin(index, entity.profile);
     const hoveredPin = this.config.pinImages.getHoveredPin(index, entity.profile);
     const selectedPin = this.config.pinImages.getSelectedPin(index, entity.profile);
@@ -410,14 +409,14 @@ class ThemeMap extends ANSWERS.Component {
     const universalData = transformDataToUniversalData(data);
     let entityData = verticalData.length ? verticalData : universalData;
 
-    const numConcurrentSearchThisAreaCalls = 
+    const numConcurrentSearchThisAreaCalls =
       this.core.storage.get(StorageKeys.LOCATOR_NUM_CONCURRENT_SEARCH_THIS_AREA_CALLS) || 0;
 
     if (numConcurrentSearchThisAreaCalls > 0) {
       this.core.storage.set(
         StorageKeys.LOCATOR_NUM_CONCURRENT_SEARCH_THIS_AREA_CALLS,
         numConcurrentSearchThisAreaCalls - 1
-      ); 
+      );
     }
 
     let fitCoordinates = numConcurrentSearchThisAreaCalls <= 0;

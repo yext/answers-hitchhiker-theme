@@ -3,7 +3,6 @@ ANSWERS.registerComponentType(VerticalFullPageMap.VerticalFullPageMapOrchestrato
 ANSWERS.addComponent('VerticalFullPageMapOrchestrator', Object.assign({},
 {
   container: '.js-answersVerticalFullPageMap',
-  {{#unless (chainedLookup verticalsToConfig verticalKey 'mapConfig' 'clientId')}}
   apiKey: HitchhikerJS.getDefaultMapApiKey(
     {{#if componentSettings.Map.mapProvider}}
       "{{componentSettings.Map.mapProvider}}"
@@ -15,7 +14,6 @@ ANSWERS.addComponent('VerticalFullPageMapOrchestrator', Object.assign({},
       {{/with}}
     {{/if}}
   ),
-  {{/unless}}
   pageSettings: {{{ json pageSettings }}},
   onPinSelect: () => {
     window.collapsibleFiltersInteractions && window.collapsibleFiltersInteractions.collapseFilters();
@@ -37,7 +35,7 @@ ANSWERS.addComponent('VerticalFullPageMapOrchestrator', Object.assign({},
         {{#if icon}}icon: "{{{icon}}}",{{/if}}
         {{#if iconUrl}}iconUrl: "{{{relativePathHandler url=iconUrl relativePath=@root.relativePath}}}",{{/if}}
         label: {{> verticalLabel overridedLabel=label verticalKey=../verticalKey fallback=@key}},
-        url: 
+        url:
           {{#if url}}
             "{{{relativePathHandler url=url relativePath=@root.relativePath}}}",
           {{else if ../url}}

@@ -28,8 +28,8 @@ class GoogleMap extends ProviderMap {
   constructor(options) {
     super(options);
 
-    const zoomControlPosition = isRTL(options.locale) 
-      ? google.maps.ControlPosition.LEFT_TOP 
+    const zoomControlPosition = isRTL(options.locale)
+      ? google.maps.ControlPosition.LEFT_TOP
       : google.maps.ControlPosition.RIGHT_TOP;
 
     this.map = new google.maps.Map(options.wrapper, {
@@ -171,18 +171,16 @@ class GooglePin extends ProviderPin {
 
 // Random token obtained from `echo GoogleMapsCallbackYext | md5 | cut -c -8`
 const globalCallback = 'GoogleMapsCallback_b7d77ff2';
-const yextClient = 'gme-yextinc';
 const baseUrl = 'https://maps.googleapis.com/maps/api/js';
 
 /**
  * This function is called when calling {@link MapProvider#load} on {@link module:Maps/Providers/Google.GoogleMaps}.
  * @param {function} resolve Callback with no arguments called when the load finishes successfully
  * @param {function} reject Callback with no arguments called when the load fails
- * @param {?string} apiKey Provider API key
+ * @param {string} apiKey Provider API key
  * @param {Object} options Additional provider-specific options
  * @param {boolean} [options.autocomplete=false] Whether to include Google's autocomplete API
  * @param {string} [options.channel=window.location.hostname] API key usage channel
- * @param {string} [options.client] Google API enterprise client
  * @param {string} [options.language] Language of the map
  * @param {module:Maps/Providers/Google.Library[]} [options.libraries=[]] Additional Google libraries to load
  * @param {Object<string,string>} [options.params={}] Additional API params
@@ -191,7 +189,6 @@ const baseUrl = 'https://maps.googleapis.com/maps/api/js';
 function load(resolve, reject, apiKey, {
   autocomplete = false,
   channel = window.location.hostname,
-  client,
   language,
   libraries = [],
   params = {}
@@ -207,18 +204,9 @@ function load(resolve, reject, apiKey, {
     channel,
     language,
     libraries: libraries.join(','),
+    key: apiKey,
     ...params
   };
-
-  if (apiKey) {
-    apiParams.key = apiKey;
-  }
-
-  if (client) {
-    apiParams.client = client;
-  } else if (!apiKey) {
-    apiParams.client = yextClient;
-  }
 
   LoadScript(baseUrl + '?' + Object.entries(apiParams).map(([key, value]) => key + '=' + value).join('&'));
 }
