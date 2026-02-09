@@ -7,6 +7,7 @@ const percySnapshot = require('@percy/puppeteer');
 const PageOperator = require('../browser-automation/pageoperator');
 const getTestingLocations = require('../browser-automation/testlocations');
 const path = require('path');
+const fs = require('fs');
 const PORT = 5042;
 
 async function defaultSnapshots(page) {
@@ -60,8 +61,19 @@ async function captureSnapshots(navigator, page, camera, locale = 'en') {
 }
 
 async function runPercyTest() {
+  const publicDir = path.resolve(__dirname, '..', '..', 'test-site', 'public');
+  const indexPath = path.join(publicDir, 'index.html');
+  console.log('[percy] cwd:', process.cwd());
+  console.log('[percy] public dir:', publicDir);
+  console.log('[percy] index.html exists:', fs.existsSync(indexPath));
+  try {
+    const listing = fs.readdirSync(publicDir).slice(0, 20);
+    console.log('[percy] public dir listing (first 20):', listing);
+  } catch (err) {
+    console.error('[percy] failed to read public dir:', err);
+  }
   const server = new HttpServer({
-    dir: path.resolve(__dirname, '..', '..', 'test-site', 'public'),
+    dir: publicDir,
     port: PORT
   });
   server.start();
