@@ -6,6 +6,7 @@ const puppeteer = require('puppeteer');
 const percySnapshot = require('@percy/puppeteer');
 const PageOperator = require('../browser-automation/pageoperator');
 const getTestingLocations = require('../browser-automation/testlocations');
+const path = require('path');
 const PORT = 5042;
 
 async function defaultSnapshots(page) {
@@ -60,7 +61,7 @@ async function captureSnapshots(navigator, page, camera, locale = 'en') {
 
 async function runPercyTest() {
   const server = new HttpServer({
-    dir: 'test-site/public',
+    dir: path.resolve(__dirname, '..', '..', 'test-site', 'public'),
     port: PORT
   });
   server.start();

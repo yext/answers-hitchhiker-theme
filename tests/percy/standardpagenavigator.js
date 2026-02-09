@@ -35,7 +35,7 @@ class StandardPageNavigator extends PageNavigator {
 
   async gotoUniversalPage(queryParams = {}) {
     const queryParamsString = getQueryParamsString(queryParams);
-    const url = `${this._siteUrl}${this._localeUrlPath}/index.html?${queryParamsString}`;
+    const url = `${this._siteUrl}${this._localeUrlPath}?${queryParamsString}`;
     await this._page.goto(url);
     await waitTillHTMLRendered(this._page);
   }
