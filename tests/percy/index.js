@@ -52,7 +52,7 @@ async function captureSnapshots(navigator, page, camera, locale = 'en') {
     }
   } catch (e) {
     const snapshotName = testConfig ? testConfig.name : 'unknown';
-    console.error('Error taking snapshot of', snapshotName);
+    console.error('Error taking snapshot of', snapshotName, 'for locale', locale);
     console.error(e);
     process.exit(1);
   }
