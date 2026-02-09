@@ -62,16 +62,6 @@ async function captureSnapshots(navigator, page, camera, locale = 'en') {
 
 async function runPercyTest() {
   const publicDir = path.resolve(__dirname, '..', '..', 'test-site', 'public');
-  const indexPath = path.join(publicDir, 'index.html');
-  console.log('[percy] cwd:', process.cwd());
-  console.log('[percy] public dir:', publicDir);
-  console.log('[percy] index.html exists:', fs.existsSync(indexPath));
-  try {
-    const listing = fs.readdirSync(publicDir).slice(0, 20);
-    console.log('[percy] public dir listing (first 20):', listing);
-  } catch (err) {
-    console.error('[percy] failed to read public dir:', err);
-  }
   const server = new HttpServer({
     dir: publicDir,
     port: PORT

@@ -11,13 +11,6 @@ set_working_dir_to_test_site
 
 npx jambo build
 echo "Finished Jambo build."
-if [ ! -f ./public/index.html ]; then
-  echo "ERROR: public/index.html missing after Jambo build."
-  echo "public dir listing:"
-  ls -la ./public | head -n 50
-  exit 1
-fi
-echo "pwd before executing chmod: $(pwd)"
 ESBUILD_SRC="./node_modules/esbuild/bin/esbuild"
 ESBUILD_DEST="./public/static/node_modules/esbuild/bin/esbuild"
 if [ ! -f "$ESBUILD_SRC" ]; then

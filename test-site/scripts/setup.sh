@@ -26,7 +26,6 @@ create_custom_cards () {
   npx jambo generativedirectanswercard --name generative-custom --templateCardFolder generativedirectanswercards/generative-standard
 }
 
-# ORIGINAL_DIR="$(pwd)"
 set_working_dir_to_test_site
 copy_static_files_into_working_dir
 npm i
@@ -38,6 +37,3 @@ find pages ! -name index.* -type f -delete
 find config ! \( -name index.* -o -name locale_config.json -o -name global_config.json \) -type f -delete
 
 node scripts/create-verticals.js $@
-
-echo "setup.sh pwd: $(pwd)"
-# cd "$ORIGINAL_DIR"
