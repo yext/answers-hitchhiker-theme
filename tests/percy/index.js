@@ -37,10 +37,11 @@ async function rtlSnapshots(page) {
 }
 
 async function captureSnapshots(navigator, page, camera, locale = 'en') {
+  let testConfig;
   try {
     const operator = new PageOperator(navigator, page, getTestingLocations(locale));
     while (operator.hasNextTestLocation()) {
-      const testConfig = await operator.nextTestLocation();
+      testConfig = await operator.nextTestLocation();
       if (testConfig.viewport) {
         testConfig.viewport === 'mobile'
           ? await camera.snapshotMobileOnly(testConfig.name)
@@ -50,7 +51,8 @@ async function captureSnapshots(navigator, page, camera, locale = 'en') {
       }
     }
   } catch (e) {
-    console.error('Error taking snapshot of', testConfig.name);
+    const snapshotName = testConfig ? testConfig.name : 'unknown';
+    console.error('Error taking snapshot of', snapshotName);
     console.error(e);
     process.exit(1);
   }
@@ -62,7 +64,9 @@ async function runPercyTest() {
     port: PORT
   });
   server.start();
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
+  });
   const page = await browser.newPage();
 
   const snapshotType = process.argv[2];
