@@ -18,7 +18,7 @@ jobs:
     needs: nonce
     uses: yext/slapshot-reusable-workflows/.github/workflows/percy_snapshots.yml@main
     with:
-      build_script: npm run setup-test-site && npm run build-test-site
+      build_script: ./test-site/scripts/ci-build.sh
       percy_script: npx percy exec --parallel -- node tests/percy/index.js
       PERCY_PARALLEL_NONCE: ${{ needs.nonce.outputs.result }}
       PERCY_PARALLEL_TOTAL: 4
@@ -29,7 +29,7 @@ jobs:
     needs: nonce
     uses: yext/slapshot-reusable-workflows/.github/workflows/percy_snapshots.yml@main
     with:
-      build_script: npm run setup-test-site && npm run build-test-site
+      build_script: ./test-site/scripts/ci-build.sh
       percy_script: npx percy exec --parallel -- node tests/percy/index.js iframe
       PERCY_PARALLEL_NONCE: ${{ needs.nonce.outputs.result }}
       PERCY_PARALLEL_TOTAL: 4
@@ -40,7 +40,7 @@ jobs:
     needs: nonce
     uses: yext/slapshot-reusable-workflows/.github/workflows/percy_snapshots.yml@main
     with:
-      build_script: npm run setup-test-site && npm run build-test-site
+      build_script: ./test-site/scripts/ci-build.sh
       percy_script: npx percy exec --parallel -- node tests/percy/index.js spanish
       PERCY_PARALLEL_NONCE: ${{ needs.nonce.outputs.result }}
       PERCY_PARALLEL_TOTAL: 4
@@ -51,7 +51,7 @@ jobs:
     needs: nonce
     uses: yext/slapshot-reusable-workflows/.github/workflows/percy_snapshots.yml@main
     with:
-      build_script: npm run setup-test-site && npm run build-test-site
+      build_script: ./test-site/scripts/ci-build.sh
       percy_script: npx percy exec --parallel -- node tests/percy/index.js rtl
       PERCY_PARALLEL_NONCE: ${{ needs.nonce.outputs.result }}
       PERCY_PARALLEL_TOTAL: 4
