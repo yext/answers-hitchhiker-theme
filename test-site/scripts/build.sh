@@ -18,13 +18,18 @@ if [ ! -f ./public/index.html ]; then
   exit 1
 fi
 echo "pwd before executing chmod: $(pwd)"
-if [ -d ./public/static/node_modules ]; then
-  echo "public/static/node_modules listing (first 50):"
-  ls -la ./public/static/node_modules | head -n 50
-else
-  echo "public/static/node_modules does not exist."
+ESBUILD_SRC="./node_modules/esbuild/bin/esbuild"
+ESBUILD_DEST="./public/static/node_modules/esbuild/bin/esbuild"
+if [ ! -f "$ESBUILD_SRC" ]; then
+  echo "ERROR: esbuild binary not found at $ESBUILD_SRC."
+  ls -la ./node_modules/esbuild/bin || true
+  exit 1
 fi
-chmod u+x ./public/static/node_modules/esbuild/bin/esbuild
+if [ ! -f "$ESBUILD_DEST" ]; then
+  mkdir -p "$(dirname "$ESBUILD_DEST")"
+  ln -sf "$(pwd)/node_modules/esbuild/bin/esbuild" "$ESBUILD_DEST"
+fi
+chmod u+x "$ESBUILD_SRC" "$ESBUILD_DEST"
 echo "Added execute permissions to esbuild binary."
 npx grunt webpack
 echo "Finished grunt webpack."
