@@ -1,5 +1,6 @@
 #!/bin/bash
 set -euo pipefail
+echo "build.sh pwd: $(pwd)"
 
 set_working_dir_to_test_site () {
   path_to_this_script="$( dirname "${BASH_SOURCE[0]}" )"
