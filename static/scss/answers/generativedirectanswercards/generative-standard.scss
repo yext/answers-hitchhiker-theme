@@ -99,6 +99,8 @@
       $weight: var(--yxt-gda-citation-name-font-weight),
       $color: var(--yxt-gda-citation-name-color)
     );
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &-citationDescription
