@@ -48,7 +48,18 @@ class StandardPageNavigator extends PageNavigator {
   }
 
   async click(selector) {
-    await this._page.click(selector);
+    const selectorHandle = await this._page.$(selector);
+    if (!selectorHandle) {
+      const domSnapshot = await this._page.content();
+      const maxChars = 20000;
+      const truncated = domSnapshot.length > maxChars;
+      const domPreview = truncated ? `${domSnapshot.slice(0, maxChars)}\n[truncated]` : domSnapshot;
+      console.error(`Selector not found: ${selector}`);
+      console.error(`Page URL: ${this._page.url()}`);
+      console.error(`DOM snapshot:\n${domPreview}`);
+      throw new Error(`No node found for selector: ${selector}`);
+    }
+    await selectorHandle.click();
     await waitTillHTMLRendered(this._page);
   }
 }
