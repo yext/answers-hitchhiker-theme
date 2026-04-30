@@ -3,7 +3,7 @@
   <a class="HitchhikerProductProminentImageClickable-link"
      href="{{#unless (isNonRelativeUrl card.url)}}{{@root.relativePath}}/{{/unless}}{{card.url}}"
      target={{#if card.target}}"{{card.target}}"{{else}}"_top"{{/if}}
-     data-eventtype="TITLE_CLICK"
+     data-eventtype="TITLE"
      data-eventoptions='{{json card.titleEventOptions}}'
   >
   {{/if}}
