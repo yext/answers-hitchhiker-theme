@@ -57,7 +57,7 @@
   {{#if card.url}}
   <a class="HitchhikerFinancialProfessionalLocation-titleLink js-HitchhikerFinancialProfessionalLocation-titleLink"
     href="{{#unless (isNonRelativeUrl card.url)}}{{@root.relativePath}}/{{/unless}}{{card.url}}"
-    data-eventtype="TITLE_CLICK" data-eventoptions='{{json card.titleEventOptions}}'
+    data-eventtype="TITLE" data-eventoptions='{{json card.titleEventOptions}}'
     target={{#if card.target}}"{{card.target}}"{{else}}"_top" rel="noopener noreferrer nofollow" {{/if}}>
     {{card.title}}
   </a>
