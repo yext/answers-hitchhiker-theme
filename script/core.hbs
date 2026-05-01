@@ -79,10 +79,6 @@
           {{> script/on-ready}}
         {{/wrapJsPartial}}
 
-        {{#if global_config.conversionTrackingEnabled}}
-          ANSWERS.setConversionsOptIn(true);
-        {{/if}}
-
         ANSWERS.registerHelper('all', function (...args) {
           return args.filter(item => item).length === args.length;
         });

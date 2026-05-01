@@ -35,7 +35,7 @@
   <a class="HitchhikerAllFieldsStandard-titleLink"
     href="{{#unless (isNonRelativeUrl link)}}{{@root.relativePath}}/{{/unless}}{{link}}"
     target={{#if linkTarget}}"{{linkTarget}}"{{else}}"_blank"{{/if}}
-    data-eventtype={{#if linkEventType}}"{{linkEventType}}"{{else}}"TITLE_CLICK"{{/if}}
+    data-eventtype={{#if linkEventType}}"{{linkEventType}}"{{else}}"TITLE"{{/if}}
     data-eventoptions='{{{json linkEventOptions}}}'>
   {{/if}}
   {{#if entityName}}

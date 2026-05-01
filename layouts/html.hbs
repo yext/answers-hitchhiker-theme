@@ -118,14 +118,6 @@
       <!-- End Google Tag Manager -->
     {{/if}}
 
-    {{#if global_config.conversionTrackingEnabled}}
-      {{#ifeq global_config.cloudRegion "eu"}}
-        <script src="https://assets.eu.sitescdn.net/ytag/ytag.min.js"></script>
-      {{else}}
-        <script src="https://assets.sitescdn.net/ytag/ytag.min.js"></script>
-      {{/ifeq}}
-    {{/if}}
-
     <script>
     {{#babel}}
       function iframeGetSearchParams() {
