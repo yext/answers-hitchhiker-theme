@@ -5,6 +5,34 @@ class generative_standardComponent extends BaseGDACard['generative-standard'] {
     super(config, systemConfig);
   }
 
+  onMount() {
+    super.onMount();
+    this._bindAISignpost();
+  }
+
+  /**
+   * Wires up the AI signpost popover toggle behavior for the generative-standard card.
+   */
+  _bindAISignpost () {
+    const signpostButton = this._container.querySelector('.js-yxt-GenerativeDirectAnswer-aiSignpostButton');
+    const signpostPopover = this._container.querySelector('.js-yxt-GenerativeDirectAnswer-aiSignpostPopover');
+    const signpostCloseButton = this._container.querySelector('.js-yxt-GenerativeDirectAnswer-aiSignpostClose');
+    if (!signpostButton || !signpostPopover) {
+      return;
+    }
+
+    const setIsOpen = isOpen => {
+      signpostButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      signpostPopover.hidden = !isOpen;
+    };
+
+    signpostButton.addEventListener('click', () => {
+      setIsOpen(signpostButton.getAttribute('aria-expanded') !== 'true');
+    });
+
+    signpostCloseButton && signpostCloseButton.addEventListener('click', () => setIsOpen(false));
+  }
+
   /**
    * @param searchState the state of the search, e.g. SEARCH_LOADING, SEARCH_COMPLETE
    * @param generativeDirectAnswer the answer returned from the API, if any
