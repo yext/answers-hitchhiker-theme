@@ -40,6 +40,10 @@ msgstr ""
 msgid "Directions"
 msgstr ""
 
+#: generativedirectanswercards/generative-standard/template.hbs:43
+msgid "Dismiss"
+msgstr ""
+
 #: script/translations.js:15
 msgid "Friday"
 msgstr ""
