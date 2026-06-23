@@ -14,10 +14,11 @@ class generative_customComponent extends BaseGDACard['generative-custom'] {
    * Wires up the AI signpost popover toggle behavior for the generative-custom card.
    */
   _bindAISignpost () {
+    const signpost = this._container.querySelector('.HitchhikerGenerativeStandard-aiSignpost');
     const signpostButton = this._container.querySelector('.js-yxt-GenerativeDirectAnswer-aiSignpostButton');
     const signpostPopover = this._container.querySelector('.js-yxt-GenerativeDirectAnswer-aiSignpostPopover');
     const signpostCloseButton = this._container.querySelector('.js-yxt-GenerativeDirectAnswer-aiSignpostClose');
-    if (!signpostButton || !signpostPopover) {
+    if (!signpost || !signpostButton || !signpostPopover) {
       return;
     }
 
@@ -31,6 +32,11 @@ class generative_customComponent extends BaseGDACard['generative-custom'] {
     });
 
     signpostCloseButton && signpostCloseButton.addEventListener('click', () => setIsOpen(false));
+    document.addEventListener('click', event => {
+      if (!signpost.contains(event.target)) {
+        setIsOpen(false);
+      }
+    });
   }
 
   /**

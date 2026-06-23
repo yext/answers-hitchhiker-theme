@@ -16,6 +16,11 @@ msgstr ""
 msgid "<em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">No results found</em> in [[currentVerticalLabel]]."
 msgstr ""
 
+#: generativedirectanswercards/generative-standard/template.hbs:18
+#: generativedirectanswercards/generative-standard/template.hbs:35
+msgid "AI-Generated Content"
+msgstr ""
+
 #: cards/multilang-menuitem-standard/component.js:25
 msgid "Allergens"
 msgstr ""
@@ -40,7 +45,7 @@ msgstr ""
 msgid "Directions"
 msgstr ""
 
-#: generativedirectanswercards/generative-standard/template.hbs:43
+#: generativedirectanswercards/generative-standard/template.hbs:40
 msgid "Dismiss"
 msgstr ""
 
