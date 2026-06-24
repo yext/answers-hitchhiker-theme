@@ -17,7 +17,7 @@ msgid "<em class=\"yxt-AlternativeVerticals-noResultsInfo--emphasized\">No resul
 msgstr ""
 
 #: generativedirectanswercards/generative-standard/template.hbs:18
-#: generativedirectanswercards/generative-standard/template.hbs:35
+#: generativedirectanswercards/generative-standard/template.hbs:41
 msgid "AI-Generated Content"
 msgstr ""
 
@@ -45,7 +45,7 @@ msgstr ""
 msgid "Directions"
 msgstr ""
 
-#: generativedirectanswercards/generative-standard/template.hbs:40
+#: generativedirectanswercards/generative-standard/template.hbs:46
 msgid "Dismiss"
 msgstr ""
 
