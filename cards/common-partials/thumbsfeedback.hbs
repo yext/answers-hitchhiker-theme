@@ -1,6 +1,10 @@
 {{#if feedbackEnabled}}
   {{#if directAnswerClass}}
-    {{> feedback className=directAnswerClass cardType='HitchhikerDirectAnswerCard'}}
+    {{#if isGDA}}
+      {{> feedback className=directAnswerClass cardType='HitchhikerGenerativeDirectAnswerCard'}}
+    {{else}}
+      {{> feedback className=directAnswerClass cardType='HitchhikerDirectAnswerCard'}}
+    {{/if}}
   {{else}}
     {{> feedback className='HitchhikerCard' cardType='HitchhikerCard'}}
   {{/if}}

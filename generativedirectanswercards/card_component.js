@@ -29,6 +29,8 @@ BaseGDACard = typeof (BaseGDACard) !== 'undefined' ? BaseGDACard : {};
     this.validateDataForRender(cardData);
     return super.setState({
       ...cardData,
+      feedbackEnabled: ANSWERS.getAnalyticsOptIn(),
+      feedbackSubmitted: data.feedbackSubmitted,
       cardName: `{{componentName}}`,
       relativePath: `{{relativePath}}`
     });
@@ -41,11 +43,64 @@ BaseGDACard = typeof (BaseGDACard) !== 'undefined' ? BaseGDACard : {};
   }
 
   onMount() {
+    this.addFeedbackListeners();
+
     const citations = this._container.querySelectorAll('.js-HitchhikerGDACard-citation');
     citations && citations.forEach(citation => this._handleCitationClickAnalytics(citation));
 
     const rtfElement = this._container.querySelector('.js-yxt-rtfValue');
     rtfElement && rtfElement.addEventListener('click', e => this._handleRtfClickAnalytics(e));
+  }
+
+  addFeedbackListeners() {
+    const feedbackFormSelector = '.js-HitchhikerGenerativeDirectAnswerCard-feedbackForm';
+    const feedbackFormEl = this._container.querySelector(feedbackFormSelector);
+    if (feedbackFormEl) {
+      // For WCAG compliance, the feedback should be a submittable form
+      feedbackFormEl.addEventListener('submit', (e) => {
+        const formTargetEl = e.target;
+        const isGood = formTargetEl.querySelector('input:checked').value === 'true';
+
+        this.reportQuality(isGood);
+        this.updateState({
+          feedbackSubmitted: true
+        });
+      });
+
+      const thumbSelectorEls = this._container.querySelectorAll('.js-HitchhikerGenerativeDirectAnswerCard-thumbInput');
+      if (thumbSelectorEls) {
+        thumbSelectorEls.forEach(el => {
+          el.addEventListener('click', () => {
+            const input = el.querySelector('input');
+            if (input) {
+              input.checked = true;
+            }
+            HitchhikerJS.DOM.triggerCustomEvent(this._container, feedbackFormSelector, 'submit');
+          });
+        });
+      }
+    }
+  }
+
+  /**
+   * reportQuality will send the quality feedback to analytics
+   * @param {boolean} isGood true if the answer is what you were looking for
+   */
+  reportQuality(isGood) {
+    const EventTypes = {
+      THUMBS_UP: 'THUMBS_UP',
+      THUMBS_DOWN: 'THUMBS_DOWN'
+    };
+    const eventType = isGood === true ? EventTypes.THUMBS_UP : EventTypes.THUMBS_DOWN;
+    const event = new ANSWERS.AnalyticsEvent(eventType)
+      .addOptions({
+        generativeDirectAnswer: true,
+        directAnswer: true,
+        verticalKey: this._config.data.verticalKey,
+        searcher: this._config.data.searcher
+      });
+
+    this.analyticsReporter.report(event);
   }
 
   /**
