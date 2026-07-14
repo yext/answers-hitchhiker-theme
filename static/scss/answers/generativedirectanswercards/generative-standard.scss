@@ -46,6 +46,92 @@
     border-bottom: var(--yxt-gda-border);
   }
 
+  &-feedbackWrapper
+  {
+    background-color: var(--yxt-gda-content-background-color);
+    border-left: var(--yxt-gda-border);
+    border-right: var(--yxt-gda-border);
+    border-bottom: var(--yxt-gda-border);
+  }
+
+  &-feedbackContent
+  {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-left: var(--yxt-base-spacing);
+    padding-right: 4px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+
+  &-feedbackText
+  {
+    display: inline;
+    margin-right: 8px;
+    @include Text(
+      $size: var(--yxt-direct-answer-footer-font-size),
+      $line-height: var(--yxt-direct-answer-footer-line-height),
+      $weight: var(--yxt-direct-answer-footer-font-weight),
+      $color: var(--yxt-direct-answer-footer-color)
+    );
+  }
+
+  &-thumbsWrapper
+  {
+    display: flex;
+    height: 22px;
+  }
+
+  &-thumbs
+  {
+    display: flex;
+    margin: 0;
+  }
+
+  &-thumbUpIcon
+  {
+    transform: rotate(180deg);
+  }
+
+  &-thumbUpIcon,
+  &-thumbDownIcon
+  {
+    display: inline-flex;
+    color: var(--yxt-color-text-secondary);
+  }
+
+  &-thumb
+  {
+    display: inline;
+    flex-shrink: 0;
+    cursor: pointer;
+    font-size: 18px;
+
+    & + &
+    {
+      margin-left: 8px;
+    }
+  }
+
+  &-fieldset
+  {
+    display: inline;
+    margin-inline-start: 2px;
+    margin-inline-end: 2px;
+    line-height: 0;
+    min-inline-size: min-content;
+  }
+
+  &-feedback
+  {
+    @include Text(
+      $color: var(--yxt-color-text-neutral),
+    );
+    background-color: var(--yxt-color-background-highlight);
+    display: none;
+  }
+
   &-aiSignpost
   {
     position: relative;
