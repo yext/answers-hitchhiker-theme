@@ -157,7 +157,6 @@ BaseCard["{{componentName}}"] = class extends ANSWERS.Component {
       .addOptions({
         directAnswer: false,
         verticalKey: this.verticalKey,
-        searcher: this._config.isUniversal ? 'UNIVERSAL' : 'VERTICAL',
         entityId: this.result.id
       });
 
@@ -176,7 +175,6 @@ BaseCard["{{componentName}}"] = class extends ANSWERS.Component {
   addDefaultEventOptions(eventOptions = {}) {
     return Object.assign({}, {
         verticalKey: this.verticalKey,
-        searcher: this._config.isUniversal ? "UNIVERSAL" : "VERTICAL",
         entityId: this.result.id
       },
       eventOptions
