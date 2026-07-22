@@ -113,8 +113,7 @@ class faq_accordionCardComponent extends BaseCard['faq-accordion'] {
         const event = new ANSWERS.AnalyticsEvent(isExpanded ? 'ROW_EXPAND' : 'ROW_COLLAPSE')
         .addOptions({
           verticalKey: self.verticalKey,
-          entityId: self.result._raw.id,
-          searcher: self._config.isUniversal ? 'UNIVERSAL' : 'VERTICAL'
+          entityId: self.result._raw.id
         });
         self.analyticsReporter.report(event);
       }
