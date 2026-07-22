@@ -83,7 +83,6 @@ class multilang_product_prominentvideo_customCardComponent extends BaseCard['mul
       .addOptions({
         verticalKey: this.verticalKey,
         entityId: this.result?._raw?.id,
-        searcher: this._config.isUniversal ? 'UNIVERSAL' : 'VERTICAL',
         ctaLabel: 'video_played'
       });
     this.analyticsReporter.report(event);

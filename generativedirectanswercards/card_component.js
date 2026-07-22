@@ -96,8 +96,7 @@ BaseGDACard = typeof (BaseGDACard) !== 'undefined' ? BaseGDACard : {};
       .addOptions({
         generativeDirectAnswer: true,
         directAnswer: true,
-        verticalKey: this._config.data.verticalKey,
-        searcher: this._config.data.searcher
+        verticalKey: this._config.data.verticalKey
       });
 
     this.analyticsReporter.report(event);
@@ -109,7 +108,6 @@ BaseGDACard = typeof (BaseGDACard) !== 'undefined' ? BaseGDACard : {};
    * @param {HTMLElement} citationElement The citation element that was clicked.
    */
   _handleCitationClickAnalytics (citationElement) {
-    const searcher = this._config.data.searcher;
     const verticalKey = this._config.data.verticalKey;
     const analyticsReporter = this.analyticsReporter;
     citationElement.addEventListener('click', function(clickEvent) {
@@ -133,7 +131,6 @@ BaseGDACard = typeof (BaseGDACard) !== 'undefined' ? BaseGDACard : {};
           generativeDirectAnswer: true,
           directAnswer: true,
           entityId,
-          searcher,
           verticalConfigId: verticalKey,
         })
       analyticsReporter.report(event);
@@ -156,7 +153,6 @@ BaseGDACard = typeof (BaseGDACard) !== 'undefined' ? BaseGDACard : {};
       generativeDirectAnswer: true,
       directAnswer: true,
       fieldName: 'gda-snippet',
-      searcher: this._config.data.searcher,
       url: event.target.href,
       verticalConfigId: this._config.data.verticalKey,
     };
@@ -182,7 +178,6 @@ BaseGDACard = typeof (BaseGDACard) !== 'undefined' ? BaseGDACard : {};
    */
   addDefaultEventOptions(eventOptions = {}) {
     return Object.assign({}, {
-        searcher: this._config.data.searcher,
         verticalConfigId: this._config.data.verticalKey,
         ...eventOptions
       },
