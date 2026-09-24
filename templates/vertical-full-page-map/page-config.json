@@ -47,6 +47,7 @@
     },
     "SearchBar": {
       "placeholderText": "Search for locations", // The placeholder text in the answers search bar
+      "showAISignpost": false, // Whether to display the AI signpost in the search bar
       "allowEmptySearch": true, // Allows users to submit an empty search in the searchbar
       "loadingIndicator": {
         "display": true //Optional, whether to include a loading indicator on seachbar
