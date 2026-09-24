@@ -1,5 +1,5 @@
 {
-  "sdkVersion": "2.0", // The version of the Answers SDK to use
+  "sdkVersion": "2.2", // The version of the Answers SDK to use
   // "token": "<REPLACE ME>", // The auth token to access Answers experience.
   // "apiKey": "<REPLACE ME>", // The answers api key found on the experiences page. This will be provided automatically by the Yext CI system
   // "eventsApiKey": "<REPLACE ME>", // An api key with Events API permissions. Required to send Analytics events.

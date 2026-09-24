@@ -28,6 +28,7 @@
     },
     "SearchBar": {
       "placeholderText": "Search", // The placeholder text in the answers search bar
+      "showAISignpost": false, // Whether to display the AI signpost in the search bar
       "loadingIndicator": {
         "display": true // Optional, whether to include a loading indicator on seachbar
         // "iconUrl": "" // Optional, use custom icon url instead of the default loading indicator animation
