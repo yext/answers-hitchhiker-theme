@@ -31,6 +31,7 @@
     },
     "SearchBar": {
       "placeholderText": "Search", // The placeholder text in the answers search bar
+      "showAISignpost": true,
       "voiceSearch": {
         "enabled": false
         // "customMicIconUrl": "", // Optional, display a custom microphone icon
